@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class GetDistributionRequestMarshaller implements Marshaller<Request<GetD
         Request<GetDistributionRequest> request = new DefaultRequest<GetDistributionRequest>(getDistributionRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "2013-11-11/distribution/{Id}"; 
+        String uriResourcePath = "2014-05-31/distribution/{Id}"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(getDistributionRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {

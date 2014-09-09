@@ -51,7 +51,7 @@ public class StepExecutionStatusDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String lastStateChangeReason;
 
@@ -125,7 +125,7 @@ public class StepExecutionStatusDetail implements Serializable {
      *
      * @param state The state of the job flow step.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StepExecutionState
@@ -159,7 +159,7 @@ public class StepExecutionStatusDetail implements Serializable {
      *
      * @param state The state of the job flow step.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StepExecutionState
@@ -194,7 +194,7 @@ public class StepExecutionStatusDetail implements Serializable {
      *
      * @param creationDateTime The creation date and time of the step.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StepExecutionStatusDetail withCreationDateTime(java.util.Date creationDateTime) {
@@ -227,7 +227,7 @@ public class StepExecutionStatusDetail implements Serializable {
      *
      * @param startDateTime The start date and time of the step.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StepExecutionStatusDetail withStartDateTime(java.util.Date startDateTime) {
@@ -260,7 +260,7 @@ public class StepExecutionStatusDetail implements Serializable {
      *
      * @param endDateTime The completion date and time of the step.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StepExecutionStatusDetail withEndDateTime(java.util.Date endDateTime) {
@@ -273,7 +273,7 @@ public class StepExecutionStatusDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A description of the step's current state.
      */
@@ -286,7 +286,7 @@ public class StepExecutionStatusDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param lastStateChangeReason A description of the step's current state.
      */
@@ -301,11 +301,11 @@ public class StepExecutionStatusDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param lastStateChangeReason A description of the step's current state.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StepExecutionStatusDetail withLastStateChangeReason(String lastStateChangeReason) {

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudformation.AmazonCloudFormation#getStackPolicy(GetStackPolicyRequest) GetStackPolicy operation}.
  * <p>
- * Returns the stack policy for a specified stack. If a stack doesn't have a policy, a null value is returned.
+ * Returns the stack policy for a specified stack. If a stack doesn't
+ * have a policy, a null value is returned.
  * </p>
  *
  * @see com.amazonaws.services.cloudformation.AmazonCloudFormation#getStackPolicy(GetStackPolicyRequest)
@@ -65,7 +66,7 @@ public class GetStackPolicyRequest extends AmazonWebServiceRequest implements Se
      * @param stackName The name or stack ID that is associated with the stack whose policy
      *         you want to get.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetStackPolicyRequest withStackName(String stackName) {

@@ -21,9 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#createAccountAlias(CreateAccountAliasRequest) CreateAccountAlias operation}.
  * <p>
- * This action creates an alias for your AWS account. For information about using an AWS account alias, see <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity and
- * Access Management</i> .
+ * This action creates an alias for your AWS account. For information
+ * about using an AWS account alias, see
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#createAccountAlias(CreateAccountAliasRequest)
@@ -93,7 +94,7 @@ public class CreateAccountAliasRequest extends AmazonWebServiceRequest implement
      *
      * @param accountAlias Name of the account alias to create.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateAccountAliasRequest withAccountAlias(String accountAlias) {

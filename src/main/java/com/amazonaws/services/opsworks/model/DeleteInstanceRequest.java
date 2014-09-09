@@ -21,13 +21,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.opsworks.AWSOpsWorks#deleteInstance(DeleteInstanceRequest) DeleteInstance operation}.
  * <p>
- * Deletes a specified instance. You must stop an instance before you can delete it. For more information, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-delete.html"> Deleting Instances </a> .
+ * Deletes a specified instance. You must stop an instance before you can
+ * delete it. For more information, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-delete.html"> Deleting Instances </a>
+ * .
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that
- * explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Manage permissions level for the stack, or an attached policy
+ * that explicitly grants permissions. For more information on user
+ * permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#deleteInstance(DeleteInstanceRequest)
@@ -45,7 +50,7 @@ public class DeleteInstanceRequest extends AmazonWebServiceRequest implements Se
     private Boolean deleteElasticIp;
 
     /**
-     * Whether to delete the instance Amazon EBS volumes.
+     * Whether to delete the instance's Amazon EBS volumes.
      */
     private Boolean deleteVolumes;
 
@@ -74,7 +79,7 @@ public class DeleteInstanceRequest extends AmazonWebServiceRequest implements Se
      *
      * @param instanceId The instance ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteInstanceRequest withInstanceId(String instanceId) {
@@ -107,7 +112,7 @@ public class DeleteInstanceRequest extends AmazonWebServiceRequest implements Se
      *
      * @param deleteElasticIp Whether to delete the instance Elastic IP address.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteInstanceRequest withDeleteElasticIp(Boolean deleteElasticIp) {
@@ -125,31 +130,31 @@ public class DeleteInstanceRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Whether to delete the instance Amazon EBS volumes.
+     * Whether to delete the instance's Amazon EBS volumes.
      *
-     * @return Whether to delete the instance Amazon EBS volumes.
+     * @return Whether to delete the instance's Amazon EBS volumes.
      */
     public Boolean isDeleteVolumes() {
         return deleteVolumes;
     }
     
     /**
-     * Whether to delete the instance Amazon EBS volumes.
+     * Whether to delete the instance's Amazon EBS volumes.
      *
-     * @param deleteVolumes Whether to delete the instance Amazon EBS volumes.
+     * @param deleteVolumes Whether to delete the instance's Amazon EBS volumes.
      */
     public void setDeleteVolumes(Boolean deleteVolumes) {
         this.deleteVolumes = deleteVolumes;
     }
     
     /**
-     * Whether to delete the instance Amazon EBS volumes.
+     * Whether to delete the instance's Amazon EBS volumes.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param deleteVolumes Whether to delete the instance Amazon EBS volumes.
+     * @param deleteVolumes Whether to delete the instance's Amazon EBS volumes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteInstanceRequest withDeleteVolumes(Boolean deleteVolumes) {
@@ -158,9 +163,9 @@ public class DeleteInstanceRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Whether to delete the instance Amazon EBS volumes.
+     * Whether to delete the instance's Amazon EBS volumes.
      *
-     * @return Whether to delete the instance Amazon EBS volumes.
+     * @return Whether to delete the instance's Amazon EBS volumes.
      */
     public Boolean getDeleteVolumes() {
         return deleteVolumes;

@@ -21,18 +21,27 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#createPreset(CreatePresetRequest) CreatePreset operation}.
  * <p>
- * The CreatePreset operation creates a preset with settings that you specify.
+ * The CreatePreset operation creates a preset with settings that you
+ * specify.
  * </p>
  * <p>
- * <b>IMPORTANT:</b>Elastic Transcoder checks the CreatePreset settings to ensure that they meet Elastic Transcoder requirements and to determine whether
- * they comply with H.264 standards. If your settings are not valid for Elastic Transcoder, Elastic Transcoder returns an HTTP 400 response
- * (ValidationException) and does not create the preset. If the settings are valid for Elastic Transcoder but aren't strictly compliant with the H.264
- * standard, Elastic Transcoder creates the preset and returns a warning message in the response. This helps you determine whether your settings comply
- * with the H.264 standard while giving you greater flexibility with respect to the video that Elastic Transcoder produces.
+ * <b>IMPORTANT:</b>Elastic Transcoder checks the CreatePreset settings
+ * to ensure that they meet Elastic Transcoder requirements and to
+ * determine whether they comply with H.264 standards. If your settings
+ * are not valid for Elastic Transcoder, Elastic Transcoder returns an
+ * HTTP 400 response (ValidationException) and does not create the
+ * preset. If the settings are valid for Elastic Transcoder but aren't
+ * strictly compliant with the H.264 standard, Elastic Transcoder creates
+ * the preset and returns a warning message in the response. This helps
+ * you determine whether your settings comply with the H.264 standard
+ * while giving you greater flexibility with respect to the video that
+ * Elastic Transcoder produces.
  * </p>
  * <p>
- * Elastic Transcoder uses the H.264 video-compression format. For more information, see the International Telecommunication Union publication
- * <i>Recommendation ITU-T H.264: Advanced video coding for generic audiovisual services</i> .
+ * Elastic Transcoder uses the H.264 video-compression format. For more
+ * information, see the International Telecommunication Union publication
+ * <i>Recommendation ITU-T H.264: Advanced video coding for generic
+ * audiovisual services</i> .
  * </p>
  *
  * @see com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#createPreset(CreatePresetRequest)
@@ -122,7 +131,7 @@ public class CreatePresetRequest extends AmazonWebServiceRequest implements Seri
      * @param name The name of the preset. We recommend that the name be unique within
      *         the AWS account, but uniqueness is not enforced.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePresetRequest withName(String name) {
@@ -164,7 +173,7 @@ public class CreatePresetRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param description A description of the preset.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePresetRequest withDescription(String description) {
@@ -218,7 +227,7 @@ public class CreatePresetRequest extends AmazonWebServiceRequest implements Seri
      *         <code>mp3</code>, <code>mp4</code>, <code>ogg</code>, <code>ts</code>,
      *         and <code>webm</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePresetRequest withContainer(String container) {
@@ -251,7 +260,7 @@ public class CreatePresetRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param video A section of the request body that specifies the video parameters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePresetRequest withVideo(VideoParameters video) {
@@ -284,7 +293,7 @@ public class CreatePresetRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param audio A section of the request body that specifies the audio parameters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePresetRequest withAudio(AudioParameters audio) {
@@ -323,7 +332,7 @@ public class CreatePresetRequest extends AmazonWebServiceRequest implements Seri
      * @param thumbnails A section of the request body that specifies the thumbnail parameters,
      *         if any.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePresetRequest withThumbnails(Thumbnails thumbnails) {

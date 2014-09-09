@@ -24,13 +24,17 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Updates the name and/or the path of the specified server certificate.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> You should understand the implications of changing a server certificate's path or name. For more information, see Managing Server
- * Certificates in Using AWS Identity and Access Management.
+ * <b>IMPORTANT:</b> You should understand the implications of changing a
+ * server certificate's path or name. For more information, see Managing
+ * Server Certificates in the Using IAM guide.
  * </p>
  * <p>
- * <b>NOTE:</b>To change a server certificate name the requester must have appropriate permissions on both the source object and the target object. For
- * example, to change the name from ProductionCert to ProdCert, the entity making the request must have permission on ProductionCert and ProdCert, or
- * must have permission on all (*). For more information about permissions, see Permissions and Policies.
+ * <b>NOTE:</b>To change a server certificate name the requester must
+ * have appropriate permissions on both the source object and the target
+ * object. For example, to change the name from ProductionCert to
+ * ProdCert, the entity making the request must have permission on
+ * ProductionCert and ProdCert, or must have permission on all (*). For
+ * more information about permissions, see Permissions and Policies.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#updateServerCertificate(UpdateServerCertificateRequest)
@@ -52,7 +56,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      */
     private String newPath;
 
@@ -121,7 +125,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      *
      * @param serverCertificateName The name of the server certificate that you want to update.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateServerCertificateRequest withServerCertificateName(String serverCertificateName) {
@@ -135,7 +139,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @return The new path for the server certificate. Include this only if you are
      *         updating the server certificate's path.
@@ -150,7 +154,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param newPath The new path for the server certificate. Include this only if you are
      *         updating the server certificate's path.
@@ -167,12 +171,12 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param newPath The new path for the server certificate. Include this only if you are
      *         updating the server certificate's path.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateServerCertificateRequest withNewPath(String newPath) {
@@ -223,7 +227,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * @param newServerCertificateName The new name for the server certificate. Include this only if you are
      *         updating the server certificate's name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateServerCertificateRequest withNewServerCertificateName(String newServerCertificateName) {

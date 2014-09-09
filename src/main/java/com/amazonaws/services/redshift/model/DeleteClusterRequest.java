@@ -21,12 +21,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#deleteCluster(DeleteClusterRequest) DeleteCluster operation}.
  * <p>
- * Deletes a previously provisioned cluster. A successful response from the web service indicates that the request was received correctly. If a final
- * cluster snapshot is requested the status of the cluster will be "final-snapshot" while the snapshot is being taken, then it's "deleting" once Amazon
- * Redshift begins deleting the cluster. Use DescribeClusters to monitor the status of the deletion. The delete operation cannot be canceled or reverted
- * once submitted. For more information about managing clusters, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
- * Guide</i> .
+ * Deletes a previously provisioned cluster. A successful response from
+ * the web service indicates that the request was received correctly. If
+ * a final cluster snapshot is requested the status of the cluster will
+ * be "final-snapshot" while the snapshot is being taken, then it's
+ * "deleting" once Amazon Redshift begins deleting the cluster. Use
+ * DescribeClusters to monitor the status of the deletion. The delete
+ * operation cannot be canceled or reverted once submitted. For more
+ * information about managing clusters, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -113,7 +117,7 @@ public class DeleteClusterRequest extends AmazonWebServiceRequest implements Ser
      *         be a letter.</li> <li>Cannot end with a hyphen or contain two
      *         consecutive hyphens.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteClusterRequest withClusterIdentifier(String clusterIdentifier) {
@@ -182,7 +186,7 @@ public class DeleteClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <i>SkipFinalClusterSnapshot</i> is <code>false</code>.</note>
      *         <p>Default: <code>false</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteClusterRequest withSkipFinalClusterSnapshot(Boolean skipFinalClusterSnapshot) {
@@ -266,7 +270,7 @@ public class DeleteClusterRequest extends AmazonWebServiceRequest implements Ser
      *         characters.</li> <li>First character must be a letter.</li> <li>Cannot
      *         end with a hyphen or contain two consecutive hyphens.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteClusterRequest withFinalClusterSnapshotIdentifier(String finalClusterSnapshotIdentifier) {

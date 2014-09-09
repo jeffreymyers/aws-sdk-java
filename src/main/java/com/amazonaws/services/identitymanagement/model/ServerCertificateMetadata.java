@@ -18,10 +18,13 @@ import java.io.Serializable;
 
 /**
  * <p>
- * ServerCertificateMetadata contains information about a server certificate without its certificate body, certificate chain, and private key.
+ * ServerCertificateMetadata contains information about a server
+ * certificate without its certificate body, certificate chain, and
+ * private key.
  * </p>
  * <p>
- * This data type is used as a response element in the action UploadServerCertificate and ListServerCertificates.
+ * This data type is used as a response element in the action
+ * UploadServerCertificate and ListServerCertificates.
  * </p>
  */
 public class ServerCertificateMetadata implements Serializable {
@@ -29,13 +32,12 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * Path to the server certificate. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      */
     private String path;
 
@@ -51,9 +53,8 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The stable and unique string identifying the server certificate. For
      * more information about IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
@@ -64,9 +65,8 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The Amazon Resource Name (ARN) specifying the server certificate. For
      * more information about ARNs and how to use them in policies, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>20 - 2048<br/>
@@ -77,6 +77,11 @@ public class ServerCertificateMetadata implements Serializable {
      * The date when the server certificate was uploaded.
      */
     private java.util.Date uploadDate;
+
+    /**
+     * The date on which the certificate is set to expire.
+     */
+    private java.util.Date expiration;
 
     /**
      * Default constructor for a new ServerCertificateMetadata object.  Callers should use the
@@ -91,22 +96,19 @@ public class ServerCertificateMetadata implements Serializable {
      * 
      * @param path Path to the server certificate. For more information about
      * paths, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * @param serverCertificateName The name that identifies the server
      * certificate.
      * @param serverCertificateId The stable and unique string identifying
      * the server certificate. For more information about IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * @param arn The Amazon Resource Name (ARN) specifying the server
      * certificate. For more information about ARNs and how to use them in
      * policies, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public ServerCertificateMetadata(String path, String serverCertificateName, String serverCertificateId, String arn) {
         setPath(path);
@@ -118,19 +120,17 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * Path to the server certificate. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @return Path to the server certificate. For more information about paths, see
      *         <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public String getPath() {
         return path;
@@ -139,19 +139,17 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * Path to the server certificate. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param path Path to the server certificate. For more information about paths, see
      *         <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public void setPath(String path) {
         this.path = path;
@@ -160,23 +158,21 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * Path to the server certificate. For more information about paths, see
      * <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param path Path to the server certificate. For more information about paths, see
      *         <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificateMetadata withPath(String path) {
@@ -221,7 +217,7 @@ public class ServerCertificateMetadata implements Serializable {
      *
      * @param serverCertificateName The name that identifies the server certificate.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificateMetadata withServerCertificateName(String serverCertificateName) {
@@ -232,9 +228,8 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The stable and unique string identifying the server certificate. For
      * more information about IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
@@ -242,9 +237,8 @@ public class ServerCertificateMetadata implements Serializable {
      *
      * @return The stable and unique string identifying the server certificate. For
      *         more information about IDs, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public String getServerCertificateId() {
         return serverCertificateId;
@@ -253,9 +247,8 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The stable and unique string identifying the server certificate. For
      * more information about IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
@@ -263,9 +256,8 @@ public class ServerCertificateMetadata implements Serializable {
      *
      * @param serverCertificateId The stable and unique string identifying the server certificate. For
      *         more information about IDs, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public void setServerCertificateId(String serverCertificateId) {
         this.serverCertificateId = serverCertificateId;
@@ -274,9 +266,8 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The stable and unique string identifying the server certificate. For
      * more information about IDs, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -286,11 +277,10 @@ public class ServerCertificateMetadata implements Serializable {
      *
      * @param serverCertificateId The stable and unique string identifying the server certificate. For
      *         more information about IDs, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificateMetadata withServerCertificateId(String serverCertificateId) {
@@ -301,18 +291,16 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The Amazon Resource Name (ARN) specifying the server certificate. For
      * more information about ARNs and how to use them in policies, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>20 - 2048<br/>
      *
      * @return The Amazon Resource Name (ARN) specifying the server certificate. For
      *         more information about ARNs and how to use them in policies, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public String getArn() {
         return arn;
@@ -321,18 +309,16 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The Amazon Resource Name (ARN) specifying the server certificate. For
      * more information about ARNs and how to use them in policies, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>20 - 2048<br/>
      *
      * @param arn The Amazon Resource Name (ARN) specifying the server certificate. For
      *         more information about ARNs and how to use them in policies, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      */
     public void setArn(String arn) {
         this.arn = arn;
@@ -341,9 +327,8 @@ public class ServerCertificateMetadata implements Serializable {
     /**
      * The Amazon Resource Name (ARN) specifying the server certificate. For
      * more information about ARNs and how to use them in policies, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>.
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -352,11 +337,10 @@ public class ServerCertificateMetadata implements Serializable {
      *
      * @param arn The Amazon Resource Name (ARN) specifying the server certificate. For
      *         more information about ARNs and how to use them in policies, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>.
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificateMetadata withArn(String arn) {
@@ -389,11 +373,44 @@ public class ServerCertificateMetadata implements Serializable {
      *
      * @param uploadDate The date when the server certificate was uploaded.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificateMetadata withUploadDate(java.util.Date uploadDate) {
         this.uploadDate = uploadDate;
+        return this;
+    }
+
+    /**
+     * The date on which the certificate is set to expire.
+     *
+     * @return The date on which the certificate is set to expire.
+     */
+    public java.util.Date getExpiration() {
+        return expiration;
+    }
+    
+    /**
+     * The date on which the certificate is set to expire.
+     *
+     * @param expiration The date on which the certificate is set to expire.
+     */
+    public void setExpiration(java.util.Date expiration) {
+        this.expiration = expiration;
+    }
+    
+    /**
+     * The date on which the certificate is set to expire.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param expiration The date on which the certificate is set to expire.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ServerCertificateMetadata withExpiration(java.util.Date expiration) {
+        this.expiration = expiration;
         return this;
     }
 
@@ -413,7 +430,8 @@ public class ServerCertificateMetadata implements Serializable {
         if (getServerCertificateName() != null) sb.append("ServerCertificateName: " + getServerCertificateName() + ",");
         if (getServerCertificateId() != null) sb.append("ServerCertificateId: " + getServerCertificateId() + ",");
         if (getArn() != null) sb.append("Arn: " + getArn() + ",");
-        if (getUploadDate() != null) sb.append("UploadDate: " + getUploadDate() );
+        if (getUploadDate() != null) sb.append("UploadDate: " + getUploadDate() + ",");
+        if (getExpiration() != null) sb.append("Expiration: " + getExpiration() );
         sb.append("}");
         return sb.toString();
     }
@@ -428,6 +446,7 @@ public class ServerCertificateMetadata implements Serializable {
         hashCode = prime * hashCode + ((getServerCertificateId() == null) ? 0 : getServerCertificateId().hashCode()); 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode()); 
         hashCode = prime * hashCode + ((getUploadDate() == null) ? 0 : getUploadDate().hashCode()); 
+        hashCode = prime * hashCode + ((getExpiration() == null) ? 0 : getExpiration().hashCode()); 
         return hashCode;
     }
     
@@ -449,6 +468,8 @@ public class ServerCertificateMetadata implements Serializable {
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false) return false; 
         if (other.getUploadDate() == null ^ this.getUploadDate() == null) return false;
         if (other.getUploadDate() != null && other.getUploadDate().equals(this.getUploadDate()) == false) return false; 
+        if (other.getExpiration() == null ^ this.getExpiration() == null) return false;
+        if (other.getExpiration() != null && other.getExpiration().equals(this.getExpiration()) == false) return false; 
         return true;
     }
     

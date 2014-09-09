@@ -21,15 +21,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#putNotificationConfiguration(PutNotificationConfigurationRequest) PutNotificationConfiguration operation}.
  * <p>
- * Configures an Auto Scaling group to send notifications when specified events take place. Subscribers to this topic can have messages for events
- * delivered to an endpoint such as a web server or email address.
+ * Configures an Auto Scaling group to send notifications when specified
+ * events take place. Subscribers to this topic can have messages for
+ * events delivered to an endpoint such as a web server or email address.
  * </p>
  * <p>
- * For more information see <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASGettingNotifications.html"> Get Email Notifications
- * When Your Auto Scaling Group Changes </a>
+ * For more information see
+ * <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASGettingNotifications.html"> Get Email Notifications When Your Auto Scaling Group Changes </a>
+ * 
  * </p>
  * <p>
- * A new <code>PutNotificationConfiguration</code> overwrites an existing configuration.
+ * A new <code>PutNotificationConfiguration</code> overwrites an existing
+ * configuration.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#putNotificationConfiguration(PutNotificationConfigurationRequest)
@@ -41,7 +44,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -51,7 +54,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String topicARN;
 
@@ -67,7 +70,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the Auto Scaling group.
      */
@@ -80,7 +83,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group.
      */
@@ -95,11 +98,11 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutNotificationConfigurationRequest withAutoScalingGroupName(String autoScalingGroupName) {
@@ -113,7 +116,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The Amazon Resource Name (ARN) of the Amazon Simple Notification
      *         Service (SNS) topic.
@@ -128,7 +131,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param topicARN The Amazon Resource Name (ARN) of the Amazon Simple Notification
      *         Service (SNS) topic.
@@ -145,12 +148,12 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param topicARN The Amazon Resource Name (ARN) of the Amazon Simple Notification
      *         Service (SNS) topic.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutNotificationConfigurationRequest withTopicARN(String topicARN) {
@@ -205,7 +208,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      *         details about notification types supported by Auto Scaling, see
      *         <a>DescribeAutoScalingNotificationTypes</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutNotificationConfigurationRequest withNotificationTypes(String... notificationTypes) {
@@ -227,7 +230,7 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
      *         details about notification types supported by Auto Scaling, see
      *         <a>DescribeAutoScalingNotificationTypes</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutNotificationConfigurationRequest withNotificationTypes(java.util.Collection<String> notificationTypes) {

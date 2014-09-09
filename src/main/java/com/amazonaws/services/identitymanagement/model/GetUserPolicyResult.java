@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the GetUserPolicy action.
+ * Contains the result of a successful invocation of the GetUserPolicy
+ * action.
  * </p>
  */
 public class GetUserPolicyResult implements Serializable {
@@ -46,7 +47,7 @@ public class GetUserPolicyResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      */
     private String policyDocument;
 
@@ -87,7 +88,7 @@ public class GetUserPolicyResult implements Serializable {
      *
      * @param userName The user the policy is associated with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetUserPolicyResult withUserName(String userName) {
@@ -132,7 +133,7 @@ public class GetUserPolicyResult implements Serializable {
      *
      * @param policyName The name of the policy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetUserPolicyResult withPolicyName(String policyName) {
@@ -145,7 +146,7 @@ public class GetUserPolicyResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @return The policy document.
      */
@@ -158,7 +159,7 @@ public class GetUserPolicyResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param policyDocument The policy document.
      */
@@ -173,11 +174,11 @@ public class GetUserPolicyResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param policyDocument The policy document.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetUserPolicyResult withPolicyDocument(String policyDocument) {

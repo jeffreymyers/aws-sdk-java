@@ -28,7 +28,7 @@ public class Ebs implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String snapshotId;
 
@@ -74,7 +74,7 @@ public class Ebs implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The snapshot ID.
      */
@@ -87,7 +87,7 @@ public class Ebs implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param snapshotId The snapshot ID.
      */
@@ -102,11 +102,11 @@ public class Ebs implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param snapshotId The snapshot ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ebs withSnapshotId(String snapshotId) {
@@ -172,7 +172,7 @@ public class Ebs implements Serializable {
      *         volume size, the default is the snapshot size. <p>Required: Required
      *         when the volume type is <code>io1</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ebs withVolumeSize(Integer volumeSize) {
@@ -220,7 +220,7 @@ public class Ebs implements Serializable {
      * @param volumeType The volume type. <p>Valid values: <code>standard | io1</code>
      *         <p>Default: <code>standard</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ebs withVolumeType(String volumeType) {
@@ -259,7 +259,7 @@ public class Ebs implements Serializable {
      * @param deleteOnTermination Indicates whether to delete the volume on instance termination.
      *         <p>Default: <code>true</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ebs withDeleteOnTermination(Boolean deleteOnTermination) {
@@ -324,7 +324,7 @@ public class Ebs implements Serializable {
      *         supports. <p>The maximum ratio of IOPS to volume size is 30.0 <p>Valid
      *         Values: Range is 100 to 4000. <p>Default: None.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ebs withIops(Integer iops) {

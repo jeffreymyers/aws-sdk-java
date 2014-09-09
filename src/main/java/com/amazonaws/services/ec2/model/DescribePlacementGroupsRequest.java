@@ -23,7 +23,10 @@ import com.amazonaws.services.ec2.model.transform.DescribePlacementGroupsRequest
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describePlacementGroups(DescribePlacementGroupsRequest) DescribePlacementGroups operation}.
  * <p>
- * Returns information about one or more PlacementGroup instances in a user's account.
+ * Describes one or more of your placement groups. For more information
+ * about placement groups and cluster instances, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describePlacementGroups(DescribePlacementGroupsRequest)
@@ -31,23 +34,27 @@ import com.amazonaws.services.ec2.model.transform.DescribePlacementGroupsRequest
 public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<DescribePlacementGroupsRequest> {
 
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * One or more placement group names. <p>Default: Describes all your
+     * placement groups, or only those otherwise specified.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> groupNames;
 
     /**
-     * A list of filters used to match properties for Placement Groups. For a
-     * complete reference to the available filter keys for this operation,
-     * see the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     * EC2 API reference</a>.
+     * One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     * of the placement group. </li> <li> <p><code>state</code> - The state
+     * of the placement group (<code>pending</code> | <code>available</code>
+     * | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     * <p><code>strategy</code> - The strategy of the placement group
+     * (<code>cluster</code>). </li> </ul>
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Filter> filters;
 
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * One or more placement group names. <p>Default: Describes all your
+     * placement groups, or only those otherwise specified.
      *
-     * @return The name of the <code>PlacementGroup</code>.
+     * @return One or more placement group names. <p>Default: Describes all your
+     *         placement groups, or only those otherwise specified.
      */
     public java.util.List<String> getGroupNames() {
         if (groupNames == null) {
@@ -58,9 +65,11 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * One or more placement group names. <p>Default: Describes all your
+     * placement groups, or only those otherwise specified.
      *
-     * @param groupNames The name of the <code>PlacementGroup</code>.
+     * @param groupNames One or more placement group names. <p>Default: Describes all your
+     *         placement groups, or only those otherwise specified.
      */
     public void setGroupNames(java.util.Collection<String> groupNames) {
         if (groupNames == null) {
@@ -73,13 +82,15 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * One or more placement group names. <p>Default: Describes all your
+     * placement groups, or only those otherwise specified.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groupNames The name of the <code>PlacementGroup</code>.
+     * @param groupNames One or more placement group names. <p>Default: Describes all your
+     *         placement groups, or only those otherwise specified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePlacementGroupsRequest withGroupNames(String... groupNames) {
@@ -91,13 +102,15 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * One or more placement group names. <p>Default: Describes all your
+     * placement groups, or only those otherwise specified.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groupNames The name of the <code>PlacementGroup</code>.
+     * @param groupNames One or more placement group names. <p>Default: Describes all your
+     *         placement groups, or only those otherwise specified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePlacementGroupsRequest withGroupNames(java.util.Collection<String> groupNames) {
@@ -113,17 +126,19 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
 
     /**
-     * A list of filters used to match properties for Placement Groups. For a
-     * complete reference to the available filter keys for this operation,
-     * see the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     * EC2 API reference</a>.
+     * One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     * of the placement group. </li> <li> <p><code>state</code> - The state
+     * of the placement group (<code>pending</code> | <code>available</code>
+     * | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     * <p><code>strategy</code> - The strategy of the placement group
+     * (<code>cluster</code>). </li> </ul>
      *
-     * @return A list of filters used to match properties for Placement Groups. For a
-     *         complete reference to the available filter keys for this operation,
-     *         see the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     *         EC2 API reference</a>.
+     * @return One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     *         of the placement group. </li> <li> <p><code>state</code> - The state
+     *         of the placement group (<code>pending</code> | <code>available</code>
+     *         | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     *         <p><code>strategy</code> - The strategy of the placement group
+     *         (<code>cluster</code>). </li> </ul>
      */
     public java.util.List<Filter> getFilters() {
         if (filters == null) {
@@ -134,17 +149,19 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * A list of filters used to match properties for Placement Groups. For a
-     * complete reference to the available filter keys for this operation,
-     * see the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     * EC2 API reference</a>.
+     * One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     * of the placement group. </li> <li> <p><code>state</code> - The state
+     * of the placement group (<code>pending</code> | <code>available</code>
+     * | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     * <p><code>strategy</code> - The strategy of the placement group
+     * (<code>cluster</code>). </li> </ul>
      *
-     * @param filters A list of filters used to match properties for Placement Groups. For a
-     *         complete reference to the available filter keys for this operation,
-     *         see the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     *         EC2 API reference</a>.
+     * @param filters One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     *         of the placement group. </li> <li> <p><code>state</code> - The state
+     *         of the placement group (<code>pending</code> | <code>available</code>
+     *         | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     *         <p><code>strategy</code> - The strategy of the placement group
+     *         (<code>cluster</code>). </li> </ul>
      */
     public void setFilters(java.util.Collection<Filter> filters) {
         if (filters == null) {
@@ -157,21 +174,23 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * A list of filters used to match properties for Placement Groups. For a
-     * complete reference to the available filter keys for this operation,
-     * see the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     * EC2 API reference</a>.
+     * One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     * of the placement group. </li> <li> <p><code>state</code> - The state
+     * of the placement group (<code>pending</code> | <code>available</code>
+     * | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     * <p><code>strategy</code> - The strategy of the placement group
+     * (<code>cluster</code>). </li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters A list of filters used to match properties for Placement Groups. For a
-     *         complete reference to the available filter keys for this operation,
-     *         see the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     *         EC2 API reference</a>.
+     * @param filters One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     *         of the placement group. </li> <li> <p><code>state</code> - The state
+     *         of the placement group (<code>pending</code> | <code>available</code>
+     *         | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     *         <p><code>strategy</code> - The strategy of the placement group
+     *         (<code>cluster</code>). </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePlacementGroupsRequest withFilters(Filter... filters) {
@@ -183,21 +202,23 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * A list of filters used to match properties for Placement Groups. For a
-     * complete reference to the available filter keys for this operation,
-     * see the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     * EC2 API reference</a>.
+     * One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     * of the placement group. </li> <li> <p><code>state</code> - The state
+     * of the placement group (<code>pending</code> | <code>available</code>
+     * | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     * <p><code>strategy</code> - The strategy of the placement group
+     * (<code>cluster</code>). </li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters A list of filters used to match properties for Placement Groups. For a
-     *         complete reference to the available filter keys for this operation,
-     *         see the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/">Amazon
-     *         EC2 API reference</a>.
+     * @param filters One or more filters. <ul> <li> <p><code>group-name</code> - The name
+     *         of the placement group. </li> <li> <p><code>state</code> - The state
+     *         of the placement group (<code>pending</code> | <code>available</code>
+     *         | <code>deleting</code> | <code>deleted</code>). </li> <li>
+     *         <p><code>strategy</code> - The strategy of the placement group
+     *         (<code>cluster</code>). </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePlacementGroupsRequest withFilters(java.util.Collection<Filter> filters) {

@@ -23,9 +23,12 @@ import java.io.Serializable;
 public class DescribeHsmClientCertificatesResult implements Serializable {
 
     /**
-     * A marker at which to continue listing events in a new request. The
-     * response returns a marker if there are more events to list than
-     * returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      */
     private String marker;
 
@@ -37,43 +40,61 @@ public class DescribeHsmClientCertificatesResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<HsmClientCertificate> hsmClientCertificates;
 
     /**
-     * A marker at which to continue listing events in a new request. The
-     * response returns a marker if there are more events to list than
-     * returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @return A marker at which to continue listing events in a new request. The
-     *         response returns a marker if there are more events to list than
-     *         returned in the response.
+     * @return A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * A marker at which to continue listing events in a new request. The
-     * response returns a marker if there are more events to list than
-     * returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @param marker A marker at which to continue listing events in a new request. The
-     *         response returns a marker if there are more events to list than
-     *         returned in the response.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * A marker at which to continue listing events in a new request. The
-     * response returns a marker if there are more events to list than
-     * returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker A marker at which to continue listing events in a new request. The
-     *         response returns a marker if there are more events to list than
-     *         returned in the response.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeHsmClientCertificatesResult withMarker(String marker) {
@@ -128,7 +149,7 @@ public class DescribeHsmClientCertificatesResult implements Serializable {
      *         by Amazon Redshift clusters to store and retrieve database encryption
      *         keys in an HSM.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeHsmClientCertificatesResult withHsmClientCertificates(HsmClientCertificate... hsmClientCertificates) {
@@ -150,7 +171,7 @@ public class DescribeHsmClientCertificatesResult implements Serializable {
      *         by Amazon Redshift clusters to store and retrieve database encryption
      *         keys in an HSM.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeHsmClientCertificatesResult withHsmClientCertificates(java.util.Collection<HsmClientCertificate> hsmClientCertificates) {

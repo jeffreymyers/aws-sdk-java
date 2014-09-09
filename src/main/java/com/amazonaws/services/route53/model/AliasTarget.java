@@ -18,11 +18,13 @@ import java.io.Serializable;
 
 /**
  * <p>
- * <i>Alias resource record sets only:</i> Information about the domain to which you are redirecting traffic.
+ * <i>Alias resource record sets only:</i> Information about the domain
+ * to which you are redirecting traffic.
  * </p>
  * <p>
- * For more information and an example, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html"> Creating Alias
- * Resource Record Sets </a> in the <i>Amazon Route 53 Developer Guide</i>
+ * For more information and an example, see
+ * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html"> Creating Alias Resource Record Sets </a>
+ * in the <i>Amazon Route 53 Developer Guide</i>
  * </p>
  * <p>
  * .
@@ -160,7 +162,7 @@ public class AliasTarget implements Serializable {
      *         Alias Resource Record Sets</a> in the <i>Amazon Route 53 Developer
      *         Guide</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AliasTarget withHostedZoneId(String hostedZoneId) {
@@ -232,7 +234,7 @@ public class AliasTarget implements Serializable {
      *         Alias Resource Record Sets</a> in the <i>Amazon Route 53 Developer
      *         Guide</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AliasTarget withDNSName(String dNSName) {
@@ -301,7 +303,7 @@ public class AliasTarget implements Serializable {
      *         Alias Resource Record Sets</a> in the <i>Amazon Route 53 Developer
      *         Guide</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AliasTarget withEvaluateTargetHealth(Boolean evaluateTargetHealth) {

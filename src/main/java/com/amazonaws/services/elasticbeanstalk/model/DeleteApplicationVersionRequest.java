@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Deletes the specified version from the specified application.
  * </p>
  * <p>
- * <b>NOTE:</b>You cannot delete an application version that is associated with a running environment.
+ * <b>NOTE:</b>You cannot delete an application version that is
+ * associated with a running environment.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#deleteApplicationVersion(DeleteApplicationVersionRequest)
@@ -111,7 +112,7 @@ public class DeleteApplicationVersionRequest extends AmazonWebServiceRequest imp
      *
      * @param applicationName The name of the application to delete releases from.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteApplicationVersionRequest withApplicationName(String applicationName) {
@@ -153,7 +154,7 @@ public class DeleteApplicationVersionRequest extends AmazonWebServiceRequest imp
      *
      * @param versionLabel The label of the version to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteApplicationVersionRequest withVersionLabel(String versionLabel) {
@@ -216,7 +217,7 @@ public class DeleteApplicationVersionRequest extends AmazonWebServiceRequest imp
      *         source bundle specified at time of creation. </li> </ul> <p> Valid
      *         Values: <code>true</code> | <code>false</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteApplicationVersionRequest withDeleteSourceBundle(Boolean deleteSourceBundle) {

@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.route53.AmazonRoute53#getHostedZone(GetHostedZoneRequest) GetHostedZone operation}.
  * <p>
- * To retrieve the delegation set for a hosted zone, send a <code>GET</code> request to the <code>2012-12-12/hostedzone/hosted zone ID </code> resource.
- * The delegation set is the four Route 53 name servers that were assigned to the hosted zone when you created it.
+ * To retrieve the delegation set for a hosted zone, send a
+ * <code>GET</code> request to the <code>2013-04-01/hostedzone/hosted
+ * zone ID </code> resource. The delegation set is the four Route 53 name
+ * servers that were assigned to the hosted zone when you created it.
  * </p>
  *
  * @see com.amazonaws.services.route53.AmazonRoute53#getHostedZone(GetHostedZoneRequest)
@@ -96,7 +98,7 @@ public class GetHostedZoneRequest extends AmazonWebServiceRequest implements Ser
      * @param id The ID of the hosted zone for which you want to get a list of the name
      *         servers in the delegation set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetHostedZoneRequest withId(String id) {

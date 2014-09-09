@@ -41,7 +41,7 @@ public class TimeSpan implements Serializable {
      * sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      * Elastic Transcoder creates an output file from StartTime to the end of
      * the file. <p>If you specify a value longer than the duration of the
-     * input file , Elastic Transcoder transcodes the file and returns a
+     * input file, Elastic Transcoder transcodes the file and returns a
      * warning message.
      * <p>
      * <b>Constraints:</b><br/>
@@ -107,7 +107,7 @@ public class TimeSpan implements Serializable {
      *         you don't specify a value, Elastic Transcoder starts at the beginning
      *         of the input file.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public TimeSpan withStartTime(String startTime) {
@@ -121,7 +121,7 @@ public class TimeSpan implements Serializable {
      * sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      * Elastic Transcoder creates an output file from StartTime to the end of
      * the file. <p>If you specify a value longer than the duration of the
-     * input file , Elastic Transcoder transcodes the file and returns a
+     * input file, Elastic Transcoder transcodes the file and returns a
      * warning message.
      * <p>
      * <b>Constraints:</b><br/>
@@ -132,7 +132,7 @@ public class TimeSpan implements Serializable {
      *         sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      *         Elastic Transcoder creates an output file from StartTime to the end of
      *         the file. <p>If you specify a value longer than the duration of the
-     *         input file , Elastic Transcoder transcodes the file and returns a
+     *         input file, Elastic Transcoder transcodes the file and returns a
      *         warning message.
      */
     public String getDuration() {
@@ -145,7 +145,7 @@ public class TimeSpan implements Serializable {
      * sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      * Elastic Transcoder creates an output file from StartTime to the end of
      * the file. <p>If you specify a value longer than the duration of the
-     * input file , Elastic Transcoder transcodes the file and returns a
+     * input file, Elastic Transcoder transcodes the file and returns a
      * warning message.
      * <p>
      * <b>Constraints:</b><br/>
@@ -156,7 +156,7 @@ public class TimeSpan implements Serializable {
      *         sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      *         Elastic Transcoder creates an output file from StartTime to the end of
      *         the file. <p>If you specify a value longer than the duration of the
-     *         input file , Elastic Transcoder transcodes the file and returns a
+     *         input file, Elastic Transcoder transcodes the file and returns a
      *         warning message.
      */
     public void setDuration(String duration) {
@@ -169,7 +169,7 @@ public class TimeSpan implements Serializable {
      * sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      * Elastic Transcoder creates an output file from StartTime to the end of
      * the file. <p>If you specify a value longer than the duration of the
-     * input file , Elastic Transcoder transcodes the file and returns a
+     * input file, Elastic Transcoder transcodes the file and returns a
      * warning message.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
@@ -182,10 +182,10 @@ public class TimeSpan implements Serializable {
      *         sssss.SSS (maximum value: 86399.999). If you don't specify a value,
      *         Elastic Transcoder creates an output file from StartTime to the end of
      *         the file. <p>If you specify a value longer than the duration of the
-     *         input file , Elastic Transcoder transcodes the file and returns a
+     *         input file, Elastic Transcoder transcodes the file and returns a
      *         warning message.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public TimeSpan withDuration(String duration) {

@@ -21,9 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudformation.AmazonCloudFormation#listStacks(ListStacksRequest) ListStacks operation}.
  * <p>
- * Returns the summary information for stacks whose status matches the specified StackStatusFilter. Summary information for stacks that have been deleted
- * is kept for 90 days after the stack is deleted. If no StackStatusFilter is specified, summary information for all stacks is returned (including
- * existing stacks and stacks that have been deleted).
+ * Returns the summary information for stacks whose status matches the
+ * specified StackStatusFilter. Summary information for stacks that have
+ * been deleted is kept for 90 days after the stack is deleted. If no
+ * StackStatusFilter is specified, summary information for all stacks is
+ * returned (including existing stacks and stacks that have been
+ * deleted).
  * </p>
  *
  * @see com.amazonaws.services.cloudformation.AmazonCloudFormation#listStacks(ListStacksRequest)
@@ -87,7 +90,7 @@ public class ListStacksRequest extends AmazonWebServiceRequest implements Serial
      * @param nextToken String that identifies the start of the next list of stacks, if there
      *         is one. <p>Default: There is no default value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStacksRequest withNextToken(String nextToken) {
@@ -148,7 +151,7 @@ public class ListStacksRequest extends AmazonWebServiceRequest implements Serial
      *         complete list of stack status codes, see the <code>StackStatus</code>
      *         parameter of the <a>Stack</a> data type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStacksRequest withStackStatusFilters(String... stackStatusFilters) {
@@ -172,7 +175,7 @@ public class ListStacksRequest extends AmazonWebServiceRequest implements Serial
      *         complete list of stack status codes, see the <code>StackStatus</code>
      *         parameter of the <a>Stack</a> data type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStacksRequest withStackStatusFilters(java.util.Collection<String> stackStatusFilters) {
@@ -200,7 +203,7 @@ public class ListStacksRequest extends AmazonWebServiceRequest implements Serial
      *         complete list of stack status codes, see the <code>StackStatus</code>
      *         parameter of the <a>Stack</a> data type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStacksRequest withStackStatusFilters(StackStatus... stackStatusFilters) {

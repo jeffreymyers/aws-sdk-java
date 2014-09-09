@@ -24,13 +24,17 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Creates an Amazon Redshift parameter group.
  * </p>
  * <p>
- * Creating parameter groups is independent of creating clusters. You can associate a cluster with a parameter group when you create the cluster. You can
- * also associate an existing cluster with a parameter group after the cluster is created by using ModifyCluster.
+ * Creating parameter groups is independent of creating clusters. You can
+ * associate a cluster with a parameter group when you create the
+ * cluster. You can also associate an existing cluster with a parameter
+ * group after the cluster is created by using ModifyCluster.
  * </p>
  * <p>
- * Parameters in the parameter group define specific behavior that applies to the databases you create on the cluster. For more information about
- * managing parameter groups, go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift
- * Parameter Groups </a> in the <i>Amazon Redshift Management Guide</i> .
+ * Parameters in the parameter group define specific behavior that
+ * applies to the databases you create on the cluster. For more
+ * information about managing parameter groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -121,7 +125,7 @@ public class CreateClusterParameterGroupRequest extends AmazonWebServiceRequest 
      *         AWS account.</li> </ul> <note>This value is stored as a lower-case
      *         string.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterParameterGroupRequest withParameterGroupName(String parameterGroupName) {
@@ -202,7 +206,7 @@ public class CreateClusterParameterGroupRequest extends AmazonWebServiceRequest 
      *         associated with the default parameter groups provide you the valid
      *         values. For example, a valid family name is "redshift-1.0".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterParameterGroupRequest withParameterGroupFamily(String parameterGroupFamily) {
@@ -235,7 +239,7 @@ public class CreateClusterParameterGroupRequest extends AmazonWebServiceRequest 
      *
      * @param description A description of the parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterParameterGroupRequest withDescription(String description) {

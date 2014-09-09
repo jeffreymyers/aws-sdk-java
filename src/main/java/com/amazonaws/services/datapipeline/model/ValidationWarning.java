@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Defines a validation warning returned by PutPipelineDefinition or ValidatePipelineDefinition. Validation warnings do not prevent pipeline activation.
- * The set of validation warnings that can be returned are defined by AWS Data Pipeline.
+ * Defines a validation warning returned by PutPipelineDefinition or
+ * ValidatePipelineDefinition. Validation warnings do not prevent
+ * pipeline activation. The set of validation warnings that can be
+ * returned are defined by AWS Data Pipeline.
  * </p>
  */
 public class ValidationWarning implements Serializable {
@@ -29,7 +31,7 @@ public class ValidationWarning implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String id;
 
@@ -43,7 +45,7 @@ public class ValidationWarning implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The identifier of the object that contains the validation warning.
      */
@@ -56,7 +58,7 @@ public class ValidationWarning implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param id The identifier of the object that contains the validation warning.
      */
@@ -71,11 +73,11 @@ public class ValidationWarning implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param id The identifier of the object that contains the validation warning.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidationWarning withId(String id) {
@@ -118,7 +120,7 @@ public class ValidationWarning implements Serializable {
      *
      * @param warnings A description of the validation warning.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidationWarning withWarnings(String... warnings) {
@@ -136,7 +138,7 @@ public class ValidationWarning implements Serializable {
      *
      * @param warnings A description of the validation warning.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidationWarning withWarnings(java.util.Collection<String> warnings) {

@@ -21,8 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#resumeProcesses(ResumeProcessesRequest) ResumeProcesses operation}.
  * <p>
- * Resumes all suspended Auto Scaling processes for an Auto Scaling group. For information on suspending and resuming Auto Scaling process, see <a
- * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/US_SuspendResume.html"> Suspend and Resume Auto Scaling Process </a> .
+ * Resumes all suspended Auto Scaling processes for an Auto Scaling
+ * group. For information on suspending and resuming Auto Scaling
+ * process, see
+ * <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/US_SuspendResume.html"> Suspend and Resume Auto Scaling Process </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#resumeProcesses(ResumeProcessesRequest)
@@ -34,7 +37,7 @@ public class ResumeProcessesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -53,7 +56,7 @@ public class ResumeProcessesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name or Amazon Resource Name (ARN) of the Auto Scaling group.
      */
@@ -66,7 +69,7 @@ public class ResumeProcessesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name or Amazon Resource Name (ARN) of the Auto Scaling group.
      */
@@ -81,11 +84,11 @@ public class ResumeProcessesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name or Amazon Resource Name (ARN) of the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResumeProcessesRequest withAutoScalingGroupName(String autoScalingGroupName) {
@@ -158,7 +161,7 @@ public class ResumeProcessesRequest extends AmazonWebServiceRequest implements S
      *         <li>AddToLoadBalancer</li> </ul> <p> To suspend all process types,
      *         omit this parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResumeProcessesRequest withScalingProcesses(String... scalingProcesses) {
@@ -186,7 +189,7 @@ public class ResumeProcessesRequest extends AmazonWebServiceRequest implements S
      *         <li>AddToLoadBalancer</li> </ul> <p> To suspend all process types,
      *         omit this parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResumeProcessesRequest withScalingProcesses(java.util.Collection<String> scalingProcesses) {

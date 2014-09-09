@@ -24,8 +24,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Deletes the access key associated with the specified user.
  * </p>
  * <p>
- * If you do not specify a user name, IAM determines the user name implicitly based on the AWS access key ID signing the request. Because this action
- * works for access keys under the AWS account, you can use this API to manage root credentials even if the AWS account has no associated users.
+ * If you do not specify a user name, IAM determines the user name
+ * implicitly based on the AWS access key ID signing the request. Because
+ * this action works for access keys under the AWS account, you can use
+ * this API to manage root credentials even if the AWS account has no
+ * associated users.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteAccessKey(DeleteAccessKeyRequest)
@@ -106,7 +109,7 @@ public class DeleteAccessKeyRequest extends AmazonWebServiceRequest implements S
      *
      * @param userName Name of the user whose key you want to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteAccessKeyRequest withUserName(String userName) {
@@ -157,7 +160,7 @@ public class DeleteAccessKeyRequest extends AmazonWebServiceRequest implements S
      * @param accessKeyId The access key ID for the access key ID and secret access key you want
      *         to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteAccessKeyRequest withAccessKeyId(String accessKeyId) {

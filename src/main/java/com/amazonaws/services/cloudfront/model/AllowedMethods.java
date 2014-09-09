@@ -18,10 +18,15 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin. There are two
- * options: - CloudFront forwards only GET and HEAD requests. - CloudFront forwards DELETE, GET, HEAD, OPTIONS, PATCH, POST, and PUT requests. If you
- * choose the second option, you may need to restrict access to your Amazon S3 bucket or to your custom origin so users can't perform operations that you
- * don't want them to. For example, you may not want users to have permission to delete objects from your origin.
+ * A complex type that controls which HTTP methods CloudFront processes
+ * and forwards to your Amazon S3 bucket or your custom origin. There are
+ * two options: - CloudFront forwards only GET and HEAD requests. -
+ * CloudFront forwards DELETE, GET, HEAD, OPTIONS, PATCH, POST, and PUT
+ * requests. If you choose the second option, you may need to restrict
+ * access to your Amazon S3 bucket or to your custom origin so users
+ * can't perform operations that you don't want them to. For example, you
+ * may not want users to have permission to delete objects from your
+ * origin.
  * </p>
  */
 public class AllowedMethods implements Serializable {
@@ -76,7 +81,7 @@ public class AllowedMethods implements Serializable {
      *         origin. Valid values are 2 (for GET and HEAD requests) and 7 (for
      *         DELETE, GET, HEAD, OPTIONS, PATCH, POST, and PUT requests).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllowedMethods withQuantity(Integer quantity) {
@@ -125,7 +130,7 @@ public class AllowedMethods implements Serializable {
      * @param items A complex type that contains the HTTP methods that you want CloudFront
      *         to process and forward to your origin.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllowedMethods withItems(String... items) {
@@ -145,7 +150,7 @@ public class AllowedMethods implements Serializable {
      * @param items A complex type that contains the HTTP methods that you want CloudFront
      *         to process and forward to your origin.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllowedMethods withItems(java.util.Collection<String> items) {
@@ -169,7 +174,7 @@ public class AllowedMethods implements Serializable {
      * @param items A complex type that contains the HTTP methods that you want CloudFront
      *         to process and forward to your origin.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllowedMethods withItems(Method... items) {

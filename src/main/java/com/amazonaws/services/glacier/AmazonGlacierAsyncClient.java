@@ -38,34 +38,49 @@ import com.amazonaws.services.glacier.model.*;
  * Amazon Glacier is a storage solution for "cold data."
  * </p>
  * <p>
- * Amazon Glacier is an extremely low-cost storage service that provides secure, durable and easy-to-use storage for data backup and archival. With
- * Amazon Glacier, customers can store their data cost effectively for months, years, or decades. Amazon Glacier also enables customers to offload the
- * administrative burdens of operating and scaling storage to AWS, so they don't have to worry about capacity planning, hardware provisioning, data
- * replication, hardware failure and recovery, or time-consuming hardware migrations.
+ * Amazon Glacier is an extremely low-cost storage service that provides
+ * secure, durable, and easy-to-use storage for data backup and archival.
+ * With Amazon Glacier, customers can store their data cost effectively
+ * for months, years, or decades. Amazon Glacier also enables customers
+ * to offload the administrative burdens of operating and scaling storage
+ * to AWS, so they don't have to worry about capacity planning, hardware
+ * provisioning, data replication, hardware failure and recovery, or
+ * time-consuming hardware migrations.
  * </p>
  * <p>
- * Amazon Glacier is a great storage choice when low storage cost is paramount, your data is rarely retrieved, and retrieval latency of several hours is
- * acceptable. If your application requires fast or frequent access to your data, consider using Amazon S3. For more information, go to <a
- * href="http://aws.amazon.com/s3/"> Amazon Simple Storage Service (Amazon S3) </a> .
+ * Amazon Glacier is a great storage choice when low storage cost is
+ * paramount, your data is rarely retrieved, and retrieval latency of
+ * several hours is acceptable. If your application requires fast or
+ * frequent access to your data, consider using Amazon S3. For more
+ * information, go to
+ * <a href="http://aws.amazon.com/s3/"> Amazon Simple Storage Service (Amazon S3) </a>
+ * .
  * </p>
  * <p>
- * You can store any kind of data in any format. There is no maximum limit on the total amount of data you can store in Amazon Glacier.
+ * You can store any kind of data in any format. There is no maximum
+ * limit on the total amount of data you can store in Amazon Glacier.
  * </p>
  * <p>
- * If you are a first-time user of Amazon Glacier, we recommend that you begin by reading the following sections in the <i>Amazon Glacier Developer
- * Guide</i> :
+ * If you are a first-time user of Amazon Glacier, we recommend that you
+ * begin by reading the following sections in the <i>Amazon Glacier
+ * Developer Guide</i> :
  * </p>
  * 
  * <ul>
  * <li> <p>
- * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html"> What is Amazon Glacier </a> - This section of the Developer Guide
- * describes the underlying data model, the operations it supports, and the AWS SDKs that you can use to interact with the service.
+ * 
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html"> What is Amazon Glacier </a>
+ * - This section of the Developer Guide describes the underlying data
+ * model, the operations it supports, and the AWS SDKs that you can use
+ * to interact with the service.
  * </p>
  * </li>
  * <li> <p>
- * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html"> Getting Started with Amazon Glacier </a> - The
- * Getting Started section walks you through the process of creating a vault, uploading archives, creating jobs to download archives, retrieving the job
- * output, and deleting archives.
+ * 
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html"> Getting Started with Amazon Glacier </a>
+ * - The Getting Started section walks you through the process of
+ * creating a vault, uploading archives, creating jobs to download
+ * archives, retrieving the job output, and deleting archives.
  * </p>
  * </li>
  * 
@@ -78,6 +93,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -120,13 +137,13 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonGlacierAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonGlacier using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -138,7 +155,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *                       when authenticating with AWS services.
      */
     public AmazonGlacierAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -192,7 +209,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonGlacier using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -205,7 +222,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *            to authenticate requests with AWS services.
      */
     public AmazonGlacierAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -248,7 +265,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      */
     public AmazonGlacierAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -292,7 +309,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -320,17 +338,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html">
-     * Retrieving Vault Metadata in Amazon Glacier </a> and <a
-     * p://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html">
-     * List Vaults </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html"> List Vaults </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param listVaultsRequest Container for the necessary parameters to
@@ -353,8 +368,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<ListVaultsResult>() {
             public ListVaultsResult call() throws Exception {
                 return listVaults(listVaultsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -377,17 +392,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html">
-     * Retrieving Vault Metadata in Amazon Glacier </a> and <a
-     * p://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html">
-     * List Vaults </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html"> List Vaults </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param listVaultsRequest Container for the necessary parameters to
@@ -415,17 +427,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListVaultsResult>() {
             public ListVaultsResult call() throws Exception {
-                ListVaultsResult result;
+              ListVaultsResult result;
                 try {
-                    result = listVaults(listVaultsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listVaultsRequest, result);
-                   return result;
-            }
-        });
+                result = listVaults(listVaultsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listVaultsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -450,16 +462,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For information about the underlying REST API, go to <a
-     * cs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html">
-     * Working with Archives in Amazon Glacier </a> in the <i>Amazon Glacier
-     * Developer Guide</i> .
-     * 
+     * For information about the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html"> Working with Archives in Amazon Glacier </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param describeJobRequest Container for the necessary parameters to
@@ -482,8 +492,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<DescribeJobResult>() {
             public DescribeJobResult call() throws Exception {
                 return describeJob(describeJobRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -508,16 +518,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For information about the underlying REST API, go to <a
-     * cs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html">
-     * Working with Archives in Amazon Glacier </a> in the <i>Amazon Glacier
-     * Developer Guide</i> .
-     * 
+     * For information about the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html"> Working with Archives in Amazon Glacier </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param describeJobRequest Container for the necessary parameters to
@@ -545,17 +553,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeJobResult>() {
             public DescribeJobResult call() throws Exception {
-                DescribeJobResult result;
+              DescribeJobResult result;
                 try {
-                    result = describeJob(describeJobRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeJobRequest, result);
-                   return result;
-            }
-        });
+                result = describeJob(describeJobRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeJobRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -572,27 +580,24 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * operation returns up to 1,000 uploaded parts in the response. You
      * should always check the response for a <code>marker</code> at which to
      * continue the list; if there are no more items the <code>marker</code>
-     * is <code>null</code> .
-     * To return a list of parts that begins at a specific part, set the
-     * <code>marker</code> request parameter to the value you obtained from a
-     * previous List Parts request. You can also limit the number of parts
-     * returned in the response by specifying the <code>limit</code>
-     * parameter in the request.
+     * is <code>null</code> . To return a list of parts that begins at a
+     * specific part, set the <code>marker</code> request parameter to the
+     * value you obtained from a previous List Parts request. You can also
+     * limit the number of parts returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html">
-     * Working with Archives in Amazon Glacier </a> and <a
-     * ws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html">
-     * List Parts </a> in the <i>Amazon Glacier Developer Guide</i> .
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html"> List Parts </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param listPartsRequest Container for the necessary parameters to
@@ -615,8 +620,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<ListPartsResult>() {
             public ListPartsResult call() throws Exception {
                 return listParts(listPartsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -633,27 +638,24 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * operation returns up to 1,000 uploaded parts in the response. You
      * should always check the response for a <code>marker</code> at which to
      * continue the list; if there are no more items the <code>marker</code>
-     * is <code>null</code> .
-     * To return a list of parts that begins at a specific part, set the
-     * <code>marker</code> request parameter to the value you obtained from a
-     * previous List Parts request. You can also limit the number of parts
-     * returned in the response by specifying the <code>limit</code>
-     * parameter in the request.
+     * is <code>null</code> . To return a list of parts that begins at a
+     * specific part, set the <code>marker</code> request parameter to the
+     * value you obtained from a previous List Parts request. You can also
+     * limit the number of parts returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html">
-     * Working with Archives in Amazon Glacier </a> and <a
-     * ws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html">
-     * List Parts </a> in the <i>Amazon Glacier Developer Guide</i> .
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html"> List Parts </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param listPartsRequest Container for the necessary parameters to
@@ -681,17 +683,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListPartsResult>() {
             public ListPartsResult call() throws Exception {
-                ListPartsResult result;
+              ListPartsResult result;
                 try {
-                    result = listParts(listPartsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listPartsRequest, result);
-                   return result;
-            }
-        });
+                result = listParts(listPartsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listPartsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -700,29 +702,25 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * subresource of the specified vault.
      * </p>
      * <p>
-     * For information about setting a notification configuration on a vault,
-     * see SetVaultNotifications. If a notification configuration for a vault
-     * is not set, the operation returns a <code>404 Not Found</code> error.
-     * For more information about vault notifications, see <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> .
+     * For information about setting a notification configuration on a
+     * vault, see SetVaultNotifications. If a notification configuration for
+     * a vault is not set, the operation returns a <code>404 Not Found</code>
+     * error. For more information about vault notifications, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a>
+     * .
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> and <a
-     * amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html">
-     * Get Vault Notification Configuration </a> in the <i>Amazon Glacier
-     * Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html"> Get Vault Notification Configuration </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param getVaultNotificationsRequest Container for the necessary
@@ -746,8 +744,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<GetVaultNotificationsResult>() {
             public GetVaultNotificationsResult call() throws Exception {
                 return getVaultNotifications(getVaultNotificationsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -756,29 +754,25 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * subresource of the specified vault.
      * </p>
      * <p>
-     * For information about setting a notification configuration on a vault,
-     * see SetVaultNotifications. If a notification configuration for a vault
-     * is not set, the operation returns a <code>404 Not Found</code> error.
-     * For more information about vault notifications, see <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> .
+     * For information about setting a notification configuration on a
+     * vault, see SetVaultNotifications. If a notification configuration for
+     * a vault is not set, the operation returns a <code>404 Not Found</code>
+     * error. For more information about vault notifications, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a>
+     * .
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> and <a
-     * amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html">
-     * Get Vault Notification Configuration </a> in the <i>Amazon Glacier
-     * Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html"> Get Vault Notification Configuration </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param getVaultNotificationsRequest Container for the necessary
@@ -807,17 +801,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetVaultNotificationsResult>() {
             public GetVaultNotificationsResult call() throws Exception {
-                GetVaultNotificationsResult result;
+              GetVaultNotificationsResult result;
                 try {
-                    result = getVaultNotifications(getVaultNotificationsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getVaultNotificationsRequest, result);
-                   return result;
-            }
-        });
+                result = getVaultNotifications(getVaultNotificationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getVaultNotificationsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -850,12 +844,11 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * operation returns up to 1,000 jobs in the response. You should always
      * check the response for a <code>marker</code> at which to continue the
      * list; if there are no more items the <code>marker</code> is
-     * <code>null</code> .
-     * To return a list of jobs that begins at a specific job, set
-     * the <code>marker</code> request parameter to the value you obtained
-     * from a previous List Jobs request. You can also limit the number of
-     * jobs returned in the response by specifying the <code>limit</code>
-     * parameter in the request.
+     * <code>null</code> . To return a list of jobs that begins at a specific
+     * job, set the <code>marker</code> request parameter to the value you
+     * obtained from a previous List Jobs request. You can also limit the
+     * number of jobs returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
      * </p>
      * <p>
      * Additionally, you can filter the jobs list returned by specifying an
@@ -870,14 +863,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For the underlying REST API, go to <a
-     * ttp://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html">
-     * List Jobs </a>
+     * For the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html"> List Jobs </a>
+     * 
      * </p>
      *
      * @param listJobsRequest Container for the necessary parameters to
@@ -900,8 +893,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<ListJobsResult>() {
             public ListJobsResult call() throws Exception {
                 return listJobs(listJobsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -934,12 +927,11 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * operation returns up to 1,000 jobs in the response. You should always
      * check the response for a <code>marker</code> at which to continue the
      * list; if there are no more items the <code>marker</code> is
-     * <code>null</code> .
-     * To return a list of jobs that begins at a specific job, set
-     * the <code>marker</code> request parameter to the value you obtained
-     * from a previous List Jobs request. You can also limit the number of
-     * jobs returned in the response by specifying the <code>limit</code>
-     * parameter in the request.
+     * <code>null</code> . To return a list of jobs that begins at a specific
+     * job, set the <code>marker</code> request parameter to the value you
+     * obtained from a previous List Jobs request. You can also limit the
+     * number of jobs returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
      * </p>
      * <p>
      * Additionally, you can filter the jobs list returned by specifying an
@@ -954,14 +946,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For the underlying REST API, go to <a
-     * ttp://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html">
-     * List Jobs </a>
+     * For the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html"> List Jobs </a>
+     * 
      * </p>
      *
      * @param listJobsRequest Container for the necessary parameters to
@@ -989,17 +981,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListJobsResult>() {
             public ListJobsResult call() throws Exception {
-                ListJobsResult result;
+              ListJobsResult result;
                 try {
-                    result = listJobs(listJobsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listJobsRequest, result);
-                   return result;
-            }
-        });
+                result = listJobs(listJobsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listJobsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1035,17 +1027,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html">
-     * Creating a Vault in Amazon Glacier </a> and <a
-     * tp://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html">
-     * Create Vault </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html"> Creating a Vault in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html"> Create Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param createVaultRequest Container for the necessary parameters to
@@ -1068,8 +1057,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<CreateVaultResult>() {
             public CreateVaultResult call() throws Exception {
                 return createVault(createVaultRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1105,17 +1094,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html">
-     * Creating a Vault in Amazon Glacier </a> and <a
-     * tp://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html">
-     * Create Vault </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html"> Creating a Vault in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html"> Create Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param createVaultRequest Container for the necessary parameters to
@@ -1143,17 +1129,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateVaultResult>() {
             public CreateVaultResult call() throws Exception {
-                CreateVaultResult result;
+              CreateVaultResult result;
                 try {
-                    result = createVault(createVaultRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVaultRequest, result);
-                   return result;
-            }
-        });
+                result = createVault(createVaultRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVaultRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1193,17 +1179,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html">
-     * Uploading Large Archives in Parts (Multipart Upload) </a> and <a
-     * azon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html">
-     * Initiate Multipart Upload </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html"> Uploading Large Archives in Parts (Multipart Upload) </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html"> Initiate Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param initiateMultipartUploadRequest Container for the necessary
@@ -1227,8 +1210,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<InitiateMultipartUploadResult>() {
             public InitiateMultipartUploadResult call() throws Exception {
                 return initiateMultipartUpload(initiateMultipartUploadRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1268,17 +1251,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html">
-     * Uploading Large Archives in Parts (Multipart Upload) </a> and <a
-     * azon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html">
-     * Initiate Multipart Upload </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html"> Uploading Large Archives in Parts (Multipart Upload) </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html"> Initiate Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param initiateMultipartUploadRequest Container for the necessary
@@ -1307,17 +1287,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<InitiateMultipartUploadResult>() {
             public InitiateMultipartUploadResult call() throws Exception {
-                InitiateMultipartUploadResult result;
+              InitiateMultipartUploadResult result;
                 try {
-                    result = initiateMultipartUpload(initiateMultipartUploadRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(initiateMultipartUploadRequest, result);
-                   return result;
-            }
-        });
+                result = initiateMultipartUpload(initiateMultipartUploadRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(initiateMultipartUploadRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1339,18 +1319,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html">
-     * Working with Archives in Amazon Glacier </a> and <a
-     * .amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html">
-     * Abort Multipart Upload </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html"> Abort Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param abortMultipartUploadRequest Container for the necessary
@@ -1375,8 +1351,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             public Void call() throws Exception {
                 abortMultipartUpload(abortMultipartUploadRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1398,18 +1374,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html">
-     * Working with Archives in Amazon Glacier </a> and <a
-     * .amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html">
-     * Abort Multipart Upload </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html"> Abort Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param abortMultipartUploadRequest Container for the necessary
@@ -1438,22 +1410,22 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    abortMultipartUpload(abortMultipartUploadRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(abortMultipartUploadRequest, null);
-                   return null;
-            }
-        });
+              try {
+                abortMultipartUpload(abortMultipartUploadRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(abortMultipartUploadRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * This operation deletes an archive from a vault. Subsequent requests to
-     * initiate a retrieval of this archive will fail. Archive retrievals
+     * This operation deletes an archive from a vault. Subsequent requests
+     * to initiate a retrieval of this archive will fail. Archive retrievals
      * that are in progress for this archive ID may or may not succeed
      * according to the following scenarios:
      * </p>
@@ -1475,17 +1447,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * ocs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html">
-     * Deleting an Archive in Amazon Glacier </a> and <a
-     * docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html">
-     * Delete Archive </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html"> Deleting an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param deleteArchiveRequest Container for the necessary parameters to
@@ -1509,14 +1478,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             public Void call() throws Exception {
                 deleteArchive(deleteArchiveRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * This operation deletes an archive from a vault. Subsequent requests to
-     * initiate a retrieval of this archive will fail. Archive retrievals
+     * This operation deletes an archive from a vault. Subsequent requests
+     * to initiate a retrieval of this archive will fail. Archive retrievals
      * that are in progress for this archive ID may or may not succeed
      * according to the following scenarios:
      * </p>
@@ -1538,17 +1507,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * ocs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html">
-     * Deleting an Archive in Amazon Glacier </a> and <a
-     * docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html">
-     * Delete Archive </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html"> Deleting an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param deleteArchiveRequest Container for the necessary parameters to
@@ -1576,16 +1542,16 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteArchive(deleteArchiveRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteArchiveRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteArchive(deleteArchiveRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteArchiveRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1629,7 +1595,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * <li> <p>
      * After downloading all the parts of the job output, you have a list of
      * eight checksum values. Compute the tree hash of these values to find
-     * the checksum of the entire output. Using the Describe Job API, obtain
+     * the checksum of the entire output. Using the DescribeJob API, obtain
      * job information of the job that provided you the output. The response
      * includes the checksum of the entire archive stored in Amazon Glacier.
      * You compare this value with the checksum you computed to ensure you
@@ -1640,18 +1606,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">
-     * Downloading a Vault Inventory </a> , <a
-     * .aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html">
-     * Downloading an Archive </a> , and <a
-     * docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html">
-     * Get Job Output </a>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a> , <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html"> Downloading an Archive </a> , and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html"> Get Job Output </a>
+     * 
      * </p>
      *
      * @param getJobOutputRequest Container for the necessary parameters to
@@ -1674,8 +1636,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<GetJobOutputResult>() {
             public GetJobOutputResult call() throws Exception {
                 return getJobOutput(getJobOutputRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1719,7 +1681,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * <li> <p>
      * After downloading all the parts of the job output, you have a list of
      * eight checksum values. Compute the tree hash of these values to find
-     * the checksum of the entire output. Using the Describe Job API, obtain
+     * the checksum of the entire output. Using the DescribeJob API, obtain
      * job information of the job that provided you the output. The response
      * includes the checksum of the entire archive stored in Amazon Glacier.
      * You compare this value with the checksum you computed to ensure you
@@ -1730,18 +1692,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">
-     * Downloading a Vault Inventory </a> , <a
-     * .aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html">
-     * Downloading an Archive </a> , and <a
-     * docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html">
-     * Get Job Output </a>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a> , <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html"> Downloading an Archive </a> , and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html"> Get Job Output </a>
+     * 
      * </p>
      *
      * @param getJobOutputRequest Container for the necessary parameters to
@@ -1769,24 +1727,24 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetJobOutputResult>() {
             public GetJobOutputResult call() throws Exception {
-                GetJobOutputResult result;
+              GetJobOutputResult result;
                 try {
-                    result = getJobOutput(getJobOutputRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getJobOutputRequest, result);
-                   return result;
-            }
-        });
+                result = getJobOutput(getJobOutputRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getJobOutputRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * This operation initiates a job of the specified type. In this release,
-     * you can initiate a job to retrieve either an archive or a vault
-     * inventory (a list of archives in a vault).
+     * This operation initiates a job of the specified type. In this
+     * release, you can initiate a job to retrieve either an archive or a
+     * vault inventory (a list of archives in a vault).
      * </p>
      * <p>
      * Retrieving data from Amazon Glacier is a two-step process:
@@ -1807,8 +1765,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * job output, see GetJobOutput operation.
      * </p>
      * <p>
-     * The job must complete before you can get its output. To determine when
-     * a job is complete, you have the following options:
+     * The job must complete before you can get its output. To determine
+     * when a job is complete, you have the following options:
      * </p>
      * 
      * <ul>
@@ -1833,8 +1791,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * 
      * </ul>
      * <p>
-     * <b>NOTE:</b> The information you get via notification is same that you
-     * get by calling DescribeJob.
+     * <b>NOTE:</b> The information you get via notification is same that
+     * you get by calling DescribeJob.
      * </p>
      * <p>
      * If for a specific event, you add both the notification configuration
@@ -1846,9 +1804,9 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
      * <b>About the Vault Inventory</b>
@@ -1871,6 +1829,49 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * inventory.
      * </p>
      * <p>
+     * <b>Range Inventory Retrieval</b>
+     * </p>
+     * <p>
+     * You can limit the number of inventory items retrieved by filtering on
+     * the archive creation date or by setting a limit.
+     * </p>
+     * <p>
+     * <i>Filtering by Archive Creation Date</i>
+     * </p>
+     * <p>
+     * You can retrieve inventory items for archives created between
+     * <code>StartDate</code> and <code>EndDate</code> by specifying values
+     * for these parameters in the <b>InitiateJob</b> request. Archives
+     * created on or after the <code>StartDate</code> and before the
+     * <code>EndDate</code> will be returned. If you only provide the
+     * <code>StartDate</code> without the <code>EndDate</code> , you will
+     * retrieve the inventory for all archives created on or after the
+     * <code>StartDate</code> . If you only provide the <code>EndDate</code>
+     * without the <code>StartDate</code> , you will get back the inventory
+     * for all archives created before the <code>EndDate</code> .
+     * </p>
+     * <p>
+     * <i>Limiting Inventory Items per Retrieval</i>
+     * </p>
+     * <p>
+     * You can limit the number of inventory items returned by setting the
+     * <code>Limit</code> parameter in the <b>InitiateJob</b> request. The
+     * inventory job output will contain inventory items up to the specified
+     * <code>Limit</code> . If there are more inventory items available, the
+     * result is paginated. After a job is complete you can use the
+     * DescribeJob operation to get a marker that you use in a subsequent
+     * <b>InitiateJob</b> request. The marker will indicate the starting
+     * point to retrieve the next set of inventory items. You can page
+     * through your entire inventory by repeatedly making <b>InitiateJob</b>
+     * requests with the marker from the previous <b>DescribeJob</b> output,
+     * until you get a marker from <b>DescribeJob</b> that returns null,
+     * indicating that there are no more inventory items available.
+     * </p>
+     * <p>
+     * You can use the <code>Limit</code> parameter together with the date
+     * range parameters.
+     * </p>
+     * <p>
      * <b>About Ranged Archive Retrieval</b>
      * </p>
      * <p>
@@ -1889,16 +1890,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">
-     * Initiate a Job </a> and <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">
-     * Downloading a Vault Inventory </a>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html"> Initiate a Job </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a>
+     * 
      * </p>
      *
      * @param initiateJobRequest Container for the necessary parameters to
@@ -1921,15 +1920,15 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<InitiateJobResult>() {
             public InitiateJobResult call() throws Exception {
                 return initiateJob(initiateJobRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * This operation initiates a job of the specified type. In this release,
-     * you can initiate a job to retrieve either an archive or a vault
-     * inventory (a list of archives in a vault).
+     * This operation initiates a job of the specified type. In this
+     * release, you can initiate a job to retrieve either an archive or a
+     * vault inventory (a list of archives in a vault).
      * </p>
      * <p>
      * Retrieving data from Amazon Glacier is a two-step process:
@@ -1950,8 +1949,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * job output, see GetJobOutput operation.
      * </p>
      * <p>
-     * The job must complete before you can get its output. To determine when
-     * a job is complete, you have the following options:
+     * The job must complete before you can get its output. To determine
+     * when a job is complete, you have the following options:
      * </p>
      * 
      * <ul>
@@ -1976,8 +1975,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * 
      * </ul>
      * <p>
-     * <b>NOTE:</b> The information you get via notification is same that you
-     * get by calling DescribeJob.
+     * <b>NOTE:</b> The information you get via notification is same that
+     * you get by calling DescribeJob.
      * </p>
      * <p>
      * If for a specific event, you add both the notification configuration
@@ -1989,9 +1988,9 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
      * <b>About the Vault Inventory</b>
@@ -2014,6 +2013,49 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * inventory.
      * </p>
      * <p>
+     * <b>Range Inventory Retrieval</b>
+     * </p>
+     * <p>
+     * You can limit the number of inventory items retrieved by filtering on
+     * the archive creation date or by setting a limit.
+     * </p>
+     * <p>
+     * <i>Filtering by Archive Creation Date</i>
+     * </p>
+     * <p>
+     * You can retrieve inventory items for archives created between
+     * <code>StartDate</code> and <code>EndDate</code> by specifying values
+     * for these parameters in the <b>InitiateJob</b> request. Archives
+     * created on or after the <code>StartDate</code> and before the
+     * <code>EndDate</code> will be returned. If you only provide the
+     * <code>StartDate</code> without the <code>EndDate</code> , you will
+     * retrieve the inventory for all archives created on or after the
+     * <code>StartDate</code> . If you only provide the <code>EndDate</code>
+     * without the <code>StartDate</code> , you will get back the inventory
+     * for all archives created before the <code>EndDate</code> .
+     * </p>
+     * <p>
+     * <i>Limiting Inventory Items per Retrieval</i>
+     * </p>
+     * <p>
+     * You can limit the number of inventory items returned by setting the
+     * <code>Limit</code> parameter in the <b>InitiateJob</b> request. The
+     * inventory job output will contain inventory items up to the specified
+     * <code>Limit</code> . If there are more inventory items available, the
+     * result is paginated. After a job is complete you can use the
+     * DescribeJob operation to get a marker that you use in a subsequent
+     * <b>InitiateJob</b> request. The marker will indicate the starting
+     * point to retrieve the next set of inventory items. You can page
+     * through your entire inventory by repeatedly making <b>InitiateJob</b>
+     * requests with the marker from the previous <b>DescribeJob</b> output,
+     * until you get a marker from <b>DescribeJob</b> that returns null,
+     * indicating that there are no more inventory items available.
+     * </p>
+     * <p>
+     * You can use the <code>Limit</code> parameter together with the date
+     * range parameters.
+     * </p>
+     * <p>
      * <b>About Ranged Archive Retrieval</b>
      * </p>
      * <p>
@@ -2032,16 +2074,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">
-     * Initiate a Job </a> and <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">
-     * Downloading a Vault Inventory </a>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html"> Initiate a Job </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a>
+     * 
      * </p>
      *
      * @param initiateJobRequest Container for the necessary parameters to
@@ -2069,17 +2109,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<InitiateJobResult>() {
             public InitiateJobResult call() throws Exception {
-                InitiateJobResult result;
+              InitiateJobResult result;
                 try {
-                    result = initiateJob(initiateJobRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(initiateJobRequest, result);
-                   return result;
-            }
-        });
+                result = initiateJob(initiateJobRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(initiateJobRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2101,10 +2141,10 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * archive IDs in a vault. For more information, see InitiateJob.
      * </p>
      * <p>
-     * You must provide a SHA256 tree hash of the data you are uploading. For
-     * information about computing a SHA256 tree hash, see <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html">
-     * Computing Checksums </a> .
+     * You must provide a SHA256 tree hash of the data you are uploading.
+     * For information about computing a SHA256 tree hash, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+     * .
      * </p>
      * <p>
      * You can optionally specify an archive description of up to 1,024
@@ -2123,17 +2163,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * cs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html">
-     * Uploading an Archive in Amazon Glacier </a> and <a
-     * //docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html">
-     * Upload Archive </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html"> Uploading an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html"> Upload Archive </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param uploadArchiveRequest Container for the necessary parameters to
@@ -2156,8 +2193,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<UploadArchiveResult>() {
             public UploadArchiveResult call() throws Exception {
                 return uploadArchive(uploadArchiveRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2179,10 +2216,10 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * archive IDs in a vault. For more information, see InitiateJob.
      * </p>
      * <p>
-     * You must provide a SHA256 tree hash of the data you are uploading. For
-     * information about computing a SHA256 tree hash, see <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html">
-     * Computing Checksums </a> .
+     * You must provide a SHA256 tree hash of the data you are uploading.
+     * For information about computing a SHA256 tree hash, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+     * .
      * </p>
      * <p>
      * You can optionally specify an archive description of up to 1,024
@@ -2201,17 +2238,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * cs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html">
-     * Uploading an Archive in Amazon Glacier </a> and <a
-     * //docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html">
-     * Upload Archive </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html"> Uploading an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html"> Upload Archive </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param uploadArchiveRequest Container for the necessary parameters to
@@ -2239,17 +2273,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UploadArchiveResult>() {
             public UploadArchiveResult call() throws Exception {
-                UploadArchiveResult result;
+              UploadArchiveResult result;
                 try {
-                    result = uploadArchive(uploadArchiveRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(uploadArchiveRequest, result);
-                   return result;
-            }
-        });
+                result = uploadArchive(uploadArchiveRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(uploadArchiveRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2288,18 +2322,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> and <a
-     * amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html">
-     * Set Vault Notification Configuration </a> in the <i>Amazon Glacier
-     * Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html"> Set Vault Notification Configuration </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param setVaultNotificationsRequest Container for the necessary
@@ -2324,8 +2354,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             public Void call() throws Exception {
                 setVaultNotifications(setVaultNotificationsRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2364,18 +2394,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> and <a
-     * amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html">
-     * Set Vault Notification Configuration </a> in the <i>Amazon Glacier
-     * Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html"> Set Vault Notification Configuration </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param setVaultNotificationsRequest Container for the necessary
@@ -2404,16 +2430,16 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    setVaultNotifications(setVaultNotificationsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(setVaultNotificationsRequest, null);
-                   return null;
-            }
-        });
+              try {
+                setVaultNotifications(setVaultNotificationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setVaultNotificationsRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2431,15 +2457,15 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * <p>
      * In the request, you must include the computed SHA256 tree hash of the
      * entire archive you have uploaded. For information about computing a
-     * SHA256 tree hash, see <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html">
-     * Computing Checksums </a> . On the server side, Amazon Glacier also
-     * constructs the SHA256 tree hash of the assembled archive. If the
-     * values match, Amazon Glacier saves the archive to the vault;
-     * otherwise, it returns an error, and the operation fails. The ListParts
-     * operation returns a list of parts uploaded for a specific multipart
-     * upload. It includes checksum information for each uploaded part that
-     * can be used to debug a bad checksum issue.
+     * SHA256 tree hash, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+     * . On the server side, Amazon Glacier also constructs the SHA256 tree
+     * hash of the assembled archive. If the values match, Amazon Glacier
+     * saves the archive to the vault; otherwise, it returns an error, and
+     * the operation fails. The ListParts operation returns a list of parts
+     * uploaded for a specific multipart upload. It includes checksum
+     * information for each uploaded part that can be used to debug a bad
+     * checksum issue.
      * </p>
      * <p>
      * Additionally, Amazon Glacier also checks for any missing content
@@ -2447,13 +2473,13 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * found, Amazon Glacier returns an error and the operation fails.
      * </p>
      * <p>
-     * Complete Multipart Upload is an idempotent operation. After your first
-     * successful complete multipart upload, if you call the operation again
-     * within a short period, the operation will succeed and return the same
-     * archive ID. This is useful in the event you experience a network issue
-     * that causes an aborted connection or receive a 500 server error, in
-     * which case you can repeat your Complete Multipart Upload request and
-     * get the same archive ID without creating duplicate archives. Note,
+     * Complete Multipart Upload is an idempotent operation. After your
+     * first successful complete multipart upload, if you call the operation
+     * again within a short period, the operation will succeed and return the
+     * same archive ID. This is useful in the event you experience a network
+     * issue that causes an aborted connection or receive a 500 server error,
+     * in which case you can repeat your Complete Multipart Upload request
+     * and get the same archive ID without creating duplicate archives. Note,
      * however, that after the multipart upload completes, you cannot call
      * the List Parts operation and the multipart upload will not appear in
      * List Multipart Uploads response, even if idempotent complete is
@@ -2463,18 +2489,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html">
-     * Uploading Large Archives in Parts (Multipart Upload) </a> and <a
-     * azon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html">
-     * Complete Multipart Upload </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html"> Uploading Large Archives in Parts (Multipart Upload) </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html"> Complete Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param completeMultipartUploadRequest Container for the necessary
@@ -2498,8 +2520,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<CompleteMultipartUploadResult>() {
             public CompleteMultipartUploadResult call() throws Exception {
                 return completeMultipartUpload(completeMultipartUploadRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2517,15 +2539,15 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * <p>
      * In the request, you must include the computed SHA256 tree hash of the
      * entire archive you have uploaded. For information about computing a
-     * SHA256 tree hash, see <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html">
-     * Computing Checksums </a> . On the server side, Amazon Glacier also
-     * constructs the SHA256 tree hash of the assembled archive. If the
-     * values match, Amazon Glacier saves the archive to the vault;
-     * otherwise, it returns an error, and the operation fails. The ListParts
-     * operation returns a list of parts uploaded for a specific multipart
-     * upload. It includes checksum information for each uploaded part that
-     * can be used to debug a bad checksum issue.
+     * SHA256 tree hash, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+     * . On the server side, Amazon Glacier also constructs the SHA256 tree
+     * hash of the assembled archive. If the values match, Amazon Glacier
+     * saves the archive to the vault; otherwise, it returns an error, and
+     * the operation fails. The ListParts operation returns a list of parts
+     * uploaded for a specific multipart upload. It includes checksum
+     * information for each uploaded part that can be used to debug a bad
+     * checksum issue.
      * </p>
      * <p>
      * Additionally, Amazon Glacier also checks for any missing content
@@ -2533,13 +2555,13 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * found, Amazon Glacier returns an error and the operation fails.
      * </p>
      * <p>
-     * Complete Multipart Upload is an idempotent operation. After your first
-     * successful complete multipart upload, if you call the operation again
-     * within a short period, the operation will succeed and return the same
-     * archive ID. This is useful in the event you experience a network issue
-     * that causes an aborted connection or receive a 500 server error, in
-     * which case you can repeat your Complete Multipart Upload request and
-     * get the same archive ID without creating duplicate archives. Note,
+     * Complete Multipart Upload is an idempotent operation. After your
+     * first successful complete multipart upload, if you call the operation
+     * again within a short period, the operation will succeed and return the
+     * same archive ID. This is useful in the event you experience a network
+     * issue that causes an aborted connection or receive a 500 server error,
+     * in which case you can repeat your Complete Multipart Upload request
+     * and get the same archive ID without creating duplicate archives. Note,
      * however, that after the multipart upload completes, you cannot call
      * the List Parts operation and the multipart upload will not appear in
      * List Multipart Uploads response, even if idempotent complete is
@@ -2549,18 +2571,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html">
-     * Uploading Large Archives in Parts (Multipart Upload) </a> and <a
-     * azon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html">
-     * Complete Multipart Upload </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html"> Uploading Large Archives in Parts (Multipart Upload) </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html"> Complete Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param completeMultipartUploadRequest Container for the necessary
@@ -2589,17 +2607,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CompleteMultipartUploadResult>() {
             public CompleteMultipartUploadResult call() throws Exception {
-                CompleteMultipartUploadResult result;
+              CompleteMultipartUploadResult result;
                 try {
-                    result = completeMultipartUpload(completeMultipartUploadRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(completeMultipartUploadRequest, result);
-                   return result;
-            }
-        });
+                result = completeMultipartUpload(completeMultipartUploadRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(completeMultipartUploadRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2620,9 +2638,9 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * part and include it in your request. Upon receiving the part data,
      * Amazon Glacier also computes a SHA256 tree hash. If these hash values
      * don't match, the operation fails. For information about computing a
-     * SHA256 tree hash, see <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html">
-     * Computing Checksums </a> .
+     * SHA256 tree hash, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+     * .
      * </p>
      * </li>
      * <li> <p>
@@ -2656,16 +2674,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html">
-     * Uploading Large Archives in Parts (Multipart Upload) </a> and <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html">
-     * Upload Part </a> in the <i>Amazon Glacier Developer Guide</i> .
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html"> Uploading Large Archives in Parts (Multipart Upload) </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html"> Upload Part </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param uploadMultipartPartRequest Container for the necessary
@@ -2689,8 +2705,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<UploadMultipartPartResult>() {
             public UploadMultipartPartResult call() throws Exception {
                 return uploadMultipartPart(uploadMultipartPartRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2711,9 +2727,9 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * part and include it in your request. Upon receiving the part data,
      * Amazon Glacier also computes a SHA256 tree hash. If these hash values
      * don't match, the operation fails. For information about computing a
-     * SHA256 tree hash, see <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html">
-     * Computing Checksums </a> .
+     * SHA256 tree hash, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+     * .
      * </p>
      * </li>
      * <li> <p>
@@ -2747,16 +2763,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html">
-     * Uploading Large Archives in Parts (Multipart Upload) </a> and <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html">
-     * Upload Part </a> in the <i>Amazon Glacier Developer Guide</i> .
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html"> Uploading Large Archives in Parts (Multipart Upload) </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html"> Upload Part </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param uploadMultipartPartRequest Container for the necessary
@@ -2785,17 +2799,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UploadMultipartPartResult>() {
             public UploadMultipartPartResult call() throws Exception {
-                UploadMultipartPartResult result;
+              UploadMultipartPartResult result;
                 try {
-                    result = uploadMultipartPart(uploadMultipartPartRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(uploadMultipartPartRequest, result);
-                   return result;
-            }
-        });
+                result = uploadMultipartPart(uploadMultipartPartRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(uploadMultipartPartRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2809,25 +2823,22 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * Vault, the change in contents will not be immediately reflected. If
      * you want to retrieve the latest inventory of the vault, use
      * InitiateJob. Amazon Glacier generates vault inventories approximately
-     * daily. For more information, see <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">
-     * Downloading a Vault Inventory in Amazon Glacier </a> .
+     * daily. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory in Amazon Glacier </a>
+     * .
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html">
-     * Retrieving Vault Metadata in Amazon Glacier </a> and <a
-     * tp://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html">
-     * Describe Vault </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html"> Describe Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param describeVaultRequest Container for the necessary parameters to
@@ -2850,8 +2861,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<DescribeVaultResult>() {
             public DescribeVaultResult call() throws Exception {
                 return describeVault(describeVaultRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2865,25 +2876,22 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * Vault, the change in contents will not be immediately reflected. If
      * you want to retrieve the latest inventory of the vault, use
      * InitiateJob. Amazon Glacier generates vault inventories approximately
-     * daily. For more information, see <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">
-     * Downloading a Vault Inventory in Amazon Glacier </a> .
+     * daily. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory in Amazon Glacier </a>
+     * .
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html">
-     * Retrieving Vault Metadata in Amazon Glacier </a> and <a
-     * tp://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html">
-     * Describe Vault </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html"> Describe Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param describeVaultRequest Container for the necessary parameters to
@@ -2911,42 +2919,39 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVaultResult>() {
             public DescribeVaultResult call() throws Exception {
-                DescribeVaultResult result;
+              DescribeVaultResult result;
                 try {
-                    result = describeVault(describeVaultRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVaultRequest, result);
-                   return result;
-            }
-        });
+                result = describeVault(describeVaultRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVaultRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * This operation deletes the notification configuration set for a vault.
-     * The operation is eventually consistent;that is, it might take some
-     * time for Amazon Glacier to completely disable the notifications and
-     * you might still receive some notifications for a short time after you
-     * send the delete request.
+     * This operation deletes the notification configuration set for a
+     * vault. The operation is eventually consistent;that is, it might take
+     * some time for Amazon Glacier to completely disable the notifications
+     * and you might still receive some notifications for a short time after
+     * you send the delete request.
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * ://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> and <a
-     * zon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html">
-     * Delete Vault Notification Configuration </a> in the Amazon Glacier
-     * Developer Guide.
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html"> Delete Vault Notification Configuration </a>
+     * in the Amazon Glacier Developer Guide.
      * </p>
      *
      * @param deleteVaultNotificationsRequest Container for the necessary
@@ -2971,33 +2976,30 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             public Void call() throws Exception {
                 deleteVaultNotifications(deleteVaultNotificationsRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * This operation deletes the notification configuration set for a vault.
-     * The operation is eventually consistent;that is, it might take some
-     * time for Amazon Glacier to completely disable the notifications and
-     * you might still receive some notifications for a short time after you
-     * send the delete request.
+     * This operation deletes the notification configuration set for a
+     * vault. The operation is eventually consistent;that is, it might take
+     * some time for Amazon Glacier to completely disable the notifications
+     * and you might still receive some notifications for a short time after
+     * you send the delete request.
      * </p>
      * <p>
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * ://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * s.amazon.com/amazonglacier/latest/dev/configuring-notifications.html">
-     * Configuring Vault Notifications in Amazon Glacier </a> and <a
-     * zon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html">
-     * Delete Vault Notification Configuration </a> in the Amazon Glacier
-     * Developer Guide.
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html"> Delete Vault Notification Configuration </a>
+     * in the Amazon Glacier Developer Guide.
      * </p>
      *
      * @param deleteVaultNotificationsRequest Container for the necessary
@@ -3026,16 +3028,16 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVaultNotifications(deleteVaultNotificationsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVaultNotificationsRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVaultNotifications(deleteVaultNotificationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVaultNotificationsRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -3051,11 +3053,11 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * this operation returns up to 1,000 multipart uploads in the response.
      * You should always check the response for a <code>marker</code> at
      * which to continue the list; if there are no more items the
-     * <code>marker</code> is <code>null</code> .
-     * To return a list of multipart uploads that begins at a specific
-     * upload, set the <code>marker</code> request parameter to the value you
-     * obtained from a previous List Multipart Upload request. You can also
-     * limit the number of uploads returned in the response by specifying the
+     * <code>marker</code> is <code>null</code> . To return a list of
+     * multipart uploads that begins at a specific upload, set the
+     * <code>marker</code> request parameter to the value you obtained from a
+     * previous List Multipart Upload request. You can also limit the number
+     * of uploads returned in the response by specifying the
      * <code>limit</code> parameter in the request.
      * </p>
      * <p>
@@ -3069,17 +3071,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html">
-     * Working with Archives in Amazon Glacier </a> and <a
-     * .amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html">
-     * List Multipart Uploads </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html"> List Multipart Uploads </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param listMultipartUploadsRequest Container for the necessary
@@ -3103,8 +3102,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
         return executorService.submit(new Callable<ListMultipartUploadsResult>() {
             public ListMultipartUploadsResult call() throws Exception {
                 return listMultipartUploads(listMultipartUploadsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3120,11 +3119,11 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * this operation returns up to 1,000 multipart uploads in the response.
      * You should always check the response for a <code>marker</code> at
      * which to continue the list; if there are no more items the
-     * <code>marker</code> is <code>null</code> .
-     * To return a list of multipart uploads that begins at a specific
-     * upload, set the <code>marker</code> request parameter to the value you
-     * obtained from a previous List Multipart Upload request. You can also
-     * limit the number of uploads returned in the response by specifying the
+     * <code>marker</code> is <code>null</code> . To return a list of
+     * multipart uploads that begins at a specific upload, set the
+     * <code>marker</code> request parameter to the value you obtained from a
+     * previous List Multipart Upload request. You can also limit the number
+     * of uploads returned in the response by specifying the
      * <code>limit</code> parameter in the request.
      * </p>
      * <p>
@@ -3138,17 +3137,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and the underlying REST API, go to <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html">
-     * Working with Archives in Amazon Glacier </a> and <a
-     * .amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html">
-     * List Multipart Uploads </a> in the <i>Amazon Glacier Developer
-     * Guide</i> .
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html"> List Multipart Uploads </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param listMultipartUploadsRequest Container for the necessary
@@ -3177,17 +3173,17 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListMultipartUploadsResult>() {
             public ListMultipartUploadsResult call() throws Exception {
-                ListMultipartUploadsResult result;
+              ListMultipartUploadsResult result;
                 try {
-                    result = listMultipartUploads(listMultipartUploadsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listMultipartUploadsRequest, result);
-                   return result;
-            }
-        });
+                result = listMultipartUploads(listMultipartUploadsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listMultipartUploadsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3198,13 +3194,9 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * If either of these conditions is not satisfied, the vault deletion
      * fails (that is, the vault is not removed) and Amazon Glacier returns
      * an error. You can use DescribeVault to return the number of archives
-     * in a vault, and you can use <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">
-     * Initiate a Job (POST jobs) </a> to initiate a new inventory retrieval
-     * for a vault. The inventory contains the archive IDs you use to delete
-     * archives using <a
-     * docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html">
-     * Delete Archive (DELETE archive) </a> .
+     * in a vault, and you can use
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html"> Initiate a Job (POST jobs) </a> to initiate a new inventory retrieval for a vault. The inventory contains the archive IDs you use to delete archives using <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive (DELETE archive) </a>
+     * .
      * </p>
      * <p>
      * This operation is idempotent.
@@ -3213,17 +3205,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-vaults.html">
-     * Deleting a Vault in Amazon Glacier </a> and <a
-     * //docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html">
-     * Delete Vault </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-vaults.html"> Deleting a Vault in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html"> Delete Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param deleteVaultRequest Container for the necessary parameters to
@@ -3247,8 +3236,8 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             public Void call() throws Exception {
                 deleteVault(deleteVaultRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3259,13 +3248,9 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * If either of these conditions is not satisfied, the vault deletion
      * fails (that is, the vault is not removed) and Amazon Glacier returns
      * an error. You can use DescribeVault to return the number of archives
-     * in a vault, and you can use <a
-     * s.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">
-     * Initiate a Job (POST jobs) </a> to initiate a new inventory retrieval
-     * for a vault. The inventory contains the archive IDs you use to delete
-     * archives using <a
-     * docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html">
-     * Delete Archive (DELETE archive) </a> .
+     * in a vault, and you can use
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html"> Initiate a Job (POST jobs) </a> to initiate a new inventory retrieval for a vault. The inventory contains the archive IDs you use to delete archives using <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive (DELETE archive) </a>
+     * .
      * </p>
      * <p>
      * This operation is idempotent.
@@ -3274,17 +3259,14 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      * An AWS account has full permission to perform all operations
      * (actions). However, AWS Identity and Access Management (IAM) users
      * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see <a
-     * azon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">
-     * Access Control Using AWS Identity and Access Management (IAM) </a> .
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
      * </p>
      * <p>
-     * For conceptual information and underlying REST API, go to <a
-     * ://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-vaults.html">
-     * Deleting a Vault in Amazon Glacier </a> and <a
-     * //docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html">
-     * Delete Vault </a> in the <i>Amazon Glacier Developer Guide</i> .
-     * 
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-vaults.html"> Deleting a Vault in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html"> Delete Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
      * @param deleteVaultRequest Container for the necessary parameters to
@@ -3312,16 +3294,16 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVault(deleteVaultRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVaultRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVault(deleteVaultRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVaultRequest, null);
+                 return null;
+        }
+    });
     }
     
 }

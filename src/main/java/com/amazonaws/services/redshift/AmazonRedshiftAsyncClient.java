@@ -35,25 +35,37 @@ import com.amazonaws.services.redshift.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * Amazon Redshift <b>Overview</b> <p>
- * This is an interface reference for Amazon Redshift. It contains documentation for one of the programming or command line interfaces you can use to
- * manage Amazon Redshift clusters. Note that Amazon Redshift is asynchronous, which means that some interfaces may require techniques, such as polling
- * or asynchronous callback handlers, to determine when a command has been applied. In this reference, the parameter descriptions indicate whether a
- * change is applied immediately, on the next instance reboot, or during the next maintenance window. For a summary of the Amazon Redshift cluster
- * management interfaces, go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/using-aws-sdk.html"> Using the Amazon Redshift Management
- * Interfaces </a> .
+ * This is an interface reference for Amazon Redshift. It contains
+ * documentation for one of the programming or command line interfaces
+ * you can use to manage Amazon Redshift clusters. Note that Amazon
+ * Redshift is asynchronous, which means that some interfaces may require
+ * techniques, such as polling or asynchronous callback handlers, to
+ * determine when a command has been applied. In this reference, the
+ * parameter descriptions indicate whether a change is applied
+ * immediately, on the next instance reboot, or during the next
+ * maintenance window. For a summary of the Amazon Redshift cluster
+ * management interfaces, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/using-aws-sdk.html"> Using the Amazon Redshift Management Interfaces </a>
+ * .
  * </p>
  * <p>
- * Amazon Redshift manages all the work of setting up, operating, and scaling a data warehouse: provisioning capacity, monitoring and backing up the
- * cluster, and applying patches and upgrades to the Amazon Redshift engine. You can focus on using your data to acquire new insights for your business
- * and customers.
+ * Amazon Redshift manages all the work of setting up, operating, and
+ * scaling a data warehouse: provisioning capacity, monitoring and
+ * backing up the cluster, and applying patches and upgrades to the
+ * Amazon Redshift engine. You can focus on using your data to acquire
+ * new insights for your business and customers.
  * </p>
  * <p>
- * If you are a first-time user of Amazon Redshift, we recommend that you begin by reading the The <a
- * href="http://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html"> Amazon Redshift Getting Started Guide </a>
+ * If you are a first-time user of Amazon Redshift, we recommend that you
+ * begin by reading the The
+ * <a href="http://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html"> Amazon Redshift Getting Started Guide </a>
+ * 
  * </p>
  * <p>
- * If you are a database developer, the <a href="http://docs.aws.amazon.com/redshift/latest/dg/welcome.html"> Amazon Redshift Database Developer Guide
- * </a> explains how to design, build, query, and maintain the databases that make up your data warehouse.
+ * If you are a database developer, the
+ * <a href="http://docs.aws.amazon.com/redshift/latest/dg/welcome.html"> Amazon Redshift Database Developer Guide </a>
+ * explains how to design, build, query, and maintain the databases that
+ * make up your data warehouse.
  * </p>
  */
 public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
@@ -63,6 +75,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -105,13 +119,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonRedshiftAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonRedshift using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -123,7 +137,7 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      *                       when authenticating with AWS services.
      */
     public AmazonRedshiftAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -177,7 +191,7 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonRedshift using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -190,7 +204,7 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      *            to authenticate requests with AWS services.
      */
     public AmazonRedshiftAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -233,7 +247,7 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      */
     public AmazonRedshiftAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -277,7 +291,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -292,10 +307,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * snapshot, the restore will run to completion.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param revokeSnapshotAccessRequest Container for the necessary
@@ -319,8 +333,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
                 return revokeSnapshotAccess(revokeSnapshotAccessRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -330,10 +344,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * snapshot, the restore will run to completion.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param revokeSnapshotAccessRequest Container for the necessary
@@ -362,17 +375,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
-                Snapshot result;
+              Snapshot result;
                 try {
-                    result = revokeSnapshotAccess(revokeSnapshotAccessRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(revokeSnapshotAccessRequest, result);
-                   return result;
-            }
-        });
+                result = revokeSnapshotAccess(revokeSnapshotAccessRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(revokeSnapshotAccessRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -403,8 +416,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return modifySnapshotCopyRetentionPeriod(modifySnapshotCopyRetentionPeriodRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -440,17 +453,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = modifySnapshotCopyRetentionPeriod(modifySnapshotCopyRetentionPeriodRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifySnapshotCopyRetentionPeriodRequest, result);
-                   return result;
-            }
-        });
+                result = modifySnapshotCopyRetentionPeriod(modifySnapshotCopyRetentionPeriodRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifySnapshotCopyRetentionPeriodRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -482,8 +495,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ClusterSubnetGroup>() {
             public ClusterSubnetGroup call() throws Exception {
                 return modifyClusterSubnetGroup(modifyClusterSubnetGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -520,17 +533,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ClusterSubnetGroup>() {
             public ClusterSubnetGroup call() throws Exception {
-                ClusterSubnetGroup result;
+              ClusterSubnetGroup result;
                 try {
-                    result = modifyClusterSubnetGroup(modifyClusterSubnetGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyClusterSubnetGroupRequest, result);
-                   return result;
-            }
-        });
+                result = modifyClusterSubnetGroup(modifyClusterSubnetGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyClusterSubnetGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -560,8 +573,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
             public Void call() throws Exception {
                 deleteHsmConfiguration(deleteHsmConfigurationRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -595,16 +608,16 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteHsmConfiguration(deleteHsmConfigurationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteHsmConfigurationRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteHsmConfiguration(deleteHsmConfigurationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteHsmConfigurationRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -617,12 +630,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * you want to reserve.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html">
-     * Purchasing Reserved Nodes </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
-     * 
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html"> Purchasing Reserved Nodes </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param purchaseReservedNodeOfferingRequest Container for the necessary
@@ -647,8 +657,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ReservedNode>() {
             public ReservedNode call() throws Exception {
                 return purchaseReservedNodeOffering(purchaseReservedNodeOfferingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -661,12 +671,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * you want to reserve.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html">
-     * Purchasing Reserved Nodes </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
-     * 
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html"> Purchasing Reserved Nodes </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param purchaseReservedNodeOfferingRequest Container for the necessary
@@ -696,17 +703,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ReservedNode>() {
             public ReservedNode call() throws Exception {
-                ReservedNode result;
+              ReservedNode result;
                 try {
-                    result = purchaseReservedNodeOffering(purchaseReservedNodeOfferingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(purchaseReservedNodeOfferingRequest, result);
-                   return result;
-            }
-        });
+                result = purchaseReservedNodeOffering(purchaseReservedNodeOfferingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(purchaseReservedNodeOfferingRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -735,8 +742,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DisableLoggingResult>() {
             public DisableLoggingResult call() throws Exception {
                 return disableLogging(disableLoggingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -770,17 +777,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DisableLoggingResult>() {
             public DisableLoggingResult call() throws Exception {
-                DisableLoggingResult result;
+              DisableLoggingResult result;
                 try {
-                    result = disableLogging(disableLoggingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(disableLoggingRequest, result);
-                   return result;
-            }
-        });
+                result = disableLogging(disableLoggingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(disableLoggingRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -789,12 +796,11 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * security or parameter group, update the preferred maintenance window,
      * or change the master user password. Resetting a cluster password or
      * modifying the security groups associated with a cluster do not need a
-     * reboot. However, modifying parameter group requires a reboot for
+     * reboot. However, modifying a parameter group requires a reboot for
      * parameters to take effect. For more information about managing
-     * clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      * <p>
      * You can also change node type and the number of nodes to scale up or
@@ -824,8 +830,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return modifyCluster(modifyClusterRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -834,12 +840,11 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * security or parameter group, update the preferred maintenance window,
      * or change the master user password. Resetting a cluster password or
      * modifying the security groups associated with a cluster do not need a
-     * reboot. However, modifying parameter group requires a reboot for
+     * reboot. However, modifying a parameter group requires a reboot for
      * parameters to take effect. For more information about managing
-     * clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      * <p>
      * You can also change node type and the number of nodes to scale up or
@@ -874,17 +879,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = modifyCluster(modifyClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyClusterRequest, result);
-                   return result;
-            }
-        });
+                result = modifyCluster(modifyClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyClusterRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -902,10 +907,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * delete them.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param copyClusterSnapshotRequest Container for the necessary
@@ -929,8 +933,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
                 return copyClusterSnapshot(copyClusterSnapshotRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -948,10 +952,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * delete them.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param copyClusterSnapshotRequest Container for the necessary
@@ -980,17 +983,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
-                Snapshot result;
+              Snapshot result;
                 try {
-                    result = copyClusterSnapshot(copyClusterSnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(copyClusterSnapshotRequest, result);
-                   return result;
-            }
-        });
+                result = copyClusterSnapshot(copyClusterSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(copyClusterSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1002,10 +1005,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * types differ by available storage, memory, CPU and price. With the
      * cost involved you might want to obtain a list of cluster options in
      * the specific region and specify values when creating a cluster. For
-     * more information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * more information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      *
      * @param describeOrderableClusterOptionsRequest Container for the
@@ -1030,8 +1032,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeOrderableClusterOptionsResult>() {
             public DescribeOrderableClusterOptionsResult call() throws Exception {
                 return describeOrderableClusterOptions(describeOrderableClusterOptionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1043,10 +1045,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * types differ by available storage, memory, CPU and price. With the
      * cost involved you might want to obtain a list of cluster options in
      * the specific region and specify values when creating a cluster. For
-     * more information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * more information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      *
      * @param describeOrderableClusterOptionsRequest Container for the
@@ -1076,17 +1077,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeOrderableClusterOptionsResult>() {
             public DescribeOrderableClusterOptionsResult call() throws Exception {
-                DescribeOrderableClusterOptionsResult result;
+              DescribeOrderableClusterOptionsResult result;
                 try {
-                    result = describeOrderableClusterOptions(describeOrderableClusterOptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeOrderableClusterOptionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeOrderableClusterOptions(describeOrderableClusterOptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeOrderableClusterOptionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1115,8 +1116,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<EnableLoggingResult>() {
             public EnableLoggingResult call() throws Exception {
                 return enableLogging(enableLoggingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1150,17 +1151,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<EnableLoggingResult>() {
             public EnableLoggingResult call() throws Exception {
-                EnableLoggingResult result;
+              EnableLoggingResult result;
                 try {
-                    result = enableLogging(enableLoggingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(enableLoggingRequest, result);
-                   return result;
-            }
-        });
+                result = enableLogging(enableLoggingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(enableLoggingRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1170,11 +1171,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * (Amazon VPC) when creating Amazon Redshift subnet group.
      * </p>
      * <p>
-     * For information about subnet groups, go to <a
-     * zon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html">
-     * Amazon Redshift Cluster Subnet Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
-     * 
+     * For information about subnet groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html"> Amazon Redshift Cluster Subnet Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterSubnetGroupRequest Container for the necessary
@@ -1199,8 +1198,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ClusterSubnetGroup>() {
             public ClusterSubnetGroup call() throws Exception {
                 return createClusterSubnetGroup(createClusterSubnetGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1210,11 +1209,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * (Amazon VPC) when creating Amazon Redshift subnet group.
      * </p>
      * <p>
-     * For information about subnet groups, go to <a
-     * zon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html">
-     * Amazon Redshift Cluster Subnet Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
-     * 
+     * For information about subnet groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html"> Amazon Redshift Cluster Subnet Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterSubnetGroupRequest Container for the necessary
@@ -1244,17 +1241,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ClusterSubnetGroup>() {
             public ClusterSubnetGroup call() throws Exception {
-                ClusterSubnetGroup result;
+              ClusterSubnetGroup result;
                 try {
-                    result = createClusterSubnetGroup(createClusterSubnetGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createClusterSubnetGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createClusterSubnetGroup(createClusterSubnetGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createClusterSubnetGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1285,8 +1282,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
             public Void call() throws Exception {
                 deleteHsmClientCertificate(deleteHsmClientCertificateRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1321,16 +1318,16 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteHsmClientCertificate(deleteHsmClientCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteHsmClientCertificateRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteHsmClientCertificate(deleteHsmClientCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteHsmClientCertificateRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1340,10 +1337,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * status is set to <code>rebooting</code> . A cluster event is created
      * when the reboot is completed. Any pending cluster modifications (see
      * ModifyCluster) are applied at this reboot. For more information about
-     * managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      *
      * @param rebootClusterRequest Container for the necessary parameters to
@@ -1366,8 +1362,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return rebootCluster(rebootClusterRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1377,10 +1373,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * status is set to <code>rebooting</code> . A cluster event is created
      * when the reboot is completed. Any pending cluster modifications (see
      * ModifyCluster) are applied at this reboot. For more information about
-     * managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      *
      * @param rebootClusterRequest Container for the necessary parameters to
@@ -1408,17 +1403,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = rebootCluster(rebootClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(rebootClusterRequest, result);
-                   return result;
-            }
-        });
+                result = rebootCluster(rebootClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(rebootClusterRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1449,8 +1444,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
             public Void call() throws Exception {
                 deleteClusterSubnetGroup(deleteClusterSubnetGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1485,16 +1480,16 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteClusterSubnetGroup(deleteClusterSubnetGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteClusterSubnetGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteClusterSubnetGroup(deleteClusterSubnetGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteClusterSubnetGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1506,11 +1501,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * "deleting" once Amazon Redshift begins deleting the cluster. Use
      * DescribeClusters to monitor the status of the deletion. The delete
      * operation cannot be canceled or reverted once submitted. For more
-     * information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
+     * information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param deleteClusterRequest Container for the necessary parameters to
@@ -1533,8 +1526,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return deleteCluster(deleteClusterRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1546,11 +1539,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * "deleting" once Amazon Redshift begins deleting the cluster. Use
      * DescribeClusters to monitor the status of the deletion. The delete
      * operation cannot be canceled or reverted once submitted. For more
-     * information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
+     * information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param deleteClusterRequest Container for the necessary parameters to
@@ -1578,29 +1569,28 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = deleteCluster(deleteClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteClusterRequest, result);
-                   return result;
-            }
-        });
+                result = deleteCluster(deleteClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteClusterRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Creates a manual snapshot of the specified cluster. The cluster must
-     * be in the "available" state.
+     * be in the <code>available</code> state.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterSnapshotRequest Container for the necessary
@@ -1624,20 +1614,19 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
                 return createClusterSnapshot(createClusterSnapshotRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Creates a manual snapshot of the specified cluster. The cluster must
-     * be in the "available" state.
+     * be in the <code>available</code> state.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterSnapshotRequest Container for the necessary
@@ -1666,17 +1655,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
-                Snapshot result;
+              Snapshot result;
                 try {
-                    result = createClusterSnapshot(createClusterSnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createClusterSnapshotRequest, result);
-                   return result;
-            }
-        });
+                result = createClusterSnapshot(createClusterSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createClusterSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1686,11 +1675,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * provide a cluster subnet group name or the cluster security group
      * parameter, Amazon Redshift creates a non-VPC cluster, it associates
      * the default cluster security group with the cluster. For more
-     * information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
+     * information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterRequest Container for the necessary parameters to
@@ -1713,8 +1700,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return createCluster(createClusterRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1724,11 +1711,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * provide a cluster subnet group name or the cluster security group
      * parameter, Amazon Redshift creates a non-VPC cluster, it associates
      * the default cluster security group with the cluster. For more
-     * information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
+     * information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterRequest Container for the necessary parameters to
@@ -1756,17 +1741,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = createCluster(createClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createClusterRequest, result);
-                   return result;
-            }
-        });
+                result = createCluster(createClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createClusterRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1798,8 +1783,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeEventsResult>() {
             public DescribeEventsResult call() throws Exception {
                 return describeEvents(describeEventsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1836,17 +1821,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeEventsResult>() {
             public DescribeEventsResult call() throws Exception {
-                DescribeEventsResult result;
+              DescribeEventsResult result;
                 try {
-                    result = describeEvents(describeEventsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeEventsRequest, result);
-                   return result;
-            }
-        });
+                result = describeEvents(describeEventsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeEventsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1863,18 +1848,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * where the cluster resides.
      * </p>
      * <p>
-     * For an overview of CIDR blocks, see the Wikipedia article on <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Classless Inter-Domain Routing </a> .
+     * For an overview of CIDR blocks, see the Wikipedia article on
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Classless Inter-Domain Routing </a>
+     * .
      * </p>
      * <p>
      * You must also associate the security group with a cluster so that
      * clients running on these IP addresses or the EC2 instance are
      * authorized to connect to the cluster. For information about managing
-     * security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Working with Security Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Working with Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param authorizeClusterSecurityGroupIngressRequest Container for the
@@ -1899,8 +1883,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ClusterSecurityGroup>() {
             public ClusterSecurityGroup call() throws Exception {
                 return authorizeClusterSecurityGroupIngress(authorizeClusterSecurityGroupIngressRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1917,18 +1901,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * where the cluster resides.
      * </p>
      * <p>
-     * For an overview of CIDR blocks, see the Wikipedia article on <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Classless Inter-Domain Routing </a> .
+     * For an overview of CIDR blocks, see the Wikipedia article on
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Classless Inter-Domain Routing </a>
+     * .
      * </p>
      * <p>
      * You must also associate the security group with a cluster so that
      * clients running on these IP addresses or the EC2 instance are
      * authorized to connect to the cluster. For information about managing
-     * security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Working with Security Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Working with Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param authorizeClusterSecurityGroupIngressRequest Container for the
@@ -1958,17 +1941,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ClusterSecurityGroup>() {
             public ClusterSecurityGroup call() throws Exception {
-                ClusterSecurityGroup result;
+              ClusterSecurityGroup result;
                 try {
-                    result = authorizeClusterSecurityGroupIngress(authorizeClusterSecurityGroupIngressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(authorizeClusterSecurityGroupIngressRequest, result);
-                   return result;
-            }
-        });
+                result = authorizeClusterSecurityGroupIngress(authorizeClusterSecurityGroupIngressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(authorizeClusterSecurityGroupIngressRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1997,8 +1980,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return rotateEncryptionKey(rotateEncryptionKeyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2032,17 +2015,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = rotateEncryptionKey(rotateEncryptionKeyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(rotateEncryptionKeyRequest, result);
-                   return result;
-            }
-        });
+                result = rotateEncryptionKey(rotateEncryptionKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(rotateEncryptionKeyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2050,14 +2033,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Deletes an Amazon Redshift security group.
      * </p>
      * <p>
-     * <b>NOTE:</b>You cannot delete a security group that is associated with
-     * any clusters. You cannot delete the default security group.
+     * <b>NOTE:</b>You cannot delete a security group that is associated
+     * with any clusters. You cannot delete the default security group.
      * </p>
      * <p>
-     * For information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
+     * For information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param deleteClusterSecurityGroupRequest Container for the necessary
@@ -2083,8 +2065,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
             public Void call() throws Exception {
                 deleteClusterSecurityGroup(deleteClusterSecurityGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2092,14 +2074,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Deletes an Amazon Redshift security group.
      * </p>
      * <p>
-     * <b>NOTE:</b>You cannot delete a security group that is associated with
-     * any clusters. You cannot delete the default security group.
+     * <b>NOTE:</b>You cannot delete a security group that is associated
+     * with any clusters. You cannot delete the default security group.
      * </p>
      * <p>
-     * For information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
+     * For information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param deleteClusterSecurityGroupRequest Container for the necessary
@@ -2129,16 +2110,16 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteClusterSecurityGroup(deleteClusterSecurityGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteClusterSecurityGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteClusterSecurityGroup(deleteClusterSecurityGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteClusterSecurityGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2167,8 +2148,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeReservedNodesResult>() {
             public DescribeReservedNodesResult call() throws Exception {
                 return describeReservedNodes(describeReservedNodesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2202,17 +2183,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReservedNodesResult>() {
             public DescribeReservedNodesResult call() throws Exception {
-                DescribeReservedNodesResult result;
+              DescribeReservedNodesResult result;
                 try {
-                    result = describeReservedNodes(describeReservedNodesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedNodesRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedNodes(describeReservedNodesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedNodesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2221,10 +2202,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * group family.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeDefaultClusterParametersRequest Container for the
@@ -2249,8 +2229,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DefaultClusterParameters>() {
             public DefaultClusterParameters call() throws Exception {
                 return describeDefaultClusterParameters(describeDefaultClusterParametersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2259,10 +2239,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * group family.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeDefaultClusterParametersRequest Container for the
@@ -2292,17 +2271,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DefaultClusterParameters>() {
             public DefaultClusterParameters call() throws Exception {
-                DefaultClusterParameters result;
+              DefaultClusterParameters result;
                 try {
-                    result = describeDefaultClusterParameters(describeDefaultClusterParametersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeDefaultClusterParametersRequest, result);
-                   return result;
-            }
-        });
+                result = describeDefaultClusterParameters(describeDefaultClusterParametersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeDefaultClusterParametersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2331,8 +2310,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<EventSubscription>() {
             public EventSubscription call() throws Exception {
                 return modifyEventSubscription(modifyEventSubscriptionRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2366,17 +2345,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<EventSubscription>() {
             public EventSubscription call() throws Exception {
-                EventSubscription result;
+              EventSubscription result;
                 try {
-                    result = modifyEventSubscription(modifyEventSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyEventSubscriptionRequest, result);
-                   return result;
-            }
-        });
+                result = modifyEventSubscription(modifyEventSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyEventSubscriptionRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2385,11 +2364,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * to control access to non-VPC clusters.
      * </p>
      * <p>
-     * For information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
-     * 
+     * For information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterSecurityGroupRequest Container for the necessary
@@ -2414,8 +2391,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ClusterSecurityGroup>() {
             public ClusterSecurityGroup call() throws Exception {
                 return createClusterSecurityGroup(createClusterSecurityGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2424,11 +2401,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * to control access to non-VPC clusters.
      * </p>
      * <p>
-     * For information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
-     * 
+     * For information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterSecurityGroupRequest Container for the necessary
@@ -2458,17 +2433,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ClusterSecurityGroup>() {
             public ClusterSecurityGroup call() throws Exception {
-                ClusterSecurityGroup result;
+              ClusterSecurityGroup result;
                 try {
-                    result = createClusterSecurityGroup(createClusterSecurityGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createClusterSecurityGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createClusterSecurityGroup(createClusterSecurityGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createClusterSecurityGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2504,8 +2479,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeResizeResult>() {
             public DescribeResizeResult call() throws Exception {
                 return describeResize(describeResizeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2546,17 +2521,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeResizeResult>() {
             public DescribeResizeResult call() throws Exception {
-                DescribeResizeResult result;
+              DescribeResizeResult result;
                 try {
-                    result = describeResize(describeResizeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeResizeRequest, result);
-                   return result;
-            }
-        });
+                result = describeResize(describeResizeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeResizeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2564,10 +2539,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Returns descriptions of the available Amazon Redshift cluster
      * versions. You can call this operation even before creating any
      * clusters to learn more about the Amazon Redshift versions. For more
-     * information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      *
      * @param describeClusterVersionsRequest Container for the necessary
@@ -2591,8 +2565,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClusterVersionsResult>() {
             public DescribeClusterVersionsResult call() throws Exception {
                 return describeClusterVersions(describeClusterVersionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2600,10 +2574,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Returns descriptions of the available Amazon Redshift cluster
      * versions. You can call this operation even before creating any
      * clusters to learn more about the Amazon Redshift versions. For more
-     * information about managing clusters, go to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i>
+     * information about managing clusters, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i>
      * </p>
      *
      * @param describeClusterVersionsRequest Container for the necessary
@@ -2632,17 +2605,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClusterVersionsResult>() {
             public DescribeClusterVersionsResult call() throws Exception {
-                DescribeClusterVersionsResult result;
+              DescribeClusterVersionsResult result;
                 try {
-                    result = describeClusterVersions(describeClusterVersionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClusterVersionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusterVersions(describeClusterVersionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClusterVersionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2656,16 +2629,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * with the restored cluster.
      * </p>
      * <p>
-     * If a snapshot is taken of a cluster in VPC, you can restore it only
-     * in VPC. In this case, you must provide a cluster subnet group where
-     * you want the cluster restored. If snapshot is taken of a cluster
-     * outside VPC, then you can restore it only outside VPC.
+     * If you restore a cluster into a VPC, you must provide a cluster
+     * subnet group where you want the cluster restored.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param restoreFromClusterSnapshotRequest Container for the necessary
@@ -2690,8 +2660,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return restoreFromClusterSnapshot(restoreFromClusterSnapshotRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2705,16 +2675,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * with the restored cluster.
      * </p>
      * <p>
-     * If a snapshot is taken of a cluster in VPC, you can restore it only
-     * in VPC. In this case, you must provide a cluster subnet group where
-     * you want the cluster restored. If snapshot is taken of a cluster
-     * outside VPC, then you can restore it only outside VPC.
+     * If you restore a cluster into a VPC, you must provide a cluster
+     * subnet group where you want the cluster restored.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param restoreFromClusterSnapshotRequest Container for the necessary
@@ -2744,17 +2711,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = restoreFromClusterSnapshot(restoreFromClusterSnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(restoreFromClusterSnapshotRequest, result);
-                   return result;
-            }
-        });
+                result = restoreFromClusterSnapshot(restoreFromClusterSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(restoreFromClusterSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2762,10 +2729,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Modifies the parameters of a parameter group.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param modifyClusterParameterGroupRequest Container for the necessary
@@ -2790,8 +2756,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ModifyClusterParameterGroupResult>() {
             public ModifyClusterParameterGroupResult call() throws Exception {
                 return modifyClusterParameterGroup(modifyClusterParameterGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2799,10 +2765,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Modifies the parameters of a parameter group.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param modifyClusterParameterGroupRequest Container for the necessary
@@ -2832,26 +2797,26 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ModifyClusterParameterGroupResult>() {
             public ModifyClusterParameterGroupResult call() throws Exception {
-                ModifyClusterParameterGroupResult result;
+              ModifyClusterParameterGroupResult result;
                 try {
-                    result = modifyClusterParameterGroup(modifyClusterParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyClusterParameterGroupRequest, result);
-                   return result;
-            }
-        });
+                result = modifyClusterParameterGroup(modifyClusterParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyClusterParameterGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Displays a list of event categories for all event source types, or for
-     * a specified source type. For a list of the event categories and source
-     * types, go to <a
-     * mazon.com/redshift/latest/mgmt/working-with-event-notifications.html">
-     * Amazon Redshift Event Notifications </a> .
+     * Displays a list of event categories for all event source types, or
+     * for a specified source type. For a list of the event categories and
+     * source types, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-event-notifications.html"> Amazon Redshift Event Notifications </a>
+     * .
      * </p>
      *
      * @param describeEventCategoriesRequest Container for the necessary
@@ -2875,17 +2840,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeEventCategoriesResult>() {
             public DescribeEventCategoriesResult call() throws Exception {
                 return describeEventCategories(describeEventCategoriesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Displays a list of event categories for all event source types, or for
-     * a specified source type. For a list of the event categories and source
-     * types, go to <a
-     * mazon.com/redshift/latest/mgmt/working-with-event-notifications.html">
-     * Amazon Redshift Event Notifications </a> .
+     * Displays a list of event categories for all event source types, or
+     * for a specified source type. For a list of the event categories and
+     * source types, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-event-notifications.html"> Amazon Redshift Event Notifications </a>
+     * .
      * </p>
      *
      * @param describeEventCategoriesRequest Container for the necessary
@@ -2914,17 +2879,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeEventCategoriesResult>() {
             public DescribeEventCategoriesResult call() throws Exception {
-                DescribeEventCategoriesResult result;
+              DescribeEventCategoriesResult result;
                 try {
-                    result = describeEventCategories(describeEventCategoriesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeEventCategoriesRequest, result);
-                   return result;
-            }
-        });
+                result = describeEventCategories(describeEventCategoriesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeEventCategoriesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2934,10 +2899,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * information about only that security group.
      * </p>
      * <p>
-     * For information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
+     * For information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClusterSecurityGroupsRequest Container for the
@@ -2962,8 +2926,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClusterSecurityGroupsResult>() {
             public DescribeClusterSecurityGroupsResult call() throws Exception {
                 return describeClusterSecurityGroups(describeClusterSecurityGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2973,10 +2937,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * information about only that security group.
      * </p>
      * <p>
-     * For information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
+     * For information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClusterSecurityGroupsRequest Container for the
@@ -3006,17 +2969,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClusterSecurityGroupsResult>() {
             public DescribeClusterSecurityGroupsResult call() throws Exception {
-                DescribeClusterSecurityGroupsResult result;
+              DescribeClusterSecurityGroupsResult result;
                 try {
-                    result = describeClusterSecurityGroups(describeClusterSecurityGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClusterSecurityGroupsRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusterSecurityGroups(describeClusterSecurityGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClusterSecurityGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3049,8 +3012,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClusterSubnetGroupsResult>() {
             public DescribeClusterSubnetGroupsResult call() throws Exception {
                 return describeClusterSubnetGroups(describeClusterSubnetGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3088,17 +3051,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClusterSubnetGroupsResult>() {
             public DescribeClusterSubnetGroupsResult call() throws Exception {
-                DescribeClusterSubnetGroupsResult result;
+              DescribeClusterSubnetGroupsResult result;
                 try {
-                    result = describeClusterSubnetGroups(describeClusterSubnetGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClusterSubnetGroupsRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusterSubnetGroups(describeClusterSubnetGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClusterSubnetGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3131,8 +3094,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeHsmConfigurationsResult>() {
             public DescribeHsmConfigurationsResult call() throws Exception {
                 return describeHsmConfigurations(describeHsmConfigurationsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3170,24 +3133,24 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeHsmConfigurationsResult>() {
             public DescribeHsmConfigurationsResult call() throws Exception {
-                DescribeHsmConfigurationsResult result;
+              DescribeHsmConfigurationsResult result;
                 try {
-                    result = describeHsmConfigurations(describeHsmConfigurationsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeHsmConfigurationsRequest, result);
-                   return result;
-            }
-        });
+                result = describeHsmConfigurations(describeHsmConfigurationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeHsmConfigurationsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Deletes the specified manual snapshot. The snapshot must be in the
-     * "available" state, with no other users authorized to access the
-     * snapshot.
+     * <code>available</code> state, with no other users authorized to access
+     * the snapshot.
      * </p>
      * <p>
      * Unlike automated snapshots, manual snapshots are retained even after
@@ -3219,15 +3182,15 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
                 return deleteClusterSnapshot(deleteClusterSnapshotRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Deletes the specified manual snapshot. The snapshot must be in the
-     * "available" state, with no other users authorized to access the
-     * snapshot.
+     * <code>available</code> state, with no other users authorized to access
+     * the snapshot.
      * </p>
      * <p>
      * Unlike automated snapshots, manual snapshots are retained even after
@@ -3264,17 +3227,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
-                Snapshot result;
+              Snapshot result;
                 try {
-                    result = deleteClusterSnapshot(deleteClusterSnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteClusterSnapshotRequest, result);
-                   return result;
-            }
-        });
+                result = deleteClusterSnapshot(deleteClusterSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteClusterSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3309,8 +3272,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
             public Void call() throws Exception {
                 deleteClusterParameterGroup(deleteClusterParameterGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3349,22 +3312,22 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteClusterParameterGroup(deleteClusterParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteClusterParameterGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteClusterParameterGroup(deleteClusterParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteClusterParameterGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Disables the automatic copying of snapshots from one region to another
-     * region for a specified cluster.
+     * Disables the automatic copying of snapshots from one region to
+     * another region for a specified cluster.
      * </p>
      *
      * @param disableSnapshotCopyRequest Container for the necessary
@@ -3388,14 +3351,14 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return disableSnapshotCopy(disableSnapshotCopyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Disables the automatic copying of snapshots from one region to another
-     * region for a specified cluster.
+     * Disables the automatic copying of snapshots from one region to
+     * another region for a specified cluster.
      * </p>
      *
      * @param disableSnapshotCopyRequest Container for the necessary
@@ -3424,17 +3387,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = disableSnapshotCopy(disableSnapshotCopyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(disableSnapshotCopyRequest, result);
-                   return result;
-            }
-        });
+                result = disableSnapshotCopy(disableSnapshotCopyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(disableSnapshotCopyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3452,13 +3415,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * sent for all events you want that match those criteria. For example,
      * you can specify source type = cluster, source ID = my-cluster-1 and
      * mycluster2, event categories = Availability, Backup, and severity =
-     * ERROR. The subsription will only send notifications for those ERROR
-     * events in the Availability and Backup categores for the specified
+     * ERROR. The subscription will only send notifications for those ERROR
+     * events in the Availability and Backup categories for the specified
      * clusters.
      * </p>
      * <p>
      * If you specify both the source type and source IDs, such as source
-     * type = cluster and source identifier = my-cluster-1, notifiactions
+     * type = cluster and source identifier = my-cluster-1, notifications
      * will be sent for all the cluster events for my-cluster-1. If you
      * specify a source type but do not specify a source identifier, you will
      * receive notice of the events for the objects of that type in your AWS
@@ -3489,8 +3452,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<EventSubscription>() {
             public EventSubscription call() throws Exception {
                 return createEventSubscription(createEventSubscriptionRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3508,13 +3471,13 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * sent for all events you want that match those criteria. For example,
      * you can specify source type = cluster, source ID = my-cluster-1 and
      * mycluster2, event categories = Availability, Backup, and severity =
-     * ERROR. The subsription will only send notifications for those ERROR
-     * events in the Availability and Backup categores for the specified
+     * ERROR. The subscription will only send notifications for those ERROR
+     * events in the Availability and Backup categories for the specified
      * clusters.
      * </p>
      * <p>
      * If you specify both the source type and source IDs, such as source
-     * type = cluster and source identifier = my-cluster-1, notifiactions
+     * type = cluster and source identifier = my-cluster-1, notifications
      * will be sent for all the cluster events for my-cluster-1. If you
      * specify a source type but do not specify a source identifier, you will
      * receive notice of the events for the objects of that type in your AWS
@@ -3550,17 +3513,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<EventSubscription>() {
             public EventSubscription call() throws Exception {
-                EventSubscription result;
+              EventSubscription result;
                 try {
-                    result = createEventSubscription(createEventSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createEventSubscriptionRequest, result);
-                   return result;
-            }
-        });
+                result = createEventSubscription(createEventSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createEventSubscriptionRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3594,8 +3557,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ResetClusterParameterGroupResult>() {
             public ResetClusterParameterGroupResult call() throws Exception {
                 return resetClusterParameterGroup(resetClusterParameterGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3634,17 +3597,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ResetClusterParameterGroupResult>() {
             public ResetClusterParameterGroupResult call() throws Exception {
-                ResetClusterParameterGroupResult result;
+              ResetClusterParameterGroupResult result;
                 try {
-                    result = resetClusterParameterGroup(resetClusterParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resetClusterParameterGroupRequest, result);
-                   return result;
-            }
-        });
+                result = resetClusterParameterGroup(resetClusterParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resetClusterParameterGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3653,10 +3616,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * specified snapshot.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param authorizeSnapshotAccessRequest Container for the necessary
@@ -3680,8 +3642,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
                 return authorizeSnapshotAccess(authorizeSnapshotAccessRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3690,10 +3652,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * specified snapshot.
      * </p>
      * <p>
-     * For more information about working with snapshots, go to <a
-     * docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
-     * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
+     * For more information about working with snapshots, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param authorizeSnapshotAccessRequest Container for the necessary
@@ -3722,17 +3683,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Snapshot>() {
             public Snapshot call() throws Exception {
-                Snapshot result;
+              Snapshot result;
                 try {
-                    result = authorizeSnapshotAccess(authorizeSnapshotAccessRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(authorizeSnapshotAccessRequest, result);
-                   return result;
-            }
-        });
+                result = authorizeSnapshotAccess(authorizeSnapshotAccessRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(authorizeSnapshotAccessRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3762,8 +3723,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
                 return enableSnapshotCopy(enableSnapshotCopyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3798,17 +3759,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Cluster>() {
             public Cluster call() throws Exception {
-                Cluster result;
+              Cluster result;
                 try {
-                    result = enableSnapshotCopy(enableSnapshotCopyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(enableSnapshotCopyRequest, result);
-                   return result;
-            }
-        });
+                result = enableSnapshotCopy(enableSnapshotCopyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(enableSnapshotCopyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3822,12 +3783,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * or more nodes for your Amazon Redshift cluster.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html">
-     * Purchasing Reserved Nodes </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
-     * 
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html"> Purchasing Reserved Nodes </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeReservedNodeOfferingsRequest Container for the
@@ -3852,8 +3810,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeReservedNodeOfferingsResult>() {
             public DescribeReservedNodeOfferingsResult call() throws Exception {
                 return describeReservedNodeOfferings(describeReservedNodeOfferingsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3867,12 +3825,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * or more nodes for your Amazon Redshift cluster.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html">
-     * Purchasing Reserved Nodes </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
-     * 
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html"> Purchasing Reserved Nodes </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeReservedNodeOfferingsRequest Container for the
@@ -3902,17 +3857,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReservedNodeOfferingsResult>() {
             public DescribeReservedNodeOfferingsResult call() throws Exception {
-                DescribeReservedNodeOfferingsResult result;
+              DescribeReservedNodeOfferingsResult result;
                 try {
-                    result = describeReservedNodeOfferings(describeReservedNodeOfferingsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedNodeOfferingsRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedNodeOfferings(describeReservedNodeOfferingsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedNodeOfferingsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3944,8 +3899,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeEventSubscriptionsResult>() {
             public DescribeEventSubscriptionsResult call() throws Exception {
                 return describeEventSubscriptions(describeEventSubscriptionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3982,17 +3937,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeEventSubscriptionsResult>() {
             public DescribeEventSubscriptionsResult call() throws Exception {
-                DescribeEventSubscriptionsResult result;
+              DescribeEventSubscriptionsResult result;
                 try {
-                    result = describeEventSubscriptions(describeEventSubscriptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeEventSubscriptionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeEventSubscriptions(describeEventSubscriptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeEventSubscriptionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4022,8 +3977,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeLoggingStatusResult>() {
             public DescribeLoggingStatusResult call() throws Exception {
                 return describeLoggingStatus(describeLoggingStatusRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4058,17 +4013,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeLoggingStatusResult>() {
             public DescribeLoggingStatusResult call() throws Exception {
-                DescribeLoggingStatusResult result;
+              DescribeLoggingStatusResult result;
                 try {
-                    result = describeLoggingStatus(describeLoggingStatusRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeLoggingStatusRequest, result);
-                   return result;
-            }
-        });
+                result = describeLoggingStatus(describeLoggingStatusRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeLoggingStatusRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4098,8 +4053,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
             public Void call() throws Exception {
                 deleteEventSubscription(deleteEventSubscriptionRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4133,31 +4088,32 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteEventSubscription(deleteEventSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteEventSubscriptionRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteEventSubscription(deleteEventSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteEventSubscriptionRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates an HSM client certificate that an Amazon Redshift cluster will
-     * use to connect to the client's HSM in order to store and retrieve the
-     * keys used to encrypt the cluster databases.
+     * Creates an HSM client certificate that an Amazon Redshift cluster
+     * will use to connect to the client's HSM in order to store and retrieve
+     * the keys used to encrypt the cluster databases.
      * </p>
      * <p>
-     * The command returns a public key, which you must store in the HSM.
-     * After creating the HSM certificate, you must create an Amazon Redshift
-     * HSM configuration that provides a cluster the information needed to
-     * store and retrieve database encryption keys in the HSM. For more
-     * information, go to aLinkToHSMTopic in the Amazon Redshift Management
-     * Guide.
+     * The command returns a public key, which you must store in the HSM. In
+     * addition to creating the HSM certificate, you must create an Amazon
+     * Redshift HSM configuration that provides a cluster the information
+     * needed to store and use encryption keys in the HSM. For more
+     * information, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html"> Hardware Security Modules </a>
+     * in the Amazon Redshift Management Guide.
      * </p>
      *
      * @param createHsmClientCertificateRequest Container for the necessary
@@ -4182,23 +4138,24 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<HsmClientCertificate>() {
             public HsmClientCertificate call() throws Exception {
                 return createHsmClientCertificate(createHsmClientCertificateRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates an HSM client certificate that an Amazon Redshift cluster will
-     * use to connect to the client's HSM in order to store and retrieve the
-     * keys used to encrypt the cluster databases.
+     * Creates an HSM client certificate that an Amazon Redshift cluster
+     * will use to connect to the client's HSM in order to store and retrieve
+     * the keys used to encrypt the cluster databases.
      * </p>
      * <p>
-     * The command returns a public key, which you must store in the HSM.
-     * After creating the HSM certificate, you must create an Amazon Redshift
-     * HSM configuration that provides a cluster the information needed to
-     * store and retrieve database encryption keys in the HSM. For more
-     * information, go to aLinkToHSMTopic in the Amazon Redshift Management
-     * Guide.
+     * The command returns a public key, which you must store in the HSM. In
+     * addition to creating the HSM certificate, you must create an Amazon
+     * Redshift HSM configuration that provides a cluster the information
+     * needed to store and use encryption keys in the HSM. For more
+     * information, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html"> Hardware Security Modules </a>
+     * in the Amazon Redshift Management Guide.
      * </p>
      *
      * @param createHsmClientCertificateRequest Container for the necessary
@@ -4228,17 +4185,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<HsmClientCertificate>() {
             public HsmClientCertificate call() throws Exception {
-                HsmClientCertificate result;
+              HsmClientCertificate result;
                 try {
-                    result = createHsmClientCertificate(createHsmClientCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createHsmClientCertificateRequest, result);
-                   return result;
-            }
-        });
+                result = createHsmClientCertificate(createHsmClientCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createHsmClientCertificateRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4246,11 +4203,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Revokes an ingress rule in an Amazon Redshift security group for a
      * previously authorized IP range or Amazon EC2 security group. To add an
      * ingress rule, see AuthorizeClusterSecurityGroupIngress. For
-     * information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
-     * 
+     * information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param revokeClusterSecurityGroupIngressRequest Container for the
@@ -4275,8 +4230,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ClusterSecurityGroup>() {
             public ClusterSecurityGroup call() throws Exception {
                 return revokeClusterSecurityGroupIngress(revokeClusterSecurityGroupIngressRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4284,11 +4239,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Revokes an ingress rule in an Amazon Redshift security group for a
      * previously authorized IP range or Amazon EC2 security group. To add an
      * ingress rule, see AuthorizeClusterSecurityGroupIngress. For
-     * information about managing security groups, go to <a
-     * ws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
-     * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon
-     * Redshift Management Guide</i> .
-     * 
+     * information about managing security groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param revokeClusterSecurityGroupIngressRequest Container for the
@@ -4318,17 +4271,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ClusterSecurityGroup>() {
             public ClusterSecurityGroup call() throws Exception {
-                ClusterSecurityGroup result;
+              ClusterSecurityGroup result;
                 try {
-                    result = revokeClusterSecurityGroupIngress(revokeClusterSecurityGroupIngressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(revokeClusterSecurityGroupIngressRequest, result);
-                   return result;
-            }
-        });
+                result = revokeClusterSecurityGroupIngress(revokeClusterSecurityGroupIngressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(revokeClusterSecurityGroupIngressRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4345,10 +4298,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * specify <i>source</i> equal to <i>user</i> .
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClusterParametersRequest Container for the necessary
@@ -4373,8 +4325,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClusterParametersResult>() {
             public DescribeClusterParametersResult call() throws Exception {
                 return describeClusterParameters(describeClusterParametersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4391,10 +4343,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * specify <i>source</i> equal to <i>user</i> .
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClusterParametersRequest Container for the necessary
@@ -4424,17 +4375,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClusterParametersResult>() {
             public DescribeClusterParametersResult call() throws Exception {
-                DescribeClusterParametersResult result;
+              DescribeClusterParametersResult result;
                 try {
-                    result = describeClusterParameters(describeClusterParametersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClusterParametersRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusterParameters(describeClusterParametersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClusterParametersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4466,8 +4417,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeHsmClientCertificatesResult>() {
             public DescribeHsmClientCertificatesResult call() throws Exception {
                 return describeHsmClientCertificates(describeHsmClientCertificatesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4504,31 +4455,32 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeHsmClientCertificatesResult>() {
             public DescribeHsmClientCertificatesResult call() throws Exception {
-                DescribeHsmClientCertificatesResult result;
+              DescribeHsmClientCertificatesResult result;
                 try {
-                    result = describeHsmClientCertificates(describeHsmClientCertificatesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeHsmClientCertificatesRequest, result);
-                   return result;
-            }
-        });
+                result = describeHsmClientCertificates(describeHsmClientCertificatesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeHsmClientCertificatesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates an HSM configuration that contains the information required by
-     * an Amazon Redshift cluster to store and retrieve database encryption
-     * keys in a Hardware Storeage Module (HSM). After creating the HSM
+     * Creates an HSM configuration that contains the information required
+     * by an Amazon Redshift cluster to store and use database encryption
+     * keys in a Hardware Security Module (HSM). After creating the HSM
      * configuration, you can specify it as a parameter when creating a
      * cluster. The cluster will then store its encryption keys in the HSM.
      * </p>
      * <p>
-     * Before creating an HSM configuration, you must have first created an
-     * HSM client certificate. For more information, go to aLinkToHSMTopic in
-     * the Amazon Redshift Management Guide.
+     * In addition to creating an HSM configuration, you must also create an
+     * HSM client certificate. For more information, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html"> Hardware Security Modules </a>
+     * in the Amazon Redshift Management Guide.
      * </p>
      *
      * @param createHsmConfigurationRequest Container for the necessary
@@ -4552,22 +4504,23 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<HsmConfiguration>() {
             public HsmConfiguration call() throws Exception {
                 return createHsmConfiguration(createHsmConfigurationRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates an HSM configuration that contains the information required by
-     * an Amazon Redshift cluster to store and retrieve database encryption
-     * keys in a Hardware Storeage Module (HSM). After creating the HSM
+     * Creates an HSM configuration that contains the information required
+     * by an Amazon Redshift cluster to store and use database encryption
+     * keys in a Hardware Security Module (HSM). After creating the HSM
      * configuration, you can specify it as a parameter when creating a
      * cluster. The cluster will then store its encryption keys in the HSM.
      * </p>
      * <p>
-     * Before creating an HSM configuration, you must have first created an
-     * HSM client certificate. For more information, go to aLinkToHSMTopic in
-     * the Amazon Redshift Management Guide.
+     * In addition to creating an HSM configuration, you must also create an
+     * HSM client certificate. For more information, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html"> Hardware Security Modules </a>
+     * in the Amazon Redshift Management Guide.
      * </p>
      *
      * @param createHsmConfigurationRequest Container for the necessary
@@ -4596,17 +4549,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<HsmConfiguration>() {
             public HsmConfiguration call() throws Exception {
-                HsmConfiguration result;
+              HsmConfiguration result;
                 try {
-                    result = createHsmConfiguration(createHsmConfigurationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createHsmConfigurationRequest, result);
-                   return result;
-            }
-        });
+                result = createHsmConfiguration(createHsmConfigurationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createHsmConfigurationRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4615,11 +4568,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * properties, cluster database properties, maintenance and backup
      * properties, and security and access properties. This operation
      * supports pagination. For more information about managing clusters, go
-     * to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
+     * to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClustersRequest Container for the necessary parameters
@@ -4642,8 +4593,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClustersResult>() {
             public DescribeClustersResult call() throws Exception {
                 return describeClusters(describeClustersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4652,11 +4603,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * properties, cluster database properties, maintenance and backup
      * properties, and security and access properties. This operation
      * supports pagination. For more information about managing clusters, go
-     * to <a
-     * /docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">
-     * Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
-     * Guide</i> .
-     * 
+     * to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClustersRequest Container for the necessary parameters
@@ -4684,17 +4633,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClustersResult>() {
             public DescribeClustersResult call() throws Exception {
-                DescribeClustersResult result;
+              DescribeClustersResult result;
                 try {
-                    result = describeClusters(describeClustersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClustersRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusters(describeClustersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClustersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4728,8 +4677,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClusterSnapshotsResult>() {
             public DescribeClusterSnapshotsResult call() throws Exception {
                 return describeClusterSnapshots(describeClusterSnapshotsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4768,17 +4717,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClusterSnapshotsResult>() {
             public DescribeClusterSnapshotsResult call() throws Exception {
-                DescribeClusterSnapshotsResult result;
+              DescribeClusterSnapshotsResult result;
                 try {
-                    result = describeClusterSnapshots(describeClusterSnapshotsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClusterSnapshotsRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusterSnapshots(describeClusterSnapshotsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClusterSnapshotsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4786,19 +4735,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Creates an Amazon Redshift parameter group.
      * </p>
      * <p>
-     * Creating parameter groups is independent of creating clusters. You can
-     * associate a cluster with a parameter group when you create the
+     * Creating parameter groups is independent of creating clusters. You
+     * can associate a cluster with a parameter group when you create the
      * cluster. You can also associate an existing cluster with a parameter
      * group after the cluster is created by using ModifyCluster.
      * </p>
      * <p>
      * Parameters in the parameter group define specific behavior that
      * applies to the databases you create on the cluster. For more
-     * information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
-     * 
+     * information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterParameterGroupRequest Container for the necessary
@@ -4823,8 +4770,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<ClusterParameterGroup>() {
             public ClusterParameterGroup call() throws Exception {
                 return createClusterParameterGroup(createClusterParameterGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4832,19 +4779,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * Creates an Amazon Redshift parameter group.
      * </p>
      * <p>
-     * Creating parameter groups is independent of creating clusters. You can
-     * associate a cluster with a parameter group when you create the
+     * Creating parameter groups is independent of creating clusters. You
+     * can associate a cluster with a parameter group when you create the
      * cluster. You can also associate an existing cluster with a parameter
      * group after the cluster is created by using ModifyCluster.
      * </p>
      * <p>
      * Parameters in the parameter group define specific behavior that
      * applies to the databases you create on the cluster. For more
-     * information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
-     * 
+     * information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param createClusterParameterGroupRequest Container for the necessary
@@ -4874,17 +4819,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ClusterParameterGroup>() {
             public ClusterParameterGroup call() throws Exception {
-                ClusterParameterGroup result;
+              ClusterParameterGroup result;
                 try {
-                    result = createClusterParameterGroup(createClusterParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createClusterParameterGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createClusterParameterGroup(createClusterParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createClusterParameterGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4897,10 +4842,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * group.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClusterParameterGroupsRequest Container for the
@@ -4925,8 +4869,8 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
         return executorService.submit(new Callable<DescribeClusterParameterGroupsResult>() {
             public DescribeClusterParameterGroupsResult call() throws Exception {
                 return describeClusterParameterGroups(describeClusterParameterGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4939,10 +4883,9 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
      * group.
      * </p>
      * <p>
-     * For more information about managing parameter groups, go to <a
-     * s.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html">
-     * Amazon Redshift Parameter Groups </a> in the <i>Amazon Redshift
-     * Management Guide</i> .
+     * For more information about managing parameter groups, go to
+     * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+     * in the <i>Amazon Redshift Management Guide</i> .
      * </p>
      *
      * @param describeClusterParameterGroupsRequest Container for the
@@ -4972,17 +4915,17 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeClusterParameterGroupsResult>() {
             public DescribeClusterParameterGroupsResult call() throws Exception {
-                DescribeClusterParameterGroupsResult result;
+              DescribeClusterParameterGroupsResult result;
                 try {
-                    result = describeClusterParameterGroups(describeClusterParameterGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeClusterParameterGroupsRequest, result);
-                   return result;
-            }
-        });
+                result = describeClusterParameterGroups(describeClusterParameterGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeClusterParameterGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
 }

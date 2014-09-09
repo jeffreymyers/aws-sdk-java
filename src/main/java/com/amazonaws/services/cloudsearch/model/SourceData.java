@@ -21,6 +21,7 @@ import java.io.Serializable;
  * The source attribute name and an optional default value to use if a document doesn't have an attribute of that name.
  * </p>
  */
+@Deprecated
 public class SourceData implements Serializable {
 
     /**

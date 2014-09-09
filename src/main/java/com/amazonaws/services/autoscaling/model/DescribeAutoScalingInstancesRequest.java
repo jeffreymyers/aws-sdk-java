@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#describeAutoScalingInstances(DescribeAutoScalingInstancesRequest) DescribeAutoScalingInstances operation}.
  * <p>
- * Returns a description of each Auto Scaling instance in the <code>InstanceIds</code> list. If a list is not provided, the service returns the full
- * details of all instances up to a maximum of 50. By default, the service returns a list of 20 items.
+ * Returns a description of each Auto Scaling instance in the
+ * <code>InstanceIds</code> list. If a list is not provided, the service
+ * returns the full details of all instances up to a maximum of 50. By
+ * default, the service returns a list of 20 items.
  * </p>
  * <p>
- * This action supports pagination by returning a token if there are more pages to retrieve. To get the next page, call this action again with the
- * returned token as the <code>NextToken</code> parameter.
+ * This action supports pagination by returning a token if there are
+ * more pages to retrieve. To get the next page, call this action again
+ * with the returned token as the <code>NextToken</code> parameter.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeAutoScalingInstances(DescribeAutoScalingInstancesRequest)
@@ -44,9 +47,6 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
     /**
      * The maximum number of Auto Scaling instances to be described with each
      * call.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      */
     private Integer maxRecords;
 
@@ -55,7 +55,7 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      * data available.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String nextToken;
 
@@ -112,7 +112,7 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      *         requested instances cannot contain more than 50 items. If unknown
      *         instances are requested, they are ignored with no error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingInstancesRequest withInstanceIds(String... instanceIds) {
@@ -136,7 +136,7 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      *         requested instances cannot contain more than 50 items. If unknown
      *         instances are requested, they are ignored with no error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingInstancesRequest withInstanceIds(java.util.Collection<String> instanceIds) {
@@ -154,9 +154,6 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
     /**
      * The maximum number of Auto Scaling instances to be described with each
      * call.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @return The maximum number of Auto Scaling instances to be described with each
      *         call.
@@ -168,9 +165,6 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
     /**
      * The maximum number of Auto Scaling instances to be described with each
      * call.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of Auto Scaling instances to be described with each
      *         call.
@@ -184,14 +178,11 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      * call.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of Auto Scaling instances to be described with each
      *         call.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingInstancesRequest withMaxRecords(Integer maxRecords) {
@@ -204,7 +195,7 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      * data available.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The token returned by a previous call to indicate that there is more
      *         data available.
@@ -218,7 +209,7 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      * data available.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken The token returned by a previous call to indicate that there is more
      *         data available.
@@ -234,12 +225,12 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken The token returned by a previous call to indicate that there is more
      *         data available.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingInstancesRequest withNextToken(String nextToken) {

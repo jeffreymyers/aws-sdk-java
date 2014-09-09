@@ -21,9 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#removeTags(RemoveTagsRequest) RemoveTags operation}.
  * <p>
- * Removes tags from an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as grouping clusters to track your Amazon
- * EMR resource allocation costs. For more information, see <a
- * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a> .
+ * Removes tags from an Amazon EMR resource. Tags make it easier to
+ * associate clusters in various ways, such as grouping clusters to track
+ * your Amazon EMR resource allocation costs. For more information, see
+ * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a>
+ * .
+ * </p>
+ * <p>
+ * The following example removes the stack tag with value Prod from a
+ * cluster:
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#removeTags(RemoveTagsRequest)
@@ -104,7 +110,7 @@ public class RemoveTagsRequest extends AmazonWebServiceRequest implements Serial
      * @param resourceId The Amazon EMR resource identifier from which tags will be removed.
      *         This value must be a cluster identifier.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveTagsRequest withResourceId(String resourceId) {
@@ -147,7 +153,7 @@ public class RemoveTagsRequest extends AmazonWebServiceRequest implements Serial
      *
      * @param tagKeys A list of tag keys to remove from a resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveTagsRequest withTagKeys(String... tagKeys) {
@@ -165,7 +171,7 @@ public class RemoveTagsRequest extends AmazonWebServiceRequest implements Serial
      *
      * @param tagKeys A list of tag keys to remove from a resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveTagsRequest withTagKeys(java.util.Collection<String> tagKeys) {

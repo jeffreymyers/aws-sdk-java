@@ -14,6 +14,8 @@
  */
 package com.amazonaws;
 
+import java.net.InetAddress;
+
 import org.apache.http.annotation.NotThreadSafe;
 
 import com.amazonaws.retry.PredefinedRetryPolicies;
@@ -48,18 +50,29 @@ public class ClientConfiguration {
      * implementation by {@link #setRetryPolicy(RetryPolicy)}. For example,
      * AmazonDynamoDBClient by default uses a different retry policy
      * {@link PredefinedRetryPolicies#DYNAMODB_DEFAULT}.
-     * 
+     *
      * @see PredefinedRetryPolicies#DEFAULT
      * @see PredefinedRetryPolicies#DYNAMODB_DEFAULT
      */
     public static final RetryPolicy DEFAULT_RETRY_POLICY = PredefinedRetryPolicies.DEFAULT;
-    
+
     /**
      * The default on whether to use the {@link IdleConnectionReaper} to manage stale connections
      *
      * @see IdleConnectionReaper
      */
     public static final boolean DEFAULT_USE_REAPER = true;
+
+    /**
+     * The default on whether to use gzip compression.
+     */
+    public static final boolean DEFAULT_USE_GZIP = false;
+
+    /**
+     * The default expiration time (in milliseconds) for a connection in the
+     * connection pool.
+     */
+    public static final long DEFAULT_CONNECTION_TTL = -1;
 
     /** The HTTP user agent header passed with all HTTP requests. */
     private String userAgent = DEFAULT_USER_AGENT;
@@ -71,9 +84,12 @@ public class ClientConfiguration {
      * be used to control the retry count.
      */
     private int maxErrorRetry = -1;
-    
+
     /** The retry policy upon failed requests. **/
     private RetryPolicy retryPolicy = DEFAULT_RETRY_POLICY;
+
+    /** Optionally specifies the local address to bind to */
+    private InetAddress localAddress;
 
     /**
      * The protocol to use when connecting to Amazon Web Services.
@@ -101,9 +117,12 @@ public class ClientConfiguration {
     /** Optional Windows workstation name for configuring NTLM proxy support. */
     private String proxyWorkstation = null;
 
-    /** Whether to pre-emptively authenticate against a proxy server using basic authentication */
-    private Boolean preemptiveBasicProxyAuth = false;
-    
+    /**
+     * Whether to pre-emptively authenticate against a proxy server using basic
+     * authentication
+     */
+    private boolean preemptiveBasicProxyAuth;
+
     /** The maximum number of open HTTP connections. */
     private int maxConnections = DEFAULT_MAX_CONNECTIONS;
 
@@ -142,28 +161,49 @@ public class ClientConfiguration {
      */
     private boolean useReaper = DEFAULT_USE_REAPER;
 
+    /**
+     * Optional whether to use gzip compression when making HTTP requests.
+     */
+    private boolean useGzip = DEFAULT_USE_GZIP;
+
+    /**
+     * Optional override to control which signature algorithm should be used to
+     * sign requests to the service. If not explicitly set, the client will
+     * determine the algorithm to use by inspecting a configuration file baked
+     * in to the SDK.
+     */
+    private String signerOverride;
+
+    /**
+     * Optional expiration time for a connection in the connection pool. When a
+     * connection is retrieved from the connection pool, this parameter is
+     * checked to see if the connection can be reused.
+     */
+    private long connectionTTL = DEFAULT_CONNECTION_TTL;
 
     public ClientConfiguration() {}
 
     public ClientConfiguration(ClientConfiguration other) {
-        this.connectionTimeout          = other.connectionTimeout;
-        this.maxConnections             = other.maxConnections;
-        this.maxErrorRetry              = other.maxErrorRetry;
-        this.retryPolicy                = other.retryPolicy;
-        this.protocol                   = other.protocol;
-        this.proxyDomain                = other.proxyDomain;
-        this.proxyHost                  = other.proxyHost;
-        this.proxyPassword              = other.proxyPassword;
-        this.proxyPort                  = other.proxyPort;
-        this.proxyUsername              = other.proxyUsername;
-        this.proxyWorkstation           = other.proxyWorkstation;
-        this.preemptiveBasicProxyAuth   = other.preemptiveBasicProxyAuth;
-        this.socketTimeout              = other.socketTimeout;
-        this.userAgent                  = other.userAgent;
-        this.useReaper                  = other.useReaper;
-
+        this.connectionTimeout           = other.connectionTimeout;
+        this.maxConnections              = other.maxConnections;
+        this.maxErrorRetry               = other.maxErrorRetry;
+        this.retryPolicy                 = other.retryPolicy;
+        this.localAddress                = other.localAddress;
+        this.protocol                    = other.protocol;
+        this.proxyDomain                 = other.proxyDomain;
+        this.proxyHost                   = other.proxyHost;
+        this.proxyPassword               = other.proxyPassword;
+        this.proxyPort                   = other.proxyPort;
+        this.proxyUsername               = other.proxyUsername;
+        this.proxyWorkstation            = other.proxyWorkstation;
+        this.preemptiveBasicProxyAuth    = other.preemptiveBasicProxyAuth;
+        this.socketTimeout               = other.socketTimeout;
+        this.userAgent                   = other.userAgent;
+        this.useReaper                   = other.useReaper;
+        this.useGzip                     = other.useGzip;
         this.socketReceiveBufferSizeHint = other.socketReceiveBufferSizeHint;
         this.socketSendBufferSizeHint    = other.socketSendBufferSizeHint;
+        this.signerOverride              = other.signerOverride;
     }
 
     /**
@@ -288,6 +328,39 @@ public class ClientConfiguration {
     public ClientConfiguration withUserAgent(String userAgent) {
         setUserAgent(userAgent);
         return this;
+    }
+
+    /**
+     * Returns the optional local address the client will bind to.
+     *
+     * @return The local address the client will bind to.
+     */
+    public InetAddress getLocalAddress() {
+        return localAddress;
+    }
+
+    /**
+     * Sets the optional local address the client will bind to.
+     *
+     * @param localAddress
+     *            The local address the client will bind to.
+     */
+    public void setLocalAddress(InetAddress localAddress) {
+        this.localAddress = localAddress;
+    }
+
+    /**
+     * Sets the optional local address the client will bind to and returns
+     * the updated ClientConfiguration object.
+     *
+     * @param localAddress
+     *            The local address the client will bind to.
+     *
+     * @return The updated ClientConfiguration object.
+     */
+    public ClientConfiguration withLocalAddress(InetAddress localAddress) {
+      setLocalAddress(localAddress);
+      return this;
     }
 
     /**
@@ -425,92 +498,92 @@ public class ClientConfiguration {
         return this;
     }
 
-	/**
-	 * Returns the optional Windows domain name for configuring an NTLM proxy.
-	 * If you aren't using a Windows NTLM proxy, you do not need to set this
-	 * field.
-	 *
-	 * @return The optional Windows domain name for configuring an NTLM proxy.
-	 */
+    /**
+     * Returns the optional Windows domain name for configuring an NTLM proxy.
+     * If you aren't using a Windows NTLM proxy, you do not need to set this
+     * field.
+     *
+     * @return The optional Windows domain name for configuring an NTLM proxy.
+     */
     public String getProxyDomain() {
-		return proxyDomain;
-	}
+        return proxyDomain;
+    }
 
-	/**
-	 * Sets the optional Windows domain name for configuration an NTLM proxy.
-	 * If you aren't using a Windows NTLM proxy, you do not need to set this
-	 * field.
-	 *
-	 * @param proxyDomain
-	 *            The optional Windows domain name for configuring an NTLM
-	 *            proxy.
-	 */
-	public void setProxyDomain(String proxyDomain) {
-		this.proxyDomain = proxyDomain;
-	}
+    /**
+     * Sets the optional Windows domain name for configuration an NTLM proxy.
+     * If you aren't using a Windows NTLM proxy, you do not need to set this
+     * field.
+     *
+     * @param proxyDomain
+     *            The optional Windows domain name for configuring an NTLM
+     *            proxy.
+     */
+    public void setProxyDomain(String proxyDomain) {
+        this.proxyDomain = proxyDomain;
+    }
 
-	/**
-	 * Sets the optional Windows domain name for configuration an NTLM proxy and
-	 * returns a reference to this updated ClientConfiguration object so that
-	 * additional method calls can be chained together. If you aren't using a
-	 * Windows NTLM proxy, you do not need to set this field.
-	 *
-	 * @param proxyDomain
-	 *            The optional Windows domain name for configuring an NTLM
-	 *            proxy.
-	 *
+    /**
+     * Sets the optional Windows domain name for configuration an NTLM proxy and
+     * returns a reference to this updated ClientConfiguration object so that
+     * additional method calls can be chained together. If you aren't using a
+     * Windows NTLM proxy, you do not need to set this field.
+     *
+     * @param proxyDomain
+     *            The optional Windows domain name for configuring an NTLM
+     *            proxy.
+     *
      * @return The updated ClientConfiguration object.
-	 */
-	public ClientConfiguration withProxyDomain(String proxyDomain) {
-		setProxyDomain(proxyDomain);
-		return this;
-	}
+     */
+    public ClientConfiguration withProxyDomain(String proxyDomain) {
+        setProxyDomain(proxyDomain);
+        return this;
+    }
 
-	/**
-	 * Returns the optional Windows workstation name for configuring NTLM proxy
-	 * support. If you aren't using a Windows NTLM proxy, you do not need to set
-	 * this field.
-	 *
-	 * @return The optional Windows workstation name for configuring NTLM proxy
-	 *         support.
-	 */
-	public String getProxyWorkstation() {
-		return proxyWorkstation;
-	}
+    /**
+     * Returns the optional Windows workstation name for configuring NTLM proxy
+     * support. If you aren't using a Windows NTLM proxy, you do not need to set
+     * this field.
+     *
+     * @return The optional Windows workstation name for configuring NTLM proxy
+     *         support.
+     */
+    public String getProxyWorkstation() {
+        return proxyWorkstation;
+    }
 
-	/**
-	 * Sets the optional Windows workstation name for configuring NTLM proxy
-	 * support. If you aren't using a Windows NTLM proxy, you do not need to set
-	 * this field.
-	 *
-	 * @param proxyWorkstation
-	 *            The optional Windows workstation name for configuring NTLM
-	 *            proxy support.
-	 */
-	public void setProxyWorkstation(String proxyWorkstation) {
-		this.proxyWorkstation = proxyWorkstation;
-	}
+    /**
+     * Sets the optional Windows workstation name for configuring NTLM proxy
+     * support. If you aren't using a Windows NTLM proxy, you do not need to set
+     * this field.
+     *
+     * @param proxyWorkstation
+     *            The optional Windows workstation name for configuring NTLM
+     *            proxy support.
+     */
+    public void setProxyWorkstation(String proxyWorkstation) {
+        this.proxyWorkstation = proxyWorkstation;
+    }
 
-	/**
-	 * Sets the optional Windows workstation name for configuring NTLM proxy
-	 * support, and returns the updated ClientConfiguration object so that
-	 * additional method calls can be chained together. If you aren't using a
-	 * Windows NTLM proxy, you do not need to set this field.
-	 *
-	 * @param proxyWorkstation
-	 *            The optional Windows workstation name for configuring NTLM
-	 *            proxy support.
-	 *
-	 * @return The updated ClientConfiguration object.
-	 */
-	public ClientConfiguration withProxyWorkstation(String proxyWorkstation) {
-		setProxyWorkstation(proxyWorkstation);
-		return this;
-	}
+    /**
+     * Sets the optional Windows workstation name for configuring NTLM proxy
+     * support, and returns the updated ClientConfiguration object so that
+     * additional method calls can be chained together. If you aren't using a
+     * Windows NTLM proxy, you do not need to set this field.
+     *
+     * @param proxyWorkstation
+     *            The optional Windows workstation name for configuring NTLM
+     *            proxy support.
+     *
+     * @return The updated ClientConfiguration object.
+     */
+    public ClientConfiguration withProxyWorkstation(String proxyWorkstation) {
+        setProxyWorkstation(proxyWorkstation);
+        return this;
+    }
 
     /**
      * Returns the retry policy upon failed requests.
-     * 
+     *
      * @return The retry policy upon failed requests.
      */
     public RetryPolicy getRetryPolicy() {
@@ -521,19 +594,19 @@ public class ClientConfiguration {
      * Sets the retry policy upon failed requests. User could specify whether
      * the RetryPolicy should honor maxErrorRetry set by
      * {@link #setMaxErrorRetry(int)}.
-     * 
+     *
      * @param retryPolicy
      *            The retry policy upon failed requests.
      */
     public void setRetryPolicy(RetryPolicy retryPolicy) {
         this.retryPolicy = retryPolicy;
     }
-    
+
     /**
      * Sets the retry policy upon failed requests, and returns the updated
      * ClientConfiguration object. User could specify whether the RetryPolicy
      * should honor maxErrorRetry set by {@link #setMaxErrorRetry(int)}
-     * 
+     *
      * @param retryPolicy
      *            The retry policy upon failed requests.
      */
@@ -541,14 +614,14 @@ public class ClientConfiguration {
         setRetryPolicy(retryPolicy);
         return this;
     }
-    
+
     /**
      * Returns the maximum number of retry attempts for failed retryable
      * requests (ex: 5xx error responses from a service). This method returns -1
      * before a maxErrorRetry value is explicitly set by
      * {@link #setMaxErrorRetry(int)}, in which case the configured RetryPolicy
      * will be used to control the retry count.
-     * 
+     *
      * @return The maximum number of retry attempts for failed retryable
      *         requests, or -1 if maxErrorRetry has not been set by
      *         {@link #setMaxErrorRetry(int)}.
@@ -709,6 +782,34 @@ public class ClientConfiguration {
     }
 
     /**
+     * Checks if gzip compression is used
+     *
+     * @return if gzip compression is used
+     */
+    public boolean useGzip() {
+        return useGzip;
+    }
+
+    /**
+     * Sets whether gzip compression should be used
+     *
+     * @param use whether gzip compression should be used
+     */
+    public void setUseGzip(boolean use) {
+        this.useGzip = use;
+    }
+
+    /**
+     * Sets whether gzip compression should be used
+     *
+     * @param use whether gzip compression should be used
+     */
+    public ClientConfiguration withGzip(boolean use) {
+        setUseGzip(use);
+        return this;
+    }
+
+    /**
      * Returns the optional size hints (in bytes) for the low level TCP send and
      * receive buffers. This is an advanced option for advanced users who want
      * to tune low level TCP parameters to try and squeeze out more performance.
@@ -833,40 +934,158 @@ public class ClientConfiguration {
     }
 
     /**
-     * Returns whether to attempt to authenticate preemptively against proxy servers 
+     * Returns the name of the signature algorithm to use for signing requests
+     * made by this client. If not set or explicitly set to null, the client
+     * will choose a signature algorithm to use based on a configuration file
+     * of supported signature algorithms for the service and region.
+     * <p>
+     * Most users do not need to concern themselves with which signature
+     * algorithm is being used, as the defaults will be sufficient. This
+     * setting exists only so advanced users can opt in to newer signature
+     * protocols which have not yet been made the default for a particular
+     * service/region.
+     * <p>
+     * Not all services support all signature algorithms, and configuring an
+     * unsupported signature algorithm will lead to authentication failures.
+     * Use me at your own risk, and only after consulting the documentation
+     * for the service to ensure it actually does supports your chosen
+     * algorithm.
+     * <p>
+     * If non-null, the name returned from this method is used to look up
+     * a {@code Signer} class implementing the chosen algorithm by the
+     * {@code com.amazonaws.auth.SignerFactory} class.
+     *
+     * @return The signature algorithm to use for this client, or null to use
+     *         the default.
+     */
+    public String getSignerOverride() {
+        return signerOverride;
+    }
+
+    /**
+     * Sets the name of the signature algorithm to use for signing requests
+     * made by this client. If not set or explicitly set to null, the client
+     * will choose a signature algorithm to use based on a configuration file
+     * of supported signature algorithms for the service and region.
+     * <p>
+     * Most users do not need to concern themselves with which signature
+     * algorithm is being used, as the defaults will be sufficient. This
+     * setting exists only so advanced users can opt in to newer signature
+     * protocols which have not yet been made the default for a particular
+     * service/region.
+     * <p>
+     * Not all services support all signature algorithms, and configuring an
+     * unsupported signature algorithm will lead to authentication failures.
+     * Use me at your own risk, and only after consulting the documentation
+     * for the service to ensure it actually does supports your chosen
+     * algorithm.
+     * <p>
+     * If non-null, the name returned from this method is used to look up
+     * a {@code Signer} class implementing the chosen algorithm by the
+     * {@code com.amazonaws.auth.SignerFactory} class.
+     *
+     * @param value   The signature algorithm to use for this client, or null
+     *                to use the default.
+     */
+    public void setSignerOverride(final String value) {
+        signerOverride = value;
+    }
+
+    /**
+     * Sets the name of the signature algorithm to use for signing requests
+     * made by this client. If not set or explicitly set to null, the client
+     * will choose a signature algorithm to use based on a configuration file
+     * of supported signature algorithms for the service and region.
+     * <p>
+     * Most users do not need to concern themselves with which signature
+     * algorithm is being used, as the defaults will be sufficient. This
+     * setting exists only so advanced users can opt in to newer signature
+     * protocols which have not yet been made the default for a particular
+     * service/region.
+     * <p>
+     * Not all services support all signature algorithms, and configuring an
+     * unsupported signature algorithm will lead to authentication failures.
+     * Use me at your own risk, and only after consulting the documentation
+     * for the service to ensure it actually does supports your chosen
+     * algorithm.
+     * <p>
+     * If non-null, the name returned from this method is used to look up
+     * a {@code Signer} class implementing the chosen algorithm by the
+     * {@code com.amazonaws.auth.SignerFactory} class.
+     *
+     * @param value   The signature algorithm to use for this client, or null
+     *                to use the default.
+     * @return        The updated ClientConfiguration object.
+     */
+    public ClientConfiguration withSignerOverride(final String value) {
+        setSignerOverride(value);
+        return this;
+    }
+
+    /**
+     * Returns whether to attempt to authenticate preemptively against proxy servers
      * using basic authentication
-     * 
+     *
      * @return Whether to authenticate preemptively against proxy server.
      */
-    public Boolean getPreemptiveBasicProxyAuth() {
+    public boolean isPreemptiveBasicProxyAuth() {
         return preemptiveBasicProxyAuth;
     }
 
     /**
-     * Sets whether to attempt to authenticate preemptively against proxy servers 
+     * Sets whether to attempt to authenticate preemptively against proxy servers
      * using basic authentication
-     * 
+     *
      * @param preemptiveBasicProxyAuth
      *             Whether to authenticate preemptively against proxy server.
      */
     public void setPreemptiveBasicProxyAuth(Boolean preemptiveBasicProxyAuth) {
         this.preemptiveBasicProxyAuth = preemptiveBasicProxyAuth;
     }
-    
-    
+
+
     /**
-     * Sets whether to attempt to authenticate preemptively against proxy servers 
-     * using basic authentication, and returns the updated ClientConfiguration object
-     * so that additional method calls may be chained together.
-     *  
+     * Sets whether to attempt to authenticate preemptively against proxy
+     * servers using basic authentication, and returns the updated
+     * ClientConfiguration object so that additional method calls may be chained
+     * together.
+     *
      * @param preemptiveBasicProxyAuth
-     *             Whether to authenticate preemptively against proxy server.
-     * @return The updated ClientConfiguration objectt=
-     *         
+     *            Whether to authenticate preemptively against proxy server.
+     * @return The updated ClientConfiguration object.
+     *
      */
-    public ClientConfiguration withPreemptiveBasicProxyAuth(Boolean preemptiveBasicProxyAuth) {
+    public ClientConfiguration withPreemptiveBasicProxyAuth(boolean preemptiveBasicProxyAuth) {
         setPreemptiveBasicProxyAuth(preemptiveBasicProxyAuth);
         return this;
     }
-    
+
+    /**
+     * Returns the expiration time(in milliseconds) for a connection in the
+     * connection pool.
+     */
+    public long getConnectionTTL() {
+        return connectionTTL;
+    }
+
+    /**
+     * Sets the expiration time(in milliseconds) for a connection in the
+     * connection pool. By default, it is set to -1 i.e., connections don't have
+     * an expiration time.
+     */
+    public void setConnectionTTL(long connectionTTL) {
+        this.connectionTTL = connectionTTL;
+    }
+
+    /**
+     * Sets the expiration time(in milliseconds) for a connection in the
+     * connection pool. By default, it is set to -1 i.e., connections don't have
+     * an expiration time.
+     *
+     * @return The updated ClientConfiguration object.
+     */
+    public ClientConfiguration withConnectionTTL(long connectionTTL) {
+        setConnectionTTL(connectionTTL);
+        return this;
+    }
 }

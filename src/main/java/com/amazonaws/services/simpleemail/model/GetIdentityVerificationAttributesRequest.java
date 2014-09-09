@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#getIdentityVerificationAttributes(GetIdentityVerificationAttributesRequest) GetIdentityVerificationAttributes operation}.
  * <p>
- * Given a list of identities (email addresses and/or domains), returns the verification status and (for domain identities) the verification token for
- * each identity.
+ * Given a list of identities (email addresses and/or domains), returns
+ * the verification status and (for domain identities) the verification
+ * token for each identity.
  * </p>
  * <p>
  * This action is throttled at one request per second.
@@ -72,7 +73,7 @@ public class GetIdentityVerificationAttributesRequest extends AmazonWebServiceRe
      *
      * @param identities A list of identities.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetIdentityVerificationAttributesRequest withIdentities(String... identities) {
@@ -90,7 +91,7 @@ public class GetIdentityVerificationAttributesRequest extends AmazonWebServiceRe
      *
      * @param identities A list of identities.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetIdentityVerificationAttributesRequest withIdentities(java.util.Collection<String> identities) {

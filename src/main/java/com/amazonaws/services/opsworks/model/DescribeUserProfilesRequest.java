@@ -24,8 +24,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describe specified users.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have an attached policy that explicitly grants permissions. For more information
- * on user permissions, see <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have an attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeUserProfiles(DescribeUserProfilesRequest)
@@ -72,7 +75,7 @@ public class DescribeUserProfilesRequest extends AmazonWebServiceRequest impleme
      *
      * @param iamUserArns An array of IAM user ARNs that identify the users to be described.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeUserProfilesRequest withIamUserArns(String... iamUserArns) {
@@ -90,7 +93,7 @@ public class DescribeUserProfilesRequest extends AmazonWebServiceRequest impleme
      *
      * @param iamUserArns An array of IAM user ARNs that identify the users to be described.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeUserProfilesRequest withIamUserArns(java.util.Collection<String> iamUserArns) {

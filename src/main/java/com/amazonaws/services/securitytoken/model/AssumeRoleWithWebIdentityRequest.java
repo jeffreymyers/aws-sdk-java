@@ -21,44 +21,78 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.securitytoken.AWSSecurityTokenService#assumeRoleWithWebIdentity(AssumeRoleWithWebIdentityRequest) AssumeRoleWithWebIdentity operation}.
  * <p>
- * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider,
- * such as Login with Amazon, Facebook, or Google. <code>AssumeRoleWithWebIdentity</code> is an API call that does not require the use of AWS security
- * credentials. Therefore, you can distribute an application (for example, on mobile devices) that requests temporary security credentials without
- * including long-term AWS credentials in the application or by deploying server-based proxy services that use long-term AWS credentials.
+ * Returns a set of temporary security credentials for users who have
+ * been authenticated in a mobile or web application with a web identity
+ * provider, such as Login with Amazon, Facebook, or Google.
  * </p>
  * <p>
- * The temporary security credentials consist of an access key ID, a secret access key, and a security token. Applications can use these temporary
- * security credentials to sign calls to AWS service APIs. The credentials are valid for the duration that you specified when calling
- * <code>AssumeRoleWithWebIdentity</code> , which can be from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default, the temporary security
- * credentials are valid for 1 hour.
+ * Calling <code>AssumeRoleWithWebIdentity</code> does not require the
+ * use of AWS security credentials. Therefore, you can distribute an
+ * application (for example, on mobile devices) that requests temporary
+ * security credentials without including long-term AWS credentials in
+ * the application, and without deploying server-based proxy services
+ * that use long-term AWS credentials. Instead, the identity of the
+ * caller is validated by using a token from the web identity provider.
  * </p>
  * <p>
- * Optionally, you can pass an AWS IAM access policy to this operation. The temporary security credentials that are returned by the operation have the
- * permissions that are associated with the access policy of the role being assumed, except for any permissions explicitly denied by the policy you pass.
- * This gives you a way to further restrict the permissions for the federated user. These policies and any applicable resource-based policies are
- * evaluated when calls to AWS are made using the temporary security credentials.
+ * The temporary security credentials returned by this API consist of an
+ * access key ID, a secret access key, and a security token. Applications
+ * can use these temporary security credentials to sign calls to AWS
+ * service APIs. The credentials are valid for the duration that you
+ * specified when calling <code>AssumeRoleWithWebIdentity</code> , which
+ * can be from 900 seconds (15 minutes) to 3600 seconds (1 hour). By
+ * default, the temporary security credentials are valid for 1 hour.
  * </p>
  * <p>
- * Before your application can call <code>AssumeRoleWithWebIdentity</code> , you must have an identity token from a supported identity provider and
- * create a role that the application can assume. The role that your application assumes must trust the identity provider that is associated with the
- * identity token. In other words, the identity provider must be specified in the role's trust policy.
+ * Optionally, you can pass an IAM access policy to this operation. If
+ * you choose not to pass a policy, the temporary security credentials
+ * that are returned by the operation have the permissions that are
+ * defined in the access policy of the role that is being assumed. If you
+ * pass a policy to this operation, the temporary security credentials
+ * that are returned by the operation have the permissions that are
+ * allowed by both the access policy of the role that is being assumed,
+ * <i> and </i> the policy that you pass. This gives you a way to further
+ * restrict the permissions for the resulting temporary security
+ * credentials. You cannot use the passed policy to grant permissions
+ * that are in excess of those allowed by the access policy of the role
+ * that is being assumed. For more information, see
+ * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html"> Permissions for AssumeRoleWithWebIdentity </a>
+ * in <i>Using Temporary Security Credentials</i> .
  * </p>
  * <p>
- * For more information about how to use web identity federation and the <code>AssumeRoleWithWebIdentity</code> , see the following resources:
+ * Before your application can call
+ * <code>AssumeRoleWithWebIdentity</code> , you must have an identity
+ * token from a supported identity provider and create a role that the
+ * application can assume. The role that your application assumes must
+ * trust the identity provider that is associated with the identity
+ * token. In other words, the identity provider must be specified in the
+ * role's trust policy.
+ * </p>
+ * <p>
+ * For more information about how to use web identity federation and the
+ * <code>AssumeRoleWithWebIdentity</code> , see the following resources:
  * </p>
  * 
  * <ul>
- * <li> <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSUseCases.html#MobileApplication-KnownProvider"> Creating a Mobile Application with
- * Third-Party Sign-In </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingWIF.html"> Creating Temporary Security Credentials for
- * Mobile Apps Using Third-Party Identity Providers </a> in <i>Using Temporary Security Credentials</i> . </li>
- * <li> <a href="https://web-identity-federation-playground.s3.amazonaws.com/index.html"> Web Identity Federation Playground </a> . This interactive
- * website lets you walk through the process of authenticating via Login with Amazon, Facebook, or Google, getting temporary security credentials, and
- * then using those credentials to make a request to AWS. </li>
- * <li> <a href="http://aws.amazon.com/sdkforios/"> AWS SDK for iOS </a> and <a href="http://aws.amazon.com/sdkforandroid/"> AWS SDK for Android </a> .
- * These toolkits contain sample apps that show how to invoke the identity providers, and then how to use the information from these providers to get and
- * use temporary security credentials. </li>
- * <li> <a href="http://aws.amazon.com/articles/4617974389850313"> Web Identity Federation with Mobile Applications </a> . This article discusses web
- * identity federation and shows an example of how to use web identity federation to get access to content in Amazon S3. </li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSUseCases.html#MobileApplication-KnownProvider"> Creating a Mobile Application with Third-Party Sign-In </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingWIF.html"> Creating Temporary Security Credentials for Mobile Apps Using Third-Party Identity Providers </a>
+ * in <i>Using Temporary Security Credentials</i> . </li>
+ * <li>
+ * <a href="https://web-identity-federation-playground.s3.amazonaws.com/index.html"> Web Identity Federation Playground </a>
+ * . This interactive website lets you walk through the process of
+ * authenticating via Login with Amazon, Facebook, or Google, getting
+ * temporary security credentials, and then using those credentials to
+ * make a request to AWS. </li>
+ * <li>
+ * <a href="http://aws.amazon.com/sdkforios/"> AWS SDK for iOS </a> and <a href="http://aws.amazon.com/sdkforandroid/"> AWS SDK for Android </a>
+ * . These toolkits contain sample apps that show how to invoke the
+ * identity providers, and then how to use the information from these
+ * providers to get and use temporary security credentials. </li>
+ * <li>
+ * <a href="http://aws.amazon.com/articles/4617974389850313"> Web Identity Federation with Mobile Applications </a>
+ * . This article discusses web identity federation and shows an example
+ * of how to use web identity federation to get access to content in
+ * Amazon S3. </li>
  * 
  * </ul>
  * <p>
@@ -127,18 +161,22 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
     private String providerId;
 
     /**
-     * An AWS IAM policy in JSON format. <p>The temporary security
-     * credentials that are returned by the operation have the permissions
-     * that are associated with the access policy of the role being assumed,
-     * except for any permissions explicitly denied by the policy you pass.
-     * This gives you a way to further restrict the permissions for the
-     * federated user. These policies and any applicable resource-based
-     * policies are evaluated when calls to AWS are made using the temporary
-     * security credentials.
+     * An IAM policy in JSON format. <p>The policy parameter is optional. If
+     * you pass a policy, the temporary security credentials that are
+     * returned by the operation have the permissions that are allowed by
+     * both the access policy of the role that is being assumed,
+     * <i><b>and</b></i> the policy that you pass. This gives you a way to
+     * further restrict the permissions for the resulting temporary security
+     * credentials. You cannot use the passed policy to grant permissions
+     * that are in excess of those allowed by the access policy of the role
+     * that is being assumed. For more information, see <a
+     * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     * for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     * Credentials</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      */
     private String policy;
 
@@ -192,7 +230,7 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
      * @param roleArn The Amazon Resource Name (ARN) of the role that the caller is
      *         assuming.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleWithWebIdentityRequest withRoleArn(String roleArn) {
@@ -267,7 +305,7 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
      *         is included as part of the ARN and assumed role ID in the
      *         <code>AssumedRoleUser</code> response element.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleWithWebIdentityRequest withRoleSessionName(String roleSessionName) {
@@ -333,7 +371,7 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
      *         identity provider before the application makes an
      *         <code>AssumeRoleWithWebIdentity</code> call.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleWithWebIdentityRequest withWebIdentityToken(String webIdentityToken) {
@@ -405,7 +443,7 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
      *         numbers. Currently, <code>www.amazon.com</code> and
      *         <code>graph.facebook.com</code> are supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleWithWebIdentityRequest withProviderId(String providerId) {
@@ -414,85 +452,109 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * An AWS IAM policy in JSON format. <p>The temporary security
-     * credentials that are returned by the operation have the permissions
-     * that are associated with the access policy of the role being assumed,
-     * except for any permissions explicitly denied by the policy you pass.
-     * This gives you a way to further restrict the permissions for the
-     * federated user. These policies and any applicable resource-based
-     * policies are evaluated when calls to AWS are made using the temporary
-     * security credentials.
+     * An IAM policy in JSON format. <p>The policy parameter is optional. If
+     * you pass a policy, the temporary security credentials that are
+     * returned by the operation have the permissions that are allowed by
+     * both the access policy of the role that is being assumed,
+     * <i><b>and</b></i> the policy that you pass. This gives you a way to
+     * further restrict the permissions for the resulting temporary security
+     * credentials. You cannot use the passed policy to grant permissions
+     * that are in excess of those allowed by the access policy of the role
+     * that is being assumed. For more information, see <a
+     * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     * for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     * Credentials</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return An AWS IAM policy in JSON format. <p>The temporary security
-     *         credentials that are returned by the operation have the permissions
-     *         that are associated with the access policy of the role being assumed,
-     *         except for any permissions explicitly denied by the policy you pass.
-     *         This gives you a way to further restrict the permissions for the
-     *         federated user. These policies and any applicable resource-based
-     *         policies are evaluated when calls to AWS are made using the temporary
-     *         security credentials.
+     * @return An IAM policy in JSON format. <p>The policy parameter is optional. If
+     *         you pass a policy, the temporary security credentials that are
+     *         returned by the operation have the permissions that are allowed by
+     *         both the access policy of the role that is being assumed,
+     *         <i><b>and</b></i> the policy that you pass. This gives you a way to
+     *         further restrict the permissions for the resulting temporary security
+     *         credentials. You cannot use the passed policy to grant permissions
+     *         that are in excess of those allowed by the access policy of the role
+     *         that is being assumed. For more information, see <a
+     *         href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     *         for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     *         Credentials</i>.
      */
     public String getPolicy() {
         return policy;
     }
     
     /**
-     * An AWS IAM policy in JSON format. <p>The temporary security
-     * credentials that are returned by the operation have the permissions
-     * that are associated with the access policy of the role being assumed,
-     * except for any permissions explicitly denied by the policy you pass.
-     * This gives you a way to further restrict the permissions for the
-     * federated user. These policies and any applicable resource-based
-     * policies are evaluated when calls to AWS are made using the temporary
-     * security credentials.
+     * An IAM policy in JSON format. <p>The policy parameter is optional. If
+     * you pass a policy, the temporary security credentials that are
+     * returned by the operation have the permissions that are allowed by
+     * both the access policy of the role that is being assumed,
+     * <i><b>and</b></i> the policy that you pass. This gives you a way to
+     * further restrict the permissions for the resulting temporary security
+     * credentials. You cannot use the passed policy to grant permissions
+     * that are in excess of those allowed by the access policy of the role
+     * that is being assumed. For more information, see <a
+     * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     * for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     * Credentials</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param policy An AWS IAM policy in JSON format. <p>The temporary security
-     *         credentials that are returned by the operation have the permissions
-     *         that are associated with the access policy of the role being assumed,
-     *         except for any permissions explicitly denied by the policy you pass.
-     *         This gives you a way to further restrict the permissions for the
-     *         federated user. These policies and any applicable resource-based
-     *         policies are evaluated when calls to AWS are made using the temporary
-     *         security credentials.
+     * @param policy An IAM policy in JSON format. <p>The policy parameter is optional. If
+     *         you pass a policy, the temporary security credentials that are
+     *         returned by the operation have the permissions that are allowed by
+     *         both the access policy of the role that is being assumed,
+     *         <i><b>and</b></i> the policy that you pass. This gives you a way to
+     *         further restrict the permissions for the resulting temporary security
+     *         credentials. You cannot use the passed policy to grant permissions
+     *         that are in excess of those allowed by the access policy of the role
+     *         that is being assumed. For more information, see <a
+     *         href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     *         for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     *         Credentials</i>.
      */
     public void setPolicy(String policy) {
         this.policy = policy;
     }
     
     /**
-     * An AWS IAM policy in JSON format. <p>The temporary security
-     * credentials that are returned by the operation have the permissions
-     * that are associated with the access policy of the role being assumed,
-     * except for any permissions explicitly denied by the policy you pass.
-     * This gives you a way to further restrict the permissions for the
-     * federated user. These policies and any applicable resource-based
-     * policies are evaluated when calls to AWS are made using the temporary
-     * security credentials.
+     * An IAM policy in JSON format. <p>The policy parameter is optional. If
+     * you pass a policy, the temporary security credentials that are
+     * returned by the operation have the permissions that are allowed by
+     * both the access policy of the role that is being assumed,
+     * <i><b>and</b></i> the policy that you pass. This gives you a way to
+     * further restrict the permissions for the resulting temporary security
+     * credentials. You cannot use the passed policy to grant permissions
+     * that are in excess of those allowed by the access policy of the role
+     * that is being assumed. For more information, see <a
+     * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     * for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     * Credentials</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param policy An AWS IAM policy in JSON format. <p>The temporary security
-     *         credentials that are returned by the operation have the permissions
-     *         that are associated with the access policy of the role being assumed,
-     *         except for any permissions explicitly denied by the policy you pass.
-     *         This gives you a way to further restrict the permissions for the
-     *         federated user. These policies and any applicable resource-based
-     *         policies are evaluated when calls to AWS are made using the temporary
-     *         security credentials.
+     * @param policy An IAM policy in JSON format. <p>The policy parameter is optional. If
+     *         you pass a policy, the temporary security credentials that are
+     *         returned by the operation have the permissions that are allowed by
+     *         both the access policy of the role that is being assumed,
+     *         <i><b>and</b></i> the policy that you pass. This gives you a way to
+     *         further restrict the permissions for the resulting temporary security
+     *         credentials. You cannot use the passed policy to grant permissions
+     *         that are in excess of those allowed by the access policy of the role
+     *         that is being assumed. For more information, see <a
+     *         href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
+     *         for AssumeRoleWithWebIdentity</a> in <i>Using Temporary Security
+     *         Credentials</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleWithWebIdentityRequest withPolicy(String policy) {
@@ -546,7 +608,7 @@ public class AssumeRoleWithWebIdentityRequest extends AmazonWebServiceRequest im
      *         from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      *         the value is set to 3600 seconds.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleWithWebIdentityRequest withDurationSeconds(Integer durationSeconds) {

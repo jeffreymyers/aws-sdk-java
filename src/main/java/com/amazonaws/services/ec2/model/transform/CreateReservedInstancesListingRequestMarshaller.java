@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class CreateReservedInstancesListingRequestMarshaller implements Marshall
 
         Request<CreateReservedInstancesListingRequest> request = new DefaultRequest<CreateReservedInstancesListingRequest>(createReservedInstancesListingRequest, "AmazonEC2");
         request.addParameter("Action", "CreateReservedInstancesListing");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (createReservedInstancesListingRequest.getReservedInstancesId() != null) {
             request.addParameter("ReservedInstancesId", StringUtils.fromString(createReservedInstancesListingRequest.getReservedInstancesId()));

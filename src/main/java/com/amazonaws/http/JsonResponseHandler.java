@@ -26,13 +26,14 @@ import com.amazonaws.AmazonWebServiceResponse;
 import com.amazonaws.ResponseMetadata;
 import com.amazonaws.internal.CRC32MismatchException;
 import com.amazonaws.transform.JsonUnmarshallerContext;
+import com.amazonaws.transform.JsonUnmarshallerContextImpl;
 import com.amazonaws.transform.Unmarshaller;
 import com.amazonaws.transform.VoidJsonUnmarshaller;
 import com.amazonaws.util.CRC32ChecksumCalculatingInputStream;
 
 /**
  * Default implementation of HttpResponseHandler that handles a successful
- * response from an AWS service and unmarshalls the result using a StAX
+ * response from an AWS service and unmarshalls the result using a JSON
  * unmarshaller.
  *
  * @param <T>
@@ -40,7 +41,7 @@ import com.amazonaws.util.CRC32ChecksumCalculatingInputStream;
  */
 public class JsonResponseHandler<T> implements HttpResponseHandler<AmazonWebServiceResponse<T>> {
 
-    /** The StAX unmarshaller to use when handling the response */
+    /** The JSON unmarshaller to use when handling the response */
     private Unmarshaller<T, JsonUnmarshallerContext> responseUnmarshaller;
 
     /** Shared logger for profiling information */
@@ -52,13 +53,13 @@ public class JsonResponseHandler<T> implements HttpResponseHandler<AmazonWebServ
 
 
     /**
-     * Constructs a new response handler that will use the specified StAX
+     * Constructs a new response handler that will use the specified JSON
      * unmarshaller to unmarshall the service response and uses the specified
      * response element path to find the root of the business data in the
      * service's response.
      *
      * @param responseUnmarshaller
-     *            The StAX unmarshaller to use on the response.
+     *            The JSON unmarshaller to use on the response.
      */
     public JsonResponseHandler(Unmarshaller<T, JsonUnmarshallerContext> responseUnmarshaller) {
         this.responseUnmarshaller = responseUnmarshaller;
@@ -98,7 +99,8 @@ public class JsonResponseHandler<T> implements HttpResponseHandler<AmazonWebServ
 
         try {
             AmazonWebServiceResponse<T> awsResponse = new AmazonWebServiceResponse<T>();
-            JsonUnmarshallerContext unmarshallerContext = new JsonUnmarshallerContext(jsonParser, response);
+            JsonUnmarshallerContext unmarshallerContext = new JsonUnmarshallerContextImpl(
+                    jsonParser, response);
             registerAdditionalMetadataExpressions(unmarshallerContext);
 
             T result = responseUnmarshaller.unmarshall(unmarshallerContext);

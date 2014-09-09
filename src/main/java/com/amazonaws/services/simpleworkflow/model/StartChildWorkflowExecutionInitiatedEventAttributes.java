@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>StartChildWorkflowExecutionInitiated</code> event.
+ * Provides details of the
+ * <code>StartChildWorkflowExecutionInitiated</code> event.
  * </p>
  */
 public class StartChildWorkflowExecutionInitiatedEventAttributes implements Serializable {
@@ -153,7 +154,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *
      * @param workflowId The <code>workflowId</code> of the child workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withWorkflowId(String workflowId) {
@@ -186,7 +187,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *
      * @param workflowType The type of the child workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withWorkflowType(WorkflowType workflowType) {
@@ -234,7 +235,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      * @param control Optional data attached to the event that can be used by the decider in
      *         subsequent decision tasks. This data is not sent to the activity.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withControl(String control) {
@@ -276,7 +277,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *
      * @param input The inputs provided to the child workflow execution (if any).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withInput(String input) {
@@ -348,7 +349,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *         duration in seconds while <code>NONE</code> can be used to specify
      *         unlimited duration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withExecutionStartToCloseTimeout(String executionStartToCloseTimeout) {
@@ -387,7 +388,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      * @param taskList The name of the task list used for the decision tasks of the child
      *         workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withTaskList(TaskList taskList) {
@@ -444,7 +445,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *         this child workflow execution. This information can be useful for
      *         diagnosing problems by tracing back the cause of events.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withDecisionTaskCompletedEventId(Long decisionTaskCompletedEventId) {
@@ -550,7 +551,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *         <li><b>ABANDON:</b> no action will be taken. The child executions will
      *         continue to run.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy
@@ -624,7 +625,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *         <li><b>ABANDON:</b> no action will be taken. The child executions will
      *         continue to run.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy
@@ -692,7 +693,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *         in seconds while <code>NONE</code> can be used to specify unlimited
      *         duration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withTaskStartToCloseTimeout(String taskStartToCloseTimeout) {
@@ -744,7 +745,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *
      * @param tagList The list of tags to associated with the child workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withTagList(String... tagList) {
@@ -765,7 +766,7 @@ public class StartChildWorkflowExecutionInitiatedEventAttributes implements Seri
      *
      * @param tagList The list of tags to associated with the child workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartChildWorkflowExecutionInitiatedEventAttributes withTagList(java.util.Collection<String> tagList) {

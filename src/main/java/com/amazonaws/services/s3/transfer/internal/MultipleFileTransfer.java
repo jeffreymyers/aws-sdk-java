@@ -17,7 +17,7 @@ package com.amazonaws.services.s3.transfer.internal;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.amazonaws.event.ProgressEvent;
+import com.amazonaws.event.ProgressEventType;
 import com.amazonaws.event.ProgressListenerChain;
 import com.amazonaws.services.s3.transfer.Transfer;
 import com.amazonaws.services.s3.transfer.TransferProgress;
@@ -25,26 +25,17 @@ import com.amazonaws.services.s3.transfer.TransferProgress;
 /**
  * Interface for multiple file transfers
  */
-public abstract class MultipleFileTransfer extends AbstractTransfer {
+public abstract class MultipleFileTransfer<T extends Transfer> extends AbstractTransfer {
 
-    protected final Collection<? extends Transfer> subTransfers;
-    
+    protected final Collection<? extends T> subTransfers;
+
     /** Whether any of the sub-transfers has started. **/
     private AtomicBoolean subTransferStarted = new AtomicBoolean(false);
-    
+
     MultipleFileTransfer(String description, TransferProgress transferProgress,
-            ProgressListenerChain progressListenerChain, Collection<? extends Transfer> subTransfers) {
+            ProgressListenerChain progressListenerChain, Collection<? extends T> subTransfers) {
         super(description, transferProgress, progressListenerChain);
         this.subTransfers = subTransfers;
-    }
-    
-    /**
-     * @deprecated Replaced by {@link #MultipleFileTransfer(String, TransferProgress, ProgressListenerChain, Collection)}
-     */
-    @Deprecated
-    MultipleFileTransfer(String description, TransferProgress transferProgress,
-            com.amazonaws.services.s3.transfer.internal.ProgressListenerChain progressListenerChain, Collection<? extends Transfer> subTransfers) {
-        this(description, transferProgress, progressListenerChain.transformToGeneralProgressListenerChain(), subTransfers);
     }
 
     /**
@@ -57,7 +48,7 @@ public abstract class MultipleFileTransfer extends AbstractTransfer {
      */
     public void collateFinalState() {
         boolean seenCanceled = false;
-        for ( Transfer download : subTransfers ) {
+        for ( T download : subTransfers ) {
             if ( download.getState() == TransferState.Failed ) {
                 setState(TransferState.Failed);
                 return;
@@ -70,7 +61,7 @@ public abstract class MultipleFileTransfer extends AbstractTransfer {
         else
             setState(TransferState.Completed);
     }
-    
+
     /**
      * Override this method so that TransferState updates are also sent out to the
      * progress listener chain in forms of ProgressEvent.
@@ -78,26 +69,26 @@ public abstract class MultipleFileTransfer extends AbstractTransfer {
     @Override
     public void setState(TransferState state) {
         super.setState(state);
-        
+
         switch (state) {
         case Waiting:
-            fireProgressEvent(ProgressEvent.PREPARING_EVENT_CODE);
+            fireProgressEvent(ProgressEventType.TRANSFER_PREPARING_EVENT);
             break;
         case InProgress:
             if ( subTransferStarted.compareAndSet(false, true) ) {
                 /* The first InProgress signal */
-                fireProgressEvent(ProgressEvent.STARTED_EVENT_CODE);
+                fireProgressEvent(ProgressEventType.TRANSFER_STARTED_EVENT);
             }
             /* Don't need any event code update for subsequent InProgress signals */
             break;
         case Completed:
-            fireProgressEvent(ProgressEvent.COMPLETED_EVENT_CODE);
+            fireProgressEvent(ProgressEventType.TRANSFER_COMPLETED_EVENT);
             break;
         case Canceled:
-            fireProgressEvent(ProgressEvent.CANCELED_EVENT_CODE);
+            fireProgressEvent(ProgressEventType.TRANSFER_CANCELED_EVENT);
             break;
         case Failed:
-            fireProgressEvent(ProgressEvent.FAILED_EVENT_CODE);
+            fireProgressEvent(ProgressEventType.TRANSFER_FAILED_EVENT);
             break;
         default:
             break;

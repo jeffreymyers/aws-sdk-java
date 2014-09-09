@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class CreateImageRequestMarshaller implements Marshaller<Request<CreateIm
 
         Request<CreateImageRequest> request = new DefaultRequest<CreateImageRequest>(createImageRequest, "AmazonEC2");
         request.addParameter("Action", "CreateImage");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (createImageRequest.getInstanceId() != null) {
             request.addParameter("InstanceId", StringUtils.fromString(createImageRequest.getInstanceId()));
@@ -81,6 +82,9 @@ public class CreateImageRequestMarshaller implements Marshaller<Request<CreateIm
                     }
                     if (ebsBlockDeviceEbs.getIops() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Iops", StringUtils.fromInteger(ebsBlockDeviceEbs.getIops()));
+                    }
+                    if (ebsBlockDeviceEbs.isEncrypted() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted", StringUtils.fromBoolean(ebsBlockDeviceEbs.isEncrypted()));
                     }
                 }
                 if (blockDeviceMappingMember.getNoDevice() != null) {

@@ -14,7 +14,8 @@
  */
 package com.amazonaws.auth;
 
-import java.io.UnsupportedEncodingException;
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +46,7 @@ public class AWS3Signer extends AbstractAWSSigner {
     /** For internal testing only - allows the request's date to be overridden for testing. */
     private String overriddenDate;
 
+    @Deprecated
     protected static final DateUtils dateUtils = new DateUtils();
     private static final Log log = LogFactory.getLog(AWS3Signer.class);
 
@@ -70,7 +72,7 @@ public class AWS3Signer extends AbstractAWSSigner {
 
         int timeOffset = getTimeOffset(request);
         Date dateValue = getSignatureDate(timeOffset);
-        String date = dateUtils.formatRfc822Date(dateValue);
+        String date = DateUtils.formatRFC822Date(dateValue);
         boolean isHttps = false;
 
         if (overriddenDate != null) date = overriddenDate;
@@ -93,11 +95,7 @@ public class AWS3Signer extends AbstractAWSSigner {
         if (isHttps) {
             request.addHeader(NONCE_HEADER, nonce);
             stringToSign = date + nonce;
-            try {
-                bytesToSign = stringToSign.getBytes("UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to serialize string to bytes: " + e.getMessage(), e);
-            }
+            bytesToSign = stringToSign.getBytes(UTF8);
         } else {
             String path = HttpUtils.appendUri(request.getEndpoint().getPath(), request.getResourcePath());
 

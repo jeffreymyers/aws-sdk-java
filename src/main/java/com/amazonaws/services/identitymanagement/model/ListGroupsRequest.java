@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Lists the groups that have the specified path prefix.
  * </p>
  * <p>
- * You can paginate the results using the <code>MaxItems</code> and <code>Marker</code> parameters.
+ * You can paginate the results using the <code>MaxItems</code> and
+ * <code>Marker</code> parameters.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listGroups(ListGroupsRequest)
@@ -41,7 +42,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      */
     private String pathPrefix;
 
@@ -53,7 +54,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -85,7 +86,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @return The path prefix for filtering the results. For example:
      *         <code>/division_abc/subdivision_xyz/</code>, which would get all
@@ -108,7 +109,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @param pathPrefix The path prefix for filtering the results. For example:
      *         <code>/division_abc/subdivision_xyz/</code>, which would get all
@@ -133,7 +134,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @param pathPrefix The path prefix for filtering the results. For example:
      *         <code>/division_abc/subdivision_xyz/</code>, which would get all
@@ -142,7 +143,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      *         optional. If it is not included, it defaults to a slash (/), listing
      *         all groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListGroupsRequest withPathPrefix(String pathPrefix) {
@@ -158,7 +159,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -177,7 +178,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -198,14 +199,14 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
      *         truncated. Set it to the value of the <code>Marker</code> element in
      *         the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListGroupsRequest withMarker(String marker) {
@@ -271,7 +272,7 @@ public class ListGroupsRequest extends AmazonWebServiceRequest implements Serial
      *         element is <code>true</code>. This parameter is optional. If you do
      *         not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListGroupsRequest withMaxItems(Integer maxItems) {

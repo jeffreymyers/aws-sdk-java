@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * provide full access API to S3.
  * <p>
  * For example:
- * <pre><blockquote>
+ * <pre class="brush: java">
  * AWSCredentialsProvider s3CredentialProvider = ...;
  * DynamoDBMapper mapper = new DynamoDBMapper(..., s3CredentialProvider);
  * String username = "jamestkirk";
@@ -74,7 +74,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * AmazonS3Client s3 = s3link.getAmazonS3Client();
  * TransferManager s3m = s3link.getTransferManager();
  * // etc.
- * </blockquote></pre>The User pojo class used above:<pre><blockquote>
+ * </pre>The User pojo class used above:<pre class="brush: java">
  * &commat;DynamoDBTable(tableName = "user-table")
  * public class User {
  *     private String username;
@@ -97,7 +97,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *         this.avatar = avatar;
  *     }
  * }
- * </blockquote>
  * </pre>
  */
 public class S3Link {
@@ -354,9 +353,7 @@ public class S3Link {
                 output.write(buffer, 0, bytesRead);
             }
         } catch (IOException ioe) {
-            try {
-                objectContent.abort();
-            } catch (IOException e) {}
+            objectContent.abort();
             throw new AmazonClientException("Unable to transfer content from Amazon S3 to the output stream", ioe);
         } finally {
             try { objectContent.close(); } catch (IOException ioe) {}

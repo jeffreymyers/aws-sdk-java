@@ -21,15 +21,20 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.support.AWSSupport#addCommunicationToCase(AddCommunicationToCaseRequest) AddCommunicationToCase operation}.
  * <p>
- * Adds additional customer communication to an AWS Support case. You use the <code>CaseId</code> value to identify the case to add communication to. You
- * can list a set of email addresses to copy on the communication using the <code>CcEmailAddresses</code> value. The <code>CommunicationBody</code> value
- * contains the text of the communication.
+ * Adds additional customer communication to an AWS Support case. You use
+ * the <code>CaseId</code> value to identify the case to add
+ * communication to. You can list a set of email addresses to copy on the
+ * communication using the <code>CcEmailAddresses</code> value. The
+ * <code>CommunicationBody</code> value contains the text of the
+ * communication.
  * </p>
  * <p>
  * The response indicates the success or failure of the request.
  * </p>
  * <p>
- * This operation implements a subset of the behavior on the AWS Support <a href="https://aws.amazon.com/support"> Your Support Cases </a> web form.
+ * This operation implements a subset of the behavior on the AWS Support
+ * <a href="https://aws.amazon.com/support"> Your Support Cases </a>
+ * web form.
  * </p>
  *
  * @see com.amazonaws.services.support.AWSSupport#addCommunicationToCase(AddCommunicationToCaseRequest)
@@ -59,6 +64,8 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
      * <b>Length: </b>0 - 10<br/>
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> ccEmailAddresses;
+
+    private String attachmentSetId;
 
     /**
      * The AWS Support case ID requested or returned in the call. The case ID
@@ -97,7 +104,7 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
      *         is an alphanumeric string formatted as shown in this example:
      *         case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCommunicationToCaseRequest withCaseId(String caseId) {
@@ -139,7 +146,7 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
      *
      * @param communicationBody The body of an email communication to add to the support case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCommunicationToCaseRequest withCommunicationBody(String communicationBody) {
@@ -197,7 +204,7 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
      * @param ccEmailAddresses The email addresses in the CC line of an email to be added to the
      *         support case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCommunicationToCaseRequest withCcEmailAddresses(String... ccEmailAddresses) {
@@ -220,7 +227,7 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
      * @param ccEmailAddresses The email addresses in the CC line of an email to be added to the
      *         support case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCommunicationToCaseRequest withCcEmailAddresses(java.util.Collection<String> ccEmailAddresses) {
@@ -232,6 +239,39 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
             this.ccEmailAddresses = ccEmailAddressesCopy;
         }
 
+        return this;
+    }
+
+    /**
+     * Returns the value of the AttachmentSetId property for this object.
+     *
+     * @return The value of the AttachmentSetId property for this object.
+     */
+    public String getAttachmentSetId() {
+        return attachmentSetId;
+    }
+    
+    /**
+     * Sets the value of the AttachmentSetId property for this object.
+     *
+     * @param attachmentSetId The new value for the AttachmentSetId property for this object.
+     */
+    public void setAttachmentSetId(String attachmentSetId) {
+        this.attachmentSetId = attachmentSetId;
+    }
+    
+    /**
+     * Sets the value of the AttachmentSetId property for this object.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param attachmentSetId The new value for the AttachmentSetId property for this object.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public AddCommunicationToCaseRequest withAttachmentSetId(String attachmentSetId) {
+        this.attachmentSetId = attachmentSetId;
         return this;
     }
 
@@ -249,7 +289,8 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
         sb.append("{");
         if (getCaseId() != null) sb.append("CaseId: " + getCaseId() + ",");
         if (getCommunicationBody() != null) sb.append("CommunicationBody: " + getCommunicationBody() + ",");
-        if (getCcEmailAddresses() != null) sb.append("CcEmailAddresses: " + getCcEmailAddresses() );
+        if (getCcEmailAddresses() != null) sb.append("CcEmailAddresses: " + getCcEmailAddresses() + ",");
+        if (getAttachmentSetId() != null) sb.append("AttachmentSetId: " + getAttachmentSetId() );
         sb.append("}");
         return sb.toString();
     }
@@ -262,6 +303,7 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
         hashCode = prime * hashCode + ((getCaseId() == null) ? 0 : getCaseId().hashCode()); 
         hashCode = prime * hashCode + ((getCommunicationBody() == null) ? 0 : getCommunicationBody().hashCode()); 
         hashCode = prime * hashCode + ((getCcEmailAddresses() == null) ? 0 : getCcEmailAddresses().hashCode()); 
+        hashCode = prime * hashCode + ((getAttachmentSetId() == null) ? 0 : getAttachmentSetId().hashCode()); 
         return hashCode;
     }
     
@@ -279,6 +321,8 @@ public class AddCommunicationToCaseRequest extends AmazonWebServiceRequest imple
         if (other.getCommunicationBody() != null && other.getCommunicationBody().equals(this.getCommunicationBody()) == false) return false; 
         if (other.getCcEmailAddresses() == null ^ this.getCcEmailAddresses() == null) return false;
         if (other.getCcEmailAddresses() != null && other.getCcEmailAddresses().equals(this.getCcEmailAddresses()) == false) return false; 
+        if (other.getAttachmentSetId() == null ^ this.getAttachmentSetId() == null) return false;
+        if (other.getAttachmentSetId() != null && other.getAttachmentSetId().equals(this.getAttachmentSetId()) == false) return false; 
         return true;
     }
     

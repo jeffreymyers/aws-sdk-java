@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the response to a <code>DescribeTimeBasedAutoScaling</code> request.
+ * Contains the response to a <code>DescribeTimeBasedAutoScaling</code>
+ * request.
  * </p>
  */
 public class DescribeTimeBasedAutoScalingResult implements Serializable {
@@ -70,7 +71,7 @@ public class DescribeTimeBasedAutoScalingResult implements Serializable {
      * @param timeBasedAutoScalingConfigurations An array of <code>TimeBasedAutoScalingConfiguration</code> objects
      *         that describe the configuration for the specified instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTimeBasedAutoScalingResult withTimeBasedAutoScalingConfigurations(TimeBasedAutoScalingConfiguration... timeBasedAutoScalingConfigurations) {
@@ -90,7 +91,7 @@ public class DescribeTimeBasedAutoScalingResult implements Serializable {
      * @param timeBasedAutoScalingConfigurations An array of <code>TimeBasedAutoScalingConfiguration</code> objects
      *         that describe the configuration for the specified instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTimeBasedAutoScalingResult withTimeBasedAutoScalingConfigurations(java.util.Collection<TimeBasedAutoScalingConfiguration> timeBasedAutoScalingConfigurations) {

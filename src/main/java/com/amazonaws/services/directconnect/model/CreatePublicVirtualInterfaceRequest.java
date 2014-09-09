@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.directconnect.AmazonDirectConnect#createPublicVirtualInterface(CreatePublicVirtualInterfaceRequest) CreatePublicVirtualInterface operation}.
  * <p>
- * Creates a new public virtual interface. A virtual interface is the VLAN that transports AWS Direct Connect traffic. A public virtual interface
- * supports sending traffic to public services of AWS such as Amazon Simple Storage Service (Amazon S3).
+ * Creates a new public virtual interface. A virtual interface is the
+ * VLAN that transports AWS Direct Connect traffic. A public virtual
+ * interface supports sending traffic to public services of AWS such as
+ * Amazon Simple Storage Service (Amazon S3).
  * </p>
  *
  * @see com.amazonaws.services.directconnect.AmazonDirectConnect#createPublicVirtualInterface(CreatePublicVirtualInterfaceRequest)
@@ -65,7 +67,7 @@ public class CreatePublicVirtualInterfaceRequest extends AmazonWebServiceRequest
      *
      * @param connectionId ID of the connection. <p>Example: dxcon-fg5678gh <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePublicVirtualInterfaceRequest withConnectionId(String connectionId) {
@@ -104,7 +106,7 @@ public class CreatePublicVirtualInterfaceRequest extends AmazonWebServiceRequest
      * @param newPublicVirtualInterface Detailed information for the public virtual interface to be created.
      *         <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePublicVirtualInterfaceRequest withNewPublicVirtualInterface(NewPublicVirtualInterface newPublicVirtualInterface) {

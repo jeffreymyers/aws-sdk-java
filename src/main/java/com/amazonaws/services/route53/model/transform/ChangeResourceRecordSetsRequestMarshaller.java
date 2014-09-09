@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.route53.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class ChangeResourceRecordSetsRequestMarshaller implements Marshaller<Req
         Request<ChangeResourceRecordSetsRequest> request = new DefaultRequest<ChangeResourceRecordSetsRequest>(changeResourceRecordSetsRequest, "AmazonRoute53");
         request.setHttpMethod(HttpMethodName.POST);
 
-        String uriResourcePath = "/2012-12-12/hostedzone/{Id}/rrset/"; 
+        String uriResourcePath = "/2013-04-01/hostedzone/{Id}/rrset/"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(changeResourceRecordSetsRequest.getHostedZoneId())); 
 
         if (uriResourcePath.contains("?")) {
@@ -63,7 +65,7 @@ public class ChangeResourceRecordSetsRequestMarshaller implements Marshaller<Req
         request.setResourcePath(uriResourcePath);
 
             StringWriter stringWriter = new StringWriter();
-            XMLWriter xmlWriter = new XMLWriter(stringWriter, "https://route53.amazonaws.com/doc/2012-12-12/");
+            XMLWriter xmlWriter = new XMLWriter(stringWriter, "https://route53.amazonaws.com/doc/2013-04-01/");
 
             xmlWriter.startElement("ChangeResourceRecordSetsRequest");
                     if (changeResourceRecordSetsRequest != null) {
@@ -103,6 +105,22 @@ public class ChangeResourceRecordSetsRequestMarshaller implements Marshaller<Req
                                     }
                                     if (resourceRecordSetResourceRecordSet.getRegion() != null) {
                                         xmlWriter.startElement("Region").value(resourceRecordSetResourceRecordSet.getRegion()).endElement();
+                                    }
+                                    if (resourceRecordSetResourceRecordSet != null) {
+                                        GeoLocation geoLocationGeoLocation = resourceRecordSetResourceRecordSet.getGeoLocation();
+                                        if (geoLocationGeoLocation != null) {
+                                            xmlWriter.startElement("GeoLocation");
+                                            if (geoLocationGeoLocation.getContinentCode() != null) {
+                                                xmlWriter.startElement("ContinentCode").value(geoLocationGeoLocation.getContinentCode()).endElement();
+                                            }
+                                            if (geoLocationGeoLocation.getCountryCode() != null) {
+                                                xmlWriter.startElement("CountryCode").value(geoLocationGeoLocation.getCountryCode()).endElement();
+                                            }
+                                            if (geoLocationGeoLocation.getSubdivisionCode() != null) {
+                                                xmlWriter.startElement("SubdivisionCode").value(geoLocationGeoLocation.getSubdivisionCode()).endElement();
+                                            }
+                                            xmlWriter.endElement();
+                                        }
                                     }
                                     if (resourceRecordSetResourceRecordSet.getFailover() != null) {
                                         xmlWriter.startElement("Failover").value(resourceRecordSetResourceRecordSet.getFailover()).endElement();
@@ -166,7 +184,7 @@ public class ChangeResourceRecordSetsRequestMarshaller implements Marshaller<Req
 
             try {
                 request.setContent(new StringInputStream(stringWriter.getBuffer().toString()));
-                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes("UTF-8").length));
+                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes(UTF8).length));
                 request.addHeader("Content-Type", "application/xml");
             } catch (UnsupportedEncodingException e) {
                 throw new AmazonClientException("Unable to marshall request to XML", e);

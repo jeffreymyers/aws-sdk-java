@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.elasticache.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class ModifyCacheClusterRequestMarshaller implements Marshaller<Request<M
 
         Request<ModifyCacheClusterRequest> request = new DefaultRequest<ModifyCacheClusterRequest>(modifyCacheClusterRequest, "AmazonElastiCache");
         request.addParameter("Action", "ModifyCacheCluster");
-        request.addParameter("Version", "2013-06-15");
+        request.addParameter("Version", "2014-07-15");
 
         if (modifyCacheClusterRequest.getCacheClusterId() != null) {
             request.addParameter("CacheClusterId", StringUtils.fromString(modifyCacheClusterRequest.getCacheClusterId()));
@@ -99,6 +100,26 @@ public class ModifyCacheClusterRequestMarshaller implements Marshaller<Request<M
         }
         if (modifyCacheClusterRequest.isAutoMinorVersionUpgrade() != null) {
             request.addParameter("AutoMinorVersionUpgrade", StringUtils.fromBoolean(modifyCacheClusterRequest.isAutoMinorVersionUpgrade()));
+        }
+        if (modifyCacheClusterRequest.getSnapshotRetentionLimit() != null) {
+            request.addParameter("SnapshotRetentionLimit", StringUtils.fromInteger(modifyCacheClusterRequest.getSnapshotRetentionLimit()));
+        }
+        if (modifyCacheClusterRequest.getSnapshotWindow() != null) {
+            request.addParameter("SnapshotWindow", StringUtils.fromString(modifyCacheClusterRequest.getSnapshotWindow()));
+        }
+        if (modifyCacheClusterRequest.getAZMode() != null) {
+            request.addParameter("AZMode", StringUtils.fromString(modifyCacheClusterRequest.getAZMode()));
+        }
+
+        java.util.List<String> newAvailabilityZonesList = modifyCacheClusterRequest.getNewAvailabilityZones();
+        int newAvailabilityZonesListIndex = 1;
+
+        for (String newAvailabilityZonesListValue : newAvailabilityZonesList) {
+            if (newAvailabilityZonesListValue != null) {
+                request.addParameter("NewAvailabilityZones.PreferredAvailabilityZone." + newAvailabilityZonesListIndex, StringUtils.fromString(newAvailabilityZonesListValue));
+            }
+
+            newAvailabilityZonesListIndex++;
         }
 
         return request;

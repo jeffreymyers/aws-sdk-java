@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeChapCredentials(DescribeChapCredentialsRequest) DescribeChapCredentials operation}.
  * <p>
- * This operation returns an array of Challenge-Handshake Authentication Protocol (CHAP) credentials information for a specified iSCSI target, one for
- * each target-initiator pair.
+ * This operation returns an array of Challenge-Handshake Authentication
+ * Protocol (CHAP) credentials information for a specified iSCSI target,
+ * one for each target-initiator pair.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeChapCredentials(DescribeChapCredentialsRequest)
@@ -85,7 +86,7 @@ public class DescribeChapCredentialsRequest extends AmazonWebServiceRequest impl
      *         <a>DescribeStorediSCSIVolumes</a> operation to return to retrieve the
      *         TargetARN for specified VolumeARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeChapCredentialsRequest withTargetARN(String targetARN) {

@@ -58,6 +58,12 @@ public class ReplicationGroup implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<NodeGroup> nodeGroups;
 
     /**
+     * The cache cluster ID that is used as the daily snapshot source for the
+     * replication group.
+     */
+    private String snapshottingClusterId;
+
+    /**
      * The identifier for the replication group.
      *
      * @return The identifier for the replication group.
@@ -82,7 +88,7 @@ public class ReplicationGroup implements Serializable {
      *
      * @param replicationGroupId The identifier for the replication group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withReplicationGroupId(String replicationGroupId) {
@@ -115,7 +121,7 @@ public class ReplicationGroup implements Serializable {
      *
      * @param description The description of the replication group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withDescription(String description) {
@@ -154,7 +160,7 @@ public class ReplicationGroup implements Serializable {
      * @param status The current state of this replication group - <i>creating</i>,
      *         <i>available</i>, etc.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withStatus(String status) {
@@ -193,7 +199,7 @@ public class ReplicationGroup implements Serializable {
      * @param pendingModifiedValues A group of settings to be applied to the replication group, either
      *         immediately or during the next maintenance window.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withPendingModifiedValues(ReplicationGroupPendingModifiedValues pendingModifiedValues) {
@@ -242,7 +248,7 @@ public class ReplicationGroup implements Serializable {
      * @param memberClusters The names of all the cache clusters that are part of this replication
      *         group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withMemberClusters(String... memberClusters) {
@@ -262,7 +268,7 @@ public class ReplicationGroup implements Serializable {
      * @param memberClusters The names of all the cache clusters that are part of this replication
      *         group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withMemberClusters(java.util.Collection<String> memberClusters) {
@@ -318,7 +324,7 @@ public class ReplicationGroup implements Serializable {
      * @param nodeGroups A single element list with information about the nodes in the
      *         replication group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withNodeGroups(NodeGroup... nodeGroups) {
@@ -338,7 +344,7 @@ public class ReplicationGroup implements Serializable {
      * @param nodeGroups A single element list with information about the nodes in the
      *         replication group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReplicationGroup withNodeGroups(java.util.Collection<NodeGroup> nodeGroups) {
@@ -350,6 +356,45 @@ public class ReplicationGroup implements Serializable {
             this.nodeGroups = nodeGroupsCopy;
         }
 
+        return this;
+    }
+
+    /**
+     * The cache cluster ID that is used as the daily snapshot source for the
+     * replication group.
+     *
+     * @return The cache cluster ID that is used as the daily snapshot source for the
+     *         replication group.
+     */
+    public String getSnapshottingClusterId() {
+        return snapshottingClusterId;
+    }
+    
+    /**
+     * The cache cluster ID that is used as the daily snapshot source for the
+     * replication group.
+     *
+     * @param snapshottingClusterId The cache cluster ID that is used as the daily snapshot source for the
+     *         replication group.
+     */
+    public void setSnapshottingClusterId(String snapshottingClusterId) {
+        this.snapshottingClusterId = snapshottingClusterId;
+    }
+    
+    /**
+     * The cache cluster ID that is used as the daily snapshot source for the
+     * replication group.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshottingClusterId The cache cluster ID that is used as the daily snapshot source for the
+     *         replication group.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ReplicationGroup withSnapshottingClusterId(String snapshottingClusterId) {
+        this.snapshottingClusterId = snapshottingClusterId;
         return this;
     }
 
@@ -370,7 +415,8 @@ public class ReplicationGroup implements Serializable {
         if (getStatus() != null) sb.append("Status: " + getStatus() + ",");
         if (getPendingModifiedValues() != null) sb.append("PendingModifiedValues: " + getPendingModifiedValues() + ",");
         if (getMemberClusters() != null) sb.append("MemberClusters: " + getMemberClusters() + ",");
-        if (getNodeGroups() != null) sb.append("NodeGroups: " + getNodeGroups() );
+        if (getNodeGroups() != null) sb.append("NodeGroups: " + getNodeGroups() + ",");
+        if (getSnapshottingClusterId() != null) sb.append("SnapshottingClusterId: " + getSnapshottingClusterId() );
         sb.append("}");
         return sb.toString();
     }
@@ -386,6 +432,7 @@ public class ReplicationGroup implements Serializable {
         hashCode = prime * hashCode + ((getPendingModifiedValues() == null) ? 0 : getPendingModifiedValues().hashCode()); 
         hashCode = prime * hashCode + ((getMemberClusters() == null) ? 0 : getMemberClusters().hashCode()); 
         hashCode = prime * hashCode + ((getNodeGroups() == null) ? 0 : getNodeGroups().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshottingClusterId() == null) ? 0 : getSnapshottingClusterId().hashCode()); 
         return hashCode;
     }
     
@@ -409,6 +456,8 @@ public class ReplicationGroup implements Serializable {
         if (other.getMemberClusters() != null && other.getMemberClusters().equals(this.getMemberClusters()) == false) return false; 
         if (other.getNodeGroups() == null ^ this.getNodeGroups() == null) return false;
         if (other.getNodeGroups() != null && other.getNodeGroups().equals(this.getNodeGroups()) == false) return false; 
+        if (other.getSnapshottingClusterId() == null ^ this.getSnapshottingClusterId() == null) return false;
+        if (other.getSnapshottingClusterId() != null && other.getSnapshottingClusterId().equals(this.getSnapshottingClusterId()) == false) return false; 
         return true;
     }
     

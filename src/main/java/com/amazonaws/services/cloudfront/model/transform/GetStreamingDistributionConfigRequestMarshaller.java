@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class GetStreamingDistributionConfigRequestMarshaller implements Marshall
         Request<GetStreamingDistributionConfigRequest> request = new DefaultRequest<GetStreamingDistributionConfigRequest>(getStreamingDistributionConfigRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "2013-11-11/streaming-distribution/{Id}/config"; 
+        String uriResourcePath = "2014-05-31/streaming-distribution/{Id}/config"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(getStreamingDistributionConfigRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {

@@ -21,12 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listAccountAliases(ListAccountAliasesRequest) ListAccountAliases operation}.
  * <p>
- * Lists the account aliases associated with the account. For information about using an AWS account alias, see <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity and
- * Access Management</i> .
+ * Lists the account aliases associated with the account. For information
+ * about using an AWS account alias, see
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * You can paginate the results using the <code>MaxItems</code> and <code>Marker</code> parameters.
+ * You can paginate the results using the <code>MaxItems</code> and
+ * <code>Marker</code> parameters.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listAccountAliases(ListAccountAliasesRequest)
@@ -41,7 +43,7 @@ public class ListAccountAliasesRequest extends AmazonWebServiceRequest implement
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -71,7 +73,7 @@ public class ListAccountAliasesRequest extends AmazonWebServiceRequest implement
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -90,7 +92,7 @@ public class ListAccountAliasesRequest extends AmazonWebServiceRequest implement
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -111,14 +113,14 @@ public class ListAccountAliasesRequest extends AmazonWebServiceRequest implement
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
      *         truncated. Set it to the value of the <code>Marker</code> element in
      *         the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListAccountAliasesRequest withMarker(String marker) {
@@ -184,7 +186,7 @@ public class ListAccountAliasesRequest extends AmazonWebServiceRequest implement
      *         <code>IsTruncated</code> response element is <code>true</code>. This
      *         parameter is optional. If you do not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListAccountAliasesRequest withMaxItems(Integer maxItems) {

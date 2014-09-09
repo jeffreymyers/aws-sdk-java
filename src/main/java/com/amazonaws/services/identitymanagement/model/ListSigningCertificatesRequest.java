@@ -21,16 +21,20 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listSigningCertificates(ListSigningCertificatesRequest) ListSigningCertificates operation}.
  * <p>
- * Returns information about the signing certificates associated with the specified user. If there are none, the action returns an empty list.
+ * Returns information about the signing certificates associated with the
+ * specified user. If there are none, the action returns an empty list.
  * </p>
  * <p>
- * Although each user is limited to a small number of signing certificates, you can still paginate the results using the <code>MaxItems</code> and
- * <code>Marker</code> parameters.
+ * Although each user is limited to a small number of signing
+ * certificates, you can still paginate the results using the
+ * <code>MaxItems</code> and <code>Marker</code> parameters.
  * </p>
  * <p>
- * If the <code>UserName</code> field is not specified, the user name is determined implicitly based on the AWS access key ID used to sign the request.
- * Because this action works for access keys under the AWS account, this API can be used to manage root credentials even if the AWS account has no
- * associated users.
+ * If the <code>UserName</code> field is not specified, the user name is
+ * determined implicitly based on the AWS access key ID used to sign the
+ * request. Because this action works for access keys under the AWS
+ * account, this API can be used to manage root credentials even if the
+ * AWS account has no associated users.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listSigningCertificates(ListSigningCertificatesRequest)
@@ -54,7 +58,7 @@ public class ListSigningCertificatesRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -113,7 +117,7 @@ public class ListSigningCertificatesRequest extends AmazonWebServiceRequest impl
      *
      * @param userName The name of the user.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListSigningCertificatesRequest withUserName(String userName) {
@@ -129,7 +133,7 @@ public class ListSigningCertificatesRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -148,7 +152,7 @@ public class ListSigningCertificatesRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -169,14 +173,14 @@ public class ListSigningCertificatesRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
      *         truncated. Set it to the value of the <code>Marker</code> element in
      *         the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListSigningCertificatesRequest withMarker(String marker) {
@@ -242,7 +246,7 @@ public class ListSigningCertificatesRequest extends AmazonWebServiceRequest impl
      *         <code>IsTruncated</code> response element is <code>true</code>. This
      *         parameter is optional. If you do not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListSigningCertificatesRequest withMaxItems(Integer maxItems) {

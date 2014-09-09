@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#validatePipelineDefinition(ValidatePipelineDefinitionRequest) ValidatePipelineDefinition operation}.
  * <p>
- * Tests the pipeline definition with a set of validation checks to ensure that it is well formed and can run without error.
+ * Tests the pipeline definition with a set of validation checks to
+ * ensure that it is well formed and can run without error.
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#validatePipelineDefinition(ValidatePipelineDefinitionRequest)
@@ -33,7 +34,7 @@ public class ValidatePipelineDefinitionRequest extends AmazonWebServiceRequest i
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String pipelineId;
 
@@ -48,7 +49,7 @@ public class ValidatePipelineDefinitionRequest extends AmazonWebServiceRequest i
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Identifies the pipeline whose definition is to be validated.
      */
@@ -61,7 +62,7 @@ public class ValidatePipelineDefinitionRequest extends AmazonWebServiceRequest i
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifies the pipeline whose definition is to be validated.
      */
@@ -76,11 +77,11 @@ public class ValidatePipelineDefinitionRequest extends AmazonWebServiceRequest i
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifies the pipeline whose definition is to be validated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidatePipelineDefinitionRequest withPipelineId(String pipelineId) {
@@ -129,7 +130,7 @@ public class ValidatePipelineDefinitionRequest extends AmazonWebServiceRequest i
      * @param pipelineObjects A list of objects that define the pipeline changes to validate against
      *         the pipeline.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidatePipelineDefinitionRequest withPipelineObjects(PipelineObject... pipelineObjects) {
@@ -149,7 +150,7 @@ public class ValidatePipelineDefinitionRequest extends AmazonWebServiceRequest i
      * @param pipelineObjects A list of objects that define the pipeline changes to validate against
      *         the pipeline.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidatePipelineDefinitionRequest withPipelineObjects(java.util.Collection<PipelineObject> pipelineObjects) {

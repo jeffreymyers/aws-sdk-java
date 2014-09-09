@@ -18,10 +18,13 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the capacity units consumed by an operation. The data returned includes the total provisioned throughput consumed, along with statistics
- * for the table and any indexes involved in the operation. <i>ConsumedCapacity</i> is only returned if it was asked for in the request. For more
- * information, see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"> Provisioned Throughput
- * </a> in the Amazon DynamoDB Developer Guide.
+ * Represents the capacity units consumed by an operation. The data
+ * returned includes the total provisioned throughput consumed, along
+ * with statistics for the table and any indexes involved in the
+ * operation. <i>ConsumedCapacity</i> is only returned if it was asked
+ * for in the request. For more information, see
+ * <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"> Provisioned Throughput </a>
+ * in the Amazon DynamoDB Developer Guide.
  * </p>
  */
 public class ConsumedCapacity implements Serializable {
@@ -95,7 +98,7 @@ public class ConsumedCapacity implements Serializable {
      *
      * @param tableName The name of the table that was affected by the operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConsumedCapacity withTableName(String tableName) {
@@ -128,7 +131,7 @@ public class ConsumedCapacity implements Serializable {
      *
      * @param capacityUnits The total number of capacity units consumed by the operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConsumedCapacity withCapacityUnits(Double capacityUnits) {
@@ -167,7 +170,7 @@ public class ConsumedCapacity implements Serializable {
      * @param table The amount of throughput consumed on the table affected by the
      *         operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConsumedCapacity withTable(Capacity table) {
@@ -207,7 +210,7 @@ public class ConsumedCapacity implements Serializable {
      * @param localSecondaryIndexes The amount of throughput consumed on each local index affected by the
      *         operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConsumedCapacity withLocalSecondaryIndexes(java.util.Map<String,Capacity> localSecondaryIndexes) {
@@ -278,7 +281,7 @@ public class ConsumedCapacity implements Serializable {
      * @param globalSecondaryIndexes The amount of throughput consumed on each global index affected by the
      *         operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConsumedCapacity withGlobalSecondaryIndexes(java.util.Map<String,Capacity> globalSecondaryIndexes) {

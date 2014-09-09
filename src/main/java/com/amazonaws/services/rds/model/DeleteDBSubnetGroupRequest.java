@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Deletes a DB subnet group.
  * </p>
  * <p>
- * <b>NOTE:</b>The specified database subnet group must not be associated with any DB instances.
+ * <b>NOTE:</b>The specified database subnet group must not be associated
+ * with any DB instances.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#deleteDBSubnetGroup(DeleteDBSubnetGroupRequest)
@@ -89,7 +90,7 @@ public class DeleteDBSubnetGroupRequest extends AmazonWebServiceRequest implemen
      *         letter</li> <li>Cannot end with a hyphen or contain two consecutive
      *         hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteDBSubnetGroupRequest withDBSubnetGroupName(String dBSubnetGroupName) {

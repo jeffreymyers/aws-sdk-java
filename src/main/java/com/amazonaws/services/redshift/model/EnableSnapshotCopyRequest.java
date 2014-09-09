@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#enableSnapshotCopy(EnableSnapshotCopyRequest) EnableSnapshotCopy operation}.
  * <p>
- * Enables the automatic copy of snapshots from one region to another region for a specified cluster.
+ * Enables the automatic copy of snapshots from one region to another
+ * region for a specified cluster.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#enableSnapshotCopy(EnableSnapshotCopyRequest)
@@ -88,7 +89,7 @@ public class EnableSnapshotCopyRequest extends AmazonWebServiceRequest implement
      *         <p> Constraints: Must be the valid name of an existing cluster that
      *         does not already have cross-region snapshot copy enabled.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableSnapshotCopyRequest withClusterIdentifier(String clusterIdentifier) {
@@ -145,7 +146,7 @@ public class EnableSnapshotCopyRequest extends AmazonWebServiceRequest implement
      *         href="http://docs.aws.amazon.com/general/latest/gr/rande.html#redshift_region">Regions
      *         and Endpoints</a> in the Amazon Web Services General Reference.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableSnapshotCopyRequest withDestinationRegion(String destinationRegion) {
@@ -190,7 +191,7 @@ public class EnableSnapshotCopyRequest extends AmazonWebServiceRequest implement
      *         region after they are copied from the source region. <p> Default: 7.
      *         <p> Constraints: Must be at least 1 and no more than 35.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableSnapshotCopyRequest withRetentionPeriod(Integer retentionPeriod) {

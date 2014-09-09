@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A section of the response body that provides information about the job that is created.
+ * A section of the response body that provides information about the job
+ * that is created.
  * </p>
  */
 public class Job implements Serializable {
@@ -149,7 +150,7 @@ public class Job implements Serializable {
      * @param id The identifier that Elastic Transcoder assigned to the job. You use
      *         this value to get settings for the job or to delete the job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withId(String id) {
@@ -182,7 +183,7 @@ public class Job implements Serializable {
      *
      * @param arn The Amazon Resource Name (ARN) for the job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withArn(String arn) {
@@ -248,7 +249,7 @@ public class Job implements Serializable {
      *         files to transcode and the bucket into which Elastic Transcoder puts
      *         the transcoded files.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withPipelineId(String pipelineId) {
@@ -287,7 +288,7 @@ public class Job implements Serializable {
      * @param input A section of the request or response body that provides information
      *         about the file that is being transcoded.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withInput(JobInput input) {
@@ -356,7 +357,7 @@ public class Job implements Serializable {
      *         the request or response body that provides information about the
      *         transcoded (target) file.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withOutput(JobOutput output) {
@@ -441,7 +442,7 @@ public class Job implements Serializable {
      *         files for each output in the order in which you specify them in the
      *         job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withOutputs(JobOutput... outputs) {
@@ -473,7 +474,7 @@ public class Job implements Serializable {
      *         files for each output in the order in which you specify them in the
      *         job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withOutputs(java.util.Collection<JobOutput> outputs) {
@@ -540,7 +541,7 @@ public class Job implements Serializable {
      *         thumbnails, and playlists. We recommend that you add a / or some other
      *         delimiter to the end of the <code>OutputKeyPrefix</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withOutputKeyPrefix(String outputKeyPrefix) {
@@ -613,7 +614,7 @@ public class Job implements Serializable {
      *         Transcoder to create. <p>We recommend that you create only one master
      *         playlist. The maximum number of master playlists in a job is 30.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withPlaylists(Playlist... playlists) {
@@ -641,7 +642,7 @@ public class Job implements Serializable {
      *         Transcoder to create. <p>We recommend that you create only one master
      *         playlist. The maximum number of master playlists in a job is 30.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withPlaylists(java.util.Collection<Playlist> playlists) {
@@ -702,7 +703,7 @@ public class Job implements Serializable {
      *         <code>Progressing</code>, <code>Complete</code>,
      *         <code>Canceled</code>, or <code>Error</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Job withStatus(String status) {

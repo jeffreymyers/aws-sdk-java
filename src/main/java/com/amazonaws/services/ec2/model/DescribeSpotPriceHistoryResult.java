@@ -17,22 +17,25 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Describe Spot Price History Result
+ * 
  */
 public class DescribeSpotPriceHistoryResult implements Serializable {
 
+    /**
+     * The historical Spot Prices.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<SpotPrice> spotPriceHistory;
 
     /**
-     * The string marking the next set of results returned. Displays empty if
-     * there are no more results to be returned.
+     * The string marking the next set of results. This is empty if there are
+     * no more results.
      */
     private String nextToken;
 
     /**
-     * Returns the value of the SpotPriceHistory property for this object.
+     * The historical Spot Prices.
      *
-     * @return The value of the SpotPriceHistory property for this object.
+     * @return The historical Spot Prices.
      */
     public java.util.List<SpotPrice> getSpotPriceHistory() {
         if (spotPriceHistory == null) {
@@ -43,9 +46,9 @@ public class DescribeSpotPriceHistoryResult implements Serializable {
     }
     
     /**
-     * Sets the value of the SpotPriceHistory property for this object.
+     * The historical Spot Prices.
      *
-     * @param spotPriceHistory The new value for the SpotPriceHistory property for this object.
+     * @param spotPriceHistory The historical Spot Prices.
      */
     public void setSpotPriceHistory(java.util.Collection<SpotPrice> spotPriceHistory) {
         if (spotPriceHistory == null) {
@@ -58,13 +61,13 @@ public class DescribeSpotPriceHistoryResult implements Serializable {
     }
     
     /**
-     * Sets the value of the SpotPriceHistory property for this object.
+     * The historical Spot Prices.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotPriceHistory The new value for the SpotPriceHistory property for this object.
+     * @param spotPriceHistory The historical Spot Prices.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSpotPriceHistoryResult withSpotPriceHistory(SpotPrice... spotPriceHistory) {
@@ -76,13 +79,13 @@ public class DescribeSpotPriceHistoryResult implements Serializable {
     }
     
     /**
-     * Sets the value of the SpotPriceHistory property for this object.
+     * The historical Spot Prices.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotPriceHistory The new value for the SpotPriceHistory property for this object.
+     * @param spotPriceHistory The historical Spot Prices.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSpotPriceHistoryResult withSpotPriceHistory(java.util.Collection<SpotPrice> spotPriceHistory) {
@@ -98,37 +101,37 @@ public class DescribeSpotPriceHistoryResult implements Serializable {
     }
 
     /**
-     * The string marking the next set of results returned. Displays empty if
-     * there are no more results to be returned.
+     * The string marking the next set of results. This is empty if there are
+     * no more results.
      *
-     * @return The string marking the next set of results returned. Displays empty if
-     *         there are no more results to be returned.
+     * @return The string marking the next set of results. This is empty if there are
+     *         no more results.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * The string marking the next set of results returned. Displays empty if
-     * there are no more results to be returned.
+     * The string marking the next set of results. This is empty if there are
+     * no more results.
      *
-     * @param nextToken The string marking the next set of results returned. Displays empty if
-     *         there are no more results to be returned.
+     * @param nextToken The string marking the next set of results. This is empty if there are
+     *         no more results.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * The string marking the next set of results returned. Displays empty if
-     * there are no more results to be returned.
+     * The string marking the next set of results. This is empty if there are
+     * no more results.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The string marking the next set of results returned. Displays empty if
-     *         there are no more results to be returned.
+     * @param nextToken The string marking the next set of results. This is empty if there are
+     *         no more results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSpotPriceHistoryResult withNextToken(String nextToken) {

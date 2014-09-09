@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This contains a ClusterSummaryList with the cluster details; for example, the cluster IDs, names, and status.
+ * This contains a ClusterSummaryList with the cluster details; for
+ * example, the cluster IDs, names, and status.
  * </p>
  */
 public class ListClustersResult implements Serializable {
@@ -29,10 +30,8 @@ public class ListClustersResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<ClusterSummary> clusters;
 
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Use the pagination token in later API calls to
-     * retrieve the next page of results. When the value is null, all results
-     * have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      */
     private String marker;
 
@@ -71,7 +70,7 @@ public class ListClustersResult implements Serializable {
      *
      * @param clusters The list of clusters for the account based on the given filters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClustersResult withClusters(ClusterSummary... clusters) {
@@ -89,7 +88,7 @@ public class ListClustersResult implements Serializable {
      *
      * @param clusters The list of clusters for the account based on the given filters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClustersResult withClusters(java.util.Collection<ClusterSummary> clusters) {
@@ -105,49 +104,37 @@ public class ListClustersResult implements Serializable {
     }
 
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Use the pagination token in later API calls to
-     * retrieve the next page of results. When the value is null, all results
-     * have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      *
-     * @return The pagination token is a random string indicating whether there are
-     *         more results to fetch. Use the pagination token in later API calls to
-     *         retrieve the next page of results. When the value is null, all results
-     *         have been returned.
+     * @return The pagination token that indicates the next set of results to
+     *         retrieve.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Use the pagination token in later API calls to
-     * retrieve the next page of results. When the value is null, all results
-     * have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      *
-     * @param marker The pagination token is a random string indicating whether there are
-     *         more results to fetch. Use the pagination token in later API calls to
-     *         retrieve the next page of results. When the value is null, all results
-     *         have been returned.
+     * @param marker The pagination token that indicates the next set of results to
+     *         retrieve.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Use the pagination token in later API calls to
-     * retrieve the next page of results. When the value is null, all results
-     * have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker The pagination token is a random string indicating whether there are
-     *         more results to fetch. Use the pagination token in later API calls to
-     *         retrieve the next page of results. When the value is null, all results
-     *         have been returned.
+     * @param marker The pagination token that indicates the next set of results to
+     *         retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClustersResult withMarker(String marker) {

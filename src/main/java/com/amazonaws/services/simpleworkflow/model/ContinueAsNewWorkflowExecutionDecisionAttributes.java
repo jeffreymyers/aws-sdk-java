@@ -18,32 +18,43 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>ContinueAsNewWorkflowExecution</code> decision.
+ * Provides details of the <code>ContinueAsNewWorkflowExecution</code>
+ * decision.
  * </p>
  * <p>
  * <b>Access Control</b>
  * </p>
  * <p>
- * You can use IAM policies to control this decision's access to Amazon SWF in much the same way as for the regular API:
+ * You can use IAM policies to control this decision's access to Amazon
+ * SWF in much the same way as for the regular API:
  * </p>
  * 
  * <ul>
- * <li>Use a <code>Resource</code> element with the domain name to limit the decision to only specified domains.</li>
- * <li>Use an <code>Action</code> element to allow or deny permission to specify this decision.</li>
- * <li>Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+ * <li>Use a <code>Resource</code> element with the domain name to limit
+ * the decision to only specified domains.</li>
+ * <li>Use an <code>Action</code> element to allow or deny permission to
+ * specify this decision.</li>
+ * <li>Constrain the following parameters by using a
+ * <code>Condition</code> element with the appropriate keys.
  * <ul>
  * <li> <code>tag</code> : TBD.</li>
- * <li> <code>taskList</code> : String constraint. The key is "swf:taskList.name".</li>
- * <li> <code>workflowTypeVersion</code> : String constraint. The key is TBD.</li>
+ * <li> <code>taskList</code> : String constraint. The key is
+ * "swf:taskList.name".</li>
+ * <li> <code>workflowTypeVersion</code> : String constraint. The key is
+ * TBD.</li>
  * 
  * </ul>
  * </li>
  * 
  * </ul>
  * <p>
- * If the caller does not have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action
- * fails. The associated event attribute's <b>cause</b> parameter will be set to OPERATION_NOT_PERMITTED. For details and example IAM policies, see <a
- * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a> .
+ * If the caller does not have sufficient permissions to invoke the
+ * action, or the parameter values fall outside the specified
+ * constraints, the action fails. The associated event attribute's
+ * <b>cause</b> parameter will be set to OPERATION_NOT_PERMITTED. For
+ * details and example IAM policies, see
+ * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+ * .
  * </p>
  */
 public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Serializable {
@@ -169,7 +180,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *
      * @param input The input provided to the new workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withInput(String input) {
@@ -271,7 +282,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *         timeout was specified at registration time then a fault will be
      *         returned.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withExecutionStartToCloseTimeout(String executionStartToCloseTimeout) {
@@ -304,7 +315,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *
      * @param taskList Represents a task list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withTaskList(TaskList taskList) {
@@ -412,7 +423,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *         start-to-close timeout was specified at registration time then a fault
      *         will be returned.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withTaskStartToCloseTimeout(String taskStartToCloseTimeout) {
@@ -554,7 +565,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *         field. If neither this field is set nor a default child policy was
      *         specified at registration time then a fault will be returned. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy
@@ -652,7 +663,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *         field. If neither this field is set nor a default child policy was
      *         specified at registration time then a fault will be returned. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy
@@ -724,7 +735,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *         with a specific tag by calling <a>ListOpenWorkflowExecutions</a> or
      *         <a>ListClosedWorkflowExecutions</a> and specifying a <a>TagFilter</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withTagList(String... tagList) {
@@ -751,7 +762,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *         with a specific tag by calling <a>ListOpenWorkflowExecutions</a> or
      *         <a>ListClosedWorkflowExecutions</a> and specifying a <a>TagFilter</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withTagList(java.util.Collection<String> tagList) {
@@ -800,7 +811,7 @@ public class ContinueAsNewWorkflowExecutionDecisionAttributes implements Seriali
      *
      * @param workflowTypeVersion The new value for the WorkflowTypeVersion property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionDecisionAttributes withWorkflowTypeVersion(String workflowTypeVersion) {

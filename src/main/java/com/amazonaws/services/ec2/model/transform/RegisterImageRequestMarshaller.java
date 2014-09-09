@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class RegisterImageRequestMarshaller implements Marshaller<Request<Regist
 
         Request<RegisterImageRequest> request = new DefaultRequest<RegisterImageRequest>(registerImageRequest, "AmazonEC2");
         request.addParameter("Action", "RegisterImage");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (registerImageRequest.getImageLocation() != null) {
             request.addParameter("ImageLocation", StringUtils.fromString(registerImageRequest.getImageLocation()));
@@ -90,6 +91,9 @@ public class RegisterImageRequestMarshaller implements Marshaller<Request<Regist
                     }
                     if (ebsBlockDeviceEbs.getIops() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Iops", StringUtils.fromInteger(ebsBlockDeviceEbs.getIops()));
+                    }
+                    if (ebsBlockDeviceEbs.isEncrypted() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted", StringUtils.fromBoolean(ebsBlockDeviceEbs.isEncrypted()));
                     }
                 }
                 if (blockDeviceMappingMember.getNoDevice() != null) {

@@ -29,8 +29,9 @@ import com.amazonaws.services.s3.internal.ServerSideEncryptionResult;
  * user-supplied metadata, as well as the standard HTTP headers that Amazon S3
  * sends and receives (Content-Length, ETag, Content-MD5, etc.).
  */
-public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirationResult, ObjectRestoreResult {
-
+public class ObjectMetadata implements ServerSideEncryptionResult,
+        ObjectExpirationResult, ObjectRestoreResult, Cloneable
+{
     /*
      * TODO: Might be nice to get as many of the internal use only methods out
      *       of here so users never even see them.
@@ -42,13 +43,13 @@ public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirat
      * Custom user metadata, represented in responses with the x-amz-meta-
      * header prefix
      */
-    private Map<String, String> userMetadata = new HashMap<String, String>();
+    private Map<String, String> userMetadata;
 
     /**
      * All other (non user custom) headers such as Content-Length, Content-Type,
      * etc.
      */
-    private Map<String, Object> metadata = new HashMap<String, Object>();
+    private Map<String, Object> metadata;
 
     public static final String AES_256_SERVER_SIDE_ENCRYPTION = "AES256";
 
@@ -206,7 +207,15 @@ public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirat
      * @return A map of the raw metadata/headers for the associated object.
      */
     public Map<String, Object> getRawMetadata() {
-        return Collections.unmodifiableMap(metadata);
+        return Collections.unmodifiableMap(new HashMap<String,Object>(metadata));
+    }
+
+    /**
+     * For internal use only. Returns the raw value of the metadata/headers
+     * for the specified key.
+     */
+    public Object getRawMetadataValue(String key) {
+        return metadata.get(key);
     }
 
     /**
@@ -265,6 +274,22 @@ public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirat
 
         if (contentLength == null) return 0;
         return contentLength.longValue();
+    }
+
+    /**
+     * Returns the physical length of the entire object stored in S3.
+     * This is useful during, for example, a range get operation.
+     */
+    public long getInstanceLength() {
+        // See Content-Range in
+        // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+        String contentRange = (String)metadata.get(Headers.CONTENT_RANGE);
+        if (contentRange != null) {
+            int pos = contentRange.lastIndexOf("/");
+            if (pos >= 0)
+                return Long.parseLong(contentRange.substring(pos+1));
+        }
+        return getContentLength();
     }
 
     /**
@@ -468,11 +493,11 @@ public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirat
      * The AWS S3 Java client will attempt to calculate this field automatically
      * when uploading files to Amazon S3.
      * </p>
-     * 
+     *
      * @param md5Base64
      *            The base64 encoded MD5 hash of the content for the object
      *            associated with this metadata.
-     * 
+     *
      * @see ObjectMetadata#getContentMD5()
      */
     public void setContentMD5(String md5Base64) {
@@ -592,21 +617,77 @@ public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirat
     }
 
     /**
-     * Returns the server-side encryption algorithm for the object, or null if
-     * none was used.
+     * Returns the server-side encryption algorithm when encrypting the object
+     * using AWS-managed keys .
      */
+    @Override
+    public String getSSEAlgorithm() {
+        return (String)metadata.get(Headers.SERVER_SIDE_ENCRYPTION);
+    }
+
+    /**
+     * @deprecated Replaced by {@link #getSSEAlgorithm()}
+     */
+    @Deprecated
     public String getServerSideEncryption() {
         return (String)metadata.get(Headers.SERVER_SIDE_ENCRYPTION);
     }
 
     /**
-     * Sets the server-side encryption algorithm for the object.
+     * Sets the server-side encryption algorithm when encrypting the object
+     * using AWS-managed keys.
      *
-     * @param serverSideEncryption
-     *            The server-side encryption algorithm for the object.
+     * @param algorithm
+     *            The server-side encryption algorithm when encrypting the
+     *            object using AWS-managed keys .
      */
-    public void setServerSideEncryption(String serverSideEncryption) {
-        metadata.put(Headers.SERVER_SIDE_ENCRYPTION, serverSideEncryption);
+    @Override
+    public void setSSEAlgorithm(String algorithm) {
+        metadata.put(Headers.SERVER_SIDE_ENCRYPTION, algorithm);
+    }
+
+
+    /**
+     * @deprecated Replaced by {@link #setSSEAlgorithm(String)}
+     */
+    @Deprecated
+    public void setServerSideEncryption(String algorithm) {
+        metadata.put(Headers.SERVER_SIDE_ENCRYPTION, algorithm);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSSECustomerAlgorithm() {
+        return (String) metadata.get(Headers.SERVER_SIDE_ENCRYPTION_CUSTOMER_ALGORITHM);
+    }
+
+    /**
+     * For internal use only. This method is only used to set the value in the
+     * object after receiving the value in a response from S3. When sending
+     * requests, use {@link SSECustomerKey} members in request objects.
+     */
+    @Override
+    public void setSSECustomerAlgorithm(String algorithm) {
+        metadata.put(Headers.SERVER_SIDE_ENCRYPTION_CUSTOMER_ALGORITHM, algorithm);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSSECustomerKeyMd5() {
+        return (String)metadata.get(Headers.SERVER_SIDE_ENCRYPTION_CUSTOMER_KEY_MD5);
+    }
+
+    /**
+     * For internal use only. This method is only used to set the value in the
+     * object after receiving the value in a response from S3. When sending
+     * requests, use {@link SSECustomerKey} members in request objects.
+     */
+    public void setSSECustomerKeyMd5(String md5Digest) {
+        metadata.put(Headers.SERVER_SIDE_ENCRYPTION_CUSTOMER_KEY_MD5, md5Digest);
     }
 
     /**
@@ -702,4 +783,30 @@ public class ObjectMetadata implements ServerSideEncryptionResult, ObjectExpirat
         return httpExpiresDate;
     }
 
+    /**
+     * Returns the value of the specified user meta datum.
+     */
+    public String getUserMetaDataOf(String key) {
+        return userMetadata == null ? null : userMetadata.get(key);
+    }
+
+    public ObjectMetadata() {
+        userMetadata = new HashMap<String, String>();
+        metadata = new HashMap<String, Object>();
+    }
+
+    private ObjectMetadata(ObjectMetadata from) {
+        // shallow clone the internal hash maps
+        userMetadata = from.userMetadata == null ? null : new HashMap<String,String>(from.userMetadata);
+        metadata = from.metadata == null ? null : new HashMap<String, Object>(from.metadata);
+        this.expirationTime = from.expirationTime;
+        this.expirationTimeRuleId = from.expirationTimeRuleId;
+        this.httpExpiresDate = from.httpExpiresDate;
+        this.ongoingRestore = from.ongoingRestore;
+        this.restoreExpirationTime = from.restoreExpirationTime;
+    }
+
+    public ObjectMetadata clone() {
+        return new ObjectMetadata(this);
+    }
 }

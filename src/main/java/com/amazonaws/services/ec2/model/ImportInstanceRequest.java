@@ -22,46 +22,67 @@ import com.amazonaws.services.ec2.model.transform.ImportInstanceRequestMarshalle
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#importInstance(ImportInstanceRequest) ImportInstance operation}.
- * 
+ * <p>
+ * Creates an import instance task using metadata from the specified disk
+ * image. After importing the image, you then upload it using the
+ * ec2-import-volume command in the EC2 command line tools. For more
+ * information, see Using the Command Line Tools to Import Your Virtual
+ * Machine to Amazon EC2 in the Amazon Elastic Compute Cloud User Guide.
+ * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#importInstance(ImportInstanceRequest)
  */
 public class ImportInstanceRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<ImportInstanceRequest> {
 
+    /**
+     * A description for the instance being imported.
+     */
     private String description;
 
+    /**
+     * <p/>
+     */
     private ImportInstanceLaunchSpecification launchSpecification;
 
+    /**
+     * 
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<DiskImage> diskImages;
 
+    /**
+     * The instance operating system.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Windows
+     */
     private String platform;
 
     /**
-     * Returns the value of the Description property for this object.
+     * A description for the instance being imported.
      *
-     * @return The value of the Description property for this object.
+     * @return A description for the instance being imported.
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * A description for the instance being imported.
      *
-     * @param description The new value for the Description property for this object.
+     * @param description A description for the instance being imported.
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * A description for the instance being imported.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param description The new value for the Description property for this object.
+     * @param description A description for the instance being imported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ImportInstanceRequest withDescription(String description) {
@@ -70,31 +91,31 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Returns the value of the LaunchSpecification property for this object.
+     * <p/>
      *
-     * @return The value of the LaunchSpecification property for this object.
+     * @return <p/>
      */
     public ImportInstanceLaunchSpecification getLaunchSpecification() {
         return launchSpecification;
     }
     
     /**
-     * Sets the value of the LaunchSpecification property for this object.
+     * <p/>
      *
-     * @param launchSpecification The new value for the LaunchSpecification property for this object.
+     * @param launchSpecification <p/>
      */
     public void setLaunchSpecification(ImportInstanceLaunchSpecification launchSpecification) {
         this.launchSpecification = launchSpecification;
     }
     
     /**
-     * Sets the value of the LaunchSpecification property for this object.
+     * <p/>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param launchSpecification The new value for the LaunchSpecification property for this object.
+     * @param launchSpecification <p/>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ImportInstanceRequest withLaunchSpecification(ImportInstanceLaunchSpecification launchSpecification) {
@@ -103,9 +124,9 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Returns the value of the DiskImages property for this object.
+     * 
      *
-     * @return The value of the DiskImages property for this object.
+     * @return 
      */
     public java.util.List<DiskImage> getDiskImages() {
         if (diskImages == null) {
@@ -116,9 +137,9 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
     
     /**
-     * Sets the value of the DiskImages property for this object.
+     * 
      *
-     * @param diskImages The new value for the DiskImages property for this object.
+     * @param diskImages 
      */
     public void setDiskImages(java.util.Collection<DiskImage> diskImages) {
         if (diskImages == null) {
@@ -131,13 +152,13 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
     
     /**
-     * Sets the value of the DiskImages property for this object.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param diskImages The new value for the DiskImages property for this object.
+     * @param diskImages 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ImportInstanceRequest withDiskImages(DiskImage... diskImages) {
@@ -149,13 +170,13 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
     
     /**
-     * Sets the value of the DiskImages property for this object.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param diskImages The new value for the DiskImages property for this object.
+     * @param diskImages 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ImportInstanceRequest withDiskImages(java.util.Collection<DiskImage> diskImages) {
@@ -171,12 +192,12 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Returns the value of the Platform property for this object.
+     * The instance operating system.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @return The value of the Platform property for this object.
+     * @return The instance operating system.
      *
      * @see PlatformValues
      */
@@ -185,12 +206,12 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
     
     /**
-     * Sets the value of the Platform property for this object.
+     * The instance operating system.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform The new value for the Platform property for this object.
+     * @param platform The instance operating system.
      *
      * @see PlatformValues
      */
@@ -199,16 +220,16 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
     
     /**
-     * Sets the value of the Platform property for this object.
+     * The instance operating system.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform The new value for the Platform property for this object.
+     * @param platform The instance operating system.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PlatformValues
@@ -219,12 +240,12 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Sets the value of the Platform property for this object.
+     * The instance operating system.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform The new value for the Platform property for this object.
+     * @param platform The instance operating system.
      *
      * @see PlatformValues
      */
@@ -233,16 +254,16 @@ public class ImportInstanceRequest extends AmazonWebServiceRequest implements Se
     }
     
     /**
-     * Sets the value of the Platform property for this object.
+     * The instance operating system.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform The new value for the Platform property for this object.
+     * @param platform The instance operating system.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PlatformValues

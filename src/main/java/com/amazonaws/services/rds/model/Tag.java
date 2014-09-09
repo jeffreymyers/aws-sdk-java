@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
+ * Metadata assigned to an Amazon RDS resource consisting of a key-value
+ * pair.
  * </p>
  */
 public class Tag implements Serializable {
@@ -90,7 +91,7 @@ public class Tag implements Serializable {
      *         letters, digits, white-space, '_', '.', '/', '=', '+', '-' (Java
      *         regex: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-]*)$").
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Tag withKey(String key) {
@@ -147,7 +148,7 @@ public class Tag implements Serializable {
      *         letters, digits, white-space, '_', '.', '/', '=', '+', '-' (Java
      *         regex: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-]*)$").
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Tag withValue(String value) {

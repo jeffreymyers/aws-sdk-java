@@ -21,15 +21,21 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listRoles(ListRolesRequest) ListRoles operation}.
  * <p>
- * Lists the roles that have the specified path prefix. If there are none, the action returns an empty list. For more information about roles, go to <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> .
+ * Lists the roles that have the specified path prefix. If there are
+ * none, the action returns an empty list. For more information about
+ * roles, go to
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+ * .
  * </p>
  * <p>
- * You can paginate the results using the <code>MaxItems</code> and <code>Marker</code> parameters.
+ * You can paginate the results using the <code>MaxItems</code> and
+ * <code>Marker</code> parameters.
  * </p>
  * <p>
- * The returned policy is URL-encoded according to RFC 3986. For more information about RFC 3986, go to <a href="http://www.faqs.org/rfcs/rfc3986.html">
- * http://www.faqs.org/rfcs/rfc3986.html </a> .
+ * The returned policy is URL-encoded according to RFC 3986. For more
+ * information about RFC 3986, go to
+ * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listRoles(ListRolesRequest)
@@ -46,7 +52,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      */
     private String pathPrefix;
 
@@ -58,7 +64,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -84,7 +90,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @return The path prefix for filtering the results. For example:
      *         <code>/application_abc/component_xyz/</code>, which would get all
@@ -107,7 +113,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @param pathPrefix The path prefix for filtering the results. For example:
      *         <code>/application_abc/component_xyz/</code>, which would get all
@@ -132,7 +138,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @param pathPrefix The path prefix for filtering the results. For example:
      *         <code>/application_abc/component_xyz/</code>, which would get all
@@ -141,7 +147,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      *         optional. If it is not included, it defaults to a slash (/), listing
      *         all roles.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolesRequest withPathPrefix(String pathPrefix) {
@@ -157,7 +163,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -176,7 +182,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -197,14 +203,14 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
      *         are truncated. Set it to the value of the <code>Marker</code> element
      *         in the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolesRequest withMarker(String marker) {
@@ -270,7 +276,7 @@ public class ListRolesRequest extends AmazonWebServiceRequest implements Seriali
      *         <code>IsTruncated</code> response element is <code>true</code>. This
      *         parameter is optional. If you do not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolesRequest withMaxItems(Integer maxItems) {

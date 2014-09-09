@@ -37,7 +37,7 @@ public class WorkflowExecutionContinuedAsNewEventAttributesJsonUnmarshaller impl
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -74,6 +74,7 @@ public class WorkflowExecutionContinuedAsNewEventAttributesJsonUnmarshaller impl
                     workflowExecutionContinuedAsNewEventAttributes.setChildPolicy(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("tagList", targetDepth)) {
+                    context.nextToken();
                     workflowExecutionContinuedAsNewEventAttributes.setTagList(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("workflowType", targetDepth)) {

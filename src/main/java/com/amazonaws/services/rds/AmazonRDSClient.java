@@ -30,6 +30,7 @@ import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import static com.amazonaws.util.IOUtils.*;
 
 import com.amazonaws.services.rds.model.*;
 import com.amazonaws.services.rds.model.transform.*;
@@ -40,23 +41,36 @@ import com.amazonaws.services.rds.model.transform.*;
  * completes.
  * <p>
  * Amazon Relational Database Service <p>
- * Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the
- * cloud. It provides cost-efficient, resizable capacity for an industry-standard relational database and manages common database administration tasks,
- * freeing up developers to focus on what makes their applications and businesses unique.
+ * Amazon Relational Database Service (Amazon RDS) is a web service that
+ * makes it easier to set up, operate, and scale a relational database in
+ * the cloud. It provides cost-efficient, resizable capacity for an
+ * industry-standard relational database and manages common database
+ * administration tasks, freeing up developers to focus on what makes
+ * their applications and businesses unique.
  * </p>
  * <p>
- * Amazon RDS gives you access to the capabilities of a familiar MySQL or Oracle database server. This means the code, applications, and tools you
- * already use today with your existing MySQL or Oracle databases work with Amazon RDS without modification. Amazon RDS automatically backs up your
- * database and maintains the database software that powers your DB instance. Amazon RDS is flexible: you can scale your database instance's compute
- * resources and storage capacity to meet your application's demand. As with all Amazon Web Services, there are no up-front investments, and you pay only
- * for the resources you use.
+ * Amazon RDS gives you access to the capabilities of a familiar MySQL
+ * or Oracle database server. This means the code, applications, and
+ * tools you already use today with your existing MySQL or Oracle
+ * databases work with Amazon RDS without modification. Amazon RDS
+ * automatically backs up your database and maintains the database
+ * software that powers your DB instance. Amazon RDS is flexible: you can
+ * scale your database instance's compute resources and storage capacity
+ * to meet your application's demand. As with all Amazon Web Services,
+ * there are no up-front investments, and you pay only for the resources
+ * you use.
  * </p>
  * <p>
- * This is an interface reference for Amazon RDS. It contains documentation for a programming or command line interface you can use to manage Amazon
- * RDS. Note that Amazon RDS is asynchronous, which means that some interfaces may require techniques such as polling or callback functions to determine
- * when a command has been applied. In this reference, the parameter descriptions indicate whether a command is applied immediately, on the next instance
- * reboot, or during the maintenance window. For a summary of the Amazon RDS interfaces, go to <a
- * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces"> Available RDS Interfaces </a> .
+ * This is an interface reference for Amazon RDS. It contains
+ * documentation for a programming or command line interface you can use
+ * to manage Amazon RDS. Note that Amazon RDS is asynchronous, which
+ * means that some interfaces may require techniques such as polling or
+ * callback functions to determine when a command has been applied. In
+ * this reference, the parameter descriptions indicate whether a command
+ * is applied immediately, on the next instance reboot, or during the
+ * maintenance window. For a summary of the Amazon RDS interfaces, go to
+ * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces"> Available RDS Interfaces </a>
+ * .
  * </p>
  */
 public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS {
@@ -269,8 +283,10 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
         exceptionUnmarshallers.add(new EventSubscriptionQuotaExceededExceptionUnmarshaller());
         
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("rds.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/rds/request.handlers"));
@@ -309,16 +325,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeEventSubscriptionsResult describeEventSubscriptions(DescribeEventSubscriptionsRequest describeEventSubscriptionsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEventSubscriptionsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEventSubscriptionsRequest> request = null;
         Response<DescribeEventSubscriptionsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEventSubscriptionsRequestMarshaller().marshall(describeEventSubscriptionsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEventSubscriptionsRequestMarshaller().marshall(describeEventSubscriptionsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeEventSubscriptionsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -361,16 +385,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance deleteDBInstance(DeleteDBInstanceRequest deleteDBInstanceRequest) {
         ExecutionContext executionContext = createExecutionContext(deleteDBInstanceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DeleteDBInstanceRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DeleteDBInstanceRequestMarshaller().marshall(deleteDBInstanceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDBInstanceRequestMarshaller().marshall(deleteDBInstanceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -410,16 +442,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance createDBInstance(CreateDBInstanceRequest createDBInstanceRequest) {
         ExecutionContext executionContext = createExecutionContext(createDBInstanceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateDBInstanceRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateDBInstanceRequestMarshaller().marshall(createDBInstanceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDBInstanceRequestMarshaller().marshall(createDBInstanceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -451,16 +491,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeEventsResult describeEvents(DescribeEventsRequest describeEventsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEventsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEventsRequest> request = null;
         Response<DescribeEventsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEventsRequestMarshaller().marshall(describeEventsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEventsRequestMarshaller().marshall(describeEventsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeEventsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -531,16 +579,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBSnapshotsResult describeDBSnapshots(DescribeDBSnapshotsRequest describeDBSnapshotsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBSnapshotsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBSnapshotsRequest> request = null;
         Response<DescribeDBSnapshotsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBSnapshotsRequestMarshaller().marshall(describeDBSnapshotsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBSnapshotsRequestMarshaller().marshall(describeDBSnapshotsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBSnapshotsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -572,16 +628,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBSecurityGroupsResult describeDBSecurityGroups(DescribeDBSecurityGroupsRequest describeDBSecurityGroupsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBSecurityGroupsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBSecurityGroupsRequest> request = null;
         Response<DescribeDBSecurityGroupsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBSecurityGroupsRequestMarshaller().marshall(describeDBSecurityGroupsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBSecurityGroupsRequestMarshaller().marshall(describeDBSecurityGroupsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBSecurityGroupsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -614,16 +678,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSecurityGroup createDBSecurityGroup(CreateDBSecurityGroupRequest createDBSecurityGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(createDBSecurityGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateDBSecurityGroupRequest> request = null;
         Response<DBSecurityGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateDBSecurityGroupRequestMarshaller().marshall(createDBSecurityGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDBSecurityGroupRequestMarshaller().marshall(createDBSecurityGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSecurityGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -671,16 +743,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance restoreDBInstanceToPointInTime(RestoreDBInstanceToPointInTimeRequest restoreDBInstanceToPointInTimeRequest) {
         ExecutionContext executionContext = createExecutionContext(restoreDBInstanceToPointInTimeRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RestoreDBInstanceToPointInTimeRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new RestoreDBInstanceToPointInTimeRequestMarshaller().marshall(restoreDBInstanceToPointInTimeRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RestoreDBInstanceToPointInTimeRequestMarshaller().marshall(restoreDBInstanceToPointInTimeRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -709,16 +789,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeOptionGroupOptionsResult describeOptionGroupOptions(DescribeOptionGroupOptionsRequest describeOptionGroupOptionsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeOptionGroupOptionsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeOptionGroupOptionsRequest> request = null;
         Response<DescribeOptionGroupOptionsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeOptionGroupOptionsRequestMarshaller().marshall(describeOptionGroupOptionsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeOptionGroupOptionsRequestMarshaller().marshall(describeOptionGroupOptionsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeOptionGroupOptionsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -765,9 +853,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * specified DBSubnetGroup.
      * </p>
      * <p>
-     * For an overview of CIDR ranges, go to the <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Wikipedia Tutorial </a> .
+     * For an overview of CIDR ranges, go to the
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+     * .
      * </p>
      *
      * @param describeDBSubnetGroupsRequest Container for the necessary
@@ -790,16 +878,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBSubnetGroupsResult describeDBSubnetGroups(DescribeDBSubnetGroupsRequest describeDBSubnetGroupsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBSubnetGroupsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBSubnetGroupsRequest> request = null;
         Response<DescribeDBSubnetGroupsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBSubnetGroupsRequestMarshaller().marshall(describeDBSubnetGroupsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBSubnetGroupsRequestMarshaller().marshall(describeDBSubnetGroupsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBSubnetGroupsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -809,9 +905,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * Removes metadata tags from an Amazon RDS resource.
      * </p>
      * <p>
-     * For an overview on tagging an Amazon RDS resource, see <a
-     * docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">
-     * Tagging Amazon RDS Resources </a> .
+     * For an overview on tagging an Amazon RDS resource, see
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+     * .
      * </p>
      *
      * @param removeTagsFromResourceRequest Container for the necessary
@@ -871,16 +967,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBParametersResult describeDBParameters(DescribeDBParametersRequest describeDBParametersRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBParametersRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBParametersRequest> request = null;
         Response<DescribeDBParametersResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBParametersRequestMarshaller().marshall(describeDBParametersRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBParametersRequestMarshaller().marshall(describeDBParametersRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBParametersResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -950,16 +1054,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeOrderableDBInstanceOptionsResult describeOrderableDBInstanceOptions(DescribeOrderableDBInstanceOptionsRequest describeOrderableDBInstanceOptionsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeOrderableDBInstanceOptionsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeOrderableDBInstanceOptionsRequest> request = null;
         Response<DescribeOrderableDBInstanceOptionsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeOrderableDBInstanceOptionsRequestMarshaller().marshall(describeOrderableDBInstanceOptionsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeOrderableDBInstanceOptionsRequestMarshaller().marshall(describeOrderableDBInstanceOptionsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeOrderableDBInstanceOptionsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1000,16 +1112,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBParameterGroup createDBParameterGroup(CreateDBParameterGroupRequest createDBParameterGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(createDBParameterGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateDBParameterGroupRequest> request = null;
         Response<DBParameterGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateDBParameterGroupRequestMarshaller().marshall(createDBParameterGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDBParameterGroupRequestMarshaller().marshall(createDBParameterGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBParameterGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1022,9 +1142,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * Amazon RDS.
      * </p>
      * <p>
-     * For an overview on tagging Amazon RDS resources, see <a
-     * docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">
-     * Tagging Amazon RDS Resources </a> .
+     * For an overview on tagging Amazon RDS resources, see
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+     * .
      * </p>
      *
      * @param addTagsToResourceRequest Container for the necessary parameters
@@ -1062,9 +1182,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * Lists all tags on an Amazon RDS resource.
      * </p>
      * <p>
-     * For an overview on tagging an Amazon RDS resource, see <a
-     * docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">
-     * Tagging Amazon RDS Resources </a> .
+     * For an overview on tagging an Amazon RDS resource, see
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+     * .
      * </p>
      *
      * @param listTagsForResourceRequest Container for the necessary
@@ -1088,16 +1208,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
         ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListTagsForResourceRequest> request = null;
         Response<ListTagsForResourceResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListTagsForResourceRequestMarshaller().marshall(listTagsForResourceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestMarshaller().marshall(listTagsForResourceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListTagsForResourceResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1132,16 +1260,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSnapshot deleteDBSnapshot(DeleteDBSnapshotRequest deleteDBSnapshotRequest) {
         ExecutionContext executionContext = createExecutionContext(deleteDBSnapshotRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DeleteDBSnapshotRequest> request = null;
         Response<DBSnapshot> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DeleteDBSnapshotRequestMarshaller().marshall(deleteDBSnapshotRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDBSnapshotRequestMarshaller().marshall(deleteDBSnapshotRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSnapshotStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1176,16 +1312,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSubnetGroup modifyDBSubnetGroup(ModifyDBSubnetGroupRequest modifyDBSubnetGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(modifyDBSubnetGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ModifyDBSubnetGroupRequest> request = null;
         Response<DBSubnetGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ModifyDBSubnetGroupRequestMarshaller().marshall(modifyDBSubnetGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyDBSubnetGroupRequestMarshaller().marshall(modifyDBSubnetGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSubnetGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1215,16 +1359,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public OptionGroup createOptionGroup(CreateOptionGroupRequest createOptionGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(createOptionGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateOptionGroupRequest> request = null;
         Response<OptionGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateOptionGroupRequestMarshaller().marshall(createOptionGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateOptionGroupRequestMarshaller().marshall(createOptionGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new OptionGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1256,16 +1408,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBParameterGroupsResult describeDBParameterGroups(DescribeDBParameterGroupsRequest describeDBParameterGroupsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBParameterGroupsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBParameterGroupsRequest> request = null;
         Response<DescribeDBParameterGroupsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBParameterGroupsRequestMarshaller().marshall(describeDBParameterGroupsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBParameterGroupsRequestMarshaller().marshall(describeDBParameterGroupsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBParameterGroupsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1301,16 +1461,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSecurityGroup revokeDBSecurityGroupIngress(RevokeDBSecurityGroupIngressRequest revokeDBSecurityGroupIngressRequest) {
         ExecutionContext executionContext = createExecutionContext(revokeDBSecurityGroupIngressRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RevokeDBSecurityGroupIngressRequest> request = null;
         Response<DBSecurityGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new RevokeDBSecurityGroupIngressRequestMarshaller().marshall(revokeDBSecurityGroupIngressRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RevokeDBSecurityGroupIngressRequestMarshaller().marshall(revokeDBSecurityGroupIngressRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSecurityGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1340,16 +1508,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeReservedDBInstancesOfferingsResult describeReservedDBInstancesOfferings(DescribeReservedDBInstancesOfferingsRequest describeReservedDBInstancesOfferingsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeReservedDBInstancesOfferingsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeReservedDBInstancesOfferingsRequest> request = null;
         Response<DescribeReservedDBInstancesOfferingsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeReservedDBInstancesOfferingsRequestMarshaller().marshall(describeReservedDBInstancesOfferingsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReservedDBInstancesOfferingsRequestMarshaller().marshall(describeReservedDBInstancesOfferingsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeReservedDBInstancesOfferingsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1405,16 +1581,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance createDBInstanceReadReplica(CreateDBInstanceReadReplicaRequest createDBInstanceReadReplicaRequest) {
         ExecutionContext executionContext = createExecutionContext(createDBInstanceReadReplicaRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateDBInstanceReadReplicaRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateDBInstanceReadReplicaRequestMarshaller().marshall(createDBInstanceReadReplicaRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDBInstanceReadReplicaRequestMarshaller().marshall(createDBInstanceReadReplicaRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1445,16 +1629,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBInstancesResult describeDBInstances(DescribeDBInstancesRequest describeDBInstancesRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBInstancesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBInstancesRequest> request = null;
         Response<DescribeDBInstancesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBInstancesRequestMarshaller().marshall(describeDBInstancesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBInstancesRequestMarshaller().marshall(describeDBInstancesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBInstancesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1486,16 +1678,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public ReservedDBInstance purchaseReservedDBInstancesOffering(PurchaseReservedDBInstancesOfferingRequest purchaseReservedDBInstancesOfferingRequest) {
         ExecutionContext executionContext = createExecutionContext(purchaseReservedDBInstancesOfferingRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<PurchaseReservedDBInstancesOfferingRequest> request = null;
         Response<ReservedDBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new PurchaseReservedDBInstancesOfferingRequestMarshaller().marshall(purchaseReservedDBInstancesOfferingRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PurchaseReservedDBInstancesOfferingRequestMarshaller().marshall(purchaseReservedDBInstancesOfferingRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ReservedDBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1527,16 +1727,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public EventSubscription removeSourceIdentifierFromSubscription(RemoveSourceIdentifierFromSubscriptionRequest removeSourceIdentifierFromSubscriptionRequest) {
         ExecutionContext executionContext = createExecutionContext(removeSourceIdentifierFromSubscriptionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RemoveSourceIdentifierFromSubscriptionRequest> request = null;
         Response<EventSubscription> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new RemoveSourceIdentifierFromSubscriptionRequestMarshaller().marshall(removeSourceIdentifierFromSubscriptionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveSourceIdentifierFromSubscriptionRequestMarshaller().marshall(removeSourceIdentifierFromSubscriptionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EventSubscriptionStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1566,16 +1774,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public EngineDefaults describeEngineDefaultParameters(DescribeEngineDefaultParametersRequest describeEngineDefaultParametersRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEngineDefaultParametersRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEngineDefaultParametersRequest> request = null;
         Response<EngineDefaults> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEngineDefaultParametersRequestMarshaller().marshall(describeEngineDefaultParametersRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEngineDefaultParametersRequestMarshaller().marshall(describeEngineDefaultParametersRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EngineDefaultsStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1617,16 +1833,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance modifyDBInstance(ModifyDBInstanceRequest modifyDBInstanceRequest) {
         ExecutionContext executionContext = createExecutionContext(modifyDBInstanceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ModifyDBInstanceRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ModifyDBInstanceRequestMarshaller().marshall(modifyDBInstanceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyDBInstanceRequestMarshaller().marshall(modifyDBInstanceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1656,16 +1880,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public OptionGroup modifyOptionGroup(ModifyOptionGroupRequest modifyOptionGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(modifyOptionGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ModifyOptionGroupRequest> request = null;
         Response<OptionGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ModifyOptionGroupRequestMarshaller().marshall(modifyOptionGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyOptionGroupRequestMarshaller().marshall(modifyOptionGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new OptionGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1688,9 +1920,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * RDS DB instance in another.
      * </p>
      * <p>
-     * For an overview of CIDR ranges, go to the <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Wikipedia Tutorial </a> .
+     * For an overview of CIDR ranges, go to the
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+     * .
      * </p>
      *
      * @param authorizeDBSecurityGroupIngressRequest Container for the
@@ -1716,16 +1948,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSecurityGroup authorizeDBSecurityGroupIngress(AuthorizeDBSecurityGroupIngressRequest authorizeDBSecurityGroupIngressRequest) {
         ExecutionContext executionContext = createExecutionContext(authorizeDBSecurityGroupIngressRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<AuthorizeDBSecurityGroupIngressRequest> request = null;
         Response<DBSecurityGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new AuthorizeDBSecurityGroupIngressRequestMarshaller().marshall(authorizeDBSecurityGroupIngressRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AuthorizeDBSecurityGroupIngressRequestMarshaller().marshall(authorizeDBSecurityGroupIngressRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSecurityGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1757,16 +1997,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public EventSubscription addSourceIdentifierToSubscription(AddSourceIdentifierToSubscriptionRequest addSourceIdentifierToSubscriptionRequest) {
         ExecutionContext executionContext = createExecutionContext(addSourceIdentifierToSubscriptionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<AddSourceIdentifierToSubscriptionRequest> request = null;
         Response<EventSubscription> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new AddSourceIdentifierToSubscriptionRequestMarshaller().marshall(addSourceIdentifierToSubscriptionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AddSourceIdentifierToSubscriptionRequestMarshaller().marshall(addSourceIdentifierToSubscriptionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EventSubscriptionStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1775,8 +2023,7 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * <p>
      * Modifies the parameters of a DB parameter group. To modify more than
      * one parameter, submit a list of the following:
-     * <code>ParameterName</code> ,
-     * <code>ParameterValue</code> , and
+     * <code>ParameterName</code> , <code>ParameterValue</code> , and
      * <code>ApplyMethod</code> . A maximum of 20 parameters can be modified
      * in a single request.
      * </p>
@@ -1809,16 +2056,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public ModifyDBParameterGroupResult modifyDBParameterGroup(ModifyDBParameterGroupRequest modifyDBParameterGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(modifyDBParameterGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ModifyDBParameterGroupRequest> request = null;
         Response<ModifyDBParameterGroupResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ModifyDBParameterGroupRequestMarshaller().marshall(modifyDBParameterGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyDBParameterGroupRequestMarshaller().marshall(modifyDBParameterGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ModifyDBParameterGroupResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1827,9 +2082,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * <p>
      * Displays a list of categories for all event source types, or, if
      * specified, for a specified source type. You can see a list of the
-     * event categories and source types in the <a
-     * tp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">
-     * Events </a> topic in the Amazon RDS User Guide.
+     * event categories and source types in the
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+     * topic in the Amazon RDS User Guide.
      * </p>
      *
      * @param describeEventCategoriesRequest Container for the necessary
@@ -1851,16 +2106,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeEventCategoriesResult describeEventCategories(DescribeEventCategoriesRequest describeEventCategoriesRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEventCategoriesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEventCategoriesRequest> request = null;
         Response<DescribeEventCategoriesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEventCategoriesRequestMarshaller().marshall(describeEventCategoriesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEventCategoriesRequestMarshaller().marshall(describeEventCategoriesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeEventCategoriesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1899,16 +2162,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public ResetDBParameterGroupResult resetDBParameterGroup(ResetDBParameterGroupRequest resetDBParameterGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(resetDBParameterGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ResetDBParameterGroupRequest> request = null;
         Response<ResetDBParameterGroupResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ResetDBParameterGroupRequestMarshaller().marshall(resetDBParameterGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ResetDBParameterGroupRequestMarshaller().marshall(resetDBParameterGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ResetDBParameterGroupResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1943,16 +2214,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSubnetGroup createDBSubnetGroup(CreateDBSubnetGroupRequest createDBSubnetGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(createDBSubnetGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateDBSubnetGroupRequest> request = null;
         Response<DBSubnetGroup> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateDBSubnetGroupRequestMarshaller().marshall(createDBSubnetGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDBSubnetGroupRequestMarshaller().marshall(createDBSubnetGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSubnetGroupStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1982,24 +2261,32 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBLogFilesResult describeDBLogFiles(DescribeDBLogFilesRequest describeDBLogFilesRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBLogFilesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBLogFilesRequest> request = null;
         Response<DescribeDBLogFilesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBLogFilesRequestMarshaller().marshall(describeDBLogFilesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBLogFilesRequestMarshaller().marshall(describeDBLogFilesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBLogFilesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Creates an RDS event notification subscription. This action requires a
-     * topic ARN (Amazon Resource Name) created by either the RDS console,
+     * Creates an RDS event notification subscription. This action requires
+     * a topic ARN (Amazon Resource Name) created by either the RDS console,
      * the SNS console, or the SNS API. To obtain an ARN with SNS, you must
      * create a topic in Amazon SNS and subscribe to the topic. The ARN is
      * displayed in the SNS console.
@@ -2013,14 +2300,14 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * EventCategories = Availability, Backup.
      * </p>
      * <p>
-     * If you specify both the SourceType and SourceIds, such as SourceType =
-     * db-instance and SourceIdentifier = myDBInstance1, you will be notified
-     * of all the db-instance events for the specified source. If you specify
-     * a SourceType but do not specify a SourceIdentifier, you will receive
-     * notice of the events for that source type for all your RDS sources. If
-     * you do not specify either the SourceType nor the SourceIdentifier, you
-     * will be notified of events generated from all RDS sources belonging to
-     * your customer account.
+     * If you specify both the SourceType and SourceIds, such as SourceType
+     * = db-instance and SourceIdentifier = myDBInstance1, you will be
+     * notified of all the db-instance events for the specified source. If
+     * you specify a SourceType but do not specify a SourceIdentifier, you
+     * will receive notice of the events for that source type for all your
+     * RDS sources. If you do not specify either the SourceType nor the
+     * SourceIdentifier, you will be notified of events generated from all
+     * RDS sources belonging to your customer account.
      * </p>
      *
      * @param createEventSubscriptionRequest Container for the necessary
@@ -2049,16 +2336,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public EventSubscription createEventSubscription(CreateEventSubscriptionRequest createEventSubscriptionRequest) {
         ExecutionContext executionContext = createExecutionContext(createEventSubscriptionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateEventSubscriptionRequest> request = null;
         Response<EventSubscription> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateEventSubscriptionRequestMarshaller().marshall(createEventSubscriptionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateEventSubscriptionRequestMarshaller().marshall(createEventSubscriptionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EventSubscriptionStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2091,16 +2386,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSnapshot copyDBSnapshot(CopyDBSnapshotRequest copyDBSnapshotRequest) {
         ExecutionContext executionContext = createExecutionContext(copyDBSnapshotRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CopyDBSnapshotRequest> request = null;
         Response<DBSnapshot> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CopyDBSnapshotRequestMarshaller().marshall(copyDBSnapshotRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CopyDBSnapshotRequestMarshaller().marshall(copyDBSnapshotRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSnapshotStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2131,16 +2434,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeReservedDBInstancesResult describeReservedDBInstances(DescribeReservedDBInstancesRequest describeReservedDBInstancesRequest) {
         ExecutionContext executionContext = createExecutionContext(describeReservedDBInstancesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeReservedDBInstancesRequest> request = null;
         Response<DescribeReservedDBInstancesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeReservedDBInstancesRequestMarshaller().marshall(describeReservedDBInstancesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReservedDBInstancesRequestMarshaller().marshall(describeReservedDBInstancesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeReservedDBInstancesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2191,16 +2502,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance rebootDBInstance(RebootDBInstanceRequest rebootDBInstanceRequest) {
         ExecutionContext executionContext = createExecutionContext(rebootDBInstanceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RebootDBInstanceRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new RebootDBInstanceRequestMarshaller().marshall(rebootDBInstanceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RebootDBInstanceRequestMarshaller().marshall(rebootDBInstanceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2231,16 +2550,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public EventSubscription deleteEventSubscription(DeleteEventSubscriptionRequest deleteEventSubscriptionRequest) {
         ExecutionContext executionContext = createExecutionContext(deleteEventSubscriptionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DeleteEventSubscriptionRequest> request = null;
         Response<EventSubscription> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DeleteEventSubscriptionRequestMarshaller().marshall(deleteEventSubscriptionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteEventSubscriptionRequestMarshaller().marshall(deleteEventSubscriptionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EventSubscriptionStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2271,16 +2598,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance promoteReadReplica(PromoteReadReplicaRequest promoteReadReplicaRequest) {
         ExecutionContext executionContext = createExecutionContext(promoteReadReplicaRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<PromoteReadReplicaRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new PromoteReadReplicaRequestMarshaller().marshall(promoteReadReplicaRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PromoteReadReplicaRequestMarshaller().marshall(promoteReadReplicaRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2309,16 +2644,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeDBEngineVersionsResult describeDBEngineVersions(DescribeDBEngineVersionsRequest describeDBEngineVersionsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeDBEngineVersionsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDBEngineVersionsRequest> request = null;
         Response<DescribeDBEngineVersionsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeDBEngineVersionsRequestMarshaller().marshall(describeDBEngineVersionsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDBEngineVersionsRequestMarshaller().marshall(describeDBEngineVersionsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeDBEngineVersionsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2348,16 +2691,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DescribeOptionGroupsResult describeOptionGroups(DescribeOptionGroupsRequest describeOptionGroupsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeOptionGroupsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeOptionGroupsRequest> request = null;
         Response<DescribeOptionGroupsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeOptionGroupsRequestMarshaller().marshall(describeOptionGroupsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeOptionGroupsRequestMarshaller().marshall(describeOptionGroupsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeOptionGroupsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2387,16 +2738,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DownloadDBLogFilePortionResult downloadDBLogFilePortion(DownloadDBLogFilePortionRequest downloadDBLogFilePortionRequest) {
         ExecutionContext executionContext = createExecutionContext(downloadDBLogFilePortionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DownloadDBLogFilePortionRequest> request = null;
         Response<DownloadDBLogFilePortionResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DownloadDBLogFilePortionRequestMarshaller().marshall(downloadDBLogFilePortionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DownloadDBLogFilePortionRequestMarshaller().marshall(downloadDBLogFilePortionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DownloadDBLogFilePortionResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2411,9 +2770,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * </p>
      * <p>
      * You can see a list of the event categories for a given SourceType in
-     * the <a
-     * tp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">
-     * Events </a> topic in the Amazon RDS User Guide or by using the
+     * the
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+     * topic in the Amazon RDS User Guide or by using the
      * <b>DescribeEventCategories</b> action.
      * </p>
      *
@@ -2442,16 +2801,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public EventSubscription modifyEventSubscription(ModifyEventSubscriptionRequest modifyEventSubscriptionRequest) {
         ExecutionContext executionContext = createExecutionContext(modifyEventSubscriptionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ModifyEventSubscriptionRequest> request = null;
         Response<EventSubscription> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ModifyEventSubscriptionRequestMarshaller().marshall(modifyEventSubscriptionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyEventSubscriptionRequestMarshaller().marshall(modifyEventSubscriptionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EventSubscriptionStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2496,16 +2863,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBInstance restoreDBInstanceFromDBSnapshot(RestoreDBInstanceFromDBSnapshotRequest restoreDBInstanceFromDBSnapshotRequest) {
         ExecutionContext executionContext = createExecutionContext(restoreDBInstanceFromDBSnapshotRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RestoreDBInstanceFromDBSnapshotRequest> request = null;
         Response<DBInstance> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new RestoreDBInstanceFromDBSnapshotRequestMarshaller().marshall(restoreDBInstanceFromDBSnapshotRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RestoreDBInstanceFromDBSnapshotRequestMarshaller().marshall(restoreDBInstanceFromDBSnapshotRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBInstanceStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2515,8 +2890,8 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * Deletes a DB subnet group.
      * </p>
      * <p>
-     * <b>NOTE:</b>The specified database subnet group must not be associated
-     * with any DB instances.
+     * <b>NOTE:</b>The specified database subnet group must not be
+     * associated with any DB instances.
      * </p>
      *
      * @param deleteDBSubnetGroupRequest Container for the necessary
@@ -2579,16 +2954,24 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
     public DBSnapshot createDBSnapshot(CreateDBSnapshotRequest createDBSnapshotRequest) {
         ExecutionContext executionContext = createExecutionContext(createDBSnapshotRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateDBSnapshotRequest> request = null;
         Response<DBSnapshot> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateDBSnapshotRequestMarshaller().marshall(createDBSnapshotRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDBSnapshotRequestMarshaller().marshall(createDBSnapshotRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DBSnapshotStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2699,9 +3082,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * specified DBSubnetGroup.
      * </p>
      * <p>
-     * For an overview of CIDR ranges, go to the <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Wikipedia Tutorial </a> .
+     * For an overview of CIDR ranges, go to the
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+     * .
      * </p>
      * 
      * @return The response from the DescribeDBSubnetGroups service method,
@@ -2794,9 +3177,9 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
      * <p>
      * Displays a list of categories for all event source types, or, if
      * specified, for a specified source type. You can see a list of the
-     * event categories and source types in the <a
-     * tp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">
-     * Events </a> topic in the Amazon RDS User Guide.
+     * event categories and source types in the
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+     * topic in the Amazon RDS User Guide.
      * </p>
      * 
      * @return The response from the DescribeEventCategories service method,
@@ -2917,7 +3300,6 @@ public class AmazonRDSClient extends AmazonWebServiceClient implements AmazonRDS
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);

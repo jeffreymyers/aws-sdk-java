@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.sns.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -54,6 +55,30 @@ public class PublishRequestMarshaller implements Marshaller<Request<PublishReque
         }
         if (publishRequest.getMessageStructure() != null) {
             request.addParameter("MessageStructure", StringUtils.fromString(publishRequest.getMessageStructure()));
+        }
+        if (publishRequest != null) {
+            if (publishRequest.getMessageAttributes() != null) {
+                int messageAttributesListIndex = 1;
+                for (Map.Entry<String, MessageAttributeValue> messageAttributesListValue : publishRequest.getMessageAttributes().entrySet()) {
+
+                    if (messageAttributesListValue.getKey() != null) {
+                        request.addParameter("MessageAttributes.entry." + messageAttributesListIndex + ".Name", StringUtils.fromString(messageAttributesListValue.getKey()));
+                    }
+                    MessageAttributeValue messageAttributeValueValue = messageAttributesListValue.getValue();
+                    if (messageAttributeValueValue != null) {
+                        if (messageAttributeValueValue.getDataType() != null) {
+                            request.addParameter("MessageAttributes.entry." + messageAttributesListIndex + ".Value.DataType", StringUtils.fromString(messageAttributeValueValue.getDataType()));
+                        }
+                        if (messageAttributeValueValue.getStringValue() != null) {
+                            request.addParameter("MessageAttributes.entry." + messageAttributesListIndex + ".Value.StringValue", StringUtils.fromString(messageAttributeValueValue.getStringValue()));
+                        }
+                        if (messageAttributeValueValue.getBinaryValue() != null) {
+                            request.addParameter("MessageAttributes.entry." + messageAttributesListIndex + ".Value.BinaryValue", StringUtils.fromByteBuffer(messageAttributeValueValue.getBinaryValue()));
+                        }
+                    }
+                    ++messageAttributesListIndex;
+                }
+            }
         }
 
         return request;

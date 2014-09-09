@@ -16,6 +16,8 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.internal;
+import static com.amazonaws.util.StringUtils.UTF8;
+import static com.amazonaws.util.IOUtils.closeQuietly;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -23,14 +25,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.net.SocketException;
+import java.util.Map;
 
 import javax.net.ssl.SSLProtocolException;
 
@@ -52,22 +53,27 @@ import com.amazonaws.util.Md5Utils;
 public class ServiceUtils {
     private static final Log log = LogFactory.getLog(ServiceUtils.class);
 
+    public static final boolean APPEND_MODE = true;
+
+    public static final boolean OVERWRITE_MODE = false;
+
+    @Deprecated
     protected static final DateUtils dateUtils = new DateUtils();
 
-    public static Date parseIso8601Date(String dateString) throws ParseException {
-        return dateUtils.parseIso8601Date(dateString);
+    public static Date parseIso8601Date(String dateString) {
+        return DateUtils.parseISO8601Date(dateString);
     }
 
     public static String formatIso8601Date(Date date) {
-        return dateUtils.formatIso8601Date(date);
+        return DateUtils.formatISO8601Date(date);
     }
 
-    public static Date parseRfc822Date(String dateString) throws ParseException {
-        return dateUtils.parseRfc822Date(dateString);
+    public static Date parseRfc822Date(String dateString) {
+        return DateUtils.parseRFC822Date(dateString);
     }
 
     public static String formatRfc822Date(Date date) {
-        return dateUtils.formatRfc822Date(date);
+        return DateUtils.formatRFC822Date(date);
     }
 
     /**
@@ -96,12 +102,7 @@ public class ServiceUtils {
      * @return The byte array contents of the specified string.
      */
     public static byte[] toByteArray(String s) {
-        try {
-            return s.getBytes(Constants.DEFAULT_ENCODING);
-        } catch (UnsupportedEncodingException e) {
-            log.warn("Encoding " + Constants.DEFAULT_ENCODING + " is not supported", e);
-            return s.getBytes();
-        }
+        return s.getBytes(UTF8);
     }
 
 
@@ -138,11 +139,11 @@ public class ServiceUtils {
      *             If the request cannot be converted to a well formed URL.
      */
     public static URL convertRequestToUrl(Request<?> request) {
-        // To be backward compatible, this method by default does not 
+        // To be backward compatible, this method by default does not
         // remove the leading slash in the request resource-path.
         return convertRequestToUrl(request, false);
     }
-    
+
     /**
      * Converts the specified request object into a URL, containing all the
      * specified parameters, the specified request endpoint, etc.
@@ -159,36 +160,42 @@ public class ServiceUtils {
      */
     public static URL convertRequestToUrl(Request<?> request, boolean removeLeadingSlashInResourcePath) {
         String resourcePath = HttpUtils.urlEncode(request.getResourcePath(), true);
-        
+
         // Removed the padding "/" that was already added into the request's resource path.
         if (removeLeadingSlashInResourcePath
                 && resourcePath.startsWith("/")) {
             resourcePath = resourcePath.substring(1);
         }
-        
+
         // Some http client libraries (e.g. Apache HttpClient) cannot handle
         // consecutive "/"s between URL authority and path components.
         // So we escape "////..." into "/%2F%2F%2F...", in the same way as how
         // we treat consecutive "/"s in AmazonS3Client#presignRequest(...)
+
         String urlPath = "/" + resourcePath;
         urlPath = urlPath.replaceAll("(?<=/)/", "%2F");
-        String urlString =  request.getEndpoint() + urlPath;
+        StringBuilder url = new StringBuilder(request.getEndpoint().toString());
+        url.append(urlPath);
 
         boolean firstParam = true;
-        for (String param : request.getParameters().keySet()) {
+        Map<String, String> requestParams = request.getParameters();
+        for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+            String param = entry.getKey();
+            String value = entry.getValue();
+
             if (firstParam) {
-                urlString += "?";
+                url.append("?");
                 firstParam = false;
             } else {
-                urlString += "&";
+                url.append("&");
             }
 
-            String value = request.getParameters().get(param);
-            urlString += param + "=" + HttpUtils.urlEncode(value, false);
+            url.append(param).append("=")
+                    .append(HttpUtils.urlEncode(value, false));
         }
 
         try {
-            return new URL(urlString);
+            return new URL(url.toString());
         } catch (MalformedURLException e) {
             throw new AmazonClientException(
                     "Unable to convert request to well formed URL: " + e.getMessage(), e);
@@ -206,17 +213,17 @@ public class ServiceUtils {
      *         specified list together, with a comma between strings.
      */
     public static String join(List<String> strings) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         boolean first = true;
         for (String s : strings) {
-            if (!first) result += ", ";
+            if (!first) result.append(", ");
 
-            result += s;
+            result.append(s);
             first = false;
         }
 
-        return result;
+        return result.toString();
     }
 
     /**
@@ -230,36 +237,41 @@ public class ServiceUtils {
      * @param destinationFile
      *            The file to store the object's data in.
      * @param performIntegrityCheck
-     *            Boolean valuable to indicate whether do the integrity check or not
+     *            Boolean valuable to indicate whether to perform integrity check
+     * @param appendData
+     *            appends the data to end of the file.
      *
      */
-    public static void downloadObjectToFile(S3Object s3Object, File destinationFile, boolean performIntegrityCheck) {
+    public static void downloadObjectToFile(S3Object s3Object,
+            File destinationFile, boolean performIntegrityCheck,
+            boolean appendData) {
 
         // attempt to create the parent if it doesn't exist
         File parentDirectory = destinationFile.getParentFile();
         if ( parentDirectory != null && !parentDirectory.exists() ) {
-            parentDirectory.mkdirs();
+            if (!(parentDirectory.mkdirs())) {
+                throw new AmazonClientException(
+                        "Unable to create directory in the path"
+                                + parentDirectory.getAbsolutePath());
+            }
         }
 
         OutputStream outputStream = null;
         try {
-            outputStream = new BufferedOutputStream(new FileOutputStream(destinationFile));
+            outputStream = new BufferedOutputStream(new FileOutputStream(
+                    destinationFile, appendData));
             byte[] buffer = new byte[1024*10];
             int bytesRead;
             while ((bytesRead = s3Object.getObjectContent().read(buffer)) > -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            try {
-                s3Object.getObjectContent().abort();
-            } catch ( IOException abortException ) {
-                log.warn("Couldn't abort stream", e);
-            }
+            s3Object.getObjectContent().abort();
             throw new AmazonClientException(
                     "Unable to store object contents to disk: " + e.getMessage(), e);
         } finally {
-            try {outputStream.close();} catch (Exception e) {}
-            try {s3Object.getObjectContent().close();} catch (Exception e) {}
+            closeQuietly(outputStream, log);
+            closeQuietly(s3Object.getObjectContent(), log);
         }
 
         byte[] clientSideHash = null;
@@ -313,23 +325,28 @@ public class ServiceUtils {
      *
      * @param file
      * 			The file to store the object's data in.
-     * @param safeS3DownloadTask
+     * @param retryableS3DownloadTask
      * 			The implementation of SafeS3DownloadTask interface which allows user to
      * 			get access to all the visible variables at the calling site of this method.
      */
-    public static S3Object retryableDownloadS3ObjectToFile (File file, RetryableS3DownloadTask retryableS3DownloadTask) {
+    public static S3Object retryableDownloadS3ObjectToFile(File file,
+            RetryableS3DownloadTask retryableS3DownloadTask, boolean appendData) {
         boolean hasRetried = false;
         boolean needRetry;
         S3Object s3Object;
         do {
-        	needRetry = false;
+            needRetry = false;
             s3Object = retryableS3DownloadTask.getS3ObjectStream();
             if ( s3Object == null )
                 return null;
 
             try {
-                ServiceUtils.downloadObjectToFile(s3Object, file, retryableS3DownloadTask.needIntegrityCheck());
+                ServiceUtils.downloadObjectToFile(s3Object, file,
+                        retryableS3DownloadTask.needIntegrityCheck(),
+                        appendData);
             } catch (AmazonClientException ace) {
+                if (!ace.isRetryable())
+                    throw ace;
                 // Determine whether an immediate retry is needed according to the captured AmazonClientException.
                 // (There are three cases when downloadObjectToFile() throws AmazonClientException:
                 // 		1) SocketException or SSLProtocolException when writing to disk (e.g. when user aborts the download)
@@ -348,7 +365,7 @@ public class ServiceUtils {
                     }
                 }
             } finally {
-                try { s3Object.getObjectContent().abort(); } catch (IOException e) {}
+                s3Object.getObjectContent().abort();
             }
         } while ( needRetry );
         return s3Object;

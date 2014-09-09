@@ -21,26 +21,36 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.route53.AmazonRoute53#changeResourceRecordSets(ChangeResourceRecordSetsRequest) ChangeResourceRecordSets operation}.
  * <p>
- * Use this action to create or change your authoritative DNS information. To use this action, send a <code>POST</code> request to the
- * <code>2012-12-12/hostedzone/hosted Zone ID/rrset</code> resource. The request body must include an XML document with a
+ * Use this action to create or change your authoritative DNS
+ * information. To use this action, send a <code>POST</code> request to
+ * the <code>2013-04-01/hostedzone/hosted Zone ID/rrset</code> resource.
+ * The request body must include an XML document with a
  * <code>ChangeResourceRecordSetsRequest</code> element.
  * </p>
  * <p>
- * Changes are a list of change items and are considered transactional. For more information on transactional changes, also known as change batches, see
- * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/RRSchanges.html#RRSchanges_API"> Creating, Changing, and Deleting Resource Record
- * Sets Using the Route 53 API </a> in the <i>Amazon Route 53 Developer Guide</i> .
+ * Changes are a list of change items and are considered transactional.
+ * For more information on transactional changes, also known as change
+ * batches, see
+ * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/RRSchanges.html#RRSchanges_API"> Creating, Changing, and Deleting Resource Record Sets Using the Route 53 API </a>
+ * in the <i>Amazon Route 53 Developer Guide</i> .
  * </p>
  * <p>
- * <b>IMPORTANT:</b>Due to the nature of transactional changes, you cannot delete the same resource record set more than once in a single change batch.
- * If you attempt to delete the same change batch more than once, Route 53 returns an InvalidChangeBatch error.
+ * <b>IMPORTANT:</b>Due to the nature of transactional changes, you
+ * cannot delete the same resource record set more than once in a single
+ * change batch. If you attempt to delete the same change batch more than
+ * once, Route 53 returns an InvalidChangeBatch error.
  * </p>
  * <p>
- * In response to a <code>ChangeResourceRecordSets</code> request, your DNS data is changed on all Route 53 DNS servers. Initially, the status of a
- * change is <code>PENDING</code> . This means the change has not yet propagated to all the authoritative Route 53 DNS servers. When the change is
- * propagated to all hosts, the change returns a status of <code>INSYNC</code> .
+ * In response to a <code>ChangeResourceRecordSets</code> request, your
+ * DNS data is changed on all Route 53 DNS servers. Initially, the status
+ * of a change is <code>PENDING</code> . This means the change has not
+ * yet propagated to all the authoritative Route 53 DNS servers. When the
+ * change is propagated to all hosts, the change returns a status of
+ * <code>INSYNC</code> .
  * </p>
  * <p>
- * Note the following limitations on a <code>ChangeResourceRecordSets</code> request:
+ * Note the following limitations on a
+ * <code>ChangeResourceRecordSets</code> request:
  * </p>
  * <p>
  * - A request cannot contain more than 100 Change elements.
@@ -49,7 +59,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * - A request cannot contain more than 1000 ResourceRecord elements.
  * </p>
  * <p>
- * The sum of the number of characters (including spaces) in all <code>Value</code> elements in a request cannot exceed 32,000 characters.
+ * The sum of the number of characters (including spaces) in all
+ * <code>Value</code> elements in a request cannot exceed 32,000
+ * characters.
  * </p>
  *
  * @see com.amazonaws.services.route53.AmazonRoute53#changeResourceRecordSets(ChangeResourceRecordSetsRequest)
@@ -57,12 +69,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class ChangeResourceRecordSetsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**
-     * <i>Alias resource record sets only:</i> The value of the hosted zone
-     * ID for the AWS resource. <p>For more information, an example, and
-     * several ways to get the hosted zone ID for the LoadBalancer, see <a
-     * href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     * Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     * <i>Amazon Route 53 Developer Guide</i>.
+     * The ID of the hosted zone that contains the resource record sets that
+     * you want to change.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 32<br/>
@@ -86,13 +94,8 @@ public class ChangeResourceRecordSetsRequest extends AmazonWebServiceRequest imp
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param hostedZoneId <i>Alias resource record sets only:</i> The value
-     * of the hosted zone ID for the AWS resource. <p>For more information,
-     * an example, and several ways to get the hosted zone ID for the
-     * LoadBalancer, see <a
-     * href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     * Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     * <i>Amazon Route 53 Developer Guide</i>.
+     * @param hostedZoneId The ID of the hosted zone that contains the
+     * resource record sets that you want to change.
      * @param changeBatch A complex type that contains an optional comment
      * and the <code>Changes</code> element.
      */
@@ -102,70 +105,46 @@ public class ChangeResourceRecordSetsRequest extends AmazonWebServiceRequest imp
     }
 
     /**
-     * <i>Alias resource record sets only:</i> The value of the hosted zone
-     * ID for the AWS resource. <p>For more information, an example, and
-     * several ways to get the hosted zone ID for the LoadBalancer, see <a
-     * href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     * Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     * <i>Amazon Route 53 Developer Guide</i>.
+     * The ID of the hosted zone that contains the resource record sets that
+     * you want to change.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 32<br/>
      *
-     * @return <i>Alias resource record sets only:</i> The value of the hosted zone
-     *         ID for the AWS resource. <p>For more information, an example, and
-     *         several ways to get the hosted zone ID for the LoadBalancer, see <a
-     *         href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     *         Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     *         <i>Amazon Route 53 Developer Guide</i>.
+     * @return The ID of the hosted zone that contains the resource record sets that
+     *         you want to change.
      */
     public String getHostedZoneId() {
         return hostedZoneId;
     }
     
     /**
-     * <i>Alias resource record sets only:</i> The value of the hosted zone
-     * ID for the AWS resource. <p>For more information, an example, and
-     * several ways to get the hosted zone ID for the LoadBalancer, see <a
-     * href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     * Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     * <i>Amazon Route 53 Developer Guide</i>.
+     * The ID of the hosted zone that contains the resource record sets that
+     * you want to change.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 32<br/>
      *
-     * @param hostedZoneId <i>Alias resource record sets only:</i> The value of the hosted zone
-     *         ID for the AWS resource. <p>For more information, an example, and
-     *         several ways to get the hosted zone ID for the LoadBalancer, see <a
-     *         href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     *         Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     *         <i>Amazon Route 53 Developer Guide</i>.
+     * @param hostedZoneId The ID of the hosted zone that contains the resource record sets that
+     *         you want to change.
      */
     public void setHostedZoneId(String hostedZoneId) {
         this.hostedZoneId = hostedZoneId;
     }
     
     /**
-     * <i>Alias resource record sets only:</i> The value of the hosted zone
-     * ID for the AWS resource. <p>For more information, an example, and
-     * several ways to get the hosted zone ID for the LoadBalancer, see <a
-     * href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     * Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     * <i>Amazon Route 53 Developer Guide</i>.
+     * The ID of the hosted zone that contains the resource record sets that
+     * you want to change.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 32<br/>
      *
-     * @param hostedZoneId <i>Alias resource record sets only:</i> The value of the hosted zone
-     *         ID for the AWS resource. <p>For more information, an example, and
-     *         several ways to get the hosted zone ID for the LoadBalancer, see <a
-     *         href="http://docs.amazonwebservices.com/Route53/latest/DeveloperGuide/CreatingAliasRRSets.html">Creating
-     *         Alias Resource Record Sets for Elastic Load Balancing</a> in the
-     *         <i>Amazon Route 53 Developer Guide</i>.
+     * @param hostedZoneId The ID of the hosted zone that contains the resource record sets that
+     *         you want to change.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeResourceRecordSetsRequest withHostedZoneId(String hostedZoneId) {
@@ -204,7 +183,7 @@ public class ChangeResourceRecordSetsRequest extends AmazonWebServiceRequest imp
      * @param changeBatch A complex type that contains an optional comment and the
      *         <code>Changes</code> element.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeResourceRecordSetsRequest withChangeBatch(ChangeBatch changeBatch) {

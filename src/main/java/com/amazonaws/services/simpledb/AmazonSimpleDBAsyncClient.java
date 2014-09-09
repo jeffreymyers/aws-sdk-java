@@ -35,18 +35,27 @@ import com.amazonaws.services.simpledb.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * Amazon SimpleDB <p>
- * Amazon SimpleDB is a web service providing the core database functions of data indexing and querying in the cloud. By offloading the time and effort
- * associated with building and operating a web-scale database, SimpleDB provides developers the freedom to focus on application development.
+ * Amazon SimpleDB is a web service providing the core database
+ * functions of data indexing and querying in the cloud. By offloading
+ * the time and effort associated with building and operating a web-scale
+ * database, SimpleDB provides developers the freedom to focus on
+ * application development.
  * </p>
  * <p>
- * A traditional, clustered relational database requires a sizable upfront capital outlay, is complex to design, and often requires extensive and
- * repetitive database administration. Amazon SimpleDB is dramatically simpler, requiring no schema, automatically indexing your data and providing a
- * simple API for storage and access. This approach eliminates the administrative burden of data modeling, index maintenance, and performance tuning.
- * Developers gain access to this functionality within Amazon's proven computing environment, are able to scale instantly, and pay only for what they
- * use.
+ * A traditional, clustered relational database requires a sizable
+ * upfront capital outlay, is complex to design, and often requires
+ * extensive and repetitive database administration. Amazon SimpleDB is
+ * dramatically simpler, requiring no schema, automatically indexing your
+ * data and providing a simple API for storage and access. This approach
+ * eliminates the administrative burden of data modeling, index
+ * maintenance, and performance tuning. Developers gain access to this
+ * functionality within Amazon's proven computing environment, are able
+ * to scale instantly, and pay only for what they use.
  * </p>
  * <p>
- * Visit <a href="http://aws.amazon.com/simpledb/"> http://aws.amazon.com/simpledb/ </a> for more information.
+ * Visit
+ * <a href="http://aws.amazon.com/simpledb/"> http://aws.amazon.com/simpledb/ </a>
+ * for more information.
  * </p>
  */
 public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
@@ -56,6 +65,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -98,13 +109,13 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonSimpleDBAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonSimpleDB using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -116,7 +127,7 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      *                       when authenticating with AWS services.
      */
     public AmazonSimpleDBAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -170,7 +181,7 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonSimpleDB using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -183,7 +194,7 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      *            to authenticate requests with AWS services.
      */
     public AmazonSimpleDBAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -226,7 +237,7 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      */
     public AmazonSimpleDBAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -270,7 +281,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -317,8 +329,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
         return executorService.submit(new Callable<SelectResult>() {
             public SelectResult call() throws Exception {
                 return select(selectRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -365,17 +377,17 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<SelectResult>() {
             public SelectResult call() throws Exception {
-                SelectResult result;
+              SelectResult result;
                 try {
-                    result = select(selectRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(selectRequest, result);
-                   return result;
-            }
-        });
+                result = select(selectRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(selectRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -384,9 +396,9 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * item. The client may specify new attributes using a combination of the
      * <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code>
      * parameters. The client specifies the first attribute by the parameters
-     * <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code> ,
-     * the second attribute by the parameters <code>Attribute.1.Name</code>
-     * and <code>Attribute.1.Value</code> , and so on.
+     * <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code> , the
+     * second attribute by the parameters <code>Attribute.1.Name</code> and
+     * <code>Attribute.1.Value</code> , and so on.
      * </p>
      * <p>
      * Attributes are uniquely identified in an item by their name/value
@@ -401,14 +413,13 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * parameter for each individual attribute. Setting this value to
      * <code>true</code> causes the new attribute value to replace the
      * existing attribute value(s). For example, if an item has the
-     * attributes <code>{ 'a', '1' }</code> ,
-     * 
-     * <code>{ 'b', '2'}</code> and <code>{ 'b', '3'
-     * }</code> and the requestor calls <code>PutAttributes</code> using the
-     * attributes <code>{ 'b', '4' }</code> with the <code>Replace</code>
-     * parameter set to true, the final attributes of the item are changed to
-     * <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code> , which
-     * replaces the previous values of the 'b' attribute with the new value.
+     * attributes <code>{ 'a', '1' }</code> , <code>{ 'b', '2'}</code> and
+     * <code>{ 'b', '3' }</code> and the requestor calls
+     * <code>PutAttributes</code> using the attributes <code>{ 'b', '4'
+     * }</code> with the <code>Replace</code> parameter set to true, the
+     * final attributes of the item are changed to <code>{ 'a', '1' }</code>
+     * and <code>{ 'b', '4' }</code> , which replaces the previous values of
+     * the 'b' attribute with the new value.
      * </p>
      * <p>
      * <b>NOTE:</b> Using PutAttributes to replace attribute values that do
@@ -455,8 +466,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
             public Void call() throws Exception {
                 putAttributes(putAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -465,9 +476,9 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * item. The client may specify new attributes using a combination of the
      * <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code>
      * parameters. The client specifies the first attribute by the parameters
-     * <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code> ,
-     * the second attribute by the parameters <code>Attribute.1.Name</code>
-     * and <code>Attribute.1.Value</code> , and so on.
+     * <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code> , the
+     * second attribute by the parameters <code>Attribute.1.Name</code> and
+     * <code>Attribute.1.Value</code> , and so on.
      * </p>
      * <p>
      * Attributes are uniquely identified in an item by their name/value
@@ -482,14 +493,13 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * parameter for each individual attribute. Setting this value to
      * <code>true</code> causes the new attribute value to replace the
      * existing attribute value(s). For example, if an item has the
-     * attributes <code>{ 'a', '1' }</code> ,
-     * 
-     * <code>{ 'b', '2'}</code> and <code>{ 'b', '3'
-     * }</code> and the requestor calls <code>PutAttributes</code> using the
-     * attributes <code>{ 'b', '4' }</code> with the <code>Replace</code>
-     * parameter set to true, the final attributes of the item are changed to
-     * <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code> , which
-     * replaces the previous values of the 'b' attribute with the new value.
+     * attributes <code>{ 'a', '1' }</code> , <code>{ 'b', '2'}</code> and
+     * <code>{ 'b', '3' }</code> and the requestor calls
+     * <code>PutAttributes</code> using the attributes <code>{ 'b', '4'
+     * }</code> with the <code>Replace</code> parameter set to true, the
+     * final attributes of the item are changed to <code>{ 'a', '1' }</code>
+     * and <code>{ 'b', '4' }</code> , which replaces the previous values of
+     * the 'b' attribute with the new value.
      * </p>
      * <p>
      * <b>NOTE:</b> Using PutAttributes to replace attribute values that do
@@ -540,16 +550,16 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    putAttributes(putAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(putAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                putAttributes(putAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(putAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -605,8 +615,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
             public Void call() throws Exception {
                 batchDeleteAttributes(batchDeleteAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -666,16 +676,16 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    batchDeleteAttributes(batchDeleteAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(batchDeleteAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                batchDeleteAttributes(batchDeleteAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(batchDeleteAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -712,8 +722,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
             public Void call() throws Exception {
                 deleteDomain(deleteDomainRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -754,16 +764,16 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteDomain(deleteDomainRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteDomainRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteDomain(deleteDomainRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteDomainRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -782,9 +792,9 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * The client can create up to 100 domains per account.
      * </p>
      * <p>
-     * If the client requires additional domains, go to <a
-     * href="http://aws.amazon.com/contact-us/simpledb-limit-request/">
-     * http://aws.amazon.com/contact-us/simpledb-limit-request/ </a> .
+     * If the client requires additional domains, go to
+     * <a href="http://aws.amazon.com/contact-us/simpledb-limit-request/"> http://aws.amazon.com/contact-us/simpledb-limit-request/ </a>
+     * .
      * </p>
      *
      * @param createDomainRequest Container for the necessary parameters to
@@ -808,8 +818,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
             public Void call() throws Exception {
                 createDomain(createDomainRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -828,9 +838,9 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * The client can create up to 100 domains per account.
      * </p>
      * <p>
-     * If the client requires additional domains, go to <a
-     * href="http://aws.amazon.com/contact-us/simpledb-limit-request/">
-     * http://aws.amazon.com/contact-us/simpledb-limit-request/ </a> .
+     * If the client requires additional domains, go to
+     * <a href="http://aws.amazon.com/contact-us/simpledb-limit-request/"> http://aws.amazon.com/contact-us/simpledb-limit-request/ </a>
+     * .
      * </p>
      *
      * @param createDomainRequest Container for the necessary parameters to
@@ -858,16 +868,16 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createDomain(createDomainRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createDomainRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createDomain(createDomainRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createDomainRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -914,8 +924,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
             public Void call() throws Exception {
                 deleteAttributes(deleteAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -966,16 +976,16 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteAttributes(deleteAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteAttributes(deleteAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1010,8 +1020,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
         return executorService.submit(new Callable<ListDomainsResult>() {
             public ListDomainsResult call() throws Exception {
                 return listDomains(listDomainsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1051,17 +1061,17 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListDomainsResult>() {
             public ListDomainsResult call() throws Exception {
-                ListDomainsResult result;
+              ListDomainsResult result;
                 try {
-                    result = listDomains(listDomainsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listDomainsRequest, result);
-                   return result;
-            }
-        });
+                result = listDomains(listDomainsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listDomainsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1101,8 +1111,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
         return executorService.submit(new Callable<GetAttributesResult>() {
             public GetAttributesResult call() throws Exception {
                 return getAttributes(getAttributesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1147,17 +1157,17 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetAttributesResult>() {
             public GetAttributesResult call() throws Exception {
-                GetAttributesResult result;
+              GetAttributesResult result;
                 try {
-                    result = getAttributes(getAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getAttributesRequest, result);
-                   return result;
-            }
-        });
+                result = getAttributes(getAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getAttributesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1177,19 +1187,17 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * <code>Item.X.Attribute.Y.Value</code> parameters. The client may
      * specify the first attribute for the first item using the parameters
      * <code>Item.0.Attribute.0.Name</code> and
-     * <code>Item.0.Attribute.0.Value</code> ,
-     * and for the second attribute for the first item by the parameters
+     * <code>Item.0.Attribute.0.Value</code> , and for the second attribute
+     * for the first item by the parameters
      * <code>Item.0.Attribute.1.Name</code> and
-     * <code>Item.0.Attribute.1.Value</code> ,
-     * and so on.
+     * <code>Item.0.Attribute.1.Value</code> , and so on.
      * </p>
      * <p>
      * Attributes are uniquely identified within an item by their name/value
      * combination. For example, a single item can have the attributes
      * <code>{ "first_name", "first_value" }</code> and <code>{ "first_name",
-     * "second_value" }</code> .
-     * However, it cannot have two attribute instances where both the
-     * <code>Item.X.Attribute.Y.Name</code> and
+     * "second_value" }</code> . However, it cannot have two attribute
+     * instances where both the <code>Item.X.Attribute.Y.Name</code> and
      * <code>Item.X.Attribute.Y.Value</code> are the same.
      * </p>
      * <p>
@@ -1201,9 +1209,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * '3' }</code> and the requester does a BatchPutAttributes of
      * <code>{'I', 'b', '4' }</code> with the Replace parameter set to true,
      * the final attributes of the item will be <code>{ 'a', '1' }</code> and
-     * <code>{ 'b', '4' }</code> ,
-     * replacing the previous values of the 'b' attribute with the new
-     * value.
+     * <code>{ 'b', '4' }</code> , replacing the previous values of the 'b'
+     * attribute with the new value.
      * </p>
      * <p>
      * <b>NOTE:</b> You cannot specify an empty string as an item or as an
@@ -1257,8 +1264,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
             public Void call() throws Exception {
                 batchPutAttributes(batchPutAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1278,19 +1285,17 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * <code>Item.X.Attribute.Y.Value</code> parameters. The client may
      * specify the first attribute for the first item using the parameters
      * <code>Item.0.Attribute.0.Name</code> and
-     * <code>Item.0.Attribute.0.Value</code> ,
-     * and for the second attribute for the first item by the parameters
+     * <code>Item.0.Attribute.0.Value</code> , and for the second attribute
+     * for the first item by the parameters
      * <code>Item.0.Attribute.1.Name</code> and
-     * <code>Item.0.Attribute.1.Value</code> ,
-     * and so on.
+     * <code>Item.0.Attribute.1.Value</code> , and so on.
      * </p>
      * <p>
      * Attributes are uniquely identified within an item by their name/value
      * combination. For example, a single item can have the attributes
      * <code>{ "first_name", "first_value" }</code> and <code>{ "first_name",
-     * "second_value" }</code> .
-     * However, it cannot have two attribute instances where both the
-     * <code>Item.X.Attribute.Y.Name</code> and
+     * "second_value" }</code> . However, it cannot have two attribute
+     * instances where both the <code>Item.X.Attribute.Y.Name</code> and
      * <code>Item.X.Attribute.Y.Value</code> are the same.
      * </p>
      * <p>
@@ -1302,9 +1307,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * '3' }</code> and the requester does a BatchPutAttributes of
      * <code>{'I', 'b', '4' }</code> with the Replace parameter set to true,
      * the final attributes of the item will be <code>{ 'a', '1' }</code> and
-     * <code>{ 'b', '4' }</code> ,
-     * replacing the previous values of the 'b' attribute with the new
-     * value.
+     * <code>{ 'b', '4' }</code> , replacing the previous values of the 'b'
+     * attribute with the new value.
      * </p>
      * <p>
      * <b>NOTE:</b> You cannot specify an empty string as an item or as an
@@ -1362,16 +1366,16 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    batchPutAttributes(batchPutAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(batchPutAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                batchPutAttributes(batchPutAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(batchPutAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1401,8 +1405,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
         return executorService.submit(new Callable<DomainMetadataResult>() {
             public DomainMetadataResult call() throws Exception {
                 return domainMetadata(domainMetadataRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1437,17 +1441,17 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DomainMetadataResult>() {
             public DomainMetadataResult call() throws Exception {
-                DomainMetadataResult result;
+              DomainMetadataResult result;
                 try {
-                    result = domainMetadata(domainMetadataRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(domainMetadataRequest, result);
-                   return result;
-            }
-        });
+                result = domainMetadata(domainMetadataRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(domainMetadataRequest, result);
+                 return result;
+        }
+    });
     }
     
 }

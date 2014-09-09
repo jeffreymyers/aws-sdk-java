@@ -18,9 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the information required to retrieve an app or cookbook from a repository. For more information, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html"> Creating Apps </a> or <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html"> Custom Recipes and Cookbooks </a> .
+ * Contains the information required to retrieve an app or cookbook from
+ * a repository. For more information, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html"> Creating Apps </a> or <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html"> Custom Recipes and Cookbooks </a>
+ * .
  * </p>
  */
 public class Source implements Serializable {
@@ -40,17 +41,19 @@ public class Source implements Serializable {
 
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Username</code> to the appropriate AWS access
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     * bundles, set <code>Username</code> to the appropriate IAM access key
+     * ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      * repositories, set <code>Username</code> to the user name.</li> </ul>
      */
     private String username;
 
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Password</code> to the appropriate AWS secret
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     * repositories, set <code>Password</code> to the password.</li> </ul>
+     * bundles, set <code>Password</code> to the appropriate IAM secret
+     * access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     * <code>Password</code> to the password.</li> </ul> <p>For more
+     * information on how to safely handle IAM credentials, see <a
+     * href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      */
     private String password;
 
@@ -105,7 +108,7 @@ public class Source implements Serializable {
      *
      * @param type The repository type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -139,7 +142,7 @@ public class Source implements Serializable {
      *
      * @param type The repository type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -174,7 +177,7 @@ public class Source implements Serializable {
      *
      * @param url The source URL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Source withUrl(String url) {
@@ -184,13 +187,13 @@ public class Source implements Serializable {
 
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Username</code> to the appropriate AWS access
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     * bundles, set <code>Username</code> to the appropriate IAM access key
+     * ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      * repositories, set <code>Username</code> to the user name.</li> </ul>
      *
      * @return This parameter depends on the repository type. <ul> <li>For Amazon S3
-     *         bundles, set <code>Username</code> to the appropriate AWS access
-     *         key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     *         bundles, set <code>Username</code> to the appropriate IAM access key
+     *         ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      *         repositories, set <code>Username</code> to the user name.</li> </ul>
      */
     public String getUsername() {
@@ -199,13 +202,13 @@ public class Source implements Serializable {
     
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Username</code> to the appropriate AWS access
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     * bundles, set <code>Username</code> to the appropriate IAM access key
+     * ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      * repositories, set <code>Username</code> to the user name.</li> </ul>
      *
      * @param username This parameter depends on the repository type. <ul> <li>For Amazon S3
-     *         bundles, set <code>Username</code> to the appropriate AWS access
-     *         key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     *         bundles, set <code>Username</code> to the appropriate IAM access key
+     *         ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      *         repositories, set <code>Username</code> to the user name.</li> </ul>
      */
     public void setUsername(String username) {
@@ -214,18 +217,18 @@ public class Source implements Serializable {
     
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Username</code> to the appropriate AWS access
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     * bundles, set <code>Username</code> to the appropriate IAM access key
+     * ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      * repositories, set <code>Username</code> to the user name.</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param username This parameter depends on the repository type. <ul> <li>For Amazon S3
-     *         bundles, set <code>Username</code> to the appropriate AWS access
-     *         key.</li> <li>For HTTP bundles, Git repositories, and Subversion
+     *         bundles, set <code>Username</code> to the appropriate IAM access key
+     *         ID.</li> <li>For HTTP bundles, Git repositories, and Subversion
      *         repositories, set <code>Username</code> to the user name.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Source withUsername(String username) {
@@ -235,14 +238,18 @@ public class Source implements Serializable {
 
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Password</code> to the appropriate AWS secret
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     * repositories, set <code>Password</code> to the password.</li> </ul>
+     * bundles, set <code>Password</code> to the appropriate IAM secret
+     * access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     * <code>Password</code> to the password.</li> </ul> <p>For more
+     * information on how to safely handle IAM credentials, see <a
+     * href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      *
      * @return This parameter depends on the repository type. <ul> <li>For Amazon S3
-     *         bundles, set <code>Password</code> to the appropriate AWS secret
-     *         key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     *         repositories, set <code>Password</code> to the password.</li> </ul>
+     *         bundles, set <code>Password</code> to the appropriate IAM secret
+     *         access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     *         <code>Password</code> to the password.</li> </ul> <p>For more
+     *         information on how to safely handle IAM credentials, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      */
     public String getPassword() {
         return password;
@@ -250,14 +257,18 @@ public class Source implements Serializable {
     
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Password</code> to the appropriate AWS secret
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     * repositories, set <code>Password</code> to the password.</li> </ul>
+     * bundles, set <code>Password</code> to the appropriate IAM secret
+     * access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     * <code>Password</code> to the password.</li> </ul> <p>For more
+     * information on how to safely handle IAM credentials, see <a
+     * href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      *
      * @param password This parameter depends on the repository type. <ul> <li>For Amazon S3
-     *         bundles, set <code>Password</code> to the appropriate AWS secret
-     *         key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     *         repositories, set <code>Password</code> to the password.</li> </ul>
+     *         bundles, set <code>Password</code> to the appropriate IAM secret
+     *         access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     *         <code>Password</code> to the password.</li> </ul> <p>For more
+     *         information on how to safely handle IAM credentials, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      */
     public void setPassword(String password) {
         this.password = password;
@@ -265,18 +276,22 @@ public class Source implements Serializable {
     
     /**
      * This parameter depends on the repository type. <ul> <li>For Amazon S3
-     * bundles, set <code>Password</code> to the appropriate AWS secret
-     * key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     * repositories, set <code>Password</code> to the password.</li> </ul>
+     * bundles, set <code>Password</code> to the appropriate IAM secret
+     * access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     * <code>Password</code> to the password.</li> </ul> <p>For more
+     * information on how to safely handle IAM credentials, see <a
+     * href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param password This parameter depends on the repository type. <ul> <li>For Amazon S3
-     *         bundles, set <code>Password</code> to the appropriate AWS secret
-     *         key.</li> <li>For HTTP bundles, Git repositories, and Subversion
-     *         repositories, set <code>Password</code> to the password.</li> </ul>
+     *         bundles, set <code>Password</code> to the appropriate IAM secret
+     *         access key.</li> <li>For HTTP bundles and Subversion repositories, set
+     *         <code>Password</code> to the password.</li> </ul> <p>For more
+     *         information on how to safely handle IAM credentials, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"/>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Source withPassword(String password) {
@@ -309,7 +324,7 @@ public class Source implements Serializable {
      *
      * @param sshKey The repository's SSH key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Source withSshKey(String sshKey) {
@@ -360,7 +375,7 @@ public class Source implements Serializable {
      *         have branches or revisions in your repository that represent different
      *         versions that can potentially be deployed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Source withRevision(String revision) {

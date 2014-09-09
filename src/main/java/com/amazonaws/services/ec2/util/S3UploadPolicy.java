@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.ec2.util;
+import static com.amazonaws.util.StringUtils.UTF8;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -24,7 +25,7 @@ import java.util.SimpleTimeZone;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
+import com.amazonaws.util.Base64;
 
 /**
  * This class represents S3 upload policy. Policy string representation and
@@ -80,7 +81,7 @@ public class S3UploadPolicy {
                 .append("\"]")
                 .append("]}");
         try {
-            this.policyString = base64Encode(builder.toString().getBytes("UTF-8"));
+            this.policyString = base64Encode(builder.toString().getBytes(UTF8));
             this.policySignature = signPolicy(awsSecretKey, policyString);
         } catch (Exception ex) {
             throw new RuntimeException ("Unable to generate S3 upload policy", ex);
@@ -117,8 +118,8 @@ public class S3UploadPolicy {
         return base64Encode(mac.doFinal(base64EncodedPolicy.getBytes()));
     }
 
-    private String base64Encode(byte [] data) throws UnsupportedEncodingException {
-        return new String(Base64.encodeBase64(data), "UTF-8").replaceAll("\\s", "");
+    private String base64Encode(byte [] data) {
+        return Base64.encodeAsString(data).replaceAll("\\s", "");
     }
 
 }

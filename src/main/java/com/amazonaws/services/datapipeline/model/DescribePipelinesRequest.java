@@ -21,12 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#describePipelines(DescribePipelinesRequest) DescribePipelines operation}.
  * <p>
- * Retrieve metadata about one or more pipelines. The information retrieved includes the name of the pipeline, the pipeline identifier, its current
- * state, and the user account that owns the pipeline. Using account credentials, you can retrieve metadata about pipelines that you or your IAM users
- * have created. If you are using an IAM user account, you can retrieve metadata about only those pipelines you have read permission for.
+ * Retrieve metadata about one or more pipelines. The information
+ * retrieved includes the name of the pipeline, the pipeline identifier,
+ * its current state, and the user account that owns the pipeline. Using
+ * account credentials, you can retrieve metadata about pipelines that
+ * you or your IAM users have created. If you are using an IAM user
+ * account, you can retrieve metadata about only those pipelines you have
+ * read permission for.
  * </p>
  * <p>
- * To retrieve the full pipeline definition instead of metadata about the pipeline, call the GetPipelineDefinition action.
+ * To retrieve the full pipeline definition instead of metadata about
+ * the pipeline, call the GetPipelineDefinition action.
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#describePipelines(DescribePipelinesRequest)
@@ -87,7 +92,7 @@ public class DescribePipelinesRequest extends AmazonWebServiceRequest implements
      *         identifiers in a single call to <a>DescribePipelines</a>. You can
      *         obtain pipeline identifiers by calling <a>ListPipelines</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePipelinesRequest withPipelineIds(String... pipelineIds) {
@@ -109,7 +114,7 @@ public class DescribePipelinesRequest extends AmazonWebServiceRequest implements
      *         identifiers in a single call to <a>DescribePipelines</a>. You can
      *         obtain pipeline identifiers by calling <a>ListPipelines</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePipelinesRequest withPipelineIds(java.util.Collection<String> pipelineIds) {

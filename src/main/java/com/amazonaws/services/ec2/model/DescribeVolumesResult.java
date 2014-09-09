@@ -17,21 +17,19 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * <p>
- * The result of describing your EBS volumes.
- * </p>
+ * 
  */
 public class DescribeVolumesResult implements Serializable {
 
     /**
-     * The list of described EBS volumes.
+     * 
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Volume> volumes;
 
     /**
-     * The list of described EBS volumes.
+     * 
      *
-     * @return The list of described EBS volumes.
+     * @return 
      */
     public java.util.List<Volume> getVolumes() {
         if (volumes == null) {
@@ -42,9 +40,9 @@ public class DescribeVolumesResult implements Serializable {
     }
     
     /**
-     * The list of described EBS volumes.
+     * 
      *
-     * @param volumes The list of described EBS volumes.
+     * @param volumes 
      */
     public void setVolumes(java.util.Collection<Volume> volumes) {
         if (volumes == null) {
@@ -57,13 +55,13 @@ public class DescribeVolumesResult implements Serializable {
     }
     
     /**
-     * The list of described EBS volumes.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param volumes The list of described EBS volumes.
+     * @param volumes 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesResult withVolumes(Volume... volumes) {
@@ -75,13 +73,13 @@ public class DescribeVolumesResult implements Serializable {
     }
     
     /**
-     * The list of described EBS volumes.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param volumes The list of described EBS volumes.
+     * @param volumes 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesResult withVolumes(java.util.Collection<Volume> volumes) {

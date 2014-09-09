@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the body of the message. You can specify text, HTML, or both. If you use both, then the message should display correctly in the widest
- * variety of email clients.
+ * Represents the body of the message. You can specify text, HTML, or
+ * both. If you use both, then the message should display correctly in
+ * the widest variety of email clients.
  * </p>
  */
 public class Body implements Serializable {
@@ -94,7 +95,7 @@ public class Body implements Serializable {
      *         email clients, or clients on high-latency networks (such as mobile
      *         devices).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Body withText(Content text) {
@@ -139,7 +140,7 @@ public class Body implements Serializable {
      *         that can process HTML. You can include clickable links, formatted
      *         text, and much more in an HTML message.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Body withHtml(Content html) {

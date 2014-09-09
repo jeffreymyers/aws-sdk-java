@@ -37,7 +37,7 @@ public class WorkflowExecutionInfosJsonUnmarshaller implements Unmarshaller<Work
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class WorkflowExecutionInfosJsonUnmarshaller implements Unmarshaller<Work
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("executionInfos", targetDepth)) {
+                    context.nextToken();
                     workflowExecutionInfos.setExecutionInfos(new ListUnmarshaller<WorkflowExecutionInfo>(WorkflowExecutionInfoJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("nextPageToken", targetDepth)) {

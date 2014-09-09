@@ -21,12 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#applySecurityGroupsToLoadBalancer(ApplySecurityGroupsToLoadBalancerRequest) ApplySecurityGroupsToLoadBalancer operation}.
  * <p>
- * Associates one or more security groups with your load balancer in Amazon Virtual Private Cloud (Amazon VPC). The provided security group IDs will
- * override any currently applied security groups.
+ * Associates one or more security groups with your load balancer in
+ * Amazon Virtual Private Cloud (Amazon VPC). The provided security group
+ * IDs will override any currently applied security groups.
  * </p>
  * <p>
- * For more information, see <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/USVPC_ApplySG.html"> Manage Security Groups
- * in Amazon VPC </a> in the <i>Elastic Load Balancing Developer Guide</i> .
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/USVPC_ApplySG.html"> Manage Security Groups in Amazon VPC </a>
+ * in the <i>Elastic Load Balancing Developer Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#applySecurityGroupsToLoadBalancer(ApplySecurityGroupsToLoadBalancerRequest)
@@ -77,7 +79,7 @@ public class ApplySecurityGroupsToLoadBalancerRequest extends AmazonWebServiceRe
      * @param loadBalancerName The name associated with the load balancer. The name must be unique
      *         within the set of load balancers associated with your AWS account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ApplySecurityGroupsToLoadBalancerRequest withLoadBalancerName(String loadBalancerName) {
@@ -132,7 +134,7 @@ public class ApplySecurityGroupsToLoadBalancerRequest extends AmazonWebServiceRe
      *         VPC. The security group IDs must be provided as the ID and not the
      *         security group name (For example, sg-1234).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ApplySecurityGroupsToLoadBalancerRequest withSecurityGroups(String... securityGroups) {
@@ -154,7 +156,7 @@ public class ApplySecurityGroupsToLoadBalancerRequest extends AmazonWebServiceRe
      *         VPC. The security group IDs must be provided as the ID and not the
      *         security group name (For example, sg-1234).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ApplySecurityGroupsToLoadBalancerRequest withSecurityGroups(java.util.Collection<String> securityGroups) {

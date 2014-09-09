@@ -23,7 +23,8 @@ import com.amazonaws.services.ec2.model.transform.DescribeImageAttributeRequestM
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describeImageAttribute(DescribeImageAttributeRequest) DescribeImageAttribute operation}.
  * <p>
- * The DescribeImageAttribute operation returns information about an attribute of an AMI. Only one attribute can be specified per call.
+ * Describes the specified attribute of the specified AMI. You can
+ * specify only one attribute at a time.
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeImageAttribute(DescribeImageAttributeRequest)
@@ -31,14 +32,12 @@ import com.amazonaws.services.ec2.model.transform.DescribeImageAttributeRequestM
 public class DescribeImageAttributeRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<DescribeImageAttributeRequest> {
 
     /**
-     * The ID of the AMI whose attribute is to be described.
+     * The ID of the AMI.
      */
     private String imageId;
 
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * The AMI attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>description, kernel, ramdisk, launchPermission, productCodes, blockDeviceMapping
@@ -56,11 +55,8 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param imageId The ID of the AMI whose attribute is to be described.
-     * @param attribute The name of the attribute to describe. <p> Available
-     * attribute names: <code>productCodes</code>, <code>kernel</code>,
-     * <code>ramdisk</code>, <code>launchPermisson</code>,
-     * <code>blockDeviceMapping</code>
+     * @param imageId The ID of the AMI.
+     * @param attribute The AMI attribute.
      */
     public DescribeImageAttributeRequest(String imageId, String attribute) {
         setImageId(imageId);
@@ -72,11 +68,8 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param imageId The ID of the AMI whose attribute is to be described.
-     * @param attribute The name of the attribute to describe. <p> Available
-     * attribute names: <code>productCodes</code>, <code>kernel</code>,
-     * <code>ramdisk</code>, <code>launchPermisson</code>,
-     * <code>blockDeviceMapping</code>
+     * @param imageId The ID of the AMI.
+     * @param attribute The AMI attribute.
      */
     public DescribeImageAttributeRequest(String imageId, ImageAttributeName attribute) {
         this.imageId = imageId;
@@ -84,31 +77,31 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
     }
 
     /**
-     * The ID of the AMI whose attribute is to be described.
+     * The ID of the AMI.
      *
-     * @return The ID of the AMI whose attribute is to be described.
+     * @return The ID of the AMI.
      */
     public String getImageId() {
         return imageId;
     }
     
     /**
-     * The ID of the AMI whose attribute is to be described.
+     * The ID of the AMI.
      *
-     * @param imageId The ID of the AMI whose attribute is to be described.
+     * @param imageId The ID of the AMI.
      */
     public void setImageId(String imageId) {
         this.imageId = imageId;
     }
     
     /**
-     * The ID of the AMI whose attribute is to be described.
+     * The ID of the AMI.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param imageId The ID of the AMI whose attribute is to be described.
+     * @param imageId The ID of the AMI.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeImageAttributeRequest withImageId(String imageId) {
@@ -117,16 +110,12 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
     }
 
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * The AMI attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>description, kernel, ramdisk, launchPermission, productCodes, blockDeviceMapping
      *
-     * @return The name of the attribute to describe. <p> Available attribute names:
-     *         <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * @return The AMI attribute.
      *
      * @see ImageAttributeName
      */
@@ -135,16 +124,12 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
     }
     
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * The AMI attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>description, kernel, ramdisk, launchPermission, productCodes, blockDeviceMapping
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * @param attribute The AMI attribute.
      *
      * @see ImageAttributeName
      */
@@ -153,20 +138,16 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
     }
     
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * The AMI attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>description, kernel, ramdisk, launchPermission, productCodes, blockDeviceMapping
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * @param attribute The AMI attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ImageAttributeName
@@ -177,16 +158,12 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
     }
 
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * The AMI attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>description, kernel, ramdisk, launchPermission, productCodes, blockDeviceMapping
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * @param attribute The AMI attribute.
      *
      * @see ImageAttributeName
      */
@@ -195,20 +172,16 @@ public class DescribeImageAttributeRequest extends AmazonWebServiceRequest imple
     }
     
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * The AMI attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>description, kernel, ramdisk, launchPermission, productCodes, blockDeviceMapping
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>productCodes</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>launchPermisson</code>, <code>blockDeviceMapping</code>
+     * @param attribute The AMI attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ImageAttributeName

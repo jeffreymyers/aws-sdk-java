@@ -18,8 +18,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Specifies the conditions under which data should be updated. If an update condition is specified for a request, the data will only be updated if the
- * condition is satisfied. For example, if an attribute with a specific name and value exists, or if a specific attribute doesn't exist.
+ * Specifies the conditions under which data should be updated. If an
+ * update condition is specified for a request, the data will only be
+ * updated if the condition is satisfied. For example, if an attribute
+ * with a specific name and value exists, or if a specific attribute
+ * doesn't exist.
  * </p>
  */
 public class UpdateCondition implements Serializable {
@@ -98,7 +101,7 @@ public class UpdateCondition implements Serializable {
      *
      * @param name The name of the attribute involved in the condition.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateCondition withName(String name) {
@@ -137,7 +140,7 @@ public class UpdateCondition implements Serializable {
      * @param value The value of an attribute. This value can only be specified when the
      *         <code>Exists</code> parameter is equal to <code>true</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateCondition withValue(String value) {
@@ -200,7 +203,7 @@ public class UpdateCondition implements Serializable {
      *         the attribute should not exist in order for the update condition to be
      *         satisfied.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateCondition withExists(Boolean exists) {

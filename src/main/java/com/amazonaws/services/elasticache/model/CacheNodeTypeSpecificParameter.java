@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A parameter that has a different value for each cache node type it is applied to. For example, in a Redis cache cluster, a <i>cache.m1.large</i> cache
- * node type would have a larger <i>maxmemory</i> value than a <i>cache.m1.small</i> type.
+ * A parameter that has a different value for each cache node type it is
+ * applied to. For example, in a Redis cache cluster, a
+ * <i>cache.m1.large</i> cache node type would have a larger
+ * <i>maxmemory</i> value than a <i>cache.m1.small</i> type.
  * </p>
  */
 public class CacheNodeTypeSpecificParameter implements Serializable {
@@ -98,7 +100,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *
      * @param parameterName The name of the parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withParameterName(String parameterName) {
@@ -131,7 +133,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *
      * @param description A description of the parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withDescription(String description) {
@@ -164,7 +166,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *
      * @param source The source of the parameter value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withSource(String source) {
@@ -197,7 +199,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *
      * @param dataType The valid data type for the parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withDataType(String dataType) {
@@ -230,7 +232,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *
      * @param allowedValues The valid range of values for the parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withAllowedValues(String allowedValues) {
@@ -275,7 +277,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *         parameter can be modified. Some parameters have security or
      *         operational implications that prevent them from being changed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withIsModifiable(Boolean isModifiable) {
@@ -321,7 +323,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      *
      * @param minimumEngineVersion The earliest cache engine version to which the parameter can apply.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withMinimumEngineVersion(String minimumEngineVersion) {
@@ -370,7 +372,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      * @param cacheNodeTypeSpecificValues A list of cache node types and their corresponding values for this
      *         parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withCacheNodeTypeSpecificValues(CacheNodeTypeSpecificValue... cacheNodeTypeSpecificValues) {
@@ -390,7 +392,7 @@ public class CacheNodeTypeSpecificParameter implements Serializable {
      * @param cacheNodeTypeSpecificValues A list of cache node types and their corresponding values for this
      *         parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNodeTypeSpecificParameter withCacheNodeTypeSpecificValues(java.util.Collection<CacheNodeTypeSpecificValue> cacheNodeTypeSpecificValues) {

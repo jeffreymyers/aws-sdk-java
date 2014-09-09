@@ -21,12 +21,14 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 
 /**
- * Stores materials to be used in encryption.  These materials may be either an asymmetric key pair or 
- * a symmetric key but not both.
+ * The "key encrypting key" materials used in encrypt/decryption. These
+ * materials may be either an asymmetric key pair or a symmetric key but not
+ * both.
  */
 public class EncryptionMaterials {
-    private KeyPair keyPair;
-    private SecretKey symmetricKey;
+    private final KeyPair keyPair;
+    private final SecretKey symmetricKey;
+    private Map<String, String> desc = new HashMap<String,String>();
 
     /**
      * Constructs a new EncryptionMaterials object, storing an asymmetric key pair.
@@ -78,13 +80,10 @@ public class EncryptionMaterials {
     }
 
     /**
-     * Returns an empty map since the EncryptionMaterials base class does not have extra materials information.
-     * Subclasses may override this method.
-     * 
-     * @return an empty <String, String> map
+     * Returns a snapshot of the current material description; never null.
      */
     public Map<String, String> getMaterialsDescription() {
-        return new HashMap<String, String>();
+        return new HashMap<String, String>(desc);
     }
 
     /**
@@ -93,7 +92,23 @@ public class EncryptionMaterials {
      * 
      * @return null
      */
-    public EncryptionMaterialsAccessor getAccessor() {      
+    public EncryptionMaterialsAccessor getAccessor() {
         return null;
+    }
+
+    /**
+     * Fluent API to add material description.
+     */
+    public EncryptionMaterials addDescription(String name, String value) {
+        desc.put(name, value);
+        return this;
+    }
+
+    /**
+     * Fluent API to add all the given material descriptions.
+     */
+    public EncryptionMaterials addDescriptions(Map<String,String> descriptions) {
+        desc.putAll(descriptions);
+        return this;
     }
 }

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteGroup(DeleteGroupRequest) DeleteGroup operation}.
  * <p>
- * Deletes the specified group. The group must not contain any users or have any attached policies.
+ * Deletes the specified group. The group must not contain any users or
+ * have any attached policies.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteGroup(DeleteGroupRequest)
@@ -91,7 +92,7 @@ public class DeleteGroupRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param groupName Name of the group to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteGroupRequest withGroupName(String groupName) {

@@ -26,25 +26,28 @@ import com.amazonaws.services.elasticbeanstalk.model.*;
  * Each asynchronous method will return a Java Future object, and users are also allowed
  * to provide a callback handler.
  * AWS Elastic Beanstalk <p>
- * This is the AWS Elastic Beanstalk API Reference. This guide provides detailed information about AWS Elastic Beanstalk actions, data types,
+ * This is the AWS Elastic Beanstalk API Reference. This guide provides
+ * detailed information about AWS Elastic Beanstalk actions, data types,
  * parameters, and errors.
  * </p>
  * <p>
- * AWS Elastic Beanstalk is a tool that makes it easy for you to create, deploy, and manage scalable, fault-tolerant applications running on Amazon Web
- * Services cloud resources.
+ * AWS Elastic Beanstalk is a tool that makes it easy for you to create,
+ * deploy, and manage scalable, fault-tolerant applications running on
+ * Amazon Web Services cloud resources.
  * </p>
  * <p>
- * For more information about this product, go to the <a href="http://aws.amazon.com/elasticbeanstalk/"> AWS Elastic Beanstalk </a> details page. The
- * location of the latest AWS Elastic Beanstalk WSDL is <a href="http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl">
- * http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl </a> .
+ * For more information about this product, go to the
+ * <a href="http://aws.amazon.com/elasticbeanstalk/"> AWS Elastic Beanstalk </a> details page. The location of the latest AWS Elastic Beanstalk WSDL is <a href="http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl"> http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl </a>
+ * .
  * </p>
  * <p>
  * <b>Endpoints</b>
  * </p>
  * <p>
- * For a list of region-specific endpoints that AWS Elastic Beanstalk supports, go to <a
- * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region"> Regions and Endpoints </a> in the <i>Amazon Web Services
- * Glossary</i> .
+ * For a list of region-specific endpoints that AWS Elastic Beanstalk
+ * supports, go to
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region"> Regions and Endpoints </a>
+ * in the <i>Amazon Web Services Glossary</i> .
  * </p>
  */
 public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
@@ -688,9 +691,9 @@ public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
      * properties.
      * </p>
      * <p>
-     * <b>NOTE:</b> If a property (for example, description) is not provided,
-     * the value remains unchanged. To clear properties, specify an empty
-     * string.
+     * <b>NOTE:</b> If a property (for example, description) is not
+     * provided, the value remains unchanged. To clear properties, specify an
+     * empty string.
      * </p>
      *
      * @param updateApplicationVersionRequest Container for the necessary
@@ -719,9 +722,9 @@ public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
      * properties.
      * </p>
      * <p>
-     * <b>NOTE:</b> If a property (for example, description) is not provided,
-     * the value remains unchanged. To clear properties, specify an empty
-     * string.
+     * <b>NOTE:</b> If a property (for example, description) is not
+     * provided, the value remains unchanged. To clear properties, specify an
+     * empty string.
      * </p>
      *
      * @param updateApplicationVersionRequest Container for the necessary
@@ -1073,9 +1076,9 @@ public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
      * Updates the specified application to have the specified properties.
      * </p>
      * <p>
-     * <b>NOTE:</b> If a property (for example, description) is not provided,
-     * the value remains unchanged. To clear these properties, specify an
-     * empty string.
+     * <b>NOTE:</b> If a property (for example, description) is not
+     * provided, the value remains unchanged. To clear these properties,
+     * specify an empty string.
      * </p>
      *
      * @param updateApplicationRequest Container for the necessary parameters
@@ -1101,9 +1104,9 @@ public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
      * Updates the specified application to have the specified properties.
      * </p>
      * <p>
-     * <b>NOTE:</b> If a property (for example, description) is not provided,
-     * the value remains unchanged. To clear these properties, specify an
-     * empty string.
+     * <b>NOTE:</b> If a property (for example, description) is not
+     * provided, the value remains unchanged. To clear these properties,
+     * specify an empty string.
      * </p>
      *
      * @param updateApplicationRequest Container for the necessary parameters
@@ -1854,8 +1857,8 @@ public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
      * weeks.
      * </p>
      * <p>
-     * <b>NOTE:</b> This action returns the most recent 1,000 events from the
-     * specified NextToken.
+     * <b>NOTE:</b> This action returns the most recent 1,000 events from
+     * the specified NextToken.
      * </p>
      *
      * @param describeEventsRequest Container for the necessary parameters to
@@ -1882,8 +1885,8 @@ public interface AWSElasticBeanstalkAsync extends AWSElasticBeanstalk {
      * weeks.
      * </p>
      * <p>
-     * <b>NOTE:</b> This action returns the most recent 1,000 events from the
-     * specified NextToken.
+     * <b>NOTE:</b> This action returns the most recent 1,000 events from
+     * the specified NextToken.
      * </p>
      *
      * @param describeEventsRequest Container for the necessary parameters to

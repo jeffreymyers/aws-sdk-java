@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,9 +45,9 @@ public class DeleteStreamingDistributionRequestMarshaller implements Marshaller<
         Request<DeleteStreamingDistributionRequest> request = new DefaultRequest<DeleteStreamingDistributionRequest>(deleteStreamingDistributionRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.DELETE);
         if (deleteStreamingDistributionRequest.getIfMatch() != null)
-            request.addHeader("If-Match", StringUtils.fromString(deleteStreamingDistributionRequest.getIfMatch()));
+          request.addHeader("If-Match", StringUtils.fromString(deleteStreamingDistributionRequest.getIfMatch()));
 
-        String uriResourcePath = "2013-11-11/streaming-distribution/{Id}"; 
+        String uriResourcePath = "2014-05-31/streaming-distribution/{Id}"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(deleteStreamingDistributionRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {

@@ -24,8 +24,10 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Deletes the specified configuration template.
  * </p>
  * <p>
- * <b>NOTE:</b>When you launch an environment using a configuration template, the environment gets a copy of the template. You can delete or modify the
- * environment's copy of the template without affecting the running environment.
+ * <b>NOTE:</b>When you launch an environment using a configuration
+ * template, the environment gets a copy of the template. You can delete
+ * or modify the environment's copy of the template without affecting the
+ * running environment.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#deleteConfigurationTemplate(DeleteConfigurationTemplateRequest)
@@ -102,7 +104,7 @@ public class DeleteConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *
      * @param applicationName The name of the application to delete the configuration template from.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteConfigurationTemplateRequest withApplicationName(String applicationName) {
@@ -144,7 +146,7 @@ public class DeleteConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *
      * @param templateName The name of the configuration template to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteConfigurationTemplateRequest withTemplateName(String templateName) {

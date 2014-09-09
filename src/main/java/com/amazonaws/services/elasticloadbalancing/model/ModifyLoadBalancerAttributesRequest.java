@@ -23,6 +23,34 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Modifies the attributes of a specified load balancer.
  * </p>
+ * <p>
+ * You can modify the load balancer attributes, such as
+ * <code>AccessLogs</code> ,
+ * <code>ConnectionDraining</code> , and
+ * <code>CrossZoneLoadBalancing</code> by either enabling or disabling
+ * them. Or, you can modify the load balancer attribute
+ * <code>ConnectionSettings</code> by specifying an idle connection
+ * timeout value for your load balancer.
+ * </p>
+ * <p>
+ * For more information, see the following:
+ * </p>
+ * 
+ * <ul>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#request-routing"> Cross-Zone Load Balancing </a>
+ * </li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain"> Connection Draining </a>
+ * </li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/access-log-collection.html"> Access Logs </a>
+ * </li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#idle-timeout"> Idle Connection Timeout </a>
+ * </li>
+ * 
+ * </ul>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#modifyLoadBalancerAttributes(ModifyLoadBalancerAttributesRequest)
  */
@@ -63,7 +91,7 @@ public class ModifyLoadBalancerAttributesRequest extends AmazonWebServiceRequest
      *
      * @param loadBalancerName The name of the load balancer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyLoadBalancerAttributesRequest withLoadBalancerName(String loadBalancerName) {
@@ -96,7 +124,7 @@ public class ModifyLoadBalancerAttributesRequest extends AmazonWebServiceRequest
      *
      * @param loadBalancerAttributes Attributes of the load balancer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyLoadBalancerAttributesRequest withLoadBalancerAttributes(LoadBalancerAttributes loadBalancerAttributes) {

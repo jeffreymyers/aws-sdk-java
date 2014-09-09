@@ -37,7 +37,7 @@ public class UpdateItemResultJsonUnmarshaller implements Unmarshaller<UpdateItem
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class UpdateItemResultJsonUnmarshaller implements Unmarshaller<UpdateItem
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Attributes", targetDepth)) {
+                    context.nextToken();
                     updateItemResult.setAttributes(new MapUnmarshaller<String,AttributeValue>(StringJsonUnmarshaller.getInstance(), AttributeValueJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("ConsumedCapacity", targetDepth)) {

@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#updateAssumeRolePolicy(UpdateAssumeRolePolicyRequest) UpdateAssumeRolePolicy operation}.
  * <p>
- * Updates the policy that grants an entity permission to assume a role. Currently, only an Amazon EC2 instance can assume a role. For more information
- * about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> .
+ * Updates the policy that grants an entity permission to assume a role.
+ * For more information about roles, go to
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#updateAssumeRolePolicy(UpdateAssumeRolePolicyRequest)
@@ -43,7 +45,7 @@ public class UpdateAssumeRolePolicyRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      */
     private String policyDocument;
 
@@ -84,7 +86,7 @@ public class UpdateAssumeRolePolicyRequest extends AmazonWebServiceRequest imple
      *
      * @param roleName Name of the role to update.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAssumeRolePolicyRequest withRoleName(String roleName) {
@@ -97,7 +99,7 @@ public class UpdateAssumeRolePolicyRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @return The policy that grants an entity permission to assume the role.
      */
@@ -110,7 +112,7 @@ public class UpdateAssumeRolePolicyRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param policyDocument The policy that grants an entity permission to assume the role.
      */
@@ -125,11 +127,11 @@ public class UpdateAssumeRolePolicyRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param policyDocument The policy that grants an entity permission to assume the role.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAssumeRolePolicyRequest withPolicyDocument(String policyDocument) {

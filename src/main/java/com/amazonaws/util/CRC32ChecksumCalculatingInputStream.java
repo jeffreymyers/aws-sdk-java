@@ -14,16 +14,17 @@
  */
 package com.amazonaws.util;
 
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.CRC32;
+
+import com.amazonaws.internal.SdkFilterInputStream;
 
 /**
  * Simple InputStream wrapper that examines the wrapped stream's contents as
  * they are read and calculates and CRC32 checksum.
  */
-public class CRC32ChecksumCalculatingInputStream extends FilterInputStream {
+public class CRC32ChecksumCalculatingInputStream extends SdkFilterInputStream {
 
     /** The CRC32 being calculated by this input stream */
     private CRC32 crc32;
@@ -44,6 +45,7 @@ public class CRC32ChecksumCalculatingInputStream extends FilterInputStream {
      */
     @Override
     public synchronized void reset() throws IOException {
+        abortIfNeeded();
         crc32.reset();
         in.reset();
     }
@@ -53,6 +55,7 @@ public class CRC32ChecksumCalculatingInputStream extends FilterInputStream {
      */
     @Override
     public int read() throws IOException {
+        abortIfNeeded();
         int ch = in.read();
         if (ch != -1) {
             crc32.update(ch);
@@ -65,11 +68,11 @@ public class CRC32ChecksumCalculatingInputStream extends FilterInputStream {
      */
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
+        abortIfNeeded();
         int result = in.read(b, off, len);
         if (result != -1) {
             crc32.update(b, off, result);
         }
         return result;
     }
-
 }

@@ -14,28 +14,22 @@
  */
 package com.amazonaws.transform;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.text.ParseException;
 import java.util.Date;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.util.Base64;
 import com.amazonaws.util.DateUtils;
 
 /**
  * Collection of StAX unmarshallers for simple data types.
  */
 public class SimpleTypeStaxUnmarshallers {
-
-    /** Shared DateUtils object for parsing and formatting dates */
-    private static DateUtils dateUtils = new DateUtils();
-
     /** Shared logger */
     private static Log log = LogFactory.getLog(SimpleTypeStaxUnmarshallers.class);
 
@@ -47,37 +41,37 @@ public class SimpleTypeStaxUnmarshallers {
             return unmarshallerContext.readText();
         }
 
-        private static StringStaxUnmarshaller instance;
+        private static final StringStaxUnmarshaller instance = new StringStaxUnmarshaller();
+
         public static StringStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new StringStaxUnmarshaller();
             return instance;
         }
     }
 
     public static class BigDecimalStaxUnmarshaller implements Unmarshaller<BigDecimal, StaxUnmarshallerContext> {
-		public BigDecimal unmarshall(StaxUnmarshallerContext unmarshallerContext)
-				throws Exception {
-			String s = unmarshallerContext.readText();
-			return (s == null) ? null : new BigDecimal(s);
-		}
+        public BigDecimal unmarshall(StaxUnmarshallerContext unmarshallerContext)
+                throws Exception {
+            String s = unmarshallerContext.readText();
+            return (s == null) ? null : new BigDecimal(s);
+        }
 
-        private static BigDecimalStaxUnmarshaller instance;
+        private static final BigDecimalStaxUnmarshaller instance = new BigDecimalStaxUnmarshaller();
+
         public static BigDecimalStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new BigDecimalStaxUnmarshaller();
             return instance;
         }
     }
 
     public static class BigIntegerStaxUnmarshaller implements Unmarshaller<BigInteger, StaxUnmarshallerContext> {
-		public BigInteger unmarshall(StaxUnmarshallerContext unmarshallerContext)
-				throws Exception {
-			String s = unmarshallerContext.readText();
-			return (s == null) ? null : new BigInteger(s);
-		}
+        public BigInteger unmarshall(StaxUnmarshallerContext unmarshallerContext)
+                throws Exception {
+            String s = unmarshallerContext.readText();
+            return (s == null) ? null : new BigInteger(s);
+        }
 
-        private static BigIntegerStaxUnmarshaller instance;
+        private static final BigIntegerStaxUnmarshaller instance = new BigIntegerStaxUnmarshaller();
+
         public static BigIntegerStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new BigIntegerStaxUnmarshaller();
             return instance;
         }
     }
@@ -91,9 +85,9 @@ public class SimpleTypeStaxUnmarshallers {
             return (doubleString == null) ? null : Double.parseDouble(doubleString);
         }
 
-        private static DoubleStaxUnmarshaller instance;
+        private static final DoubleStaxUnmarshaller instance = new DoubleStaxUnmarshaller();
+
         public static DoubleStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new DoubleStaxUnmarshaller();
             return instance;
         }
     }
@@ -107,9 +101,9 @@ public class SimpleTypeStaxUnmarshallers {
             return (intString == null) ? null : Integer.parseInt(intString);
         }
 
-        private static IntegerStaxUnmarshaller instance;
+        private static final IntegerStaxUnmarshaller instance = new IntegerStaxUnmarshaller();
+
         public static IntegerStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new IntegerStaxUnmarshaller();
             return instance;
         }
     }
@@ -123,9 +117,9 @@ public class SimpleTypeStaxUnmarshallers {
             return (booleanString == null) ? null : Boolean.parseBoolean(booleanString);
         }
 
-        private static BooleanStaxUnmarshaller instance;
+        private static final BooleanStaxUnmarshaller instance = new BooleanStaxUnmarshaller();
+
         public static BooleanStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new BooleanStaxUnmarshaller();
             return instance;
         }
     }
@@ -139,9 +133,9 @@ public class SimpleTypeStaxUnmarshallers {
             return (floatString == null) ? null : Float.valueOf(floatString);
         }
 
-        private static FloatStaxUnmarshaller instance;
+        private static final FloatStaxUnmarshaller instance = new FloatStaxUnmarshaller();
+
         public static FloatStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new FloatStaxUnmarshaller();
             return instance;
         }
     }
@@ -155,9 +149,9 @@ public class SimpleTypeStaxUnmarshallers {
             return (longString == null) ? null : Long.parseLong(longString);
         }
 
-        private static LongStaxUnmarshaller instance;
+        private static final LongStaxUnmarshaller instance = new LongStaxUnmarshaller();
+
         public static LongStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new LongStaxUnmarshaller();
             return instance;
         }
     }
@@ -171,9 +165,9 @@ public class SimpleTypeStaxUnmarshallers {
             return (byteString == null) ? null : Byte.valueOf(byteString);
         }
 
-        private static ByteStaxUnmarshaller instance;
+        private static final ByteStaxUnmarshaller instance = new ByteStaxUnmarshaller();
+
         public static ByteStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new ByteStaxUnmarshaller();
             return instance;
         }
     }
@@ -187,16 +181,16 @@ public class SimpleTypeStaxUnmarshallers {
             if (dateString == null) return null;
 
             try {
-                return dateUtils.parseIso8601Date(dateString);
-            } catch (ParseException e) {
+                return DateUtils.parseISO8601Date(dateString);
+            } catch (Exception e) {
                 log.warn("Unable to parse date '" + dateString + "':  " + e.getMessage(), e);
                 return null;
             }
         }
 
-        private static DateStaxUnmarshaller instance;
+        private static final DateStaxUnmarshaller instance = new DateStaxUnmarshaller();
+
         public static DateStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new DateStaxUnmarshaller();
             return instance;
         }
     }
@@ -207,22 +201,54 @@ public class SimpleTypeStaxUnmarshallers {
     public static class ByteBufferStaxUnmarshaller implements Unmarshaller<ByteBuffer, StaxUnmarshallerContext> {
         public ByteBuffer unmarshall(StaxUnmarshallerContext unmarshallerContext) throws Exception {
             String base64EncodedString = unmarshallerContext.readText();
-            if (base64EncodedString == null) return null;
+            byte[] decodedBytes = Base64.decode(base64EncodedString);
+            return ByteBuffer.wrap(decodedBytes);
 
-            try {
-                byte[] base64EncodedBytes = base64EncodedString.getBytes("UTF-8");
-                byte[] decodedBytes = Base64.decodeBase64(base64EncodedBytes);
-                return ByteBuffer.wrap(decodedBytes);
-            } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to unmarshall XML data into a ByteBuffer", e);
-            }
         }
 
-        private static ByteBufferStaxUnmarshaller instance;
+        private static final ByteBufferStaxUnmarshaller instance = new ByteBufferStaxUnmarshaller();
+
         public static ByteBufferStaxUnmarshaller getInstance() {
-            if (instance == null) instance = new ByteBufferStaxUnmarshaller();
             return instance;
         }
     }
 
+    /**
+     * Unmarshaller for Character values.
+     */
+    public static class CharacterJsonUnmarshaller implements Unmarshaller<Character, StaxUnmarshallerContext> {
+        public Character unmarshall(StaxUnmarshallerContext unmarshallerContext) throws Exception {
+            String charString = unmarshallerContext.readText();
+
+            if (charString == null) return null;
+
+            charString = charString.trim();
+            if (charString.isEmpty() || charString.length() > 1)
+                throw new AmazonClientException("'" + charString
+                        + "' cannot be converted to Character");
+            return Character.valueOf(charString.charAt(0));
+        }
+
+        private static final CharacterJsonUnmarshaller instance = new CharacterJsonUnmarshaller();
+
+        public static CharacterJsonUnmarshaller getInstance() {
+            return instance;
+        }
+    }
+
+    /**
+     * Unmarshaller for Short values.
+     */
+    public static class ShortJsonUnmarshaller implements Unmarshaller<Short, StaxUnmarshallerContext> {
+        public Short unmarshall(StaxUnmarshallerContext unmarshallerContext) throws Exception {
+            String shortString = unmarshallerContext.readText();
+            return (shortString == null) ? null : Short.valueOf(shortString);
+        }
+
+        private static final ShortJsonUnmarshaller instance = new ShortJsonUnmarshaller();
+
+        public static ShortJsonUnmarshaller getInstance() {
+            return instance;
+        }
+    }
 }

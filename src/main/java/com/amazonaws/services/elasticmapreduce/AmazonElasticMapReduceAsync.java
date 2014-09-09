@@ -26,12 +26,16 @@ import com.amazonaws.services.elasticmapreduce.model.*;
  * Each asynchronous method will return a Java Future object, and users are also allowed
  * to provide a callback handler.
  * <p>
- * This is the <i>Amazon Elastic MapReduce API Reference</i> . This guide provides descriptions and samples of the Amazon Elastic MapReduce APIs.
+ * This is the <i>Amazon Elastic MapReduce API Reference</i> . This
+ * guide provides descriptions and samples of the Amazon Elastic
+ * MapReduce APIs.
  * </p>
  * <p>
- * Amazon Elastic MapReduce (Amazon EMR) is a web service that makes it easy to process large amounts of data efficiently. Amazon EMR uses Hadoop
- * processing combined with several AWS products to do tasks such as web indexing, data mining, log file analysis, machine learning, scientific
- * simulation, and data warehousing.
+ * Amazon Elastic MapReduce (Amazon EMR) is a web service that makes it
+ * easy to process large amounts of data efficiently. Amazon EMR uses
+ * Hadoop processing combined with several AWS products to do tasks such
+ * as web indexing, data mining, log file analysis, machine learning,
+ * scientific simulation, and data warehousing.
  * </p>
  */
 public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
@@ -96,9 +100,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * <p>
      * Adds tags to an Amazon EMR resource. Tags make it easier to associate
      * clusters in various ways, such as grouping clusters to track your
-     * Amazon EMR resource allocation costs. For more information, see <a
-     * amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">
-     * Tagging Amazon EMR Resources </a> .
+     * Amazon EMR resource allocation costs. For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a>
+     * .
      * </p>
      *
      * @param addTagsRequest Container for the necessary parameters to
@@ -123,9 +127,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * <p>
      * Adds tags to an Amazon EMR resource. Tags make it easier to associate
      * clusters in various ways, such as grouping clusters to track your
-     * Amazon EMR resource allocation costs. For more information, see <a
-     * amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">
-     * Tagging Amazon EMR Resources </a> .
+     * Amazon EMR resource allocation costs. For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a>
+     * .
      * </p>
      *
      * @param addTagsRequest Container for the necessary parameters to
@@ -280,10 +284,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * can bypass the 256-step limitation in various ways, including using
      * the SSH shell to connect to the master node and submitting queries
      * directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, go to <a
-     * .com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html">
-     * Add More than 256 Steps to a Job Flow </a> in the <i>Amazon Elastic
-     * MapReduce Developer's Guide</i> .
+     * Hadoop. For more information on how to do this, go to
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a>
+     * in the <i>Amazon Elastic MapReduce Developer's Guide</i> .
      * </p>
      * <p>
      * A step specifies the location of a JAR file stored either on the
@@ -332,10 +335,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * can bypass the 256-step limitation in various ways, including using
      * the SSH shell to connect to the master node and submitting queries
      * directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, go to <a
-     * .com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html">
-     * Add More than 256 Steps to a Job Flow </a> in the <i>Amazon Elastic
-     * MapReduce Developer's Guide</i> .
+     * Hadoop. For more information on how to do this, go to
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a>
+     * in the <i>Amazon Elastic MapReduce Developer's Guide</i> .
      * </p>
      * <p>
      * A step specifies the location of a JAR file stored either on the
@@ -495,9 +497,12 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * Removes tags from an Amazon EMR resource. Tags make it easier to
      * associate clusters in various ways, such as grouping clusters to track
      * your Amazon EMR resource allocation costs. For more information, see
-     * <a
-     * amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">
-     * Tagging Amazon EMR Resources </a> .
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a>
+     * .
+     * </p>
+     * <p>
+     * The following example removes the stack tag with value Prod from a
+     * cluster:
      * </p>
      *
      * @param removeTagsRequest Container for the necessary parameters to
@@ -523,9 +528,12 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * Removes tags from an Amazon EMR resource. Tags make it easier to
      * associate clusters in various ways, such as grouping clusters to track
      * your Amazon EMR resource allocation costs. For more information, see
-     * <a
-     * amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">
-     * Tagging Amazon EMR Resources </a> .
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a>
+     * .
+     * </p>
+     * <p>
+     * The following example removes the stack tag with value Prod from a
+     * cluster:
      * </p>
      *
      * @param removeTagsRequest Container for the necessary parameters to
@@ -553,7 +561,8 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides all available details about the instance groups in a cluster.
+     * Provides all available details about the instance groups in a
+     * cluster.
      * </p>
      *
      * @param listInstanceGroupsRequest Container for the necessary
@@ -578,7 +587,8 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides all available details about the instance groups in a cluster.
+     * Provides all available details about the instance groups in a
+     * cluster.
      * </p>
      *
      * @param listInstanceGroupsRequest Container for the necessary
@@ -870,16 +880,14 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <p>
      * To terminate a job flow that has been locked by setting
-     * SetTerminationProtection to <code>true</code> ,
-     * you must first unlock the job flow by a subsequent call to
-     * SetTerminationProtection in which you set the value to
-     * <code>false</code> .
+     * SetTerminationProtection to <code>true</code> , you must first unlock
+     * the job flow by a subsequent call to SetTerminationProtection in which
+     * you set the value to <code>false</code> .
      * </p>
      * <p>
-     * For more information, go to <a
-     * cMapReduce/latest/DeveloperGuide/UsingEMR_TerminationProtection.html">
-     * Protecting a Job Flow from Termination </a> in the <i>Amazon Elastic
-     * MapReduce Developer's Guide.</i>
+     * For more information, go to
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_TerminationProtection.html"> Protecting a Job Flow from Termination </a>
+     * in the <i>Amazon Elastic MapReduce Developer's Guide.</i>
      * </p>
      *
      * @param setTerminationProtectionRequest Container for the necessary
@@ -920,16 +928,14 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <p>
      * To terminate a job flow that has been locked by setting
-     * SetTerminationProtection to <code>true</code> ,
-     * you must first unlock the job flow by a subsequent call to
-     * SetTerminationProtection in which you set the value to
-     * <code>false</code> .
+     * SetTerminationProtection to <code>true</code> , you must first unlock
+     * the job flow by a subsequent call to SetTerminationProtection in which
+     * you set the value to <code>false</code> .
      * </p>
      * <p>
-     * For more information, go to <a
-     * cMapReduce/latest/DeveloperGuide/UsingEMR_TerminationProtection.html">
-     * Protecting a Job Flow from Termination </a> in the <i>Amazon Elastic
-     * MapReduce Developer's Guide.</i>
+     * For more information, go to
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_TerminationProtection.html"> Protecting a Job Flow from Termination </a>
+     * in the <i>Amazon Elastic MapReduce Developer's Guide.</i>
      * </p>
      *
      * @param setTerminationProtectionRequest Container for the necessary
@@ -959,6 +965,11 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
+     * This API is deprecated and will eventually be removed. We recommend
+     * you use ListClusters, DescribeCluster, ListSteps, ListInstanceGroups
+     * and ListBootstrapActions instead.
+     * </p>
+     * <p>
      * DescribeJobFlows returns a list of job flows that match all of the
      * supplied parameters. The parameters can include a list of job flow
      * IDs, job flow states, and restrictions on job flow creation date and
@@ -976,11 +987,8 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * <ul>
      * <li>Job flows created and completed in the last two weeks</li>
      * <li> Job flows created within the last two months that are in one of
-     * the following states: <code>RUNNING</code> ,
-     * <code>WAITING</code> ,
-     * <code>SHUTTING_DOWN</code> ,
-     * 
-     * <code>STARTING</code> </li>
+     * the following states: <code>RUNNING</code> , <code>WAITING</code> ,
+     * <code>SHUTTING_DOWN</code> , <code>STARTING</code> </li>
      * 
      * </ul>
      * <p>
@@ -1010,6 +1018,11 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
+     * This API is deprecated and will eventually be removed. We recommend
+     * you use ListClusters, DescribeCluster, ListSteps, ListInstanceGroups
+     * and ListBootstrapActions instead.
+     * </p>
+     * <p>
      * DescribeJobFlows returns a list of job flows that match all of the
      * supplied parameters. The parameters can include a list of job flow
      * IDs, job flow states, and restrictions on job flow creation date and
@@ -1027,11 +1040,8 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * <ul>
      * <li>Job flows created and completed in the last two weeks</li>
      * <li> Job flows created within the last two months that are in one of
-     * the following states: <code>RUNNING</code> ,
-     * <code>WAITING</code> ,
-     * <code>SHUTTING_DOWN</code> ,
-     * 
-     * <code>STARTING</code> </li>
+     * the following states: <code>RUNNING</code> , <code>WAITING</code> ,
+     * <code>SHUTTING_DOWN</code> , <code>STARTING</code> </li>
      * 
      * </ul>
      * <p>
@@ -1089,10 +1099,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * can bypass the 256-step limitation in various ways, including using
      * the SSH shell to connect to the master node and submitting queries
      * directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, go to <a
-     * .com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html">
-     * Add More than 256 Steps to a Job Flow </a> in the <i>Amazon Elastic
-     * MapReduce Developer's Guide</i> .
+     * Hadoop. For more information on how to do this, go to
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a>
+     * in the <i>Amazon Elastic MapReduce Developer's Guide</i> .
      * </p>
      * <p>
      * For long running job flows, we recommend that you periodically store
@@ -1143,10 +1152,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * can bypass the 256-step limitation in various ways, including using
      * the SSH shell to connect to the master node and submitting queries
      * directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, go to <a
-     * .com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html">
-     * Add More than 256 Steps to a Job Flow </a> in the <i>Amazon Elastic
-     * MapReduce Developer's Guide</i> .
+     * Hadoop. For more information on how to do this, go to
+     * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a>
+     * in the <i>Amazon Elastic MapReduce Developer's Guide</i> .
      * </p>
      * <p>
      * For long running job flows, we recommend that you periodically store
@@ -1178,9 +1186,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides cluster-level details including status, hardware and software
-     * configuration, VPC settings, and so on. For information about the
-     * cluster steps, see ListSteps.
+     * Provides cluster-level details including status, hardware and
+     * software configuration, VPC settings, and so on. For information about
+     * the cluster steps, see ListSteps.
      * </p>
      *
      * @param describeClusterRequest Container for the necessary parameters
@@ -1203,9 +1211,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides cluster-level details including status, hardware and software
-     * configuration, VPC settings, and so on. For information about the
-     * cluster steps, see ListSteps.
+     * Provides cluster-level details including status, hardware and
+     * software configuration, VPC settings, and so on. For information about
+     * the cluster steps, see ListSteps.
      * </p>
      *
      * @param describeClusterRequest Container for the necessary parameters

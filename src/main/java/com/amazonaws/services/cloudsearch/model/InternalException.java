@@ -21,14 +21,16 @@ import com.amazonaws.AmazonServiceException;
  * An internal error occurred while processing the request. If this problem persists, report an issue from the <a href="http://status.aws.amazon.com/">
  * Service Health Dashboard </a> .
  * </p>
- */        
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2.model.InternalException} instead.
+ */
+ @Deprecated
 public class InternalException extends AmazonServiceException {
     private static final long serialVersionUID = 1L;
     
     /**
      * Constructs a new InternalException with the specified error
      * message.
-     * 
+     *
      * @param message Describes the error encountered.
      */
     public InternalException(String message) {

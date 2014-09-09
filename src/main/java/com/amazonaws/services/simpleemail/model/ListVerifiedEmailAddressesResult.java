@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents a list of all the email addresses verified for the current user.
+ * Represents a list of all the email addresses verified for the current
+ * user.
  * </p>
  */
 public class ListVerifiedEmailAddressesResult implements Serializable {
@@ -63,7 +64,7 @@ public class ListVerifiedEmailAddressesResult implements Serializable {
      *
      * @param verifiedEmailAddresses A list of email addresses that have been verified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVerifiedEmailAddressesResult withVerifiedEmailAddresses(String... verifiedEmailAddresses) {
@@ -81,7 +82,7 @@ public class ListVerifiedEmailAddressesResult implements Serializable {
      *
      * @param verifiedEmailAddresses A list of email addresses that have been verified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVerifiedEmailAddressesResult withVerifiedEmailAddresses(java.util.Collection<String> verifiedEmailAddresses) {

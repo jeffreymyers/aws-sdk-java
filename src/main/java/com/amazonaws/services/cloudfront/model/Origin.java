@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that describes the Amazon S3 bucket or the HTTP server (for example, a web server) from which CloudFront gets your files.You must
- * create at least one origin.
+ * A complex type that describes the Amazon S3 bucket or the HTTP server
+ * (for example, a web server) from which CloudFront gets your files.You
+ * must create at least one origin.
  * </p>
  */
 public class Origin implements Serializable {
@@ -104,7 +105,7 @@ public class Origin implements Serializable {
      *         request to when the request matches the path pattern for that cache
      *         behavior.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Origin withId(String id) {
@@ -161,7 +162,7 @@ public class Origin implements Serializable {
      *         the HTTP server from which you want CloudFront to get objects for this
      *         origin, for example, www.example.com.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Origin withDomainName(String domainName) {
@@ -206,7 +207,7 @@ public class Origin implements Serializable {
      *         If the origin is a custom origin, use the CustomOriginConfig element
      *         instead.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Origin withS3OriginConfig(S3OriginConfig s3OriginConfig) {
@@ -245,7 +246,7 @@ public class Origin implements Serializable {
      * @param customOriginConfig A complex type that contains information about a custom origin. If the
      *         origin is an Amazon S3 bucket, use the S3OriginConfig element instead.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Origin withCustomOriginConfig(CustomOriginConfig customOriginConfig) {

@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents an individual cache node within a cache cluster. Each cache node runs its own instance of the cluster's protocol-compliant caching software
- * - either Memcached or Redis.
+ * Represents an individual cache node within a cache cluster. Each cache
+ * node runs its own instance of the cluster's protocol-compliant caching
+ * software - either Memcached or Redis.
  * </p>
  */
 public class CacheNode implements Serializable {
@@ -37,7 +38,7 @@ public class CacheNode implements Serializable {
     private String cacheNodeStatus;
 
     /**
-     * The date and time the cache node was created.
+     * The date and time when the cache node was created.
      */
     private java.util.Date cacheNodeCreateTime;
 
@@ -57,6 +58,11 @@ public class CacheNode implements Serializable {
      * with a primary cache cluster.
      */
     private String sourceCacheNodeId;
+
+    /**
+     * The Availability Zone where this node was created and now resides.
+     */
+    private String customerAvailabilityZone;
 
     /**
      * Default constructor for a new CacheNode object.  Callers should use the
@@ -101,7 +107,7 @@ public class CacheNode implements Serializable {
      *         0002, etc.). The combination of cluster ID and node ID uniquely
      *         identifies every cache node used in a customer's AWS account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNode withCacheNodeId(String cacheNodeId) {
@@ -134,7 +140,7 @@ public class CacheNode implements Serializable {
      *
      * @param cacheNodeStatus The current state of this cache node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNode withCacheNodeStatus(String cacheNodeStatus) {
@@ -143,31 +149,31 @@ public class CacheNode implements Serializable {
     }
 
     /**
-     * The date and time the cache node was created.
+     * The date and time when the cache node was created.
      *
-     * @return The date and time the cache node was created.
+     * @return The date and time when the cache node was created.
      */
     public java.util.Date getCacheNodeCreateTime() {
         return cacheNodeCreateTime;
     }
     
     /**
-     * The date and time the cache node was created.
+     * The date and time when the cache node was created.
      *
-     * @param cacheNodeCreateTime The date and time the cache node was created.
+     * @param cacheNodeCreateTime The date and time when the cache node was created.
      */
     public void setCacheNodeCreateTime(java.util.Date cacheNodeCreateTime) {
         this.cacheNodeCreateTime = cacheNodeCreateTime;
     }
     
     /**
-     * The date and time the cache node was created.
+     * The date and time when the cache node was created.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param cacheNodeCreateTime The date and time the cache node was created.
+     * @param cacheNodeCreateTime The date and time when the cache node was created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNode withCacheNodeCreateTime(java.util.Date cacheNodeCreateTime) {
@@ -200,7 +206,7 @@ public class CacheNode implements Serializable {
      *
      * @param endpoint The hostname and IP address for connecting to this cache node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNode withEndpoint(Endpoint endpoint) {
@@ -233,7 +239,7 @@ public class CacheNode implements Serializable {
      *
      * @param parameterGroupStatus The status of the parameter group applied to this cache node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNode withParameterGroupStatus(String parameterGroupStatus) {
@@ -278,11 +284,44 @@ public class CacheNode implements Serializable {
      *         synchronized. If this field is empty, then this node is not associated
      *         with a primary cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheNode withSourceCacheNodeId(String sourceCacheNodeId) {
         this.sourceCacheNodeId = sourceCacheNodeId;
+        return this;
+    }
+
+    /**
+     * The Availability Zone where this node was created and now resides.
+     *
+     * @return The Availability Zone where this node was created and now resides.
+     */
+    public String getCustomerAvailabilityZone() {
+        return customerAvailabilityZone;
+    }
+    
+    /**
+     * The Availability Zone where this node was created and now resides.
+     *
+     * @param customerAvailabilityZone The Availability Zone where this node was created and now resides.
+     */
+    public void setCustomerAvailabilityZone(String customerAvailabilityZone) {
+        this.customerAvailabilityZone = customerAvailabilityZone;
+    }
+    
+    /**
+     * The Availability Zone where this node was created and now resides.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param customerAvailabilityZone The Availability Zone where this node was created and now resides.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CacheNode withCustomerAvailabilityZone(String customerAvailabilityZone) {
+        this.customerAvailabilityZone = customerAvailabilityZone;
         return this;
     }
 
@@ -303,7 +342,8 @@ public class CacheNode implements Serializable {
         if (getCacheNodeCreateTime() != null) sb.append("CacheNodeCreateTime: " + getCacheNodeCreateTime() + ",");
         if (getEndpoint() != null) sb.append("Endpoint: " + getEndpoint() + ",");
         if (getParameterGroupStatus() != null) sb.append("ParameterGroupStatus: " + getParameterGroupStatus() + ",");
-        if (getSourceCacheNodeId() != null) sb.append("SourceCacheNodeId: " + getSourceCacheNodeId() );
+        if (getSourceCacheNodeId() != null) sb.append("SourceCacheNodeId: " + getSourceCacheNodeId() + ",");
+        if (getCustomerAvailabilityZone() != null) sb.append("CustomerAvailabilityZone: " + getCustomerAvailabilityZone() );
         sb.append("}");
         return sb.toString();
     }
@@ -319,6 +359,7 @@ public class CacheNode implements Serializable {
         hashCode = prime * hashCode + ((getEndpoint() == null) ? 0 : getEndpoint().hashCode()); 
         hashCode = prime * hashCode + ((getParameterGroupStatus() == null) ? 0 : getParameterGroupStatus().hashCode()); 
         hashCode = prime * hashCode + ((getSourceCacheNodeId() == null) ? 0 : getSourceCacheNodeId().hashCode()); 
+        hashCode = prime * hashCode + ((getCustomerAvailabilityZone() == null) ? 0 : getCustomerAvailabilityZone().hashCode()); 
         return hashCode;
     }
     
@@ -342,6 +383,8 @@ public class CacheNode implements Serializable {
         if (other.getParameterGroupStatus() != null && other.getParameterGroupStatus().equals(this.getParameterGroupStatus()) == false) return false; 
         if (other.getSourceCacheNodeId() == null ^ this.getSourceCacheNodeId() == null) return false;
         if (other.getSourceCacheNodeId() != null && other.getSourceCacheNodeId().equals(this.getSourceCacheNodeId()) == false) return false; 
+        if (other.getCustomerAvailabilityZone() == null ^ this.getCustomerAvailabilityZone() == null) return false;
+        if (other.getCustomerAvailabilityZone() != null && other.getCustomerAvailabilityZone().equals(this.getCustomerAvailabilityZone()) == false) return false; 
         return true;
     }
     

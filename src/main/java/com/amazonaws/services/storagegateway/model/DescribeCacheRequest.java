@@ -21,10 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeCache(DescribeCacheRequest) DescribeCache operation}.
  * <p>
- * This operation returns information about the cache of a gateway. This operation is supported only for the gateway-cached volume architecture.
+ * This operation returns information about the cache of a gateway. This
+ * operation is supported only for the gateway-cached volume
+ * architecture.
  * </p>
  * <p>
- * The response includes disk IDs that are configured as cache, and it includes the amount of cache allocated and used.
+ * The response includes disk IDs that are configured as cache, and it
+ * includes the amount of cache allocated and used.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeCache(DescribeCacheRequest)
@@ -87,7 +90,7 @@ public class DescribeCacheRequest extends AmazonWebServiceRequest implements Ser
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheRequest withGatewayARN(String gatewayARN) {

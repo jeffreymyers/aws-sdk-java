@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,9 +45,9 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
         Request<UpdateDistributionRequest> request = new DefaultRequest<UpdateDistributionRequest>(updateDistributionRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.PUT);
         if (updateDistributionRequest.getIfMatch() != null)
-            request.addHeader("If-Match", StringUtils.fromString(updateDistributionRequest.getIfMatch()));
+          request.addHeader("If-Match", StringUtils.fromString(updateDistributionRequest.getIfMatch()));
 
-        String uriResourcePath = "2013-11-11/distribution/{Id}/config"; 
+        String uriResourcePath = "2014-05-31/distribution/{Id}/config"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(updateDistributionRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {
@@ -65,7 +67,7 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
         request.setResourcePath(uriResourcePath);
 
             StringWriter stringWriter = new StringWriter();
-            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2013-11-11/");
+            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2014-05-31/");
 
                     if (updateDistributionRequest != null) {
             DistributionConfig distributionConfigDistributionConfig = updateDistributionRequest.getDistributionConfig();
@@ -213,6 +215,33 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
                                         xmlWriter.endElement();
                                     }
                                 }
+                                if (forwardedValuesForwardedValues != null) {
+                                    Headers headersHeaders = forwardedValuesForwardedValues.getHeaders();
+                                    if (headersHeaders != null) {
+                                        xmlWriter.startElement("Headers");
+                                        if (headersHeaders.getQuantity() != null) {
+                                            xmlWriter.startElement("Quantity").value(headersHeaders.getQuantity()).endElement();
+                                        }
+
+                                        if (headersHeaders != null) {
+                                            java.util.List<String> headersHeadersitemsList = headersHeaders.getItems();
+                                            if (headersHeadersitemsList != null && headersHeadersitemsList.size() > 0) {
+                                                int headersHeadersitemsListIndex = 1;
+                                                xmlWriter.startElement("Items");
+                                                for (String headersHeadersitemsListValue : headersHeadersitemsList) {
+
+                                                xmlWriter.startElement("Name");
+                                                    xmlWriter.value(headersHeadersitemsListValue);
+                                                xmlWriter.endElement();
+
+                                                    headersHeadersitemsListIndex++;
+                                                }
+                                                xmlWriter.endElement();
+                                            }
+                                        }
+                                        xmlWriter.endElement();
+                                    }
+                                }
                                 xmlWriter.endElement();
                             }
                         }
@@ -279,6 +308,9 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
                                 xmlWriter.endElement();
                             }
                         }
+                        if (defaultCacheBehaviorDefaultCacheBehavior.isSmoothStreaming() != null) {
+                            xmlWriter.startElement("SmoothStreaming").value(defaultCacheBehaviorDefaultCacheBehavior.isSmoothStreaming()).endElement();
+                        }
                         xmlWriter.endElement();
                     }
                 }
@@ -341,6 +373,33 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
                                                                     }
                                                                     xmlWriter.endElement();
                                                                 }
+                                                            }
+                                                            xmlWriter.endElement();
+                                                        }
+                                                    }
+                                                    xmlWriter.endElement();
+                                                }
+                                            }
+                                            if (forwardedValuesForwardedValues != null) {
+                                                Headers headersHeaders = forwardedValuesForwardedValues.getHeaders();
+                                                if (headersHeaders != null) {
+                                                    xmlWriter.startElement("Headers");
+                                                    if (headersHeaders.getQuantity() != null) {
+                                                        xmlWriter.startElement("Quantity").value(headersHeaders.getQuantity()).endElement();
+                                                    }
+
+                                                    if (headersHeaders != null) {
+                                                        java.util.List<String> headersHeadersitemsList = headersHeaders.getItems();
+                                                        if (headersHeadersitemsList != null && headersHeadersitemsList.size() > 0) {
+                                                            int headersHeadersitemsListIndex = 1;
+                                                            xmlWriter.startElement("Items");
+                                                            for (String headersHeadersitemsListValue : headersHeadersitemsList) {
+
+                                                            xmlWriter.startElement("Name");
+                                                                xmlWriter.value(headersHeadersitemsListValue);
+                                                            xmlWriter.endElement();
+
+                                                                headersHeadersitemsListIndex++;
                                                             }
                                                             xmlWriter.endElement();
                                                         }
@@ -413,6 +472,9 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
                                             }
                                             xmlWriter.endElement();
                                         }
+                                    }
+                                    if (cacheBehaviorsCacheBehaviorsitemsListValue.isSmoothStreaming() != null) {
+                                        xmlWriter.startElement("SmoothStreaming").value(cacheBehaviorsCacheBehaviorsitemsListValue.isSmoothStreaming()).endElement();
                                     }
                                 xmlWriter.endElement();
 
@@ -500,6 +562,9 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
                         if (viewerCertificateViewerCertificate.isCloudFrontDefaultCertificate() != null) {
                             xmlWriter.startElement("CloudFrontDefaultCertificate").value(viewerCertificateViewerCertificate.isCloudFrontDefaultCertificate()).endElement();
                         }
+                        if (viewerCertificateViewerCertificate.getSSLSupportMethod() != null) {
+                            xmlWriter.startElement("SSLSupportMethod").value(viewerCertificateViewerCertificate.getSSLSupportMethod()).endElement();
+                        }
                         xmlWriter.endElement();
                     }
                 }
@@ -546,7 +611,7 @@ public class UpdateDistributionRequestMarshaller implements Marshaller<Request<U
 
             try {
                 request.setContent(new StringInputStream(stringWriter.getBuffer().toString()));
-                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes("UTF-8").length));
+                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes(UTF8).length));
                 request.addHeader("Content-Type", "application/xml");
             } catch (UnsupportedEncodingException e) {
                 throw new AmazonClientException("Unable to marshall request to XML", e);

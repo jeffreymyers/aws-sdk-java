@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#modifyCacheParameterGroup(ModifyCacheParameterGroupRequest) ModifyCacheParameterGroup operation}.
  * <p>
- * The <i>ModifyCacheParameterGroup</i> operation modifies the parameters of a cache parameter group. You can modify up to 20 parameters in a single
- * request by submitting a list parameter name and value pairs.
+ * The <i>ModifyCacheParameterGroup</i> operation modifies the parameters
+ * of a cache parameter group. You can modify up to 20 parameters in a
+ * single request by submitting a list parameter name and value pairs.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#modifyCacheParameterGroup(ModifyCacheParameterGroupRequest)
@@ -90,7 +91,7 @@ public class ModifyCacheParameterGroupRequest extends AmazonWebServiceRequest im
      *
      * @param cacheParameterGroupName The name of the cache parameter group to modify.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheParameterGroupRequest withCacheParameterGroupName(String cacheParameterGroupName) {
@@ -151,7 +152,7 @@ public class ModifyCacheParameterGroupRequest extends AmazonWebServiceRequest im
      *         arguments are optional. A maximum of 20 parameters may be modified per
      *         request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheParameterGroupRequest withParameterNameValues(ParameterNameValue... parameterNameValues) {
@@ -175,7 +176,7 @@ public class ModifyCacheParameterGroupRequest extends AmazonWebServiceRequest im
      *         arguments are optional. A maximum of 20 parameters may be modified per
      *         request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheParameterGroupRequest withParameterNameValues(java.util.Collection<ParameterNameValue> parameterNameValues) {

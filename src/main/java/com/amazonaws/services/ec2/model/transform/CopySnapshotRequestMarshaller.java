@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class CopySnapshotRequestMarshaller implements Marshaller<Request<CopySna
 
         Request<CopySnapshotRequest> request = new DefaultRequest<CopySnapshotRequest>(copySnapshotRequest, "AmazonEC2");
         request.addParameter("Action", "CopySnapshot");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (copySnapshotRequest.getSourceRegion() != null) {
             request.addParameter("SourceRegion", StringUtils.fromString(copySnapshotRequest.getSourceRegion()));
@@ -48,6 +49,12 @@ public class CopySnapshotRequestMarshaller implements Marshaller<Request<CopySna
         }
         if (copySnapshotRequest.getDescription() != null) {
             request.addParameter("Description", StringUtils.fromString(copySnapshotRequest.getDescription()));
+        }
+        if (copySnapshotRequest.getDestinationRegion() != null) {
+            request.addParameter("DestinationRegion", StringUtils.fromString(copySnapshotRequest.getDestinationRegion()));
+        }
+        if (copySnapshotRequest.getPresignedUrl() != null) {
+            request.addParameter("PresignedUrl", StringUtils.fromString(copySnapshotRequest.getPresignedUrl()));
         }
 
         return request;

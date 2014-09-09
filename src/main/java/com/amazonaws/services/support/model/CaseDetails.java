@@ -18,26 +18,42 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A JSON-formatted object that contains the metadata for a support case. It is contained the response from a DescribeCases request. <b>CaseDetails</b>
- * contains the following fields:
+ * A JSON-formatted object that contains the metadata for a support case.
+ * It is contained the response from a DescribeCases request.
+ * <b>CaseDetails</b> contains the following fields:
  * </p>
- * <ol> <li> <b>CaseID.</b> The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown in this
- * example: case- <i>12345678910-2013-c4c1d2bf33c5cf47</i> .</li>
- * <li> <b>CategoryCode.</b> The category of problem for the AWS Support case. Corresponds to the CategoryCode values returned by a call to
+ * <ol> <li> <b>CaseID.</b> The AWS Support case ID requested or
+ * returned in the call. The case ID is an alphanumeric string formatted
+ * as shown in this example: case-
+ * <i>12345678910-2013-c4c1d2bf33c5cf47</i> .</li>
+ * <li> <b>CategoryCode.</b> The category of problem for the AWS Support
+ * case. Corresponds to the CategoryCode values returned by a call to
  * DescribeServices.</li>
- * <li> <b>DisplayId.</b> The identifier for the case on pages in the AWS Support Center.</li>
- * <li> <b>Language.</b> The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese
- * ("ja"). Language parameters must be passed explicitly for operations that take them.</li>
- * <li> <b>RecentCommunications.</b> One or more Communication objects. Fields of these objects are <code>Body</code> ,
+ * <li> <b>DisplayId.</b> The identifier for the case on pages in the
+ * AWS Support Center.</li>
+ * <li> <b>Language.</b> The ISO 639-1 code for the language in which
+ * AWS provides support. AWS Support currently supports English ("en")
+ * and Japanese ("ja"). Language parameters must be passed explicitly for
+ * operations that take them.</li>
+ * <li> <b>RecentCommunications.</b> One or more Communication objects.
+ * Fields of these objects are <code>Body</code> ,
  * <code>CaseId</code> ,
- * <code>SubmittedBy</code> , and <code>TimeCreated</code> .</li>
+ * <code>SubmittedBy</code> , and
+ * <code>TimeCreated</code> .</li>
  * <li> <b>NextToken.</b> A resumption point for pagination.</li>
- * <li> <b>ServiceCode.</b> The identifier for the AWS service that corresponds to the service code defined in the call to DescribeServices.</li>
- * <li> <b>SeverityCode. </b> The severity code assigned to the case. Contains one of the values returned by the call to DescribeSeverityLevels.</li>
- * <li> <b>Status.</b> The status of the case in the AWS Support Center.</li>
+ * <li> <b>ServiceCode.</b> The identifier for the AWS service that
+ * corresponds to the service code defined in the call to
+ * DescribeServices.</li>
+ * <li> <b>SeverityCode. </b> The severity code assigned to the case.
+ * Contains one of the values returned by the call to
+ * DescribeSeverityLevels.</li>
+ * <li> <b>Status.</b> The status of the case in the AWS Support
+ * Center.</li>
  * <li> <b>Subject.</b> The subject line of the case.</li>
- * <li> <b>SubmittedBy.</b> The email address of the account that submitted the case.</li>
- * <li> <b>TimeCreated.</b> The time the case was created, in ISO-8601 format.</li>
+ * <li> <b>SubmittedBy.</b> The email address of the account that
+ * submitted the case.</li>
+ * <li> <b>TimeCreated.</b> The time the case was created, in ISO-8601
+ * format.</li>
  * </ol>
  */
 public class CaseDetails implements Serializable {
@@ -150,7 +166,7 @@ public class CaseDetails implements Serializable {
      *         is an alphanumeric string formatted as shown in this example:
      *         case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withCaseId(String caseId) {
@@ -189,7 +205,7 @@ public class CaseDetails implements Serializable {
      * @param displayId The ID displayed for the case in the AWS Support Center. This is a
      *         numeric string.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withDisplayId(String displayId) {
@@ -222,7 +238,7 @@ public class CaseDetails implements Serializable {
      *
      * @param subject The subject line for the case in the AWS Support Center.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withSubject(String subject) {
@@ -255,7 +271,7 @@ public class CaseDetails implements Serializable {
      *
      * @param status The status of the case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withStatus(String status) {
@@ -294,7 +310,7 @@ public class CaseDetails implements Serializable {
      * @param serviceCode The code for the AWS service returned by the call to
      *         <a>DescribeServices</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withServiceCode(String serviceCode) {
@@ -327,7 +343,7 @@ public class CaseDetails implements Serializable {
      *
      * @param categoryCode The category of problem for the AWS Support case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withCategoryCode(String categoryCode) {
@@ -366,7 +382,7 @@ public class CaseDetails implements Serializable {
      * @param severityCode The code for the severity level returned by the call to
      *         <a>DescribeSeverityLevels</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withSeverityCode(String severityCode) {
@@ -399,7 +415,7 @@ public class CaseDetails implements Serializable {
      *
      * @param submittedBy The email address of the account that submitted the case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withSubmittedBy(String submittedBy) {
@@ -432,7 +448,7 @@ public class CaseDetails implements Serializable {
      *
      * @param timeCreated The time that the case was case created in the AWS Support Center.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withTimeCreated(String timeCreated) {
@@ -477,7 +493,7 @@ public class CaseDetails implements Serializable {
      *         Center. Includes a <code>nextToken</code> to retrieve the next set of
      *         communications.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withRecentCommunications(RecentCaseCommunications recentCommunications) {
@@ -526,7 +542,7 @@ public class CaseDetails implements Serializable {
      * @param ccEmailAddresses The email addresses that receive copies of communication about the
      *         case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withCcEmailAddresses(String... ccEmailAddresses) {
@@ -546,7 +562,7 @@ public class CaseDetails implements Serializable {
      * @param ccEmailAddresses The email addresses that receive copies of communication about the
      *         case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withCcEmailAddresses(java.util.Collection<String> ccEmailAddresses) {
@@ -604,7 +620,7 @@ public class CaseDetails implements Serializable {
      *         Language parameters must be passed explicitly for operations that take
      *         them.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CaseDetails withLanguage(String language) {

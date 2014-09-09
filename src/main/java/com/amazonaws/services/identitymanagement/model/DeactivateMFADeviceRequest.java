@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deactivateMFADevice(DeactivateMFADeviceRequest) DeactivateMFADevice operation}.
  * <p>
- * Deactivates the specified MFA device and removes it from association with the user name for which it was originally enabled.
+ * Deactivates the specified MFA device and removes it from association
+ * with the user name for which it was originally enabled.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deactivateMFADevice(DeactivateMFADeviceRequest)
@@ -105,7 +106,7 @@ public class DeactivateMFADeviceRequest extends AmazonWebServiceRequest implemen
      *
      * @param userName Name of the user whose MFA device you want to deactivate.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeactivateMFADeviceRequest withUserName(String userName) {
@@ -156,7 +157,7 @@ public class DeactivateMFADeviceRequest extends AmazonWebServiceRequest implemen
      * @param serialNumber The serial number that uniquely identifies the MFA device. For virtual
      *         MFA devices, the serial number is the device ARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeactivateMFADeviceRequest withSerialNumber(String serialNumber) {

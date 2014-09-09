@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A JSON-formatted Trail object that represents the settings for the requested trail.
+ * A JSON-formatted Trail object that represents the settings for the
+ * requested trail.
  * </p>
  */
 public class CreateTrailResult implements Serializable {
@@ -63,7 +64,7 @@ public class CreateTrailResult implements Serializable {
      *
      * @param name The new value for the Name property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailResult withName(String name) {
@@ -96,7 +97,7 @@ public class CreateTrailResult implements Serializable {
      *
      * @param s3BucketName The new value for the S3BucketName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailResult withS3BucketName(String s3BucketName) {
@@ -129,7 +130,7 @@ public class CreateTrailResult implements Serializable {
      *
      * @param s3KeyPrefix The new value for the S3KeyPrefix property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailResult withS3KeyPrefix(String s3KeyPrefix) {
@@ -162,7 +163,7 @@ public class CreateTrailResult implements Serializable {
      *
      * @param snsTopicName The new value for the SnsTopicName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailResult withSnsTopicName(String snsTopicName) {
@@ -200,7 +201,7 @@ public class CreateTrailResult implements Serializable {
      * @param includeGlobalServiceEvents The new value for the IncludeGlobalServiceEvents property for this
      *         object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailResult withIncludeGlobalServiceEvents(Boolean includeGlobalServiceEvents) {
@@ -243,7 +244,7 @@ public class CreateTrailResult implements Serializable {
      *
      * @param trail Data type that represents the settings for a trail.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailResult withTrail(Trail trail) {

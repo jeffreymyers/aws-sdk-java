@@ -28,26 +28,16 @@ import com.amazonaws.services.s3.transfer.TransferProgress;
 /**
  * Multiple file download when downloading an entire virtual directory.
  */
-public class MultipleFileDownloadImpl extends MultipleFileTransfer implements MultipleFileDownload {
+public class MultipleFileDownloadImpl extends MultipleFileTransfer<Download> implements MultipleFileDownload {
 
     private final String keyPrefix;
     private final String bucketName;
-    
+
     public MultipleFileDownloadImpl(String description, TransferProgress transferProgress,
             ProgressListenerChain progressListenerChain, String keyPrefix, String bucketName, Collection<? extends Download> downloads) {
         super(description, transferProgress, progressListenerChain, downloads);
         this.keyPrefix = keyPrefix;
         this.bucketName = bucketName;
-    }
-    
-    /**
-     * @deprecated Replaced by {@link #MultipleFileDownloadImpl(String, TransferProgress, ProgressListenerChain, String, String, Collection)}
-     */
-    @Deprecated
-    public MultipleFileDownloadImpl(String description, TransferProgress transferProgress,
-            com.amazonaws.services.s3.transfer.internal.ProgressListenerChain progressListenerChain, String keyPrefix, String bucketName, Collection<? extends Download> downloads) {
-        this(description, transferProgress, progressListenerChain.transformToGeneralProgressListenerChain(), 
-                keyPrefix, bucketName, downloads);
     }
 
     /**
@@ -56,14 +46,14 @@ public class MultipleFileDownloadImpl extends MultipleFileTransfer implements Mu
     public String getKeyPrefix() {
         return keyPrefix;
     }
-    
+
     /**
      * Returns the name of the bucket from which files are downloaded.
      */
     public String getBucketName() {
         return bucketName;
     }
-   
+
     /**
      * Waits for this transfer to complete. This is a blocking call; the current
      * thread is suspended until this transfer completes.
@@ -85,7 +75,7 @@ public class MultipleFileDownloadImpl extends MultipleFileTransfer implements Mu
             return;
         super.waitForCompletion();
     }
-    
+
     /**
      * Aborts all outstanding downloads.
      */
@@ -102,12 +92,12 @@ public class MultipleFileDownloadImpl extends MultipleFileTransfer implements Mu
          * In order to prevent this. we should first cancel all download jobs and
          * then notify the listener.
          */
-        
+
         /* First abort all the download jobs without notifying the state change listener.*/
         for (Transfer fileDownload : subTransfers) {
             ((DownloadImpl)fileDownload).abortWithoutNotifyingStateChangeListener();
         }
-        
+
         /*
          * All sub-transfers are already in CANCELED state. Now the main thread
          * is able to check isDone() on each sub-transfer object without

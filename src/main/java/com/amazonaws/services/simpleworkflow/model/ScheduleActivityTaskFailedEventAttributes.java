@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>ScheduleActivityTaskFailed</code> event.
+ * Provides details of the <code>ScheduleActivityTaskFailed</code>
+ * event.
  * </p>
  */
 public class ScheduleActivityTaskFailedEventAttributes implements Serializable {
@@ -91,7 +92,7 @@ public class ScheduleActivityTaskFailedEventAttributes implements Serializable {
      * @param activityType The activity type provided in the <code>ScheduleActivityTask</code>
      *         decision that failed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskFailedEventAttributes withActivityType(ActivityType activityType) {
@@ -139,7 +140,7 @@ public class ScheduleActivityTaskFailedEventAttributes implements Serializable {
      * @param activityId The activityId provided in the <code>ScheduleActivityTask</code>
      *         decision that failed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskFailedEventAttributes withActivityId(String activityId) {
@@ -221,7 +222,7 @@ public class ScheduleActivityTaskFailedEventAttributes implements Serializable {
      *         href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
      *         IAM to Manage Access to Amazon SWF Workflows</a>.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ScheduleActivityTaskFailedCause
@@ -279,7 +280,7 @@ public class ScheduleActivityTaskFailedEventAttributes implements Serializable {
      *         href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
      *         IAM to Manage Access to Amazon SWF Workflows</a>.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ScheduleActivityTaskFailedCause
@@ -332,7 +333,7 @@ public class ScheduleActivityTaskFailedEventAttributes implements Serializable {
      *         This information can be useful for diagnosing problems by tracing back
      *         the chain of events leading up to this event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskFailedEventAttributes withDecisionTaskCompletedEventId(Long decisionTaskCompletedEventId) {

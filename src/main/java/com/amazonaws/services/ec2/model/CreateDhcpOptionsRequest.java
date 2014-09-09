@@ -23,9 +23,45 @@ import com.amazonaws.services.ec2.model.transform.CreateDhcpOptionsRequestMarsha
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#createDhcpOptions(CreateDhcpOptionsRequest) CreateDhcpOptions operation}.
  * <p>
- * Creates a set of DHCP options that you can then associate with one or more VPCs, causing all existing and new instances that you launch in those VPCs
- * to use the set of DHCP options. The following table lists the individual DHCP options you can specify. For more information about the options, go to
- * <a href="http://www.ietf.org/rfc/rfc2132.txt"> http://www.ietf.org/rfc/rfc2132.txt </a>
+ * Creates a set of DHCP options for your VPC. After creating the set,
+ * you must associate it with the VPC, causing all existing and new
+ * instances that you launch in the VPC to use this set of DHCP options.
+ * The following are the individual DHCP options you can specify. For
+ * more information about the options, see
+ * <a href="http://www.ietf.org/rfc/rfc2132.txt"> RFC 2132 </a>
+ * .
+ * </p>
+ * 
+ * <ul>
+ * <li> <code>domain-name-servers</code> - The IP addresses of up to
+ * four domain name servers, or <code>AmazonProvidedDNS</code> . The
+ * default DHCP option set specifies <code>AmazonProvidedDNS</code> . If
+ * specifying more than one domain name server, specify the IP addresses
+ * in a single parameter, separated by commas.</li>
+ * <li> <code>domain-name</code> - If you're using AmazonProvidedDNS in
+ * <code>us-east-1</code> ,
+ * specify <code>ec2.internal</code> . If you're using
+ * AmazonProvidedDNS in another region, specify
+ * <code>region.compute.internal</code> (for example,
+ * <code>ap-northeast-1.compute.internal</code> ). Otherwise, specify a
+ * domain name (for example, <code>MyCompany.com</code> ). If specifying
+ * more than one domain name, separate them with spaces.</li>
+ * <li> <code>ntp-servers</code> - The IP addresses of up to four
+ * Network Time Protocol (NTP) servers.</li>
+ * <li> <code>netbios-name-servers</code> - The IP addresses of up to
+ * four NetBIOS name servers.</li>
+ * <li> <code>netbios-node-type</code> - The NetBIOS node type (1, 2, 4,
+ * or 8). We recommend that you specify 2 (broadcast and multicast are
+ * not currently supported). For more information about these node types,
+ * see
+ * <a href="http://www.ietf.org/rfc/rfc2132.txt"> RFC 2132 </a>
+ * . </li>
+ * 
+ * </ul>
+ * <p>
+ * For more information about DHCP options, see
+ * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+ * in the <i>Amazon Virtual Private Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#createDhcpOptions(CreateDhcpOptionsRequest)
@@ -33,7 +69,7 @@ import com.amazonaws.services.ec2.model.transform.CreateDhcpOptionsRequestMarsha
 public class CreateDhcpOptionsRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<CreateDhcpOptionsRequest> {
 
     /**
-     * A set of one or more DHCP configurations.
+     * A DHCP configuration option.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<DhcpConfiguration> dhcpConfigurations;
 
@@ -48,16 +84,16 @@ public class CreateDhcpOptionsRequest extends AmazonWebServiceRequest implements
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param dhcpConfigurations A set of one or more DHCP configurations.
+     * @param dhcpConfigurations A DHCP configuration option.
      */
     public CreateDhcpOptionsRequest(java.util.List<DhcpConfiguration> dhcpConfigurations) {
         setDhcpConfigurations(dhcpConfigurations);
     }
 
     /**
-     * A set of one or more DHCP configurations.
+     * A DHCP configuration option.
      *
-     * @return A set of one or more DHCP configurations.
+     * @return A DHCP configuration option.
      */
     public java.util.List<DhcpConfiguration> getDhcpConfigurations() {
         if (dhcpConfigurations == null) {
@@ -68,9 +104,9 @@ public class CreateDhcpOptionsRequest extends AmazonWebServiceRequest implements
     }
     
     /**
-     * A set of one or more DHCP configurations.
+     * A DHCP configuration option.
      *
-     * @param dhcpConfigurations A set of one or more DHCP configurations.
+     * @param dhcpConfigurations A DHCP configuration option.
      */
     public void setDhcpConfigurations(java.util.Collection<DhcpConfiguration> dhcpConfigurations) {
         if (dhcpConfigurations == null) {
@@ -83,13 +119,13 @@ public class CreateDhcpOptionsRequest extends AmazonWebServiceRequest implements
     }
     
     /**
-     * A set of one or more DHCP configurations.
+     * A DHCP configuration option.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param dhcpConfigurations A set of one or more DHCP configurations.
+     * @param dhcpConfigurations A DHCP configuration option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDhcpOptionsRequest withDhcpConfigurations(DhcpConfiguration... dhcpConfigurations) {
@@ -101,13 +137,13 @@ public class CreateDhcpOptionsRequest extends AmazonWebServiceRequest implements
     }
     
     /**
-     * A set of one or more DHCP configurations.
+     * A DHCP configuration option.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param dhcpConfigurations A set of one or more DHCP configurations.
+     * @param dhcpConfigurations A DHCP configuration option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDhcpOptionsRequest withDhcpConfigurations(java.util.Collection<DhcpConfiguration> dhcpConfigurations) {

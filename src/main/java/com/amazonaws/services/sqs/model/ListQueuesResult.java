@@ -17,7 +17,9 @@ package com.amazonaws.services.sqs.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * A list of your queues.
+ * </p>
  */
 public class ListQueuesResult implements Serializable {
 
@@ -61,7 +63,7 @@ public class ListQueuesResult implements Serializable {
      *
      * @param queueUrls A list of queue URLs, up to 1000 entries.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListQueuesResult withQueueUrls(String... queueUrls) {
@@ -79,7 +81,7 @@ public class ListQueuesResult implements Serializable {
      *
      * @param queueUrls A list of queue URLs, up to 1000 entries.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListQueuesResult withQueueUrls(java.util.Collection<String> queueUrls) {

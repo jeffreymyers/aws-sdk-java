@@ -17,7 +17,7 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Describe Spot Datafeed Subscription Result
+ * 
  */
 public class DescribeSpotDatafeedSubscriptionResult implements Serializable {
 
@@ -51,7 +51,7 @@ public class DescribeSpotDatafeedSubscriptionResult implements Serializable {
      *
      * @param spotDatafeedSubscription The Spot Instance datafeed subscription.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSpotDatafeedSubscriptionResult withSpotDatafeedSubscription(SpotDatafeedSubscription spotDatafeedSubscription) {

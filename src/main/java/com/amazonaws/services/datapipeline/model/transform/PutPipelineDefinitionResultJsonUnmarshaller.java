@@ -37,7 +37,7 @@ public class PutPipelineDefinitionResultJsonUnmarshaller implements Unmarshaller
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,9 +46,11 @@ public class PutPipelineDefinitionResultJsonUnmarshaller implements Unmarshaller
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("validationErrors", targetDepth)) {
+                    context.nextToken();
                     putPipelineDefinitionResult.setValidationErrors(new ListUnmarshaller<ValidationError>(ValidationErrorJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("validationWarnings", targetDepth)) {
+                    context.nextToken();
                     putPipelineDefinitionResult.setValidationWarnings(new ListUnmarshaller<ValidationWarning>(ValidationWarningJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("errored", targetDepth)) {

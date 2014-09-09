@@ -37,7 +37,7 @@ public class StackSummaryJsonUnmarshaller implements Unmarshaller<StackSummary, 
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -52,6 +52,10 @@ public class StackSummaryJsonUnmarshaller implements Unmarshaller<StackSummary, 
                 if (context.testExpression("Name", targetDepth)) {
                     context.nextToken();
                     stackSummary.setName(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Arn", targetDepth)) {
+                    context.nextToken();
+                    stackSummary.setArn(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("LayersCount", targetDepth)) {
                     context.nextToken();

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#copyDBSnapshot(CopyDBSnapshotRequest) CopyDBSnapshot operation}.
  * <p>
- * Copies the specified DBSnapshot. The source DBSnapshot must be in the "available" state.
+ * Copies the specified DBSnapshot. The source DBSnapshot must be in the
+ * "available" state.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#copyDBSnapshot(CopyDBSnapshotRequest)
@@ -135,7 +136,7 @@ public class CopyDBSnapshotRequest extends AmazonWebServiceRequest implements Se
      *         <code>rds:mydb-2012-04-02-00-01</code> <p>Example:
      *         <code>arn:aws:rds:rr-regn-1:123456789012:snapshot:mysql-instance1-snapshot-20130805</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyDBSnapshotRequest withSourceDBSnapshotIdentifier(String sourceDBSnapshotIdentifier) {
@@ -192,7 +193,7 @@ public class CopyDBSnapshotRequest extends AmazonWebServiceRequest implements Se
      *         be a letter</li> <li>Cannot end with a hyphen or contain two
      *         consecutive hyphens</li> </ul> <p>Example: <code>my-db-snapshot</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyDBSnapshotRequest withTargetDBSnapshotIdentifier(String targetDBSnapshotIdentifier) {
@@ -235,7 +236,7 @@ public class CopyDBSnapshotRequest extends AmazonWebServiceRequest implements Se
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyDBSnapshotRequest withTags(Tag... tags) {
@@ -253,7 +254,7 @@ public class CopyDBSnapshotRequest extends AmazonWebServiceRequest implements Se
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyDBSnapshotRequest withTags(java.util.Collection<Tag> tags) {

@@ -22,20 +22,31 @@ import com.amazonaws.services.ec2.model.transform.DescribeConversionTasksRequest
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describeConversionTasks(DescribeConversionTasksRequest) DescribeConversionTasks operation}.
- * 
+ * <p>
+ * Describes one or more of your conversion tasks. For more information,
+ * see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+ * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeConversionTasks(DescribeConversionTasksRequest)
  */
 public class DescribeConversionTasksRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<DescribeConversionTasksRequest> {
 
+    /**
+     * 
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Filter> filters;
 
+    /**
+     * One or more conversion task IDs.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> conversionTaskIds;
 
     /**
-     * Returns the value of the Filters property for this object.
+     * 
      *
-     * @return The value of the Filters property for this object.
+     * @return 
      */
     public java.util.List<Filter> getFilters() {
         if (filters == null) {
@@ -46,9 +57,9 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * Sets the value of the Filters property for this object.
+     * 
      *
-     * @param filters The new value for the Filters property for this object.
+     * @param filters 
      */
     public void setFilters(java.util.Collection<Filter> filters) {
         if (filters == null) {
@@ -61,13 +72,13 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * Sets the value of the Filters property for this object.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters The new value for the Filters property for this object.
+     * @param filters 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConversionTasksRequest withFilters(Filter... filters) {
@@ -79,13 +90,13 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * Sets the value of the Filters property for this object.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters The new value for the Filters property for this object.
+     * @param filters 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConversionTasksRequest withFilters(java.util.Collection<Filter> filters) {
@@ -101,9 +112,9 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
 
     /**
-     * Returns the value of the ConversionTaskIds property for this object.
+     * One or more conversion task IDs.
      *
-     * @return The value of the ConversionTaskIds property for this object.
+     * @return One or more conversion task IDs.
      */
     public java.util.List<String> getConversionTaskIds() {
         if (conversionTaskIds == null) {
@@ -114,9 +125,9 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * Sets the value of the ConversionTaskIds property for this object.
+     * One or more conversion task IDs.
      *
-     * @param conversionTaskIds The new value for the ConversionTaskIds property for this object.
+     * @param conversionTaskIds One or more conversion task IDs.
      */
     public void setConversionTaskIds(java.util.Collection<String> conversionTaskIds) {
         if (conversionTaskIds == null) {
@@ -129,13 +140,13 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * Sets the value of the ConversionTaskIds property for this object.
+     * One or more conversion task IDs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param conversionTaskIds The new value for the ConversionTaskIds property for this object.
+     * @param conversionTaskIds One or more conversion task IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConversionTasksRequest withConversionTaskIds(String... conversionTaskIds) {
@@ -147,13 +158,13 @@ public class DescribeConversionTasksRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * Sets the value of the ConversionTaskIds property for this object.
+     * One or more conversion task IDs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param conversionTaskIds The new value for the ConversionTaskIds property for this object.
+     * @param conversionTaskIds One or more conversion task IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConversionTasksRequest withConversionTaskIds(java.util.Collection<String> conversionTaskIds) {

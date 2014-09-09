@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#verifyEmailAddress(VerifyEmailAddressRequest) VerifyEmailAddress operation}.
  * <p>
- * Verifies an email address. This action causes a confirmation email message to be sent to the specified address.
+ * Verifies an email address. This action causes a confirmation email
+ * message to be sent to the specified address.
  * </p>
  * <p>
- * <b>IMPORTANT:</b>The VerifyEmailAddress action is deprecated as of the May 15, 2012 release of Domain Verification. The VerifyEmailIdentity action is
- * now preferred.
+ * <b>IMPORTANT:</b>The VerifyEmailAddress action is deprecated as of the
+ * May 15, 2012 release of Domain Verification. The VerifyEmailIdentity
+ * action is now preferred.
  * </p>
  * <p>
  * This action is throttled at one request per second.
@@ -65,7 +67,7 @@ public class VerifyEmailAddressRequest extends AmazonWebServiceRequest implement
      *
      * @param emailAddress The email address to be verified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VerifyEmailAddressRequest withEmailAddress(String emailAddress) {

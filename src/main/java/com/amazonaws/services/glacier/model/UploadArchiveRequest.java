@@ -21,38 +21,53 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.glacier.AmazonGlacier#uploadArchive(UploadArchiveRequest) UploadArchive operation}.
  * <p>
- * This operation adds an archive to a vault. This is a synchronous operation, and for a successful upload, your data is durably persisted. Amazon
- * Glacier returns the archive ID in the <code>x-amz-archive-id</code> header of the response.
+ * This operation adds an archive to a vault. This is a synchronous
+ * operation, and for a successful upload, your data is durably
+ * persisted. Amazon Glacier returns the archive ID in the
+ * <code>x-amz-archive-id</code> header of the response.
  * </p>
  * <p>
- * You must use the archive ID to access your data in Amazon Glacier. After you upload an archive, you should save the archive ID returned so that you
- * can retrieve or delete the archive later. Besides saving the archive ID, you can also index it and give it a friendly name to allow for better
- * searching. You can also use the optional archive description field to specify how the archive is referred to in an external index of archives, such as
- * you might create in Amazon DynamoDB. You can also get the vault inventory to obtain a list of archive IDs in a vault. For more information, see
- * InitiateJob.
+ * You must use the archive ID to access your data in Amazon Glacier.
+ * After you upload an archive, you should save the archive ID returned
+ * so that you can retrieve or delete the archive later. Besides saving
+ * the archive ID, you can also index it and give it a friendly name to
+ * allow for better searching. You can also use the optional archive
+ * description field to specify how the archive is referred to in an
+ * external index of archives, such as you might create in Amazon
+ * DynamoDB. You can also get the vault inventory to obtain a list of
+ * archive IDs in a vault. For more information, see InitiateJob.
  * </p>
  * <p>
- * You must provide a SHA256 tree hash of the data you are uploading. For information about computing a SHA256 tree hash, see <a
- * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a> .
+ * You must provide a SHA256 tree hash of the data you are uploading. For
+ * information about computing a SHA256 tree hash, see
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html"> Computing Checksums </a>
+ * .
  * </p>
  * <p>
- * You can optionally specify an archive description of up to 1,024 printable ASCII characters. You can get the archive description when you either
- * retrieve the archive or get the vault inventory. For more information, see InitiateJob. Amazon Glacier does not interpret the description in any way.
- * An archive description does not need to be unique. You cannot use the description to retrieve or sort the archive list.
+ * You can optionally specify an archive description of up to 1,024
+ * printable ASCII characters. You can get the archive description when
+ * you either retrieve the archive or get the vault inventory. For more
+ * information, see InitiateJob. Amazon Glacier does not interpret the
+ * description in any way. An archive description does not need to be
+ * unique. You cannot use the description to retrieve or sort the archive
+ * list.
  * </p>
  * <p>
- * Archives are immutable. After you upload an archive, you cannot edit the archive or its description.
+ * Archives are immutable. After you upload an archive, you cannot edit
+ * the archive or its description.
  * </p>
  * <p>
- * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any
- * permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <a
- * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management
- * (IAM) </a> .
+ * An AWS account has full permission to perform all operations
+ * (actions). However, AWS Identity and Access Management (IAM) users
+ * don't have any permissions by default. You must grant them explicit
+ * permission to perform specific actions. For more information, see
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+ * .
  * </p>
  * <p>
- * For conceptual information and underlying REST API, go to <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html">
- * Uploading an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html"> Upload Archive
- * </a> in the <i>Amazon Glacier Developer Guide</i> .
+ * For conceptual information and underlying REST API, go to
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html"> Uploading an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html"> Upload Archive </a>
+ * in the <i>Amazon Glacier Developer Guide</i> .
  * 
  * </p>
  *
@@ -88,6 +103,9 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * The data to upload.
+     *
+     * This stream must implement mark/reset in order for signature calculation to be performed
+     * before this data is read for the request payload.
      */
     private java.io.InputStream body;
 
@@ -164,7 +182,7 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param contentLength The new value for the ContentLength property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadArchiveRequest withContentLength(Long contentLength) {
@@ -197,7 +215,7 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param vaultName The name of the vault.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadArchiveRequest withVaultName(String vaultName) {
@@ -254,7 +272,7 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
      *         to sign the request. If you specify your Account ID, do not include
      *         hyphens in it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadArchiveRequest withAccountId(String accountId) {
@@ -287,7 +305,7 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param archiveDescription The optional description of the archive you are uploading.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadArchiveRequest withArchiveDescription(String archiveDescription) {
@@ -320,7 +338,7 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param checksum The SHA256 checksum (a linear hash) of the payload.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadArchiveRequest withChecksum(String checksum) {
@@ -331,6 +349,9 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
     /**
      * The data to upload.
      *
+     * This stream must implement mark/reset in order for signature calculation to be performed
+     * before this data is read for the request payload.
+     *
      * @return The data to upload.
      */
     public java.io.InputStream getBody() {
@@ -340,6 +361,9 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
     /**
      * The data to upload.
      *
+     * This stream must implement mark/reset in order for signature calculation to be performed
+     * before this data is read for the request payload.
+     *
      * @param body The data to upload.
      */
     public void setBody(java.io.InputStream body) {
@@ -348,12 +372,15 @@ public class UploadArchiveRequest extends AmazonWebServiceRequest implements Ser
     
     /**
      * The data to upload.
+     *
+     * This stream must implement mark/reset in order for signature calculation to be performed
+     * before this data is read for the request payload.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param body The data to upload.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadArchiveRequest withBody(java.io.InputStream body) {

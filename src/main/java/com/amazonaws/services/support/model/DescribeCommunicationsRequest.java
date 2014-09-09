@@ -21,12 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.support.AWSSupport#describeCommunications(DescribeCommunicationsRequest) DescribeCommunications operation}.
  * <p>
- * Returns communications regarding the support case. You can use the <code>AfterTime</code> and <code>BeforeTime</code> parameters to filter by date.
- * The <code>CaseId</code> parameter enables you to identify a specific case by its <code>CaseId</code> value.
+ * Returns communications regarding the support case. You can use the
+ * <code>AfterTime</code> and <code>BeforeTime</code> parameters to
+ * filter by date. The <code>CaseId</code> parameter enables you to
+ * identify a specific case by its <code>CaseId</code> value.
  * </p>
  * <p>
- * The <code>MaxResults</code> and <code>NextToken</code> parameters enable you to control the pagination of the result set. Set <code>MaxResults</code>
- * to the number of cases you want displayed on each page, and use <code>NextToken</code> to specify the resumption of pagination.
+ * The <code>MaxResults</code> and <code>NextToken</code> parameters
+ * enable you to control the pagination of the result set. Set
+ * <code>MaxResults</code> to the number of cases you want displayed on
+ * each page, and use <code>NextToken</code> to specify the resumption of
+ * pagination.
  * </p>
  *
  * @see com.amazonaws.services.support.AWSSupport#describeCommunications(DescribeCommunicationsRequest)
@@ -102,7 +107,7 @@ public class DescribeCommunicationsRequest extends AmazonWebServiceRequest imple
      *         is an alphanumeric string formatted as shown in this example:
      *         case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommunicationsRequest withCaseId(String caseId) {
@@ -141,7 +146,7 @@ public class DescribeCommunicationsRequest extends AmazonWebServiceRequest imple
      * @param beforeTime The end date for a filtered date search on support case
      *         communications.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommunicationsRequest withBeforeTime(String beforeTime) {
@@ -180,7 +185,7 @@ public class DescribeCommunicationsRequest extends AmazonWebServiceRequest imple
      * @param afterTime The start date for a filtered date search on support case
      *         communications.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommunicationsRequest withAfterTime(String afterTime) {
@@ -213,7 +218,7 @@ public class DescribeCommunicationsRequest extends AmazonWebServiceRequest imple
      *
      * @param nextToken A resumption point for pagination.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommunicationsRequest withNextToken(String nextToken) {
@@ -255,7 +260,7 @@ public class DescribeCommunicationsRequest extends AmazonWebServiceRequest imple
      *
      * @param maxResults The maximum number of results to return before paginating.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommunicationsRequest withMaxResults(Integer maxResults) {

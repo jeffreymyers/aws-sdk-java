@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.directconnect.AmazonDirectConnect#createPrivateVirtualInterface(CreatePrivateVirtualInterfaceRequest) CreatePrivateVirtualInterface operation}.
  * <p>
- * Creates a new private virtual interface. A virtual interface is the VLAN that transports AWS Direct Connect traffic. A private virtual interface
- * supports sending traffic to a single virtual private cloud (VPC).
+ * Creates a new private virtual interface. A virtual interface is the
+ * VLAN that transports AWS Direct Connect traffic. A private virtual
+ * interface supports sending traffic to a single virtual private cloud
+ * (VPC).
  * </p>
  *
  * @see com.amazonaws.services.directconnect.AmazonDirectConnect#createPrivateVirtualInterface(CreatePrivateVirtualInterfaceRequest)
@@ -65,7 +67,7 @@ public class CreatePrivateVirtualInterfaceRequest extends AmazonWebServiceReques
      *
      * @param connectionId ID of the connection. <p>Example: dxcon-fg5678gh <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePrivateVirtualInterfaceRequest withConnectionId(String connectionId) {
@@ -104,7 +106,7 @@ public class CreatePrivateVirtualInterfaceRequest extends AmazonWebServiceReques
      * @param newPrivateVirtualInterface Detailed information for the private virtual interface to be created.
      *         <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePrivateVirtualInterfaceRequest withNewPrivateVirtualInterface(NewPrivateVirtualInterface newPrivateVirtualInterface) {

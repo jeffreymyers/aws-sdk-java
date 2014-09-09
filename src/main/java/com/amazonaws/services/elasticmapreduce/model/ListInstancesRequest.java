@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#listInstances(ListInstancesRequest) ListInstances operation}.
  * <p>
- * Provides information about the cluster instances that Amazon EMR provisions on behalf of a user when it creates the cluster. For example, this
- * operation indicates when the EC2 instances reach the Ready state, when instances become available to Amazon EMR to use for jobs, and the IP addresses
- * for cluster instances, etc.
+ * Provides information about the cluster instances that Amazon EMR
+ * provisions on behalf of a user when it creates the cluster. For
+ * example, this operation indicates when the EC2 instances reach the
+ * Ready state, when instances become available to Amazon EMR to use for
+ * jobs, and the IP addresses for cluster instances, etc.
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#listInstances(ListInstancesRequest)
@@ -46,10 +48,8 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> instanceGroupTypes;
 
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Provide the pagination token from earlier API
-     * calls to retrieve the next page of results. When the value is null,
-     * all results have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      */
     private String marker;
 
@@ -78,7 +78,7 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param clusterId The identifier of the cluster for which to list the instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstancesRequest withClusterId(String clusterId) {
@@ -111,7 +111,7 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param instanceGroupId The identifier of the instance group for which to list the instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstancesRequest withInstanceGroupId(String instanceGroupId) {
@@ -154,7 +154,7 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param instanceGroupTypes The type of instance group for which to list the instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstancesRequest withInstanceGroupTypes(String... instanceGroupTypes) {
@@ -172,7 +172,7 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param instanceGroupTypes The type of instance group for which to list the instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstancesRequest withInstanceGroupTypes(java.util.Collection<String> instanceGroupTypes) {
@@ -194,7 +194,7 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param instanceGroupTypes The type of instance group for which to list the instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstancesRequest withInstanceGroupTypes(InstanceGroupType... instanceGroupTypes) {
@@ -211,49 +211,37 @@ public class ListInstancesRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Provide the pagination token from earlier API
-     * calls to retrieve the next page of results. When the value is null,
-     * all results have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      *
-     * @return The pagination token is a random string indicating whether there are
-     *         more results to fetch. Provide the pagination token from earlier API
-     *         calls to retrieve the next page of results. When the value is null,
-     *         all results have been returned.
+     * @return The pagination token that indicates the next set of results to
+     *         retrieve.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Provide the pagination token from earlier API
-     * calls to retrieve the next page of results. When the value is null,
-     * all results have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      *
-     * @param marker The pagination token is a random string indicating whether there are
-     *         more results to fetch. Provide the pagination token from earlier API
-     *         calls to retrieve the next page of results. When the value is null,
-     *         all results have been returned.
+     * @param marker The pagination token that indicates the next set of results to
+     *         retrieve.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * The pagination token is a random string indicating whether there are
-     * more results to fetch. Provide the pagination token from earlier API
-     * calls to retrieve the next page of results. When the value is null,
-     * all results have been returned.
+     * The pagination token that indicates the next set of results to
+     * retrieve.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker The pagination token is a random string indicating whether there are
-     *         more results to fetch. Provide the pagination token from earlier API
-     *         calls to retrieve the next page of results. When the value is null,
-     *         all results have been returned.
+     * @param marker The pagination token that indicates the next set of results to
+     *         retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstancesRequest withMarker(String marker) {

@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Requests a description of one or more stacks.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeStacks(DescribeStacksRequest)
@@ -87,7 +90,7 @@ public class DescribeStacksRequest extends AmazonWebServiceRequest implements Se
      *         omit this parameter, <code>DescribeStacks</code> returns a description
      *         of every stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeStacksRequest withStackIds(String... stackIds) {
@@ -109,7 +112,7 @@ public class DescribeStacksRequest extends AmazonWebServiceRequest implements Se
      *         omit this parameter, <code>DescribeStacks</code> returns a description
      *         of every stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeStacksRequest withStackIds(java.util.Collection<String> stackIds) {

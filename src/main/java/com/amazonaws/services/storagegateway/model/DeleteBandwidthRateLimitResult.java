@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A JSON object containing the of the gateway whose bandwidth rate information was deleted.
+ * A JSON object containing the of the gateway whose bandwidth rate
+ * information was deleted.
  * </p>
  */
 public class DeleteBandwidthRateLimitResult implements Serializable {
@@ -79,7 +80,7 @@ public class DeleteBandwidthRateLimitResult implements Serializable {
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteBandwidthRateLimitResult withGatewayARN(String gatewayARN) {

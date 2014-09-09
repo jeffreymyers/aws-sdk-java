@@ -21,13 +21,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.dynamodbv2.AmazonDynamoDB#getItem(GetItemRequest) GetItem operation}.
  * <p>
- * The <i>GetItem</i> operation returns a set of attributes for the item with the given primary key. If there is no matching item, <i>GetItem</i> does
- * not return any data.
+ * The <i>GetItem</i> operation returns a set of attributes for the item
+ * with the given primary key. If there is no matching item,
+ * <i>GetItem</i> does not return any data.
  * </p>
  * <p>
- * <i>GetItem</i> provides an eventually consistent read by default. If your application requires a strongly consistent read, set <i>ConsistentRead</i>
- * to <code>true</code> . Although a strongly consistent read might take more time than an eventually consistent read, it always returns the last updated
- * value.
+ * <i>GetItem</i> provides an eventually consistent read by default. If
+ * your application requires a strongly consistent read, set
+ * <i>ConsistentRead</i> to <code>true</code> . Although a strongly
+ * consistent read might take more time than an eventually consistent
+ * read, it always returns the last updated value.
  * </p>
  *
  * @see com.amazonaws.services.dynamodbv2.AmazonDynamoDB#getItem(GetItemRequest)
@@ -53,7 +56,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * The names of one or more attributes to retrieve. If no attribute names
      * are specified, then all attributes will be returned. If any of the
      * requested attributes are not found, they will not appear in the
-     * result.
+     * result. <p>Note that <i>AttributesToGet</i> has no effect on
+     * provisioned throughput consumption. DynamoDB determines capacity units
+     * consumed based on item size, not on the amount of data that is
+     * returned to an application.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
@@ -69,7 +75,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -153,7 +159,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      *
      * @param tableName The name of the table containing the requested item.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetItemRequest withTableName(String tableName) {
@@ -193,7 +199,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * @param key A map of attribute names to <i>AttributeValue</i> objects,
      *         representing the primary key of the item to retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetItemRequest withKey(java.util.Map<String,AttributeValue> key) {
@@ -275,7 +281,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * The names of one or more attributes to retrieve. If no attribute names
      * are specified, then all attributes will be returned. If any of the
      * requested attributes are not found, they will not appear in the
-     * result.
+     * result. <p>Note that <i>AttributesToGet</i> has no effect on
+     * provisioned throughput consumption. DynamoDB determines capacity units
+     * consumed based on item size, not on the amount of data that is
+     * returned to an application.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
@@ -283,7 +292,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * @return The names of one or more attributes to retrieve. If no attribute names
      *         are specified, then all attributes will be returned. If any of the
      *         requested attributes are not found, they will not appear in the
-     *         result.
+     *         result. <p>Note that <i>AttributesToGet</i> has no effect on
+     *         provisioned throughput consumption. DynamoDB determines capacity units
+     *         consumed based on item size, not on the amount of data that is
+     *         returned to an application.
      */
     public java.util.List<String> getAttributesToGet() {
         return attributesToGet;
@@ -293,7 +305,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * The names of one or more attributes to retrieve. If no attribute names
      * are specified, then all attributes will be returned. If any of the
      * requested attributes are not found, they will not appear in the
-     * result.
+     * result. <p>Note that <i>AttributesToGet</i> has no effect on
+     * provisioned throughput consumption. DynamoDB determines capacity units
+     * consumed based on item size, not on the amount of data that is
+     * returned to an application.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
@@ -301,7 +316,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * @param attributesToGet The names of one or more attributes to retrieve. If no attribute names
      *         are specified, then all attributes will be returned. If any of the
      *         requested attributes are not found, they will not appear in the
-     *         result.
+     *         result. <p>Note that <i>AttributesToGet</i> has no effect on
+     *         provisioned throughput consumption. DynamoDB determines capacity units
+     *         consumed based on item size, not on the amount of data that is
+     *         returned to an application.
      */
     public void setAttributesToGet(java.util.Collection<String> attributesToGet) {
         if (attributesToGet == null) {
@@ -317,7 +335,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * The names of one or more attributes to retrieve. If no attribute names
      * are specified, then all attributes will be returned. If any of the
      * requested attributes are not found, they will not appear in the
-     * result.
+     * result. <p>Note that <i>AttributesToGet</i> has no effect on
+     * provisioned throughput consumption. DynamoDB determines capacity units
+     * consumed based on item size, not on the amount of data that is
+     * returned to an application.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -327,9 +348,12 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * @param attributesToGet The names of one or more attributes to retrieve. If no attribute names
      *         are specified, then all attributes will be returned. If any of the
      *         requested attributes are not found, they will not appear in the
-     *         result.
+     *         result. <p>Note that <i>AttributesToGet</i> has no effect on
+     *         provisioned throughput consumption. DynamoDB determines capacity units
+     *         consumed based on item size, not on the amount of data that is
+     *         returned to an application.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetItemRequest withAttributesToGet(String... attributesToGet) {
@@ -344,7 +368,10 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * The names of one or more attributes to retrieve. If no attribute names
      * are specified, then all attributes will be returned. If any of the
      * requested attributes are not found, they will not appear in the
-     * result.
+     * result. <p>Note that <i>AttributesToGet</i> has no effect on
+     * provisioned throughput consumption. DynamoDB determines capacity units
+     * consumed based on item size, not on the amount of data that is
+     * returned to an application.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -354,9 +381,12 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * @param attributesToGet The names of one or more attributes to retrieve. If no attribute names
      *         are specified, then all attributes will be returned. If any of the
      *         requested attributes are not found, they will not appear in the
-     *         result.
+     *         result. <p>Note that <i>AttributesToGet</i> has no effect on
+     *         provisioned throughput consumption. DynamoDB determines capacity units
+     *         consumed based on item size, not on the amount of data that is
+     *         returned to an application.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetItemRequest withAttributesToGet(java.util.Collection<String> attributesToGet) {
@@ -402,7 +432,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      * @param consistentRead If set to <code>true</code>, then the operation uses strongly
      *         consistent reads; otherwise, eventually consistent reads are used.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetItemRequest withConsistentRead(Boolean consistentRead) {
@@ -424,7 +454,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -433,7 +463,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      *
      * @return If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
@@ -446,7 +476,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -455,7 +485,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
@@ -468,7 +498,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -479,11 +509,11 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ReturnConsumedCapacity
@@ -496,7 +526,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -505,7 +535,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
@@ -518,7 +548,7 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -529,11 +559,11 @@ public class GetItemRequest extends AmazonWebServiceRequest implements Serializa
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ReturnConsumedCapacity

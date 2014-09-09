@@ -21,19 +21,78 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#receiveMessage(ReceiveMessageRequest) ReceiveMessage operation}.
  * <p>
- * Retrieves one or more messages from the specified queue, including the message body and message ID of each message. Messages returned by this action
- * stay in the queue until you delete them. However, once a message is returned to a <code>ReceiveMessage</code> request, it is not returned on
- * subsequent <code>ReceiveMessage</code> requests for the duration of the <code>VisibilityTimeout</code> . If you do not specify a
- * <code>VisibilityTimeout</code> in the request, the overall visibility timeout for the queue is used for the returned messages.
+ * Retrieves one or more messages, with a maximum limit of 10 messages,
+ * from the specified queue. Long poll support is enabled by using the
+ * <code>WaitTimeSeconds</code> parameter. For more information, see
+ * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html"> Amazon SQS Long Poll </a>
+ * in the <i>Amazon SQS Developer Guide</i> .
+ * 
  * </p>
  * <p>
- * If a message is available in the queue, the call will return immediately. Otherwise, it will wait up to <code>WaitTimeSeconds</code> for a message to
- * arrive. If you do not specify <code>WaitTimeSeconds</code> in the request, the queue attribute ReceiveMessageWaitTimeSeconds is used to determine how
- * long to wait.
+ * Short poll is the default behavior where a weighted random set of
+ * machines is sampled on a <code>ReceiveMessage</code> call. This means
+ * only the messages on the sampled machines are returned. If the number
+ * of messages in the queue is small (less than 1000), it is likely you
+ * will get fewer messages than you requested per
+ * <code>ReceiveMessage</code> call. If the number of messages in the
+ * queue is extremely small, you might not receive any messages in a
+ * particular <code>ReceiveMessage</code> response; in which case you
+ * should repeat the request.
  * </p>
  * <p>
- * You could ask for additional information about each message through the attributes. Attributes that can be requested are <code>[SenderId,
- * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount, SentTimestamp]</code> .
+ * For each message returned, the response includes the following:
+ * </p>
+ * 
+ * <ul>
+ * <li> <p>
+ * Message body
+ * </p>
+ * </li>
+ * <li> <p>
+ * MD5 digest of the message body. For information about MD5, go to
+ * <a href="http://www.faqs.org/rfcs/rfc1321.html"> http://www.faqs.org/rfcs/rfc1321.html </a>
+ * .
+ * </p>
+ * </li>
+ * <li> <p>
+ * Message ID you received when you sent the message to the queue.
+ * </p>
+ * </li>
+ * <li> <p>
+ * Receipt handle.
+ * </p>
+ * </li>
+ * <li> <p>
+ * Message attributes.
+ * </p>
+ * </li>
+ * <li> <p>
+ * MD5 digest of the message attributes.
+ * </p>
+ * </li>
+ * 
+ * </ul>
+ * <p>
+ * The receipt handle is the identifier you must provide when deleting
+ * the message. For more information, see
+ * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/ImportantIdentifiers.html"> Queue and Message Identifiers </a>
+ * in the <i>Amazon SQS Developer Guide</i> .
+ * 
+ * </p>
+ * <p>
+ * You can provide the <code>VisibilityTimeout</code> parameter in your
+ * request, which will be applied to the messages that Amazon SQS returns
+ * in the response. If you do not include the parameter, the overall
+ * visibility timeout for the queue is used for the returned messages.
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/AboutVT.html"> Visibility Timeout </a>
+ * in the <i>Amazon SQS Developer Guide</i> .
+ * 
+ * </p>
+ * <p>
+ * <b>NOTE:</b> Going forward, new attributes might be added. If you are
+ * writing code that calls this action, we recommend that you structure
+ * your code so that it can handle new attributes gracefully.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#receiveMessage(ReceiveMessageRequest)
@@ -41,22 +100,42 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**
-     * The URL of the SQS queue to take action on.
+     * The URL of the Amazon SQS queue to take action on.
      */
     private String queueUrl;
 
     /**
      * A list of attributes that need to be returned along with each message.
-     * The set of valid attributes are [SenderId,
-     * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     * SentTimestamp].
+     * <p> The following lists the names and descriptions of the attributes
+     * that can be returned: <ul> <li><code>All</code> - returns all
+     * values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     * returns the time when the message was first received (epoch time in
+     * milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     * the number of times a message has been received but not deleted.</li>
+     * <li><code>SenderId</code> - returns the AWS account number (or the IP
+     * address, if anonymous access is allowed) of the sender.</li>
+     * <li><code>SentTimestamp</code> - returns the time when the message was
+     * sent (epoch time in milliseconds).</li> </ul>
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> attributeNames;
 
     /**
+     * The message attribute Name can contain the following characters: A-Z,
+     * a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     * attribute name must not start or end with a period, and it should not
+     * have successive periods. The message attribute name is case sensitive
+     * and must be unique among all attribute names for the message. The
+     * message attribute name can be up to 256 characters long. Attribute
+     * names cannot start with "AWS." or "Amazon." because these prefixes are
+     * reserved for use by Amazon Web Services.
+     */
+    private com.amazonaws.internal.ListWithAutoConstructFlag<String> messageAttributeNames;
+
+    /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p>All of the
-     * messages are not necessarily returned.
+     * more messages than this value but may return fewer. Values can be from
+     * 1 to 10. Default is 1. <p>All of the messages are not necessarily
+     * returned.
      */
     private Integer maxNumberOfMessages;
 
@@ -85,38 +164,38 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl The URL of the Amazon SQS queue to take action on.
      */
     public ReceiveMessageRequest(String queueUrl) {
         setQueueUrl(queueUrl);
     }
 
     /**
-     * The URL of the SQS queue to take action on.
+     * The URL of the Amazon SQS queue to take action on.
      *
-     * @return The URL of the SQS queue to take action on.
+     * @return The URL of the Amazon SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * The URL of the Amazon SQS queue to take action on.
      *
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl The URL of the Amazon SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * The URL of the Amazon SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl The URL of the Amazon SQS queue to take action on.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withQueueUrl(String queueUrl) {
@@ -126,14 +205,28 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * A list of attributes that need to be returned along with each message.
-     * The set of valid attributes are [SenderId,
-     * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     * SentTimestamp].
+     * <p> The following lists the names and descriptions of the attributes
+     * that can be returned: <ul> <li><code>All</code> - returns all
+     * values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     * returns the time when the message was first received (epoch time in
+     * milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     * the number of times a message has been received but not deleted.</li>
+     * <li><code>SenderId</code> - returns the AWS account number (or the IP
+     * address, if anonymous access is allowed) of the sender.</li>
+     * <li><code>SentTimestamp</code> - returns the time when the message was
+     * sent (epoch time in milliseconds).</li> </ul>
      *
      * @return A list of attributes that need to be returned along with each message.
-     *         The set of valid attributes are [SenderId,
-     *         ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     *         SentTimestamp].
+     *         <p> The following lists the names and descriptions of the attributes
+     *         that can be returned: <ul> <li><code>All</code> - returns all
+     *         values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     *         returns the time when the message was first received (epoch time in
+     *         milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     *         the number of times a message has been received but not deleted.</li>
+     *         <li><code>SenderId</code> - returns the AWS account number (or the IP
+     *         address, if anonymous access is allowed) of the sender.</li>
+     *         <li><code>SentTimestamp</code> - returns the time when the message was
+     *         sent (epoch time in milliseconds).</li> </ul>
      */
     public java.util.List<String> getAttributeNames() {
         if (attributeNames == null) {
@@ -145,14 +238,28 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * A list of attributes that need to be returned along with each message.
-     * The set of valid attributes are [SenderId,
-     * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     * SentTimestamp].
+     * <p> The following lists the names and descriptions of the attributes
+     * that can be returned: <ul> <li><code>All</code> - returns all
+     * values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     * returns the time when the message was first received (epoch time in
+     * milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     * the number of times a message has been received but not deleted.</li>
+     * <li><code>SenderId</code> - returns the AWS account number (or the IP
+     * address, if anonymous access is allowed) of the sender.</li>
+     * <li><code>SentTimestamp</code> - returns the time when the message was
+     * sent (epoch time in milliseconds).</li> </ul>
      *
      * @param attributeNames A list of attributes that need to be returned along with each message.
-     *         The set of valid attributes are [SenderId,
-     *         ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     *         SentTimestamp].
+     *         <p> The following lists the names and descriptions of the attributes
+     *         that can be returned: <ul> <li><code>All</code> - returns all
+     *         values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     *         returns the time when the message was first received (epoch time in
+     *         milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     *         the number of times a message has been received but not deleted.</li>
+     *         <li><code>SenderId</code> - returns the AWS account number (or the IP
+     *         address, if anonymous access is allowed) of the sender.</li>
+     *         <li><code>SentTimestamp</code> - returns the time when the message was
+     *         sent (epoch time in milliseconds).</li> </ul>
      */
     public void setAttributeNames(java.util.Collection<String> attributeNames) {
         if (attributeNames == null) {
@@ -166,18 +273,32 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * A list of attributes that need to be returned along with each message.
-     * The set of valid attributes are [SenderId,
-     * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     * SentTimestamp].
+     * <p> The following lists the names and descriptions of the attributes
+     * that can be returned: <ul> <li><code>All</code> - returns all
+     * values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     * returns the time when the message was first received (epoch time in
+     * milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     * the number of times a message has been received but not deleted.</li>
+     * <li><code>SenderId</code> - returns the AWS account number (or the IP
+     * address, if anonymous access is allowed) of the sender.</li>
+     * <li><code>SentTimestamp</code> - returns the time when the message was
+     * sent (epoch time in milliseconds).</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param attributeNames A list of attributes that need to be returned along with each message.
-     *         The set of valid attributes are [SenderId,
-     *         ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     *         SentTimestamp].
+     *         <p> The following lists the names and descriptions of the attributes
+     *         that can be returned: <ul> <li><code>All</code> - returns all
+     *         values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     *         returns the time when the message was first received (epoch time in
+     *         milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     *         the number of times a message has been received but not deleted.</li>
+     *         <li><code>SenderId</code> - returns the AWS account number (or the IP
+     *         address, if anonymous access is allowed) of the sender.</li>
+     *         <li><code>SentTimestamp</code> - returns the time when the message was
+     *         sent (epoch time in milliseconds).</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withAttributeNames(String... attributeNames) {
@@ -190,18 +311,32 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * A list of attributes that need to be returned along with each message.
-     * The set of valid attributes are [SenderId,
-     * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     * SentTimestamp].
+     * <p> The following lists the names and descriptions of the attributes
+     * that can be returned: <ul> <li><code>All</code> - returns all
+     * values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     * returns the time when the message was first received (epoch time in
+     * milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     * the number of times a message has been received but not deleted.</li>
+     * <li><code>SenderId</code> - returns the AWS account number (or the IP
+     * address, if anonymous access is allowed) of the sender.</li>
+     * <li><code>SentTimestamp</code> - returns the time when the message was
+     * sent (epoch time in milliseconds).</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param attributeNames A list of attributes that need to be returned along with each message.
-     *         The set of valid attributes are [SenderId,
-     *         ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     *         SentTimestamp].
+     *         <p> The following lists the names and descriptions of the attributes
+     *         that can be returned: <ul> <li><code>All</code> - returns all
+     *         values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     *         returns the time when the message was first received (epoch time in
+     *         milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     *         the number of times a message has been received but not deleted.</li>
+     *         <li><code>SenderId</code> - returns the AWS account number (or the IP
+     *         address, if anonymous access is allowed) of the sender.</li>
+     *         <li><code>SentTimestamp</code> - returns the time when the message was
+     *         sent (epoch time in milliseconds).</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withAttributeNames(java.util.Collection<String> attributeNames) {
@@ -218,18 +353,32 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * A list of attributes that need to be returned along with each message.
-     * The set of valid attributes are [SenderId,
-     * ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     * SentTimestamp].
+     * <p> The following lists the names and descriptions of the attributes
+     * that can be returned: <ul> <li><code>All</code> - returns all
+     * values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     * returns the time when the message was first received (epoch time in
+     * milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     * the number of times a message has been received but not deleted.</li>
+     * <li><code>SenderId</code> - returns the AWS account number (or the IP
+     * address, if anonymous access is allowed) of the sender.</li>
+     * <li><code>SentTimestamp</code> - returns the time when the message was
+     * sent (epoch time in milliseconds).</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param attributeNames A list of attributes that need to be returned along with each message.
-     *         The set of valid attributes are [SenderId,
-     *         ApproximateFirstReceiveTimestamp, ApproximateReceiveCount,
-     *         SentTimestamp].
+     *         <p> The following lists the names and descriptions of the attributes
+     *         that can be returned: <ul> <li><code>All</code> - returns all
+     *         values.</li> <li><code>ApproximateFirstReceiveTimestamp</code> -
+     *         returns the time when the message was first received (epoch time in
+     *         milliseconds).</li> <li><code>ApproximateReceiveCount</code> - returns
+     *         the number of times a message has been received but not deleted.</li>
+     *         <li><code>SenderId</code> - returns the AWS account number (or the IP
+     *         address, if anonymous access is allowed) of the sender.</li>
+     *         <li><code>SentTimestamp</code> - returns the time when the message was
+     *         sent (epoch time in milliseconds).</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withAttributeNames(QueueAttributeName... attributeNames) {
@@ -246,13 +395,139 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
+     * The message attribute Name can contain the following characters: A-Z,
+     * a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     * attribute name must not start or end with a period, and it should not
+     * have successive periods. The message attribute name is case sensitive
+     * and must be unique among all attribute names for the message. The
+     * message attribute name can be up to 256 characters long. Attribute
+     * names cannot start with "AWS." or "Amazon." because these prefixes are
+     * reserved for use by Amazon Web Services.
+     *
+     * @return The message attribute Name can contain the following characters: A-Z,
+     *         a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     *         attribute name must not start or end with a period, and it should not
+     *         have successive periods. The message attribute name is case sensitive
+     *         and must be unique among all attribute names for the message. The
+     *         message attribute name can be up to 256 characters long. Attribute
+     *         names cannot start with "AWS." or "Amazon." because these prefixes are
+     *         reserved for use by Amazon Web Services.
+     */
+    public java.util.List<String> getMessageAttributeNames() {
+        if (messageAttributeNames == null) {
+              messageAttributeNames = new com.amazonaws.internal.ListWithAutoConstructFlag<String>();
+              messageAttributeNames.setAutoConstruct(true);
+        }
+        return messageAttributeNames;
+    }
+    
+    /**
+     * The message attribute Name can contain the following characters: A-Z,
+     * a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     * attribute name must not start or end with a period, and it should not
+     * have successive periods. The message attribute name is case sensitive
+     * and must be unique among all attribute names for the message. The
+     * message attribute name can be up to 256 characters long. Attribute
+     * names cannot start with "AWS." or "Amazon." because these prefixes are
+     * reserved for use by Amazon Web Services.
+     *
+     * @param messageAttributeNames The message attribute Name can contain the following characters: A-Z,
+     *         a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     *         attribute name must not start or end with a period, and it should not
+     *         have successive periods. The message attribute name is case sensitive
+     *         and must be unique among all attribute names for the message. The
+     *         message attribute name can be up to 256 characters long. Attribute
+     *         names cannot start with "AWS." or "Amazon." because these prefixes are
+     *         reserved for use by Amazon Web Services.
+     */
+    public void setMessageAttributeNames(java.util.Collection<String> messageAttributeNames) {
+        if (messageAttributeNames == null) {
+            this.messageAttributeNames = null;
+            return;
+        }
+        com.amazonaws.internal.ListWithAutoConstructFlag<String> messageAttributeNamesCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(messageAttributeNames.size());
+        messageAttributeNamesCopy.addAll(messageAttributeNames);
+        this.messageAttributeNames = messageAttributeNamesCopy;
+    }
+    
+    /**
+     * The message attribute Name can contain the following characters: A-Z,
+     * a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     * attribute name must not start or end with a period, and it should not
+     * have successive periods. The message attribute name is case sensitive
+     * and must be unique among all attribute names for the message. The
+     * message attribute name can be up to 256 characters long. Attribute
+     * names cannot start with "AWS." or "Amazon." because these prefixes are
+     * reserved for use by Amazon Web Services.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param messageAttributeNames The message attribute Name can contain the following characters: A-Z,
+     *         a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     *         attribute name must not start or end with a period, and it should not
+     *         have successive periods. The message attribute name is case sensitive
+     *         and must be unique among all attribute names for the message. The
+     *         message attribute name can be up to 256 characters long. Attribute
+     *         names cannot start with "AWS." or "Amazon." because these prefixes are
+     *         reserved for use by Amazon Web Services.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ReceiveMessageRequest withMessageAttributeNames(String... messageAttributeNames) {
+        if (getMessageAttributeNames() == null) setMessageAttributeNames(new java.util.ArrayList<String>(messageAttributeNames.length));
+        for (String value : messageAttributeNames) {
+            getMessageAttributeNames().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * The message attribute Name can contain the following characters: A-Z,
+     * a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     * attribute name must not start or end with a period, and it should not
+     * have successive periods. The message attribute name is case sensitive
+     * and must be unique among all attribute names for the message. The
+     * message attribute name can be up to 256 characters long. Attribute
+     * names cannot start with "AWS." or "Amazon." because these prefixes are
+     * reserved for use by Amazon Web Services.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param messageAttributeNames The message attribute Name can contain the following characters: A-Z,
+     *         a-z, 0-9, underscore(_), hyphen(-), and period (.). The message
+     *         attribute name must not start or end with a period, and it should not
+     *         have successive periods. The message attribute name is case sensitive
+     *         and must be unique among all attribute names for the message. The
+     *         message attribute name can be up to 256 characters long. Attribute
+     *         names cannot start with "AWS." or "Amazon." because these prefixes are
+     *         reserved for use by Amazon Web Services.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ReceiveMessageRequest withMessageAttributeNames(java.util.Collection<String> messageAttributeNames) {
+        if (messageAttributeNames == null) {
+            this.messageAttributeNames = null;
+        } else {
+            com.amazonaws.internal.ListWithAutoConstructFlag<String> messageAttributeNamesCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(messageAttributeNames.size());
+            messageAttributeNamesCopy.addAll(messageAttributeNames);
+            this.messageAttributeNames = messageAttributeNamesCopy;
+        }
+
+        return this;
+    }
+
+    /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p>All of the
-     * messages are not necessarily returned.
+     * more messages than this value but may return fewer. Values can be from
+     * 1 to 10. Default is 1. <p>All of the messages are not necessarily
+     * returned.
      *
      * @return The maximum number of messages to return. Amazon SQS never returns
-     *         more messages than this value but may return fewer. <p>All of the
-     *         messages are not necessarily returned.
+     *         more messages than this value but may return fewer. Values can be from
+     *         1 to 10. Default is 1. <p>All of the messages are not necessarily
+     *         returned.
      */
     public Integer getMaxNumberOfMessages() {
         return maxNumberOfMessages;
@@ -260,12 +535,14 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p>All of the
-     * messages are not necessarily returned.
+     * more messages than this value but may return fewer. Values can be from
+     * 1 to 10. Default is 1. <p>All of the messages are not necessarily
+     * returned.
      *
      * @param maxNumberOfMessages The maximum number of messages to return. Amazon SQS never returns
-     *         more messages than this value but may return fewer. <p>All of the
-     *         messages are not necessarily returned.
+     *         more messages than this value but may return fewer. Values can be from
+     *         1 to 10. Default is 1. <p>All of the messages are not necessarily
+     *         returned.
      */
     public void setMaxNumberOfMessages(Integer maxNumberOfMessages) {
         this.maxNumberOfMessages = maxNumberOfMessages;
@@ -273,16 +550,18 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p>All of the
-     * messages are not necessarily returned.
+     * more messages than this value but may return fewer. Values can be from
+     * 1 to 10. Default is 1. <p>All of the messages are not necessarily
+     * returned.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param maxNumberOfMessages The maximum number of messages to return. Amazon SQS never returns
-     *         more messages than this value but may return fewer. <p>All of the
-     *         messages are not necessarily returned.
+     *         more messages than this value but may return fewer. Values can be from
+     *         1 to 10. Default is 1. <p>All of the messages are not necessarily
+     *         returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withMaxNumberOfMessages(Integer maxNumberOfMessages) {
@@ -327,7 +606,7 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
      *         subsequent retrieve requests after being retrieved by a
      *         <code>ReceiveMessage</code> request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withVisibilityTimeout(Integer visibilityTimeout) {
@@ -372,7 +651,7 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
      *         to arrive in the queue before returning. If a message is available,
      *         the call will return sooner than WaitTimeSeconds.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ReceiveMessageRequest withWaitTimeSeconds(Integer waitTimeSeconds) {
@@ -394,6 +673,7 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
         sb.append("{");
         if (getQueueUrl() != null) sb.append("QueueUrl: " + getQueueUrl() + ",");
         if (getAttributeNames() != null) sb.append("AttributeNames: " + getAttributeNames() + ",");
+        if (getMessageAttributeNames() != null) sb.append("MessageAttributeNames: " + getMessageAttributeNames() + ",");
         if (getMaxNumberOfMessages() != null) sb.append("MaxNumberOfMessages: " + getMaxNumberOfMessages() + ",");
         if (getVisibilityTimeout() != null) sb.append("VisibilityTimeout: " + getVisibilityTimeout() + ",");
         if (getWaitTimeSeconds() != null) sb.append("WaitTimeSeconds: " + getWaitTimeSeconds() );
@@ -408,6 +688,7 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
         
         hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
         hashCode = prime * hashCode + ((getAttributeNames() == null) ? 0 : getAttributeNames().hashCode()); 
+        hashCode = prime * hashCode + ((getMessageAttributeNames() == null) ? 0 : getMessageAttributeNames().hashCode()); 
         hashCode = prime * hashCode + ((getMaxNumberOfMessages() == null) ? 0 : getMaxNumberOfMessages().hashCode()); 
         hashCode = prime * hashCode + ((getVisibilityTimeout() == null) ? 0 : getVisibilityTimeout().hashCode()); 
         hashCode = prime * hashCode + ((getWaitTimeSeconds() == null) ? 0 : getWaitTimeSeconds().hashCode()); 
@@ -426,6 +707,8 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest implements Se
         if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
         if (other.getAttributeNames() == null ^ this.getAttributeNames() == null) return false;
         if (other.getAttributeNames() != null && other.getAttributeNames().equals(this.getAttributeNames()) == false) return false; 
+        if (other.getMessageAttributeNames() == null ^ this.getMessageAttributeNames() == null) return false;
+        if (other.getMessageAttributeNames() != null && other.getMessageAttributeNames().equals(this.getMessageAttributeNames()) == false) return false; 
         if (other.getMaxNumberOfMessages() == null ^ this.getMaxNumberOfMessages() == null) return false;
         if (other.getMaxNumberOfMessages() != null && other.getMaxNumberOfMessages().equals(this.getMaxNumberOfMessages()) == false) return false; 
         if (other.getVisibilityTimeout() == null ^ this.getVisibilityTimeout() == null) return false;

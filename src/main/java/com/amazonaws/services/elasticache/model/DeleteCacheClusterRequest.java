@@ -21,9 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#deleteCacheCluster(DeleteCacheClusterRequest) DeleteCacheCluster operation}.
  * <p>
- * The <i>DeleteCacheCluster</i> operation deletes a previously provisioned cache cluster. <i>DeleteCacheCluster</i> deletes all associated cache nodes,
- * node endpoints and the cache cluster itself. When you receive a successful response from this operation, Amazon ElastiCache immediately begins
- * deleting the cache cluster; you cannot cancel or revert this operation.
+ * The <i>DeleteCacheCluster</i> operation deletes a previously
+ * provisioned cache cluster. <i>DeleteCacheCluster</i> deletes all
+ * associated cache nodes, node endpoints and the cache cluster itself.
+ * When you receive a successful response from this operation, Amazon
+ * ElastiCache immediately begins deleting the cache cluster; you cannot
+ * cancel or revert this operation.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#deleteCacheCluster(DeleteCacheClusterRequest)
@@ -35,6 +38,12 @@ public class DeleteCacheClusterRequest extends AmazonWebServiceRequest implement
      * parameter is not case sensitive.
      */
     private String cacheClusterId;
+
+    /**
+     * The name of a final cache cluster snapshot. ElastiCache creates the
+     * snapshot, and then deletes the cache cluster immediately afterward.
+     */
+    private String finalSnapshotIdentifier;
 
     /**
      * Default constructor for a new DeleteCacheClusterRequest object.  Callers should use the
@@ -85,11 +94,50 @@ public class DeleteCacheClusterRequest extends AmazonWebServiceRequest implement
      * @param cacheClusterId The cache cluster identifier for the cluster to be deleted. This
      *         parameter is not case sensitive.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteCacheClusterRequest withCacheClusterId(String cacheClusterId) {
         this.cacheClusterId = cacheClusterId;
+        return this;
+    }
+
+    /**
+     * The name of a final cache cluster snapshot. ElastiCache creates the
+     * snapshot, and then deletes the cache cluster immediately afterward.
+     *
+     * @return The name of a final cache cluster snapshot. ElastiCache creates the
+     *         snapshot, and then deletes the cache cluster immediately afterward.
+     */
+    public String getFinalSnapshotIdentifier() {
+        return finalSnapshotIdentifier;
+    }
+    
+    /**
+     * The name of a final cache cluster snapshot. ElastiCache creates the
+     * snapshot, and then deletes the cache cluster immediately afterward.
+     *
+     * @param finalSnapshotIdentifier The name of a final cache cluster snapshot. ElastiCache creates the
+     *         snapshot, and then deletes the cache cluster immediately afterward.
+     */
+    public void setFinalSnapshotIdentifier(String finalSnapshotIdentifier) {
+        this.finalSnapshotIdentifier = finalSnapshotIdentifier;
+    }
+    
+    /**
+     * The name of a final cache cluster snapshot. ElastiCache creates the
+     * snapshot, and then deletes the cache cluster immediately afterward.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param finalSnapshotIdentifier The name of a final cache cluster snapshot. ElastiCache creates the
+     *         snapshot, and then deletes the cache cluster immediately afterward.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DeleteCacheClusterRequest withFinalSnapshotIdentifier(String finalSnapshotIdentifier) {
+        this.finalSnapshotIdentifier = finalSnapshotIdentifier;
         return this;
     }
 
@@ -105,7 +153,8 @@ public class DeleteCacheClusterRequest extends AmazonWebServiceRequest implement
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getCacheClusterId() != null) sb.append("CacheClusterId: " + getCacheClusterId() );
+        if (getCacheClusterId() != null) sb.append("CacheClusterId: " + getCacheClusterId() + ",");
+        if (getFinalSnapshotIdentifier() != null) sb.append("FinalSnapshotIdentifier: " + getFinalSnapshotIdentifier() );
         sb.append("}");
         return sb.toString();
     }
@@ -116,6 +165,7 @@ public class DeleteCacheClusterRequest extends AmazonWebServiceRequest implement
         int hashCode = 1;
         
         hashCode = prime * hashCode + ((getCacheClusterId() == null) ? 0 : getCacheClusterId().hashCode()); 
+        hashCode = prime * hashCode + ((getFinalSnapshotIdentifier() == null) ? 0 : getFinalSnapshotIdentifier().hashCode()); 
         return hashCode;
     }
     
@@ -129,6 +179,8 @@ public class DeleteCacheClusterRequest extends AmazonWebServiceRequest implement
         
         if (other.getCacheClusterId() == null ^ this.getCacheClusterId() == null) return false;
         if (other.getCacheClusterId() != null && other.getCacheClusterId().equals(this.getCacheClusterId()) == false) return false; 
+        if (other.getFinalSnapshotIdentifier() == null ^ this.getFinalSnapshotIdentifier() == null) return false;
+        if (other.getFinalSnapshotIdentifier() != null && other.getFinalSnapshotIdentifier().equals(this.getFinalSnapshotIdentifier()) == false) return false; 
         return true;
     }
     

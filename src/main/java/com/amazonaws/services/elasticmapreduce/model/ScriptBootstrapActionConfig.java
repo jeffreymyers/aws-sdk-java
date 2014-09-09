@@ -29,7 +29,7 @@ public class ScriptBootstrapActionConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String path;
 
@@ -66,7 +66,7 @@ public class ScriptBootstrapActionConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Location of the script to run during a bootstrap action. Can be either
      *         a location in Amazon S3 or on a local file system.
@@ -81,7 +81,7 @@ public class ScriptBootstrapActionConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param path Location of the script to run during a bootstrap action. Can be either
      *         a location in Amazon S3 or on a local file system.
@@ -98,12 +98,12 @@ public class ScriptBootstrapActionConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param path Location of the script to run during a bootstrap action. Can be either
      *         a location in Amazon S3 or on a local file system.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScriptBootstrapActionConfig withPath(String path) {
@@ -152,7 +152,7 @@ public class ScriptBootstrapActionConfig implements Serializable {
      * @param args A list of command line arguments to pass to the bootstrap action
      *         script.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScriptBootstrapActionConfig withArgs(String... args) {
@@ -172,7 +172,7 @@ public class ScriptBootstrapActionConfig implements Serializable {
      * @param args A list of command line arguments to pass to the bootstrap action
      *         script.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScriptBootstrapActionConfig withArgs(java.util.Collection<String> args) {

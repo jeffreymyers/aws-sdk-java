@@ -21,14 +21,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.directconnect.AmazonDirectConnect#allocatePublicVirtualInterface(AllocatePublicVirtualInterfaceRequest) AllocatePublicVirtualInterface operation}.
  * <p>
- * Provisions a public virtual interface to be owned by a different customer.
+ * Provisions a public virtual interface to be owned by a different
+ * customer.
  * </p>
  * <p>
- * The owner of a connection calls this function to provision a public virtual interface which will be owned by another AWS customer.
+ * The owner of a connection calls this function to provision a public
+ * virtual interface which will be owned by another AWS customer.
  * </p>
  * <p>
- * Virtual interfaces created using this function must be confirmed by the virtual interface owner by calling ConfirmPublicVirtualInterface. Until this
- * step has been completed, the virtual interface will be in 'Confirming' state, and will not be available for handling traffic.
+ * Virtual interfaces created using this function must be confirmed by
+ * the virtual interface owner by calling ConfirmPublicVirtualInterface.
+ * Until this step has been completed, the virtual interface will be in
+ * 'Confirming' state, and will not be available for handling traffic.
  * </p>
  *
  * @see com.amazonaws.services.directconnect.AmazonDirectConnect#allocatePublicVirtualInterface(AllocatePublicVirtualInterfaceRequest)
@@ -84,7 +88,7 @@ public class AllocatePublicVirtualInterfaceRequest extends AmazonWebServiceReque
      * @param connectionId The connection ID on which the public virtual interface is
      *         provisioned. <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllocatePublicVirtualInterfaceRequest withConnectionId(String connectionId) {
@@ -123,7 +127,7 @@ public class AllocatePublicVirtualInterfaceRequest extends AmazonWebServiceReque
      * @param ownerAccount The AWS account that will own the new public virtual interface.
      *         <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllocatePublicVirtualInterfaceRequest withOwnerAccount(String ownerAccount) {
@@ -162,7 +166,7 @@ public class AllocatePublicVirtualInterfaceRequest extends AmazonWebServiceReque
      * @param newPublicVirtualInterfaceAllocation Detailed information for the public virtual interface to be
      *         provisioned. <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AllocatePublicVirtualInterfaceRequest withNewPublicVirtualInterfaceAllocation(NewPublicVirtualInterfaceAllocation newPublicVirtualInterfaceAllocation) {

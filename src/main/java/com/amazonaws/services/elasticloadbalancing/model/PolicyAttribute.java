@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The PolicyAttribute data type. This data type contains a key/value pair that defines properties of a specific policy.
+ * The PolicyAttribute data type. This data type contains a key/value
+ * pair that defines properties of a specific policy.
  * </p>
  */
 public class PolicyAttribute implements Serializable {
@@ -79,7 +80,7 @@ public class PolicyAttribute implements Serializable {
      *
      * @param attributeName The name of the attribute associated with the policy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttribute withAttributeName(String attributeName) {
@@ -112,7 +113,7 @@ public class PolicyAttribute implements Serializable {
      *
      * @param attributeValue The value of the attribute associated with the policy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttribute withAttributeValue(String attributeValue) {

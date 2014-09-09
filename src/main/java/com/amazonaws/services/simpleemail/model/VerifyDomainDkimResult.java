@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the DNS records that must be published in the domain name's DNS to complete DKIM setup.
+ * Represents the DNS records that must be published in the domain name's
+ * DNS to complete DKIM setup.
  * </p>
  */
 public class VerifyDomainDkimResult implements Serializable {
@@ -133,7 +134,7 @@ public class VerifyDomainDkimResult implements Serializable {
      *         href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html">Amazon
      *         SES Developer Guide</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VerifyDomainDkimResult withDkimTokens(String... dkimTokens) {
@@ -171,7 +172,7 @@ public class VerifyDomainDkimResult implements Serializable {
      *         href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html">Amazon
      *         SES Developer Guide</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VerifyDomainDkimResult withDkimTokens(java.util.Collection<String> dkimTokens) {

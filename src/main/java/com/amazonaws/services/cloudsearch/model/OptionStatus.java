@@ -20,7 +20,9 @@ import java.io.Serializable;
  * <p>
  * The status of an option, including when it was last updated and whether it is actively in use for searches.
  * </p>
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2.model.OptionStatus} instead.
  */
+@Deprecated
 public class OptionStatus implements Serializable {
 
     /**

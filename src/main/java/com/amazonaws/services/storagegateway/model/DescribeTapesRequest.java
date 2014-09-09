@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeTapes(DescribeTapesRequest) DescribeTapes operation}.
  * <p>
- * Returns a description of the specified Amazon Resource Name (ARN) of virtual tapes. If a <code>TapeARN</code> is not specified, returns a description
- * of all virtual tapes associated with the specified gateway.
+ * Returns a description of the specified Amazon Resource Name (ARN) of
+ * virtual tapes. If a <code>TapeARN</code> is not specified, returns a
+ * description of all virtual tapes associated with the specified
+ * gateway.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeTapes(DescribeTapesRequest)
@@ -114,7 +116,7 @@ public class DescribeTapesRequest extends AmazonWebServiceRequest implements Ser
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapesRequest withGatewayARN(String gatewayARN) {
@@ -175,7 +177,7 @@ public class DescribeTapesRequest extends AmazonWebServiceRequest implements Ser
      *         not specified, AWS Storage Gateway returns a description of all
      *         virtual tapes associated with the specified gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapesRequest withTapeARNs(String... tapeARNs) {
@@ -199,7 +201,7 @@ public class DescribeTapesRequest extends AmazonWebServiceRequest implements Ser
      *         not specified, AWS Storage Gateway returns a description of all
      *         virtual tapes associated with the specified gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapesRequest withTapeARNs(java.util.Collection<String> tapeARNs) {
@@ -266,7 +268,7 @@ public class DescribeTapesRequest extends AmazonWebServiceRequest implements Ser
      *         results to retrieve. <p>If not specified, the first page of results is
      *         retrieved.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapesRequest withMarker(String marker) {
@@ -320,7 +322,7 @@ public class DescribeTapesRequest extends AmazonWebServiceRequest implements Ser
      *         specified number. <note>Amazon Web Services may impose its own limit,
      *         if this field is not set.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapesRequest withLimit(Integer limit) {

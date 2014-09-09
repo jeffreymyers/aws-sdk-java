@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#enableMFADevice(EnableMFADeviceRequest) EnableMFADevice operation}.
  * <p>
- * Enables the specified MFA device and associates it with the specified user name. When enabled, the MFA device is required for every subsequent login
- * by the user name associated with the device.
+ * Enables the specified MFA device and associates it with the specified
+ * user name. When enabled, the MFA device is required for every
+ * subsequent login by the user name associated with the device.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#enableMFADevice(EnableMFADeviceRequest)
@@ -130,7 +131,7 @@ public class EnableMFADeviceRequest extends AmazonWebServiceRequest implements S
      *
      * @param userName Name of the user for whom you want to enable the MFA device.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMFADeviceRequest withUserName(String userName) {
@@ -181,7 +182,7 @@ public class EnableMFADeviceRequest extends AmazonWebServiceRequest implements S
      * @param serialNumber The serial number that uniquely identifies the MFA device. For virtual
      *         MFA devices, the serial number is the device ARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMFADeviceRequest withSerialNumber(String serialNumber) {
@@ -226,7 +227,7 @@ public class EnableMFADeviceRequest extends AmazonWebServiceRequest implements S
      *
      * @param authenticationCode1 An authentication code emitted by the device.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMFADeviceRequest withAuthenticationCode1(String authenticationCode1) {
@@ -271,7 +272,7 @@ public class EnableMFADeviceRequest extends AmazonWebServiceRequest implements S
      *
      * @param authenticationCode2 A subsequent authentication code emitted by the device.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMFADeviceRequest withAuthenticationCode2(String authenticationCode2) {

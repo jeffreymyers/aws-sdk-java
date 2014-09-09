@@ -37,7 +37,7 @@ public class DecisionTaskJsonUnmarshaller implements Unmarshaller<DecisionTask, 
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -62,6 +62,7 @@ public class DecisionTaskJsonUnmarshaller implements Unmarshaller<DecisionTask, 
                     decisionTask.setWorkflowType(WorkflowTypeJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("events", targetDepth)) {
+                    context.nextToken();
                     decisionTask.setEvents(new ListUnmarshaller<HistoryEvent>(HistoryEventJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("nextPageToken", targetDepth)) {

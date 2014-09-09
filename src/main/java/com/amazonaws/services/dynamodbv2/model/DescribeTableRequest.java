@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.dynamodbv2.AmazonDynamoDB#describeTable(DescribeTableRequest) DescribeTable operation}.
  * <p>
- * Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the
- * table.
+ * Returns information about the table, including the current status of
+ * the table, when it was created, the primary key schema, and any
+ * indexes on the table.
  * </p>
  *
  * @see com.amazonaws.services.dynamodbv2.AmazonDynamoDB#describeTable(DescribeTableRequest)
@@ -92,7 +93,7 @@ public class DescribeTableRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param tableName The name of the table to describe.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTableRequest withTableName(String tableName) {

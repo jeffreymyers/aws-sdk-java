@@ -18,10 +18,12 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>MFADevice</code> data type contains information about an MFA device.
+ * The <code>MFADevice</code> data type contains information about an MFA
+ * device.
  * </p>
  * <p>
- * This data type is used as a response element in the action ListMFADevices.
+ * This data type is used as a response element in the action
+ * ListMFADevices.
  * </p>
  */
 public class MFADevice implements Serializable {
@@ -110,7 +112,7 @@ public class MFADevice implements Serializable {
      *
      * @param userName The user with whom the MFA device is associated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public MFADevice withUserName(String userName) {
@@ -161,7 +163,7 @@ public class MFADevice implements Serializable {
      * @param serialNumber The serial number that uniquely identifies the MFA device. For virtual
      *         MFA devices, the serial number is the device ARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public MFADevice withSerialNumber(String serialNumber) {
@@ -194,7 +196,7 @@ public class MFADevice implements Serializable {
      *
      * @param enableDate The date when the MFA device was enabled for the user.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public MFADevice withEnableDate(java.util.Date enableDate) {

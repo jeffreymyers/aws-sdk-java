@@ -21,13 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#createHsmConfiguration(CreateHsmConfigurationRequest) CreateHsmConfiguration operation}.
  * <p>
- * Creates an HSM configuration that contains the information required by an Amazon Redshift cluster to store and retrieve database encryption keys in a
- * Hardware Storeage Module (HSM). After creating the HSM configuration, you can specify it as a parameter when creating a cluster. The cluster will then
- * store its encryption keys in the HSM.
+ * Creates an HSM configuration that contains the information required by
+ * an Amazon Redshift cluster to store and use database encryption keys
+ * in a Hardware Security Module (HSM). After creating the HSM
+ * configuration, you can specify it as a parameter when creating a
+ * cluster. The cluster will then store its encryption keys in the HSM.
  * </p>
  * <p>
- * Before creating an HSM configuration, you must have first created an HSM client certificate. For more information, go to aLinkToHSMTopic in the Amazon
- * Redshift Management Guide.
+ * In addition to creating an HSM configuration, you must also create an
+ * HSM client certificate. For more information, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html"> Hardware Security Modules </a>
+ * in the Amazon Redshift Management Guide.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#createHsmConfiguration(CreateHsmConfigurationRequest)
@@ -63,8 +67,8 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
     private String hsmPartitionPassword;
 
     /**
-     * The public key used to access the HSM client certificate, which was
-     * created by calling the Amazon Redshift create HSM certificate command.
+     * The HSMs public certificate file. When using Cloud HSM, the file name
+     * is server.pem.
      */
     private String hsmServerPublicCertificate;
 
@@ -99,7 +103,7 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
      * @param hsmConfigurationIdentifier The identifier to be assigned to the new Amazon Redshift HSM
      *         configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmConfigurationRequest withHsmConfigurationIdentifier(String hsmConfigurationIdentifier) {
@@ -132,7 +136,7 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
      *
      * @param description A text description of the HSM configuration to be created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmConfigurationRequest withDescription(String description) {
@@ -171,7 +175,7 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
      * @param hsmIpAddress The IP address that the Amazon Redshift cluster must use to access the
      *         HSM.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmConfigurationRequest withHsmIpAddress(String hsmIpAddress) {
@@ -210,7 +214,7 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
      * @param hsmPartitionName The name of the partition in the HSM where the Amazon Redshift
      *         clusters will store their database encryption keys.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmConfigurationRequest withHsmPartitionName(String hsmPartitionName) {
@@ -243,7 +247,7 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
      *
      * @param hsmPartitionPassword The password required to access the HSM partition.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmConfigurationRequest withHsmPartitionPassword(String hsmPartitionPassword) {
@@ -252,37 +256,37 @@ public class CreateHsmConfigurationRequest extends AmazonWebServiceRequest imple
     }
 
     /**
-     * The public key used to access the HSM client certificate, which was
-     * created by calling the Amazon Redshift create HSM certificate command.
+     * The HSMs public certificate file. When using Cloud HSM, the file name
+     * is server.pem.
      *
-     * @return The public key used to access the HSM client certificate, which was
-     *         created by calling the Amazon Redshift create HSM certificate command.
+     * @return The HSMs public certificate file. When using Cloud HSM, the file name
+     *         is server.pem.
      */
     public String getHsmServerPublicCertificate() {
         return hsmServerPublicCertificate;
     }
     
     /**
-     * The public key used to access the HSM client certificate, which was
-     * created by calling the Amazon Redshift create HSM certificate command.
+     * The HSMs public certificate file. When using Cloud HSM, the file name
+     * is server.pem.
      *
-     * @param hsmServerPublicCertificate The public key used to access the HSM client certificate, which was
-     *         created by calling the Amazon Redshift create HSM certificate command.
+     * @param hsmServerPublicCertificate The HSMs public certificate file. When using Cloud HSM, the file name
+     *         is server.pem.
      */
     public void setHsmServerPublicCertificate(String hsmServerPublicCertificate) {
         this.hsmServerPublicCertificate = hsmServerPublicCertificate;
     }
     
     /**
-     * The public key used to access the HSM client certificate, which was
-     * created by calling the Amazon Redshift create HSM certificate command.
+     * The HSMs public certificate file. When using Cloud HSM, the file name
+     * is server.pem.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param hsmServerPublicCertificate The public key used to access the HSM client certificate, which was
-     *         created by calling the Amazon Redshift create HSM certificate command.
+     * @param hsmServerPublicCertificate The HSMs public certificate file. When using Cloud HSM, the file name
+     *         is server.pem.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmConfigurationRequest withHsmServerPublicCertificate(String hsmServerPublicCertificate) {

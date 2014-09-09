@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.elasticloadbalancing.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -52,6 +53,9 @@ public class DescribeLoadBalancersRequestMarshaller implements Marshaller<Reques
         }
         if (describeLoadBalancersRequest.getMarker() != null) {
             request.addParameter("Marker", StringUtils.fromString(describeLoadBalancersRequest.getMarker()));
+        }
+        if (describeLoadBalancersRequest.getPageSize() != null) {
+            request.addParameter("PageSize", StringUtils.fromInteger(describeLoadBalancersRequest.getPageSize()));
         }
 
         return request;

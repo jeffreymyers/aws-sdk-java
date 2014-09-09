@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents a single occurrence of something interesting within the system. Some examples of events are creating a cache cluster, adding or removing a
- * cache node, or rebooting a node.
+ * Represents a single occurrence of something interesting within the
+ * system. Some examples of events are creating a cache cluster, adding
+ * or removing a cache node, or rebooting a node.
  * </p>
  */
 public class Event implements Serializable {
@@ -93,7 +94,7 @@ public class Event implements Serializable {
      *         occurred at the cache cluster level, the identifier would be the name
      *         of the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Event withSourceIdentifier(String sourceIdentifier) {
@@ -145,7 +146,7 @@ public class Event implements Serializable {
      * @param sourceType Specifies the origin of this event - a cache cluster, a parameter
      *         group, a security group, etc.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -183,7 +184,7 @@ public class Event implements Serializable {
      * @param sourceType Specifies the origin of this event - a cache cluster, a parameter
      *         group, a security group, etc.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -218,7 +219,7 @@ public class Event implements Serializable {
      *
      * @param message The text of the event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Event withMessage(String message) {
@@ -251,7 +252,7 @@ public class Event implements Serializable {
      *
      * @param date The date and time when the event occurred.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Event withDate(java.util.Date date) {

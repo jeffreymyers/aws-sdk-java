@@ -30,6 +30,7 @@ import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import static com.amazonaws.util.IOUtils.*;
 
 import com.amazonaws.services.importexport.model.*;
 import com.amazonaws.services.importexport.model.transform.*;
@@ -40,9 +41,13 @@ import com.amazonaws.services.importexport.model.transform.*;
  * completes.
  * <p>
  * AWS Import/Export Service <p>
- * AWS Import/Export accelerates transferring large amounts of data between the AWS cloud and portable storage devices that you mail to us. AWS
- * Import/Export transfers data directly onto and off of your storage devices using Amazon's high-speed internal network and bypassing the Internet. For
- * large data sets, AWS Import/Export is often faster than Internet transfer and more cost effective than upgrading your connectivity.
+ * AWS Import/Export accelerates transferring large amounts of data
+ * between the AWS cloud and portable storage devices that you mail to
+ * us. AWS Import/Export transfers data directly onto and off of your
+ * storage devices using Amazon's high-speed internal network and
+ * bypassing the Internet. For large data sets, AWS Import/Export is
+ * often faster than Internet transfer and more cost effective than
+ * upgrading your connectivity.
  * </p>
  */
 public class AmazonImportExportClient extends AmazonWebServiceClient implements AmazonImportExport {
@@ -217,8 +222,10 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
         exceptionUnmarshallers.add(new InvalidCustomsExceptionUnmarshaller());
         
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("importexport.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/importexport/request.handlers"));
@@ -267,16 +274,24 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
     public CreateJobResult createJob(CreateJobRequest createJobRequest) {
         ExecutionContext executionContext = createExecutionContext(createJobRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateJobRequest> request = null;
         Response<CreateJobResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateJobRequestMarshaller().marshall(createJobRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateJobRequestMarshaller().marshall(createJobRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateJobResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -310,16 +325,24 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
     public CancelJobResult cancelJob(CancelJobRequest cancelJobRequest) {
         ExecutionContext executionContext = createExecutionContext(cancelJobRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CancelJobRequest> request = null;
         Response<CancelJobResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CancelJobRequestMarshaller().marshall(cancelJobRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelJobRequestMarshaller().marshall(cancelJobRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CancelJobResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -354,16 +377,24 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
     public GetStatusResult getStatus(GetStatusRequest getStatusRequest) {
         ExecutionContext executionContext = createExecutionContext(getStatusRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetStatusRequest> request = null;
         Response<GetStatusResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetStatusRequestMarshaller().marshall(getStatusRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetStatusRequestMarshaller().marshall(getStatusRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetStatusResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -397,16 +428,24 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
     public ListJobsResult listJobs(ListJobsRequest listJobsRequest) {
         ExecutionContext executionContext = createExecutionContext(listJobsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListJobsRequest> request = null;
         Response<ListJobsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListJobsRequestMarshaller().marshall(listJobsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListJobsRequestMarshaller().marshall(listJobsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListJobsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -454,16 +493,24 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
     public UpdateJobResult updateJob(UpdateJobRequest updateJobRequest) {
         ExecutionContext executionContext = createExecutionContext(updateJobRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateJobRequest> request = null;
         Response<UpdateJobResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateJobRequestMarshaller().marshall(updateJobRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateJobRequestMarshaller().marshall(updateJobRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateJobResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -531,7 +578,6 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements 
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);

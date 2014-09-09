@@ -24,13 +24,16 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Updates the name and/or the path of the specified user.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> You should understand the implications of changing a user's path or name. For more information, see Renaming Users and Groups in
- * Using AWS Identity and Access Management.
+ * <b>IMPORTANT:</b> You should understand the implications of changing a
+ * user's path or name. For more information, see Renaming Users and
+ * Groups in the Using IAM guide.
  * </p>
  * <p>
- * <b>NOTE:</b>To change a user name the requester must have appropriate permissions on both the source object and the target object. For example, to
- * change Bob to Robert, the entity making the request must have permission on Bob and Robert, or must have permission on all (*). For more information
- * about permissions, see Permissions and Policies.
+ * <b>NOTE:</b>To change a user name the requester must have appropriate
+ * permissions on both the source object and the target object. For
+ * example, to change Bob to Robert, the entity making the request must
+ * have permission on Bob and Robert, or must have permission on all (*).
+ * For more information about permissions, see Permissions and Policies.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#updateUser(UpdateUserRequest)
@@ -53,7 +56,7 @@ public class UpdateUserRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      */
     private String newPath;
 
@@ -128,7 +131,7 @@ public class UpdateUserRequest extends AmazonWebServiceRequest implements Serial
      * @param userName Name of the user to update. If you're changing the name of the user,
      *         this is the original user name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateUserRequest withUserName(String userName) {
@@ -142,7 +145,7 @@ public class UpdateUserRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @return New path for the user. Include this parameter only if you're changing
      *         the user's path.
@@ -157,7 +160,7 @@ public class UpdateUserRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param newPath New path for the user. Include this parameter only if you're changing
      *         the user's path.
@@ -174,12 +177,12 @@ public class UpdateUserRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param newPath New path for the user. Include this parameter only if you're changing
      *         the user's path.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateUserRequest withNewPath(String newPath) {
@@ -230,7 +233,7 @@ public class UpdateUserRequest extends AmazonWebServiceRequest implements Serial
      * @param newUserName New name for the user. Include this parameter only if you're changing
      *         the user's name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateUserRequest withNewUserName(String newUserName) {

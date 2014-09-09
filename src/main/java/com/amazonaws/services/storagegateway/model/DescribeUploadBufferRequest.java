@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeUploadBuffer(DescribeUploadBufferRequest) DescribeUploadBuffer operation}.
  * <p>
- * This operation returns information about the upload buffer of a gateway. This operation is supported for both the gateway-stored and gateway-cached
- * volume architectures.
+ * This operation returns information about the upload buffer of a
+ * gateway. This operation is supported for both the gateway-stored and
+ * gateway-cached volume architectures.
  * </p>
  * <p>
- * The response includes disk IDs that are configured as upload buffer space, and it includes the amount of upload buffer space allocated and used.
+ * The response includes disk IDs that are configured as upload buffer
+ * space, and it includes the amount of upload buffer space allocated and
+ * used.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeUploadBuffer(DescribeUploadBufferRequest)
@@ -88,7 +91,7 @@ public class DescribeUploadBufferRequest extends AmazonWebServiceRequest impleme
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeUploadBufferRequest withGatewayARN(String gatewayARN) {

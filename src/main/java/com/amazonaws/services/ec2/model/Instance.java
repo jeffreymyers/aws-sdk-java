@@ -18,18 +18,18 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents an Amazon EC2 instance.
+ * Describes an instance.
  * </p>
  */
 public class Instance implements Serializable {
 
     /**
-     * Unique ID of the instance launched.
+     * The ID of the instance.
      */
     private String instanceId;
 
     /**
-     * Image ID of the AMI used to launch the instance.
+     * The ID of the AMI used to launch the instance.
      */
     private String imageId;
 
@@ -40,74 +40,71 @@ public class Instance implements Serializable {
 
     /**
      * The private DNS name assigned to the instance. This DNS name can only
-     * be used inside the Amazon EC2 network. This element remains empty
-     * until the instance enters a running state.
+     * be used inside the Amazon EC2 network. This name is not available
+     * until the instance enters the <code>running</code> state.
      */
     private String privateDnsName;
 
     /**
-     * The public DNS name assigned to the instance. This DNS name is
-     * contactable from outside the Amazon EC2 network. This element remains
-     * empty until the instance enters a running state.
+     * The public DNS name assigned to the instance. This name is not
+     * available until the instance enters the <code>running</code> state.
      */
     private String publicDnsName;
 
     /**
-     * Reason for the most recent state transition. This might be an empty
-     * string.
+     * The reason for the most recent state transition. This might be an
+     * empty string.
      */
     private String stateTransitionReason;
 
     /**
-     * If this instance was launched with an associated key pair, this
-     * displays the key pair name.
+     * The name of the key pair, if this instance was launched with an
+     * associated key pair.
      */
     private String keyName;
 
     /**
-     * The AMI launch index, which can be used to find this instance within
-     * the launch group.
+     * The AMI launch index, which can be used to find this instance in the
+     * launch group.
      */
     private Integer amiLaunchIndex;
 
     /**
-     * Product codes attached to this instance.
+     * The product codes attached to this instance.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<ProductCode> productCodes;
 
     /**
-     * The instance type. For more information on instance types, please see
-     * the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide</a>.
+     * The instance type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.xlarge, m3.2xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.medium, m3.large, m3.xlarge, m3.2xlarge, t2.micro, t2.small, t2.medium, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge
      */
     private String instanceType;
 
     /**
-     * The time this instance launched.
+     * The time the instance was launched.
      */
     private java.util.Date launchTime;
 
     /**
-     * The location where this instance launched.
+     * The location where the instance launched.
      */
     private Placement placement;
 
     /**
-     * Kernel associated with this instance.
+     * The kernel associated with this instance.
      */
     private String kernelId;
 
     /**
-     * RAM disk associated with this instance.
+     * The RAM disk associated with this instance.
      */
     private String ramdiskId;
 
     /**
-     * Platform of the instance (e.g., Windows).
+     * The value is <code>Windows</code> for Windows instances; otherwise
+     * blank.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
@@ -115,38 +112,37 @@ public class Instance implements Serializable {
     private String platform;
 
     /**
-     * Monitoring status for this instance.
+     * The monitoring information for the instance.
      */
     private Monitoring monitoring;
 
     /**
-     * Specifies the Amazon VPC subnet ID in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      */
     private String subnetId;
 
     /**
-     * Specifies the Amazon VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      */
     private String vpcId;
 
     /**
-     * Specifies the private IP address that is assigned to the instance
-     * (Amazon VPC).
+     * The private IP address assigned to the instance.
      */
     private String privateIpAddress;
 
     /**
-     * Specifies the IP address of the instance.
+     * The public IP address assigned to the instance.
      */
     private String publicIpAddress;
 
     /**
-     * The reason for the state change.
+     * The reason for the most recent state transition.
      */
     private StateReason stateReason;
 
     /**
-     * The architecture of this instance.
+     * The architecture of the image.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
@@ -154,8 +150,8 @@ public class Instance implements Serializable {
     private String architecture;
 
     /**
-     * The root device type used by the AMI. The AMI can use an Amazon EBS or
-     * instance store root device.
+     * The root device type used by the AMI. The AMI can use an Amazon EBS
+     * volume or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
@@ -163,19 +159,25 @@ public class Instance implements Serializable {
     private String rootDeviceType;
 
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The root device name (for example, <code>/dev/sda1</code>).
      */
     private String rootDeviceName;
 
     /**
-     * Block device mapping set.
+     * Any block device mapping entries for the instance.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<InstanceBlockDeviceMapping> blockDeviceMappings;
 
+    /**
+     * The virtualization type of the instance.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>hvm, paravirtual
+     */
     private String virtualizationType;
 
     /**
-     * 
+     * Indicates whether this is a Spot Instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>spot
@@ -183,63 +185,95 @@ public class Instance implements Serializable {
     private String instanceLifecycle;
 
     /**
-     * 
+     * The ID of the Spot Instance request.
      */
     private String spotInstanceRequestId;
 
     /**
-     * Represents an active license in use and attached to an Amazon EC2
-     * instance.
+     * The idempotency token you provided when you launched the instance.
      */
-    private InstanceLicense license;
-
     private String clientToken;
 
     /**
-     * A list of tags for the Instance.
+     * Any tags assigned to the instance.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
+    /**
+     * One or more security groups for the instance.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<GroupIdentifier> securityGroups;
 
+    /**
+     * Specifies whether to enable an instance launched in a VPC to perform
+     * NAT. This controls whether source/destination checking is enabled on
+     * the instance. A value of <code>true</code> means checking is enabled,
+     * and <code>false</code> means checking is disabled. The value must be
+     * <code>false</code> for the instance to perform NAT. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     * Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     */
     private Boolean sourceDestCheck;
 
+    /**
+     * The hypervisor type of the instance.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ovm, xen
+     */
     private String hypervisor;
 
+    /**
+     * [EC2-VPC] One or more network interfaces for the instance.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<InstanceNetworkInterface> networkInterfaces;
 
+    /**
+     * The IAM instance profile associated with the instance.
+     */
     private IamInstanceProfile iamInstanceProfile;
 
+    /**
+     * Indicates whether the instance is optimized for EBS I/O. This
+     * optimization provides dedicated throughput to Amazon EBS and an
+     * optimized configuration stack to provide optimal I/O performance. This
+     * optimization isn't available with all instance types. Additional usage
+     * charges apply when using an EBS Optimized instance.
+     */
     private Boolean ebsOptimized;
 
+    /**
+     * Specifies whether enhanced networking is enabled.
+     */
     private String sriovNetSupport;
 
     /**
-     * Unique ID of the instance launched.
+     * The ID of the instance.
      *
-     * @return Unique ID of the instance launched.
+     * @return The ID of the instance.
      */
     public String getInstanceId() {
         return instanceId;
     }
     
     /**
-     * Unique ID of the instance launched.
+     * The ID of the instance.
      *
-     * @param instanceId Unique ID of the instance launched.
+     * @param instanceId The ID of the instance.
      */
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
     }
     
     /**
-     * Unique ID of the instance launched.
+     * The ID of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceId Unique ID of the instance launched.
+     * @param instanceId The ID of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withInstanceId(String instanceId) {
@@ -248,31 +282,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Image ID of the AMI used to launch the instance.
+     * The ID of the AMI used to launch the instance.
      *
-     * @return Image ID of the AMI used to launch the instance.
+     * @return The ID of the AMI used to launch the instance.
      */
     public String getImageId() {
         return imageId;
     }
     
     /**
-     * Image ID of the AMI used to launch the instance.
+     * The ID of the AMI used to launch the instance.
      *
-     * @param imageId Image ID of the AMI used to launch the instance.
+     * @param imageId The ID of the AMI used to launch the instance.
      */
     public void setImageId(String imageId) {
         this.imageId = imageId;
     }
     
     /**
-     * Image ID of the AMI used to launch the instance.
+     * The ID of the AMI used to launch the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param imageId Image ID of the AMI used to launch the instance.
+     * @param imageId The ID of the AMI used to launch the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withImageId(String imageId) {
@@ -305,7 +339,7 @@ public class Instance implements Serializable {
      *
      * @param state The current state of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withState(InstanceState state) {
@@ -315,12 +349,12 @@ public class Instance implements Serializable {
 
     /**
      * The private DNS name assigned to the instance. This DNS name can only
-     * be used inside the Amazon EC2 network. This element remains empty
-     * until the instance enters a running state.
+     * be used inside the Amazon EC2 network. This name is not available
+     * until the instance enters the <code>running</code> state.
      *
      * @return The private DNS name assigned to the instance. This DNS name can only
-     *         be used inside the Amazon EC2 network. This element remains empty
-     *         until the instance enters a running state.
+     *         be used inside the Amazon EC2 network. This name is not available
+     *         until the instance enters the <code>running</code> state.
      */
     public String getPrivateDnsName() {
         return privateDnsName;
@@ -328,12 +362,12 @@ public class Instance implements Serializable {
     
     /**
      * The private DNS name assigned to the instance. This DNS name can only
-     * be used inside the Amazon EC2 network. This element remains empty
-     * until the instance enters a running state.
+     * be used inside the Amazon EC2 network. This name is not available
+     * until the instance enters the <code>running</code> state.
      *
      * @param privateDnsName The private DNS name assigned to the instance. This DNS name can only
-     *         be used inside the Amazon EC2 network. This element remains empty
-     *         until the instance enters a running state.
+     *         be used inside the Amazon EC2 network. This name is not available
+     *         until the instance enters the <code>running</code> state.
      */
     public void setPrivateDnsName(String privateDnsName) {
         this.privateDnsName = privateDnsName;
@@ -341,16 +375,16 @@ public class Instance implements Serializable {
     
     /**
      * The private DNS name assigned to the instance. This DNS name can only
-     * be used inside the Amazon EC2 network. This element remains empty
-     * until the instance enters a running state.
+     * be used inside the Amazon EC2 network. This name is not available
+     * until the instance enters the <code>running</code> state.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param privateDnsName The private DNS name assigned to the instance. This DNS name can only
-     *         be used inside the Amazon EC2 network. This element remains empty
-     *         until the instance enters a running state.
+     *         be used inside the Amazon EC2 network. This name is not available
+     *         until the instance enters the <code>running</code> state.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPrivateDnsName(String privateDnsName) {
@@ -359,43 +393,37 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The public DNS name assigned to the instance. This DNS name is
-     * contactable from outside the Amazon EC2 network. This element remains
-     * empty until the instance enters a running state.
+     * The public DNS name assigned to the instance. This name is not
+     * available until the instance enters the <code>running</code> state.
      *
-     * @return The public DNS name assigned to the instance. This DNS name is
-     *         contactable from outside the Amazon EC2 network. This element remains
-     *         empty until the instance enters a running state.
+     * @return The public DNS name assigned to the instance. This name is not
+     *         available until the instance enters the <code>running</code> state.
      */
     public String getPublicDnsName() {
         return publicDnsName;
     }
     
     /**
-     * The public DNS name assigned to the instance. This DNS name is
-     * contactable from outside the Amazon EC2 network. This element remains
-     * empty until the instance enters a running state.
+     * The public DNS name assigned to the instance. This name is not
+     * available until the instance enters the <code>running</code> state.
      *
-     * @param publicDnsName The public DNS name assigned to the instance. This DNS name is
-     *         contactable from outside the Amazon EC2 network. This element remains
-     *         empty until the instance enters a running state.
+     * @param publicDnsName The public DNS name assigned to the instance. This name is not
+     *         available until the instance enters the <code>running</code> state.
      */
     public void setPublicDnsName(String publicDnsName) {
         this.publicDnsName = publicDnsName;
     }
     
     /**
-     * The public DNS name assigned to the instance. This DNS name is
-     * contactable from outside the Amazon EC2 network. This element remains
-     * empty until the instance enters a running state.
+     * The public DNS name assigned to the instance. This name is not
+     * available until the instance enters the <code>running</code> state.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param publicDnsName The public DNS name assigned to the instance. This DNS name is
-     *         contactable from outside the Amazon EC2 network. This element remains
-     *         empty until the instance enters a running state.
+     * @param publicDnsName The public DNS name assigned to the instance. This name is not
+     *         available until the instance enters the <code>running</code> state.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPublicDnsName(String publicDnsName) {
@@ -404,37 +432,37 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Reason for the most recent state transition. This might be an empty
-     * string.
+     * The reason for the most recent state transition. This might be an
+     * empty string.
      *
-     * @return Reason for the most recent state transition. This might be an empty
-     *         string.
+     * @return The reason for the most recent state transition. This might be an
+     *         empty string.
      */
     public String getStateTransitionReason() {
         return stateTransitionReason;
     }
     
     /**
-     * Reason for the most recent state transition. This might be an empty
-     * string.
+     * The reason for the most recent state transition. This might be an
+     * empty string.
      *
-     * @param stateTransitionReason Reason for the most recent state transition. This might be an empty
-     *         string.
+     * @param stateTransitionReason The reason for the most recent state transition. This might be an
+     *         empty string.
      */
     public void setStateTransitionReason(String stateTransitionReason) {
         this.stateTransitionReason = stateTransitionReason;
     }
     
     /**
-     * Reason for the most recent state transition. This might be an empty
-     * string.
+     * The reason for the most recent state transition. This might be an
+     * empty string.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param stateTransitionReason Reason for the most recent state transition. This might be an empty
-     *         string.
+     * @param stateTransitionReason The reason for the most recent state transition. This might be an
+     *         empty string.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withStateTransitionReason(String stateTransitionReason) {
@@ -443,37 +471,37 @@ public class Instance implements Serializable {
     }
 
     /**
-     * If this instance was launched with an associated key pair, this
-     * displays the key pair name.
+     * The name of the key pair, if this instance was launched with an
+     * associated key pair.
      *
-     * @return If this instance was launched with an associated key pair, this
-     *         displays the key pair name.
+     * @return The name of the key pair, if this instance was launched with an
+     *         associated key pair.
      */
     public String getKeyName() {
         return keyName;
     }
     
     /**
-     * If this instance was launched with an associated key pair, this
-     * displays the key pair name.
+     * The name of the key pair, if this instance was launched with an
+     * associated key pair.
      *
-     * @param keyName If this instance was launched with an associated key pair, this
-     *         displays the key pair name.
+     * @param keyName The name of the key pair, if this instance was launched with an
+     *         associated key pair.
      */
     public void setKeyName(String keyName) {
         this.keyName = keyName;
     }
     
     /**
-     * If this instance was launched with an associated key pair, this
-     * displays the key pair name.
+     * The name of the key pair, if this instance was launched with an
+     * associated key pair.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param keyName If this instance was launched with an associated key pair, this
-     *         displays the key pair name.
+     * @param keyName The name of the key pair, if this instance was launched with an
+     *         associated key pair.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withKeyName(String keyName) {
@@ -482,37 +510,37 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The AMI launch index, which can be used to find this instance within
-     * the launch group.
+     * The AMI launch index, which can be used to find this instance in the
+     * launch group.
      *
-     * @return The AMI launch index, which can be used to find this instance within
-     *         the launch group.
+     * @return The AMI launch index, which can be used to find this instance in the
+     *         launch group.
      */
     public Integer getAmiLaunchIndex() {
         return amiLaunchIndex;
     }
     
     /**
-     * The AMI launch index, which can be used to find this instance within
-     * the launch group.
+     * The AMI launch index, which can be used to find this instance in the
+     * launch group.
      *
-     * @param amiLaunchIndex The AMI launch index, which can be used to find this instance within
-     *         the launch group.
+     * @param amiLaunchIndex The AMI launch index, which can be used to find this instance in the
+     *         launch group.
      */
     public void setAmiLaunchIndex(Integer amiLaunchIndex) {
         this.amiLaunchIndex = amiLaunchIndex;
     }
     
     /**
-     * The AMI launch index, which can be used to find this instance within
-     * the launch group.
+     * The AMI launch index, which can be used to find this instance in the
+     * launch group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param amiLaunchIndex The AMI launch index, which can be used to find this instance within
-     *         the launch group.
+     * @param amiLaunchIndex The AMI launch index, which can be used to find this instance in the
+     *         launch group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withAmiLaunchIndex(Integer amiLaunchIndex) {
@@ -521,9 +549,9 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Product codes attached to this instance.
+     * The product codes attached to this instance.
      *
-     * @return Product codes attached to this instance.
+     * @return The product codes attached to this instance.
      */
     public java.util.List<ProductCode> getProductCodes() {
         if (productCodes == null) {
@@ -534,9 +562,9 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Product codes attached to this instance.
+     * The product codes attached to this instance.
      *
-     * @param productCodes Product codes attached to this instance.
+     * @param productCodes The product codes attached to this instance.
      */
     public void setProductCodes(java.util.Collection<ProductCode> productCodes) {
         if (productCodes == null) {
@@ -549,13 +577,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Product codes attached to this instance.
+     * The product codes attached to this instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param productCodes Product codes attached to this instance.
+     * @param productCodes The product codes attached to this instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withProductCodes(ProductCode... productCodes) {
@@ -567,13 +595,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Product codes attached to this instance.
+     * The product codes attached to this instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param productCodes Product codes attached to this instance.
+     * @param productCodes The product codes attached to this instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withProductCodes(java.util.Collection<ProductCode> productCodes) {
@@ -589,18 +617,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The instance type. For more information on instance types, please see
-     * the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide</a>.
+     * The instance type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.xlarge, m3.2xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.medium, m3.large, m3.xlarge, m3.2xlarge, t2.micro, t2.small, t2.medium, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge
      *
-     * @return The instance type. For more information on instance types, please see
-     *         the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     *         Amazon Elastic Compute Cloud Developer Guide</a>.
+     * @return The instance type.
      *
      * @see InstanceType
      */
@@ -609,18 +631,12 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The instance type. For more information on instance types, please see
-     * the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide</a>.
+     * The instance type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.xlarge, m3.2xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.medium, m3.large, m3.xlarge, m3.2xlarge, t2.micro, t2.small, t2.medium, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge
      *
-     * @param instanceType The instance type. For more information on instance types, please see
-     *         the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     *         Amazon Elastic Compute Cloud Developer Guide</a>.
+     * @param instanceType The instance type.
      *
      * @see InstanceType
      */
@@ -629,22 +645,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The instance type. For more information on instance types, please see
-     * the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide</a>.
+     * The instance type.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.xlarge, m3.2xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.medium, m3.large, m3.xlarge, m3.2xlarge, t2.micro, t2.small, t2.medium, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge
      *
-     * @param instanceType The instance type. For more information on instance types, please see
-     *         the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     *         Amazon Elastic Compute Cloud Developer Guide</a>.
+     * @param instanceType The instance type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceType
@@ -655,18 +665,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The instance type. For more information on instance types, please see
-     * the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide</a>.
+     * The instance type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.xlarge, m3.2xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.medium, m3.large, m3.xlarge, m3.2xlarge, t2.micro, t2.small, t2.medium, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge
      *
-     * @param instanceType The instance type. For more information on instance types, please see
-     *         the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     *         Amazon Elastic Compute Cloud Developer Guide</a>.
+     * @param instanceType The instance type.
      *
      * @see InstanceType
      */
@@ -675,22 +679,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The instance type. For more information on instance types, please see
-     * the <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide</a>.
+     * The instance type.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.xlarge, m3.2xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.medium, m1.large, m1.xlarge, m3.medium, m3.large, m3.xlarge, m3.2xlarge, t2.micro, t2.small, t2.medium, m2.xlarge, m2.2xlarge, m2.4xlarge, cr1.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, hi1.4xlarge, hs1.8xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, cc1.4xlarge, cc2.8xlarge, g2.2xlarge, cg1.4xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge
      *
-     * @param instanceType The instance type. For more information on instance types, please see
-     *         the <a
-     *         href="http://docs.amazonwebservices.com/AWSEC2/2009-07-15/DeveloperGuide/">
-     *         Amazon Elastic Compute Cloud Developer Guide</a>.
+     * @param instanceType The instance type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceType
@@ -701,31 +699,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The time this instance launched.
+     * The time the instance was launched.
      *
-     * @return The time this instance launched.
+     * @return The time the instance was launched.
      */
     public java.util.Date getLaunchTime() {
         return launchTime;
     }
     
     /**
-     * The time this instance launched.
+     * The time the instance was launched.
      *
-     * @param launchTime The time this instance launched.
+     * @param launchTime The time the instance was launched.
      */
     public void setLaunchTime(java.util.Date launchTime) {
         this.launchTime = launchTime;
     }
     
     /**
-     * The time this instance launched.
+     * The time the instance was launched.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param launchTime The time this instance launched.
+     * @param launchTime The time the instance was launched.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withLaunchTime(java.util.Date launchTime) {
@@ -734,31 +732,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The location where this instance launched.
+     * The location where the instance launched.
      *
-     * @return The location where this instance launched.
+     * @return The location where the instance launched.
      */
     public Placement getPlacement() {
         return placement;
     }
     
     /**
-     * The location where this instance launched.
+     * The location where the instance launched.
      *
-     * @param placement The location where this instance launched.
+     * @param placement The location where the instance launched.
      */
     public void setPlacement(Placement placement) {
         this.placement = placement;
     }
     
     /**
-     * The location where this instance launched.
+     * The location where the instance launched.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param placement The location where this instance launched.
+     * @param placement The location where the instance launched.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPlacement(Placement placement) {
@@ -767,31 +765,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Kernel associated with this instance.
+     * The kernel associated with this instance.
      *
-     * @return Kernel associated with this instance.
+     * @return The kernel associated with this instance.
      */
     public String getKernelId() {
         return kernelId;
     }
     
     /**
-     * Kernel associated with this instance.
+     * The kernel associated with this instance.
      *
-     * @param kernelId Kernel associated with this instance.
+     * @param kernelId The kernel associated with this instance.
      */
     public void setKernelId(String kernelId) {
         this.kernelId = kernelId;
     }
     
     /**
-     * Kernel associated with this instance.
+     * The kernel associated with this instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param kernelId Kernel associated with this instance.
+     * @param kernelId The kernel associated with this instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withKernelId(String kernelId) {
@@ -800,31 +798,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * RAM disk associated with this instance.
+     * The RAM disk associated with this instance.
      *
-     * @return RAM disk associated with this instance.
+     * @return The RAM disk associated with this instance.
      */
     public String getRamdiskId() {
         return ramdiskId;
     }
     
     /**
-     * RAM disk associated with this instance.
+     * The RAM disk associated with this instance.
      *
-     * @param ramdiskId RAM disk associated with this instance.
+     * @param ramdiskId The RAM disk associated with this instance.
      */
     public void setRamdiskId(String ramdiskId) {
         this.ramdiskId = ramdiskId;
     }
     
     /**
-     * RAM disk associated with this instance.
+     * The RAM disk associated with this instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param ramdiskId RAM disk associated with this instance.
+     * @param ramdiskId The RAM disk associated with this instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withRamdiskId(String ramdiskId) {
@@ -833,12 +831,14 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Platform of the instance (e.g., Windows).
+     * The value is <code>Windows</code> for Windows instances; otherwise
+     * blank.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @return Platform of the instance (e.g., Windows).
+     * @return The value is <code>Windows</code> for Windows instances; otherwise
+     *         blank.
      *
      * @see PlatformValues
      */
@@ -847,12 +847,14 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Platform of the instance (e.g., Windows).
+     * The value is <code>Windows</code> for Windows instances; otherwise
+     * blank.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform Platform of the instance (e.g., Windows).
+     * @param platform The value is <code>Windows</code> for Windows instances; otherwise
+     *         blank.
      *
      * @see PlatformValues
      */
@@ -861,16 +863,18 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Platform of the instance (e.g., Windows).
+     * The value is <code>Windows</code> for Windows instances; otherwise
+     * blank.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform Platform of the instance (e.g., Windows).
+     * @param platform The value is <code>Windows</code> for Windows instances; otherwise
+     *         blank.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PlatformValues
@@ -881,12 +885,14 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Platform of the instance (e.g., Windows).
+     * The value is <code>Windows</code> for Windows instances; otherwise
+     * blank.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform Platform of the instance (e.g., Windows).
+     * @param platform The value is <code>Windows</code> for Windows instances; otherwise
+     *         blank.
      *
      * @see PlatformValues
      */
@@ -895,16 +901,18 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Platform of the instance (e.g., Windows).
+     * The value is <code>Windows</code> for Windows instances; otherwise
+     * blank.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Windows
      *
-     * @param platform Platform of the instance (e.g., Windows).
+     * @param platform The value is <code>Windows</code> for Windows instances; otherwise
+     *         blank.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PlatformValues
@@ -915,31 +923,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Monitoring status for this instance.
+     * The monitoring information for the instance.
      *
-     * @return Monitoring status for this instance.
+     * @return The monitoring information for the instance.
      */
     public Monitoring getMonitoring() {
         return monitoring;
     }
     
     /**
-     * Monitoring status for this instance.
+     * The monitoring information for the instance.
      *
-     * @param monitoring Monitoring status for this instance.
+     * @param monitoring The monitoring information for the instance.
      */
     public void setMonitoring(Monitoring monitoring) {
         this.monitoring = monitoring;
     }
     
     /**
-     * Monitoring status for this instance.
+     * The monitoring information for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param monitoring Monitoring status for this instance.
+     * @param monitoring The monitoring information for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withMonitoring(Monitoring monitoring) {
@@ -948,31 +956,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Specifies the Amazon VPC subnet ID in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      *
-     * @return Specifies the Amazon VPC subnet ID in which the instance is running.
+     * @return The ID of the subnet in which the instance is running.
      */
     public String getSubnetId() {
         return subnetId;
     }
     
     /**
-     * Specifies the Amazon VPC subnet ID in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      *
-     * @param subnetId Specifies the Amazon VPC subnet ID in which the instance is running.
+     * @param subnetId The ID of the subnet in which the instance is running.
      */
     public void setSubnetId(String subnetId) {
         this.subnetId = subnetId;
     }
     
     /**
-     * Specifies the Amazon VPC subnet ID in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param subnetId Specifies the Amazon VPC subnet ID in which the instance is running.
+     * @param subnetId The ID of the subnet in which the instance is running.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSubnetId(String subnetId) {
@@ -981,31 +989,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Specifies the Amazon VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      *
-     * @return Specifies the Amazon VPC in which the instance is running.
+     * @return The ID of the VPC in which the instance is running.
      */
     public String getVpcId() {
         return vpcId;
     }
     
     /**
-     * Specifies the Amazon VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      *
-     * @param vpcId Specifies the Amazon VPC in which the instance is running.
+     * @param vpcId The ID of the VPC in which the instance is running.
      */
     public void setVpcId(String vpcId) {
         this.vpcId = vpcId;
     }
     
     /**
-     * Specifies the Amazon VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param vpcId Specifies the Amazon VPC in which the instance is running.
+     * @param vpcId The ID of the VPC in which the instance is running.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withVpcId(String vpcId) {
@@ -1014,37 +1022,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Specifies the private IP address that is assigned to the instance
-     * (Amazon VPC).
+     * The private IP address assigned to the instance.
      *
-     * @return Specifies the private IP address that is assigned to the instance
-     *         (Amazon VPC).
+     * @return The private IP address assigned to the instance.
      */
     public String getPrivateIpAddress() {
         return privateIpAddress;
     }
     
     /**
-     * Specifies the private IP address that is assigned to the instance
-     * (Amazon VPC).
+     * The private IP address assigned to the instance.
      *
-     * @param privateIpAddress Specifies the private IP address that is assigned to the instance
-     *         (Amazon VPC).
+     * @param privateIpAddress The private IP address assigned to the instance.
      */
     public void setPrivateIpAddress(String privateIpAddress) {
         this.privateIpAddress = privateIpAddress;
     }
     
     /**
-     * Specifies the private IP address that is assigned to the instance
-     * (Amazon VPC).
+     * The private IP address assigned to the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param privateIpAddress Specifies the private IP address that is assigned to the instance
-     *         (Amazon VPC).
+     * @param privateIpAddress The private IP address assigned to the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPrivateIpAddress(String privateIpAddress) {
@@ -1053,31 +1055,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Specifies the IP address of the instance.
+     * The public IP address assigned to the instance.
      *
-     * @return Specifies the IP address of the instance.
+     * @return The public IP address assigned to the instance.
      */
     public String getPublicIpAddress() {
         return publicIpAddress;
     }
     
     /**
-     * Specifies the IP address of the instance.
+     * The public IP address assigned to the instance.
      *
-     * @param publicIpAddress Specifies the IP address of the instance.
+     * @param publicIpAddress The public IP address assigned to the instance.
      */
     public void setPublicIpAddress(String publicIpAddress) {
         this.publicIpAddress = publicIpAddress;
     }
     
     /**
-     * Specifies the IP address of the instance.
+     * The public IP address assigned to the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param publicIpAddress Specifies the IP address of the instance.
+     * @param publicIpAddress The public IP address assigned to the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPublicIpAddress(String publicIpAddress) {
@@ -1086,31 +1088,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The reason for the state change.
+     * The reason for the most recent state transition.
      *
-     * @return The reason for the state change.
+     * @return The reason for the most recent state transition.
      */
     public StateReason getStateReason() {
         return stateReason;
     }
     
     /**
-     * The reason for the state change.
+     * The reason for the most recent state transition.
      *
-     * @param stateReason The reason for the state change.
+     * @param stateReason The reason for the most recent state transition.
      */
     public void setStateReason(StateReason stateReason) {
         this.stateReason = stateReason;
     }
     
     /**
-     * The reason for the state change.
+     * The reason for the most recent state transition.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param stateReason The reason for the state change.
+     * @param stateReason The reason for the most recent state transition.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withStateReason(StateReason stateReason) {
@@ -1119,12 +1121,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The architecture of this instance.
+     * The architecture of the image.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @return The architecture of this instance.
+     * @return The architecture of the image.
      *
      * @see ArchitectureValues
      */
@@ -1133,12 +1135,12 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The architecture of this instance.
+     * The architecture of the image.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of this instance.
+     * @param architecture The architecture of the image.
      *
      * @see ArchitectureValues
      */
@@ -1147,16 +1149,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The architecture of this instance.
+     * The architecture of the image.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of this instance.
+     * @param architecture The architecture of the image.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ArchitectureValues
@@ -1167,12 +1169,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The architecture of this instance.
+     * The architecture of the image.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of this instance.
+     * @param architecture The architecture of the image.
      *
      * @see ArchitectureValues
      */
@@ -1181,16 +1183,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The architecture of this instance.
+     * The architecture of the image.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of this instance.
+     * @param architecture The architecture of the image.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ArchitectureValues
@@ -1201,14 +1203,14 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The root device type used by the AMI. The AMI can use an Amazon EBS or
-     * instance store root device.
+     * The root device type used by the AMI. The AMI can use an Amazon EBS
+     * volume or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @return The root device type used by the AMI. The AMI can use an Amazon EBS or
-     *         instance store root device.
+     * @return The root device type used by the AMI. The AMI can use an Amazon EBS
+     *         volume or an instance store volume.
      *
      * @see DeviceType
      */
@@ -1217,14 +1219,14 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The root device type used by the AMI. The AMI can use an Amazon EBS or
-     * instance store root device.
+     * The root device type used by the AMI. The AMI can use an Amazon EBS
+     * volume or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS or
-     *         instance store root device.
+     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS
+     *         volume or an instance store volume.
      *
      * @see DeviceType
      */
@@ -1233,18 +1235,18 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The root device type used by the AMI. The AMI can use an Amazon EBS or
-     * instance store root device.
+     * The root device type used by the AMI. The AMI can use an Amazon EBS
+     * volume or an instance store volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS or
-     *         instance store root device.
+     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS
+     *         volume or an instance store volume.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see DeviceType
@@ -1255,14 +1257,14 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The root device type used by the AMI. The AMI can use an Amazon EBS or
-     * instance store root device.
+     * The root device type used by the AMI. The AMI can use an Amazon EBS
+     * volume or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS or
-     *         instance store root device.
+     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS
+     *         volume or an instance store volume.
      *
      * @see DeviceType
      */
@@ -1271,18 +1273,18 @@ public class Instance implements Serializable {
     }
     
     /**
-     * The root device type used by the AMI. The AMI can use an Amazon EBS or
-     * instance store root device.
+     * The root device type used by the AMI. The AMI can use an Amazon EBS
+     * volume or an instance store volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS or
-     *         instance store root device.
+     * @param rootDeviceType The root device type used by the AMI. The AMI can use an Amazon EBS
+     *         volume or an instance store volume.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see DeviceType
@@ -1293,31 +1295,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The root device name (for example, <code>/dev/sda1</code>).
      *
-     * @return The root device name (e.g., <code>/dev/sda1</code>).
+     * @return The root device name (for example, <code>/dev/sda1</code>).
      */
     public String getRootDeviceName() {
         return rootDeviceName;
     }
     
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The root device name (for example, <code>/dev/sda1</code>).
      *
-     * @param rootDeviceName The root device name (e.g., <code>/dev/sda1</code>).
+     * @param rootDeviceName The root device name (for example, <code>/dev/sda1</code>).
      */
     public void setRootDeviceName(String rootDeviceName) {
         this.rootDeviceName = rootDeviceName;
     }
     
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The root device name (for example, <code>/dev/sda1</code>).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param rootDeviceName The root device name (e.g., <code>/dev/sda1</code>).
+     * @param rootDeviceName The root device name (for example, <code>/dev/sda1</code>).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withRootDeviceName(String rootDeviceName) {
@@ -1326,9 +1328,9 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Block device mapping set.
+     * Any block device mapping entries for the instance.
      *
-     * @return Block device mapping set.
+     * @return Any block device mapping entries for the instance.
      */
     public java.util.List<InstanceBlockDeviceMapping> getBlockDeviceMappings() {
         if (blockDeviceMappings == null) {
@@ -1339,9 +1341,9 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Block device mapping set.
+     * Any block device mapping entries for the instance.
      *
-     * @param blockDeviceMappings Block device mapping set.
+     * @param blockDeviceMappings Any block device mapping entries for the instance.
      */
     public void setBlockDeviceMappings(java.util.Collection<InstanceBlockDeviceMapping> blockDeviceMappings) {
         if (blockDeviceMappings == null) {
@@ -1354,13 +1356,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Block device mapping set.
+     * Any block device mapping entries for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param blockDeviceMappings Block device mapping set.
+     * @param blockDeviceMappings Any block device mapping entries for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withBlockDeviceMappings(InstanceBlockDeviceMapping... blockDeviceMappings) {
@@ -1372,13 +1374,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Block device mapping set.
+     * Any block device mapping entries for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param blockDeviceMappings Block device mapping set.
+     * @param blockDeviceMappings Any block device mapping entries for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withBlockDeviceMappings(java.util.Collection<InstanceBlockDeviceMapping> blockDeviceMappings) {
@@ -1394,12 +1396,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the VirtualizationType property for this object.
+     * The virtualization type of the instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>hvm, paravirtual
      *
-     * @return The value of the VirtualizationType property for this object.
+     * @return The virtualization type of the instance.
      *
      * @see VirtualizationType
      */
@@ -1408,12 +1410,12 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the VirtualizationType property for this object.
+     * The virtualization type of the instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>hvm, paravirtual
      *
-     * @param virtualizationType The new value for the VirtualizationType property for this object.
+     * @param virtualizationType The virtualization type of the instance.
      *
      * @see VirtualizationType
      */
@@ -1422,16 +1424,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the VirtualizationType property for this object.
+     * The virtualization type of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>hvm, paravirtual
      *
-     * @param virtualizationType The new value for the VirtualizationType property for this object.
+     * @param virtualizationType The virtualization type of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VirtualizationType
@@ -1442,12 +1444,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Sets the value of the VirtualizationType property for this object.
+     * The virtualization type of the instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>hvm, paravirtual
      *
-     * @param virtualizationType The new value for the VirtualizationType property for this object.
+     * @param virtualizationType The virtualization type of the instance.
      *
      * @see VirtualizationType
      */
@@ -1456,16 +1458,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the VirtualizationType property for this object.
+     * The virtualization type of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>hvm, paravirtual
      *
-     * @param virtualizationType The new value for the VirtualizationType property for this object.
+     * @param virtualizationType The virtualization type of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VirtualizationType
@@ -1476,12 +1478,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * 
+     * Indicates whether this is a Spot Instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>spot
      *
-     * @return 
+     * @return Indicates whether this is a Spot Instance.
      *
      * @see InstanceLifecycleType
      */
@@ -1490,12 +1492,12 @@ public class Instance implements Serializable {
     }
     
     /**
-     * 
+     * Indicates whether this is a Spot Instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>spot
      *
-     * @param instanceLifecycle 
+     * @param instanceLifecycle Indicates whether this is a Spot Instance.
      *
      * @see InstanceLifecycleType
      */
@@ -1504,16 +1506,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * 
+     * Indicates whether this is a Spot Instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>spot
      *
-     * @param instanceLifecycle 
+     * @param instanceLifecycle Indicates whether this is a Spot Instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceLifecycleType
@@ -1524,12 +1526,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * 
+     * Indicates whether this is a Spot Instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>spot
      *
-     * @param instanceLifecycle 
+     * @param instanceLifecycle Indicates whether this is a Spot Instance.
      *
      * @see InstanceLifecycleType
      */
@@ -1538,16 +1540,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * 
+     * Indicates whether this is a Spot Instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>spot
      *
-     * @param instanceLifecycle 
+     * @param instanceLifecycle Indicates whether this is a Spot Instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceLifecycleType
@@ -1558,31 +1560,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * 
+     * The ID of the Spot Instance request.
      *
-     * @return 
+     * @return The ID of the Spot Instance request.
      */
     public String getSpotInstanceRequestId() {
         return spotInstanceRequestId;
     }
     
     /**
-     * 
+     * The ID of the Spot Instance request.
      *
-     * @param spotInstanceRequestId 
+     * @param spotInstanceRequestId The ID of the Spot Instance request.
      */
     public void setSpotInstanceRequestId(String spotInstanceRequestId) {
         this.spotInstanceRequestId = spotInstanceRequestId;
     }
     
     /**
-     * 
+     * The ID of the Spot Instance request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotInstanceRequestId 
+     * @param spotInstanceRequestId The ID of the Spot Instance request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSpotInstanceRequestId(String spotInstanceRequestId) {
@@ -1591,70 +1593,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Represents an active license in use and attached to an Amazon EC2
-     * instance.
+     * The idempotency token you provided when you launched the instance.
      *
-     * @return Represents an active license in use and attached to an Amazon EC2
-     *         instance.
-     */
-    public InstanceLicense getLicense() {
-        return license;
-    }
-    
-    /**
-     * Represents an active license in use and attached to an Amazon EC2
-     * instance.
-     *
-     * @param license Represents an active license in use and attached to an Amazon EC2
-     *         instance.
-     */
-    public void setLicense(InstanceLicense license) {
-        this.license = license;
-    }
-    
-    /**
-     * Represents an active license in use and attached to an Amazon EC2
-     * instance.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param license Represents an active license in use and attached to an Amazon EC2
-     *         instance.
-     *
-     * @return A reference to this updated object so that method calls can be chained 
-     *         together.
-     */
-    public Instance withLicense(InstanceLicense license) {
-        this.license = license;
-        return this;
-    }
-
-    /**
-     * Returns the value of the ClientToken property for this object.
-     *
-     * @return The value of the ClientToken property for this object.
+     * @return The idempotency token you provided when you launched the instance.
      */
     public String getClientToken() {
         return clientToken;
     }
     
     /**
-     * Sets the value of the ClientToken property for this object.
+     * The idempotency token you provided when you launched the instance.
      *
-     * @param clientToken The new value for the ClientToken property for this object.
+     * @param clientToken The idempotency token you provided when you launched the instance.
      */
     public void setClientToken(String clientToken) {
         this.clientToken = clientToken;
     }
     
     /**
-     * Sets the value of the ClientToken property for this object.
+     * The idempotency token you provided when you launched the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param clientToken The new value for the ClientToken property for this object.
+     * @param clientToken The idempotency token you provided when you launched the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withClientToken(String clientToken) {
@@ -1663,9 +1626,9 @@ public class Instance implements Serializable {
     }
 
     /**
-     * A list of tags for the Instance.
+     * Any tags assigned to the instance.
      *
-     * @return A list of tags for the Instance.
+     * @return Any tags assigned to the instance.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -1676,9 +1639,9 @@ public class Instance implements Serializable {
     }
     
     /**
-     * A list of tags for the Instance.
+     * Any tags assigned to the instance.
      *
-     * @param tags A list of tags for the Instance.
+     * @param tags Any tags assigned to the instance.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -1691,13 +1654,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * A list of tags for the Instance.
+     * Any tags assigned to the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags A list of tags for the Instance.
+     * @param tags Any tags assigned to the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withTags(Tag... tags) {
@@ -1709,13 +1672,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * A list of tags for the Instance.
+     * Any tags assigned to the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags A list of tags for the Instance.
+     * @param tags Any tags assigned to the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withTags(java.util.Collection<Tag> tags) {
@@ -1731,9 +1694,9 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the SecurityGroups property for this object.
+     * One or more security groups for the instance.
      *
-     * @return The value of the SecurityGroups property for this object.
+     * @return One or more security groups for the instance.
      */
     public java.util.List<GroupIdentifier> getSecurityGroups() {
         if (securityGroups == null) {
@@ -1744,9 +1707,9 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the SecurityGroups property for this object.
+     * One or more security groups for the instance.
      *
-     * @param securityGroups The new value for the SecurityGroups property for this object.
+     * @param securityGroups One or more security groups for the instance.
      */
     public void setSecurityGroups(java.util.Collection<GroupIdentifier> securityGroups) {
         if (securityGroups == null) {
@@ -1759,13 +1722,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the SecurityGroups property for this object.
+     * One or more security groups for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param securityGroups The new value for the SecurityGroups property for this object.
+     * @param securityGroups One or more security groups for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSecurityGroups(GroupIdentifier... securityGroups) {
@@ -1777,13 +1740,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the SecurityGroups property for this object.
+     * One or more security groups for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param securityGroups The new value for the SecurityGroups property for this object.
+     * @param securityGroups One or more security groups for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSecurityGroups(java.util.Collection<GroupIdentifier> securityGroups) {
@@ -1799,31 +1762,73 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the SourceDestCheck property for this object.
+     * Specifies whether to enable an instance launched in a VPC to perform
+     * NAT. This controls whether source/destination checking is enabled on
+     * the instance. A value of <code>true</code> means checking is enabled,
+     * and <code>false</code> means checking is disabled. The value must be
+     * <code>false</code> for the instance to perform NAT. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     * Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      *
-     * @return The value of the SourceDestCheck property for this object.
+     * @return Specifies whether to enable an instance launched in a VPC to perform
+     *         NAT. This controls whether source/destination checking is enabled on
+     *         the instance. A value of <code>true</code> means checking is enabled,
+     *         and <code>false</code> means checking is disabled. The value must be
+     *         <code>false</code> for the instance to perform NAT. For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     *         Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      */
     public Boolean isSourceDestCheck() {
         return sourceDestCheck;
     }
     
     /**
-     * Sets the value of the SourceDestCheck property for this object.
+     * Specifies whether to enable an instance launched in a VPC to perform
+     * NAT. This controls whether source/destination checking is enabled on
+     * the instance. A value of <code>true</code> means checking is enabled,
+     * and <code>false</code> means checking is disabled. The value must be
+     * <code>false</code> for the instance to perform NAT. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     * Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      *
-     * @param sourceDestCheck The new value for the SourceDestCheck property for this object.
+     * @param sourceDestCheck Specifies whether to enable an instance launched in a VPC to perform
+     *         NAT. This controls whether source/destination checking is enabled on
+     *         the instance. A value of <code>true</code> means checking is enabled,
+     *         and <code>false</code> means checking is disabled. The value must be
+     *         <code>false</code> for the instance to perform NAT. For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     *         Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      */
     public void setSourceDestCheck(Boolean sourceDestCheck) {
         this.sourceDestCheck = sourceDestCheck;
     }
     
     /**
-     * Sets the value of the SourceDestCheck property for this object.
+     * Specifies whether to enable an instance launched in a VPC to perform
+     * NAT. This controls whether source/destination checking is enabled on
+     * the instance. A value of <code>true</code> means checking is enabled,
+     * and <code>false</code> means checking is disabled. The value must be
+     * <code>false</code> for the instance to perform NAT. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     * Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sourceDestCheck The new value for the SourceDestCheck property for this object.
+     * @param sourceDestCheck Specifies whether to enable an instance launched in a VPC to perform
+     *         NAT. This controls whether source/destination checking is enabled on
+     *         the instance. A value of <code>true</code> means checking is enabled,
+     *         and <code>false</code> means checking is disabled. The value must be
+     *         <code>false</code> for the instance to perform NAT. For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     *         Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSourceDestCheck(Boolean sourceDestCheck) {
@@ -1832,21 +1837,35 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the SourceDestCheck property for this object.
+     * Specifies whether to enable an instance launched in a VPC to perform
+     * NAT. This controls whether source/destination checking is enabled on
+     * the instance. A value of <code>true</code> means checking is enabled,
+     * and <code>false</code> means checking is disabled. The value must be
+     * <code>false</code> for the instance to perform NAT. For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     * Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      *
-     * @return The value of the SourceDestCheck property for this object.
+     * @return Specifies whether to enable an instance launched in a VPC to perform
+     *         NAT. This controls whether source/destination checking is enabled on
+     *         the instance. A value of <code>true</code> means checking is enabled,
+     *         and <code>false</code> means checking is disabled. The value must be
+     *         <code>false</code> for the instance to perform NAT. For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT
+     *         Instances</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
      */
     public Boolean getSourceDestCheck() {
         return sourceDestCheck;
     }
 
     /**
-     * Returns the value of the Hypervisor property for this object.
+     * The hypervisor type of the instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ovm, xen
      *
-     * @return The value of the Hypervisor property for this object.
+     * @return The hypervisor type of the instance.
      *
      * @see HypervisorType
      */
@@ -1855,12 +1874,12 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the Hypervisor property for this object.
+     * The hypervisor type of the instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ovm, xen
      *
-     * @param hypervisor The new value for the Hypervisor property for this object.
+     * @param hypervisor The hypervisor type of the instance.
      *
      * @see HypervisorType
      */
@@ -1869,16 +1888,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the Hypervisor property for this object.
+     * The hypervisor type of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ovm, xen
      *
-     * @param hypervisor The new value for the Hypervisor property for this object.
+     * @param hypervisor The hypervisor type of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see HypervisorType
@@ -1889,12 +1908,12 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Sets the value of the Hypervisor property for this object.
+     * The hypervisor type of the instance.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ovm, xen
      *
-     * @param hypervisor The new value for the Hypervisor property for this object.
+     * @param hypervisor The hypervisor type of the instance.
      *
      * @see HypervisorType
      */
@@ -1903,16 +1922,16 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the Hypervisor property for this object.
+     * The hypervisor type of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ovm, xen
      *
-     * @param hypervisor The new value for the Hypervisor property for this object.
+     * @param hypervisor The hypervisor type of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see HypervisorType
@@ -1923,9 +1942,9 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the NetworkInterfaces property for this object.
+     * [EC2-VPC] One or more network interfaces for the instance.
      *
-     * @return The value of the NetworkInterfaces property for this object.
+     * @return [EC2-VPC] One or more network interfaces for the instance.
      */
     public java.util.List<InstanceNetworkInterface> getNetworkInterfaces() {
         if (networkInterfaces == null) {
@@ -1936,9 +1955,9 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the NetworkInterfaces property for this object.
+     * [EC2-VPC] One or more network interfaces for the instance.
      *
-     * @param networkInterfaces The new value for the NetworkInterfaces property for this object.
+     * @param networkInterfaces [EC2-VPC] One or more network interfaces for the instance.
      */
     public void setNetworkInterfaces(java.util.Collection<InstanceNetworkInterface> networkInterfaces) {
         if (networkInterfaces == null) {
@@ -1951,13 +1970,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the NetworkInterfaces property for this object.
+     * [EC2-VPC] One or more network interfaces for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param networkInterfaces The new value for the NetworkInterfaces property for this object.
+     * @param networkInterfaces [EC2-VPC] One or more network interfaces for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withNetworkInterfaces(InstanceNetworkInterface... networkInterfaces) {
@@ -1969,13 +1988,13 @@ public class Instance implements Serializable {
     }
     
     /**
-     * Sets the value of the NetworkInterfaces property for this object.
+     * [EC2-VPC] One or more network interfaces for the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param networkInterfaces The new value for the NetworkInterfaces property for this object.
+     * @param networkInterfaces [EC2-VPC] One or more network interfaces for the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withNetworkInterfaces(java.util.Collection<InstanceNetworkInterface> networkInterfaces) {
@@ -1991,31 +2010,31 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the IamInstanceProfile property for this object.
+     * The IAM instance profile associated with the instance.
      *
-     * @return The value of the IamInstanceProfile property for this object.
+     * @return The IAM instance profile associated with the instance.
      */
     public IamInstanceProfile getIamInstanceProfile() {
         return iamInstanceProfile;
     }
     
     /**
-     * Sets the value of the IamInstanceProfile property for this object.
+     * The IAM instance profile associated with the instance.
      *
-     * @param iamInstanceProfile The new value for the IamInstanceProfile property for this object.
+     * @param iamInstanceProfile The IAM instance profile associated with the instance.
      */
     public void setIamInstanceProfile(IamInstanceProfile iamInstanceProfile) {
         this.iamInstanceProfile = iamInstanceProfile;
     }
     
     /**
-     * Sets the value of the IamInstanceProfile property for this object.
+     * The IAM instance profile associated with the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param iamInstanceProfile The new value for the IamInstanceProfile property for this object.
+     * @param iamInstanceProfile The IAM instance profile associated with the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withIamInstanceProfile(IamInstanceProfile iamInstanceProfile) {
@@ -2024,31 +2043,55 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the EbsOptimized property for this object.
+     * Indicates whether the instance is optimized for EBS I/O. This
+     * optimization provides dedicated throughput to Amazon EBS and an
+     * optimized configuration stack to provide optimal I/O performance. This
+     * optimization isn't available with all instance types. Additional usage
+     * charges apply when using an EBS Optimized instance.
      *
-     * @return The value of the EbsOptimized property for this object.
+     * @return Indicates whether the instance is optimized for EBS I/O. This
+     *         optimization provides dedicated throughput to Amazon EBS and an
+     *         optimized configuration stack to provide optimal I/O performance. This
+     *         optimization isn't available with all instance types. Additional usage
+     *         charges apply when using an EBS Optimized instance.
      */
     public Boolean isEbsOptimized() {
         return ebsOptimized;
     }
     
     /**
-     * Sets the value of the EbsOptimized property for this object.
+     * Indicates whether the instance is optimized for EBS I/O. This
+     * optimization provides dedicated throughput to Amazon EBS and an
+     * optimized configuration stack to provide optimal I/O performance. This
+     * optimization isn't available with all instance types. Additional usage
+     * charges apply when using an EBS Optimized instance.
      *
-     * @param ebsOptimized The new value for the EbsOptimized property for this object.
+     * @param ebsOptimized Indicates whether the instance is optimized for EBS I/O. This
+     *         optimization provides dedicated throughput to Amazon EBS and an
+     *         optimized configuration stack to provide optimal I/O performance. This
+     *         optimization isn't available with all instance types. Additional usage
+     *         charges apply when using an EBS Optimized instance.
      */
     public void setEbsOptimized(Boolean ebsOptimized) {
         this.ebsOptimized = ebsOptimized;
     }
     
     /**
-     * Sets the value of the EbsOptimized property for this object.
+     * Indicates whether the instance is optimized for EBS I/O. This
+     * optimization provides dedicated throughput to Amazon EBS and an
+     * optimized configuration stack to provide optimal I/O performance. This
+     * optimization isn't available with all instance types. Additional usage
+     * charges apply when using an EBS Optimized instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param ebsOptimized The new value for the EbsOptimized property for this object.
+     * @param ebsOptimized Indicates whether the instance is optimized for EBS I/O. This
+     *         optimization provides dedicated throughput to Amazon EBS and an
+     *         optimized configuration stack to provide optimal I/O performance. This
+     *         optimization isn't available with all instance types. Additional usage
+     *         charges apply when using an EBS Optimized instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withEbsOptimized(Boolean ebsOptimized) {
@@ -2057,40 +2100,48 @@ public class Instance implements Serializable {
     }
 
     /**
-     * Returns the value of the EbsOptimized property for this object.
+     * Indicates whether the instance is optimized for EBS I/O. This
+     * optimization provides dedicated throughput to Amazon EBS and an
+     * optimized configuration stack to provide optimal I/O performance. This
+     * optimization isn't available with all instance types. Additional usage
+     * charges apply when using an EBS Optimized instance.
      *
-     * @return The value of the EbsOptimized property for this object.
+     * @return Indicates whether the instance is optimized for EBS I/O. This
+     *         optimization provides dedicated throughput to Amazon EBS and an
+     *         optimized configuration stack to provide optimal I/O performance. This
+     *         optimization isn't available with all instance types. Additional usage
+     *         charges apply when using an EBS Optimized instance.
      */
     public Boolean getEbsOptimized() {
         return ebsOptimized;
     }
 
     /**
-     * Returns the value of the SriovNetSupport property for this object.
+     * Specifies whether enhanced networking is enabled.
      *
-     * @return The value of the SriovNetSupport property for this object.
+     * @return Specifies whether enhanced networking is enabled.
      */
     public String getSriovNetSupport() {
         return sriovNetSupport;
     }
     
     /**
-     * Sets the value of the SriovNetSupport property for this object.
+     * Specifies whether enhanced networking is enabled.
      *
-     * @param sriovNetSupport The new value for the SriovNetSupport property for this object.
+     * @param sriovNetSupport Specifies whether enhanced networking is enabled.
      */
     public void setSriovNetSupport(String sriovNetSupport) {
         this.sriovNetSupport = sriovNetSupport;
     }
     
     /**
-     * Sets the value of the SriovNetSupport property for this object.
+     * Specifies whether enhanced networking is enabled.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sriovNetSupport The new value for the SriovNetSupport property for this object.
+     * @param sriovNetSupport Specifies whether enhanced networking is enabled.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSriovNetSupport(String sriovNetSupport) {
@@ -2138,7 +2189,6 @@ public class Instance implements Serializable {
         if (getVirtualizationType() != null) sb.append("VirtualizationType: " + getVirtualizationType() + ",");
         if (getInstanceLifecycle() != null) sb.append("InstanceLifecycle: " + getInstanceLifecycle() + ",");
         if (getSpotInstanceRequestId() != null) sb.append("SpotInstanceRequestId: " + getSpotInstanceRequestId() + ",");
-        if (getLicense() != null) sb.append("License: " + getLicense() + ",");
         if (getClientToken() != null) sb.append("ClientToken: " + getClientToken() + ",");
         if (getTags() != null) sb.append("Tags: " + getTags() + ",");
         if (getSecurityGroups() != null) sb.append("SecurityGroups: " + getSecurityGroups() + ",");
@@ -2185,7 +2235,6 @@ public class Instance implements Serializable {
         hashCode = prime * hashCode + ((getVirtualizationType() == null) ? 0 : getVirtualizationType().hashCode()); 
         hashCode = prime * hashCode + ((getInstanceLifecycle() == null) ? 0 : getInstanceLifecycle().hashCode()); 
         hashCode = prime * hashCode + ((getSpotInstanceRequestId() == null) ? 0 : getSpotInstanceRequestId().hashCode()); 
-        hashCode = prime * hashCode + ((getLicense() == null) ? 0 : getLicense().hashCode()); 
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode()); 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
         hashCode = prime * hashCode + ((getSecurityGroups() == null) ? 0 : getSecurityGroups().hashCode()); 
@@ -2262,8 +2311,6 @@ public class Instance implements Serializable {
         if (other.getInstanceLifecycle() != null && other.getInstanceLifecycle().equals(this.getInstanceLifecycle()) == false) return false; 
         if (other.getSpotInstanceRequestId() == null ^ this.getSpotInstanceRequestId() == null) return false;
         if (other.getSpotInstanceRequestId() != null && other.getSpotInstanceRequestId().equals(this.getSpotInstanceRequestId()) == false) return false; 
-        if (other.getLicense() == null ^ this.getLicense() == null) return false;
-        if (other.getLicense() != null && other.getLicense().equals(this.getLicense()) == false) return false; 
         if (other.getClientToken() == null ^ this.getClientToken() == null) return false;
         if (other.getClientToken() != null && other.getClientToken().equals(this.getClientToken()) == false) return false; 
         if (other.getTags() == null ^ this.getTags() == null) return false;

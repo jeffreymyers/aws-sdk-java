@@ -21,14 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#getIdentityNotificationAttributes(GetIdentityNotificationAttributesRequest) GetIdentityNotificationAttributes operation}.
  * <p>
- * Given a list of verified identities (email addresses and/or domains), returns a structure describing identity notification attributes.
+ * Given a list of verified identities (email addresses and/or domains),
+ * returns a structure describing identity notification attributes.
  * </p>
  * <p>
  * This action is throttled at one request per second.
  * </p>
  * <p>
- * For more information about feedback notification, see the <a
- * href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html"> Amazon SES Developer Guide </a> .
+ * For more information about using notifications with Amazon SES, see
+ * the
+ * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#getIdentityNotificationAttributes(GetIdentityNotificationAttributesRequest)
@@ -75,7 +78,7 @@ public class GetIdentityNotificationAttributesRequest extends AmazonWebServiceRe
      *
      * @param identities A list of one or more identities.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetIdentityNotificationAttributesRequest withIdentities(String... identities) {
@@ -93,7 +96,7 @@ public class GetIdentityNotificationAttributesRequest extends AmazonWebServiceRe
      *
      * @param identities A list of one or more identities.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetIdentityNotificationAttributesRequest withIdentities(java.util.Collection<String> identities) {

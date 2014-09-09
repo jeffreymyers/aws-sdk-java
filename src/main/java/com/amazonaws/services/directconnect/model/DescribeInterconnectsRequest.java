@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Returns a list of interconnects owned by the AWS account.
  * </p>
  * <p>
- * If an interconnect ID is provided, it will only return this particular interconnect.
+ * If an interconnect ID is provided, it will only return this particular
+ * interconnect.
  * </p>
  *
  * @see com.amazonaws.services.directconnect.AmazonDirectConnect#describeInterconnects(DescribeInterconnectsRequest)
@@ -61,7 +62,7 @@ public class DescribeInterconnectsRequest extends AmazonWebServiceRequest implem
      *
      * @param interconnectId The ID of the interconnect. <p>Example: dxcon-abc123
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeInterconnectsRequest withInterconnectId(String interconnectId) {

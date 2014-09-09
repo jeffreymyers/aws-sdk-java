@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class ListCloudFrontOriginAccessIdentitiesRequestMarshaller implements Ma
         Request<ListCloudFrontOriginAccessIdentitiesRequest> request = new DefaultRequest<ListCloudFrontOriginAccessIdentitiesRequest>(listCloudFrontOriginAccessIdentitiesRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "2013-11-11/origin-access-identity/cloudfront?Marker={Marker}&MaxItems={MaxItems}"; 
+        String uriResourcePath = "2014-05-31/origin-access-identity/cloudfront?Marker={Marker}&MaxItems={MaxItems}"; 
         uriResourcePath = uriResourcePath.replace("{Marker}", getString(listCloudFrontOriginAccessIdentitiesRequest.getMarker())); 
         uriResourcePath = uriResourcePath.replace("{MaxItems}", getString(listCloudFrontOriginAccessIdentitiesRequest.getMaxItems())); 
 

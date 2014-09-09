@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeStorediSCSIVolumes(DescribeStorediSCSIVolumesRequest) DescribeStorediSCSIVolumes operation}.
  * <p>
- * This operation returns description of the gateway volumes specified in the request. The list of gateway volumes in the request must be from one
- * gateway. In the response Amazon Storage Gateway returns volume information sorted by volume ARNs.
+ * This operation returns description of the gateway volumes specified in
+ * the request. The list of gateway volumes in the request must be from
+ * one gateway. In the response Amazon Storage Gateway returns volume
+ * information sorted by volume ARNs.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeStorediSCSIVolumes(DescribeStorediSCSIVolumesRequest)
@@ -90,7 +92,7 @@ public class DescribeStorediSCSIVolumesRequest extends AmazonWebServiceRequest i
      *         must from the same gateway. Use <a>ListVolumes</a> to get volume ARNs
      *         for a gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeStorediSCSIVolumesRequest withVolumeARNs(String... volumeARNs) {
@@ -114,7 +116,7 @@ public class DescribeStorediSCSIVolumesRequest extends AmazonWebServiceRequest i
      *         must from the same gateway. Use <a>ListVolumes</a> to get volume ARNs
      *         for a gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeStorediSCSIVolumesRequest withVolumeARNs(java.util.Collection<String> volumeARNs) {

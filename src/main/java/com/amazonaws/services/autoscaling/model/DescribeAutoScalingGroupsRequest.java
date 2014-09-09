@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#describeAutoScalingGroups(DescribeAutoScalingGroupsRequest) DescribeAutoScalingGroups operation}.
  * <p>
- * Returns a full description of each Auto Scaling group in the given list. This includes all Amazon EC2 instances that are members of the group. If a
- * list of names is not provided, the service returns the full details of all Auto Scaling groups.
+ * Returns a full description of each Auto Scaling group in the given
+ * list. This includes all Amazon EC2 instances that are members of the
+ * group. If a list of names is not provided, the service returns the
+ * full details of all Auto Scaling groups.
  * </p>
  * <p>
- * This action supports pagination by returning a token if there are more pages to retrieve. To get the next page, call this action again with the
- * returned token as the <code>NextToken</code> parameter.
+ * This action supports pagination by returning a token if there are
+ * more pages to retrieve. To get the next page, call this action again
+ * with the returned token as the <code>NextToken</code> parameter.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeAutoScalingGroups(DescribeAutoScalingGroupsRequest)
@@ -42,15 +45,12 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String nextToken;
 
     /**
      * The maximum number of records to return.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      */
     private Integer maxRecords;
 
@@ -89,7 +89,7 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      *
      * @param autoScalingGroupNames A list of Auto Scaling group names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingGroupsRequest withAutoScalingGroupNames(String... autoScalingGroupNames) {
@@ -107,7 +107,7 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      *
      * @param autoScalingGroupNames A list of Auto Scaling group names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingGroupsRequest withAutoScalingGroupNames(java.util.Collection<String> autoScalingGroupNames) {
@@ -126,7 +126,7 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A string that marks the start of the next batch of returned results.
      */
@@ -138,7 +138,7 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that marks the start of the next batch of returned results.
      */
@@ -152,11 +152,11 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that marks the start of the next batch of returned results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingGroupsRequest withNextToken(String nextToken) {
@@ -166,9 +166,6 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
 
     /**
      * The maximum number of records to return.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @return The maximum number of records to return.
      */
@@ -178,9 +175,6 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
     
     /**
      * The maximum number of records to return.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of records to return.
      */
@@ -192,13 +186,10 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
      * The maximum number of records to return.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of records to return.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAutoScalingGroupsRequest withMaxRecords(Integer maxRecords) {

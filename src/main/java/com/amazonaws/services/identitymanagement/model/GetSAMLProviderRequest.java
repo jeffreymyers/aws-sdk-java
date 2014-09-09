@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#getSAMLProvider(GetSAMLProviderRequest) GetSAMLProvider operation}.
  * <p>
- * Returns the SAML provider metadocument that was uploaded when the provider was created or updated.
+ * Returns the SAML provider metadocument that was uploaded when the
+ * provider was created or updated.
  * </p>
  * <p>
  * <b>NOTE:</b>This operation requires Signature Version 4.
@@ -80,7 +81,7 @@ public class GetSAMLProviderRequest extends AmazonWebServiceRequest implements S
      * @param sAMLProviderArn The Amazon Resource Name (ARN) of the SAML provider to get information
      *         about.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetSAMLProviderRequest withSAMLProviderArn(String sAMLProviderArn) {

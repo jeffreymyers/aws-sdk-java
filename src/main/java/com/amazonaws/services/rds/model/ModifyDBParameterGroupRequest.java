@@ -21,13 +21,19 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#modifyDBParameterGroup(ModifyDBParameterGroupRequest) ModifyDBParameterGroup operation}.
  * <p>
- * Modifies the parameters of a DB parameter group. To modify more than one parameter, submit a list of the following: <code>ParameterName</code> ,
- * <code>ParameterValue</code> , and <code>ApplyMethod</code> . A maximum of 20 parameters can be modified in a single request.
+ * Modifies the parameters of a DB parameter group. To modify more than
+ * one parameter, submit a list of the following:
+ * <code>ParameterName</code> ,
+ * <code>ParameterValue</code> , and
+ * <code>ApplyMethod</code> . A maximum of 20 parameters can be modified
+ * in a single request.
  * </p>
  * <p>
- * <b>NOTE:</b> The apply-immediate method can be used only for dynamic parameters; the pending-reboot method can be used with MySQL and Oracle DB
- * instances for either dynamic or static parameters. For Microsoft SQL Server DB instances, the pending-reboot method can be used only for static
- * parameters.
+ * <b>NOTE:</b> The apply-immediate method can be used only for dynamic
+ * parameters; the pending-reboot method can be used with MySQL and
+ * Oracle DB instances for either dynamic or static parameters. For
+ * Microsoft SQL Server DB instances, the pending-reboot method can be
+ * used only for static parameters.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#modifyDBParameterGroup(ModifyDBParameterGroupRequest)
@@ -135,7 +141,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      *         <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
      *         </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBParameterGroupRequest withDBParameterGroupName(String dBParameterGroupName) {
@@ -220,7 +226,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      *         You can use the pending-reboot value for both dynamic and static
      *         parameters, and changes are applied when DB instance reboots. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBParameterGroupRequest withParameters(Parameter... parameters) {
@@ -252,7 +258,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      *         You can use the pending-reboot value for both dynamic and static
      *         parameters, and changes are applied when DB instance reboots. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBParameterGroupRequest withParameters(java.util.Collection<Parameter> parameters) {

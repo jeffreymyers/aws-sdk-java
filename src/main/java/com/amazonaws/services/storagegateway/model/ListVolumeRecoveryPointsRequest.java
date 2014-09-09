@@ -21,11 +21,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#listVolumeRecoveryPoints(ListVolumeRecoveryPointsRequest) ListVolumeRecoveryPoints operation}.
  * <p>
- * This operation lists the recovery points for a specified gateway. This operation is supported only for the gateway-cached volume architecture.
+ * This operation lists the recovery points for a specified gateway. This
+ * operation is supported only for the gateway-cached volume
+ * architecture.
  * </p>
  * <p>
- * Each gateway-cached volume has one recovery point. A volume recovery point is a point in time at which all data of the volume is consistent and from
- * which you can create a snapshot. To create a snapshot from a volume recovery point use the CreateSnapshotFromVolumeRecoveryPoint operation.
+ * Each gateway-cached volume has one recovery point. A volume recovery
+ * point is a point in time at which all data of the volume is consistent
+ * and from which you can create a snapshot. To create a snapshot from a
+ * volume recovery point use the CreateSnapshotFromVolumeRecoveryPoint
+ * operation.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#listVolumeRecoveryPoints(ListVolumeRecoveryPointsRequest)
@@ -88,7 +93,7 @@ public class ListVolumeRecoveryPointsRequest extends AmazonWebServiceRequest imp
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVolumeRecoveryPointsRequest withGatewayARN(String gatewayARN) {

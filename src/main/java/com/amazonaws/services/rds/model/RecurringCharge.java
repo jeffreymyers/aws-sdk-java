@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This data type is used as a response element in the DescribeReservedDBInstances and DescribeReservedDBInstancesOfferings actions.
+ * This data type is used as a response element in the
+ * DescribeReservedDBInstances and DescribeReservedDBInstancesOfferings
+ * actions.
  * </p>
  */
 public class RecurringCharge implements Serializable {
@@ -58,7 +60,7 @@ public class RecurringCharge implements Serializable {
      *
      * @param recurringChargeAmount The amount of the recurring charge.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RecurringCharge withRecurringChargeAmount(Double recurringChargeAmount) {
@@ -91,7 +93,7 @@ public class RecurringCharge implements Serializable {
      *
      * @param recurringChargeFrequency The frequency of the recurring charge.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RecurringCharge withRecurringChargeFrequency(String recurringChargeFrequency) {

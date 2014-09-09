@@ -21,7 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#listIdentities(ListIdentitiesRequest) ListIdentities operation}.
  * <p>
- * Returns a list containing all of the identities (email addresses and domains) for a specific AWS Account, regardless of verification status.
+ * Returns a list containing all of the identities (email addresses and
+ * domains) for a specific AWS Account, regardless of verification
+ * status.
  * </p>
  * <p>
  * This action is throttled at one request per second.
@@ -102,7 +104,7 @@ public class ListIdentitiesRequest extends AmazonWebServiceRequest implements Se
      *         and "Domain". If this parameter is omitted, then all identities will
      *         be listed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see IdentityType
@@ -144,7 +146,7 @@ public class ListIdentitiesRequest extends AmazonWebServiceRequest implements Se
      *         and "Domain". If this parameter is omitted, then all identities will
      *         be listed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see IdentityType
@@ -179,7 +181,7 @@ public class ListIdentitiesRequest extends AmazonWebServiceRequest implements Se
      *
      * @param nextToken The token to use for pagination.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListIdentitiesRequest withNextToken(String nextToken) {
@@ -218,7 +220,7 @@ public class ListIdentitiesRequest extends AmazonWebServiceRequest implements Se
      * @param maxItems The maximum number of identities per page. Possible values are 1-100
      *         inclusive.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListIdentitiesRequest withMaxItems(Integer maxItems) {

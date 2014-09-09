@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A document that contains additional information about the authorization status of a request from an encoded message that is returned in response to an
- * AWS request.
+ * A document that contains additional information about the
+ * authorization status of a request from an encoded message that is
+ * returned in response to an AWS request.
  * </p>
  */
 public class DecodeAuthorizationMessageResult implements Serializable {
@@ -61,7 +62,7 @@ public class DecodeAuthorizationMessageResult implements Serializable {
      * @param decodedMessage An XML document that contains the decoded message. For more
      *         information, see <code>DecodeAuthorizationMessage</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DecodeAuthorizationMessageResult withDecodedMessage(String decodedMessage) {

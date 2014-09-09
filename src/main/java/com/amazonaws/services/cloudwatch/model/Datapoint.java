@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>Datapoint</code> data type encapsulates the statistical data that Amazon CloudWatch computes from metric data.
+ * The <code>Datapoint</code> data type encapsulates the statistical
+ * data that Amazon CloudWatch computes from metric data.
  * </p>
  */
 public class Datapoint implements Serializable {
@@ -87,7 +88,7 @@ public class Datapoint implements Serializable {
      *
      * @param timestamp The time stamp used for the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Datapoint withTimestamp(java.util.Date timestamp) {
@@ -126,7 +127,7 @@ public class Datapoint implements Serializable {
      * @param sampleCount The number of metric values that contributed to the aggregate value of
      *         this datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Datapoint withSampleCount(Double sampleCount) {
@@ -159,7 +160,7 @@ public class Datapoint implements Serializable {
      *
      * @param average The average of metric values that correspond to the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Datapoint withAverage(Double average) {
@@ -192,7 +193,7 @@ public class Datapoint implements Serializable {
      *
      * @param sum The sum of metric values used for the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Datapoint withSum(Double sum) {
@@ -225,7 +226,7 @@ public class Datapoint implements Serializable {
      *
      * @param minimum The minimum metric value used for the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Datapoint withMinimum(Double minimum) {
@@ -258,7 +259,7 @@ public class Datapoint implements Serializable {
      *
      * @param maximum The maximum of the metric value used for the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Datapoint withMaximum(Double maximum) {
@@ -304,7 +305,7 @@ public class Datapoint implements Serializable {
      *
      * @param unit The standard unit used for the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StandardUnit
@@ -338,7 +339,7 @@ public class Datapoint implements Serializable {
      *
      * @param unit The standard unit used for the datapoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StandardUnit

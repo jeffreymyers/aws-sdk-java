@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#disableAlarmActions(DisableAlarmActionsRequest) DisableAlarmActions operation}.
  * <p>
- * Disables actions for the specified alarms. When an alarm's actions are disabled the alarm's state may change, but none of the alarm's actions will
- * execute.
+ * Disables actions for the specified alarms. When an alarm's actions
+ * are disabled the alarm's state may change, but none of the alarm's
+ * actions will execute.
  * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#disableAlarmActions(DisableAlarmActionsRequest)
@@ -81,7 +82,7 @@ public class DisableAlarmActionsRequest extends AmazonWebServiceRequest implemen
      *
      * @param alarmNames The names of the alarms to disable actions for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DisableAlarmActionsRequest withAlarmNames(String... alarmNames) {
@@ -102,7 +103,7 @@ public class DisableAlarmActionsRequest extends AmazonWebServiceRequest implemen
      *
      * @param alarmNames The names of the alarms to disable actions for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DisableAlarmActionsRequest withAlarmNames(java.util.Collection<String> alarmNames) {

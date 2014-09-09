@@ -24,9 +24,12 @@ import java.io.Serializable;
 public class DescribeClusterSubnetGroupsResult implements Serializable {
 
     /**
-     * A marker at which to continue listing cluster subnet groups in a new
-     * request. A marker is returned if there are more cluster subnet groups
-     * to list than were returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      */
     private String marker;
 
@@ -36,43 +39,61 @@ public class DescribeClusterSubnetGroupsResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<ClusterSubnetGroup> clusterSubnetGroups;
 
     /**
-     * A marker at which to continue listing cluster subnet groups in a new
-     * request. A marker is returned if there are more cluster subnet groups
-     * to list than were returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @return A marker at which to continue listing cluster subnet groups in a new
-     *         request. A marker is returned if there are more cluster subnet groups
-     *         to list than were returned in the response.
+     * @return A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * A marker at which to continue listing cluster subnet groups in a new
-     * request. A marker is returned if there are more cluster subnet groups
-     * to list than were returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @param marker A marker at which to continue listing cluster subnet groups in a new
-     *         request. A marker is returned if there are more cluster subnet groups
-     *         to list than were returned in the response.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * A marker at which to continue listing cluster subnet groups in a new
-     * request. A marker is returned if there are more cluster subnet groups
-     * to list than were returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker A marker at which to continue listing cluster subnet groups in a new
-     *         request. A marker is returned if there are more cluster subnet groups
-     *         to list than were returned in the response.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSubnetGroupsResult withMarker(String marker) {
@@ -115,7 +136,7 @@ public class DescribeClusterSubnetGroupsResult implements Serializable {
      *
      * @param clusterSubnetGroups A list of <a>ClusterSubnetGroup</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSubnetGroupsResult withClusterSubnetGroups(ClusterSubnetGroup... clusterSubnetGroups) {
@@ -133,7 +154,7 @@ public class DescribeClusterSubnetGroupsResult implements Serializable {
      *
      * @param clusterSubnetGroups A list of <a>ClusterSubnetGroup</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSubnetGroupsResult withClusterSubnetGroups(java.util.Collection<ClusterSubnetGroup> clusterSubnetGroups) {

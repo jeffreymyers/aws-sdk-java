@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * This action creates a new health check.
  * </p>
  * <p>
- * To create a new health check, send a <code>POST</code> request to the <code>2012-12-12/healthcheck</code> resource. The request body must include an
- * XML document with a <code>CreateHealthCheckRequest</code> element. The response returns the <code>CreateHealthCheckResponse</code> element that
- * contains metadata about the health check.
+ * To create a new health check, send a <code>POST</code> request to the
+ * <code>2013-04-01/healthcheck</code> resource. The request body must
+ * include an XML document with a <code>CreateHealthCheckRequest</code>
+ * element. The response returns the
+ * <code>CreateHealthCheckResponse</code> element that contains metadata
+ * about the health check.
  * </p>
  *
  * @see com.amazonaws.services.route53.AmazonRoute53#createHealthCheck(CreateHealthCheckRequest)
@@ -129,7 +132,7 @@ public class CreateHealthCheckRequest extends AmazonWebServiceRequest implements
      *         characters are any Unicode code points that are legal in an XML 1.0
      *         document. The UTF-8 encoding of the value must be less than 128 bytes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHealthCheckRequest withCallerReference(String callerReference) {
@@ -162,7 +165,7 @@ public class CreateHealthCheckRequest extends AmazonWebServiceRequest implements
      *
      * @param healthCheckConfig A complex type that contains health check configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHealthCheckRequest withHealthCheckConfig(HealthCheckConfig healthCheckConfig) {

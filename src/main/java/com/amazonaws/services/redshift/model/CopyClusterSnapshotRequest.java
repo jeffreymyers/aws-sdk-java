@@ -21,17 +21,22 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#copyClusterSnapshot(CopyClusterSnapshotRequest) CopyClusterSnapshot operation}.
  * <p>
- * Copies the specified automated cluster snapshot to a new manual cluster snapshot. The source must be an automated snapshot and it must be in the
- * available state.
+ * Copies the specified automated cluster snapshot to a new manual
+ * cluster snapshot. The source must be an automated snapshot and it must
+ * be in the available state.
  * </p>
  * <p>
- * When you delete a cluster, Amazon Redshift deletes any automated snapshots of the cluster. Also, when the retention period of the snapshot expires,
- * Amazon Redshift automatically deletes it. If you want to keep an automated snapshot for a longer period, you can make a manual copy of the snapshot.
- * Manual snapshots are retained until you delete them.
+ * When you delete a cluster, Amazon Redshift deletes any automated
+ * snapshots of the cluster. Also, when the retention period of the
+ * snapshot expires, Amazon Redshift automatically deletes it. If you
+ * want to keep an automated snapshot for a longer period, you can make a
+ * manual copy of the snapshot. Manual snapshots are retained until you
+ * delete them.
  * </p>
  * <p>
- * For more information about working with snapshots, go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
- * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management Guide</i> .
+ * For more information about working with snapshots, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#copyClusterSnapshot(CopyClusterSnapshotRequest)
@@ -41,7 +46,7 @@ public class CopyClusterSnapshotRequest extends AmazonWebServiceRequest implemen
     /**
      * The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      * be the identifier for a valid automated snapshot whose state is
-     * "available".</li> </ul>
+     * <code>available</code>.</li> </ul>
      */
     private String sourceSnapshotIdentifier;
 
@@ -67,11 +72,11 @@ public class CopyClusterSnapshotRequest extends AmazonWebServiceRequest implemen
     /**
      * The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      * be the identifier for a valid automated snapshot whose state is
-     * "available".</li> </ul>
+     * <code>available</code>.</li> </ul>
      *
      * @return The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      *         be the identifier for a valid automated snapshot whose state is
-     *         "available".</li> </ul>
+     *         <code>available</code>.</li> </ul>
      */
     public String getSourceSnapshotIdentifier() {
         return sourceSnapshotIdentifier;
@@ -80,11 +85,11 @@ public class CopyClusterSnapshotRequest extends AmazonWebServiceRequest implemen
     /**
      * The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      * be the identifier for a valid automated snapshot whose state is
-     * "available".</li> </ul>
+     * <code>available</code>.</li> </ul>
      *
      * @param sourceSnapshotIdentifier The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      *         be the identifier for a valid automated snapshot whose state is
-     *         "available".</li> </ul>
+     *         <code>available</code>.</li> </ul>
      */
     public void setSourceSnapshotIdentifier(String sourceSnapshotIdentifier) {
         this.sourceSnapshotIdentifier = sourceSnapshotIdentifier;
@@ -93,15 +98,15 @@ public class CopyClusterSnapshotRequest extends AmazonWebServiceRequest implemen
     /**
      * The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      * be the identifier for a valid automated snapshot whose state is
-     * "available".</li> </ul>
+     * <code>available</code>.</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param sourceSnapshotIdentifier The identifier for the source snapshot. <p>Constraints: <ul> <li>Must
      *         be the identifier for a valid automated snapshot whose state is
-     *         "available".</li> </ul>
+     *         <code>available</code>.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyClusterSnapshotRequest withSourceSnapshotIdentifier(String sourceSnapshotIdentifier) {
@@ -158,7 +163,7 @@ public class CopyClusterSnapshotRequest extends AmazonWebServiceRequest implemen
      *         cluster name. <p>Constraints: <ul> <li>Must be the identifier for a
      *         valid cluster.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyClusterSnapshotRequest withSourceSnapshotClusterIdentifier(String sourceSnapshotClusterIdentifier) {
@@ -221,7 +226,7 @@ public class CopyClusterSnapshotRequest extends AmazonWebServiceRequest implemen
      *         consecutive hyphens.</li> <li>Must be unique for the AWS account that
      *         is making the request.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CopyClusterSnapshotRequest withTargetSnapshotIdentifier(String targetSnapshotIdentifier) {

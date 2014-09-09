@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#createCluster(CreateClusterRequest) CreateCluster operation}.
  * <p>
- * Creates a new cluster. To create the cluster in virtual private cloud (VPC), you must provide cluster subnet group name. If you don't provide a
- * cluster subnet group name or the cluster security group parameter, Amazon Redshift creates a non-VPC cluster, it associates the default cluster
- * security group with the cluster. For more information about managing clusters, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
- * Guide</i> .
+ * Creates a new cluster. To create the cluster in virtual private cloud
+ * (VPC), you must provide cluster subnet group name. If you don't
+ * provide a cluster subnet group name or the cluster security group
+ * parameter, Amazon Redshift creates a non-VPC cluster, it associates
+ * the default cluster security group with the cluster. For more
+ * information about managing clusters, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -77,8 +80,9 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * node types, go to <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      * Working with Clusters</a> in the <i>Amazon Redshift Management
-     * Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     * <code>dw.hs1.8xlarge</code>.
+     * Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     * <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     * <code>dw2.8xlarge</code>.
      */
     private String nodeType;
 
@@ -145,8 +149,12 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * for each region from which the default maintenance windows are
      * assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      * 03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     * UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     * <p>Constraints: Minimum 30-minute window.
+     * UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     * <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     * <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     * <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     * <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     * Minimum 30-minute window.
      */
     private String preferredMaintenanceWindow;
 
@@ -220,7 +228,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
     private Boolean publiclyAccessible;
 
     /**
-     * If <code>true</code>, the data in cluster is encrypted at rest.
+     * If <code>true</code>, the data in the cluster is encrypted at rest.
      * <p>Default: false
      */
     private Boolean encrypted;
@@ -340,7 +348,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         href="http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html">Reserved
      *         Words</a> in the Amazon Redshift Database Developer Guide. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withDBName(String dBName) {
@@ -421,7 +429,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <li>Must be unique for all clusters within an AWS account.</li> </ul>
      *         <p>Example: <code>myexamplecluster</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterIdentifier(String clusterIdentifier) {
@@ -484,7 +492,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         Values: <code>multi-node</code> | <code>single-node</code> <p>Default:
      *         <code>multi-node</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterType(String clusterType) {
@@ -497,15 +505,17 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * node types, go to <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      * Working with Clusters</a> in the <i>Amazon Redshift Management
-     * Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     * <code>dw.hs1.8xlarge</code>.
+     * Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     * <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     * <code>dw2.8xlarge</code>.
      *
      * @return The node type to be provisioned for the cluster. For information about
      *         node types, go to <a
      *         href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      *         Working with Clusters</a> in the <i>Amazon Redshift Management
-     *         Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     *         <code>dw.hs1.8xlarge</code>.
+     *         Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     *         <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     *         <code>dw2.8xlarge</code>.
      */
     public String getNodeType() {
         return nodeType;
@@ -516,15 +526,17 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * node types, go to <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      * Working with Clusters</a> in the <i>Amazon Redshift Management
-     * Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     * <code>dw.hs1.8xlarge</code>.
+     * Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     * <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     * <code>dw2.8xlarge</code>.
      *
      * @param nodeType The node type to be provisioned for the cluster. For information about
      *         node types, go to <a
      *         href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      *         Working with Clusters</a> in the <i>Amazon Redshift Management
-     *         Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     *         <code>dw.hs1.8xlarge</code>.
+     *         Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     *         <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     *         <code>dw2.8xlarge</code>.
      */
     public void setNodeType(String nodeType) {
         this.nodeType = nodeType;
@@ -535,8 +547,9 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * node types, go to <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      * Working with Clusters</a> in the <i>Amazon Redshift Management
-     * Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     * <code>dw.hs1.8xlarge</code>.
+     * Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     * <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     * <code>dw2.8xlarge</code>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -544,10 +557,11 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         node types, go to <a
      *         href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes">
      *         Working with Clusters</a> in the <i>Amazon Redshift Management
-     *         Guide</i>. <p> Valid Values: <code>dw.hs1.xlarge</code> |
-     *         <code>dw.hs1.8xlarge</code>.
+     *         Guide</i>. <p> Valid Values: <code>dw1.xlarge</code> |
+     *         <code>dw1.8xlarge</code> | <code>dw2.large</code> |
+     *         <code>dw2.8xlarge</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withNodeType(String nodeType) {
@@ -616,7 +630,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         href="http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html">Reserved
      *         Words</a> in the Amazon Redshift Database Developer Guide. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withMasterUsername(String masterUsername) {
@@ -685,7 +699,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         character (ASCII code 33 to 126) except ' (single quote), " (double
      *         quote), \, /, @, or space.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withMasterUserPassword(String masterUserPassword) {
@@ -734,7 +748,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * @param clusterSecurityGroups A list of security groups to be associated with this cluster. <p>
      *         Default: The default cluster security group for Amazon Redshift.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterSecurityGroups(String... clusterSecurityGroups) {
@@ -754,7 +768,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * @param clusterSecurityGroups A list of security groups to be associated with this cluster. <p>
      *         Default: The default cluster security group for Amazon Redshift.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterSecurityGroups(java.util.Collection<String> clusterSecurityGroups) {
@@ -816,7 +830,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         with the cluster. <p>Default: The default VPC security group is
      *         associated with the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withVpcSecurityGroupIds(String... vpcSecurityGroupIds) {
@@ -838,7 +852,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         with the cluster. <p>Default: The default VPC security group is
      *         associated with the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withVpcSecurityGroupIds(java.util.Collection<String> vpcSecurityGroupIds) {
@@ -890,7 +904,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <p> If this parameter is not provided the resulting cluster will be
      *         deployed outside virtual private cloud (VPC).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterSubnetGroupName(String clusterSubnetGroupName) {
@@ -965,7 +979,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <code>us-east-1d</code> <p> Constraint: The specified Availability
      *         Zone must be in the same region as the current endpoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withAvailabilityZone(String availabilityZone) {
@@ -982,8 +996,12 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * for each region from which the default maintenance windows are
      * assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      * 03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     * UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     * <p>Constraints: Minimum 30-minute window.
+     * UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     * <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     * <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     * <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     * <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     * Minimum 30-minute window.
      *
      * @return The weekly time range (in UTC) during which automated cluster
      *         maintenance can occur. <p> Format:
@@ -993,8 +1011,12 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         for each region from which the default maintenance windows are
      *         assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      *         03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     *         UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     *         <p>Constraints: Minimum 30-minute window.
+     *         UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     *         <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     *         <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     *         <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     *         <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     *         Minimum 30-minute window.
      */
     public String getPreferredMaintenanceWindow() {
         return preferredMaintenanceWindow;
@@ -1009,8 +1031,12 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * for each region from which the default maintenance windows are
      * assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      * 03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     * UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     * <p>Constraints: Minimum 30-minute window.
+     * UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     * <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     * <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     * <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     * <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     * Minimum 30-minute window.
      *
      * @param preferredMaintenanceWindow The weekly time range (in UTC) during which automated cluster
      *         maintenance can occur. <p> Format:
@@ -1020,8 +1046,12 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         for each region from which the default maintenance windows are
      *         assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      *         03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     *         UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     *         <p>Constraints: Minimum 30-minute window.
+     *         UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     *         <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     *         <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     *         <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     *         <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     *         Minimum 30-minute window.
      */
     public void setPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
         this.preferredMaintenanceWindow = preferredMaintenanceWindow;
@@ -1036,8 +1066,12 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * for each region from which the default maintenance windows are
      * assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      * 03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     * UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     * <p>Constraints: Minimum 30-minute window.
+     * UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     * <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     * <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     * <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     * <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     * Minimum 30-minute window.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1049,10 +1083,14 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         for each region from which the default maintenance windows are
      *         assigned. <ul> <li><b>US-East (Northern Virginia) Region:</b>
      *         03:00-11:00 UTC</li> <li><b>US-West (Oregon) Region</b> 06:00-14:00
-     *         UTC</li> </ul> <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
-     *         <p>Constraints: Minimum 30-minute window.
+     *         UTC</li> <li><b>EU (Ireland) Region</b> 22:00-06:00 UTC</li>
+     *         <li><b>Asia Pacific (Singapore) Region</b> 14:00-22:00 UTC</li>
+     *         <li><b>Asia Pacific (Sydney) Region</b> 12:00-20:00 UTC</li>
+     *         <li><b>Asia Pacific (Tokyo) Region</b> 17:00-03:00 UTC</li> </ul>
+     *         <p>Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun <p>Constraints:
+     *         Minimum 30-minute window.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -1127,7 +1165,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <li>First character must be a letter.</li> <li>Cannot end with a
      *         hyphen or contain two consecutive hyphens.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterParameterGroupName(String clusterParameterGroupName) {
@@ -1184,7 +1222,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <a>CreateClusterSnapshot</a>. <p> Default: <code>1</code>
      *         <p>Constraints: Must be a value from 0 to 35.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withAutomatedSnapshotRetentionPeriod(Integer automatedSnapshotRetentionPeriod) {
@@ -1241,7 +1279,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         cluster will listen for incoming connections. <p> Default:
      *         <code>5439</code> <p> Valid Values: <code>1150-65535</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withPort(Integer port) {
@@ -1292,7 +1330,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         in the cluster. <p>Constraints: Only version 1.0 is currently
      *         available. <p>Example: <code>1.0</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withClusterVersion(String clusterVersion) {
@@ -1355,7 +1393,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         maintenance window to the Amazon Redshift engine that is running on
      *         your cluster. <p>Default: <code>true</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withAllowVersionUpgrade(Boolean allowVersionUpgrade) {
@@ -1467,7 +1505,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         <code>1</code> <p>Constraints: Value must be at least 1 and no more
      *         than 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withNumberOfNodes(Integer numberOfNodes) {
@@ -1506,7 +1544,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * @param publiclyAccessible If <code>true</code>, the cluster can be accessed from a public
      *         network.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withPubliclyAccessible(Boolean publiclyAccessible) {
@@ -1526,10 +1564,10 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * If <code>true</code>, the data in cluster is encrypted at rest.
+     * If <code>true</code>, the data in the cluster is encrypted at rest.
      * <p>Default: false
      *
-     * @return If <code>true</code>, the data in cluster is encrypted at rest.
+     * @return If <code>true</code>, the data in the cluster is encrypted at rest.
      *         <p>Default: false
      */
     public Boolean isEncrypted() {
@@ -1537,10 +1575,10 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * If <code>true</code>, the data in cluster is encrypted at rest.
+     * If <code>true</code>, the data in the cluster is encrypted at rest.
      * <p>Default: false
      *
-     * @param encrypted If <code>true</code>, the data in cluster is encrypted at rest.
+     * @param encrypted If <code>true</code>, the data in the cluster is encrypted at rest.
      *         <p>Default: false
      */
     public void setEncrypted(Boolean encrypted) {
@@ -1548,15 +1586,15 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * If <code>true</code>, the data in cluster is encrypted at rest.
+     * If <code>true</code>, the data in the cluster is encrypted at rest.
      * <p>Default: false
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param encrypted If <code>true</code>, the data in cluster is encrypted at rest.
+     * @param encrypted If <code>true</code>, the data in the cluster is encrypted at rest.
      *         <p>Default: false
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withEncrypted(Boolean encrypted) {
@@ -1565,10 +1603,10 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * If <code>true</code>, the data in cluster is encrypted at rest.
+     * If <code>true</code>, the data in the cluster is encrypted at rest.
      * <p>Default: false
      *
-     * @return If <code>true</code>, the data in cluster is encrypted at rest.
+     * @return If <code>true</code>, the data in the cluster is encrypted at rest.
      *         <p>Default: false
      */
     public Boolean getEncrypted() {
@@ -1606,7 +1644,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      * @param hsmClientCertificateIdentifier Specifies the name of the HSM client certificate the Amazon Redshift
      *         cluster uses to retrieve the data encryption keys stored in an HSM.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withHsmClientCertificateIdentifier(String hsmClientCertificateIdentifier) {
@@ -1651,7 +1689,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         information the Amazon Redshift cluster can use to retrieve and store
      *         keys in an HSM.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withHsmConfigurationIdentifier(String hsmConfigurationIdentifier) {
@@ -1720,7 +1758,7 @@ public class CreateClusterRequest extends AmazonWebServiceRequest implements Ser
      *         Platforms to Launch Your Cluster</a> in the Amazon Redshift Management
      *         Guide.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterRequest withElasticIp(String elasticIp) {

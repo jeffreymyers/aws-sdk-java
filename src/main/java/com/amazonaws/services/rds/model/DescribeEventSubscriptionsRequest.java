@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeEventSubscriptions(DescribeEventSubscriptionsRequest) DescribeEventSubscriptions operation}.
  * <p>
- * Lists all the subscription descriptions for a customer account. The description for a subscription includes SubscriptionName, SNSTopicARN, CustomerID,
- * SourceType, SourceID, CreationTime, and Status.
+ * Lists all the subscription descriptions for a customer account. The
+ * description for a subscription includes SubscriptionName, SNSTopicARN,
+ * CustomerID, SourceType, SourceID, CreationTime, and Status.
  * </p>
  * <p>
- * If you specify a SubscriptionName, lists the description for that subscription.
+ * If you specify a SubscriptionName, lists the description for that
+ * subscription.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeEventSubscriptions(DescribeEventSubscriptionsRequest)
@@ -91,7 +93,7 @@ public class DescribeEventSubscriptionsRequest extends AmazonWebServiceRequest i
      * @param subscriptionName The name of the RDS event notification subscription you want to
      *         describe.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsRequest withSubscriptionName(String subscriptionName) {
@@ -134,7 +136,7 @@ public class DescribeEventSubscriptionsRequest extends AmazonWebServiceRequest i
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsRequest withFilters(Filter... filters) {
@@ -152,7 +154,7 @@ public class DescribeEventSubscriptionsRequest extends AmazonWebServiceRequest i
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsRequest withFilters(java.util.Collection<Filter> filters) {
@@ -216,7 +218,7 @@ public class DescribeEventSubscriptionsRequest extends AmazonWebServiceRequest i
      *         the remaining results can be retrieved. <p>Default: 100
      *         <p>Constraints: minimum 20, maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsRequest withMaxRecords(Integer maxRecords) {
@@ -267,7 +269,7 @@ public class DescribeEventSubscriptionsRequest extends AmazonWebServiceRequest i
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <code>MaxRecords</code> .
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsRequest withMarker(String marker) {

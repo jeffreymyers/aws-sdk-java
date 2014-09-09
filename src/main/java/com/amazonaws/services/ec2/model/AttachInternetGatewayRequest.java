@@ -23,8 +23,11 @@ import com.amazonaws.services.ec2.model.transform.AttachInternetGatewayRequestMa
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#attachInternetGateway(AttachInternetGatewayRequest) AttachInternetGateway operation}.
  * <p>
- * Attaches an Internet gateway to a VPC, enabling connectivity between the Internet and the VPC. For more information about your VPC and Internet
- * gateway, go to the Amazon Virtual Private Cloud User Guide.
+ * Attaches an Internet gateway to a VPC, enabling connectivity between
+ * the Internet and the VPC. For more information about your VPC and
+ * Internet gateway, see the
+ * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/"> Amazon Virtual Private Cloud User Guide </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#attachInternetGateway(AttachInternetGatewayRequest)
@@ -32,7 +35,7 @@ import com.amazonaws.services.ec2.model.transform.AttachInternetGatewayRequestMa
 public class AttachInternetGatewayRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<AttachInternetGatewayRequest> {
 
     /**
-     * The ID of the Internet gateway to attach.
+     * The ID of the Internet gateway.
      */
     private String internetGatewayId;
 
@@ -42,31 +45,31 @@ public class AttachInternetGatewayRequest extends AmazonWebServiceRequest implem
     private String vpcId;
 
     /**
-     * The ID of the Internet gateway to attach.
+     * The ID of the Internet gateway.
      *
-     * @return The ID of the Internet gateway to attach.
+     * @return The ID of the Internet gateway.
      */
     public String getInternetGatewayId() {
         return internetGatewayId;
     }
     
     /**
-     * The ID of the Internet gateway to attach.
+     * The ID of the Internet gateway.
      *
-     * @param internetGatewayId The ID of the Internet gateway to attach.
+     * @param internetGatewayId The ID of the Internet gateway.
      */
     public void setInternetGatewayId(String internetGatewayId) {
         this.internetGatewayId = internetGatewayId;
     }
     
     /**
-     * The ID of the Internet gateway to attach.
+     * The ID of the Internet gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param internetGatewayId The ID of the Internet gateway to attach.
+     * @param internetGatewayId The ID of the Internet gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttachInternetGatewayRequest withInternetGatewayId(String internetGatewayId) {
@@ -99,7 +102,7 @@ public class AttachInternetGatewayRequest extends AmazonWebServiceRequest implem
      *
      * @param vpcId The ID of the VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttachInternetGatewayRequest withVpcId(String vpcId) {

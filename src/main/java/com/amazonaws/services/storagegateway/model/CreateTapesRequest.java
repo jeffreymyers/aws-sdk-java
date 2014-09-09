@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#createTapes(CreateTapesRequest) CreateTapes operation}.
  * <p>
- * Creates one or more virtual tapes. You write data to the virtual tapes and then archive the tapes.
+ * Creates one or more virtual tapes. You write data to the virtual tapes
+ * and then archive the tapes.
  * </p>
  * <p>
- * <b>NOTE:</b>Cache storage must be allocated to the gateway before you can create virtual tapes. Use the AddCache operation to add cache storage to a
- * gateway.
+ * <b>NOTE:</b>Cache storage must be allocated to the gateway before you
+ * can create virtual tapes. Use the AddCache operation to add cache
+ * storage to a gateway.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#createTapes(CreateTapesRequest)
@@ -127,7 +129,7 @@ public class CreateTapesRequest extends AmazonWebServiceRequest implements Seria
      *         associate the virtual tapes with. Use the <a>ListGateways</a>
      *         operation to return a list of gateways for your account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTapesRequest withGatewayARN(String gatewayARN) {
@@ -175,7 +177,7 @@ public class CreateTapesRequest extends AmazonWebServiceRequest implements Seria
      * @param tapeSizeInBytes The size, in bytes, of the virtual tapes you want to create. <note>The
      *         size must be gigabyte (1024*1024*1024 byte) aligned.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTapesRequest withTapeSizeInBytes(Long tapeSizeInBytes) {
@@ -235,7 +237,7 @@ public class CreateTapesRequest extends AmazonWebServiceRequest implements Seria
      *         initial request. <note>Using the same <code>ClientToken</code>
      *         prevents creating the tape multiple times.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTapesRequest withClientToken(String clientToken) {
@@ -277,7 +279,7 @@ public class CreateTapesRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param numTapesToCreate The number of virtual tapes you want to create.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTapesRequest withNumTapesToCreate(Integer numTapesToCreate) {
@@ -334,7 +336,7 @@ public class CreateTapesRequest extends AmazonWebServiceRequest implements Seria
      *         creating. This makes a barcode unique. <note>The prefix must be 1 to 4
      *         characters in length and must be upper-case letters A-Z.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTapesRequest withTapeBarcodePrefix(String tapeBarcodePrefix) {

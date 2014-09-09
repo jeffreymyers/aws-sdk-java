@@ -18,44 +18,50 @@ import java.io.Serializable;
 
 /**
  * <p>
- * An AWS DevPay product code.
+ * Describes a product code.
  * </p>
  */
 public class ProductCode implements Serializable {
 
     /**
-     * The unique ID of an AWS DevPay product code.
+     * The product code.
      */
     private String productCodeId;
 
+    /**
+     * The type of product code.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>devpay, marketplace
+     */
     private String productCodeType;
 
     /**
-     * The unique ID of an AWS DevPay product code.
+     * The product code.
      *
-     * @return The unique ID of an AWS DevPay product code.
+     * @return The product code.
      */
     public String getProductCodeId() {
         return productCodeId;
     }
     
     /**
-     * The unique ID of an AWS DevPay product code.
+     * The product code.
      *
-     * @param productCodeId The unique ID of an AWS DevPay product code.
+     * @param productCodeId The product code.
      */
     public void setProductCodeId(String productCodeId) {
         this.productCodeId = productCodeId;
     }
     
     /**
-     * The unique ID of an AWS DevPay product code.
+     * The product code.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param productCodeId The unique ID of an AWS DevPay product code.
+     * @param productCodeId The product code.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ProductCode withProductCodeId(String productCodeId) {
@@ -64,12 +70,12 @@ public class ProductCode implements Serializable {
     }
 
     /**
-     * Returns the value of the ProductCodeType property for this object.
+     * The type of product code.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>devpay, marketplace
      *
-     * @return The value of the ProductCodeType property for this object.
+     * @return The type of product code.
      *
      * @see ProductCodeValues
      */
@@ -78,12 +84,12 @@ public class ProductCode implements Serializable {
     }
     
     /**
-     * Sets the value of the ProductCodeType property for this object.
+     * The type of product code.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>devpay, marketplace
      *
-     * @param productCodeType The new value for the ProductCodeType property for this object.
+     * @param productCodeType The type of product code.
      *
      * @see ProductCodeValues
      */
@@ -92,16 +98,16 @@ public class ProductCode implements Serializable {
     }
     
     /**
-     * Sets the value of the ProductCodeType property for this object.
+     * The type of product code.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>devpay, marketplace
      *
-     * @param productCodeType The new value for the ProductCodeType property for this object.
+     * @param productCodeType The type of product code.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ProductCodeValues
@@ -112,12 +118,12 @@ public class ProductCode implements Serializable {
     }
 
     /**
-     * Sets the value of the ProductCodeType property for this object.
+     * The type of product code.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>devpay, marketplace
      *
-     * @param productCodeType The new value for the ProductCodeType property for this object.
+     * @param productCodeType The type of product code.
      *
      * @see ProductCodeValues
      */
@@ -126,16 +132,16 @@ public class ProductCode implements Serializable {
     }
     
     /**
-     * Sets the value of the ProductCodeType property for this object.
+     * The type of product code.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>devpay, marketplace
      *
-     * @param productCodeType The new value for the ProductCodeType property for this object.
+     * @param productCodeType The type of product code.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ProductCodeValues

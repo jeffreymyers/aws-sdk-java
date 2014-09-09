@@ -21,7 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#listPipelines(ListPipelinesRequest) ListPipelines operation}.
  * <p>
- * Returns a list of pipeline identifiers for all active pipelines. Identifiers are returned only for pipelines you have permission to access.
+ * Returns a list of pipeline identifiers for all active pipelines.
+ * Identifiers are returned only for pipelines you have permission to
+ * access.
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#listPipelines(ListPipelinesRequest)
@@ -37,7 +39,7 @@ public class ListPipelinesRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String marker;
 
@@ -50,7 +52,7 @@ public class ListPipelinesRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The starting point for the results to be returned. The first time you
      *         call <a>ListPipelines</a>, this value should be empty. As long as the
@@ -71,7 +73,7 @@ public class ListPipelinesRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param marker The starting point for the results to be returned. The first time you
      *         call <a>ListPipelines</a>, this value should be empty. As long as the
@@ -94,7 +96,7 @@ public class ListPipelinesRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param marker The starting point for the results to be returned. The first time you
      *         call <a>ListPipelines</a>, this value should be empty. As long as the
@@ -102,7 +104,7 @@ public class ListPipelinesRequest extends AmazonWebServiceRequest implements Ser
      *         can call <a>ListPipelines</a> again and pass the marker value from the
      *         response to retrieve the next set of results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListPipelinesRequest withMarker(String marker) {

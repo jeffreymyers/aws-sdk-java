@@ -25,7 +25,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#updateServiceAccessPolicies(UpdateServiceAccessPoliciesRequest)
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2.model.UpdateServiceAccessPoliciesRequest} instead.
  */
+@Deprecated
 public class UpdateServiceAccessPoliciesRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

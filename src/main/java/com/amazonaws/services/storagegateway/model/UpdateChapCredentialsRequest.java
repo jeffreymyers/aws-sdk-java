@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#updateChapCredentials(UpdateChapCredentialsRequest) UpdateChapCredentials operation}.
  * <p>
- * This operation updates the Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target. By default, a gateway does not
- * have CHAP enabled; however, for added security, you might use it.
+ * This operation updates the Challenge-Handshake Authentication Protocol
+ * (CHAP) credentials for a specified iSCSI target. By default, a gateway
+ * does not have CHAP enabled; however, for added security, you might use
+ * it.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> When you update CHAP credentials, all existing connections on the target are closed and initiators must reconnect with the new
- * credentials.
+ * <b>IMPORTANT:</b> When you update CHAP credentials, all existing
+ * connections on the target are closed and initiators must reconnect
+ * with the new credentials.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#updateChapCredentials(UpdateChapCredentialsRequest)
@@ -116,7 +119,7 @@ public class UpdateChapCredentialsRequest extends AmazonWebServiceRequest implem
      *         <a>DescribeStorediSCSIVolumes</a> operation to return to retrieve the
      *         TargetARN for specified VolumeARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateChapCredentialsRequest withTargetARN(String targetARN) {
@@ -164,7 +167,7 @@ public class UpdateChapCredentialsRequest extends AmazonWebServiceRequest implem
      * @param secretToAuthenticateInitiator The secret key that the initiator (e.g. Windows client) must provide
      *         to participate in mutual CHAP with the target.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateChapCredentialsRequest withSecretToAuthenticateInitiator(String secretToAuthenticateInitiator) {
@@ -209,7 +212,7 @@ public class UpdateChapCredentialsRequest extends AmazonWebServiceRequest implem
      *
      * @param initiatorName The iSCSI initiator that connects to the target.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateChapCredentialsRequest withInitiatorName(String initiatorName) {
@@ -257,7 +260,7 @@ public class UpdateChapCredentialsRequest extends AmazonWebServiceRequest implem
      * @param secretToAuthenticateTarget The secret key that the target must provide to participate in mutual
      *         CHAP with the initiator (e.g. Windows client).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateChapCredentialsRequest withSecretToAuthenticateTarget(String secretToAuthenticateTarget) {

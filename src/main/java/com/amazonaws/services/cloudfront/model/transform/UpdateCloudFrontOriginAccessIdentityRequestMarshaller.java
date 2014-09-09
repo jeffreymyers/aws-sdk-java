@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,9 +45,9 @@ public class UpdateCloudFrontOriginAccessIdentityRequestMarshaller implements Ma
         Request<UpdateCloudFrontOriginAccessIdentityRequest> request = new DefaultRequest<UpdateCloudFrontOriginAccessIdentityRequest>(updateCloudFrontOriginAccessIdentityRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.PUT);
         if (updateCloudFrontOriginAccessIdentityRequest.getIfMatch() != null)
-            request.addHeader("If-Match", StringUtils.fromString(updateCloudFrontOriginAccessIdentityRequest.getIfMatch()));
+          request.addHeader("If-Match", StringUtils.fromString(updateCloudFrontOriginAccessIdentityRequest.getIfMatch()));
 
-        String uriResourcePath = "2013-11-11/origin-access-identity/cloudfront/{Id}/config"; 
+        String uriResourcePath = "2014-05-31/origin-access-identity/cloudfront/{Id}/config"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(updateCloudFrontOriginAccessIdentityRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {
@@ -65,7 +67,7 @@ public class UpdateCloudFrontOriginAccessIdentityRequestMarshaller implements Ma
         request.setResourcePath(uriResourcePath);
 
             StringWriter stringWriter = new StringWriter();
-            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2013-11-11/");
+            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2014-05-31/");
 
                     if (updateCloudFrontOriginAccessIdentityRequest != null) {
             CloudFrontOriginAccessIdentityConfig cloudFrontOriginAccessIdentityConfigCloudFrontOriginAccessIdentityConfig = updateCloudFrontOriginAccessIdentityRequest.getCloudFrontOriginAccessIdentityConfig();
@@ -83,7 +85,7 @@ public class UpdateCloudFrontOriginAccessIdentityRequestMarshaller implements Ma
 
             try {
                 request.setContent(new StringInputStream(stringWriter.getBuffer().toString()));
-                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes("UTF-8").length));
+                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes(UTF8).length));
                 request.addHeader("Content-Type", "application/xml");
             } catch (UnsupportedEncodingException e) {
                 throw new AmazonClientException("Unable to marshall request to XML", e);

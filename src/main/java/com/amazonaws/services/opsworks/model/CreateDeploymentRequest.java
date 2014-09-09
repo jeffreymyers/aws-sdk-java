@@ -25,19 +25,25 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  * 
  * <ul>
- * <li>App deployment generates a <code>deploy</code> event, which runs the associated recipes and passes them a JSON stack configuration object that
- * includes information about the app. </li>
- * <li>Stack deployment runs the <code>deploy</code> recipes but does not raise an event.</li>
+ * <li>App deployment generates a <code>deploy</code> event, which runs
+ * the associated recipes and passes them a JSON stack configuration
+ * object that includes information about the app. </li>
+ * <li>Stack deployment runs the <code>deploy</code> recipes but does
+ * not raise an event.</li>
  * 
  * </ul>
  * <p>
- * For more information, see <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-deploying.html"> Deploying Apps </a> and <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-commands.html"> Run Stack Commands </a> .
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-deploying.html"> Deploying Apps </a> and <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-commands.html"> Run Stack Commands </a>
+ * .
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Deploy or Manage permissions level for the stack, or an attached policy
- * that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Deploy or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#createDeployment(CreateDeploymentRequest)
@@ -75,7 +81,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * A string that contains user-defined, custom JSON. It is used to
      * override the corresponding default stack configuration JSON values.
      * The string should be in the following format and must escape
-     * characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     * characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      * \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration JSON</a>.
@@ -107,7 +113,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      *
      * @param stackId The stack ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withStackId(String stackId) {
@@ -146,7 +152,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * @param appId The app ID. This parameter is required for app deployments, but not
      *         for other deployment commands.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withAppId(String appId) {
@@ -189,7 +195,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      *
      * @param instanceIds The instance IDs for the deployment targets.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withInstanceIds(String... instanceIds) {
@@ -207,7 +213,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      *
      * @param instanceIds The instance IDs for the deployment targets.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withInstanceIds(java.util.Collection<String> instanceIds) {
@@ -253,7 +259,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * @param command A <code>DeploymentCommand</code> object that specifies the deployment
      *         command and any associated arguments.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withCommand(DeploymentCommand command) {
@@ -286,7 +292,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      *
      * @param comment A user-defined comment.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withComment(String comment) {
@@ -298,7 +304,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * A string that contains user-defined, custom JSON. It is used to
      * override the corresponding default stack configuration JSON values.
      * The string should be in the following format and must escape
-     * characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     * characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      * \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration JSON</a>.
@@ -306,7 +312,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * @return A string that contains user-defined, custom JSON. It is used to
      *         override the corresponding default stack configuration JSON values.
      *         The string should be in the following format and must escape
-     *         characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     *         characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      *         \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      *         Custom JSON to Modify the Stack Configuration JSON</a>.
@@ -319,7 +325,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * A string that contains user-defined, custom JSON. It is used to
      * override the corresponding default stack configuration JSON values.
      * The string should be in the following format and must escape
-     * characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     * characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      * \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration JSON</a>.
@@ -327,7 +333,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * @param customJson A string that contains user-defined, custom JSON. It is used to
      *         override the corresponding default stack configuration JSON values.
      *         The string should be in the following format and must escape
-     *         characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     *         characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      *         \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      *         Custom JSON to Modify the Stack Configuration JSON</a>.
@@ -340,7 +346,7 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * A string that contains user-defined, custom JSON. It is used to
      * override the corresponding default stack configuration JSON values.
      * The string should be in the following format and must escape
-     * characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     * characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      * \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      * Custom JSON to Modify the Stack Configuration JSON</a>.
@@ -350,12 +356,12 @@ public class CreateDeploymentRequest extends AmazonWebServiceRequest implements 
      * @param customJson A string that contains user-defined, custom JSON. It is used to
      *         override the corresponding default stack configuration JSON values.
      *         The string should be in the following format and must escape
-     *         characters such as '"'.: <code>"{\"key1\": \"value1\", \"key2\":
+     *         characters such as '"'.: <p><code>"{\"key1\": \"value1\", \"key2\":
      *         \"value2\",...}"</code> <p>For more information on custom JSON, see <a
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html">Use
      *         Custom JSON to Modify the Stack Configuration JSON</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDeploymentRequest withCustomJson(String customJson) {

@@ -21,19 +21,24 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#putRolePolicy(PutRolePolicyRequest) PutRolePolicy operation}.
  * <p>
- * Adds (or updates) a policy document associated with the specified role. For information about policies, go to <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html"> Overview of Policies </a> in <i>Using AWS Identity and
- * Access Management</i> .
+ * Adds (or updates) a policy document associated with the specified
+ * role. For information about policies, go to
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * For information about limits on the policies you can associate with a role, see <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html"> Limitations on IAM Entities </a> in <i>Using AWS
- * Identity and Access Management</i> .
+ * For information about limits on the policies you can associate with a
+ * role, see
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * <b>NOTE:</b>Because policy documents can be large, you should use POST rather than GET when calling PutRolePolicy. For information about setting up
- * signatures and authorization through the API, go to Signing AWS API Requests in the AWS General Reference. For general information about using the
- * Query API with IAM, go to Making Query Requests in Using IAM.
+ * <b>NOTE:</b>Because policy documents can be large, you should use POST
+ * rather than GET when calling PutRolePolicy. For information about
+ * setting up signatures and authorization through the API, go to Signing
+ * AWS API Requests in the AWS General Reference. For general information
+ * about using the Query API with IAM, go to Making Query Requests in the
+ * Using IAM guide.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#putRolePolicy(PutRolePolicyRequest)
@@ -63,7 +68,7 @@ public class PutRolePolicyRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      */
     private String policyDocument;
 
@@ -104,7 +109,7 @@ public class PutRolePolicyRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param roleName Name of the role to associate the policy with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutRolePolicyRequest withRoleName(String roleName) {
@@ -149,7 +154,7 @@ public class PutRolePolicyRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param policyName Name of the policy document.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutRolePolicyRequest withPolicyName(String policyName) {
@@ -162,7 +167,7 @@ public class PutRolePolicyRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @return The policy document.
      */
@@ -175,7 +180,7 @@ public class PutRolePolicyRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param policyDocument The policy document.
      */
@@ -190,11 +195,11 @@ public class PutRolePolicyRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param policyDocument The policy document.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutRolePolicyRequest withPolicyDocument(String policyDocument) {

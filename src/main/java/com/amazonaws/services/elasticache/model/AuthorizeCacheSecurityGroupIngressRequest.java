@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#authorizeCacheSecurityGroupIngress(AuthorizeCacheSecurityGroupIngressRequest) AuthorizeCacheSecurityGroupIngress operation}.
  * <p>
- * The <i>AuthorizeCacheSecurityGroupIngress</i> operation allows network ingress to a cache security group. Applications using ElastiCache must be
- * running on Amazon EC2, and Amazon EC2 security groups are used as the authorization mechanism.
+ * The <i>AuthorizeCacheSecurityGroupIngress</i> operation allows network
+ * ingress to a cache security group. Applications using ElastiCache must
+ * be running on Amazon EC2, and Amazon EC2 security groups are used as
+ * the authorization mechanism.
  * </p>
  * <p>
- * <b>NOTE:</b> You cannot authorize ingress from an Amazon EC2 security group in one Region to an ElastiCache cluster in another Region.
+ * <b>NOTE:</b>You cannot authorize ingress from an Amazon EC2 security
+ * group in one region to an ElastiCache cluster in another region.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#authorizeCacheSecurityGroupIngress(AuthorizeCacheSecurityGroupIngressRequest)
@@ -101,7 +104,7 @@ public class AuthorizeCacheSecurityGroupIngressRequest extends AmazonWebServiceR
      *
      * @param cacheSecurityGroupName The cache security group which will allow network ingress.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeCacheSecurityGroupIngressRequest withCacheSecurityGroupName(String cacheSecurityGroupName) {
@@ -140,7 +143,7 @@ public class AuthorizeCacheSecurityGroupIngressRequest extends AmazonWebServiceR
      * @param eC2SecurityGroupName The Amazon EC2 security group to be authorized for ingress to the
      *         cache security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeCacheSecurityGroupIngressRequest withEC2SecurityGroupName(String eC2SecurityGroupName) {
@@ -185,7 +188,7 @@ public class AuthorizeCacheSecurityGroupIngressRequest extends AmazonWebServiceR
      *         that this is not the same thing as an AWS access key ID - you must
      *         provide a valid AWS account number for this parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeCacheSecurityGroupIngressRequest withEC2SecurityGroupOwnerId(String eC2SecurityGroupOwnerId) {

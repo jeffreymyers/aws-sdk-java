@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#configureHealthCheck(ConfigureHealthCheckRequest) ConfigureHealthCheck operation}.
  * <p>
- * Specifies the health check settings to use for evaluating the health state of your back-end instances.
+ * Specifies the health check settings to use for evaluating the health
+ * state of your back-end instances.
  * </p>
  * <p>
- * For more information, see <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#healthcheck">
- * Health Check </a> in the <i>Elastic Load Balancing Developer Guide</i> .
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#healthcheck"> Health Check </a>
+ * in the <i>Elastic Load Balancing Developer Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#configureHealthCheck(ConfigureHealthCheckRequest)
@@ -104,7 +106,7 @@ public class ConfigureHealthCheckRequest extends AmazonWebServiceRequest impleme
      *         unique within the set of load balancers associated with your AWS
      *         account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConfigureHealthCheckRequest withLoadBalancerName(String loadBalancerName) {
@@ -143,7 +145,7 @@ public class ConfigureHealthCheckRequest extends AmazonWebServiceRequest impleme
      * @param healthCheck A structure containing the configuration information for the new
      *         healthcheck.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConfigureHealthCheckRequest withHealthCheck(HealthCheck healthCheck) {

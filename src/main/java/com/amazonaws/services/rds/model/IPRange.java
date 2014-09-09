@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This data type is used as a response element in the DescribeDBSecurityGroups action.
+ * This data type is used as a response element in the
+ * DescribeDBSecurityGroups action.
  * </p>
  */
 public class IPRange implements Serializable {
@@ -71,7 +72,7 @@ public class IPRange implements Serializable {
      * @param status Specifies the status of the IP range. Status can be "authorizing",
      *         "authorized", "revoking", and "revoked".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public IPRange withStatus(String status) {
@@ -104,7 +105,7 @@ public class IPRange implements Serializable {
      *
      * @param cIDRIP Specifies the IP range.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public IPRange withCIDRIP(String cIDRIP) {

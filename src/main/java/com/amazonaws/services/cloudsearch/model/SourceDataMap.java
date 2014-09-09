@@ -21,6 +21,7 @@ import java.io.Serializable;
  * Specifies how to map source attribute values to custom values when populating an <code>IndexField</code> .
  * </p>
  */
+@Deprecated
 public class SourceDataMap implements Serializable {
 
     /**

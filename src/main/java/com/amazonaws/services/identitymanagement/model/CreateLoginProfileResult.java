@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the CreateLoginProfile action.
+ * Contains the result of a successful invocation of the
+ * CreateLoginProfile action.
  * </p>
  */
 public class CreateLoginProfileResult implements Serializable {
@@ -53,7 +54,7 @@ public class CreateLoginProfileResult implements Serializable {
      *
      * @param loginProfile The user name and password create date.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateLoginProfileResult withLoginProfile(LoginProfile loginProfile) {

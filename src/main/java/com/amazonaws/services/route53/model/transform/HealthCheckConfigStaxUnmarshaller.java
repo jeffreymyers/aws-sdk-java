@@ -62,6 +62,18 @@ public class HealthCheckConfigStaxUnmarshaller implements Unmarshaller<HealthChe
                     healthCheckConfig.setFullyQualifiedDomainName(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("SearchString", targetDepth)) {
+                    healthCheckConfig.setSearchString(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("RequestInterval", targetDepth)) {
+                    healthCheckConfig.setRequestInterval(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("FailureThreshold", targetDepth)) {
+                    healthCheckConfig.setFailureThreshold(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return healthCheckConfig;

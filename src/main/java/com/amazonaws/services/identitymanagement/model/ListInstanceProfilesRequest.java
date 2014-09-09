@@ -21,11 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listInstanceProfiles(ListInstanceProfilesRequest) ListInstanceProfiles operation}.
  * <p>
- * Lists the instance profiles that have the specified path prefix. If there are none, the action returns an empty list. For more information about
- * instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a> .
+ * Lists the instance profiles that have the specified path prefix. If
+ * there are none, the action returns an empty list. For more information
+ * about instance profiles, go to
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+ * .
  * </p>
  * <p>
- * You can paginate the results using the <code>MaxItems</code> and <code>Marker</code> parameters.
+ * You can paginate the results using the <code>MaxItems</code> and
+ * <code>Marker</code> parameters.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listInstanceProfiles(ListInstanceProfilesRequest)
@@ -42,7 +46,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      */
     private String pathPrefix;
 
@@ -54,7 +58,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -80,7 +84,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @return The path prefix for filtering the results. For example:
      *         <code>/application_abc/component_xyz/</code>, which would get all
@@ -103,7 +107,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @param pathPrefix The path prefix for filtering the results. For example:
      *         <code>/application_abc/component_xyz/</code>, which would get all
@@ -128,7 +132,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>\u002F[\u0021-\u007F]*<br/>
+     * <b>Pattern: </b>&#92;u002F[&#92;u0021-&#92;u007F]*<br/>
      *
      * @param pathPrefix The path prefix for filtering the results. For example:
      *         <code>/application_abc/component_xyz/</code>, which would get all
@@ -137,7 +141,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      *         optional. If it is not included, it defaults to a slash (/), listing
      *         all instance profiles.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstanceProfilesRequest withPathPrefix(String pathPrefix) {
@@ -153,7 +157,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -172,7 +176,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -193,14 +197,14 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
      *         are truncated. Set it to the value of the <code>Marker</code> element
      *         in the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstanceProfilesRequest withMarker(String marker) {
@@ -266,7 +270,7 @@ public class ListInstanceProfilesRequest extends AmazonWebServiceRequest impleme
      *         <code>IsTruncated</code> response element is <code>true</code>. This
      *         parameter is optional. If you do not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListInstanceProfilesRequest withMaxItems(Integer maxItems) {

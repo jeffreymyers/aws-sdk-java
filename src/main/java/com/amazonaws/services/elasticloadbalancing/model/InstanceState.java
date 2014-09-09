@@ -30,7 +30,7 @@ public class InstanceState implements Serializable {
 
     /**
      * Specifies the current state of the instance. <p>Valid value:
-     * <code>InService</code>|<code>OutOfService</code>
+     * <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      */
     private String state;
 
@@ -78,7 +78,7 @@ public class InstanceState implements Serializable {
      *
      * @param instanceId Provides an EC2 instance ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceState withInstanceId(String instanceId) {
@@ -88,10 +88,10 @@ public class InstanceState implements Serializable {
 
     /**
      * Specifies the current state of the instance. <p>Valid value:
-     * <code>InService</code>|<code>OutOfService</code>
+     * <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      *
      * @return Specifies the current state of the instance. <p>Valid value:
-     *         <code>InService</code>|<code>OutOfService</code>
+     *         <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      */
     public String getState() {
         return state;
@@ -99,10 +99,10 @@ public class InstanceState implements Serializable {
     
     /**
      * Specifies the current state of the instance. <p>Valid value:
-     * <code>InService</code>|<code>OutOfService</code>
+     * <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      *
      * @param state Specifies the current state of the instance. <p>Valid value:
-     *         <code>InService</code>|<code>OutOfService</code>
+     *         <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      */
     public void setState(String state) {
         this.state = state;
@@ -110,14 +110,14 @@ public class InstanceState implements Serializable {
     
     /**
      * Specifies the current state of the instance. <p>Valid value:
-     * <code>InService</code>|<code>OutOfService</code>
+     * <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param state Specifies the current state of the instance. <p>Valid value:
-     *         <code>InService</code>|<code>OutOfService</code>
+     *         <code>InService</code>|<code>OutOfService</code>|<code>Unknown</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceState withState(String state) {
@@ -168,7 +168,7 @@ public class InstanceState implements Serializable {
      *         or the instance behind the load balancer. <p>Valid value:
      *         <code>ELB</code>|<code>Instance</code>|<code>N/A</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceState withReasonCode(String reasonCode) {
@@ -201,7 +201,7 @@ public class InstanceState implements Serializable {
      *
      * @param description Provides a description of the instance state.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceState withDescription(String description) {

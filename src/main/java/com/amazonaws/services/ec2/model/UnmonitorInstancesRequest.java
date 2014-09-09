@@ -23,7 +23,10 @@ import com.amazonaws.services.ec2.model.transform.UnmonitorInstancesRequestMarsh
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#unmonitorInstances(UnmonitorInstancesRequest) UnmonitorInstances operation}.
  * <p>
- * Disables monitoring for a running instance.
+ * Disables monitoring for a running instance. For more information about
+ * monitoring instances, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html"> Monitoring Your Instances and Volumes </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#unmonitorInstances(UnmonitorInstancesRequest)
@@ -31,7 +34,7 @@ import com.amazonaws.services.ec2.model.transform.UnmonitorInstancesRequestMarsh
 public class UnmonitorInstancesRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<UnmonitorInstancesRequest> {
 
     /**
-     * The list of Amazon EC2 instances on which to disable monitoring.
+     * One or more instance IDs.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> instanceIds;
 
@@ -46,17 +49,16 @@ public class UnmonitorInstancesRequest extends AmazonWebServiceRequest implement
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param instanceIds The list of Amazon EC2 instances on which to
-     * disable monitoring.
+     * @param instanceIds One or more instance IDs.
      */
     public UnmonitorInstancesRequest(java.util.List<String> instanceIds) {
         setInstanceIds(instanceIds);
     }
 
     /**
-     * The list of Amazon EC2 instances on which to disable monitoring.
+     * One or more instance IDs.
      *
-     * @return The list of Amazon EC2 instances on which to disable monitoring.
+     * @return One or more instance IDs.
      */
     public java.util.List<String> getInstanceIds() {
         if (instanceIds == null) {
@@ -67,9 +69,9 @@ public class UnmonitorInstancesRequest extends AmazonWebServiceRequest implement
     }
     
     /**
-     * The list of Amazon EC2 instances on which to disable monitoring.
+     * One or more instance IDs.
      *
-     * @param instanceIds The list of Amazon EC2 instances on which to disable monitoring.
+     * @param instanceIds One or more instance IDs.
      */
     public void setInstanceIds(java.util.Collection<String> instanceIds) {
         if (instanceIds == null) {
@@ -82,13 +84,13 @@ public class UnmonitorInstancesRequest extends AmazonWebServiceRequest implement
     }
     
     /**
-     * The list of Amazon EC2 instances on which to disable monitoring.
+     * One or more instance IDs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceIds The list of Amazon EC2 instances on which to disable monitoring.
+     * @param instanceIds One or more instance IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UnmonitorInstancesRequest withInstanceIds(String... instanceIds) {
@@ -100,13 +102,13 @@ public class UnmonitorInstancesRequest extends AmazonWebServiceRequest implement
     }
     
     /**
-     * The list of Amazon EC2 instances on which to disable monitoring.
+     * One or more instance IDs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceIds The list of Amazon EC2 instances on which to disable monitoring.
+     * @param instanceIds One or more instance IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UnmonitorInstancesRequest withInstanceIds(java.util.Collection<String> instanceIds) {

@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>Metric</code> data type contains information about a specific metric. If you call ListMetrics, Amazon CloudWatch returns information
- * contained by this data type.
+ * The <code>Metric</code> data type contains information about a
+ * specific metric. If you call ListMetrics, Amazon CloudWatch returns
+ * information contained by this data type.
  * </p>
  */
 public class Metric implements Serializable {
@@ -86,7 +87,7 @@ public class Metric implements Serializable {
      *
      * @param namespace The namespace of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Metric withNamespace(String namespace) {
@@ -128,7 +129,7 @@ public class Metric implements Serializable {
      *
      * @param metricName The name of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Metric withMetricName(String metricName) {
@@ -180,7 +181,7 @@ public class Metric implements Serializable {
      *
      * @param dimensions A list of dimensions associated with the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Metric withDimensions(Dimension... dimensions) {
@@ -201,7 +202,7 @@ public class Metric implements Serializable {
      *
      * @param dimensions A list of dimensions associated with the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Metric withDimensions(java.util.Collection<Dimension> dimensions) {

@@ -24,13 +24,16 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Removes the specified role from the specified instance profile.
  * </p>
  * <p>
- * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances running with the role you are about to remove from the instance profile. Removing
- * a role from an instance profile that is associated with a running instance will break any applications running on the instance.
+ * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
+ * running with the role you are about to remove from the instance
+ * profile. Removing a role from an instance profile that is associated
+ * with a running instance will break any applications running on the
+ * instance.
  * </p>
  * <p>
- * For more information about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For
- * more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance
- * Profiles </a> .
+ * For more information about roles, go to
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#removeRoleFromInstanceProfile(RemoveRoleFromInstanceProfileRequest)
@@ -92,7 +95,7 @@ public class RemoveRoleFromInstanceProfileRequest extends AmazonWebServiceReques
      *
      * @param instanceProfileName Name of the instance profile to update.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveRoleFromInstanceProfileRequest withInstanceProfileName(String instanceProfileName) {
@@ -137,7 +140,7 @@ public class RemoveRoleFromInstanceProfileRequest extends AmazonWebServiceReques
      *
      * @param roleName Name of the role to remove.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveRoleFromInstanceProfileRequest withRoleName(String roleName) {

@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.elasticloadbalancing.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -49,6 +50,36 @@ public class ModifyLoadBalancerAttributesRequestMarshaller implements Marshaller
             if (crossZoneLoadBalancingCrossZoneLoadBalancing != null) {
                 if (crossZoneLoadBalancingCrossZoneLoadBalancing.isEnabled() != null) {
                     request.addParameter("LoadBalancerAttributes.CrossZoneLoadBalancing.Enabled", StringUtils.fromBoolean(crossZoneLoadBalancingCrossZoneLoadBalancing.isEnabled()));
+                }
+            }
+            AccessLog accessLogAccessLog = loadBalancerAttributesLoadBalancerAttributes.getAccessLog();
+            if (accessLogAccessLog != null) {
+                if (accessLogAccessLog.isEnabled() != null) {
+                    request.addParameter("LoadBalancerAttributes.AccessLog.Enabled", StringUtils.fromBoolean(accessLogAccessLog.isEnabled()));
+                }
+                if (accessLogAccessLog.getS3BucketName() != null) {
+                    request.addParameter("LoadBalancerAttributes.AccessLog.S3BucketName", StringUtils.fromString(accessLogAccessLog.getS3BucketName()));
+                }
+                if (accessLogAccessLog.getEmitInterval() != null) {
+                    request.addParameter("LoadBalancerAttributes.AccessLog.EmitInterval", StringUtils.fromInteger(accessLogAccessLog.getEmitInterval()));
+                }
+                if (accessLogAccessLog.getS3BucketPrefix() != null) {
+                    request.addParameter("LoadBalancerAttributes.AccessLog.S3BucketPrefix", StringUtils.fromString(accessLogAccessLog.getS3BucketPrefix()));
+                }
+            }
+            ConnectionDraining connectionDrainingConnectionDraining = loadBalancerAttributesLoadBalancerAttributes.getConnectionDraining();
+            if (connectionDrainingConnectionDraining != null) {
+                if (connectionDrainingConnectionDraining.isEnabled() != null) {
+                    request.addParameter("LoadBalancerAttributes.ConnectionDraining.Enabled", StringUtils.fromBoolean(connectionDrainingConnectionDraining.isEnabled()));
+                }
+                if (connectionDrainingConnectionDraining.getTimeout() != null) {
+                    request.addParameter("LoadBalancerAttributes.ConnectionDraining.Timeout", StringUtils.fromInteger(connectionDrainingConnectionDraining.getTimeout()));
+                }
+            }
+            ConnectionSettings connectionSettingsConnectionSettings = loadBalancerAttributesLoadBalancerAttributes.getConnectionSettings();
+            if (connectionSettingsConnectionSettings != null) {
+                if (connectionSettingsConnectionSettings.getIdleTimeout() != null) {
+                    request.addParameter("LoadBalancerAttributes.ConnectionSettings.IdleTimeout", StringUtils.fromInteger(connectionSettingsConnectionSettings.getIdleTimeout()));
                 }
             }
         }

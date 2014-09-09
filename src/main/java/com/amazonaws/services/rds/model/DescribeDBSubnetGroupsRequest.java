@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeDBSubnetGroups(DescribeDBSubnetGroupsRequest) DescribeDBSubnetGroups operation}.
  * <p>
- * Returns a list of DBSubnetGroup descriptions. If a DBSubnetGroupName is specified, the list will contain only the descriptions of the specified
- * DBSubnetGroup.
+ * Returns a list of DBSubnetGroup descriptions. If a DBSubnetGroupName
+ * is specified, the list will contain only the descriptions of the
+ * specified DBSubnetGroup.
  * </p>
  * <p>
- * For an overview of CIDR ranges, go to the <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a> .
+ * For an overview of CIDR ranges, go to the
+ * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeDBSubnetGroups(DescribeDBSubnetGroupsRequest)
@@ -84,7 +87,7 @@ public class DescribeDBSubnetGroupsRequest extends AmazonWebServiceRequest imple
      *
      * @param dBSubnetGroupName The name of the DB subnet group to return details for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSubnetGroupsRequest withDBSubnetGroupName(String dBSubnetGroupName) {
@@ -127,7 +130,7 @@ public class DescribeDBSubnetGroupsRequest extends AmazonWebServiceRequest imple
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSubnetGroupsRequest withFilters(Filter... filters) {
@@ -145,7 +148,7 @@ public class DescribeDBSubnetGroupsRequest extends AmazonWebServiceRequest imple
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSubnetGroupsRequest withFilters(java.util.Collection<Filter> filters) {
@@ -209,7 +212,7 @@ public class DescribeDBSubnetGroupsRequest extends AmazonWebServiceRequest imple
      *         the remaining results may be retrieved. <p>Default: 100
      *         <p>Constraints: minimum 20, maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSubnetGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -260,7 +263,7 @@ public class DescribeDBSubnetGroupsRequest extends AmazonWebServiceRequest imple
      *         response includes only records beyond the marker, up to the value
      *         specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSubnetGroupsRequest withMarker(String marker) {

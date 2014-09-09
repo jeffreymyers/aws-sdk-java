@@ -20,6 +20,9 @@ import com.amazonaws.util.json.JSONObject;
 
 import com.amazonaws.services.dynamodb.model.InternalServerErrorException;
 
+/**
+ * @deprecated Use {@link com.amazonaws.services.dynamodbv2.model.transform.InternalServerErrorExceptionUnmarshaller} instead.
+ */
 @Deprecated
 public class InternalServerErrorExceptionUnmarshaller extends JsonErrorUnmarshaller {
 
@@ -27,15 +30,21 @@ public class InternalServerErrorExceptionUnmarshaller extends JsonErrorUnmarshal
         super(InternalServerErrorException.class);
     }
 
-    public AmazonServiceException unmarshall(JSONObject json) throws Exception {
-        // Bail out if this isn't the right error code that this
-        // marshaller understands.
-        String errorCode = parseErrorCode(json);
-        if (errorCode == null || !errorCode.equals("InternalServerError"))
-            return null;
+    @Override
+    public boolean match(String errorTypeFromHeader, JSONObject json) throws Exception {
+        if (errorTypeFromHeader == null) {
+            // Parse error type from the JSON content if it's not available in the response headers
+            String errorCodeFromContent = parseErrorCode(json);
+            return (errorCodeFromContent != null && errorCodeFromContent.equals("InternalServerError"));
+        } else {
+            return errorTypeFromHeader.equals("InternalServerError");
+        }
+    }
 
+    @Override
+    public AmazonServiceException unmarshall(JSONObject json) throws Exception {
         InternalServerErrorException e = (InternalServerErrorException)super.unmarshall(json);
-        
+        e.setErrorCode("InternalServerError");
         
         return e;
     }

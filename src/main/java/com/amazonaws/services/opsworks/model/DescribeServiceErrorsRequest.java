@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes AWS OpsWorks service errors.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeServiceErrors(DescribeServiceErrorsRequest)
@@ -91,7 +94,7 @@ public class DescribeServiceErrorsRequest extends AmazonWebServiceRequest implem
      *         <code>DescribeServiceErrors</code> returns descriptions of the errors
      *         associated with the specified stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServiceErrorsRequest withStackId(String stackId) {
@@ -136,7 +139,7 @@ public class DescribeServiceErrorsRequest extends AmazonWebServiceRequest implem
      *         <code>DescribeServiceErrors</code> returns descriptions of the errors
      *         associated with the specified instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServiceErrorsRequest withInstanceId(String instanceId) {
@@ -191,7 +194,7 @@ public class DescribeServiceErrorsRequest extends AmazonWebServiceRequest implem
      *         <code>DescribeServiceErrors</code> returns descriptions of the
      *         specified errors. Otherwise, it returns a description of every error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServiceErrorsRequest withServiceErrorIds(String... serviceErrorIds) {
@@ -213,7 +216,7 @@ public class DescribeServiceErrorsRequest extends AmazonWebServiceRequest implem
      *         <code>DescribeServiceErrors</code> returns descriptions of the
      *         specified errors. Otherwise, it returns a description of every error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServiceErrorsRequest withServiceErrorIds(java.util.Collection<String> serviceErrorIds) {

@@ -21,21 +21,23 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#createVirtualMFADevice(CreateVirtualMFADeviceRequest) CreateVirtualMFADevice operation}.
  * <p>
- * Creates a new virtual MFA device for the AWS account. After creating the virtual MFA, use <a
- * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html"> EnableMFADevice </a> to attach the MFA device to an IAM user. For
- * more information about creating and working with virtual MFA devices, go to <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_VirtualMFA.html"> Using a Virtual MFA Device </a> in <i>Using AWS Identity and
- * Access Management</i> .
+ * Creates a new virtual MFA device for the AWS account. After creating
+ * the virtual MFA, use
+ * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html"> EnableMFADevice </a> to attach the MFA device to an IAM user. For more information about creating and working with virtual MFA devices, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * For information about limits on the number of MFA devices you can create, see <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html"> Limitations on Entities </a> in <i>Using AWS Identity
- * and Access Management</i> .
+ * For information about limits on the number of MFA devices you can
+ * create, see
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on Entities </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * <b>IMPORTANT:</b>The seed information contained in the QR code and the Base32 string should be treated like any other secret access information, such
- * as your AWS access keys or your passwords. After you provision your virtual device, you should ensure that the information is destroyed following
- * secure procedures.
+ * <b>IMPORTANT:</b>The seed information contained in the QR code and the
+ * Base32 string should be treated like any other secret access
+ * information, such as your AWS access keys or your passwords. After you
+ * provision your virtual device, you should ensure that the information
+ * is destroyed following secure procedures.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#createVirtualMFADevice(CreateVirtualMFADeviceRequest)
@@ -45,14 +47,13 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
     /**
      * The path for the virtual MFA device. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      */
     private String path;
 
@@ -69,21 +70,19 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
     /**
      * The path for the virtual MFA device. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @return The path for the virtual MFA device. For more information about paths,
      *         see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>. <p>This parameter is optional. If
-     *         it is not included, it defaults to a slash (/).
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     *         is optional. If it is not included, it defaults to a slash (/).
      */
     public String getPath() {
         return path;
@@ -92,21 +91,19 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
     /**
      * The path for the virtual MFA device. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param path The path for the virtual MFA device. For more information about paths,
      *         see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>. <p>This parameter is optional. If
-     *         it is not included, it defaults to a slash (/).
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     *         is optional. If it is not included, it defaults to a slash (/).
      */
     public void setPath(String path) {
         this.path = path;
@@ -115,25 +112,23 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
     /**
      * The path for the virtual MFA device. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param path The path for the virtual MFA device. For more information about paths,
      *         see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>. <p>This parameter is optional. If
-     *         it is not included, it defaults to a slash (/).
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     *         is optional. If it is not included, it defaults to a slash (/).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateVirtualMFADeviceRequest withPath(String path) {
@@ -184,7 +179,7 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
      * @param virtualMFADeviceName The name of the virtual MFA device. Use with path to uniquely identify
      *         a virtual MFA device.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateVirtualMFADeviceRequest withVirtualMFADeviceName(String virtualMFADeviceName) {

@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful call to the GetFederationToken action, including temporary AWS credentials that can be used to make AWS requests.
+ * Contains the result of a successful call to the GetFederationToken
+ * action, including temporary AWS credentials that can be used to make
+ * AWS requests.
  * </p>
  */
 public class GetFederationTokenResult implements Serializable {
@@ -32,7 +34,7 @@ public class GetFederationTokenResult implements Serializable {
      * Identifiers for the federated user associated with the credentials
      * (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      * <code>123456789012:Bob</code>). You can use the federated user's ARN
-     * in your resource policies like in an Amazon S3 bucket policy.
+     * in your resource-based policies, such as an Amazon S3 bucket policy.
      */
     private FederatedUser federatedUser;
 
@@ -71,7 +73,7 @@ public class GetFederationTokenResult implements Serializable {
      *
      * @param credentials Credentials for the service API authentication.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetFederationTokenResult withCredentials(Credentials credentials) {
@@ -83,12 +85,12 @@ public class GetFederationTokenResult implements Serializable {
      * Identifiers for the federated user associated with the credentials
      * (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      * <code>123456789012:Bob</code>). You can use the federated user's ARN
-     * in your resource policies like in an Amazon S3 bucket policy.
+     * in your resource-based policies, such as an Amazon S3 bucket policy.
      *
      * @return Identifiers for the federated user associated with the credentials
      *         (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      *         <code>123456789012:Bob</code>). You can use the federated user's ARN
-     *         in your resource policies like in an Amazon S3 bucket policy.
+     *         in your resource-based policies, such as an Amazon S3 bucket policy.
      */
     public FederatedUser getFederatedUser() {
         return federatedUser;
@@ -98,12 +100,12 @@ public class GetFederationTokenResult implements Serializable {
      * Identifiers for the federated user associated with the credentials
      * (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      * <code>123456789012:Bob</code>). You can use the federated user's ARN
-     * in your resource policies like in an Amazon S3 bucket policy.
+     * in your resource-based policies, such as an Amazon S3 bucket policy.
      *
      * @param federatedUser Identifiers for the federated user associated with the credentials
      *         (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      *         <code>123456789012:Bob</code>). You can use the federated user's ARN
-     *         in your resource policies like in an Amazon S3 bucket policy.
+     *         in your resource-based policies, such as an Amazon S3 bucket policy.
      */
     public void setFederatedUser(FederatedUser federatedUser) {
         this.federatedUser = federatedUser;
@@ -113,16 +115,16 @@ public class GetFederationTokenResult implements Serializable {
      * Identifiers for the federated user associated with the credentials
      * (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      * <code>123456789012:Bob</code>). You can use the federated user's ARN
-     * in your resource policies like in an Amazon S3 bucket policy.
+     * in your resource-based policies, such as an Amazon S3 bucket policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param federatedUser Identifiers for the federated user associated with the credentials
      *         (such as <code>arn:aws:sts::123456789012:federated-user/Bob</code> or
      *         <code>123456789012:Bob</code>). You can use the federated user's ARN
-     *         in your resource policies like in an Amazon S3 bucket policy.
+     *         in your resource-based policies, such as an Amazon S3 bucket policy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetFederationTokenResult withFederatedUser(FederatedUser federatedUser) {
@@ -176,7 +178,7 @@ public class GetFederationTokenResult implements Serializable {
      *         The service rejects policies for which the packed size is greater than
      *         100 percent of the allowed value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetFederationTokenResult withPackedPolicySize(Integer packedPolicySize) {

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#verifyEmailIdentity(VerifyEmailIdentityRequest) VerifyEmailIdentity operation}.
  * <p>
- * Verifies an email address. This action causes a confirmation email message to be sent to the specified address.
+ * Verifies an email address. This action causes a confirmation email
+ * message to be sent to the specified address.
  * </p>
  * <p>
  * This action is throttled at one request per second.
@@ -61,7 +62,7 @@ public class VerifyEmailIdentityRequest extends AmazonWebServiceRequest implemen
      *
      * @param emailAddress The email address to be verified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VerifyEmailIdentityRequest withEmailAddress(String emailAddress) {

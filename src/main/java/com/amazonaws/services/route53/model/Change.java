@@ -18,17 +18,18 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that contains the information for each change in a change batch request.
+ * A complex type that contains the information for each change in a
+ * change batch request.
  * </p>
  */
 public class Change implements Serializable {
 
     /**
      * The action to perform. <p>Valid values: <code>CREATE</code> |
-     * <code>DELETE</code>
+     * <code>DELETE</code> | <code>UPSERT</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>CREATE, DELETE
+     * <b>Allowed Values: </b>CREATE, DELETE, UPSERT
      */
     private String action;
 
@@ -49,7 +50,7 @@ public class Change implements Serializable {
      * initialize any additional object members.
      * 
      * @param action The action to perform. <p>Valid values:
-     * <code>CREATE</code> | <code>DELETE</code>
+     * <code>CREATE</code> | <code>DELETE</code> | <code>UPSERT</code>
      * @param resourceRecordSet Information about the resource record set to
      * create or delete.
      */
@@ -64,7 +65,7 @@ public class Change implements Serializable {
      * initialize any additional object members.
      * 
      * @param action The action to perform. <p>Valid values:
-     * <code>CREATE</code> | <code>DELETE</code>
+     * <code>CREATE</code> | <code>DELETE</code> | <code>UPSERT</code>
      * @param resourceRecordSet Information about the resource record set to
      * create or delete.
      */
@@ -75,13 +76,13 @@ public class Change implements Serializable {
 
     /**
      * The action to perform. <p>Valid values: <code>CREATE</code> |
-     * <code>DELETE</code>
+     * <code>DELETE</code> | <code>UPSERT</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>CREATE, DELETE
+     * <b>Allowed Values: </b>CREATE, DELETE, UPSERT
      *
      * @return The action to perform. <p>Valid values: <code>CREATE</code> |
-     *         <code>DELETE</code>
+     *         <code>DELETE</code> | <code>UPSERT</code>
      *
      * @see ChangeAction
      */
@@ -91,13 +92,13 @@ public class Change implements Serializable {
     
     /**
      * The action to perform. <p>Valid values: <code>CREATE</code> |
-     * <code>DELETE</code>
+     * <code>DELETE</code> | <code>UPSERT</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>CREATE, DELETE
+     * <b>Allowed Values: </b>CREATE, DELETE, UPSERT
      *
      * @param action The action to perform. <p>Valid values: <code>CREATE</code> |
-     *         <code>DELETE</code>
+     *         <code>DELETE</code> | <code>UPSERT</code>
      *
      * @see ChangeAction
      */
@@ -107,17 +108,17 @@ public class Change implements Serializable {
     
     /**
      * The action to perform. <p>Valid values: <code>CREATE</code> |
-     * <code>DELETE</code>
+     * <code>DELETE</code> | <code>UPSERT</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>CREATE, DELETE
+     * <b>Allowed Values: </b>CREATE, DELETE, UPSERT
      *
      * @param action The action to perform. <p>Valid values: <code>CREATE</code> |
-     *         <code>DELETE</code>
+     *         <code>DELETE</code> | <code>UPSERT</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChangeAction
@@ -129,13 +130,13 @@ public class Change implements Serializable {
 
     /**
      * The action to perform. <p>Valid values: <code>CREATE</code> |
-     * <code>DELETE</code>
+     * <code>DELETE</code> | <code>UPSERT</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>CREATE, DELETE
+     * <b>Allowed Values: </b>CREATE, DELETE, UPSERT
      *
      * @param action The action to perform. <p>Valid values: <code>CREATE</code> |
-     *         <code>DELETE</code>
+     *         <code>DELETE</code> | <code>UPSERT</code>
      *
      * @see ChangeAction
      */
@@ -145,17 +146,17 @@ public class Change implements Serializable {
     
     /**
      * The action to perform. <p>Valid values: <code>CREATE</code> |
-     * <code>DELETE</code>
+     * <code>DELETE</code> | <code>UPSERT</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>CREATE, DELETE
+     * <b>Allowed Values: </b>CREATE, DELETE, UPSERT
      *
      * @param action The action to perform. <p>Valid values: <code>CREATE</code> |
-     *         <code>DELETE</code>
+     *         <code>DELETE</code> | <code>UPSERT</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChangeAction
@@ -190,7 +191,7 @@ public class Change implements Serializable {
      *
      * @param resourceRecordSet Information about the resource record set to create or delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Change withResourceRecordSet(ResourceRecordSet resourceRecordSet) {

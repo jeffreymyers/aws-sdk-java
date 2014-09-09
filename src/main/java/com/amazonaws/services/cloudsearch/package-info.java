@@ -11,6 +11,6 @@
  * cloudsearch.us-east-1.amazonaws.com. For a current list of supported regions and endpoints, see <a
  * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region"> Regions and Endpoints </a> .
  * </p>
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2} instead.
  */
  package com.amazonaws.services.cloudsearch;
-        

@@ -37,7 +37,7 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -86,10 +86,16 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                     cluster.setVisibleToAllUsers(BooleanJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Applications", targetDepth)) {
+                    context.nextToken();
                     cluster.setApplications(new ListUnmarshaller<Application>(ApplicationJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Tags", targetDepth)) {
+                    context.nextToken();
                     cluster.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                }
+                if (context.testExpression("ServiceRole", targetDepth)) {
+                    context.nextToken();
+                    cluster.setServiceRole(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

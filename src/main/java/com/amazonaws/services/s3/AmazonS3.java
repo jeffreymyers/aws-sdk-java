@@ -45,8 +45,11 @@ import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.CopyPartRequest;
 import com.amazonaws.services.s3.model.CopyPartResult;
 import com.amazonaws.services.s3.model.CreateBucketRequest;
+import com.amazonaws.services.s3.model.DeleteBucketCrossOriginConfigurationRequest;
+import com.amazonaws.services.s3.model.DeleteBucketLifecycleConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteBucketPolicyRequest;
 import com.amazonaws.services.s3.model.DeleteBucketRequest;
+import com.amazonaws.services.s3.model.DeleteBucketTaggingConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteBucketWebsiteConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
@@ -80,8 +83,12 @@ import com.amazonaws.services.s3.model.Region;
 import com.amazonaws.services.s3.model.RestoreObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.SetBucketAclRequest;
+import com.amazonaws.services.s3.model.SetBucketCrossOriginConfigurationRequest;
+import com.amazonaws.services.s3.model.SetBucketLifecycleConfigurationRequest;
 import com.amazonaws.services.s3.model.SetBucketLoggingConfigurationRequest;
+import com.amazonaws.services.s3.model.SetBucketNotificationConfigurationRequest;
 import com.amazonaws.services.s3.model.SetBucketPolicyRequest;
+import com.amazonaws.services.s3.model.SetBucketTaggingConfigurationRequest;
 import com.amazonaws.services.s3.model.SetBucketVersioningConfigurationRequest;
 import com.amazonaws.services.s3.model.SetBucketWebsiteConfigurationRequest;
 import com.amazonaws.services.s3.model.StorageClass;
@@ -789,16 +796,20 @@ public interface AmazonS3 {
 
     /**
      * Checks if the specified bucket exists. Amazon S3 buckets are named in a
-     * global namespace; use this method to determine if a specified
-     * bucket name already exists, and therefore can't be used to create a new
-     * bucket.
+     * global namespace; use this method to determine if a specified bucket name
+     * already exists, and therefore can't be used to create a new bucket.
+     *
+     * If invalid security credentials are used to execute this method, the
+     * client is not able to distinguish between bucket permission errors and
+     * invalid credential errors, and this method could return an incorrect
+     * result.
      *
      * @param bucketName
      *            The name of the bucket to check.
      *
      * @return The value <code>true</code> if the specified bucket exists in
-     *         Amazon S3; the value
-     *         <code>false</code> if there is no bucket in Amazon S3 with that name.
+     *         Amazon S3; the value <code>false</code> if there is no bucket in
+     *         Amazon S3 with that name.
      *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
@@ -849,7 +860,7 @@ public interface AmazonS3 {
      * list buckets that they did not create.
      * </p>
      *
-     * @param request
+     * @param listBucketsRequest
      *          The request containing all of the options related to the listing
      *          of buckets.
      *
@@ -2193,11 +2204,17 @@ public interface AmazonS3 {
      * Copies a source object to a new destination in Amazon S3.
      * </p>
      * <p>
-     * By default, all object metadata for the source object are copied to
-     * the new destination object. The Amazon S3 <code>AcccessControlList</code> (ACL)
-     * is <b>not</b> copied to the new
-     * object; the new object will have the default Amazon S3 ACL,
-     * {@link CannedAccessControlList#Private}.
+     * By default, all object metadata for the source object except
+     * <b>server-side-encryption</b>, <b>storage-class</b> and
+     * <b>website-redirect-location</b> are copied to the new destination
+     * object, unless new object metadata in the specified
+     * {@link CopyObjectRequest} is provided.
+     * </p>
+     * <p>
+     * The Amazon S3 Acccess Control List (ACL) is <b>not</b> copied to the new
+     * object. The new object will have the default Amazon S3 ACL,
+     * {@link CannedAccessControlList#Private}, unless one is explicitly
+     * provided in the specified {@link CopyObjectRequest}.
      * </p>
      * <p>
      * To copy an object, the caller's account must have read access to the source object and
@@ -2243,35 +2260,33 @@ public interface AmazonS3 {
      * Copies a source object to a new destination in Amazon S3.
      * </p>
      * <p>
-     * By default, all object metadata for the source object are copied to
-     * the new destination object, unless new object metadata in the
-     * specified {@link CopyObjectRequest} is provided.
+     * By default, all object metadata for the source object except
+     * <b>server-side-encryption</b>, <b>storage-class</b> and
+     * <b>website-redirect-location</b> are copied to the new destination
+     * object, unless new object metadata in the specified
+     * {@link CopyObjectRequest} is provided.
      * </p>
      * <p>
-     * The Amazon S3 Acccess Control List (ACL)
-     * is <b>not</b> copied to the new object. The new object will have
-     * the default Amazon S3 ACL, {@link CannedAccessControlList#Private},
-     * unless one is explicitly provided in the specified
-     * {@link CopyObjectRequest}.
+     * The Amazon S3 Acccess Control List (ACL) is <b>not</b> copied to the new
+     * object. The new object will have the default Amazon S3 ACL,
+     * {@link CannedAccessControlList#Private}, unless one is explicitly
+     * provided in the specified {@link CopyObjectRequest}.
      * </p>
      * <p>
-     * To copy an object, the caller's account must have read access to the source object and
-     * write access to the destination bucket.
+     * To copy an object, the caller's account must have read access to the
+     * source object and write access to the destination bucket.
      * </p>
      * <p>
-     * If constraints are specified in the <code>CopyObjectRequest</code>
-     * (e.g.
-     * {@link CopyObjectRequest#setMatchingETagConstraints(List)})
-     * and are not satisfied when Amazon S3 receives the
-     * request, this method returns <code>null</code>.
-     * This method returns a non-null result under all other
+     * If constraints are specified in the <code>CopyObjectRequest</code> (e.g.
+     * {@link CopyObjectRequest#setMatchingETagConstraints(List)}) and are not
+     * satisfied when Amazon S3 receives the request, this method returns
+     * <code>null</code>. This method returns a non-null result under all other
      * circumstances.
      * </p>
      * <p>
      * This method exposes all the advanced options for copying an Amazon S3
      * object. For simple needs, use the
-     * {@link AmazonS3Client#copyObject(String, String, String, String)}
-     * method.
+     * {@link AmazonS3Client#copyObject(String, String, String, String)} method.
      * </p>
      *
      * @param copyObjectRequest
@@ -2279,9 +2294,9 @@ public interface AmazonS3 {
      *            Amazon S3 object.
      *
      * @return A {@link CopyObjectResult} object containing the information
-     *         returned by Amazon S3 about the newly created object, or <code>null</code> if
-     *         constraints were specified that weren't met when Amazon S3 attempted
-     *         to copy the object.
+     *         returned by Amazon S3 about the newly created object, or
+     *         <code>null</code> if constraints were specified that weren't met
+     *         when Amazon S3 attempted to copy the object.
      *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
@@ -2705,6 +2720,15 @@ public interface AmazonS3 {
     public void setBucketLifecycleConfiguration(String bucketName, BucketLifecycleConfiguration bucketLifecycleConfiguration);
 
     /**
+     * Sets the lifecycle configuration for the specified bucket.
+     *
+     * @param setBucketLifecycleConfigurationRequest
+     *            The request object containing all options for setting the
+     *            bucket lifecycle configuration.
+     */
+    public void setBucketLifecycleConfiguration(SetBucketLifecycleConfigurationRequest setBucketLifecycleConfigurationRequest);
+
+    /**
      * Removes the lifecycle configuration for the bucket specified.
      *
      * @param bucketName
@@ -2712,6 +2736,15 @@ public interface AmazonS3 {
      *            configuration.
      */
     public void deleteBucketLifecycleConfiguration(String bucketName);
+
+    /**
+     * Removes the lifecycle configuration for the bucket specified.
+     *
+     * @param deleteBucketLifecycleConfigurationRequest
+     *            The request object containing all options for removing the
+     *            bucket lifecycle configuration.
+     */
+    public void deleteBucketLifecycleConfiguration(DeleteBucketLifecycleConfigurationRequest deleteBucketLifecycleConfigurationRequest);
 
     /**
      * Gets the cross origin configuration for the specified bucket, or null if no
@@ -2736,6 +2769,15 @@ public interface AmazonS3 {
     public void setBucketCrossOriginConfiguration(String bucketName, BucketCrossOriginConfiguration bucketCrossOriginConfiguration);
 
     /**
+     * Sets the cross origin configuration for the specified bucket.
+     *
+     * @param setBucketCrossOriginConfigurationRequest
+     *            The request object containing all options for setting the
+     *            bucket cross origin configuration.
+     */
+    public void setBucketCrossOriginConfiguration(SetBucketCrossOriginConfigurationRequest setBucketCrossOriginConfigurationRequest);
+
+    /**
      * Delete the cross origin configuration for the specified bucket.
      *
      * @param bucketName
@@ -2743,6 +2785,15 @@ public interface AmazonS3 {
      *            configuration.
      */
     public void deleteBucketCrossOriginConfiguration(String bucketName);
+
+    /**
+     * Delete the cross origin configuration for the specified bucket.
+     *
+     * @param deleteBucketCrossOriginConfigurationRequest
+     *            The request object containing all options for deleting the
+     *            bucket cross origin configuration.
+     */
+    public void deleteBucketCrossOriginConfiguration(DeleteBucketCrossOriginConfigurationRequest deleteBucketCrossOriginConfigurationRequest);
 
     /**
      * Gets the tagging configuration for the specified bucket, or null if no
@@ -2767,13 +2818,32 @@ public interface AmazonS3 {
     public void setBucketTaggingConfiguration(String bucketName, BucketTaggingConfiguration bucketTaggingConfiguration);
 
     /**
-     * Removes the Tagging configuration for the bucket specified.
+     * Sets the tagging configuration for the specified bucket.
+     *
+     * @param setBucketTaggingConfigurationRequest
+     *            The request object containing all options for setting the
+     *            bucket tagging configuration.
+     */
+    public void setBucketTaggingConfiguration(SetBucketTaggingConfigurationRequest setBucketTaggingConfigurationRequest);
+
+    /**
+     * Removes the tagging configuration for the bucket specified.
      *
      * @param bucketName
      *            The name of the bucket for which to remove the tagging
      *            configuration.
      */
     public void deleteBucketTaggingConfiguration(String bucketName);
+
+    /**
+     * Removes the tagging configuration for the bucket specified.
+     *
+     * @param deleteBucketTaggingConfigurationRequest
+     *            The request object containing all options for removing the
+     *            bucket tagging configuration.
+     */
+    public void deleteBucketTaggingConfiguration(
+            DeleteBucketTaggingConfigurationRequest deleteBucketTaggingConfigurationRequest);
 
     /**
      * Gets the notification configuration for the specified bucket.
@@ -2806,6 +2876,38 @@ public interface AmazonS3 {
      *             request.
      */
     public BucketNotificationConfiguration getBucketNotificationConfiguration(String bucketName)
+        throws AmazonClientException, AmazonServiceException;
+
+    /**
+     * Sets the notification configuration for the specified bucket.
+     * <p>
+     * By default, new buckets have no notification configuration set.
+     * <p>
+     * The notification configuration of a bucket provides near realtime notifications
+     * of events the user is interested in, using SNS as the delivery service.
+     * Notification is turned on by enabling configuration on a bucket, specifying
+     * the events and the SNS topic. This configuration can only be turned
+     * on by the bucket owner. If a notification configuration already exists for the
+     * specified bucket, the new notification configuration will replace the existing
+     * notification configuration.  To remove the notification configuration pass in
+     * an empty request.  Currently, buckets may only have a single event and topic
+     * configuration.
+     * <p>
+     * S3 is eventually consistent. It may take time for the notification status
+     * of a bucket to be propagated throughout the system.
+     *
+     * @param setBucketNotificationConfigurationRequest
+     *            The request object containing all options for setting the
+     *            bucket notification configuration.
+     *
+     * @throws AmazonClientException
+     *             If any errors are encountered on the client while making the
+     *             request or handling the response.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     */
+    public void setBucketNotificationConfiguration(SetBucketNotificationConfigurationRequest setBucketNotificationConfigurationRequest)
         throws AmazonClientException, AmazonServiceException;
 
     /**
@@ -3624,7 +3726,7 @@ public interface AmazonS3 {
      * needs to have the new s3:RestoreObject permission to perform this
      * operation.
      *
-     * @param RestoreObjectRequest
+     * @param request
      *            The request object containing all the options for restoring an
      *            Amazon S3 object.
      *
@@ -3634,7 +3736,7 @@ public interface AmazonS3 {
      *
      * @see AmazonS3Client#restoreObject(String, String, int)
      */
-    public void restoreObject(RestoreObjectRequest copyGlacierObjectRequest)
+    public void restoreObject(RestoreObjectRequest request)
             throws AmazonServiceException;
 
     /**
@@ -3663,4 +3765,100 @@ public interface AmazonS3 {
     public void restoreObject(String bucketName, String key, int expirationInDays)
             throws AmazonServiceException;
 
+    /**
+     * Allows Amazon S3 bucket owner to enable the Requester Pays for the given
+     * bucket name. If enabled, the requester of an Amazon S3 object in the
+     * bucket is charged for the downloading the data from the bucket.
+     *
+     * <p>
+     * If a bucket is enabled for Requester Pays, then any attempt to read an
+     * object from it without Requester Pays enabled in getObject will result in
+     * a 403 error and the bucket owner will be charged for the request.
+     *
+     * <p>
+     * Enabling Requester Pays disables the ability to have anonymous access to
+     * this bucket
+     *
+     * <p>
+     * For more information on Requester pays, @see
+     * http://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
+     *
+     * @param bucketName
+     *            The name of the bucket being enabled for Requester Pays.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     * @see AmazonS3#disableRequesterPays(String)
+     * @see AmazonS3#isRequesterPaysEnabled(String)
+     */
+    public void enableRequesterPays(String bucketName)
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * Allows Amazon S3 bucket owner to disable the Requester Pays for the
+     * given bucket name.
+     *
+     * Note:
+     * <p>
+     * If a bucket is enabled for Requester Pays, then any attempt to read an
+     * object from it without Requester Pays enabled in getObject will result in
+     * a 403 error and the bucket owner will be charged for the request.
+     *
+     * <p>
+     * Enabling Requester Pays disables the ability to have anonymous access to
+     * this bucket
+     *
+     * <p>
+     * For more information on Requester pays, @see
+     * http://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
+     *
+     * @param bucketName
+     *            The name of bucket being disabled for Requester Pays.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     * @see AmazonS3#enableRequesterPays(String)
+     * @see AmazonS3#isRequesterPaysEnabled(String)
+     */
+    public void disableRequesterPays(String bucketName)
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * Retrieves the Requester Pays configuration associated with an Amazon S3
+     * bucket.
+     *
+     * Note:
+     * <p>
+     * If a bucket is enabled for Requester Pays, then any attempt to read an
+     * object from it without Requester Pays enabled will result in a 403 error
+     * and the bucket owner will be charged for the request.
+     *
+     * <p>
+     * Enabling Requester Pays disables the ability to have anonymous access to
+     * this bucket.
+     *
+     * <p>
+     * For more information on Requester pays, @see
+     * http://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html
+     *
+     * @param bucketName
+     *            The name of the bucket being checked for Requester Pays.
+     * @return true if the bucket is enabled for Requester Pays else false.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     * @see AmazonS3#enableRequesterPays(String)
+     * @see AmazonS3#disableRequesterPays(String)
+     */
+    public boolean isRequesterPaysEnabled(String bucketName)
+            throws AmazonServiceException, AmazonClientException;
 }

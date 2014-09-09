@@ -18,10 +18,12 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The Amazon Simple Notification Service (Amazon SNS) topic or topics to notify in order to report job status.
+ * The Amazon Simple Notification Service (Amazon SNS) topic or topics to
+ * notify in order to report job status.
  * </p>
  * <p>
- * <b>IMPORTANT:</b>To receive notifications, you must also subscribe to the new topic in the Amazon SNS console.
+ * <b>IMPORTANT:</b>To receive notifications, you must also subscribe to
+ * the new topic in the Amazon SNS console.
  * </p>
  */
 public class Notifications implements Serializable {
@@ -102,7 +104,7 @@ public class Notifications implements Serializable {
      * @param progressing The Amazon Simple Notification Service (Amazon SNS) topic that you
      *         want to notify when Elastic Transcoder has started to process the job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Notifications withProgressing(String progressing) {
@@ -150,7 +152,7 @@ public class Notifications implements Serializable {
      * @param completed The Amazon SNS topic that you want to notify when Elastic Transcoder
      *         has finished processing the job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Notifications withCompleted(String completed) {
@@ -198,7 +200,7 @@ public class Notifications implements Serializable {
      * @param warning The Amazon SNS topic that you want to notify when Elastic Transcoder
      *         encounters a warning condition.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Notifications withWarning(String warning) {
@@ -246,7 +248,7 @@ public class Notifications implements Serializable {
      * @param error The Amazon SNS topic that you want to notify when Elastic Transcoder
      *         encounters an error condition.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Notifications withError(String error) {

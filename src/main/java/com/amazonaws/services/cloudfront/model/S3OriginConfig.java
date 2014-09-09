@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that contains information about the Amazon S3 origin. If the origin is a custom origin, use the CustomOriginConfig element instead.
+ * A complex type that contains information about the Amazon S3 origin.
+ * If the origin is a custom origin, use the CustomOriginConfig element
+ * instead.
  * </p>
  */
 public class S3OriginConfig implements Serializable {
@@ -33,7 +35,10 @@ public class S3OriginConfig implements Serializable {
      * from an existing distribution, update the distribution configuration
      * and include an empty OriginAccessIdentity element. To replace the
      * origin access identity, update the distribution configuration and
-     * specify the new origin access identity.
+     * specify the new origin access identity. Use the format
+     * origin-access-identity/cloudfront/Id where Id is the value that
+     * CloudFront returned in the Id element when you created the origin
+     * access identity.
      */
     private String originAccessIdentity;
 
@@ -47,7 +52,10 @@ public class S3OriginConfig implements Serializable {
      * from an existing distribution, update the distribution configuration
      * and include an empty OriginAccessIdentity element. To replace the
      * origin access identity, update the distribution configuration and
-     * specify the new origin access identity.
+     * specify the new origin access identity. Use the format
+     * origin-access-identity/cloudfront/Id where Id is the value that
+     * CloudFront returned in the Id element when you created the origin
+     * access identity.
      *
      * @return The CloudFront origin access identity to associate with the origin.
      *         Use an origin access identity to configure the origin so that end
@@ -58,7 +66,10 @@ public class S3OriginConfig implements Serializable {
      *         from an existing distribution, update the distribution configuration
      *         and include an empty OriginAccessIdentity element. To replace the
      *         origin access identity, update the distribution configuration and
-     *         specify the new origin access identity.
+     *         specify the new origin access identity. Use the format
+     *         origin-access-identity/cloudfront/Id where Id is the value that
+     *         CloudFront returned in the Id element when you created the origin
+     *         access identity.
      */
     public String getOriginAccessIdentity() {
         return originAccessIdentity;
@@ -74,7 +85,10 @@ public class S3OriginConfig implements Serializable {
      * from an existing distribution, update the distribution configuration
      * and include an empty OriginAccessIdentity element. To replace the
      * origin access identity, update the distribution configuration and
-     * specify the new origin access identity.
+     * specify the new origin access identity. Use the format
+     * origin-access-identity/cloudfront/Id where Id is the value that
+     * CloudFront returned in the Id element when you created the origin
+     * access identity.
      *
      * @param originAccessIdentity The CloudFront origin access identity to associate with the origin.
      *         Use an origin access identity to configure the origin so that end
@@ -85,7 +99,10 @@ public class S3OriginConfig implements Serializable {
      *         from an existing distribution, update the distribution configuration
      *         and include an empty OriginAccessIdentity element. To replace the
      *         origin access identity, update the distribution configuration and
-     *         specify the new origin access identity.
+     *         specify the new origin access identity. Use the format
+     *         origin-access-identity/cloudfront/Id where Id is the value that
+     *         CloudFront returned in the Id element when you created the origin
+     *         access identity.
      */
     public void setOriginAccessIdentity(String originAccessIdentity) {
         this.originAccessIdentity = originAccessIdentity;
@@ -101,7 +118,10 @@ public class S3OriginConfig implements Serializable {
      * from an existing distribution, update the distribution configuration
      * and include an empty OriginAccessIdentity element. To replace the
      * origin access identity, update the distribution configuration and
-     * specify the new origin access identity.
+     * specify the new origin access identity. Use the format
+     * origin-access-identity/cloudfront/Id where Id is the value that
+     * CloudFront returned in the Id element when you created the origin
+     * access identity.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -114,9 +134,12 @@ public class S3OriginConfig implements Serializable {
      *         from an existing distribution, update the distribution configuration
      *         and include an empty OriginAccessIdentity element. To replace the
      *         origin access identity, update the distribution configuration and
-     *         specify the new origin access identity.
+     *         specify the new origin access identity. Use the format
+     *         origin-access-identity/cloudfront/Id where Id is the value that
+     *         CloudFront returned in the Id element when you created the origin
+     *         access identity.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public S3OriginConfig withOriginAccessIdentity(String originAccessIdentity) {

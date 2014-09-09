@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#modifyReplicationGroup(ModifyReplicationGroupRequest) ModifyReplicationGroup operation}.
  * <p>
- * The <i>ModifyReplicationGroup</i> operation modifies the settings for a replication group.
+ * The <i>ModifyReplicationGroup</i> operation modifies the settings for
+ * a replication group.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#modifyReplicationGroup(ModifyReplicationGroupRequest)
@@ -68,9 +69,9 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
     private String preferredMaintenanceWindow;
 
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the
-     * replication group owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the replication group owner. </note>
      */
     private String notificationTopicArn;
 
@@ -123,6 +124,31 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
     private String primaryClusterId;
 
     /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     */
+    private Integer snapshotRetentionLimit;
+
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of the cache cluster specified by
+     * <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     * <p>If you do not specify this parameter, then ElastiCache will
+     * automatically choose an appropriate time range.
+     */
+    private String snapshotWindow;
+
+    /**
+     * The cache cluster ID that will be used as the daily snapshot source
+     * for the replication group.
+     */
+    private String snapshottingClusterId;
+
+    /**
      * The identifier of the replication group to modify.
      *
      * @return The identifier of the replication group to modify.
@@ -147,7 +173,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *
      * @param replicationGroupId The identifier of the replication group to modify.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withReplicationGroupId(String replicationGroupId) {
@@ -186,7 +212,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      * @param replicationGroupDescription A description for the replication group. Maximum length is 255
      *         characters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withReplicationGroupDescription(String replicationGroupDescription) {
@@ -259,7 +285,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         Private Cloud (VPC). <p>Constraints: Must contain no more than 255
      *         alphanumeric characters. Must not be "Default".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withCacheSecurityGroupNames(String... cacheSecurityGroupNames) {
@@ -287,7 +313,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         Private Cloud (VPC). <p>Constraints: Must contain no more than 255
      *         alphanumeric characters. Must not be "Default".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withCacheSecurityGroupNames(java.util.Collection<String> cacheSecurityGroupNames) {
@@ -355,7 +381,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         replication groups containing cache clusters running in an Amazon
      *         Virtual Private Cloud (VPC).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withSecurityGroupIds(String... securityGroupIds) {
@@ -379,7 +405,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         replication groups containing cache clusters running in an Amazon
      *         Virtual Private Cloud (VPC).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -449,7 +475,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         current time and end of the window to ensure that pending changes are
      *         applied.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -458,43 +484,43 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the
-     * replication group owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the replication group owner. </note>
      *
-     * @return The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     *         will be sent. <note> The SNS topic owner must be same as the
-     *         replication group owner. </note>
+     * @return The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     *         notifications will be sent. <note>The Amazon SNS topic owner must be
+     *         same as the replication group owner. </note>
      */
     public String getNotificationTopicArn() {
         return notificationTopicArn;
     }
     
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the
-     * replication group owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the replication group owner. </note>
      *
-     * @param notificationTopicArn The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     *         will be sent. <note> The SNS topic owner must be same as the
-     *         replication group owner. </note>
+     * @param notificationTopicArn The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     *         notifications will be sent. <note>The Amazon SNS topic owner must be
+     *         same as the replication group owner. </note>
      */
     public void setNotificationTopicArn(String notificationTopicArn) {
         this.notificationTopicArn = notificationTopicArn;
     }
     
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the
-     * replication group owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the replication group owner. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param notificationTopicArn The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     *         will be sent. <note> The SNS topic owner must be same as the
-     *         replication group owner. </note>
+     * @param notificationTopicArn The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     *         notifications will be sent. <note>The Amazon SNS topic owner must be
+     *         same as the replication group owner. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withNotificationTopicArn(String notificationTopicArn) {
@@ -545,7 +571,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         as soon as possible for parameters when the <i>ApplyImmediately</i>
      *         parameter is specified as <i>true</i> for this request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withCacheParameterGroupName(String cacheParameterGroupName) {
@@ -590,7 +616,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         group. Notifications are sent only if the status is <i>active</i>.
      *         <p>Valid values: <code>active</code> | <code>inactive</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withNotificationTopicStatus(String notificationTopicStatus) {
@@ -665,7 +691,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         reboot, whichever occurs first. <p>Valid values: <code>true</code> |
      *         <code>false</code> <p>Default: <code>false</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withApplyImmediately(Boolean applyImmediately) {
@@ -727,7 +753,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      * @param engineVersion The upgraded version of the cache engine to be run on the nodes in the
      *         replication group..
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withEngineVersion(String engineVersion) {
@@ -778,7 +804,7 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         maintenance window. A value of <code>true</code> allows these upgrades
      *         to occur; <code>false</code> disables automatic upgrades.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -838,11 +864,170 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
      *         nodes in the specified cache cluster to the primary role. The nodes of
      *         all other clusters in the replication group will be read replicas.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyReplicationGroupRequest withPrimaryClusterId(String primaryClusterId) {
         this.primaryClusterId = primaryClusterId;
+        return this;
+    }
+
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     *
+     * @return The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     */
+    public Integer getSnapshotRetentionLimit() {
+        return snapshotRetentionLimit;
+    }
+    
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     *
+     * @param snapshotRetentionLimit The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     */
+    public void setSnapshotRetentionLimit(Integer snapshotRetentionLimit) {
+        this.snapshotRetentionLimit = snapshotRetentionLimit;
+    }
+    
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshotRetentionLimit The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyReplicationGroupRequest withSnapshotRetentionLimit(Integer snapshotRetentionLimit) {
+        this.snapshotRetentionLimit = snapshotRetentionLimit;
+        return this;
+    }
+
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of the cache cluster specified by
+     * <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     * <p>If you do not specify this parameter, then ElastiCache will
+     * automatically choose an appropriate time range.
+     *
+     * @return The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of the cache cluster specified by
+     *         <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     *         <p>If you do not specify this parameter, then ElastiCache will
+     *         automatically choose an appropriate time range.
+     */
+    public String getSnapshotWindow() {
+        return snapshotWindow;
+    }
+    
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of the cache cluster specified by
+     * <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     * <p>If you do not specify this parameter, then ElastiCache will
+     * automatically choose an appropriate time range.
+     *
+     * @param snapshotWindow The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of the cache cluster specified by
+     *         <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     *         <p>If you do not specify this parameter, then ElastiCache will
+     *         automatically choose an appropriate time range.
+     */
+    public void setSnapshotWindow(String snapshotWindow) {
+        this.snapshotWindow = snapshotWindow;
+    }
+    
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of the cache cluster specified by
+     * <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     * <p>If you do not specify this parameter, then ElastiCache will
+     * automatically choose an appropriate time range.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshotWindow The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of the cache cluster specified by
+     *         <i>SnapshottingClusterId</i>. <p>Example: <code>05:00-09:00</code>
+     *         <p>If you do not specify this parameter, then ElastiCache will
+     *         automatically choose an appropriate time range.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyReplicationGroupRequest withSnapshotWindow(String snapshotWindow) {
+        this.snapshotWindow = snapshotWindow;
+        return this;
+    }
+
+    /**
+     * The cache cluster ID that will be used as the daily snapshot source
+     * for the replication group.
+     *
+     * @return The cache cluster ID that will be used as the daily snapshot source
+     *         for the replication group.
+     */
+    public String getSnapshottingClusterId() {
+        return snapshottingClusterId;
+    }
+    
+    /**
+     * The cache cluster ID that will be used as the daily snapshot source
+     * for the replication group.
+     *
+     * @param snapshottingClusterId The cache cluster ID that will be used as the daily snapshot source
+     *         for the replication group.
+     */
+    public void setSnapshottingClusterId(String snapshottingClusterId) {
+        this.snapshottingClusterId = snapshottingClusterId;
+    }
+    
+    /**
+     * The cache cluster ID that will be used as the daily snapshot source
+     * for the replication group.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshottingClusterId The cache cluster ID that will be used as the daily snapshot source
+     *         for the replication group.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyReplicationGroupRequest withSnapshottingClusterId(String snapshottingClusterId) {
+        this.snapshottingClusterId = snapshottingClusterId;
         return this;
     }
 
@@ -869,7 +1054,10 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
         if (isApplyImmediately() != null) sb.append("ApplyImmediately: " + isApplyImmediately() + ",");
         if (getEngineVersion() != null) sb.append("EngineVersion: " + getEngineVersion() + ",");
         if (isAutoMinorVersionUpgrade() != null) sb.append("AutoMinorVersionUpgrade: " + isAutoMinorVersionUpgrade() + ",");
-        if (getPrimaryClusterId() != null) sb.append("PrimaryClusterId: " + getPrimaryClusterId() );
+        if (getPrimaryClusterId() != null) sb.append("PrimaryClusterId: " + getPrimaryClusterId() + ",");
+        if (getSnapshotRetentionLimit() != null) sb.append("SnapshotRetentionLimit: " + getSnapshotRetentionLimit() + ",");
+        if (getSnapshotWindow() != null) sb.append("SnapshotWindow: " + getSnapshotWindow() + ",");
+        if (getSnapshottingClusterId() != null) sb.append("SnapshottingClusterId: " + getSnapshottingClusterId() );
         sb.append("}");
         return sb.toString();
     }
@@ -891,6 +1079,9 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode()); 
         hashCode = prime * hashCode + ((isAutoMinorVersionUpgrade() == null) ? 0 : isAutoMinorVersionUpgrade().hashCode()); 
         hashCode = prime * hashCode + ((getPrimaryClusterId() == null) ? 0 : getPrimaryClusterId().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshotRetentionLimit() == null) ? 0 : getSnapshotRetentionLimit().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshottingClusterId() == null) ? 0 : getSnapshottingClusterId().hashCode()); 
         return hashCode;
     }
     
@@ -926,6 +1117,12 @@ public class ModifyReplicationGroupRequest extends AmazonWebServiceRequest imple
         if (other.isAutoMinorVersionUpgrade() != null && other.isAutoMinorVersionUpgrade().equals(this.isAutoMinorVersionUpgrade()) == false) return false; 
         if (other.getPrimaryClusterId() == null ^ this.getPrimaryClusterId() == null) return false;
         if (other.getPrimaryClusterId() != null && other.getPrimaryClusterId().equals(this.getPrimaryClusterId()) == false) return false; 
+        if (other.getSnapshotRetentionLimit() == null ^ this.getSnapshotRetentionLimit() == null) return false;
+        if (other.getSnapshotRetentionLimit() != null && other.getSnapshotRetentionLimit().equals(this.getSnapshotRetentionLimit()) == false) return false; 
+        if (other.getSnapshotWindow() == null ^ this.getSnapshotWindow() == null) return false;
+        if (other.getSnapshotWindow() != null && other.getSnapshotWindow().equals(this.getSnapshotWindow()) == false) return false; 
+        if (other.getSnapshottingClusterId() == null ^ this.getSnapshottingClusterId() == null) return false;
+        if (other.getSnapshottingClusterId() != null && other.getSnapshottingClusterId().equals(this.getSnapshottingClusterId()) == false) return false; 
         return true;
     }
     

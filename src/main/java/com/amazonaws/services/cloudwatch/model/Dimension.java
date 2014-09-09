@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>Dimension</code> data type further expands on the identity of a metric using a Name, Value pair.
+ * The <code>Dimension</code> data type further expands on the identity
+ * of a metric using a Name, Value pair.
  * </p>
  */
 public class Dimension implements Serializable {
@@ -73,7 +74,7 @@ public class Dimension implements Serializable {
      *
      * @param name The name of the dimension.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Dimension withName(String name) {
@@ -115,7 +116,7 @@ public class Dimension implements Serializable {
      *
      * @param value The value representing the dimension measurement
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Dimension withValue(String value) {

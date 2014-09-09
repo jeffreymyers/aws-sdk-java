@@ -37,7 +37,7 @@ public class PlaylistJsonUnmarshaller implements Unmarshaller<Playlist, JsonUnma
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -54,6 +54,7 @@ public class PlaylistJsonUnmarshaller implements Unmarshaller<Playlist, JsonUnma
                     playlist.setFormat(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("OutputKeys", targetDepth)) {
+                    context.nextToken();
                     playlist.setOutputKeys(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Status", targetDepth)) {

@@ -16,21 +16,26 @@ package com.amazonaws.services.s3.model;
 
 import java.util.Date;
 
-import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.internal.ObjectExpirationResult;
-import com.amazonaws.services.s3.internal.ServerSideEncryptionResult;
+import com.amazonaws.services.s3.internal.SSEResultBase;
 
 /**
  * Contains the data returned by Amazon S3 from the <code>putObject</code>
  * operation.
- * Use this request to access information about the new object created from the
+ * <p>
+ * Use this class to access information about the new object created from the
  * <code>putObject</code> request, such as its ETag and optional version ID.
+ * <p>
+ * This class also contains the MD5 hash of the object content calculated on the
+ * client-side.
  *
- * @see AmazonS3#putObject(String, String, java.io.File)
- * @see AmazonS3#putObject(String, String, java.io.InputStream, S3ObjectMetadata)
- * @see AmazonS3#putObject(PutObjectRequest)
+ * @see AmazonS3Client#putObject(String, String, java.io.File)
+ * @see AmazonS3Client#putObject(String, String, java.io.InputStream,
+ *      ObjectMetadata)
+ * @see AmazonS3Client#putObject(PutObjectRequest)
  */
-public class PutObjectResult implements ServerSideEncryptionResult, ObjectExpirationResult {
+public class PutObjectResult extends SSEResultBase implements ObjectExpirationResult {
 
     /**
      * The version ID of the new, uploaded object. This field will only be
@@ -41,9 +46,6 @@ public class PutObjectResult implements ServerSideEncryptionResult, ObjectExpira
 
     /** The ETag value of the new object */
     private String eTag;
-
-    /** The server side encryption algorithm of the new object */
-    private String serverSideEncryption;
 
     /** The time this object expires, or null if it has no expiration */
     private Date expirationTime;
@@ -81,9 +83,9 @@ public class PutObjectResult implements ServerSideEncryptionResult, ObjectExpira
     }
 
     /**
-     * Gets the ETag value for the newly created object.
+     * Gets the server-side ETag value for the newly created object.
      *
-     * @return The ETag value for the new object.
+     * @return The server-side ETag value for the new object.
      *
      * @see PutObjectResult#setETag(String)
      */
@@ -102,24 +104,6 @@ public class PutObjectResult implements ServerSideEncryptionResult, ObjectExpira
      */
     public void setETag(String eTag) {
         this.eTag = eTag;
-    }
-
-    /**
-     * Returns the server-side encryption algorithm for the newly created
-     * object, or null if none was used.
-     */
-    public String getServerSideEncryption() {
-        return serverSideEncryption;
-    }
-
-    /**
-     * Sets the server-side encryption algorithm for the newly created object.
-     *
-     * @param serverSideEncryption
-     *            The server-side encryption algorithm for the new object.
-     */
-    public void setServerSideEncryption(String serverSideEncryption) {
-        this.serverSideEncryption = serverSideEncryption;
     }
 
     /**
@@ -159,7 +143,8 @@ public class PutObjectResult implements ServerSideEncryptionResult, ObjectExpira
     }
 
     /**
-     * Sets the content MD5.
+     * Sets the Base64-encoded MD5 hash of the object content that was
+     * calculated on the client-side.
      *
      * @param contentMd5
      *            The content MD5
@@ -169,7 +154,10 @@ public class PutObjectResult implements ServerSideEncryptionResult, ObjectExpira
     }
 
     /**
-     * Returns the content MD5.
+     * Returns the Base64-encoded MD5 hash of the object content that was
+     * calculated on the client-side. This method returns null if the MD5
+     * validation is disabled and the caller didn't provide the MD5 hash in the
+     * ObjectMetadata when sending the PutObjectRequest.
      */
     public String getContentMd5() {
         return contentMd5;

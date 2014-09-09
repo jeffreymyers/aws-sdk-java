@@ -26,19 +26,23 @@ import com.amazonaws.services.simpleemail.model.*;
  * Each asynchronous method will return a Java Future object, and users are also allowed
  * to provide a callback handler.
  * Amazon Simple Email Service <p>
- * This is the API Reference for Amazon Simple Email Service (Amazon SES). This documentation is intended to be used in conjunction with the Amazon SES
- * Developer Guide.
+ * This is the API Reference for Amazon Simple Email Service (Amazon
+ * SES). This documentation is intended to be used in conjunction with
+ * the
+ * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/Welcome.html"> Amazon SES Developer Guide </a>
+ * .
  * </p>
  * <p>
- * For specific details on how to construct a service request, please consult the <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide"> Amazon
- * SES Developer Guide </a> .
+ * <b>NOTE:</b>For a list of Amazon SES endpoints to use in service
+ * requests, see Regions and Amazon SES in the Amazon SES Developer
+ * Guide.
  * </p>
  */
 public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService {
     /**
      * <p>
-     * Deletes the specified identity (email address or domain) from the list
-     * of verified identities.
+     * Deletes the specified identity (email address or domain) from the
+     * list of verified identities.
      * </p>
      * <p>
      * This action is throttled at one request per second.
@@ -65,8 +69,8 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
 
     /**
      * <p>
-     * Deletes the specified identity (email address or domain) from the list
-     * of verified identities.
+     * Deletes the specified identity (email address or domain) from the
+     * list of verified identities.
      * </p>
      * <p>
      * This action is throttled at one request per second.
@@ -312,9 +316,10 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about feedback notification, see the <a
-     * on.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about using notifications with Amazon SES, see
+     * the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param getIdentityNotificationAttributesRequest Container for the
@@ -346,9 +351,10 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about feedback notification, see the <a
-     * on.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about using notifications with Amazon SES, see
+     * the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param getIdentityNotificationAttributesRequest Container for the
@@ -395,9 +401,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * </p>
      * <p>
      * For more information about creating DNS records using DKIM tokens, go
-     * to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html">
-     * Amazon SES Developer Guide </a> .
+     * to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param verifyDomainDkimRequest Container for the necessary parameters
@@ -438,9 +444,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * </p>
      * <p>
      * For more information about creating DNS records using DKIM tokens, go
-     * to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html">
-     * Amazon SES Developer Guide </a> .
+     * to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param verifyDomainDkimRequest Container for the necessary parameters
@@ -494,9 +500,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * </p>
      * <p>
      * For more information about creating DNS records using DKIM tokens, go
-     * to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html">
-     * Amazon SES Developer Guide </a> .
+     * to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param getIdentityDkimAttributesRequest Container for the necessary
@@ -546,9 +552,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * </p>
      * <p>
      * For more information about creating DNS records using DKIM tokens, go
-     * to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html">
-     * Amazon SES Developer Guide </a> .
+     * to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param getIdentityDkimAttributesRequest Container for the necessary
@@ -582,9 +588,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * message to be sent to the specified address.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>The VerifyEmailAddress action is deprecated as of the
-     * May 15, 2012 release of Domain Verification. The VerifyEmailIdentity
-     * action is now preferred.
+     * <b>IMPORTANT:</b>The VerifyEmailAddress action is deprecated as of
+     * the May 15, 2012 release of Domain Verification. The
+     * VerifyEmailIdentity action is now preferred.
      * </p>
      * <p>
      * This action is throttled at one request per second.
@@ -616,9 +622,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * message to be sent to the specified address.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>The VerifyEmailAddress action is deprecated as of the
-     * May 15, 2012 release of Domain Verification. The VerifyEmailIdentity
-     * action is now preferred.
+     * <b>IMPORTANT:</b>The VerifyEmailAddress action is deprecated as of
+     * the May 15, 2012 release of Domain Verification. The
+     * VerifyEmailIdentity action is now preferred.
      * </p>
      * <p>
      * This action is throttled at one request per second.
@@ -675,12 +681,17 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * Amazon SES repeatedly to send the message to each group.
      * </p>
      * <p>
+     * The To:, CC:, and BCC: headers in the raw message can contain a group
+     * list. Note that each recipient in a group list counts towards the
+     * 50-recipient limit.
+     * </p>
+     * <p>
      * For every message that you send, the total number of recipients (To:,
      * CC: and BCC:) is counted against your <i>sending quota</i> - the
      * maximum number of emails you can send in a 24-hour period. For
-     * information about your sending quota, go to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html">
-     * Amazon SES Developer Guide </a> .
+     * information about your sending quota, go to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param sendRawEmailRequest Container for the necessary parameters to
@@ -727,12 +738,17 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * Amazon SES repeatedly to send the message to each group.
      * </p>
      * <p>
+     * The To:, CC:, and BCC: headers in the raw message can contain a group
+     * list. Note that each recipient in a group list counts towards the
+     * 50-recipient limit.
+     * </p>
+     * <p>
      * For every message that you send, the total number of recipients (To:,
      * CC: and BCC:) is counted against your <i>sending quota</i> - the
      * maximum number of emails you can send in a 24-hour period. For
-     * information about your sending quota, go to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html">
-     * Amazon SES Developer Guide </a> .
+     * information about your sending quota, go to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param sendRawEmailRequest Container for the necessary parameters to
@@ -910,9 +926,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about Easy DKIM signing, go to the <a
-     * "http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about Easy DKIM signing, go to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param setIdentityDkimEnabledRequest Container for the necessary
@@ -959,9 +975,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about Easy DKIM signing, go to the <a
-     * "http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about Easy DKIM signing, go to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param setIdentityDkimEnabledRequest Container for the necessary
@@ -1049,17 +1065,24 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
     /**
      * <p>
      * Given an identity (email address or domain), enables or disables
-     * whether Amazon SES forwards feedback notifications as email. Feedback
-     * forwarding may only be disabled when both complaint and bounce topics
-     * are set.
+     * whether Amazon SES forwards bounce and complaint notifications as
+     * email. Feedback forwarding can only be disabled when Amazon Simple
+     * Notification Service (Amazon SNS) topics are specified for both
+     * bounces and complaints.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>Feedback forwarding does not apply to delivery
+     * notifications. Delivery notifications are only available through
+     * Amazon SNS.
      * </p>
      * <p>
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about feedback notification, see the <a
-     * on.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about using notifications with Amazon SES, see
+     * the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param setIdentityFeedbackForwardingEnabledRequest Container for the
@@ -1086,17 +1109,24 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
     /**
      * <p>
      * Given an identity (email address or domain), enables or disables
-     * whether Amazon SES forwards feedback notifications as email. Feedback
-     * forwarding may only be disabled when both complaint and bounce topics
-     * are set.
+     * whether Amazon SES forwards bounce and complaint notifications as
+     * email. Feedback forwarding can only be disabled when Amazon Simple
+     * Notification Service (Amazon SNS) topics are specified for both
+     * bounces and complaints.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>Feedback forwarding does not apply to delivery
+     * notifications. Delivery notifications are only available through
+     * Amazon SNS.
      * </p>
      * <p>
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about feedback notification, see the <a
-     * on.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about using notifications with Amazon SES, see
+     * the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param setIdentityFeedbackForwardingEnabledRequest Container for the
@@ -1212,9 +1242,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * For every message that you send, the total number of recipients (To:,
      * CC: and BCC:) is counted against your <i>sending quota</i> - the
      * maximum number of emails you can send in a 24-hour period. For
-     * information about your sending quota, go to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html">
-     * Amazon SES Developer Guide </a> .
+     * information about your sending quota, go to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param sendEmailRequest Container for the necessary parameters to
@@ -1261,9 +1291,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * For every message that you send, the total number of recipients (To:,
      * CC: and BCC:) is counted against your <i>sending quota</i> - the
      * maximum number of emails you can send in a 24-hour period. For
-     * information about your sending quota, go to the <a
-     * .aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html">
-     * Amazon SES Developer Guide </a> .
+     * information about your sending quota, go to the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param sendEmailRequest Container for the necessary parameters to
@@ -1364,19 +1394,23 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
 
     /**
      * <p>
-     * Given an identity (email address or domain), sets the Amazon SNS topic
-     * to which Amazon SES will publish bounce and complaint notifications
-     * for emails sent with that identity as the <code>Source</code> .
-     * Publishing to topics may only be disabled when feedback
-     * forwarding is enabled.
+     * Given an identity (email address or domain), sets the Amazon Simple
+     * Notification Service (Amazon SNS) topic to which Amazon SES will
+     * publish bounce, complaint, and/or delivery notifications for emails
+     * sent with that identity as the <code>Source</code> .
+     * </p>
+     * <p>
+     * <b>NOTE:</b>Unless feedback forwarding is enabled, you must specify
+     * Amazon SNS topics for bounce and complaint notifications. For more
+     * information, see SetIdentityFeedbackForwardingEnabled.
      * </p>
      * <p>
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about feedback notification, see the <a
-     * on.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about feedback notification, see the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param setIdentityNotificationTopicRequest Container for the necessary
@@ -1401,19 +1435,23 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
 
     /**
      * <p>
-     * Given an identity (email address or domain), sets the Amazon SNS topic
-     * to which Amazon SES will publish bounce and complaint notifications
-     * for emails sent with that identity as the <code>Source</code> .
-     * Publishing to topics may only be disabled when feedback
-     * forwarding is enabled.
+     * Given an identity (email address or domain), sets the Amazon Simple
+     * Notification Service (Amazon SNS) topic to which Amazon SES will
+     * publish bounce, complaint, and/or delivery notifications for emails
+     * sent with that identity as the <code>Source</code> .
+     * </p>
+     * <p>
+     * <b>NOTE:</b>Unless feedback forwarding is enabled, you must specify
+     * Amazon SNS topics for bounce and complaint notifications. For more
+     * information, see SetIdentityFeedbackForwardingEnabled.
      * </p>
      * <p>
      * This action is throttled at one request per second.
      * </p>
      * <p>
-     * For more information about feedback notification, see the <a
-     * on.com/ses/latest/DeveloperGuide/bounce-complaint-notifications.html">
-     * Amazon SES Developer Guide </a> .
+     * For more information about feedback notification, see the
+     * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html"> Amazon SES Developer Guide </a>
+     * .
      * </p>
      *
      * @param setIdentityNotificationTopicRequest Container for the necessary

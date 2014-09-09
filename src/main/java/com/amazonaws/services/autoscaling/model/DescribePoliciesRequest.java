@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#describePolicies(DescribePoliciesRequest) DescribePolicies operation}.
  * <p>
- * Returns descriptions of what each policy does. This action supports pagination. If the response includes a token, there are more records available.
- * To get the additional records, repeat the request with the response token as the <code>NextToken</code> parameter.
+ * Returns descriptions of what each policy does. This action supports
+ * pagination. If the response includes a token, there are more records
+ * available. To get the additional records, repeat the request with the
+ * response token as the <code>NextToken</code> parameter.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describePolicies(DescribePoliciesRequest)
@@ -34,7 +36,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -52,15 +54,12 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * results for pagination.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String nextToken;
 
     /**
      * The maximum number of policies that will be described with each call.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      */
     private Integer maxRecords;
 
@@ -69,7 +68,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the Auto Scaling group.
      */
@@ -82,7 +81,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group.
      */
@@ -97,11 +96,11 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePoliciesRequest withAutoScalingGroupName(String autoScalingGroupName) {
@@ -168,7 +167,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      *         requested policy names cannot contain more than 50 items. If unknown
      *         policy names are requested, they are ignored with no error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePoliciesRequest withPolicyNames(String... policyNames) {
@@ -194,7 +193,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      *         requested policy names cannot contain more than 50 items. If unknown
      *         policy names are requested, they are ignored with no error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePoliciesRequest withPolicyNames(java.util.Collection<String> policyNames) {
@@ -214,7 +213,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * results for pagination.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A string that is used to mark the start of the next batch of returned
      *         results for pagination.
@@ -228,7 +227,7 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * results for pagination.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that is used to mark the start of the next batch of returned
      *         results for pagination.
@@ -244,12 +243,12 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that is used to mark the start of the next batch of returned
      *         results for pagination.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePoliciesRequest withNextToken(String nextToken) {
@@ -259,9 +258,6 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The maximum number of policies that will be described with each call.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @return The maximum number of policies that will be described with each call.
      */
@@ -271,9 +267,6 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The maximum number of policies that will be described with each call.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of policies that will be described with each call.
      */
@@ -285,13 +278,10 @@ public class DescribePoliciesRequest extends AmazonWebServiceRequest implements 
      * The maximum number of policies that will be described with each call.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of policies that will be described with each call.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePoliciesRequest withMaxRecords(Integer maxRecords) {

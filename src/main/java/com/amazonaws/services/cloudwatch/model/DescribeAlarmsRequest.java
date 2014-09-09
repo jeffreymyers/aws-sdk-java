@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarms(DescribeAlarmsRequest) DescribeAlarms operation}.
  * <p>
- * Retrieves alarms with the specified names. If no name is specified, all alarms for the user are returned. Alarms can be retrieved by using only a
- * prefix for the alarm name, the alarm state, or a prefix for any action.
+ * Retrieves alarms with the specified names. If no name is specified,
+ * all alarms for the user are returned. Alarms can be retrieved by using
+ * only a prefix for the alarm name, the alarm state, or a prefix for any
+ * action.
  * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarms(DescribeAlarmsRequest)
@@ -120,7 +122,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param alarmNames A list of alarm names to retrieve information for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsRequest withAlarmNames(String... alarmNames) {
@@ -141,7 +143,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param alarmNames A list of alarm names to retrieve information for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsRequest withAlarmNames(java.util.Collection<String> alarmNames) {
@@ -196,7 +198,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      * @param alarmNamePrefix The alarm name prefix. <code>AlarmNames</code> cannot be specified if
      *         this parameter is specified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsRequest withAlarmNamePrefix(String alarmNamePrefix) {
@@ -242,7 +244,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param stateValue The state value to be used in matching alarms.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StateValue
@@ -276,7 +278,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param stateValue The state value to be used in matching alarms.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StateValue
@@ -320,7 +322,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param actionPrefix The action name prefix.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsRequest withActionPrefix(String actionPrefix) {
@@ -362,7 +364,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param maxRecords The maximum number of alarm descriptions to retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsRequest withMaxRecords(Integer maxRecords) {
@@ -401,7 +403,7 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest implements Se
      * @param nextToken The token returned by a previous call to indicate that there is more
      *         data available.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsRequest withNextToken(String nextToken) {

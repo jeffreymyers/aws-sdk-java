@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#createDBSnapshot(CreateDBSnapshotRequest) CreateDBSnapshot operation}.
  * <p>
- * Creates a DBSnapshot. The source DBInstance must be in "available" state.
+ * Creates a DBSnapshot. The source DBInstance must be in "available"
+ * state.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#createDBSnapshot(CreateDBSnapshotRequest)
@@ -129,7 +130,7 @@ public class CreateDBSnapshotRequest extends AmazonWebServiceRequest implements 
      *         <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
      *         </ul> <p>Example: <code>my-snapshot-id</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSnapshotRequest withDBSnapshotIdentifier(String dBSnapshotIdentifier) {
@@ -186,7 +187,7 @@ public class CreateDBSnapshotRequest extends AmazonWebServiceRequest implements 
      *         <li>First character must be a letter</li> <li>Cannot end with a hyphen
      *         or contain two consecutive hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSnapshotRequest withDBInstanceIdentifier(String dBInstanceIdentifier) {
@@ -229,7 +230,7 @@ public class CreateDBSnapshotRequest extends AmazonWebServiceRequest implements 
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSnapshotRequest withTags(Tag... tags) {
@@ -247,7 +248,7 @@ public class CreateDBSnapshotRequest extends AmazonWebServiceRequest implements 
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSnapshotRequest withTags(java.util.Collection<Tag> tags) {

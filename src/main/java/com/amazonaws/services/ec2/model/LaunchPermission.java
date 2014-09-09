@@ -18,19 +18,18 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Describes a permission to launch an Amazon Machine Image (AMI).
+ * Describes a launch permission.
  * </p>
  */
 public class LaunchPermission implements Serializable {
 
     /**
-     * The AWS user ID of the user involved in this launch permission.
+     * The AWS account ID.
      */
     private String userId;
 
     /**
-     * The AWS group of the user involved in this launch permission. <p>
-     * Available groups: <code>all</code>
+     * The name of the group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>all
@@ -38,31 +37,31 @@ public class LaunchPermission implements Serializable {
     private String group;
 
     /**
-     * The AWS user ID of the user involved in this launch permission.
+     * The AWS account ID.
      *
-     * @return The AWS user ID of the user involved in this launch permission.
+     * @return The AWS account ID.
      */
     public String getUserId() {
         return userId;
     }
     
     /**
-     * The AWS user ID of the user involved in this launch permission.
+     * The AWS account ID.
      *
-     * @param userId The AWS user ID of the user involved in this launch permission.
+     * @param userId The AWS account ID.
      */
     public void setUserId(String userId) {
         this.userId = userId;
     }
     
     /**
-     * The AWS user ID of the user involved in this launch permission.
+     * The AWS account ID.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param userId The AWS user ID of the user involved in this launch permission.
+     * @param userId The AWS account ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public LaunchPermission withUserId(String userId) {
@@ -71,14 +70,12 @@ public class LaunchPermission implements Serializable {
     }
 
     /**
-     * The AWS group of the user involved in this launch permission. <p>
-     * Available groups: <code>all</code>
+     * The name of the group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>all
      *
-     * @return The AWS group of the user involved in this launch permission. <p>
-     *         Available groups: <code>all</code>
+     * @return The name of the group.
      *
      * @see PermissionGroup
      */
@@ -87,14 +84,12 @@ public class LaunchPermission implements Serializable {
     }
     
     /**
-     * The AWS group of the user involved in this launch permission. <p>
-     * Available groups: <code>all</code>
+     * The name of the group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>all
      *
-     * @param group The AWS group of the user involved in this launch permission. <p>
-     *         Available groups: <code>all</code>
+     * @param group The name of the group.
      *
      * @see PermissionGroup
      */
@@ -103,18 +98,16 @@ public class LaunchPermission implements Serializable {
     }
     
     /**
-     * The AWS group of the user involved in this launch permission. <p>
-     * Available groups: <code>all</code>
+     * The name of the group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>all
      *
-     * @param group The AWS group of the user involved in this launch permission. <p>
-     *         Available groups: <code>all</code>
+     * @param group The name of the group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PermissionGroup
@@ -125,14 +118,12 @@ public class LaunchPermission implements Serializable {
     }
 
     /**
-     * The AWS group of the user involved in this launch permission. <p>
-     * Available groups: <code>all</code>
+     * The name of the group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>all
      *
-     * @param group The AWS group of the user involved in this launch permission. <p>
-     *         Available groups: <code>all</code>
+     * @param group The name of the group.
      *
      * @see PermissionGroup
      */
@@ -141,18 +132,16 @@ public class LaunchPermission implements Serializable {
     }
     
     /**
-     * The AWS group of the user involved in this launch permission. <p>
-     * Available groups: <code>all</code>
+     * The name of the group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>all
      *
-     * @param group The AWS group of the user involved in this launch permission. <p>
-     *         Available groups: <code>all</code>
+     * @param group The name of the group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PermissionGroup

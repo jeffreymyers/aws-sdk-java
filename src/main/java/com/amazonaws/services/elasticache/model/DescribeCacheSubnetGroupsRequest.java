@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheSubnetGroups(DescribeCacheSubnetGroupsRequest) DescribeCacheSubnetGroups operation}.
  * <p>
- * The <i>DescribeCacheSubnetGroups</i> operation returns a list of cache subnet group descriptions. If a subnet group name is specified, the list will
- * contain only the description of that group.
+ * The <i>DescribeCacheSubnetGroups</i> operation returns a list of cache
+ * subnet group descriptions. If a subnet group name is specified, the
+ * list will contain only the description of that group.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheSubnetGroups(DescribeCacheSubnetGroupsRequest)
@@ -75,7 +76,7 @@ public class DescribeCacheSubnetGroupsRequest extends AmazonWebServiceRequest im
      *
      * @param cacheSubnetGroupName The name of the cache subnet group to return details for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheSubnetGroupsRequest withCacheSubnetGroupName(String cacheSubnetGroupName) {
@@ -126,7 +127,7 @@ public class DescribeCacheSubnetGroupsRequest extends AmazonWebServiceRequest im
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheSubnetGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -177,7 +178,7 @@ public class DescribeCacheSubnetGroupsRequest extends AmazonWebServiceRequest im
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheSubnetGroupsRequest withMarker(String marker) {

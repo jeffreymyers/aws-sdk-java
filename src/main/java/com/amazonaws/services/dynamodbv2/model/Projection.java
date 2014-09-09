@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key
- * attributes, which are automatically projected.
+ * Represents attributes that are copied (projected) from the table into
+ * an index. These are in addition to the primary key attributes and
+ * index key attributes, which are automatically projected.
  * </p>
  */
 public class Projection implements Serializable {
@@ -125,7 +126,7 @@ public class Projection implements Serializable {
      *         <p><code>ALL</code> - All of the table attributes are projected into
      *         the index. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ProjectionType
@@ -183,7 +184,7 @@ public class Projection implements Serializable {
      *         <p><code>ALL</code> - All of the table attributes are projected into
      *         the index. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ProjectionType
@@ -263,7 +264,7 @@ public class Projection implements Serializable {
      *         two different indexes, this counts as two distinct attributes when
      *         determining the total.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Projection withNonKeyAttributes(String... nonKeyAttributes) {
@@ -294,7 +295,7 @@ public class Projection implements Serializable {
      *         two different indexes, this counts as two distinct attributes when
      *         determining the total.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Projection withNonKeyAttributes(java.util.Collection<String> nonKeyAttributes) {

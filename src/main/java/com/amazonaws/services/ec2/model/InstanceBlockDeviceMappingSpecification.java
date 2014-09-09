@@ -18,20 +18,20 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Specifies how an instance's block devices should be mapped on a running instance.
+ * Describes a block device mapping entry.
  * </p>
  */
 public class InstanceBlockDeviceMappingSpecification implements Serializable {
 
     /**
-     * The device name (e.g., <code>/dev/sdh</code>) at which the block
-     * device is exposed on the instance.
+     * The device name exposed to the instance (for example,
+     * <filename>/dev/sdh</filename>).
      */
     private String deviceName;
 
     /**
-     * The EBS instance block device specification describing the EBS block
-     * device to map to the specified device name on a running instance.
+     * Parameters used to automatically set up Amazon EBS volumes when the
+     * instance is launched.
      */
     private EbsInstanceBlockDeviceSpecification ebs;
 
@@ -41,43 +41,42 @@ public class InstanceBlockDeviceMappingSpecification implements Serializable {
     private String virtualName;
 
     /**
-     * When set to the empty string, specifies that the device name in this
-     * object should not be mapped to any real device.
+     * suppress the specified device included in the block device mapping.
      */
     private String noDevice;
 
     /**
-     * The device name (e.g., <code>/dev/sdh</code>) at which the block
-     * device is exposed on the instance.
+     * The device name exposed to the instance (for example,
+     * <filename>/dev/sdh</filename>).
      *
-     * @return The device name (e.g., <code>/dev/sdh</code>) at which the block
-     *         device is exposed on the instance.
+     * @return The device name exposed to the instance (for example,
+     *         <filename>/dev/sdh</filename>).
      */
     public String getDeviceName() {
         return deviceName;
     }
     
     /**
-     * The device name (e.g., <code>/dev/sdh</code>) at which the block
-     * device is exposed on the instance.
+     * The device name exposed to the instance (for example,
+     * <filename>/dev/sdh</filename>).
      *
-     * @param deviceName The device name (e.g., <code>/dev/sdh</code>) at which the block
-     *         device is exposed on the instance.
+     * @param deviceName The device name exposed to the instance (for example,
+     *         <filename>/dev/sdh</filename>).
      */
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
     
     /**
-     * The device name (e.g., <code>/dev/sdh</code>) at which the block
-     * device is exposed on the instance.
+     * The device name exposed to the instance (for example,
+     * <filename>/dev/sdh</filename>).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param deviceName The device name (e.g., <code>/dev/sdh</code>) at which the block
-     *         device is exposed on the instance.
+     * @param deviceName The device name exposed to the instance (for example,
+     *         <filename>/dev/sdh</filename>).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceBlockDeviceMappingSpecification withDeviceName(String deviceName) {
@@ -86,37 +85,37 @@ public class InstanceBlockDeviceMappingSpecification implements Serializable {
     }
 
     /**
-     * The EBS instance block device specification describing the EBS block
-     * device to map to the specified device name on a running instance.
+     * Parameters used to automatically set up Amazon EBS volumes when the
+     * instance is launched.
      *
-     * @return The EBS instance block device specification describing the EBS block
-     *         device to map to the specified device name on a running instance.
+     * @return Parameters used to automatically set up Amazon EBS volumes when the
+     *         instance is launched.
      */
     public EbsInstanceBlockDeviceSpecification getEbs() {
         return ebs;
     }
     
     /**
-     * The EBS instance block device specification describing the EBS block
-     * device to map to the specified device name on a running instance.
+     * Parameters used to automatically set up Amazon EBS volumes when the
+     * instance is launched.
      *
-     * @param ebs The EBS instance block device specification describing the EBS block
-     *         device to map to the specified device name on a running instance.
+     * @param ebs Parameters used to automatically set up Amazon EBS volumes when the
+     *         instance is launched.
      */
     public void setEbs(EbsInstanceBlockDeviceSpecification ebs) {
         this.ebs = ebs;
     }
     
     /**
-     * The EBS instance block device specification describing the EBS block
-     * device to map to the specified device name on a running instance.
+     * Parameters used to automatically set up Amazon EBS volumes when the
+     * instance is launched.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param ebs The EBS instance block device specification describing the EBS block
-     *         device to map to the specified device name on a running instance.
+     * @param ebs Parameters used to automatically set up Amazon EBS volumes when the
+     *         instance is launched.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceBlockDeviceMappingSpecification withEbs(EbsInstanceBlockDeviceSpecification ebs) {
@@ -149,7 +148,7 @@ public class InstanceBlockDeviceMappingSpecification implements Serializable {
      *
      * @param virtualName The virtual device name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceBlockDeviceMappingSpecification withVirtualName(String virtualName) {
@@ -158,37 +157,31 @@ public class InstanceBlockDeviceMappingSpecification implements Serializable {
     }
 
     /**
-     * When set to the empty string, specifies that the device name in this
-     * object should not be mapped to any real device.
+     * suppress the specified device included in the block device mapping.
      *
-     * @return When set to the empty string, specifies that the device name in this
-     *         object should not be mapped to any real device.
+     * @return suppress the specified device included in the block device mapping.
      */
     public String getNoDevice() {
         return noDevice;
     }
     
     /**
-     * When set to the empty string, specifies that the device name in this
-     * object should not be mapped to any real device.
+     * suppress the specified device included in the block device mapping.
      *
-     * @param noDevice When set to the empty string, specifies that the device name in this
-     *         object should not be mapped to any real device.
+     * @param noDevice suppress the specified device included in the block device mapping.
      */
     public void setNoDevice(String noDevice) {
         this.noDevice = noDevice;
     }
     
     /**
-     * When set to the empty string, specifies that the device name in this
-     * object should not be mapped to any real device.
+     * suppress the specified device included in the block device mapping.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param noDevice When set to the empty string, specifies that the device name in this
-     *         object should not be mapped to any real device.
+     * @param noDevice suppress the specified device included in the block device mapping.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceBlockDeviceMappingSpecification withNoDevice(String noDevice) {

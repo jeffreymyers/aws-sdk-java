@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeDBEngineVersions action.
+ * Contains the result of a successful invocation of the
+ * DescribeDBEngineVersions action.
  * </p>
  */
 public class DescribeDBEngineVersionsResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeDBEngineVersionsResult implements Serializable {
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBEngineVersionsResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeDBEngineVersionsResult implements Serializable {
      *
      * @param dBEngineVersions A list of <code>DBEngineVersion</code> elements.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBEngineVersionsResult withDBEngineVersions(DBEngineVersion... dBEngineVersions) {
@@ -133,7 +134,7 @@ public class DescribeDBEngineVersionsResult implements Serializable {
      *
      * @param dBEngineVersions A list of <code>DBEngineVersion</code> elements.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBEngineVersionsResult withDBEngineVersions(java.util.Collection<DBEngineVersion> dBEngineVersions) {

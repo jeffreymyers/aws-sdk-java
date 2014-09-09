@@ -21,6 +21,7 @@ import java.io.Serializable;
  * The stemming options configured for this search domain and the current status of those options.
  * </p>
  */
+@Deprecated
 public class StemmingOptionsStatus implements Serializable {
 
     /**

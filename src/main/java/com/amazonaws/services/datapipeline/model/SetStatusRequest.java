@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#setStatus(SetStatusRequest) SetStatus operation}.
  * <p>
- * Requests that the status of an array of physical or logical pipeline objects be updated in the pipeline. This update may not occur immediately, but is
- * eventually consistent. The status that can be set depends on the type of object.
+ * Requests that the status of an array of physical or logical pipeline
+ * objects be updated in the pipeline. This update may not occur
+ * immediately, but is eventually consistent. The status that can be set
+ * depends on the type of object.
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#setStatus(SetStatusRequest)
@@ -34,7 +36,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String pipelineId;
 
@@ -53,7 +55,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String status;
 
@@ -62,7 +64,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Identifies the pipeline that contains the objects.
      */
@@ -75,7 +77,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifies the pipeline that contains the objects.
      */
@@ -90,11 +92,11 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifies the pipeline that contains the objects.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetStatusRequest withPipelineId(String pipelineId) {
@@ -143,7 +145,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * @param objectIds Identifies an array of objects. The corresponding objects can be
      *         either physical or components, but not a mix of both types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetStatusRequest withObjectIds(String... objectIds) {
@@ -163,7 +165,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * @param objectIds Identifies an array of objects. The corresponding objects can be
      *         either physical or components, but not a mix of both types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetStatusRequest withObjectIds(java.util.Collection<String> objectIds) {
@@ -187,7 +189,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Specifies the status to be set on all the objects in
      *         <code>objectIds</code>. For components, this can be either
@@ -208,7 +210,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param status Specifies the status to be set on all the objects in
      *         <code>objectIds</code>. For components, this can be either
@@ -231,7 +233,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param status Specifies the status to be set on all the objects in
      *         <code>objectIds</code>. For components, this can be either
@@ -239,7 +241,7 @@ public class SetStatusRequest extends AmazonWebServiceRequest implements Seriali
      *         either <code>CANCEL</code>, <code>RERUN</code>, or
      *         <code>MARK_FINISHED</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetStatusRequest withStatus(String status) {

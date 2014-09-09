@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that contains the value of the <code>Value</code> element for the current resource record set.
+ * A complex type that contains the value of the <code>Value</code>
+ * element for the current resource record set.
  * </p>
  */
 public class ResourceRecord implements Serializable {
@@ -90,7 +91,7 @@ public class ResourceRecord implements Serializable {
      * @param value The value of the <code>Value</code> element for the current resource
      *         record set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResourceRecord withValue(String value) {

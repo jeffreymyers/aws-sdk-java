@@ -23,12 +23,41 @@ import com.amazonaws.services.ec2.model.transform.CreateSnapshotRequestMarshalle
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#createSnapshot(CreateSnapshotRequest) CreateSnapshot operation}.
  * <p>
- * Create a snapshot of the volume identified by volume ID. A volume does not have to be detached at the time the snapshot is taken.
+ * Creates a snapshot of an Amazon EBS volume and stores it in Amazon S3.
+ * You can use snapshots for backups, to make copies of Amazon EBS
+ * volumes, and to save data before shutting down an instance.
  * </p>
  * <p>
- * <b>NOTE:</b> Snapshot creation requires that the system is in a consistent state. For instance, this means that if taking a snapshot of a database,
- * the tables must be read-only locked to ensure that the snapshot will not contain a corrupted version of the database. Therefore, be careful when
- * using this API to ensure that the system remains in the consistent state until the create snapshot status has returned.
+ * When a snapshot is created, any AWS Marketplace product codes that are
+ * associated with the source volume are propagated to the snapshot.
+ * </p>
+ * <p>
+ * You can take a snapshot of an attached volume that is in use. However,
+ * snapshots only capture data that has been written to your Amazon EBS
+ * volume at the time the snapshot command is issued; this may exclude
+ * any data that has been cached by any applications or the operating
+ * system. If you can pause any file writes to the volume long enough to
+ * take a snapshot, your snapshot should be complete. However, if you
+ * cannot pause all file writes to the volume, you should unmount the
+ * volume from within the instance, issue the snapshot command, and then
+ * remount the volume to ensure a consistent and complete snapshot. You
+ * may remount and use your volume while the snapshot status is
+ * <code>pending</code> .
+ * </p>
+ * <p>
+ * To create a snapshot for Amazon EBS volumes that serve as root
+ * devices, you should stop the instance before taking the snapshot.
+ * </p>
+ * <p>
+ * Snapshots that are taken from encrypted volumes are automatically
+ * encrypted. Volumes that are created from encrypted snapshots are also
+ * automatically encrypted. Your encrypted volumes and any associated
+ * snapshots always remain protected.
+ * </p>
+ * <p>
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html"> Amazon Elastic Block Store </a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#createSnapshot(CreateSnapshotRequest)
@@ -36,12 +65,12 @@ import com.amazonaws.services.ec2.model.transform.CreateSnapshotRequestMarshalle
 public class CreateSnapshotRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<CreateSnapshotRequest> {
 
     /**
-     * The ID of the volume from which to create the snapshot.
+     * The ID of the Amazon EBS volume.
      */
     private String volumeId;
 
     /**
-     * The description for the new snapshot.
+     * A description for the snapshot.
      */
     private String description;
 
@@ -56,9 +85,8 @@ public class CreateSnapshotRequest extends AmazonWebServiceRequest implements Se
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param volumeId The ID of the volume from which to create the
-     * snapshot.
-     * @param description The description for the new snapshot.
+     * @param volumeId The ID of the Amazon EBS volume.
+     * @param description A description for the snapshot.
      */
     public CreateSnapshotRequest(String volumeId, String description) {
         setVolumeId(volumeId);
@@ -66,31 +94,31 @@ public class CreateSnapshotRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * The ID of the volume from which to create the snapshot.
+     * The ID of the Amazon EBS volume.
      *
-     * @return The ID of the volume from which to create the snapshot.
+     * @return The ID of the Amazon EBS volume.
      */
     public String getVolumeId() {
         return volumeId;
     }
     
     /**
-     * The ID of the volume from which to create the snapshot.
+     * The ID of the Amazon EBS volume.
      *
-     * @param volumeId The ID of the volume from which to create the snapshot.
+     * @param volumeId The ID of the Amazon EBS volume.
      */
     public void setVolumeId(String volumeId) {
         this.volumeId = volumeId;
     }
     
     /**
-     * The ID of the volume from which to create the snapshot.
+     * The ID of the Amazon EBS volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param volumeId The ID of the volume from which to create the snapshot.
+     * @param volumeId The ID of the Amazon EBS volume.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateSnapshotRequest withVolumeId(String volumeId) {
@@ -99,31 +127,31 @@ public class CreateSnapshotRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * The description for the new snapshot.
+     * A description for the snapshot.
      *
-     * @return The description for the new snapshot.
+     * @return A description for the snapshot.
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     * The description for the new snapshot.
+     * A description for the snapshot.
      *
-     * @param description The description for the new snapshot.
+     * @param description A description for the snapshot.
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     * The description for the new snapshot.
+     * A description for the snapshot.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param description The description for the new snapshot.
+     * @param description A description for the snapshot.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateSnapshotRequest withDescription(String description) {

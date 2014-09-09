@@ -37,7 +37,7 @@ public class DescribeUploadBufferResultJsonUnmarshaller implements Unmarshaller<
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -50,6 +50,7 @@ public class DescribeUploadBufferResultJsonUnmarshaller implements Unmarshaller<
                     describeUploadBufferResult.setGatewayARN(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("DiskIds", targetDepth)) {
+                    context.nextToken();
                     describeUploadBufferResult.setDiskIds(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("UploadBufferUsedInBytes", targetDepth)) {

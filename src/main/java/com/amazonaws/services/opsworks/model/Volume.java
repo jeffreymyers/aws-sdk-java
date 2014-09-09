@@ -84,6 +84,16 @@ public class Volume implements Serializable {
     private String availabilityZone;
 
     /**
+     * The volume type, standard or PIOPS.
+     */
+    private String volumeType;
+
+    /**
+     * For PIOPS volumes, the IOPS per disk.
+     */
+    private Integer iops;
+
+    /**
      * The volume ID.
      *
      * @return The volume ID.
@@ -108,7 +118,7 @@ public class Volume implements Serializable {
      *
      * @param volumeId The volume ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withVolumeId(String volumeId) {
@@ -141,7 +151,7 @@ public class Volume implements Serializable {
      *
      * @param ec2VolumeId The Amazon EC2 volume ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withEc2VolumeId(String ec2VolumeId) {
@@ -174,7 +184,7 @@ public class Volume implements Serializable {
      *
      * @param name The volume name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withName(String name) {
@@ -207,7 +217,7 @@ public class Volume implements Serializable {
      *
      * @param raidArrayId The RAID array ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withRaidArrayId(String raidArrayId) {
@@ -240,7 +250,7 @@ public class Volume implements Serializable {
      *
      * @param instanceId The instance ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withInstanceId(String instanceId) {
@@ -279,7 +289,7 @@ public class Volume implements Serializable {
      * @param status The value returned by <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-DescribeVolumes.html">DescribeVolumes</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withStatus(String status) {
@@ -312,7 +322,7 @@ public class Volume implements Serializable {
      *
      * @param size The volume size.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withSize(Integer size) {
@@ -345,7 +355,7 @@ public class Volume implements Serializable {
      *
      * @param device The device name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withDevice(String device) {
@@ -378,7 +388,7 @@ public class Volume implements Serializable {
      *
      * @param mountPoint The volume mount point. For example "/dev/sdh".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withMountPoint(String mountPoint) {
@@ -423,7 +433,7 @@ public class Volume implements Serializable {
      *         href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions
      *         and Endpoints</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withRegion(String region) {
@@ -468,11 +478,77 @@ public class Volume implements Serializable {
      *         href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions
      *         and Endpoints</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Volume withAvailabilityZone(String availabilityZone) {
         this.availabilityZone = availabilityZone;
+        return this;
+    }
+
+    /**
+     * The volume type, standard or PIOPS.
+     *
+     * @return The volume type, standard or PIOPS.
+     */
+    public String getVolumeType() {
+        return volumeType;
+    }
+    
+    /**
+     * The volume type, standard or PIOPS.
+     *
+     * @param volumeType The volume type, standard or PIOPS.
+     */
+    public void setVolumeType(String volumeType) {
+        this.volumeType = volumeType;
+    }
+    
+    /**
+     * The volume type, standard or PIOPS.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param volumeType The volume type, standard or PIOPS.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Volume withVolumeType(String volumeType) {
+        this.volumeType = volumeType;
+        return this;
+    }
+
+    /**
+     * For PIOPS volumes, the IOPS per disk.
+     *
+     * @return For PIOPS volumes, the IOPS per disk.
+     */
+    public Integer getIops() {
+        return iops;
+    }
+    
+    /**
+     * For PIOPS volumes, the IOPS per disk.
+     *
+     * @param iops For PIOPS volumes, the IOPS per disk.
+     */
+    public void setIops(Integer iops) {
+        this.iops = iops;
+    }
+    
+    /**
+     * For PIOPS volumes, the IOPS per disk.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param iops For PIOPS volumes, the IOPS per disk.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Volume withIops(Integer iops) {
+        this.iops = iops;
         return this;
     }
 
@@ -498,7 +574,9 @@ public class Volume implements Serializable {
         if (getDevice() != null) sb.append("Device: " + getDevice() + ",");
         if (getMountPoint() != null) sb.append("MountPoint: " + getMountPoint() + ",");
         if (getRegion() != null) sb.append("Region: " + getRegion() + ",");
-        if (getAvailabilityZone() != null) sb.append("AvailabilityZone: " + getAvailabilityZone() );
+        if (getAvailabilityZone() != null) sb.append("AvailabilityZone: " + getAvailabilityZone() + ",");
+        if (getVolumeType() != null) sb.append("VolumeType: " + getVolumeType() + ",");
+        if (getIops() != null) sb.append("Iops: " + getIops() );
         sb.append("}");
         return sb.toString();
     }
@@ -519,6 +597,8 @@ public class Volume implements Serializable {
         hashCode = prime * hashCode + ((getMountPoint() == null) ? 0 : getMountPoint().hashCode()); 
         hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode()); 
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode()); 
+        hashCode = prime * hashCode + ((getVolumeType() == null) ? 0 : getVolumeType().hashCode()); 
+        hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode()); 
         return hashCode;
     }
     
@@ -552,6 +632,10 @@ public class Volume implements Serializable {
         if (other.getRegion() != null && other.getRegion().equals(this.getRegion()) == false) return false; 
         if (other.getAvailabilityZone() == null ^ this.getAvailabilityZone() == null) return false;
         if (other.getAvailabilityZone() != null && other.getAvailabilityZone().equals(this.getAvailabilityZone()) == false) return false; 
+        if (other.getVolumeType() == null ^ this.getVolumeType() == null) return false;
+        if (other.getVolumeType() != null && other.getVolumeType().equals(this.getVolumeType()) == false) return false; 
+        if (other.getIops() == null ^ this.getIops() == null) return false;
+        if (other.getIops() != null && other.getIops().equals(this.getIops()) == false) return false; 
         return true;
     }
     

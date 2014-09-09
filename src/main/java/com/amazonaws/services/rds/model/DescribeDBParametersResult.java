@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeDBParameters action.
+ * Contains the result of a successful invocation of the
+ * DescribeDBParameters action.
  * </p>
  */
 public class DescribeDBParametersResult implements Serializable {
@@ -70,7 +71,7 @@ public class DescribeDBParametersResult implements Serializable {
      *
      * @param parameters A list of <a>Parameter</a> values.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParametersResult withParameters(Parameter... parameters) {
@@ -88,7 +89,7 @@ public class DescribeDBParametersResult implements Serializable {
      *
      * @param parameters A list of <a>Parameter</a> values.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParametersResult withParameters(java.util.Collection<Parameter> parameters) {
@@ -140,7 +141,7 @@ public class DescribeDBParametersResult implements Serializable {
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParametersResult withMarker(String marker) {

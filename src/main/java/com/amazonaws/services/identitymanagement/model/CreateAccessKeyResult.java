@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the CreateAccessKey action.
+ * Contains the result of a successful invocation of the CreateAccessKey
+ * action.
  * </p>
  */
 public class CreateAccessKeyResult implements Serializable {
@@ -53,7 +54,7 @@ public class CreateAccessKeyResult implements Serializable {
      *
      * @param accessKey Information about the access key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateAccessKeyResult withAccessKey(AccessKey accessKey) {

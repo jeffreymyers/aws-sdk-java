@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Settings for one clip in a composition. All jobs in a playlist must have the same clip settings.
+ * Settings for one clip in a composition. All jobs in a playlist must
+ * have the same clip settings.
  * </p>
  */
 public class Clip implements Serializable {
@@ -53,7 +54,7 @@ public class Clip implements Serializable {
      *
      * @param timeSpan Settings that determine when a clip begins and how long it lasts.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Clip withTimeSpan(TimeSpan timeSpan) {

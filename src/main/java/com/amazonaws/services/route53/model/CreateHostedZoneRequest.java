@@ -24,19 +24,26 @@ import com.amazonaws.AmazonWebServiceRequest;
  * This action creates a new hosted zone.
  * </p>
  * <p>
- * To create a new hosted zone, send a <code>POST</code> request to the <code>2012-12-12/hostedzone</code> resource. The request body must include an XML
- * document with a <code>CreateHostedZoneRequest</code> element. The response returns the <code>CreateHostedZoneResponse</code> element that contains
- * metadata about the hosted zone.
+ * To create a new hosted zone, send a <code>POST</code> request to the
+ * <code>2013-04-01/hostedzone</code> resource. The request body must
+ * include an XML document with a <code>CreateHostedZoneRequest</code>
+ * element. The response returns the
+ * <code>CreateHostedZoneResponse</code> element that contains metadata
+ * about the hosted zone.
  * </p>
  * <p>
- * Route 53 automatically creates a default SOA record and four NS records for the zone. The NS records in the hosted zone are the name servers you give
- * your registrar to delegate your domain to. For more information about SOA and NS records, see <a
- * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html"> NS and SOA Records that Route 53 Creates for a Hosted Zone </a>
+ * Route 53 automatically creates a default SOA record and four NS
+ * records for the zone. The NS records in the hosted zone are the name
+ * servers you give your registrar to delegate your domain to. For more
+ * information about SOA and NS records, see
+ * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html"> NS and SOA Records that Route 53 Creates for a Hosted Zone </a>
  * in the <i>Amazon Route 53 Developer Guide</i> .
  * </p>
  * <p>
- * When you create a zone, its initial status is <code>PENDING</code> . This means that it is not yet available on all DNS servers. The status of the
- * zone changes to <code>INSYNC</code> when the NS and SOA records are available on all Route 53 DNS servers.
+ * When you create a zone, its initial status is <code>PENDING</code> .
+ * This means that it is not yet available on all DNS servers. The status
+ * of the zone changes to <code>INSYNC</code> when the NS and SOA records
+ * are available on all Route 53 DNS servers.
  * </p>
  *
  * @see com.amazonaws.services.route53.AmazonRoute53#createHostedZone(CreateHostedZoneRequest)
@@ -198,7 +205,7 @@ public class CreateHostedZoneRequest extends AmazonWebServiceRequest implements 
      *         the set of <code>NameServers</code> elements returned in
      *         <code>DelegationSet</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHostedZoneRequest withName(String name) {
@@ -288,7 +295,7 @@ public class CreateHostedZoneRequest extends AmazonWebServiceRequest implements 
      *         points that are legal in an XML 1.0 document. The UTF-8 encoding of
      *         the value must be less than 128 bytes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHostedZoneRequest withCallerReference(String callerReference) {
@@ -327,7 +334,7 @@ public class CreateHostedZoneRequest extends AmazonWebServiceRequest implements 
      * @param hostedZoneConfig A complex type that contains an optional comment about your hosted
      *         zone.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHostedZoneRequest withHostedZoneConfig(HostedZoneConfig hostedZoneConfig) {

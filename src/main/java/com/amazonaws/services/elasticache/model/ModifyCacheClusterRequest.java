@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#modifyCacheCluster(ModifyCacheClusterRequest) ModifyCacheCluster operation}.
  * <p>
- * The <i>ModifyCacheCluster</i> operation modifies the settings for a cache cluster. You can use this operation to change one or more cluster
- * configuration parameters by specifying the parameters and the new values.
+ * The <i>ModifyCacheCluster</i> operation modifies the settings for a
+ * cache cluster. You can use this operation to change one or more
+ * cluster configuration parameters by specifying the parameters and the
+ * new values.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#modifyCacheCluster(ModifyCacheClusterRequest)
@@ -37,12 +39,36 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
 
     /**
      * The number of cache nodes that the cache cluster should have. If the
-     * value for <i>NumCacheNodes</i> is greater than the existing number of
-     * cache nodes, then more nodes will be added. If the value is less than
-     * the existing number of cache nodes, then cache nodes will be removed.
-     * <p>If you are removing cache nodes, you must use the
-     * <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     * specific cache nodes to be removed.
+     * value for <code>NumCacheNodes</code> is greater than the sum of the
+     * number of current cache nodes and the number of cache nodes pending
+     * creation (which may be zero), then more nodes will be added. If the
+     * value is less than the number of existing cache nodes, then nodes will
+     * be removed. If the value is equal to the number of current cache
+     * nodes, then any pending add or remove requests are canceled. <p>If you
+     * are removing cache nodes, you must use the
+     * <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     * specific cache nodes to remove. <p>For cache clusters running Redis,
+     * the value of <code>NumCacheNodes</code>must be 1.
+     * <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     * applied immediately or as a pending action. See
+     * <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     * number of cache nodes in a cluster during its maintenance window,
+     * whether by adding or removing nodes in accordance with the scale out
+     * architecture, is not queued. The customer's latest request to add or
+     * remove nodes to the cluster overrides any previous pending actions to
+     * modify the number of cache nodes in the cluster. For example, a
+     * request to remove 2 nodes would override a previous pending action to
+     * remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     * previous pending action to remove 3 nodes and vice versa. As Memcached
+     * cache nodes may now be provisioned in different Availability Zones
+     * with flexible cache node placement, a request to add nodes does not
+     * automatically override a previous pending action to add nodes. The
+     * customer can modify the previous pending action to add more nodes or
+     * explicitly cancel the pending request and retry the new request. To
+     * cancel pending actions to modify the number of cache nodes in a
+     * cluster, use the <code>ModifyCacheCluster</code> request and set
+     * <code>NumCacheNodes</code> equal to the number of cache nodes
+     * currently in the cache cluster.
      */
     private Integer numCacheNodes;
 
@@ -52,7 +78,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * NumCacheNodes is less than the existing number of cache nodes. The
      * number of cache node IDs supplied in this parameter must match the
      * difference between the existing number of cache nodes in the cluster
-     * and the value of <i>NumCacheNodes</i> in the request.
+     * or pending cache nodes, whichever is greater, and the value of
+     * <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     * active cache nodes, 7 pending cache nodes, and the number of cache
+     * nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     * 2 (7 - 5) cache node IDs to remove.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> cacheNodeIdsToRemove;
 
@@ -83,9 +113,9 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
     private String preferredMaintenanceWindow;
 
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the cache
-     * cluster owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the cache cluster owner. </note>
      */
     private String notificationTopicArn;
 
@@ -111,14 +141,16 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      * <code>false</code>, then changes to the cache cluster are applied on
      * the next maintenance reboot, or the next failure reboot, whichever
-     * occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     * <p>Default: <code>false</code>
+     * occurs first. <important>If you perform a
+     * <code>ModifyCacheCluster</code> before a pending modification is
+     * applied, the pending modification is replaced by the newer
+     * modification.</important> <p>Valid values: <code>true</code> |
+     * <code>false</code> <p>Default: <code>false</code>
      */
     private Boolean applyImmediately;
 
     /**
-     * The upgraded version of the cache engine to be run on the cache
-     * cluster nodes.
+     * The upgraded version of the cache engine to be run on the cache nodes.
      */
     private String engineVersion;
 
@@ -129,6 +161,75 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * <code>true</code>
      */
     private Boolean autoMinorVersionUpgrade;
+
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     */
+    private Integer snapshotRetentionLimit;
+
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster.
+     */
+    private String snapshotWindow;
+
+    /**
+     * Specifies whether the new nodes in this Memcached cache cluster are
+     * all created in a single Availability Zone or created across multiple
+     * Availability Zones. <p>Valid values: <code>single-az</code> |
+     * <code>cross-az</code>. <p>This option is only supported for Memcached
+     * cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     * the Memcached cache cluster already has cache nodes in different
+     * Availability Zones. If <code>cross-az</code> is specified, existing
+     * Memcached nodes remain in their current Availability Zone. <p>Only
+     * newly created nodes will be located in different Availability Zones.
+     * For instructions on how to move existing Memcached nodes to different
+     * Availability Zones, see the <b>Availability Zone Considerations</b>
+     * section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. </note>
+     */
+    private String aZMode;
+
+    /**
+     * The list of Availability Zones where the new Memcached cache nodes
+     * will be created. <p>This parameter is only valid when
+     * <code>NumCacheNodes</code> in the request is greater than the sum of
+     * the number of active cache nodes and the number of cache nodes pending
+     * creation (which may be zero). The number of Availability Zones
+     * supplied in this list must match the cache nodes being added in this
+     * request. <p> This option is only supported on Memcached clusters.
+     * <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     * wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     * and opitonally specify two Availability Zones for the two new
+     * nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     * pending creation (from the scenario 1 call) and want to add 1 more
+     * node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     * optionally specify an Availability Zone for the new node.
+     * <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     * You want to cancel all pending actions. Specify
+     * <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     * cannot cancel just some pending operations. If you want to cancel a
+     * subset of the pending operations, cancel all of them, then re-request
+     * those you want.</note></li> </ul> <p> The Availability Zone placement
+     * of nodes pending creation cannot be modified. If you wish to cancel
+     * any nodes pending creation, add 0 nodes by setting
+     * <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     * <code>cross-az</code> is specified, existing Memcached nodes remain in
+     * their current Availability Zone. Only newly created nodes can be
+     * located in different Availability Zones. For guidance on how to move
+     * existing Memcached nodes to different Availability Zones, see the
+     * <b>Availability Zone Considerations</b> section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. <p>Example:
+     * <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     */
+    private com.amazonaws.internal.ListWithAutoConstructFlag<String> newAvailabilityZones;
 
     /**
      * Default constructor for a new ModifyCacheClusterRequest object.  Callers should use the
@@ -179,7 +280,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * @param cacheClusterId The cache cluster identifier. This value is stored as a lowercase
      *         string.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withCacheClusterId(String cacheClusterId) {
@@ -189,20 +290,68 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
 
     /**
      * The number of cache nodes that the cache cluster should have. If the
-     * value for <i>NumCacheNodes</i> is greater than the existing number of
-     * cache nodes, then more nodes will be added. If the value is less than
-     * the existing number of cache nodes, then cache nodes will be removed.
-     * <p>If you are removing cache nodes, you must use the
-     * <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     * specific cache nodes to be removed.
+     * value for <code>NumCacheNodes</code> is greater than the sum of the
+     * number of current cache nodes and the number of cache nodes pending
+     * creation (which may be zero), then more nodes will be added. If the
+     * value is less than the number of existing cache nodes, then nodes will
+     * be removed. If the value is equal to the number of current cache
+     * nodes, then any pending add or remove requests are canceled. <p>If you
+     * are removing cache nodes, you must use the
+     * <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     * specific cache nodes to remove. <p>For cache clusters running Redis,
+     * the value of <code>NumCacheNodes</code>must be 1.
+     * <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     * applied immediately or as a pending action. See
+     * <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     * number of cache nodes in a cluster during its maintenance window,
+     * whether by adding or removing nodes in accordance with the scale out
+     * architecture, is not queued. The customer's latest request to add or
+     * remove nodes to the cluster overrides any previous pending actions to
+     * modify the number of cache nodes in the cluster. For example, a
+     * request to remove 2 nodes would override a previous pending action to
+     * remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     * previous pending action to remove 3 nodes and vice versa. As Memcached
+     * cache nodes may now be provisioned in different Availability Zones
+     * with flexible cache node placement, a request to add nodes does not
+     * automatically override a previous pending action to add nodes. The
+     * customer can modify the previous pending action to add more nodes or
+     * explicitly cancel the pending request and retry the new request. To
+     * cancel pending actions to modify the number of cache nodes in a
+     * cluster, use the <code>ModifyCacheCluster</code> request and set
+     * <code>NumCacheNodes</code> equal to the number of cache nodes
+     * currently in the cache cluster.
      *
      * @return The number of cache nodes that the cache cluster should have. If the
-     *         value for <i>NumCacheNodes</i> is greater than the existing number of
-     *         cache nodes, then more nodes will be added. If the value is less than
-     *         the existing number of cache nodes, then cache nodes will be removed.
-     *         <p>If you are removing cache nodes, you must use the
-     *         <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     *         specific cache nodes to be removed.
+     *         value for <code>NumCacheNodes</code> is greater than the sum of the
+     *         number of current cache nodes and the number of cache nodes pending
+     *         creation (which may be zero), then more nodes will be added. If the
+     *         value is less than the number of existing cache nodes, then nodes will
+     *         be removed. If the value is equal to the number of current cache
+     *         nodes, then any pending add or remove requests are canceled. <p>If you
+     *         are removing cache nodes, you must use the
+     *         <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     *         specific cache nodes to remove. <p>For cache clusters running Redis,
+     *         the value of <code>NumCacheNodes</code>must be 1.
+     *         <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     *         applied immediately or as a pending action. See
+     *         <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     *         number of cache nodes in a cluster during its maintenance window,
+     *         whether by adding or removing nodes in accordance with the scale out
+     *         architecture, is not queued. The customer's latest request to add or
+     *         remove nodes to the cluster overrides any previous pending actions to
+     *         modify the number of cache nodes in the cluster. For example, a
+     *         request to remove 2 nodes would override a previous pending action to
+     *         remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     *         previous pending action to remove 3 nodes and vice versa. As Memcached
+     *         cache nodes may now be provisioned in different Availability Zones
+     *         with flexible cache node placement, a request to add nodes does not
+     *         automatically override a previous pending action to add nodes. The
+     *         customer can modify the previous pending action to add more nodes or
+     *         explicitly cancel the pending request and retry the new request. To
+     *         cancel pending actions to modify the number of cache nodes in a
+     *         cluster, use the <code>ModifyCacheCluster</code> request and set
+     *         <code>NumCacheNodes</code> equal to the number of cache nodes
+     *         currently in the cache cluster.
      */
     public Integer getNumCacheNodes() {
         return numCacheNodes;
@@ -210,20 +359,68 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
     
     /**
      * The number of cache nodes that the cache cluster should have. If the
-     * value for <i>NumCacheNodes</i> is greater than the existing number of
-     * cache nodes, then more nodes will be added. If the value is less than
-     * the existing number of cache nodes, then cache nodes will be removed.
-     * <p>If you are removing cache nodes, you must use the
-     * <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     * specific cache nodes to be removed.
+     * value for <code>NumCacheNodes</code> is greater than the sum of the
+     * number of current cache nodes and the number of cache nodes pending
+     * creation (which may be zero), then more nodes will be added. If the
+     * value is less than the number of existing cache nodes, then nodes will
+     * be removed. If the value is equal to the number of current cache
+     * nodes, then any pending add or remove requests are canceled. <p>If you
+     * are removing cache nodes, you must use the
+     * <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     * specific cache nodes to remove. <p>For cache clusters running Redis,
+     * the value of <code>NumCacheNodes</code>must be 1.
+     * <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     * applied immediately or as a pending action. See
+     * <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     * number of cache nodes in a cluster during its maintenance window,
+     * whether by adding or removing nodes in accordance with the scale out
+     * architecture, is not queued. The customer's latest request to add or
+     * remove nodes to the cluster overrides any previous pending actions to
+     * modify the number of cache nodes in the cluster. For example, a
+     * request to remove 2 nodes would override a previous pending action to
+     * remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     * previous pending action to remove 3 nodes and vice versa. As Memcached
+     * cache nodes may now be provisioned in different Availability Zones
+     * with flexible cache node placement, a request to add nodes does not
+     * automatically override a previous pending action to add nodes. The
+     * customer can modify the previous pending action to add more nodes or
+     * explicitly cancel the pending request and retry the new request. To
+     * cancel pending actions to modify the number of cache nodes in a
+     * cluster, use the <code>ModifyCacheCluster</code> request and set
+     * <code>NumCacheNodes</code> equal to the number of cache nodes
+     * currently in the cache cluster.
      *
      * @param numCacheNodes The number of cache nodes that the cache cluster should have. If the
-     *         value for <i>NumCacheNodes</i> is greater than the existing number of
-     *         cache nodes, then more nodes will be added. If the value is less than
-     *         the existing number of cache nodes, then cache nodes will be removed.
-     *         <p>If you are removing cache nodes, you must use the
-     *         <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     *         specific cache nodes to be removed.
+     *         value for <code>NumCacheNodes</code> is greater than the sum of the
+     *         number of current cache nodes and the number of cache nodes pending
+     *         creation (which may be zero), then more nodes will be added. If the
+     *         value is less than the number of existing cache nodes, then nodes will
+     *         be removed. If the value is equal to the number of current cache
+     *         nodes, then any pending add or remove requests are canceled. <p>If you
+     *         are removing cache nodes, you must use the
+     *         <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     *         specific cache nodes to remove. <p>For cache clusters running Redis,
+     *         the value of <code>NumCacheNodes</code>must be 1.
+     *         <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     *         applied immediately or as a pending action. See
+     *         <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     *         number of cache nodes in a cluster during its maintenance window,
+     *         whether by adding or removing nodes in accordance with the scale out
+     *         architecture, is not queued. The customer's latest request to add or
+     *         remove nodes to the cluster overrides any previous pending actions to
+     *         modify the number of cache nodes in the cluster. For example, a
+     *         request to remove 2 nodes would override a previous pending action to
+     *         remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     *         previous pending action to remove 3 nodes and vice versa. As Memcached
+     *         cache nodes may now be provisioned in different Availability Zones
+     *         with flexible cache node placement, a request to add nodes does not
+     *         automatically override a previous pending action to add nodes. The
+     *         customer can modify the previous pending action to add more nodes or
+     *         explicitly cancel the pending request and retry the new request. To
+     *         cancel pending actions to modify the number of cache nodes in a
+     *         cluster, use the <code>ModifyCacheCluster</code> request and set
+     *         <code>NumCacheNodes</code> equal to the number of cache nodes
+     *         currently in the cache cluster.
      */
     public void setNumCacheNodes(Integer numCacheNodes) {
         this.numCacheNodes = numCacheNodes;
@@ -231,24 +428,72 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
     
     /**
      * The number of cache nodes that the cache cluster should have. If the
-     * value for <i>NumCacheNodes</i> is greater than the existing number of
-     * cache nodes, then more nodes will be added. If the value is less than
-     * the existing number of cache nodes, then cache nodes will be removed.
-     * <p>If you are removing cache nodes, you must use the
-     * <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     * specific cache nodes to be removed.
+     * value for <code>NumCacheNodes</code> is greater than the sum of the
+     * number of current cache nodes and the number of cache nodes pending
+     * creation (which may be zero), then more nodes will be added. If the
+     * value is less than the number of existing cache nodes, then nodes will
+     * be removed. If the value is equal to the number of current cache
+     * nodes, then any pending add or remove requests are canceled. <p>If you
+     * are removing cache nodes, you must use the
+     * <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     * specific cache nodes to remove. <p>For cache clusters running Redis,
+     * the value of <code>NumCacheNodes</code>must be 1.
+     * <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     * applied immediately or as a pending action. See
+     * <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     * number of cache nodes in a cluster during its maintenance window,
+     * whether by adding or removing nodes in accordance with the scale out
+     * architecture, is not queued. The customer's latest request to add or
+     * remove nodes to the cluster overrides any previous pending actions to
+     * modify the number of cache nodes in the cluster. For example, a
+     * request to remove 2 nodes would override a previous pending action to
+     * remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     * previous pending action to remove 3 nodes and vice versa. As Memcached
+     * cache nodes may now be provisioned in different Availability Zones
+     * with flexible cache node placement, a request to add nodes does not
+     * automatically override a previous pending action to add nodes. The
+     * customer can modify the previous pending action to add more nodes or
+     * explicitly cancel the pending request and retry the new request. To
+     * cancel pending actions to modify the number of cache nodes in a
+     * cluster, use the <code>ModifyCacheCluster</code> request and set
+     * <code>NumCacheNodes</code> equal to the number of cache nodes
+     * currently in the cache cluster.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param numCacheNodes The number of cache nodes that the cache cluster should have. If the
-     *         value for <i>NumCacheNodes</i> is greater than the existing number of
-     *         cache nodes, then more nodes will be added. If the value is less than
-     *         the existing number of cache nodes, then cache nodes will be removed.
-     *         <p>If you are removing cache nodes, you must use the
-     *         <i>CacheNodeIdsToRemove</i> parameter to provide the IDs of the
-     *         specific cache nodes to be removed.
+     *         value for <code>NumCacheNodes</code> is greater than the sum of the
+     *         number of current cache nodes and the number of cache nodes pending
+     *         creation (which may be zero), then more nodes will be added. If the
+     *         value is less than the number of existing cache nodes, then nodes will
+     *         be removed. If the value is equal to the number of current cache
+     *         nodes, then any pending add or remove requests are canceled. <p>If you
+     *         are removing cache nodes, you must use the
+     *         <code>CacheNodeIdsToRemove</code> parameter to provide the IDs of the
+     *         specific cache nodes to remove. <p>For cache clusters running Redis,
+     *         the value of <code>NumCacheNodes</code>must be 1.
+     *         <p><b>Note:</b><br/>Adding or removing Memcached cache nodes can be
+     *         applied immediately or as a pending action. See
+     *         <code>ApplyImmediately</code>.<br/> A pending action to modify the
+     *         number of cache nodes in a cluster during its maintenance window,
+     *         whether by adding or removing nodes in accordance with the scale out
+     *         architecture, is not queued. The customer's latest request to add or
+     *         remove nodes to the cluster overrides any previous pending actions to
+     *         modify the number of cache nodes in the cluster. For example, a
+     *         request to remove 2 nodes would override a previous pending action to
+     *         remove 3 nodes. Similarly, a request to add 2 nodes would override a
+     *         previous pending action to remove 3 nodes and vice versa. As Memcached
+     *         cache nodes may now be provisioned in different Availability Zones
+     *         with flexible cache node placement, a request to add nodes does not
+     *         automatically override a previous pending action to add nodes. The
+     *         customer can modify the previous pending action to add more nodes or
+     *         explicitly cancel the pending request and retry the new request. To
+     *         cancel pending actions to modify the number of cache nodes in a
+     *         cluster, use the <code>ModifyCacheCluster</code> request and set
+     *         <code>NumCacheNodes</code> equal to the number of cache nodes
+     *         currently in the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withNumCacheNodes(Integer numCacheNodes) {
@@ -262,14 +507,22 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * NumCacheNodes is less than the existing number of cache nodes. The
      * number of cache node IDs supplied in this parameter must match the
      * difference between the existing number of cache nodes in the cluster
-     * and the value of <i>NumCacheNodes</i> in the request.
+     * or pending cache nodes, whichever is greater, and the value of
+     * <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     * active cache nodes, 7 pending cache nodes, and the number of cache
+     * nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     * 2 (7 - 5) cache node IDs to remove.
      *
      * @return A list of cache node IDs to be removed. A node ID is a numeric
      *         identifier (0001, 0002, etc.). This parameter is only valid when
      *         NumCacheNodes is less than the existing number of cache nodes. The
      *         number of cache node IDs supplied in this parameter must match the
      *         difference between the existing number of cache nodes in the cluster
-     *         and the value of <i>NumCacheNodes</i> in the request.
+     *         or pending cache nodes, whichever is greater, and the value of
+     *         <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     *         active cache nodes, 7 pending cache nodes, and the number of cache
+     *         nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     *         2 (7 - 5) cache node IDs to remove.
      */
     public java.util.List<String> getCacheNodeIdsToRemove() {
         if (cacheNodeIdsToRemove == null) {
@@ -285,14 +538,22 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * NumCacheNodes is less than the existing number of cache nodes. The
      * number of cache node IDs supplied in this parameter must match the
      * difference between the existing number of cache nodes in the cluster
-     * and the value of <i>NumCacheNodes</i> in the request.
+     * or pending cache nodes, whichever is greater, and the value of
+     * <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     * active cache nodes, 7 pending cache nodes, and the number of cache
+     * nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     * 2 (7 - 5) cache node IDs to remove.
      *
      * @param cacheNodeIdsToRemove A list of cache node IDs to be removed. A node ID is a numeric
      *         identifier (0001, 0002, etc.). This parameter is only valid when
      *         NumCacheNodes is less than the existing number of cache nodes. The
      *         number of cache node IDs supplied in this parameter must match the
      *         difference between the existing number of cache nodes in the cluster
-     *         and the value of <i>NumCacheNodes</i> in the request.
+     *         or pending cache nodes, whichever is greater, and the value of
+     *         <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     *         active cache nodes, 7 pending cache nodes, and the number of cache
+     *         nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     *         2 (7 - 5) cache node IDs to remove.
      */
     public void setCacheNodeIdsToRemove(java.util.Collection<String> cacheNodeIdsToRemove) {
         if (cacheNodeIdsToRemove == null) {
@@ -310,7 +571,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * NumCacheNodes is less than the existing number of cache nodes. The
      * number of cache node IDs supplied in this parameter must match the
      * difference between the existing number of cache nodes in the cluster
-     * and the value of <i>NumCacheNodes</i> in the request.
+     * or pending cache nodes, whichever is greater, and the value of
+     * <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     * active cache nodes, 7 pending cache nodes, and the number of cache
+     * nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     * 2 (7 - 5) cache node IDs to remove.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -319,9 +584,13 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         NumCacheNodes is less than the existing number of cache nodes. The
      *         number of cache node IDs supplied in this parameter must match the
      *         difference between the existing number of cache nodes in the cluster
-     *         and the value of <i>NumCacheNodes</i> in the request.
+     *         or pending cache nodes, whichever is greater, and the value of
+     *         <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     *         active cache nodes, 7 pending cache nodes, and the number of cache
+     *         nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     *         2 (7 - 5) cache node IDs to remove.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withCacheNodeIdsToRemove(String... cacheNodeIdsToRemove) {
@@ -338,7 +607,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * NumCacheNodes is less than the existing number of cache nodes. The
      * number of cache node IDs supplied in this parameter must match the
      * difference between the existing number of cache nodes in the cluster
-     * and the value of <i>NumCacheNodes</i> in the request.
+     * or pending cache nodes, whichever is greater, and the value of
+     * <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     * active cache nodes, 7 pending cache nodes, and the number of cache
+     * nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     * 2 (7 - 5) cache node IDs to remove.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -347,9 +620,13 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         NumCacheNodes is less than the existing number of cache nodes. The
      *         number of cache node IDs supplied in this parameter must match the
      *         difference between the existing number of cache nodes in the cluster
-     *         and the value of <i>NumCacheNodes</i> in the request.
+     *         or pending cache nodes, whichever is greater, and the value of
+     *         <i>NumCacheNodes</i> in the request. <p>For example: If you have 3
+     *         active cache nodes, 7 pending cache nodes, and the number of cache
+     *         nodes in this <code>ModifyCacheCluser</code> call is 5, you must list
+     *         2 (7 - 5) cache node IDs to remove.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withCacheNodeIdsToRemove(java.util.Collection<String> cacheNodeIdsToRemove) {
@@ -429,7 +706,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         contain no more than 255 alphanumeric characters. Must not be
      *         "Default".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withCacheSecurityGroupNames(String... cacheSecurityGroupNames) {
@@ -457,7 +734,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         contain no more than 255 alphanumeric characters. Must not be
      *         "Default".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withCacheSecurityGroupNames(java.util.Collection<String> cacheSecurityGroupNames) {
@@ -519,7 +796,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <p>This parameter can be used only with clusters that are created in
      *         an Amazon Virtual Private Cloud (VPC).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withSecurityGroupIds(String... securityGroupIds) {
@@ -541,7 +818,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <p>This parameter can be used only with clusters that are created in
      *         an Amazon Virtual Private Cloud (VPC).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -605,7 +882,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         current time, there must be at least 120 minutes between the current
      *         time and end of the window to ensure that pending changes are applied.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -614,43 +891,43 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the cache
-     * cluster owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the cache cluster owner. </note>
      *
-     * @return The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     *         will be sent. <note> The SNS topic owner must be same as the cache
-     *         cluster owner. </note>
+     * @return The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     *         notifications will be sent. <note>The Amazon SNS topic owner must be
+     *         same as the cache cluster owner. </note>
      */
     public String getNotificationTopicArn() {
         return notificationTopicArn;
     }
     
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the cache
-     * cluster owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the cache cluster owner. </note>
      *
-     * @param notificationTopicArn The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     *         will be sent. <note> The SNS topic owner must be same as the cache
-     *         cluster owner. </note>
+     * @param notificationTopicArn The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     *         notifications will be sent. <note>The Amazon SNS topic owner must be
+     *         same as the cache cluster owner. </note>
      */
     public void setNotificationTopicArn(String notificationTopicArn) {
         this.notificationTopicArn = notificationTopicArn;
     }
     
     /**
-     * The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     * will be sent. <note> The SNS topic owner must be same as the cache
-     * cluster owner. </note>
+     * The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     * notifications will be sent. <note>The Amazon SNS topic owner must be
+     * same as the cache cluster owner. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param notificationTopicArn The Amazon Resource Name (ARN) of the SNS topic to which notifications
-     *         will be sent. <note> The SNS topic owner must be same as the cache
-     *         cluster owner. </note>
+     * @param notificationTopicArn The Amazon Resource Name (ARN) of the Amazon SNS topic to which
+     *         notifications will be sent. <note>The Amazon SNS topic owner must be
+     *         same as the cache cluster owner. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withNotificationTopicArn(String notificationTopicArn) {
@@ -701,7 +978,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         parameters when the <i>ApplyImmediately</i> parameter is specified as
      *         <i>true</i> for this request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withCacheParameterGroupName(String cacheParameterGroupName) {
@@ -746,7 +1023,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         sent only if the status is <i>active</i>. <p>Valid values:
      *         <code>active</code> | <code>inactive</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withNotificationTopicStatus(String notificationTopicStatus) {
@@ -761,8 +1038,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      * <code>false</code>, then changes to the cache cluster are applied on
      * the next maintenance reboot, or the next failure reboot, whichever
-     * occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     * <p>Default: <code>false</code>
+     * occurs first. <important>If you perform a
+     * <code>ModifyCacheCluster</code> before a pending modification is
+     * applied, the pending modification is replaced by the newer
+     * modification.</important> <p>Valid values: <code>true</code> |
+     * <code>false</code> <p>Default: <code>false</code>
      *
      * @return If <code>true</code>, this parameter causes the modifications in this
      *         request and any pending modifications to be applied, asynchronously
@@ -770,8 +1050,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      *         <code>false</code>, then changes to the cache cluster are applied on
      *         the next maintenance reboot, or the next failure reboot, whichever
-     *         occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     *         <p>Default: <code>false</code>
+     *         occurs first. <important>If you perform a
+     *         <code>ModifyCacheCluster</code> before a pending modification is
+     *         applied, the pending modification is replaced by the newer
+     *         modification.</important> <p>Valid values: <code>true</code> |
+     *         <code>false</code> <p>Default: <code>false</code>
      */
     public Boolean isApplyImmediately() {
         return applyImmediately;
@@ -784,8 +1067,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      * <code>false</code>, then changes to the cache cluster are applied on
      * the next maintenance reboot, or the next failure reboot, whichever
-     * occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     * <p>Default: <code>false</code>
+     * occurs first. <important>If you perform a
+     * <code>ModifyCacheCluster</code> before a pending modification is
+     * applied, the pending modification is replaced by the newer
+     * modification.</important> <p>Valid values: <code>true</code> |
+     * <code>false</code> <p>Default: <code>false</code>
      *
      * @param applyImmediately If <code>true</code>, this parameter causes the modifications in this
      *         request and any pending modifications to be applied, asynchronously
@@ -793,8 +1079,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      *         <code>false</code>, then changes to the cache cluster are applied on
      *         the next maintenance reboot, or the next failure reboot, whichever
-     *         occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     *         <p>Default: <code>false</code>
+     *         occurs first. <important>If you perform a
+     *         <code>ModifyCacheCluster</code> before a pending modification is
+     *         applied, the pending modification is replaced by the newer
+     *         modification.</important> <p>Valid values: <code>true</code> |
+     *         <code>false</code> <p>Default: <code>false</code>
      */
     public void setApplyImmediately(Boolean applyImmediately) {
         this.applyImmediately = applyImmediately;
@@ -807,8 +1096,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      * <code>false</code>, then changes to the cache cluster are applied on
      * the next maintenance reboot, or the next failure reboot, whichever
-     * occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     * <p>Default: <code>false</code>
+     * occurs first. <important>If you perform a
+     * <code>ModifyCacheCluster</code> before a pending modification is
+     * applied, the pending modification is replaced by the newer
+     * modification.</important> <p>Valid values: <code>true</code> |
+     * <code>false</code> <p>Default: <code>false</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -818,10 +1110,13 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      *         <code>false</code>, then changes to the cache cluster are applied on
      *         the next maintenance reboot, or the next failure reboot, whichever
-     *         occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     *         <p>Default: <code>false</code>
+     *         occurs first. <important>If you perform a
+     *         <code>ModifyCacheCluster</code> before a pending modification is
+     *         applied, the pending modification is replaced by the newer
+     *         modification.</important> <p>Valid values: <code>true</code> |
+     *         <code>false</code> <p>Default: <code>false</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withApplyImmediately(Boolean applyImmediately) {
@@ -836,8 +1131,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      * <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      * <code>false</code>, then changes to the cache cluster are applied on
      * the next maintenance reboot, or the next failure reboot, whichever
-     * occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     * <p>Default: <code>false</code>
+     * occurs first. <important>If you perform a
+     * <code>ModifyCacheCluster</code> before a pending modification is
+     * applied, the pending modification is replaced by the newer
+     * modification.</important> <p>Valid values: <code>true</code> |
+     * <code>false</code> <p>Default: <code>false</code>
      *
      * @return If <code>true</code>, this parameter causes the modifications in this
      *         request and any pending modifications to be applied, asynchronously
@@ -845,45 +1143,42 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <i>PreferredMaintenanceWindow</i> setting for the cache cluster. <p>If
      *         <code>false</code>, then changes to the cache cluster are applied on
      *         the next maintenance reboot, or the next failure reboot, whichever
-     *         occurs first. <p>Valid values: <code>true</code> | <code>false</code>
-     *         <p>Default: <code>false</code>
+     *         occurs first. <important>If you perform a
+     *         <code>ModifyCacheCluster</code> before a pending modification is
+     *         applied, the pending modification is replaced by the newer
+     *         modification.</important> <p>Valid values: <code>true</code> |
+     *         <code>false</code> <p>Default: <code>false</code>
      */
     public Boolean getApplyImmediately() {
         return applyImmediately;
     }
 
     /**
-     * The upgraded version of the cache engine to be run on the cache
-     * cluster nodes.
+     * The upgraded version of the cache engine to be run on the cache nodes.
      *
-     * @return The upgraded version of the cache engine to be run on the cache
-     *         cluster nodes.
+     * @return The upgraded version of the cache engine to be run on the cache nodes.
      */
     public String getEngineVersion() {
         return engineVersion;
     }
     
     /**
-     * The upgraded version of the cache engine to be run on the cache
-     * cluster nodes.
+     * The upgraded version of the cache engine to be run on the cache nodes.
      *
-     * @param engineVersion The upgraded version of the cache engine to be run on the cache
-     *         cluster nodes.
+     * @param engineVersion The upgraded version of the cache engine to be run on the cache nodes.
      */
     public void setEngineVersion(String engineVersion) {
         this.engineVersion = engineVersion;
     }
     
     /**
-     * The upgraded version of the cache engine to be run on the cache
-     * cluster nodes.
+     * The upgraded version of the cache engine to be run on the cache nodes.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param engineVersion The upgraded version of the cache engine to be run on the cache
-     *         cluster nodes.
+     * @param engineVersion The upgraded version of the cache engine to be run on the cache nodes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withEngineVersion(String engineVersion) {
@@ -934,7 +1229,7 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      *         <p>Valid values: <code>true</code> | <code>false</code> <p>Default:
      *         <code>true</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyCacheClusterRequest withAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -955,6 +1250,527 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
      */
     public Boolean getAutoMinorVersionUpgrade() {
         return autoMinorVersionUpgrade;
+    }
+
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     *
+     * @return The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     */
+    public Integer getSnapshotRetentionLimit() {
+        return snapshotRetentionLimit;
+    }
+    
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     *
+     * @param snapshotRetentionLimit The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     */
+    public void setSnapshotRetentionLimit(Integer snapshotRetentionLimit) {
+        this.snapshotRetentionLimit = snapshotRetentionLimit;
+    }
+    
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshotRetentionLimit The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyCacheClusterRequest withSnapshotRetentionLimit(Integer snapshotRetentionLimit) {
+        this.snapshotRetentionLimit = snapshotRetentionLimit;
+        return this;
+    }
+
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster.
+     *
+     * @return The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of your cache cluster.
+     */
+    public String getSnapshotWindow() {
+        return snapshotWindow;
+    }
+    
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster.
+     *
+     * @param snapshotWindow The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of your cache cluster.
+     */
+    public void setSnapshotWindow(String snapshotWindow) {
+        this.snapshotWindow = snapshotWindow;
+    }
+    
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshotWindow The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of your cache cluster.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyCacheClusterRequest withSnapshotWindow(String snapshotWindow) {
+        this.snapshotWindow = snapshotWindow;
+        return this;
+    }
+
+    /**
+     * Specifies whether the new nodes in this Memcached cache cluster are
+     * all created in a single Availability Zone or created across multiple
+     * Availability Zones. <p>Valid values: <code>single-az</code> |
+     * <code>cross-az</code>. <p>This option is only supported for Memcached
+     * cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     * the Memcached cache cluster already has cache nodes in different
+     * Availability Zones. If <code>cross-az</code> is specified, existing
+     * Memcached nodes remain in their current Availability Zone. <p>Only
+     * newly created nodes will be located in different Availability Zones.
+     * For instructions on how to move existing Memcached nodes to different
+     * Availability Zones, see the <b>Availability Zone Considerations</b>
+     * section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. </note>
+     *
+     * @return Specifies whether the new nodes in this Memcached cache cluster are
+     *         all created in a single Availability Zone or created across multiple
+     *         Availability Zones. <p>Valid values: <code>single-az</code> |
+     *         <code>cross-az</code>. <p>This option is only supported for Memcached
+     *         cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     *         the Memcached cache cluster already has cache nodes in different
+     *         Availability Zones. If <code>cross-az</code> is specified, existing
+     *         Memcached nodes remain in their current Availability Zone. <p>Only
+     *         newly created nodes will be located in different Availability Zones.
+     *         For instructions on how to move existing Memcached nodes to different
+     *         Availability Zones, see the <b>Availability Zone Considerations</b>
+     *         section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. </note>
+     */
+    public String getAZMode() {
+        return aZMode;
+    }
+    
+    /**
+     * Specifies whether the new nodes in this Memcached cache cluster are
+     * all created in a single Availability Zone or created across multiple
+     * Availability Zones. <p>Valid values: <code>single-az</code> |
+     * <code>cross-az</code>. <p>This option is only supported for Memcached
+     * cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     * the Memcached cache cluster already has cache nodes in different
+     * Availability Zones. If <code>cross-az</code> is specified, existing
+     * Memcached nodes remain in their current Availability Zone. <p>Only
+     * newly created nodes will be located in different Availability Zones.
+     * For instructions on how to move existing Memcached nodes to different
+     * Availability Zones, see the <b>Availability Zone Considerations</b>
+     * section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. </note>
+     *
+     * @param aZMode Specifies whether the new nodes in this Memcached cache cluster are
+     *         all created in a single Availability Zone or created across multiple
+     *         Availability Zones. <p>Valid values: <code>single-az</code> |
+     *         <code>cross-az</code>. <p>This option is only supported for Memcached
+     *         cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     *         the Memcached cache cluster already has cache nodes in different
+     *         Availability Zones. If <code>cross-az</code> is specified, existing
+     *         Memcached nodes remain in their current Availability Zone. <p>Only
+     *         newly created nodes will be located in different Availability Zones.
+     *         For instructions on how to move existing Memcached nodes to different
+     *         Availability Zones, see the <b>Availability Zone Considerations</b>
+     *         section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. </note>
+     */
+    public void setAZMode(String aZMode) {
+        this.aZMode = aZMode;
+    }
+    
+    /**
+     * Specifies whether the new nodes in this Memcached cache cluster are
+     * all created in a single Availability Zone or created across multiple
+     * Availability Zones. <p>Valid values: <code>single-az</code> |
+     * <code>cross-az</code>. <p>This option is only supported for Memcached
+     * cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     * the Memcached cache cluster already has cache nodes in different
+     * Availability Zones. If <code>cross-az</code> is specified, existing
+     * Memcached nodes remain in their current Availability Zone. <p>Only
+     * newly created nodes will be located in different Availability Zones.
+     * For instructions on how to move existing Memcached nodes to different
+     * Availability Zones, see the <b>Availability Zone Considerations</b>
+     * section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. </note>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param aZMode Specifies whether the new nodes in this Memcached cache cluster are
+     *         all created in a single Availability Zone or created across multiple
+     *         Availability Zones. <p>Valid values: <code>single-az</code> |
+     *         <code>cross-az</code>. <p>This option is only supported for Memcached
+     *         cache clusters. <note><p>You cannot specify <code>single-az</code> if
+     *         the Memcached cache cluster already has cache nodes in different
+     *         Availability Zones. If <code>cross-az</code> is specified, existing
+     *         Memcached nodes remain in their current Availability Zone. <p>Only
+     *         newly created nodes will be located in different Availability Zones.
+     *         For instructions on how to move existing Memcached nodes to different
+     *         Availability Zones, see the <b>Availability Zone Considerations</b>
+     *         section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. </note>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyCacheClusterRequest withAZMode(String aZMode) {
+        this.aZMode = aZMode;
+        return this;
+    }
+
+    /**
+     * The list of Availability Zones where the new Memcached cache nodes
+     * will be created. <p>This parameter is only valid when
+     * <code>NumCacheNodes</code> in the request is greater than the sum of
+     * the number of active cache nodes and the number of cache nodes pending
+     * creation (which may be zero). The number of Availability Zones
+     * supplied in this list must match the cache nodes being added in this
+     * request. <p> This option is only supported on Memcached clusters.
+     * <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     * wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     * and opitonally specify two Availability Zones for the two new
+     * nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     * pending creation (from the scenario 1 call) and want to add 1 more
+     * node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     * optionally specify an Availability Zone for the new node.
+     * <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     * You want to cancel all pending actions. Specify
+     * <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     * cannot cancel just some pending operations. If you want to cancel a
+     * subset of the pending operations, cancel all of them, then re-request
+     * those you want.</note></li> </ul> <p> The Availability Zone placement
+     * of nodes pending creation cannot be modified. If you wish to cancel
+     * any nodes pending creation, add 0 nodes by setting
+     * <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     * <code>cross-az</code> is specified, existing Memcached nodes remain in
+     * their current Availability Zone. Only newly created nodes can be
+     * located in different Availability Zones. For guidance on how to move
+     * existing Memcached nodes to different Availability Zones, see the
+     * <b>Availability Zone Considerations</b> section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. <p>Example:
+     * <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     *
+     * @return The list of Availability Zones where the new Memcached cache nodes
+     *         will be created. <p>This parameter is only valid when
+     *         <code>NumCacheNodes</code> in the request is greater than the sum of
+     *         the number of active cache nodes and the number of cache nodes pending
+     *         creation (which may be zero). The number of Availability Zones
+     *         supplied in this list must match the cache nodes being added in this
+     *         request. <p> This option is only supported on Memcached clusters.
+     *         <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     *         wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     *         and opitonally specify two Availability Zones for the two new
+     *         nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     *         pending creation (from the scenario 1 call) and want to add 1 more
+     *         node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     *         optionally specify an Availability Zone for the new node.
+     *         <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     *         You want to cancel all pending actions. Specify
+     *         <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     *         cannot cancel just some pending operations. If you want to cancel a
+     *         subset of the pending operations, cancel all of them, then re-request
+     *         those you want.</note></li> </ul> <p> The Availability Zone placement
+     *         of nodes pending creation cannot be modified. If you wish to cancel
+     *         any nodes pending creation, add 0 nodes by setting
+     *         <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     *         <code>cross-az</code> is specified, existing Memcached nodes remain in
+     *         their current Availability Zone. Only newly created nodes can be
+     *         located in different Availability Zones. For guidance on how to move
+     *         existing Memcached nodes to different Availability Zones, see the
+     *         <b>Availability Zone Considerations</b> section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. <p>Example:
+     *         <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     */
+    public java.util.List<String> getNewAvailabilityZones() {
+        if (newAvailabilityZones == null) {
+              newAvailabilityZones = new com.amazonaws.internal.ListWithAutoConstructFlag<String>();
+              newAvailabilityZones.setAutoConstruct(true);
+        }
+        return newAvailabilityZones;
+    }
+    
+    /**
+     * The list of Availability Zones where the new Memcached cache nodes
+     * will be created. <p>This parameter is only valid when
+     * <code>NumCacheNodes</code> in the request is greater than the sum of
+     * the number of active cache nodes and the number of cache nodes pending
+     * creation (which may be zero). The number of Availability Zones
+     * supplied in this list must match the cache nodes being added in this
+     * request. <p> This option is only supported on Memcached clusters.
+     * <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     * wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     * and opitonally specify two Availability Zones for the two new
+     * nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     * pending creation (from the scenario 1 call) and want to add 1 more
+     * node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     * optionally specify an Availability Zone for the new node.
+     * <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     * You want to cancel all pending actions. Specify
+     * <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     * cannot cancel just some pending operations. If you want to cancel a
+     * subset of the pending operations, cancel all of them, then re-request
+     * those you want.</note></li> </ul> <p> The Availability Zone placement
+     * of nodes pending creation cannot be modified. If you wish to cancel
+     * any nodes pending creation, add 0 nodes by setting
+     * <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     * <code>cross-az</code> is specified, existing Memcached nodes remain in
+     * their current Availability Zone. Only newly created nodes can be
+     * located in different Availability Zones. For guidance on how to move
+     * existing Memcached nodes to different Availability Zones, see the
+     * <b>Availability Zone Considerations</b> section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. <p>Example:
+     * <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     *
+     * @param newAvailabilityZones The list of Availability Zones where the new Memcached cache nodes
+     *         will be created. <p>This parameter is only valid when
+     *         <code>NumCacheNodes</code> in the request is greater than the sum of
+     *         the number of active cache nodes and the number of cache nodes pending
+     *         creation (which may be zero). The number of Availability Zones
+     *         supplied in this list must match the cache nodes being added in this
+     *         request. <p> This option is only supported on Memcached clusters.
+     *         <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     *         wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     *         and opitonally specify two Availability Zones for the two new
+     *         nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     *         pending creation (from the scenario 1 call) and want to add 1 more
+     *         node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     *         optionally specify an Availability Zone for the new node.
+     *         <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     *         You want to cancel all pending actions. Specify
+     *         <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     *         cannot cancel just some pending operations. If you want to cancel a
+     *         subset of the pending operations, cancel all of them, then re-request
+     *         those you want.</note></li> </ul> <p> The Availability Zone placement
+     *         of nodes pending creation cannot be modified. If you wish to cancel
+     *         any nodes pending creation, add 0 nodes by setting
+     *         <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     *         <code>cross-az</code> is specified, existing Memcached nodes remain in
+     *         their current Availability Zone. Only newly created nodes can be
+     *         located in different Availability Zones. For guidance on how to move
+     *         existing Memcached nodes to different Availability Zones, see the
+     *         <b>Availability Zone Considerations</b> section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. <p>Example:
+     *         <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     */
+    public void setNewAvailabilityZones(java.util.Collection<String> newAvailabilityZones) {
+        if (newAvailabilityZones == null) {
+            this.newAvailabilityZones = null;
+            return;
+        }
+        com.amazonaws.internal.ListWithAutoConstructFlag<String> newAvailabilityZonesCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(newAvailabilityZones.size());
+        newAvailabilityZonesCopy.addAll(newAvailabilityZones);
+        this.newAvailabilityZones = newAvailabilityZonesCopy;
+    }
+    
+    /**
+     * The list of Availability Zones where the new Memcached cache nodes
+     * will be created. <p>This parameter is only valid when
+     * <code>NumCacheNodes</code> in the request is greater than the sum of
+     * the number of active cache nodes and the number of cache nodes pending
+     * creation (which may be zero). The number of Availability Zones
+     * supplied in this list must match the cache nodes being added in this
+     * request. <p> This option is only supported on Memcached clusters.
+     * <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     * wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     * and opitonally specify two Availability Zones for the two new
+     * nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     * pending creation (from the scenario 1 call) and want to add 1 more
+     * node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     * optionally specify an Availability Zone for the new node.
+     * <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     * You want to cancel all pending actions. Specify
+     * <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     * cannot cancel just some pending operations. If you want to cancel a
+     * subset of the pending operations, cancel all of them, then re-request
+     * those you want.</note></li> </ul> <p> The Availability Zone placement
+     * of nodes pending creation cannot be modified. If you wish to cancel
+     * any nodes pending creation, add 0 nodes by setting
+     * <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     * <code>cross-az</code> is specified, existing Memcached nodes remain in
+     * their current Availability Zone. Only newly created nodes can be
+     * located in different Availability Zones. For guidance on how to move
+     * existing Memcached nodes to different Availability Zones, see the
+     * <b>Availability Zone Considerations</b> section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. <p>Example:
+     * <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param newAvailabilityZones The list of Availability Zones where the new Memcached cache nodes
+     *         will be created. <p>This parameter is only valid when
+     *         <code>NumCacheNodes</code> in the request is greater than the sum of
+     *         the number of active cache nodes and the number of cache nodes pending
+     *         creation (which may be zero). The number of Availability Zones
+     *         supplied in this list must match the cache nodes being added in this
+     *         request. <p> This option is only supported on Memcached clusters.
+     *         <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     *         wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     *         and opitonally specify two Availability Zones for the two new
+     *         nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     *         pending creation (from the scenario 1 call) and want to add 1 more
+     *         node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     *         optionally specify an Availability Zone for the new node.
+     *         <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     *         You want to cancel all pending actions. Specify
+     *         <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     *         cannot cancel just some pending operations. If you want to cancel a
+     *         subset of the pending operations, cancel all of them, then re-request
+     *         those you want.</note></li> </ul> <p> The Availability Zone placement
+     *         of nodes pending creation cannot be modified. If you wish to cancel
+     *         any nodes pending creation, add 0 nodes by setting
+     *         <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     *         <code>cross-az</code> is specified, existing Memcached nodes remain in
+     *         their current Availability Zone. Only newly created nodes can be
+     *         located in different Availability Zones. For guidance on how to move
+     *         existing Memcached nodes to different Availability Zones, see the
+     *         <b>Availability Zone Considerations</b> section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. <p>Example:
+     *         <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyCacheClusterRequest withNewAvailabilityZones(String... newAvailabilityZones) {
+        if (getNewAvailabilityZones() == null) setNewAvailabilityZones(new java.util.ArrayList<String>(newAvailabilityZones.length));
+        for (String value : newAvailabilityZones) {
+            getNewAvailabilityZones().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * The list of Availability Zones where the new Memcached cache nodes
+     * will be created. <p>This parameter is only valid when
+     * <code>NumCacheNodes</code> in the request is greater than the sum of
+     * the number of active cache nodes and the number of cache nodes pending
+     * creation (which may be zero). The number of Availability Zones
+     * supplied in this list must match the cache nodes being added in this
+     * request. <p> This option is only supported on Memcached clusters.
+     * <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     * wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     * and opitonally specify two Availability Zones for the two new
+     * nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     * pending creation (from the scenario 1 call) and want to add 1 more
+     * node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     * optionally specify an Availability Zone for the new node.
+     * <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     * You want to cancel all pending actions. Specify
+     * <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     * cannot cancel just some pending operations. If you want to cancel a
+     * subset of the pending operations, cancel all of them, then re-request
+     * those you want.</note></li> </ul> <p> The Availability Zone placement
+     * of nodes pending creation cannot be modified. If you wish to cancel
+     * any nodes pending creation, add 0 nodes by setting
+     * <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     * <code>cross-az</code> is specified, existing Memcached nodes remain in
+     * their current Availability Zone. Only newly created nodes can be
+     * located in different Availability Zones. For guidance on how to move
+     * existing Memcached nodes to different Availability Zones, see the
+     * <b>Availability Zone Considerations</b> section of <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     * Node Considerations for Memcached</a>. <p>Example:
+     * <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param newAvailabilityZones The list of Availability Zones where the new Memcached cache nodes
+     *         will be created. <p>This parameter is only valid when
+     *         <code>NumCacheNodes</code> in the request is greater than the sum of
+     *         the number of active cache nodes and the number of cache nodes pending
+     *         creation (which may be zero). The number of Availability Zones
+     *         supplied in this list must match the cache nodes being added in this
+     *         request. <p> This option is only supported on Memcached clusters.
+     *         <p>Scenarios: <ul> <li><b>Scenario 1:</b> You have 3 active nodes and
+     *         wish to add 2 nodes.<br/> Specify <code>NumCacheNodes=5</code> (3 + 2)
+     *         and opitonally specify two Availability Zones for the two new
+     *         nodes.</li> <li><b>Scenario 2:</b> You have 3 active nodes and 2 nodes
+     *         pending creation (from the scenario 1 call) and want to add 1 more
+     *         node.<br/> Specify <code>NumCacheNodes=6</code> ((3 + 2) + 1)</li> and
+     *         optionally specify an Availability Zone for the new node.
+     *         <li><b>Scenario 3:</b> You want to cancel all pending actions.<br/>
+     *         You want to cancel all pending actions. Specify
+     *         <code>NumCacheNodes=3</code> (the original number of nodes). <note>You
+     *         cannot cancel just some pending operations. If you want to cancel a
+     *         subset of the pending operations, cancel all of them, then re-request
+     *         those you want.</note></li> </ul> <p> The Availability Zone placement
+     *         of nodes pending creation cannot be modified. If you wish to cancel
+     *         any nodes pending creation, add 0 nodes by setting
+     *         <code>NumCacheNodes</code> to the number of current nodes. <p> If
+     *         <code>cross-az</code> is specified, existing Memcached nodes remain in
+     *         their current Availability Zone. Only newly created nodes can be
+     *         located in different Availability Zones. For guidance on how to move
+     *         existing Memcached nodes to different Availability Zones, see the
+     *         <b>Availability Zone Considerations</b> section of <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheNode.Memcached.html">Cache
+     *         Node Considerations for Memcached</a>. <p>Example:
+     *         <code>NewAvailabilityZones.member.1=us-east-1a&NewAvailabilityZones.member.2=us-east-1b&NewAvailabilityZones.member.3=us-east-1d</code>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyCacheClusterRequest withNewAvailabilityZones(java.util.Collection<String> newAvailabilityZones) {
+        if (newAvailabilityZones == null) {
+            this.newAvailabilityZones = null;
+        } else {
+            com.amazonaws.internal.ListWithAutoConstructFlag<String> newAvailabilityZonesCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(newAvailabilityZones.size());
+            newAvailabilityZonesCopy.addAll(newAvailabilityZones);
+            this.newAvailabilityZones = newAvailabilityZonesCopy;
+        }
+
+        return this;
     }
 
     /**
@@ -980,7 +1796,11 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
         if (getNotificationTopicStatus() != null) sb.append("NotificationTopicStatus: " + getNotificationTopicStatus() + ",");
         if (isApplyImmediately() != null) sb.append("ApplyImmediately: " + isApplyImmediately() + ",");
         if (getEngineVersion() != null) sb.append("EngineVersion: " + getEngineVersion() + ",");
-        if (isAutoMinorVersionUpgrade() != null) sb.append("AutoMinorVersionUpgrade: " + isAutoMinorVersionUpgrade() );
+        if (isAutoMinorVersionUpgrade() != null) sb.append("AutoMinorVersionUpgrade: " + isAutoMinorVersionUpgrade() + ",");
+        if (getSnapshotRetentionLimit() != null) sb.append("SnapshotRetentionLimit: " + getSnapshotRetentionLimit() + ",");
+        if (getSnapshotWindow() != null) sb.append("SnapshotWindow: " + getSnapshotWindow() + ",");
+        if (getAZMode() != null) sb.append("AZMode: " + getAZMode() + ",");
+        if (getNewAvailabilityZones() != null) sb.append("NewAvailabilityZones: " + getNewAvailabilityZones() );
         sb.append("}");
         return sb.toString();
     }
@@ -1002,6 +1822,10 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
         hashCode = prime * hashCode + ((isApplyImmediately() == null) ? 0 : isApplyImmediately().hashCode()); 
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode()); 
         hashCode = prime * hashCode + ((isAutoMinorVersionUpgrade() == null) ? 0 : isAutoMinorVersionUpgrade().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshotRetentionLimit() == null) ? 0 : getSnapshotRetentionLimit().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode()); 
+        hashCode = prime * hashCode + ((getAZMode() == null) ? 0 : getAZMode().hashCode()); 
+        hashCode = prime * hashCode + ((getNewAvailabilityZones() == null) ? 0 : getNewAvailabilityZones().hashCode()); 
         return hashCode;
     }
     
@@ -1037,6 +1861,14 @@ public class ModifyCacheClusterRequest extends AmazonWebServiceRequest implement
         if (other.getEngineVersion() != null && other.getEngineVersion().equals(this.getEngineVersion()) == false) return false; 
         if (other.isAutoMinorVersionUpgrade() == null ^ this.isAutoMinorVersionUpgrade() == null) return false;
         if (other.isAutoMinorVersionUpgrade() != null && other.isAutoMinorVersionUpgrade().equals(this.isAutoMinorVersionUpgrade()) == false) return false; 
+        if (other.getSnapshotRetentionLimit() == null ^ this.getSnapshotRetentionLimit() == null) return false;
+        if (other.getSnapshotRetentionLimit() != null && other.getSnapshotRetentionLimit().equals(this.getSnapshotRetentionLimit()) == false) return false; 
+        if (other.getSnapshotWindow() == null ^ this.getSnapshotWindow() == null) return false;
+        if (other.getSnapshotWindow() != null && other.getSnapshotWindow().equals(this.getSnapshotWindow()) == false) return false; 
+        if (other.getAZMode() == null ^ this.getAZMode() == null) return false;
+        if (other.getAZMode() != null && other.getAZMode().equals(this.getAZMode()) == false) return false; 
+        if (other.getNewAvailabilityZones() == null ^ this.getNewAvailabilityZones() == null) return false;
+        if (other.getNewAvailabilityZones() != null && other.getNewAvailabilityZones().equals(this.getNewAvailabilityZones()) == false) return false; 
         return true;
     }
     

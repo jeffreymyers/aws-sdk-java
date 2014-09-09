@@ -21,26 +21,35 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#addJobFlowSteps(AddJobFlowStepsRequest) AddJobFlowSteps operation}.
  * <p>
- * AddJobFlowSteps adds new steps to a running job flow. A maximum of 256 steps are allowed in each job flow.
+ * AddJobFlowSteps adds new steps to a running job flow. A maximum of
+ * 256 steps are allowed in each job flow.
  * </p>
  * <p>
- * If your job flow is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps to process your data. You can bypass
- * the 256-step limitation in various ways, including using the SSH shell to connect to the master node and submitting queries directly to the software
- * running on the master node, such as Hive and Hadoop. For more information on how to do this, go to <a
- * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a> in the
- * <i>Amazon Elastic MapReduce Developer's Guide</i> .
+ * If your job flow is long-running (such as a Hive data warehouse) or
+ * complex, you may require more than 256 steps to process your data. You
+ * can bypass the 256-step limitation in various ways, including using
+ * the SSH shell to connect to the master node and submitting queries
+ * directly to the software running on the master node, such as Hive and
+ * Hadoop. For more information on how to do this, go to
+ * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a>
+ * in the <i>Amazon Elastic MapReduce Developer's Guide</i> .
  * </p>
  * <p>
- * A step specifies the location of a JAR file stored either on the master node of the job flow or in Amazon S3. Each step is performed by the main
- * function of the main class of the JAR file. The main class can be specified either in the manifest of the JAR or by using the MainFunction parameter
- * of the step.
+ * A step specifies the location of a JAR file stored either on the
+ * master node of the job flow or in Amazon S3. Each step is performed by
+ * the main function of the main class of the JAR file. The main class
+ * can be specified either in the manifest of the JAR or by using the
+ * MainFunction parameter of the step.
  * </p>
  * <p>
- * Elastic MapReduce executes each step in the order listed. For a step to be considered complete, the main function must exit with a zero exit code and
- * all Hadoop jobs started while the step was running must have completed and run successfully.
+ * Elastic MapReduce executes each step in the order listed. For a step
+ * to be considered complete, the main function must exit with a zero
+ * exit code and all Hadoop jobs started while the step was running must
+ * have completed and run successfully.
  * </p>
  * <p>
- * You can only add steps to a job flow that is in one of the following states: STARTING, BOOTSTRAPPING, RUNNING, or WAITING.
+ * You can only add steps to a job flow that is in one of the following
+ * states: STARTING, BOOTSTRAPPING, RUNNING, or WAITING.
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#addJobFlowSteps(AddJobFlowStepsRequest)
@@ -50,11 +59,11 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
     /**
      * A string that uniquely identifies the job flow. This identifier is
      * returned by <a>RunJobFlow</a> and can also be obtained from
-     * <a>DescribeJobFlows</a>.
+     * <a>ListClusters</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String jobFlowId;
 
@@ -76,7 +85,7 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
      * 
      * @param jobFlowId A string that uniquely identifies the job flow. This
      * identifier is returned by <a>RunJobFlow</a> and can also be obtained
-     * from <a>DescribeJobFlows</a>.
+     * from <a>ListClusters</a>.
      */
     public AddJobFlowStepsRequest(String jobFlowId) {
         setJobFlowId(jobFlowId);
@@ -89,7 +98,7 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
      * 
      * @param jobFlowId A string that uniquely identifies the job flow. This
      * identifier is returned by <a>RunJobFlow</a> and can also be obtained
-     * from <a>DescribeJobFlows</a>.
+     * from <a>ListClusters</a>.
      * @param steps A list of <a>StepConfig</a> to be executed by the job
      * flow.
      */
@@ -101,15 +110,15 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
     /**
      * A string that uniquely identifies the job flow. This identifier is
      * returned by <a>RunJobFlow</a> and can also be obtained from
-     * <a>DescribeJobFlows</a>.
+     * <a>ListClusters</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A string that uniquely identifies the job flow. This identifier is
      *         returned by <a>RunJobFlow</a> and can also be obtained from
-     *         <a>DescribeJobFlows</a>.
+     *         <a>ListClusters</a>.
      */
     public String getJobFlowId() {
         return jobFlowId;
@@ -118,15 +127,15 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
     /**
      * A string that uniquely identifies the job flow. This identifier is
      * returned by <a>RunJobFlow</a> and can also be obtained from
-     * <a>DescribeJobFlows</a>.
+     * <a>ListClusters</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowId A string that uniquely identifies the job flow. This identifier is
      *         returned by <a>RunJobFlow</a> and can also be obtained from
-     *         <a>DescribeJobFlows</a>.
+     *         <a>ListClusters</a>.
      */
     public void setJobFlowId(String jobFlowId) {
         this.jobFlowId = jobFlowId;
@@ -135,19 +144,19 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
     /**
      * A string that uniquely identifies the job flow. This identifier is
      * returned by <a>RunJobFlow</a> and can also be obtained from
-     * <a>DescribeJobFlows</a>.
+     * <a>ListClusters</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowId A string that uniquely identifies the job flow. This identifier is
      *         returned by <a>RunJobFlow</a> and can also be obtained from
-     *         <a>DescribeJobFlows</a>.
+     *         <a>ListClusters</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddJobFlowStepsRequest withJobFlowId(String jobFlowId) {
@@ -190,7 +199,7 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
      *
      * @param steps A list of <a>StepConfig</a> to be executed by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddJobFlowStepsRequest withSteps(StepConfig... steps) {
@@ -208,7 +217,7 @@ public class AddJobFlowStepsRequest extends AmazonWebServiceRequest implements S
      *
      * @param steps A list of <a>StepConfig</a> to be executed by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddJobFlowStepsRequest withSteps(java.util.Collection<StepConfig> steps) {

@@ -21,12 +21,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#queryObjects(QueryObjectsRequest) QueryObjects operation}.
  * <p>
- * Queries a pipeline for the names of objects that match a specified set of conditions.
+ * Queries a pipeline for the names of objects that match a specified set
+ * of conditions.
  * </p>
  * <p>
- * The objects returned by QueryObjects are paginated and then filtered by the value you set for query. This means the action may return an empty result
- * set with a value set for marker. If <code>HasMoreResults</code> is set to <code>True</code> , you should continue to call QueryObjects, passing in the
- * returned value for marker, until <code>HasMoreResults</code> returns <code>False</code> .
+ * The objects returned by QueryObjects are paginated and then filtered
+ * by the value you set for query. This means the action may return an
+ * empty result set with a value set for marker. If
+ * <code>HasMoreResults</code> is set to <code>True</code> , you should
+ * continue to call QueryObjects, passing in the returned value for
+ * marker, until <code>HasMoreResults</code> returns <code>False</code> .
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#queryObjects(QueryObjectsRequest)
@@ -38,7 +42,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String pipelineId;
 
@@ -57,7 +61,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String sphere;
 
@@ -70,7 +74,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String marker;
 
@@ -85,7 +89,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Identifier of the pipeline to be queried for object names.
      */
@@ -98,7 +102,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifier of the pipeline to be queried for object names.
      */
@@ -113,11 +117,11 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifier of the pipeline to be queried for object names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public QueryObjectsRequest withPipelineId(String pipelineId) {
@@ -168,7 +172,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      *         are limited to top-level String fields in the object. These filters
      *         can be applied to components, instances, and attempts.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public QueryObjectsRequest withQuery(Query query) {
@@ -183,7 +187,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Specifies whether the query applies to components or instances.
      *         Allowable values: <code>COMPONENT</code>, <code>INSTANCE</code>,
@@ -200,7 +204,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param sphere Specifies whether the query applies to components or instances.
      *         Allowable values: <code>COMPONENT</code>, <code>INSTANCE</code>,
@@ -219,13 +223,13 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param sphere Specifies whether the query applies to components or instances.
      *         Allowable values: <code>COMPONENT</code>, <code>INSTANCE</code>,
      *         <code>ATTEMPT</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public QueryObjectsRequest withSphere(String sphere) {
@@ -242,7 +246,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The starting point for the results to be returned. The first time you
      *         call <a>QueryObjects</a>, this value should be empty. As long as the
@@ -263,7 +267,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param marker The starting point for the results to be returned. The first time you
      *         call <a>QueryObjects</a>, this value should be empty. As long as the
@@ -286,7 +290,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param marker The starting point for the results to be returned. The first time you
      *         call <a>QueryObjects</a>, this value should be empty. As long as the
@@ -294,7 +298,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      *         can call <a>QueryObjects</a> again and pass the marker value from the
      *         response to retrieve the next set of results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public QueryObjectsRequest withMarker(String marker) {
@@ -333,7 +337,7 @@ public class QueryObjectsRequest extends AmazonWebServiceRequest implements Seri
      * @param limit Specifies the maximum number of object names that <a>QueryObjects</a>
      *         will return in a single call. The default value is 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public QueryObjectsRequest withLimit(Integer limit) {

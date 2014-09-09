@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This is used in the responses of batch API to give a detailed description of the result of an operation on each entry in the request.
+ * This is used in the responses of batch API to give a detailed
+ * description of the result of an action on each entry in the request.
  * </p>
  */
 public class BatchResultErrorEntry implements Serializable {
@@ -34,12 +35,12 @@ public class BatchResultErrorEntry implements Serializable {
     private Boolean senderFault;
 
     /**
-     * An error code representing why the operation failed on this entry.
+     * An error code representing why the action failed on this entry.
      */
     private String code;
 
     /**
-     * A message explaining why the operation failed on this entry.
+     * A message explaining why the action failed on this entry.
      */
     private String message;
 
@@ -68,7 +69,7 @@ public class BatchResultErrorEntry implements Serializable {
      *
      * @param id The id of an entry in a batch request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public BatchResultErrorEntry withId(String id) {
@@ -101,7 +102,7 @@ public class BatchResultErrorEntry implements Serializable {
      *
      * @param senderFault Whether the error happened due to the sender's fault.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public BatchResultErrorEntry withSenderFault(Boolean senderFault) {
@@ -119,31 +120,31 @@ public class BatchResultErrorEntry implements Serializable {
     }
 
     /**
-     * An error code representing why the operation failed on this entry.
+     * An error code representing why the action failed on this entry.
      *
-     * @return An error code representing why the operation failed on this entry.
+     * @return An error code representing why the action failed on this entry.
      */
     public String getCode() {
         return code;
     }
     
     /**
-     * An error code representing why the operation failed on this entry.
+     * An error code representing why the action failed on this entry.
      *
-     * @param code An error code representing why the operation failed on this entry.
+     * @param code An error code representing why the action failed on this entry.
      */
     public void setCode(String code) {
         this.code = code;
     }
     
     /**
-     * An error code representing why the operation failed on this entry.
+     * An error code representing why the action failed on this entry.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param code An error code representing why the operation failed on this entry.
+     * @param code An error code representing why the action failed on this entry.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public BatchResultErrorEntry withCode(String code) {
@@ -152,31 +153,31 @@ public class BatchResultErrorEntry implements Serializable {
     }
 
     /**
-     * A message explaining why the operation failed on this entry.
+     * A message explaining why the action failed on this entry.
      *
-     * @return A message explaining why the operation failed on this entry.
+     * @return A message explaining why the action failed on this entry.
      */
     public String getMessage() {
         return message;
     }
     
     /**
-     * A message explaining why the operation failed on this entry.
+     * A message explaining why the action failed on this entry.
      *
-     * @param message A message explaining why the operation failed on this entry.
+     * @param message A message explaining why the action failed on this entry.
      */
     public void setMessage(String message) {
         this.message = message;
     }
     
     /**
-     * A message explaining why the operation failed on this entry.
+     * A message explaining why the action failed on this entry.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param message A message explaining why the operation failed on this entry.
+     * @param message A message explaining why the action failed on this entry.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public BatchResultErrorEntry withMessage(String message) {

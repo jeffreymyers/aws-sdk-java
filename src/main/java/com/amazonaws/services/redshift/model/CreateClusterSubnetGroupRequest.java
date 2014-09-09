@@ -21,12 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#createClusterSubnetGroup(CreateClusterSubnetGroupRequest) CreateClusterSubnetGroup operation}.
  * <p>
- * Creates a new Amazon Redshift subnet group. You must provide a list of one or more subnets in your existing Amazon Virtual Private Cloud (Amazon VPC)
- * when creating Amazon Redshift subnet group.
+ * Creates a new Amazon Redshift subnet group. You must provide a list
+ * of one or more subnets in your existing Amazon Virtual Private Cloud
+ * (Amazon VPC) when creating Amazon Redshift subnet group.
  * </p>
  * <p>
- * For information about subnet groups, go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html"> Amazon
- * Redshift Cluster Subnet Groups </a> in the <i>Amazon Redshift Management Guide</i> .
+ * For information about subnet groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html"> Amazon Redshift Cluster Subnet Groups </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -110,7 +112,7 @@ public class CreateClusterSubnetGroupRequest extends AmazonWebServiceRequest imp
      *         created by your AWS account.</li> </ul> <p>Example:
      *         <code>examplesubnetgroup</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterSubnetGroupRequest withClusterSubnetGroupName(String clusterSubnetGroupName) {
@@ -143,7 +145,7 @@ public class CreateClusterSubnetGroupRequest extends AmazonWebServiceRequest imp
      *
      * @param description A description for the subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterSubnetGroupRequest withDescription(String description) {
@@ -192,7 +194,7 @@ public class CreateClusterSubnetGroupRequest extends AmazonWebServiceRequest imp
      * @param subnetIds An array of VPC subnet IDs. A maximum of 20 subnets can be modified in
      *         a single request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterSubnetGroupRequest withSubnetIds(String... subnetIds) {
@@ -212,7 +214,7 @@ public class CreateClusterSubnetGroupRequest extends AmazonWebServiceRequest imp
      * @param subnetIds An array of VPC subnet IDs. A maximum of 20 subnets can be modified in
      *         a single request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterSubnetGroupRequest withSubnetIds(java.util.Collection<String> subnetIds) {

@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.redshift.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -97,6 +98,9 @@ public class ModifyClusterRequestMarshaller implements Marshaller<Request<Modify
         }
         if (modifyClusterRequest.getHsmConfigurationIdentifier() != null) {
             request.addParameter("HsmConfigurationIdentifier", StringUtils.fromString(modifyClusterRequest.getHsmConfigurationIdentifier()));
+        }
+        if (modifyClusterRequest.getNewClusterIdentifier() != null) {
+            request.addParameter("NewClusterIdentifier", StringUtils.fromString(modifyClusterRequest.getNewClusterIdentifier()));
         }
 
         return request;

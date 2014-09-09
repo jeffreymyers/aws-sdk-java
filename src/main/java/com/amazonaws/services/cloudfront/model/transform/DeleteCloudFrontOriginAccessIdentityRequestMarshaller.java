@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,9 +45,9 @@ public class DeleteCloudFrontOriginAccessIdentityRequestMarshaller implements Ma
         Request<DeleteCloudFrontOriginAccessIdentityRequest> request = new DefaultRequest<DeleteCloudFrontOriginAccessIdentityRequest>(deleteCloudFrontOriginAccessIdentityRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.DELETE);
         if (deleteCloudFrontOriginAccessIdentityRequest.getIfMatch() != null)
-            request.addHeader("If-Match", StringUtils.fromString(deleteCloudFrontOriginAccessIdentityRequest.getIfMatch()));
+          request.addHeader("If-Match", StringUtils.fromString(deleteCloudFrontOriginAccessIdentityRequest.getIfMatch()));
 
-        String uriResourcePath = "2013-11-11/origin-access-identity/cloudfront/{Id}"; 
+        String uriResourcePath = "2014-05-31/origin-access-identity/cloudfront/{Id}"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(deleteCloudFrontOriginAccessIdentityRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {

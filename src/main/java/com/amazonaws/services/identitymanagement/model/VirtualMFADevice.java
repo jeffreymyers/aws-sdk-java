@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>VirtualMFADevice</code> data type contains information about a virtual MFA device.
+ * The <code>VirtualMFADevice</code> data type contains information about
+ * a virtual MFA device.
  * </p>
  */
 public class VirtualMFADevice implements Serializable {
@@ -34,9 +35,8 @@ public class VirtualMFADevice implements Serializable {
 
     /**
      * The Base32 seed defined as specified in <a
-     * href="http://www.ietf.org/rfc/rfc3548.txt"
-     * target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     * Base64-encoded.
+     * href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     * <code>Base32StringSeed</code> is Base64-encoded.
      */
     private java.nio.ByteBuffer base32StringSeed;
 
@@ -97,7 +97,7 @@ public class VirtualMFADevice implements Serializable {
      *
      * @param serialNumber The serial number associated with <code>VirtualMFADevice</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualMFADevice withSerialNumber(String serialNumber) {
@@ -107,14 +107,12 @@ public class VirtualMFADevice implements Serializable {
 
     /**
      * The Base32 seed defined as specified in <a
-     * href="http://www.ietf.org/rfc/rfc3548.txt"
-     * target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     * Base64-encoded.
+     * href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     * <code>Base32StringSeed</code> is Base64-encoded.
      *
      * @return The Base32 seed defined as specified in <a
-     *         href="http://www.ietf.org/rfc/rfc3548.txt"
-     *         target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     *         Base64-encoded.
+     *         href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     *         <code>Base32StringSeed</code> is Base64-encoded.
      */
     public java.nio.ByteBuffer getBase32StringSeed() {
         return base32StringSeed;
@@ -122,14 +120,12 @@ public class VirtualMFADevice implements Serializable {
     
     /**
      * The Base32 seed defined as specified in <a
-     * href="http://www.ietf.org/rfc/rfc3548.txt"
-     * target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     * Base64-encoded.
+     * href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     * <code>Base32StringSeed</code> is Base64-encoded.
      *
      * @param base32StringSeed The Base32 seed defined as specified in <a
-     *         href="http://www.ietf.org/rfc/rfc3548.txt"
-     *         target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     *         Base64-encoded.
+     *         href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     *         <code>Base32StringSeed</code> is Base64-encoded.
      */
     public void setBase32StringSeed(java.nio.ByteBuffer base32StringSeed) {
         this.base32StringSeed = base32StringSeed;
@@ -137,18 +133,16 @@ public class VirtualMFADevice implements Serializable {
     
     /**
      * The Base32 seed defined as specified in <a
-     * href="http://www.ietf.org/rfc/rfc3548.txt"
-     * target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     * Base64-encoded.
+     * href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     * <code>Base32StringSeed</code> is Base64-encoded.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param base32StringSeed The Base32 seed defined as specified in <a
-     *         href="http://www.ietf.org/rfc/rfc3548.txt"
-     *         target="_blank">RFC3548</a>. The <code>Base32StringSeed</code> is
-     *         Base64-encoded.
+     *         href="http://www.ietf.org/rfc/rfc3548.txt">RFC3548</a>. The
+     *         <code>Base32StringSeed</code> is Base64-encoded.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualMFADevice withBase32StringSeed(java.nio.ByteBuffer base32StringSeed) {
@@ -211,7 +205,7 @@ public class VirtualMFADevice implements Serializable {
      *         otherwise), and Base32String is the seed in Base32 format. The
      *         <code>Base32String</code> is Base64-encoded.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualMFADevice withQRCodePNG(java.nio.ByteBuffer qRCodePNG) {
@@ -262,7 +256,7 @@ public class VirtualMFADevice implements Serializable {
      *         <li><p><a>CreateUser</a></li> <li><p><a>GetUser</a></li>
      *         <li><p><a>ListUsers</a></li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualMFADevice withUser(User user) {
@@ -295,7 +289,7 @@ public class VirtualMFADevice implements Serializable {
      *
      * @param enableDate The new value for the EnableDate property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualMFADevice withEnableDate(java.util.Date enableDate) {

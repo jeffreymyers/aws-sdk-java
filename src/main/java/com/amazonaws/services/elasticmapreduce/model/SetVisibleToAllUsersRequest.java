@@ -21,9 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#setVisibleToAllUsers(SetVisibleToAllUsersRequest) SetVisibleToAllUsers operation}.
  * <p>
- * Sets whether all AWS Identity and Access Management (IAM) users under your account can access the specified job flows. This action works on running
- * job flows. You can also set the visibility of a job flow when you launch it using the <code>VisibleToAllUsers</code> parameter of RunJobFlow. The
- * SetVisibleToAllUsers action can be called only by an IAM user who created the job flow or the AWS account that owns the job flow.
+ * Sets whether all AWS Identity and Access Management (IAM) users under
+ * your account can access the specified job flows. This action works on
+ * running job flows. You can also set the visibility of a job flow when
+ * you launch it using the <code>VisibleToAllUsers</code> parameter of
+ * RunJobFlow. The SetVisibleToAllUsers action can be called only by an
+ * IAM user who created the job flow or the AWS account that owns the job
+ * flow.
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#setVisibleToAllUsers(SetVisibleToAllUsersRequest)
@@ -80,7 +84,7 @@ public class SetVisibleToAllUsersRequest extends AmazonWebServiceRequest impleme
      *
      * @param jobFlowIds Identifiers of the job flows to receive the new visibility setting.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetVisibleToAllUsersRequest withJobFlowIds(String... jobFlowIds) {
@@ -98,7 +102,7 @@ public class SetVisibleToAllUsersRequest extends AmazonWebServiceRequest impleme
      *
      * @param jobFlowIds Identifiers of the job flows to receive the new visibility setting.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetVisibleToAllUsersRequest withJobFlowIds(java.util.Collection<String> jobFlowIds) {
@@ -168,7 +172,7 @@ public class SetVisibleToAllUsersRequest extends AmazonWebServiceRequest impleme
      *         to False, only the IAM user that created a job flow can view and
      *         manage it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetVisibleToAllUsersRequest withVisibleToAllUsers(Boolean visibleToAllUsers) {

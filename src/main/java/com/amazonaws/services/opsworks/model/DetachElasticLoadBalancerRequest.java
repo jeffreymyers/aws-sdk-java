@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Detaches a specified Elastic Load Balancing instance from its layer.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that
- * explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Manage permissions level for the stack, or an attached policy
+ * that explicitly grants permissions. For more information on user
+ * permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#detachElasticLoadBalancer(DetachElasticLoadBalancerRequest)
@@ -69,7 +72,7 @@ public class DetachElasticLoadBalancerRequest extends AmazonWebServiceRequest im
      *
      * @param elasticLoadBalancerName The Elastic Load Balancing instance's name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DetachElasticLoadBalancerRequest withElasticLoadBalancerName(String elasticLoadBalancerName) {
@@ -108,7 +111,7 @@ public class DetachElasticLoadBalancerRequest extends AmazonWebServiceRequest im
      * @param layerId The ID of the layer that the Elastic Load Balancing instance is
      *         attached to.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DetachElasticLoadBalancerRequest withLayerId(String layerId) {

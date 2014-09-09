@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the following objects or data if successful. Otherwise, returns an error.
+ * Contains the following objects or data if successful. Otherwise,
+ * returns an error.
  * </p>
  */
 public class DescribeTrustedAdvisorChecksResult implements Serializable {
@@ -63,7 +64,7 @@ public class DescribeTrustedAdvisorChecksResult implements Serializable {
      *
      * @param checks Information about all available Trusted Advisor checks.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTrustedAdvisorChecksResult withChecks(TrustedAdvisorCheckDescription... checks) {
@@ -81,7 +82,7 @@ public class DescribeTrustedAdvisorChecksResult implements Serializable {
      *
      * @param checks Information about all available Trusted Advisor checks.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTrustedAdvisorChecksResult withChecks(java.util.Collection<TrustedAdvisorCheckDescription> checks) {

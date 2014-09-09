@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the response to a <code>DescribeElasticLoadBalancers</code> request.
+ * Contains the response to a <code>DescribeElasticLoadBalancers</code>
+ * request.
  * </p>
  */
 public class DescribeElasticLoadBalancersResult implements Serializable {
@@ -70,7 +71,7 @@ public class DescribeElasticLoadBalancersResult implements Serializable {
      * @param elasticLoadBalancers A list of <code>ElasticLoadBalancer</code> objects that describe the
      *         specified Elastic Load Balancing instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeElasticLoadBalancersResult withElasticLoadBalancers(ElasticLoadBalancer... elasticLoadBalancers) {
@@ -90,7 +91,7 @@ public class DescribeElasticLoadBalancersResult implements Serializable {
      * @param elasticLoadBalancers A list of <code>ElasticLoadBalancer</code> objects that describe the
      *         specified Elastic Load Balancing instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeElasticLoadBalancersResult withElasticLoadBalancers(java.util.Collection<ElasticLoadBalancer> elasticLoadBalancers) {

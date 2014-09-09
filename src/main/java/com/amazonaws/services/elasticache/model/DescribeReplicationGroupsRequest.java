@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeReplicationGroups(DescribeReplicationGroupsRequest) DescribeReplicationGroups operation}.
  * <p>
- * The <i>DescribeReplicationGroups</i> operation returns information about a particular replication group. If no identifier is specified,
- * <i>DescribeReplicationGroups</i> returns information about all replication groups.
+ * The <i>DescribeReplicationGroups</i> operation returns information
+ * about a particular replication group. If no identifier is specified,
+ * <i>DescribeReplicationGroups</i> returns information about all
+ * replication groups.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeReplicationGroups(DescribeReplicationGroupsRequest)
@@ -89,7 +91,7 @@ public class DescribeReplicationGroupsRequest extends AmazonWebServiceRequest im
      *         parameter is not case sensitive. <p>If you do not specify this
      *         parameter, information about all replication groups is returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReplicationGroupsRequest withReplicationGroupId(String replicationGroupId) {
@@ -140,7 +142,7 @@ public class DescribeReplicationGroupsRequest extends AmazonWebServiceRequest im
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReplicationGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -191,7 +193,7 @@ public class DescribeReplicationGroupsRequest extends AmazonWebServiceRequest im
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReplicationGroupsRequest withMarker(String marker) {

@@ -18,25 +18,34 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>SignalExternalWorkflowExecution</code> decision.
+ * Provides details of the <code>SignalExternalWorkflowExecution</code>
+ * decision.
  * </p>
  * <p>
  * <b>Access Control</b>
  * </p>
  * <p>
- * You can use IAM policies to control this decision's access to Amazon SWF in much the same way as for the regular API:
+ * You can use IAM policies to control this decision's access to Amazon
+ * SWF in much the same way as for the regular API:
  * </p>
  * 
  * <ul>
- * <li>Use a <code>Resource</code> element with the domain name to limit the decision to only specified domains.</li>
- * <li>Use an <code>Action</code> element to allow or deny permission to specify this decision.</li>
- * <li>You cannot use an IAM policy to constrain this action's parameters.</li>
+ * <li>Use a <code>Resource</code> element with the domain name to limit
+ * the decision to only specified domains.</li>
+ * <li>Use an <code>Action</code> element to allow or deny permission to
+ * specify this decision.</li>
+ * <li>You cannot use an IAM policy to constrain this action's
+ * parameters.</li>
  * 
  * </ul>
  * <p>
- * If the caller does not have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action
- * fails. The associated event attribute's <b>cause</b> parameter will be set to OPERATION_NOT_PERMITTED. For details and example IAM policies, see <a
- * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a> .
+ * If the caller does not have sufficient permissions to invoke the
+ * action, or the parameter values fall outside the specified
+ * constraints, the action fails. The associated event attribute's
+ * <b>cause</b> parameter will be set to OPERATION_NOT_PERMITTED. For
+ * details and example IAM policies, see
+ * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+ * .
  * </p>
  */
 public class SignalExternalWorkflowExecutionDecisionAttributes implements Serializable {
@@ -125,7 +134,7 @@ public class SignalExternalWorkflowExecutionDecisionAttributes implements Serial
      * @param workflowId The <code>workflowId</code> of the workflow execution to be signaled.
      *         This field is required.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SignalExternalWorkflowExecutionDecisionAttributes withWorkflowId(String workflowId) {
@@ -167,7 +176,7 @@ public class SignalExternalWorkflowExecutionDecisionAttributes implements Serial
      *
      * @param runId The <code>runId</code> of the workflow execution to be signaled.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SignalExternalWorkflowExecutionDecisionAttributes withRunId(String runId) {
@@ -215,7 +224,7 @@ public class SignalExternalWorkflowExecutionDecisionAttributes implements Serial
      * @param signalName The name of the signal.The target workflow execution will use the
      *         signal name and input to process the signal. This field is required.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SignalExternalWorkflowExecutionDecisionAttributes withSignalName(String signalName) {
@@ -263,7 +272,7 @@ public class SignalExternalWorkflowExecutionDecisionAttributes implements Serial
      * @param input Optional input to be provided with the signal.The target workflow
      *         execution will use the signal name and input to process the signal.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SignalExternalWorkflowExecutionDecisionAttributes withInput(String input) {
@@ -311,7 +320,7 @@ public class SignalExternalWorkflowExecutionDecisionAttributes implements Serial
      * @param control Optional data attached to the event that can be used by the decider in
      *         subsequent decision tasks.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SignalExternalWorkflowExecutionDecisionAttributes withControl(String control) {

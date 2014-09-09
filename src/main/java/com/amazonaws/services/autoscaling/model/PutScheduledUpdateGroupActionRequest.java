@@ -21,15 +21,20 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#putScheduledUpdateGroupAction(PutScheduledUpdateGroupActionRequest) PutScheduledUpdateGroupAction operation}.
  * <p>
- * Creates or updates a scheduled scaling action for an Auto Scaling group. When updating a scheduled scaling action, if you leave a parameter
- * unspecified, the corresponding value remains unchanged in the affected Auto Scaling group.
+ * Creates or updates a scheduled scaling action for an Auto Scaling
+ * group. When updating a scheduled scaling action, if you leave a
+ * parameter unspecified, the corresponding value remains unchanged in
+ * the affected Auto Scaling group.
  * </p>
  * <p>
- * For information on creating or updating a scheduled action for your Auto Scaling group, see <a
- * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/schedule_time.html"> Scale Based on a Schedule </a> .
+ * For information on creating or updating a scheduled action for your
+ * Auto Scaling group, see
+ * <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/schedule_time.html"> Scale Based on a Schedule </a>
+ * .
  * </p>
  * <p>
- * <b>NOTE:</b> Auto Scaling supports the date and time expressed in "YYYY-MM-DDThh:mm:ssZ" format in UTC/GMT only.
+ * <b>NOTE:</b> Auto Scaling supports the date and time expressed in
+ * "YYYY-MM-DDThh:mm:ssZ" format in UTC/GMT only.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#putScheduledUpdateGroupAction(PutScheduledUpdateGroupActionRequest)
@@ -41,7 +46,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -50,7 +55,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String scheduledActionName;
 
@@ -90,7 +95,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String recurrence;
 
@@ -115,7 +120,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name or ARN of the Auto Scaling group.
      */
@@ -128,7 +133,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name or ARN of the Auto Scaling group.
      */
@@ -143,11 +148,11 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name or ARN of the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withAutoScalingGroupName(String autoScalingGroupName) {
@@ -160,7 +165,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of this scaling action.
      */
@@ -173,7 +178,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param scheduledActionName The name of this scaling action.
      */
@@ -188,11 +193,11 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param scheduledActionName The name of this scaling action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withScheduledActionName(String scheduledActionName) {
@@ -255,7 +260,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      *         values should be identical. Otherwise,
      *         <code>PutScheduledUpdateGroupAction</code> will return an error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withTime(java.util.Date time) {
@@ -318,7 +323,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      *         <code>Recurrence</code>, they form the boundaries of when the
      *         recurring action will start and stop.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withStartTime(java.util.Date startTime) {
@@ -351,7 +356,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      *
      * @param endTime The time for this action to end.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withEndTime(java.util.Date endTime) {
@@ -370,7 +375,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The time when recurring future actions will start. Start time is
      *         specified by the user following the Unix cron syntax format. For
@@ -395,7 +400,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param recurrence The time when recurring future actions will start. Start time is
      *         specified by the user following the Unix cron syntax format. For
@@ -422,7 +427,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param recurrence The time when recurring future actions will start. Start time is
      *         specified by the user following the Unix cron syntax format. For
@@ -432,7 +437,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      *         <code>EndTime</code> are specified with <code>Recurrence</code>, they
      *         form the boundaries of when the recurring action will start and stop.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withRecurrence(String recurrence) {
@@ -465,7 +470,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      *
      * @param minSize The minimum size for the new Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withMinSize(Integer minSize) {
@@ -498,7 +503,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      *
      * @param maxSize The maximum size for the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withMaxSize(Integer maxSize) {
@@ -537,7 +542,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * @param desiredCapacity The number of Amazon EC2 instances that should be running in the
      *         group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutScheduledUpdateGroupActionRequest withDesiredCapacity(Integer desiredCapacity) {

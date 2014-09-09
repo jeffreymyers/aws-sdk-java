@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A response message that contains the status of an updated default search field.
  * </p>
  */
+@Deprecated
 public class UpdateDefaultSearchFieldResult implements Serializable {
 
     /**

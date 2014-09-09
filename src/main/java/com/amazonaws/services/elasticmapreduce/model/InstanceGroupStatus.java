@@ -24,9 +24,7 @@ import java.io.Serializable;
 public class InstanceGroupStatus implements Serializable {
 
     /**
-     * The current state of the instance group. The following values are
-     * deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     * TERMINATING, and TERMINATED instead, respectively.
+     * The current state of the instance group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>PROVISIONING, BOOTSTRAPPING, RUNNING, RESIZING, SUSPENDED, TERMINATING, TERMINATED, ARRESTED, SHUTTING_DOWN, ENDED
@@ -44,16 +42,12 @@ public class InstanceGroupStatus implements Serializable {
     private InstanceGroupTimeline timeline;
 
     /**
-     * The current state of the instance group. The following values are
-     * deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     * TERMINATING, and TERMINATED instead, respectively.
+     * The current state of the instance group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>PROVISIONING, BOOTSTRAPPING, RUNNING, RESIZING, SUSPENDED, TERMINATING, TERMINATED, ARRESTED, SHUTTING_DOWN, ENDED
      *
-     * @return The current state of the instance group. The following values are
-     *         deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     *         TERMINATING, and TERMINATED instead, respectively.
+     * @return The current state of the instance group.
      *
      * @see InstanceGroupState
      */
@@ -62,16 +56,12 @@ public class InstanceGroupStatus implements Serializable {
     }
     
     /**
-     * The current state of the instance group. The following values are
-     * deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     * TERMINATING, and TERMINATED instead, respectively.
+     * The current state of the instance group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>PROVISIONING, BOOTSTRAPPING, RUNNING, RESIZING, SUSPENDED, TERMINATING, TERMINATED, ARRESTED, SHUTTING_DOWN, ENDED
      *
-     * @param state The current state of the instance group. The following values are
-     *         deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     *         TERMINATING, and TERMINATED instead, respectively.
+     * @param state The current state of the instance group.
      *
      * @see InstanceGroupState
      */
@@ -80,20 +70,16 @@ public class InstanceGroupStatus implements Serializable {
     }
     
     /**
-     * The current state of the instance group. The following values are
-     * deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     * TERMINATING, and TERMINATED instead, respectively.
+     * The current state of the instance group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>PROVISIONING, BOOTSTRAPPING, RUNNING, RESIZING, SUSPENDED, TERMINATING, TERMINATED, ARRESTED, SHUTTING_DOWN, ENDED
      *
-     * @param state The current state of the instance group. The following values are
-     *         deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     *         TERMINATING, and TERMINATED instead, respectively.
+     * @param state The current state of the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceGroupState
@@ -104,16 +90,12 @@ public class InstanceGroupStatus implements Serializable {
     }
 
     /**
-     * The current state of the instance group. The following values are
-     * deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     * TERMINATING, and TERMINATED instead, respectively.
+     * The current state of the instance group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>PROVISIONING, BOOTSTRAPPING, RUNNING, RESIZING, SUSPENDED, TERMINATING, TERMINATED, ARRESTED, SHUTTING_DOWN, ENDED
      *
-     * @param state The current state of the instance group. The following values are
-     *         deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     *         TERMINATING, and TERMINATED instead, respectively.
+     * @param state The current state of the instance group.
      *
      * @see InstanceGroupState
      */
@@ -122,20 +104,16 @@ public class InstanceGroupStatus implements Serializable {
     }
     
     /**
-     * The current state of the instance group. The following values are
-     * deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     * TERMINATING, and TERMINATED instead, respectively.
+     * The current state of the instance group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>PROVISIONING, BOOTSTRAPPING, RUNNING, RESIZING, SUSPENDED, TERMINATING, TERMINATED, ARRESTED, SHUTTING_DOWN, ENDED
      *
-     * @param state The current state of the instance group. The following values are
-     *         deprecated: ARRESTED, SHUTTING_DOWN, and ENDED. Use SUSPENDED,
-     *         TERMINATING, and TERMINATED instead, respectively.
+     * @param state The current state of the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceGroupState
@@ -170,7 +148,7 @@ public class InstanceGroupStatus implements Serializable {
      *
      * @param stateChangeReason The status change reason details for the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroupStatus withStateChangeReason(InstanceGroupStateChangeReason stateChangeReason) {
@@ -203,7 +181,7 @@ public class InstanceGroupStatus implements Serializable {
      *
      * @param timeline The timeline of the instance group status over time.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroupStatus withTimeline(InstanceGroupTimeline timeline) {

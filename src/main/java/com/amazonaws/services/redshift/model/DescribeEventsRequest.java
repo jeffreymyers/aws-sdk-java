@@ -21,8 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#describeEvents(DescribeEventsRequest) DescribeEvents operation}.
  * <p>
- * Returns events related to clusters, security groups, snapshots, and parameter groups for the past 14 days. Events specific to a particular cluster,
- * security group, snapshot or parameter group can be obtained by providing the name as a parameter. By default, the past hour of events are returned.
+ * Returns events related to clusters, security groups, snapshots, and
+ * parameter groups for the past 14 days. Events specific to a particular
+ * cluster, security group, snapshot or parameter group can be obtained
+ * by providing the name as a parameter. By default, the past hour of
+ * events are returned.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#describeEvents(DescribeEventsRequest)
@@ -87,19 +90,23 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
     private Integer duration;
 
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * marker is included in the response so that the remaining results may
-     * be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     * be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     private Integer maxRecords;
 
     /**
-     * An optional marker returned from a previous <b>DescribeEvents</b>
-     * request. If this parameter is specified, the response includes only
-     * records beyond the marker, up to the value specified by
-     * <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeEvents</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request.
      */
     private String marker;
 
@@ -188,7 +195,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         snapshot identifier when <i>SourceType</i> is
      *         <code>cluster-snapshot</code>.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withSourceIdentifier(String sourceIdentifier) {
@@ -294,7 +301,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         <code>cluster-snapshot</code> when <i>SourceIdentifier</i> is a
      *         cluster snapshot identifier.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -368,7 +375,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         <code>cluster-snapshot</code> when <i>SourceIdentifier</i> is a
      *         cluster snapshot identifier.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -421,7 +428,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia
      *         page.</a> <p>Example: <code>2009-07-08T18:00Z</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withStartTime(java.util.Date startTime) {
@@ -472,7 +479,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia
      *         page.</a> <p>Example: <code>2009-07-08T18:00Z</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEndTime(java.util.Date endTime) {
@@ -523,7 +530,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         specify a duration of 60, then only events which have occurred after
      *         17:00 will be returned. <p>Default: <code>60</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withDuration(Integer duration) {
@@ -532,55 +539,61 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * marker is included in the response so that the remaining results may
-     * be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     * be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return The maximum number of records to include in the response. If more
-     *         records exist than the specified <code>MaxRecords</code> value, a
-     *         marker is included in the response so that the remaining results may
-     *         be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     *         be at least 20 and no more than 100.
+     * @return The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public Integer getMaxRecords() {
         return maxRecords;
     }
     
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * marker is included in the response so that the remaining results may
-     * be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     * be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @param maxRecords The maximum number of records to include in the response. If more
-     *         records exist than the specified <code>MaxRecords</code> value, a
-     *         marker is included in the response so that the remaining results may
-     *         be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     *         be at least 20 and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
     }
     
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * marker is included in the response so that the remaining results may
-     * be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     * be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param maxRecords The maximum number of records to include in the response. If more
-     *         records exist than the specified <code>MaxRecords</code> value, a
-     *         marker is included in the response so that the remaining results may
-     *         be retrieved. <p>Default: <code>100</code> <p>Constraints: Value must
-     *         be at least 20 and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMaxRecords(Integer maxRecords) {
@@ -589,49 +602,67 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * An optional marker returned from a previous <b>DescribeEvents</b>
-     * request. If this parameter is specified, the response includes only
-     * records beyond the marker, up to the value specified by
-     * <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeEvents</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request.
      *
-     * @return An optional marker returned from a previous <b>DescribeEvents</b>
-     *         request. If this parameter is specified, the response includes only
-     *         records beyond the marker, up to the value specified by
-     *         <code>MaxRecords</code>.
+     * @return An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a <a>DescribeEvents</a>
+     *         request exceed the value specified in <code>MaxRecords</code>, AWS
+     *         returns a value in the <code>Marker</code> field of the response. You
+     *         can retrieve the next set of response records by providing the
+     *         returned marker value in the <code>Marker</code> parameter and
+     *         retrying the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional marker returned from a previous <b>DescribeEvents</b>
-     * request. If this parameter is specified, the response includes only
-     * records beyond the marker, up to the value specified by
-     * <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeEvents</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request.
      *
-     * @param marker An optional marker returned from a previous <b>DescribeEvents</b>
-     *         request. If this parameter is specified, the response includes only
-     *         records beyond the marker, up to the value specified by
-     *         <code>MaxRecords</code>.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a <a>DescribeEvents</a>
+     *         request exceed the value specified in <code>MaxRecords</code>, AWS
+     *         returns a value in the <code>Marker</code> field of the response. You
+     *         can retrieve the next set of response records by providing the
+     *         returned marker value in the <code>Marker</code> parameter and
+     *         retrying the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional marker returned from a previous <b>DescribeEvents</b>
-     * request. If this parameter is specified, the response includes only
-     * records beyond the marker, up to the value specified by
-     * <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeEvents</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional marker returned from a previous <b>DescribeEvents</b>
-     *         request. If this parameter is specified, the response includes only
-     *         records beyond the marker, up to the value specified by
-     *         <code>MaxRecords</code>.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a <a>DescribeEvents</a>
+     *         request exceed the value specified in <code>MaxRecords</code>, AWS
+     *         returns a value in the <code>Marker</code> field of the response. You
+     *         can retrieve the next set of response records by providing the
+     *         returned marker value in the <code>Marker</code> parameter and
+     *         retrying the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMarker(String marker) {

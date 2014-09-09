@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#updatePipelineNotifications(UpdatePipelineNotificationsRequest) UpdatePipelineNotifications operation}.
  * <p>
- * With the UpdatePipelineNotifications operation, you can update Amazon Simple Notification Service (Amazon SNS) notifications for a pipeline.
+ * With the UpdatePipelineNotifications operation, you can update Amazon
+ * Simple Notification Service (Amazon SNS) notifications for a pipeline.
  * </p>
  * <p>
- * When you update notifications for a pipeline, Elastic Transcoder returns the values that you specified in the request.
+ * When you update notifications for a pipeline, Elastic Transcoder
+ * returns the values that you specified in the request.
  * </p>
  *
  * @see com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#updatePipelineNotifications(UpdatePipelineNotificationsRequest)
@@ -102,7 +104,7 @@ public class UpdatePipelineNotificationsRequest extends AmazonWebServiceRequest 
      * @param id The identifier of the pipeline for which you want to change
      *         notification settings.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineNotificationsRequest withId(String id) {
@@ -237,7 +239,7 @@ public class UpdatePipelineNotificationsRequest extends AmazonWebServiceRequest 
      *         condition. This is the ARN that Amazon SNS returned when you created
      *         the topic.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineNotificationsRequest withNotifications(Notifications notifications) {

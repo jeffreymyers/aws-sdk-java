@@ -26,11 +26,19 @@ import java.io.InputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.amazonaws.internal.ResettableInputStream;
+import com.amazonaws.internal.SdkInputStream;
+
 /**
- * A repeatable input stream for files. This input stream can be repeated an
- * unlimited number of times, without any limitation on when a repeat can occur.
+ * @deprecated by {@link ResettableInputStream} and this class will be removed
+ *             in future releases.
+ *             <p>
+ *             A repeatable input stream for files. This input stream can be
+ *             repeated an unlimited number of times, without any limitation on
+ *             when a repeat can occur.
  */
-public class RepeatableFileInputStream extends InputStream {
+@Deprecated
+public class RepeatableFileInputStream extends SdkInputStream {
     private static final Log log = LogFactory.getLog(RepeatableFileInputStream.class);
 
     private final File file;
@@ -72,8 +80,10 @@ public class RepeatableFileInputStream extends InputStream {
      * @throws IOException
      *             when the FileInputStream cannot be re-created.
      */
+    @Override
     public void reset() throws IOException {
         this.fis.close();
+        abortIfNeeded();
         this.fis = new FileInputStream(file);
 
         long skipped = 0;
@@ -90,17 +100,14 @@ public class RepeatableFileInputStream extends InputStream {
         this.bytesReadPastMarkPoint = 0;
     }
 
-    /**
-     * @see java.io.InputStream#markSupported()
-     */
+    @Override
     public boolean markSupported() {
         return true;
     }
 
-    /**
-     * @see java.io.InputStream#mark(int)
-     */
+    @Override
     public void mark(int readlimit) {
+        abortIfNeeded();
         this.markPoint += bytesReadPastMarkPoint;
         this.bytesReadPastMarkPoint = 0;
         if (log.isDebugEnabled()) {
@@ -108,24 +115,21 @@ public class RepeatableFileInputStream extends InputStream {
         }
     }
 
-    /**
-     * @see java.io.InputStream#available()
-     */
+    @Override
     public int available() throws IOException {
+        abortIfNeeded();
         return fis.available();
     }
 
-    /**
-     * @see java.io.InputStream#close()
-     */
+    @Override
     public void close() throws IOException {
         fis.close();
+        abortIfNeeded();
     }
 
-    /**
-     * @see java.io.InputStream#read()
-     */
+    @Override
     public int read() throws IOException {
+        abortIfNeeded();
         int byteRead = fis.read();
         if (byteRead != -1) {
             bytesReadPastMarkPoint++;
@@ -137,22 +141,22 @@ public class RepeatableFileInputStream extends InputStream {
 
     @Override
     public long skip(long n) throws IOException {
+        abortIfNeeded();
         long skipped = fis.skip(n);
         bytesReadPastMarkPoint += skipped;
         return skipped;
     }
 
-    /**
-     * @see java.io.InputStream#read(byte[], int, int)
-     */
+    @Override
     public int read(byte[] arg0, int arg1, int arg2) throws IOException {
+        abortIfNeeded();
         int count = fis.read(arg0, arg1, arg2);
         bytesReadPastMarkPoint += count;
         return count;
     }
 
+    @Override
     public InputStream getWrappedInputStream() {
-        return this.fis;
+        return fis;
     }
-
 }

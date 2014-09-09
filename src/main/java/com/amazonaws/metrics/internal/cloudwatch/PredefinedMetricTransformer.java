@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.annotation.ThreadSafe;
 
+import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.Request;
 import com.amazonaws.Response;
 import com.amazonaws.metrics.MetricType;
@@ -68,6 +69,9 @@ public class PredefinedMetricTransformer {
             Field predefined = (Field) metricType;
             switch(predefined) {
                 case HttpClientRetryCount:
+                case HttpClientPoolAvailableCount:
+                case HttpClientPoolLeasedCount:
+                case HttpClientPoolPendingCount:
                     return metricOfCount(predefined, request, response);
                 case RequestCount:  // intentionally fall thru to reuse the same routine as RetryCount
                 case RetryCount:
@@ -82,6 +86,7 @@ public class PredefinedMetricTransformer {
                 case HttpRequestTime:
                     return latencyMetricOf(predefined, request, response, INCLUDE_REQUEST_TYPE);
                 case Exception:
+                case ThrottleException:
                     return counterMetricOf(predefined, request, response, INCLUDE_REQUEST_TYPE);
                 default:
                     break;
@@ -98,7 +103,11 @@ public class PredefinedMetricTransformer {
             }
         }
         if (log.isDebugEnabled()) {
-            log.debug("No request metric transformer can be found for metric type " + metricType.name());
+            AmazonWebServiceRequest origReq = request == null ? null : request
+                    .getOriginalRequest();
+            String reqClassName = origReq == null ? null : origReq.getClass().getName();
+            log.debug("No request metric transformer can be found for metric type "
+                    + metricType.name() + " for " + reqClassName);
         }
         return Collections.emptyList();
     }

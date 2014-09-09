@@ -37,7 +37,7 @@ public class VolumeJsonUnmarshaller implements Unmarshaller<Volume, JsonUnmarsha
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -88,6 +88,14 @@ public class VolumeJsonUnmarshaller implements Unmarshaller<Volume, JsonUnmarsha
                 if (context.testExpression("AvailabilityZone", targetDepth)) {
                     context.nextToken();
                     volume.setAvailabilityZone(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("VolumeType", targetDepth)) {
+                    context.nextToken();
+                    volume.setVolumeType(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Iops", targetDepth)) {
+                    context.nextToken();
+                    volume.setIops(IntegerJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

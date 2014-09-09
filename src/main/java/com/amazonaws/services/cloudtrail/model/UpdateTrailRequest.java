@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * From the command line, use update-subscription.
  * </p>
  * <p>
- * Updates the settings that specify delivery of log files. Changes to a trail do not require stopping the CloudTrail service. You use this action to
- * designate an existing bucket for log delivery. If the existing bucket has previously been a target for CloudTrail log files, an IAM policy exists for
- * the bucket. Use a Trail data type to pass updated bucket or topic names.
+ * Updates the settings that specify delivery of log files. Changes to a
+ * trail do not require stopping the CloudTrail service. You use this
+ * action to designate an existing bucket for log delivery. If the
+ * existing bucket has previously been a target for CloudTrail log files,
+ * an IAM policy exists for the bucket. Use a Trail data type to pass
+ * updated bucket or topic names.
  * </p>
  *
  * @see com.amazonaws.services.cloudtrail.AWSCloudTrail#updateTrail(UpdateTrailRequest)
@@ -74,7 +77,7 @@ public class UpdateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param name The new value for the Name property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateTrailRequest withName(String name) {
@@ -107,7 +110,7 @@ public class UpdateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param s3BucketName The new value for the S3BucketName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateTrailRequest withS3BucketName(String s3BucketName) {
@@ -140,7 +143,7 @@ public class UpdateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param s3KeyPrefix The new value for the S3KeyPrefix property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateTrailRequest withS3KeyPrefix(String s3KeyPrefix) {
@@ -173,7 +176,7 @@ public class UpdateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param snsTopicName The new value for the SnsTopicName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateTrailRequest withSnsTopicName(String snsTopicName) {
@@ -211,7 +214,7 @@ public class UpdateTrailRequest extends AmazonWebServiceRequest implements Seria
      * @param includeGlobalServiceEvents The new value for the IncludeGlobalServiceEvents property for this
      *         object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateTrailRequest withIncludeGlobalServiceEvents(Boolean includeGlobalServiceEvents) {
@@ -260,7 +263,7 @@ public class UpdateTrailRequest extends AmazonWebServiceRequest implements Seria
      * @param trail Represents the <a>Trail</a> structure that contains the CloudTrail
      *         setting for an account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateTrailRequest withTrail(Trail trail) {

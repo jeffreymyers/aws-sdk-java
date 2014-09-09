@@ -21,9 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#updatePipeline(UpdatePipelineRequest) UpdatePipeline operation}.
  * <p>
- * Use the <code>UpdatePipeline</code> operation to update settings for a pipeline. <p>
- * <b>IMPORTANT:</b>When you change pipeline settings, your changes take effect immediately. Jobs that you have already submitted and that Elastic
- * Transcoder has not started to process are affected in addition to jobs that you submit after you change settings.
+ * Use the <code>UpdatePipeline</code> operation to update settings for
+ * a pipeline. <p>
+ * <b>IMPORTANT:</b>When you change pipeline settings, your changes take
+ * effect immediately. Jobs that you have already submitted and that
+ * Elastic Transcoder has not started to process are affected in addition
+ * to jobs that you submit after you change settings.
  * </p>
  * 
  * </p>
@@ -219,7 +222,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      *
      * @param id The ID of the pipeline that you want to update.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withId(String id) {
@@ -273,7 +276,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      *         the AWS account, but uniqueness is not enforced. <p>Constraints:
      *         Maximum 40 characters
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withName(String name) {
@@ -321,7 +324,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      * @param inputBucket The Amazon S3 bucket in which you saved the media files that you want
      *         to transcode and the graphics that you want to use as watermarks.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withInputBucket(String inputBucket) {
@@ -369,7 +372,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      * @param role The IAM Amazon Resource Name (ARN) for the role that you want Elastic
      *         Transcoder to use to transcode jobs for this pipeline.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withRole(String role) {
@@ -420,7 +423,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      *         notifications, you must also subscribe to the new topic in the Amazon
      *         SNS console.</important>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withNotifications(Notifications notifications) {
@@ -765,7 +768,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      *         Elastic Transcoder to assign to the video files and playlists that it
      *         stores in your Amazon S3 bucket.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withContentConfig(PipelineOutputConfig contentConfig) {
@@ -1080,7 +1083,7 @@ public class UpdatePipelineRequest extends AmazonWebServiceRequest implements Se
      *         assign to the thumbnails that it stores in your Amazon S3 bucket.</li>
      *         </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineRequest withThumbnailConfig(PipelineOutputConfig thumbnailConfig) {

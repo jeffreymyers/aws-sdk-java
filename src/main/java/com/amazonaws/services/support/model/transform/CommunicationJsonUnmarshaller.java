@@ -37,7 +37,7 @@ public class CommunicationJsonUnmarshaller implements Unmarshaller<Communication
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -60,6 +60,10 @@ public class CommunicationJsonUnmarshaller implements Unmarshaller<Communication
                 if (context.testExpression("timeCreated", targetDepth)) {
                     context.nextToken();
                     communication.setTimeCreated(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("attachmentSet", targetDepth)) {
+                    context.nextToken();
+                    communication.setAttachmentSet(new ListUnmarshaller<AttachmentDetails>(AttachmentDetailsJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

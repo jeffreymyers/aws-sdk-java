@@ -72,15 +72,15 @@ public class GlobalSecondaryIndexDescription implements Serializable {
     private ProvisionedThroughputDescription provisionedThroughput;
 
     /**
-     * The total size of the specified index, in bytes. Amazon DynamoDB
-     * updates this value approximately every six hours. Recent changes might
-     * not be reflected in this value.
+     * The total size of the specified index, in bytes. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
+     * reflected in this value.
      */
     private Long indexSizeBytes;
 
     /**
-     * The number of items in the specified index. Amazon DynamoDB updates
-     * this value approximately every six hours. Recent changes might not be
+     * The number of items in the specified index. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
      * reflected in this value.
      */
     private Long itemCount;
@@ -122,7 +122,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *
      * @param indexName The name of the global secondary index.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withIndexName(String indexName) {
@@ -182,7 +182,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *         one or more pairs of attribute names and key types (<code>HASH</code>
      *         or <code>RANGE</code>).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withKeySchema(KeySchemaElement... keySchema) {
@@ -207,7 +207,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *         one or more pairs of attribute names and key types (<code>HASH</code>
      *         or <code>RANGE</code>).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withKeySchema(java.util.Collection<KeySchemaElement> keySchema) {
@@ -259,7 +259,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *         an index. These are in addition to the primary key attributes and
      *         index key attributes, which are automatically projected.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withProjection(Projection projection) {
@@ -347,7 +347,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *         <i>DeleteTable</i> operation. </li> <li> <p><i>ACTIVE</i> - The index
      *         is ready for use. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see IndexStatus
@@ -409,7 +409,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *         <i>DeleteTable</i> operation. </li> <li> <p><i>ACTIVE</i> - The index
      *         is ready for use. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see IndexStatus
@@ -456,7 +456,7 @@ public class GlobalSecondaryIndexDescription implements Serializable {
      *         consisting of read and write capacity units, along with data about
      *         increases and decreases.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withProvisionedThroughput(ProvisionedThroughputDescription provisionedThroughput) {
@@ -465,43 +465,43 @@ public class GlobalSecondaryIndexDescription implements Serializable {
     }
 
     /**
-     * The total size of the specified index, in bytes. Amazon DynamoDB
-     * updates this value approximately every six hours. Recent changes might
-     * not be reflected in this value.
+     * The total size of the specified index, in bytes. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
+     * reflected in this value.
      *
-     * @return The total size of the specified index, in bytes. Amazon DynamoDB
-     *         updates this value approximately every six hours. Recent changes might
-     *         not be reflected in this value.
+     * @return The total size of the specified index, in bytes. DynamoDB updates this
+     *         value approximately every six hours. Recent changes might not be
+     *         reflected in this value.
      */
     public Long getIndexSizeBytes() {
         return indexSizeBytes;
     }
     
     /**
-     * The total size of the specified index, in bytes. Amazon DynamoDB
-     * updates this value approximately every six hours. Recent changes might
-     * not be reflected in this value.
+     * The total size of the specified index, in bytes. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
+     * reflected in this value.
      *
-     * @param indexSizeBytes The total size of the specified index, in bytes. Amazon DynamoDB
-     *         updates this value approximately every six hours. Recent changes might
-     *         not be reflected in this value.
+     * @param indexSizeBytes The total size of the specified index, in bytes. DynamoDB updates this
+     *         value approximately every six hours. Recent changes might not be
+     *         reflected in this value.
      */
     public void setIndexSizeBytes(Long indexSizeBytes) {
         this.indexSizeBytes = indexSizeBytes;
     }
     
     /**
-     * The total size of the specified index, in bytes. Amazon DynamoDB
-     * updates this value approximately every six hours. Recent changes might
-     * not be reflected in this value.
+     * The total size of the specified index, in bytes. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
+     * reflected in this value.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param indexSizeBytes The total size of the specified index, in bytes. Amazon DynamoDB
-     *         updates this value approximately every six hours. Recent changes might
-     *         not be reflected in this value.
+     * @param indexSizeBytes The total size of the specified index, in bytes. DynamoDB updates this
+     *         value approximately every six hours. Recent changes might not be
+     *         reflected in this value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withIndexSizeBytes(Long indexSizeBytes) {
@@ -510,12 +510,12 @@ public class GlobalSecondaryIndexDescription implements Serializable {
     }
 
     /**
-     * The number of items in the specified index. Amazon DynamoDB updates
-     * this value approximately every six hours. Recent changes might not be
+     * The number of items in the specified index. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
      * reflected in this value.
      *
-     * @return The number of items in the specified index. Amazon DynamoDB updates
-     *         this value approximately every six hours. Recent changes might not be
+     * @return The number of items in the specified index. DynamoDB updates this
+     *         value approximately every six hours. Recent changes might not be
      *         reflected in this value.
      */
     public Long getItemCount() {
@@ -523,12 +523,12 @@ public class GlobalSecondaryIndexDescription implements Serializable {
     }
     
     /**
-     * The number of items in the specified index. Amazon DynamoDB updates
-     * this value approximately every six hours. Recent changes might not be
+     * The number of items in the specified index. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
      * reflected in this value.
      *
-     * @param itemCount The number of items in the specified index. Amazon DynamoDB updates
-     *         this value approximately every six hours. Recent changes might not be
+     * @param itemCount The number of items in the specified index. DynamoDB updates this
+     *         value approximately every six hours. Recent changes might not be
      *         reflected in this value.
      */
     public void setItemCount(Long itemCount) {
@@ -536,17 +536,17 @@ public class GlobalSecondaryIndexDescription implements Serializable {
     }
     
     /**
-     * The number of items in the specified index. Amazon DynamoDB updates
-     * this value approximately every six hours. Recent changes might not be
+     * The number of items in the specified index. DynamoDB updates this
+     * value approximately every six hours. Recent changes might not be
      * reflected in this value.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param itemCount The number of items in the specified index. Amazon DynamoDB updates
-     *         this value approximately every six hours. Recent changes might not be
+     * @param itemCount The number of items in the specified index. DynamoDB updates this
+     *         value approximately every six hours. Recent changes might not be
      *         reflected in this value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexDescription withItemCount(Long itemCount) {

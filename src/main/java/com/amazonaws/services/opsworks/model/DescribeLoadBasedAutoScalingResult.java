@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the response to a <code>DescribeLoadBasedAutoScaling</code> request.
+ * Contains the response to a <code>DescribeLoadBasedAutoScaling</code>
+ * request.
  * </p>
  */
 public class DescribeLoadBasedAutoScalingResult implements Serializable {
@@ -70,7 +71,7 @@ public class DescribeLoadBasedAutoScalingResult implements Serializable {
      * @param loadBasedAutoScalingConfigurations An array of <code>LoadBasedAutoScalingConfiguration</code> objects
      *         that describe each layer's configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBasedAutoScalingResult withLoadBasedAutoScalingConfigurations(LoadBasedAutoScalingConfiguration... loadBasedAutoScalingConfigurations) {
@@ -90,7 +91,7 @@ public class DescribeLoadBasedAutoScalingResult implements Serializable {
      * @param loadBasedAutoScalingConfigurations An array of <code>LoadBasedAutoScalingConfiguration</code> objects
      *         that describe each layer's configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBasedAutoScalingResult withLoadBasedAutoScalingConfigurations(java.util.Collection<LoadBasedAutoScalingConfiguration> loadBasedAutoScalingConfigurations) {

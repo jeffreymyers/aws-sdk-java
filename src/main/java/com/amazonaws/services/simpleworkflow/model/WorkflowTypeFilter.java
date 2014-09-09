@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Used to filter workflow execution query results by type. Each parameter, if specified, defines a rule that must be satisfied by each returned result.
+ * Used to filter workflow execution query results by type. Each
+ * parameter, if specified, defines a rule that must be satisfied by each
+ * returned result.
  * </p>
  */
 public class WorkflowTypeFilter implements Serializable {
@@ -73,7 +75,7 @@ public class WorkflowTypeFilter implements Serializable {
      *
      * @param name Name of the workflow type. This field is required.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowTypeFilter withName(String name) {
@@ -115,7 +117,7 @@ public class WorkflowTypeFilter implements Serializable {
      *
      * @param version Version of the workflow type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowTypeFilter withVersion(String version) {

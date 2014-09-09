@@ -17,41 +17,51 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Cancelled Spot Instance Request
+ * <p>
+ * Describes a request to cancel a Spot Instance.
+ * </p>
  */
 public class CancelledSpotInstanceRequest implements Serializable {
 
+    /**
+     * The ID of the Spot Instance request.
+     */
     private String spotInstanceRequestId;
 
+    /**
+     * The state of the Spot Instance request.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>active, open, closed, cancelled, completed
+     */
     private String state;
 
     /**
-     * Returns the value of the SpotInstanceRequestId property for this
-     * object.
+     * The ID of the Spot Instance request.
      *
-     * @return The value of the SpotInstanceRequestId property for this object.
+     * @return The ID of the Spot Instance request.
      */
     public String getSpotInstanceRequestId() {
         return spotInstanceRequestId;
     }
     
     /**
-     * Sets the value of the SpotInstanceRequestId property for this object.
+     * The ID of the Spot Instance request.
      *
-     * @param spotInstanceRequestId The new value for the SpotInstanceRequestId property for this object.
+     * @param spotInstanceRequestId The ID of the Spot Instance request.
      */
     public void setSpotInstanceRequestId(String spotInstanceRequestId) {
         this.spotInstanceRequestId = spotInstanceRequestId;
     }
     
     /**
-     * Sets the value of the SpotInstanceRequestId property for this object.
+     * The ID of the Spot Instance request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotInstanceRequestId The new value for the SpotInstanceRequestId property for this object.
+     * @param spotInstanceRequestId The ID of the Spot Instance request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CancelledSpotInstanceRequest withSpotInstanceRequestId(String spotInstanceRequestId) {
@@ -60,12 +70,12 @@ public class CancelledSpotInstanceRequest implements Serializable {
     }
 
     /**
-     * Returns the value of the State property for this object.
+     * The state of the Spot Instance request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>active, open, closed, cancelled, completed
      *
-     * @return The value of the State property for this object.
+     * @return The state of the Spot Instance request.
      *
      * @see CancelSpotInstanceRequestState
      */
@@ -74,12 +84,12 @@ public class CancelledSpotInstanceRequest implements Serializable {
     }
     
     /**
-     * Sets the value of the State property for this object.
+     * The state of the Spot Instance request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>active, open, closed, cancelled, completed
      *
-     * @param state The new value for the State property for this object.
+     * @param state The state of the Spot Instance request.
      *
      * @see CancelSpotInstanceRequestState
      */
@@ -88,16 +98,16 @@ public class CancelledSpotInstanceRequest implements Serializable {
     }
     
     /**
-     * Sets the value of the State property for this object.
+     * The state of the Spot Instance request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>active, open, closed, cancelled, completed
      *
-     * @param state The new value for the State property for this object.
+     * @param state The state of the Spot Instance request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see CancelSpotInstanceRequestState
@@ -108,12 +118,12 @@ public class CancelledSpotInstanceRequest implements Serializable {
     }
 
     /**
-     * Sets the value of the State property for this object.
+     * The state of the Spot Instance request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>active, open, closed, cancelled, completed
      *
-     * @param state The new value for the State property for this object.
+     * @param state The state of the Spot Instance request.
      *
      * @see CancelSpotInstanceRequestState
      */
@@ -122,16 +132,16 @@ public class CancelledSpotInstanceRequest implements Serializable {
     }
     
     /**
-     * Sets the value of the State property for this object.
+     * The state of the Spot Instance request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>active, open, closed, cancelled, completed
      *
-     * @param state The new value for the State property for this object.
+     * @param state The state of the Spot Instance request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see CancelSpotInstanceRequestState

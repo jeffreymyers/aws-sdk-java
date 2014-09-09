@@ -24,8 +24,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Deletes the specified LaunchConfiguration.
  * </p>
  * <p>
- * The specified launch configuration must not be attached to an Auto Scaling group. When this call completes, the launch configuration is no longer
- * available for use.
+ * The specified launch configuration must not be attached to an Auto
+ * Scaling group. When this call completes, the launch configuration is
+ * no longer available for use.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#deleteLaunchConfiguration(DeleteLaunchConfigurationRequest)
@@ -37,7 +38,7 @@ public class DeleteLaunchConfigurationRequest extends AmazonWebServiceRequest im
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String launchConfigurationName;
 
@@ -46,7 +47,7 @@ public class DeleteLaunchConfigurationRequest extends AmazonWebServiceRequest im
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the launch configuration.
      */
@@ -59,7 +60,7 @@ public class DeleteLaunchConfigurationRequest extends AmazonWebServiceRequest im
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param launchConfigurationName The name of the launch configuration.
      */
@@ -74,11 +75,11 @@ public class DeleteLaunchConfigurationRequest extends AmazonWebServiceRequest im
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param launchConfigurationName The name of the launch configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteLaunchConfigurationRequest withLaunchConfigurationName(String launchConfigurationName) {

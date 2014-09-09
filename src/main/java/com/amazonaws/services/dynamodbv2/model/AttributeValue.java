@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the data for an attribute. You can set one, and only one, of the elements.
+ * Represents the data for an attribute. You can set one, and only one,
+ * of the elements.
  * </p>
  */
 public class AttributeValue implements Serializable {
@@ -106,7 +107,7 @@ public class AttributeValue implements Serializable {
      *
      * @param s A String data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withS(String s) {
@@ -139,7 +140,7 @@ public class AttributeValue implements Serializable {
      *
      * @param n A Number data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withN(String n) {
@@ -172,7 +173,7 @@ public class AttributeValue implements Serializable {
      *
      * @param b A Binary data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withB(java.nio.ByteBuffer b) {
@@ -211,7 +212,7 @@ public class AttributeValue implements Serializable {
      *
      * @param sS A String set data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withSS(String... sS) {
@@ -229,7 +230,7 @@ public class AttributeValue implements Serializable {
      *
      * @param sS A String set data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withSS(java.util.Collection<String> sS) {
@@ -275,7 +276,7 @@ public class AttributeValue implements Serializable {
      *
      * @param nS Number set data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withNS(String... nS) {
@@ -293,7 +294,7 @@ public class AttributeValue implements Serializable {
      *
      * @param nS Number set data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withNS(java.util.Collection<String> nS) {
@@ -339,7 +340,7 @@ public class AttributeValue implements Serializable {
      *
      * @param bS A Binary set data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withBS(java.nio.ByteBuffer... bS) {
@@ -357,7 +358,7 @@ public class AttributeValue implements Serializable {
      *
      * @param bS A Binary set data type
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeValue withBS(java.util.Collection<java.nio.ByteBuffer> bS) {

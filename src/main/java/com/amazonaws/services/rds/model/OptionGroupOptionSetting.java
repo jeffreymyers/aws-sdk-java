@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * option group option settings are used to display settings available for each option with their default values and other information. These values are
- * used with the DescribeOptionGroupOptions action.
+ * option group option settings are used to display settings available
+ * for each option with their default values and other information. These
+ * values are used with the DescribeOptionGroupOptions action.
  * </p>
  */
 public class OptionGroupOptionSetting implements Serializable {
@@ -80,7 +81,7 @@ public class OptionGroupOptionSetting implements Serializable {
      *
      * @param settingName The name of the option group option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionGroupOptionSetting withSettingName(String settingName) {
@@ -113,7 +114,7 @@ public class OptionGroupOptionSetting implements Serializable {
      *
      * @param settingDescription The description of the option group option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionGroupOptionSetting withSettingDescription(String settingDescription) {
@@ -146,7 +147,7 @@ public class OptionGroupOptionSetting implements Serializable {
      *
      * @param defaultValue The default value for the option group option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionGroupOptionSetting withDefaultValue(String defaultValue) {
@@ -179,7 +180,7 @@ public class OptionGroupOptionSetting implements Serializable {
      *
      * @param applyType The DB engine specific parameter type for the option group option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionGroupOptionSetting withApplyType(String applyType) {
@@ -212,7 +213,7 @@ public class OptionGroupOptionSetting implements Serializable {
      *
      * @param allowedValues Indicates the acceptable values for the option group option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionGroupOptionSetting withAllowedValues(String allowedValues) {
@@ -251,7 +252,7 @@ public class OptionGroupOptionSetting implements Serializable {
      * @param isModifiable Boolean value where true indicates that this option group option can
      *         be changed from the default value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionGroupOptionSetting withIsModifiable(Boolean isModifiable) {

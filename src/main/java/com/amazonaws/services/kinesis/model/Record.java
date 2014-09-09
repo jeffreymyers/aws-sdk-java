@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The unit of data of the Amazon Kinesis stream, which is composed of a sequence number, a partition key, and a data blob.
+ * The unit of data of the Amazon Kinesis stream, which is composed of a
+ * sequence number, a partition key, and a data blob.
  * </p>
  */
 public class Record implements Serializable {
@@ -84,7 +85,7 @@ public class Record implements Serializable {
      *
      * @param sequenceNumber The unique identifier for the record in the Amazon Kinesis stream.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Record withSequenceNumber(String sequenceNumber) {
@@ -144,7 +145,7 @@ public class Record implements Serializable {
      *         change the data in the blob in any way. The maximum size of the data
      *         blob (the payload after Base64-decoding) is 50 kilobytes (KB)
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Record withData(java.nio.ByteBuffer data) {
@@ -186,7 +187,7 @@ public class Record implements Serializable {
      *
      * @param partitionKey Identifies which shard in the stream the data record is assigned to.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Record withPartitionKey(String partitionKey) {

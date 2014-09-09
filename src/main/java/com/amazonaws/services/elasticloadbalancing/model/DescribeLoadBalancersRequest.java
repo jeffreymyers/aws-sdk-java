@@ -21,11 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeLoadBalancers(DescribeLoadBalancersRequest) DescribeLoadBalancers operation}.
  * <p>
- * Returns detailed configuration information for all the load balancers created for the account. If you specify load balancer names, the action returns
- * configuration information of the specified load balancers.
+ * Returns detailed configuration information for all the load balancers
+ * created for the account. If you specify load balancer names, the
+ * action returns configuration information of the specified load
+ * balancers.
  * </p>
  * <p>
- * <b>NOTE:</b> In order to retrieve this information, you must provide the same account credentials that was used to create the load balancer.
+ * <b>NOTE:</b> In order to retrieve this information, you must provide
+ * the same account credentials that was used to create the load
+ * balancer.
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeLoadBalancers(DescribeLoadBalancersRequest)
@@ -38,9 +42,19 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> loadBalancerNames;
 
     /**
-     * An optional parameter reserved for future use.
+     * An optional parameter used for pagination of results from this call.
+     * If specified, the response includes only records beyond the marker.
      */
     private String marker;
+
+    /**
+     * The number of results returned in each page. The default is 400. You
+     * cannot specify a page size greater than 400 or less than 1.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 400<br/>
+     */
+    private Integer pageSize;
 
     /**
      * Default constructor for a new DescribeLoadBalancersRequest object.  Callers should use the
@@ -95,7 +109,7 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
      *
      * @param loadBalancerNames A list of load balancer names associated with the account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBalancersRequest withLoadBalancerNames(String... loadBalancerNames) {
@@ -113,7 +127,7 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
      *
      * @param loadBalancerNames A list of load balancer names associated with the account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBalancersRequest withLoadBalancerNames(java.util.Collection<String> loadBalancerNames) {
@@ -129,35 +143,89 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
     }
 
     /**
-     * An optional parameter reserved for future use.
+     * An optional parameter used for pagination of results from this call.
+     * If specified, the response includes only records beyond the marker.
      *
-     * @return An optional parameter reserved for future use.
+     * @return An optional parameter used for pagination of results from this call.
+     *         If specified, the response includes only records beyond the marker.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional parameter reserved for future use.
+     * An optional parameter used for pagination of results from this call.
+     * If specified, the response includes only records beyond the marker.
      *
-     * @param marker An optional parameter reserved for future use.
+     * @param marker An optional parameter used for pagination of results from this call.
+     *         If specified, the response includes only records beyond the marker.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional parameter reserved for future use.
+     * An optional parameter used for pagination of results from this call.
+     * If specified, the response includes only records beyond the marker.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional parameter reserved for future use.
+     * @param marker An optional parameter used for pagination of results from this call.
+     *         If specified, the response includes only records beyond the marker.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBalancersRequest withMarker(String marker) {
         this.marker = marker;
+        return this;
+    }
+
+    /**
+     * The number of results returned in each page. The default is 400. You
+     * cannot specify a page size greater than 400 or less than 1.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 400<br/>
+     *
+     * @return The number of results returned in each page. The default is 400. You
+     *         cannot specify a page size greater than 400 or less than 1.
+     */
+    public Integer getPageSize() {
+        return pageSize;
+    }
+    
+    /**
+     * The number of results returned in each page. The default is 400. You
+     * cannot specify a page size greater than 400 or less than 1.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 400<br/>
+     *
+     * @param pageSize The number of results returned in each page. The default is 400. You
+     *         cannot specify a page size greater than 400 or less than 1.
+     */
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+    
+    /**
+     * The number of results returned in each page. The default is 400. You
+     * cannot specify a page size greater than 400 or less than 1.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 400<br/>
+     *
+     * @param pageSize The number of results returned in each page. The default is 400. You
+     *         cannot specify a page size greater than 400 or less than 1.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DescribeLoadBalancersRequest withPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
         return this;
     }
 
@@ -174,7 +242,8 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getLoadBalancerNames() != null) sb.append("LoadBalancerNames: " + getLoadBalancerNames() + ",");
-        if (getMarker() != null) sb.append("Marker: " + getMarker() );
+        if (getMarker() != null) sb.append("Marker: " + getMarker() + ",");
+        if (getPageSize() != null) sb.append("PageSize: " + getPageSize() );
         sb.append("}");
         return sb.toString();
     }
@@ -186,6 +255,7 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
         
         hashCode = prime * hashCode + ((getLoadBalancerNames() == null) ? 0 : getLoadBalancerNames().hashCode()); 
         hashCode = prime * hashCode + ((getMarker() == null) ? 0 : getMarker().hashCode()); 
+        hashCode = prime * hashCode + ((getPageSize() == null) ? 0 : getPageSize().hashCode()); 
         return hashCode;
     }
     
@@ -201,6 +271,8 @@ public class DescribeLoadBalancersRequest extends AmazonWebServiceRequest implem
         if (other.getLoadBalancerNames() != null && other.getLoadBalancerNames().equals(this.getLoadBalancerNames()) == false) return false; 
         if (other.getMarker() == null ^ this.getMarker() == null) return false;
         if (other.getMarker() != null && other.getMarker().equals(this.getMarker()) == false) return false; 
+        if (other.getPageSize() == null ^ this.getPageSize() == null) return false;
+        if (other.getPageSize() != null && other.getPageSize().equals(this.getPageSize()) == false) return false; 
         return true;
     }
     

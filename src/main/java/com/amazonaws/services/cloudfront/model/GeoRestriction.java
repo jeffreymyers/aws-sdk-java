@@ -18,9 +18,12 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that controls the countries in which your content is distributed. For more information about geo restriction, go to Customizing Error
- * Responses in the Amazon CloudFront Developer Guide. CloudFront determines the location of your users using MaxMind GeoIP databases. For information
- * about the accuracy of these databases, see How accurate are your GeoIP databases? on the MaxMind website.
+ * A complex type that controls the countries in which your content is
+ * distributed. For more information about geo restriction, go to
+ * Customizing Error Responses in the Amazon CloudFront Developer Guide.
+ * CloudFront determines the location of your users using MaxMind GeoIP
+ * databases. For information about the accuracy of these databases, see
+ * How accurate are your GeoIP databases? on the MaxMind website.
  * </p>
  */
 public class GeoRestriction implements Serializable {
@@ -174,7 +177,7 @@ public class GeoRestriction implements Serializable {
      *         Location elements specify the countries in which you want CloudFront
      *         to distribute your content.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see GeoRestrictionType
@@ -232,7 +235,7 @@ public class GeoRestriction implements Serializable {
      *         Location elements specify the countries in which you want CloudFront
      *         to distribute your content.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see GeoRestrictionType
@@ -279,7 +282,7 @@ public class GeoRestriction implements Serializable {
      *         your whitelist or blacklist. Otherwise, when it is not enabled,
      *         Quantity is 0, and you can omit Items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GeoRestriction withQuantity(Integer quantity) {
@@ -376,7 +379,7 @@ public class GeoRestriction implements Serializable {
      *         for Standardization website. You can also refer to the country list in
      *         the CloudFront console, which includes both country names and codes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GeoRestriction withItems(String... items) {
@@ -412,7 +415,7 @@ public class GeoRestriction implements Serializable {
      *         for Standardization website. You can also refer to the country list in
      *         the CloudFront console, which includes both country names and codes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GeoRestriction withItems(java.util.Collection<String> items) {

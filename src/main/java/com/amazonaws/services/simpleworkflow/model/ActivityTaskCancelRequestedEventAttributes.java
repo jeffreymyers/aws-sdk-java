@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>ActivityTaskCancelRequested</code> event.
+ * Provides details of the <code>ActivityTaskCancelRequested</code>
+ * event.
  * </p>
  */
 public class ActivityTaskCancelRequestedEventAttributes implements Serializable {
@@ -89,7 +90,7 @@ public class ActivityTaskCancelRequestedEventAttributes implements Serializable 
      *         request. This information can be useful for diagnosing problems by
      *         tracing back the cause of events.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivityTaskCancelRequestedEventAttributes withDecisionTaskCompletedEventId(Long decisionTaskCompletedEventId) {
@@ -131,7 +132,7 @@ public class ActivityTaskCancelRequestedEventAttributes implements Serializable 
      *
      * @param activityId The unique ID of the task.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivityTaskCancelRequestedEventAttributes withActivityId(String activityId) {

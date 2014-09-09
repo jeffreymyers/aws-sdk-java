@@ -21,12 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#modifyEventSubscription(ModifyEventSubscriptionRequest) ModifyEventSubscription operation}.
  * <p>
- * Modifies an existing RDS event notification subscription. Note that you cannot modify the source identifiers using this call; to change source
- * identifiers for a subscription, use the AddSourceIdentifierToSubscription and RemoveSourceIdentifierFromSubscription calls.
+ * Modifies an existing RDS event notification subscription. Note that
+ * you cannot modify the source identifiers using this call; to change
+ * source identifiers for a subscription, use the
+ * AddSourceIdentifierToSubscription and
+ * RemoveSourceIdentifierFromSubscription calls.
  * </p>
  * <p>
- * You can see a list of the event categories for a given SourceType in the <a
- * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a> topic in the Amazon RDS User Guide or by using the
+ * You can see a list of the event categories for a given SourceType in
+ * the
+ * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+ * topic in the Amazon RDS User Guide or by using the
  * <b>DescribeEventCategories</b> action.
  * </p>
  *
@@ -95,7 +100,7 @@ public class ModifyEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *
      * @param subscriptionName The name of the RDS event notification subscription.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyEventSubscriptionRequest withSubscriptionName(String subscriptionName) {
@@ -140,7 +145,7 @@ public class ModifyEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         notification. The ARN is created by Amazon SNS when you create a topic
      *         and subscribe to it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyEventSubscriptionRequest withSnsTopicArn(String snsTopicArn) {
@@ -197,7 +202,7 @@ public class ModifyEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         specified, all events are returned. <p>Valid values: db-instance |
      *         db-parameter-group | db-security-group | db-snapshot
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyEventSubscriptionRequest withSourceType(String sourceType) {
@@ -270,7 +275,7 @@ public class ModifyEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         topic in the Amazon RDS User Guide or by using the
      *         <b>DescribeEventCategories</b> action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyEventSubscriptionRequest withEventCategories(String... eventCategories) {
@@ -298,7 +303,7 @@ public class ModifyEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         topic in the Amazon RDS User Guide or by using the
      *         <b>DescribeEventCategories</b> action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyEventSubscriptionRequest withEventCategories(java.util.Collection<String> eventCategories) {
@@ -338,7 +343,7 @@ public class ModifyEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *
      * @param enabled A Boolean value; set to <b>true</b> to activate the subscription.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyEventSubscriptionRequest withEnabled(Boolean enabled) {

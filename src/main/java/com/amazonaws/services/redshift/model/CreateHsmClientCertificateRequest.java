@@ -21,13 +21,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#createHsmClientCertificate(CreateHsmClientCertificateRequest) CreateHsmClientCertificate operation}.
  * <p>
- * Creates an HSM client certificate that an Amazon Redshift cluster will use to connect to the client's HSM in order to store and retrieve the keys used
- * to encrypt the cluster databases.
+ * Creates an HSM client certificate that an Amazon Redshift cluster will
+ * use to connect to the client's HSM in order to store and retrieve the
+ * keys used to encrypt the cluster databases.
  * </p>
  * <p>
- * The command returns a public key, which you must store in the HSM. After creating the HSM certificate, you must create an Amazon Redshift HSM
- * configuration that provides a cluster the information needed to store and retrieve database encryption keys in the HSM. For more information, go to
- * aLinkToHSMTopic in the Amazon Redshift Management Guide.
+ * The command returns a public key, which you must store in the HSM. In
+ * addition to creating the HSM certificate, you must create an Amazon
+ * Redshift HSM configuration that provides a cluster the information
+ * needed to store and use encryption keys in the HSM. For more
+ * information, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html"> Hardware Security Modules </a>
+ * in the Amazon Redshift Management Guide.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#createHsmClientCertificate(CreateHsmClientCertificateRequest)
@@ -36,18 +41,18 @@ public class CreateHsmClientCertificateRequest extends AmazonWebServiceRequest i
 
     /**
      * The identifier to be assigned to the new HSM client certificate that
-     * the cluster will use to connect to the HSM to retrieve the database
+     * the cluster will use to connect to the HSM to use the database
      * encryption keys.
      */
     private String hsmClientCertificateIdentifier;
 
     /**
      * The identifier to be assigned to the new HSM client certificate that
-     * the cluster will use to connect to the HSM to retrieve the database
+     * the cluster will use to connect to the HSM to use the database
      * encryption keys.
      *
      * @return The identifier to be assigned to the new HSM client certificate that
-     *         the cluster will use to connect to the HSM to retrieve the database
+     *         the cluster will use to connect to the HSM to use the database
      *         encryption keys.
      */
     public String getHsmClientCertificateIdentifier() {
@@ -56,11 +61,11 @@ public class CreateHsmClientCertificateRequest extends AmazonWebServiceRequest i
     
     /**
      * The identifier to be assigned to the new HSM client certificate that
-     * the cluster will use to connect to the HSM to retrieve the database
+     * the cluster will use to connect to the HSM to use the database
      * encryption keys.
      *
      * @param hsmClientCertificateIdentifier The identifier to be assigned to the new HSM client certificate that
-     *         the cluster will use to connect to the HSM to retrieve the database
+     *         the cluster will use to connect to the HSM to use the database
      *         encryption keys.
      */
     public void setHsmClientCertificateIdentifier(String hsmClientCertificateIdentifier) {
@@ -69,16 +74,16 @@ public class CreateHsmClientCertificateRequest extends AmazonWebServiceRequest i
     
     /**
      * The identifier to be assigned to the new HSM client certificate that
-     * the cluster will use to connect to the HSM to retrieve the database
+     * the cluster will use to connect to the HSM to use the database
      * encryption keys.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param hsmClientCertificateIdentifier The identifier to be assigned to the new HSM client certificate that
-     *         the cluster will use to connect to the HSM to retrieve the database
+     *         the cluster will use to connect to the HSM to use the database
      *         encryption keys.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateHsmClientCertificateRequest withHsmClientCertificateIdentifier(String hsmClientCertificateIdentifier) {

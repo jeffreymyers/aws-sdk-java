@@ -21,39 +21,54 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow#registerWorkflowType(RegisterWorkflowTypeRequest) RegisterWorkflowType operation}.
  * <p>
- * Registers a new <i>workflow type</i> and its configuration settings in the specified domain.
+ * Registers a new <i>workflow type</i> and its configuration settings
+ * in the specified domain.
  * </p>
  * <p>
- * The retention period for the workflow history is set by the RegisterDomain action.
+ * The retention period for the workflow history is set by the
+ * RegisterDomain action.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> If the type already exists, then a TypeAlreadyExists fault is returned. You cannot change the configuration settings of a workflow
- * type once it is registered and it must be registered as a new version.
+ * <b>IMPORTANT:</b> If the type already exists, then a TypeAlreadyExists
+ * fault is returned. You cannot change the configuration settings of a
+ * workflow type once it is registered and it must be registered as a new
+ * version.
  * </p>
  * <p>
  * <b>Access Control</b>
  * </p>
  * <p>
- * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+ * You can use IAM policies to control this action's access to Amazon SWF
+ * resources as follows:
  * </p>
  * 
  * <ul>
- * <li>Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.</li>
- * <li>Use an <code>Action</code> element to allow or deny permission to call this action.</li>
- * <li>Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+ * <li>Use a <code>Resource</code> element with the domain name to limit
+ * the action to only specified domains.</li>
+ * <li>Use an <code>Action</code> element to allow or deny permission to
+ * call this action.</li>
+ * <li>Constrain the following parameters by using a
+ * <code>Condition</code> element with the appropriate keys.
  * <ul>
- * <li> <code>defaultTaskList</code> : String constraint. The key is <code>swf:defaultTaskList.name</code> .</li>
- * <li> <code>name</code> : String constraint. The key is <code>swf:name</code> .</li>
- * <li> <code>version</code> : String constraint. The key is <code>swf:version</code> .</li>
+ * <li> <code>defaultTaskList</code> : String constraint. The key is
+ * <code>swf:defaultTaskList.name</code> .</li>
+ * <li> <code>name</code> : String constraint. The key is
+ * <code>swf:name</code> .</li>
+ * <li> <code>version</code> : String constraint. The key is
+ * <code>swf:version</code> .</li>
  * 
  * </ul>
  * </li>
  * 
  * </ul>
  * <p>
- * If the caller does not have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action
- * fails by throwing <code>OperationNotPermitted</code> . For details and example IAM policies, see <a
- * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a> .
+ * If the caller does not have sufficient permissions to invoke the
+ * action, or the parameter values fall outside the specified
+ * constraints, the action fails by throwing
+ * <code>OperationNotPermitted</code> . For details and example IAM
+ * policies, see
+ * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow#registerWorkflowType(RegisterWorkflowTypeRequest)
@@ -198,7 +213,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *
      * @param domain The name of the domain in which to register the workflow type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withDomain(String domain) {
@@ -264,7 +279,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         characters (\u0000-\u001f | \u007f - \u009f). Also, it must not
      *         contain the literal string "arn".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withName(String name) {
@@ -348,7 +363,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         (vertical bar), or any control characters (\u0000-\u001f | \u007f -
      *         \u009f). Also, it must not contain the literal string "arn".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withVersion(String version) {
@@ -390,7 +405,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *
      * @param description Textual description of the workflow type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withDescription(String description) {
@@ -468,7 +483,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         integer value can be used to specify the duration in seconds while
      *         <code>NONE</code> can be used to specify unlimited duration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withDefaultTaskStartToCloseTimeout(String defaultTaskStartToCloseTimeout) {
@@ -564,7 +579,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         max limit on the time that a workflow execution can run. Exceeding
      *         this limit will always cause the workflow execution to time out.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withDefaultExecutionStartToCloseTimeout(String defaultExecutionStartToCloseTimeout) {
@@ -621,7 +636,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         <a>StartWorkflowExecution</a> Action or
      *         <code>StartChildWorkflowExecution</code> <a>Decision</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterWorkflowTypeRequest withDefaultTaskList(TaskList defaultTaskList) {
@@ -745,7 +760,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         <li><b>ABANDON:</b> no action will be taken. The child executions will
      *         continue to run.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy
@@ -831,7 +846,7 @@ public class RegisterWorkflowTypeRequest extends AmazonWebServiceRequest impleme
      *         <li><b>ABANDON:</b> no action will be taken. The child executions will
      *         continue to run.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy

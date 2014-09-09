@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeEvents(DescribeEventsRequest) DescribeEvents operation}.
  * <p>
- * Returns events related to DB instances, DB security groups, DB snapshots, and DB parameter groups for the past 14 days. Events specific to a
- * particular DB instance, DB security group, database snapshot, or DB parameter group can be obtained by providing the name as a parameter. By default,
- * the past hour of events are returned.
+ * Returns events related to DB instances, DB security groups, DB
+ * snapshots, and DB parameter groups for the past 14 days. Events
+ * specific to a particular DB instance, DB security group, database
+ * snapshot, or DB parameter group can be obtained by providing the name
+ * as a parameter. By default, the past hour of events are returned.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeEvents(DescribeEventsRequest)
@@ -203,7 +205,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         supplied.</li> <li>Cannot end with a hyphen or contain two consecutive
      *         hyphens.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withSourceIdentifier(String sourceIdentifier) {
@@ -255,7 +257,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param sourceType The event source to retrieve events for. If no value is specified, all
      *         events are returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -293,7 +295,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param sourceType The event source to retrieve events for. If no value is specified, all
      *         events are returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -346,7 +348,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia
      *         page.</a> <p>Example: 2009-07-08T18:00Z
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withStartTime(java.util.Date startTime) {
@@ -397,7 +399,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia
      *         page.</a> <p>Example: 2009-07-08T18:00Z
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEndTime(java.util.Date endTime) {
@@ -430,7 +432,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param duration The number of minutes to retrieve events for. <p>Default: 60
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withDuration(Integer duration) {
@@ -479,7 +481,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param eventCategories A list of event categories that trigger notifications for a event
      *         notification subscription.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEventCategories(String... eventCategories) {
@@ -499,7 +501,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param eventCategories A list of event categories that trigger notifications for a event
      *         notification subscription.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEventCategories(java.util.Collection<String> eventCategories) {
@@ -563,7 +565,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         the remaining results may be retrieved. <p>Default: 100
      *         <p>Constraints: minimum 20, maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMaxRecords(Integer maxRecords) {
@@ -614,7 +616,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         records beyond the marker, up to the value specified by
      *         <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMarker(String marker) {

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the new provisioned throughput settings to be applied to a global secondary index.
+ * Represents the new provisioned throughput settings to be applied to a
+ * global secondary index.
  * </p>
  */
 public class UpdateGlobalSecondaryIndexAction implements Serializable {
@@ -79,7 +80,7 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable {
      *
      * @param indexName The name of the global secondary index to be updated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateGlobalSecondaryIndexAction withIndexName(String indexName) {
@@ -142,7 +143,7 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable {
      *         href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a>
      *         in the Amazon DynamoDB Developer Guide.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateGlobalSecondaryIndexAction withProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {

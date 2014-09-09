@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.identitymanagement.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -57,6 +58,15 @@ public class UpdateAccountPasswordPolicyRequestMarshaller implements Marshaller<
         }
         if (updateAccountPasswordPolicyRequest.isAllowUsersToChangePassword() != null) {
             request.addParameter("AllowUsersToChangePassword", StringUtils.fromBoolean(updateAccountPasswordPolicyRequest.isAllowUsersToChangePassword()));
+        }
+        if (updateAccountPasswordPolicyRequest.getMaxPasswordAge() != null) {
+            request.addParameter("MaxPasswordAge", StringUtils.fromInteger(updateAccountPasswordPolicyRequest.getMaxPasswordAge()));
+        }
+        if (updateAccountPasswordPolicyRequest.getPasswordReusePrevention() != null) {
+            request.addParameter("PasswordReusePrevention", StringUtils.fromInteger(updateAccountPasswordPolicyRequest.getPasswordReusePrevention()));
+        }
+        if (updateAccountPasswordPolicyRequest.isHardExpiry() != null) {
+            request.addParameter("HardExpiry", StringUtils.fromBoolean(updateAccountPasswordPolicyRequest.isHardExpiry()));
         }
 
         return request;

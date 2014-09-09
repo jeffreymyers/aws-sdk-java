@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeVTLDevices(DescribeVTLDevicesRequest) DescribeVTLDevices operation}.
  * <p>
- * Returns a description of Virtual Tape Library (VTL) devices for the gateway specified in the request. In the response, AWS Storage Gateway returns
- * Virtual Tape Library device information.
+ * Returns a description of Virtual Tape Library (VTL) devices for the
+ * gateway specified in the request. In the response, AWS Storage Gateway
+ * returns Virtual Tape Library device information.
  * </p>
  * <p>
- * The list of Virtual Tape Library devices in the request must be from one gateway.
+ * The list of Virtual Tape Library devices in the request must be from
+ * one gateway.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeVTLDevices(DescribeVTLDevicesRequest)
@@ -115,7 +117,7 @@ public class DescribeVTLDevicesRequest extends AmazonWebServiceRequest implement
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVTLDevicesRequest withGatewayARN(String gatewayARN) {
@@ -182,7 +184,7 @@ public class DescribeVTLDevicesRequest extends AmazonWebServiceRequest implement
      *         are specified, the result will contain all devices on the specified
      *         gateway.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVTLDevicesRequest withVTLDeviceARNs(String... vTLDeviceARNs) {
@@ -208,7 +210,7 @@ public class DescribeVTLDevicesRequest extends AmazonWebServiceRequest implement
      *         are specified, the result will contain all devices on the specified
      *         gateway.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVTLDevicesRequest withVTLDeviceARNs(java.util.Collection<String> vTLDeviceARNs) {
@@ -263,7 +265,7 @@ public class DescribeVTLDevicesRequest extends AmazonWebServiceRequest implement
      * @param marker An opaque string that indicates the position at which to begin
      *         describing the VTL devices.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVTLDevicesRequest withMarker(String marker) {
@@ -311,7 +313,7 @@ public class DescribeVTLDevicesRequest extends AmazonWebServiceRequest implement
      * @param limit Specifies that the number of VTL devices described be limited to the
      *         specified number.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVTLDevicesRequest withLimit(Integer limit) {

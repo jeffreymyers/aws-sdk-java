@@ -146,11 +146,16 @@ public class Layer implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      */
     private Boolean installUpdatesOnBoot;
+
+    /**
+     * Whether the layer uses Amazon EBS-optimized instances.
+     */
+    private Boolean useEbsOptimizedInstances;
 
     /**
      * The layer stack ID.
@@ -177,7 +182,7 @@ public class Layer implements Serializable {
      *
      * @param stackId The layer stack ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withStackId(String stackId) {
@@ -210,7 +215,7 @@ public class Layer implements Serializable {
      *
      * @param layerId The layer ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withLayerId(String layerId) {
@@ -274,7 +279,7 @@ public class Layer implements Serializable {
      *         <li>MemcachedServer</li> <li>MySqlMaster</li> <li>NodeJsAppServer</li>
      *         <li>PhpAppServer</li> <li>RailsAppServer</li> <li>WebServer</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see LayerType
@@ -320,7 +325,7 @@ public class Layer implements Serializable {
      *         <li>MemcachedServer</li> <li>MySqlMaster</li> <li>NodeJsAppServer</li>
      *         <li>PhpAppServer</li> <li>RailsAppServer</li> <li>WebServer</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see LayerType
@@ -355,7 +360,7 @@ public class Layer implements Serializable {
      *
      * @param name The layer name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withName(String name) {
@@ -388,7 +393,7 @@ public class Layer implements Serializable {
      *
      * @param shortname The layer short name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withShortname(String shortname) {
@@ -425,7 +430,7 @@ public class Layer implements Serializable {
      *
      * @param attributes The layer attributes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withAttributes(java.util.Map<String,String> attributes) {
@@ -506,7 +511,7 @@ public class Layer implements Serializable {
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      *         Identifiers</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withCustomInstanceProfileArn(String customInstanceProfileArn) {
@@ -549,7 +554,7 @@ public class Layer implements Serializable {
      *
      * @param customSecurityGroupIds An array containing the layer's custom security group IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withCustomSecurityGroupIds(String... customSecurityGroupIds) {
@@ -567,7 +572,7 @@ public class Layer implements Serializable {
      *
      * @param customSecurityGroupIds An array containing the layer's custom security group IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withCustomSecurityGroupIds(java.util.Collection<String> customSecurityGroupIds) {
@@ -617,7 +622,7 @@ public class Layer implements Serializable {
      *
      * @param defaultSecurityGroupNames An array containing the layer's security group names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withDefaultSecurityGroupNames(String... defaultSecurityGroupNames) {
@@ -635,7 +640,7 @@ public class Layer implements Serializable {
      *
      * @param defaultSecurityGroupNames An array containing the layer's security group names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withDefaultSecurityGroupNames(java.util.Collection<String> defaultSecurityGroupNames) {
@@ -691,7 +696,7 @@ public class Layer implements Serializable {
      * @param packages An array of <code>Package</code> objects that describe the layer's
      *         packages.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withPackages(String... packages) {
@@ -711,7 +716,7 @@ public class Layer implements Serializable {
      * @param packages An array of <code>Package</code> objects that describe the layer's
      *         packages.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withPackages(java.util.Collection<String> packages) {
@@ -767,7 +772,7 @@ public class Layer implements Serializable {
      * @param volumeConfigurations A <code>VolumeConfigurations</code> object that describes the layer's
      *         Amazon EBS volumes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withVolumeConfigurations(VolumeConfiguration... volumeConfigurations) {
@@ -787,7 +792,7 @@ public class Layer implements Serializable {
      * @param volumeConfigurations A <code>VolumeConfigurations</code> object that describes the layer's
      *         Amazon EBS volumes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withVolumeConfigurations(java.util.Collection<VolumeConfiguration> volumeConfigurations) {
@@ -827,7 +832,7 @@ public class Layer implements Serializable {
      *
      * @param enableAutoHealing Whether auto healing is disabled for the layer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withEnableAutoHealing(Boolean enableAutoHealing) {
@@ -893,7 +898,7 @@ public class Layer implements Serializable {
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html">How
      *         to Edit a Layer</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withAutoAssignElasticIps(Boolean autoAssignElasticIps) {
@@ -967,7 +972,7 @@ public class Layer implements Serializable {
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html">How
      *         to Edit a Layer</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withAutoAssignPublicIps(Boolean autoAssignPublicIps) {
@@ -1083,7 +1088,7 @@ public class Layer implements Serializable {
      *         extension. For example: phpapp2::dbsetup specifies the dbsetup.rb
      *         recipe in the repository's phpapp2 folder.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withDefaultRecipes(Recipes defaultRecipes) {
@@ -1122,7 +1127,7 @@ public class Layer implements Serializable {
      * @param customRecipes A <code>LayerCustomRecipes</code> object that specifies the layer's
      *         custom recipes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withCustomRecipes(Recipes customRecipes) {
@@ -1155,7 +1160,7 @@ public class Layer implements Serializable {
      *
      * @param createdAt Date when the layer was created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withCreatedAt(String createdAt) {
@@ -1170,9 +1175,9 @@ public class Layer implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      *
      * @return Whether to install operating system and package updates when the
      *         instance boots. The default value is <code>true</code>. If this value
@@ -1180,9 +1185,9 @@ public class Layer implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      */
     public Boolean isInstallUpdatesOnBoot() {
         return installUpdatesOnBoot;
@@ -1195,9 +1200,9 @@ public class Layer implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      *
      * @param installUpdatesOnBoot Whether to install operating system and package updates when the
      *         instance boots. The default value is <code>true</code>. If this value
@@ -1205,9 +1210,9 @@ public class Layer implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      */
     public void setInstallUpdatesOnBoot(Boolean installUpdatesOnBoot) {
         this.installUpdatesOnBoot = installUpdatesOnBoot;
@@ -1220,9 +1225,9 @@ public class Layer implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1232,11 +1237,11 @@ public class Layer implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Layer withInstallUpdatesOnBoot(Boolean installUpdatesOnBoot) {
@@ -1251,9 +1256,9 @@ public class Layer implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      *
      * @return Whether to install operating system and package updates when the
      *         instance boots. The default value is <code>true</code>. If this value
@@ -1261,12 +1266,54 @@ public class Layer implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      */
     public Boolean getInstallUpdatesOnBoot() {
         return installUpdatesOnBoot;
+    }
+
+    /**
+     * Whether the layer uses Amazon EBS-optimized instances.
+     *
+     * @return Whether the layer uses Amazon EBS-optimized instances.
+     */
+    public Boolean isUseEbsOptimizedInstances() {
+        return useEbsOptimizedInstances;
+    }
+    
+    /**
+     * Whether the layer uses Amazon EBS-optimized instances.
+     *
+     * @param useEbsOptimizedInstances Whether the layer uses Amazon EBS-optimized instances.
+     */
+    public void setUseEbsOptimizedInstances(Boolean useEbsOptimizedInstances) {
+        this.useEbsOptimizedInstances = useEbsOptimizedInstances;
+    }
+    
+    /**
+     * Whether the layer uses Amazon EBS-optimized instances.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param useEbsOptimizedInstances Whether the layer uses Amazon EBS-optimized instances.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Layer withUseEbsOptimizedInstances(Boolean useEbsOptimizedInstances) {
+        this.useEbsOptimizedInstances = useEbsOptimizedInstances;
+        return this;
+    }
+
+    /**
+     * Whether the layer uses Amazon EBS-optimized instances.
+     *
+     * @return Whether the layer uses Amazon EBS-optimized instances.
+     */
+    public Boolean getUseEbsOptimizedInstances() {
+        return useEbsOptimizedInstances;
     }
 
     /**
@@ -1298,7 +1345,8 @@ public class Layer implements Serializable {
         if (getDefaultRecipes() != null) sb.append("DefaultRecipes: " + getDefaultRecipes() + ",");
         if (getCustomRecipes() != null) sb.append("CustomRecipes: " + getCustomRecipes() + ",");
         if (getCreatedAt() != null) sb.append("CreatedAt: " + getCreatedAt() + ",");
-        if (isInstallUpdatesOnBoot() != null) sb.append("InstallUpdatesOnBoot: " + isInstallUpdatesOnBoot() );
+        if (isInstallUpdatesOnBoot() != null) sb.append("InstallUpdatesOnBoot: " + isInstallUpdatesOnBoot() + ",");
+        if (isUseEbsOptimizedInstances() != null) sb.append("UseEbsOptimizedInstances: " + isUseEbsOptimizedInstances() );
         sb.append("}");
         return sb.toString();
     }
@@ -1326,6 +1374,7 @@ public class Layer implements Serializable {
         hashCode = prime * hashCode + ((getCustomRecipes() == null) ? 0 : getCustomRecipes().hashCode()); 
         hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode()); 
         hashCode = prime * hashCode + ((isInstallUpdatesOnBoot() == null) ? 0 : isInstallUpdatesOnBoot().hashCode()); 
+        hashCode = prime * hashCode + ((isUseEbsOptimizedInstances() == null) ? 0 : isUseEbsOptimizedInstances().hashCode()); 
         return hashCode;
     }
     
@@ -1373,6 +1422,8 @@ public class Layer implements Serializable {
         if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false) return false; 
         if (other.isInstallUpdatesOnBoot() == null ^ this.isInstallUpdatesOnBoot() == null) return false;
         if (other.isInstallUpdatesOnBoot() != null && other.isInstallUpdatesOnBoot().equals(this.isInstallUpdatesOnBoot()) == false) return false; 
+        if (other.isUseEbsOptimizedInstances() == null ^ this.isUseEbsOptimizedInstances() == null) return false;
+        if (other.isUseEbsOptimizedInstances() != null && other.isUseEbsOptimizedInstances().equals(this.isUseEbsOptimizedInstances()) == false) return false; 
         return true;
     }
     

@@ -18,7 +18,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A description of the Amazon EC2 instance running the job flow.
+ * A description of the Amazon EC2 instance running the job flow. A valid
+ * JobFlowInstancesConfig must contain at least InstanceGroups, which is
+ * the recommended configuration. However, a valid alternative is to have
+ * MasterInstanceType, SlaveInstanceType, and InstanceCount (all three
+ * must be present).
  * </p>
  */
 public class JobFlowInstancesConfig implements Serializable {
@@ -28,7 +32,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String masterInstanceType;
 
@@ -37,7 +41,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String slaveInstanceType;
 
@@ -57,7 +61,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String ec2KeyName;
 
@@ -88,7 +92,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String hadoopVersion;
 
@@ -104,7 +108,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String ec2SubnetId;
 
@@ -119,7 +123,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The EC2 instance type of the master node.
      */
@@ -132,7 +136,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param masterInstanceType The EC2 instance type of the master node.
      */
@@ -147,11 +151,11 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param masterInstanceType The EC2 instance type of the master node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withMasterInstanceType(String masterInstanceType) {
@@ -164,7 +168,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The EC2 instance type of the slave nodes.
      */
@@ -177,7 +181,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param slaveInstanceType The EC2 instance type of the slave nodes.
      */
@@ -192,11 +196,11 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param slaveInstanceType The EC2 instance type of the slave nodes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withSlaveInstanceType(String slaveInstanceType) {
@@ -229,7 +233,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *
      * @param instanceCount The number of Amazon EC2 instances used to execute the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withInstanceCount(Integer instanceCount) {
@@ -272,7 +276,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *
      * @param instanceGroups Configuration for the job flow's instance groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withInstanceGroups(InstanceGroupConfig... instanceGroups) {
@@ -290,7 +294,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *
      * @param instanceGroups Configuration for the job flow's instance groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withInstanceGroups(java.util.Collection<InstanceGroupConfig> instanceGroups) {
@@ -311,7 +315,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the Amazon EC2 key pair that can be used to ssh to the
      *         master node as the user called "hadoop."
@@ -326,7 +330,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param ec2KeyName The name of the Amazon EC2 key pair that can be used to ssh to the
      *         master node as the user called "hadoop."
@@ -343,12 +347,12 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param ec2KeyName The name of the Amazon EC2 key pair that can be used to ssh to the
      *         master node as the user called "hadoop."
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withEc2KeyName(String ec2KeyName) {
@@ -381,7 +385,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *
      * @param placement The Availability Zone the job flow will run in.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withPlacement(PlacementType placement) {
@@ -420,7 +424,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * @param keepJobFlowAliveWhenNoSteps Specifies whether the job flow should terminate after completing all
      *         steps.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withKeepJobFlowAliveWhenNoSteps(Boolean keepJobFlowAliveWhenNoSteps) {
@@ -476,7 +480,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *         instances from being terminated by API call, user intervention, or in
      *         the event of a job flow error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withTerminationProtected(Boolean terminationProtected) {
@@ -506,7 +510,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The Hadoop version for the job flow. Valid inputs are "0.18", "0.20",
      *         or "0.20.205". If you do not set this value, the default of 0.18 is
@@ -527,7 +531,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param hadoopVersion The Hadoop version for the job flow. Valid inputs are "0.18", "0.20",
      *         or "0.20.205". If you do not set this value, the default of 0.18 is
@@ -550,7 +554,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param hadoopVersion The Hadoop version for the job flow. Valid inputs are "0.18", "0.20",
      *         or "0.20.205". If you do not set this value, the default of 0.18 is
@@ -558,7 +562,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *         in which case the default version of Hadoop for that AMI version is
      *         used.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withHadoopVersion(String hadoopVersion) {
@@ -578,7 +582,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return To launch the job flow in Amazon Virtual Private Cloud (Amazon VPC),
      *         set this parameter to the identifier of the Amazon VPC subnet where
@@ -605,7 +609,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param ec2SubnetId To launch the job flow in Amazon Virtual Private Cloud (Amazon VPC),
      *         set this parameter to the identifier of the Amazon VPC subnet where
@@ -634,7 +638,7 @@ public class JobFlowInstancesConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param ec2SubnetId To launch the job flow in Amazon Virtual Private Cloud (Amazon VPC),
      *         set this parameter to the identifier of the Amazon VPC subnet where
@@ -645,7 +649,7 @@ public class JobFlowInstancesConfig implements Serializable {
      *         specify the cc1.4xlarge instance type for nodes of a job flow launched
      *         in a Amazon VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowInstancesConfig withEc2SubnetId(String ec2SubnetId) {

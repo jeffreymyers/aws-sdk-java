@@ -24,12 +24,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes an instance's Amazon EBS volumes.
  * </p>
  * <p>
- * <b>NOTE:</b>You must specify at least one of the parameters.
+ * <b>NOTE:</b> You must specify at least one of the parameters.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeVolumes(DescribeVolumesRequest)
@@ -100,7 +103,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         <code>DescribeVolumes</code> returns descriptions of the volumes
      *         associated with the specified instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesRequest withInstanceId(String instanceId) {
@@ -139,7 +142,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * @param stackId A stack ID. The action describes the stack's registered Amazon EBS
      *         volumes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesRequest withStackId(String stackId) {
@@ -184,7 +187,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         <code>DescribeVolumes</code> returns descriptions of the volumes
      *         associated with the specified RAID array.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesRequest withRaidArrayId(String raidArrayId) {
@@ -239,7 +242,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         <code>DescribeVolumes</code> returns descriptions of the specified
      *         volumes. Otherwise, it returns a description of every volume.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesRequest withVolumeIds(String... volumeIds) {
@@ -261,7 +264,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         <code>DescribeVolumes</code> returns descriptions of the specified
      *         volumes. Otherwise, it returns a description of every volume.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVolumesRequest withVolumeIds(java.util.Collection<String> volumeIds) {

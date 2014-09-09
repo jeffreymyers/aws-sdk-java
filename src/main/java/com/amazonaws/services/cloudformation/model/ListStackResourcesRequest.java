@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Returns descriptions of all resources of the specified stack.
  * </p>
  * <p>
- * For deleted stacks, ListStackResources returns resource information for up to 90 days after the stack has been deleted.
+ * For deleted stacks, ListStackResources returns resource information
+ * for up to 90 days after the stack has been deleted.
  * </p>
  *
  * @see com.amazonaws.services.cloudformation.AmazonCloudFormation#listStackResources(ListStackResourcesRequest)
@@ -98,7 +99,7 @@ public class ListStackResourcesRequest extends AmazonWebServiceRequest implement
      *         stacks: You must specify the unique stack ID.</li> </ul> <p>Default:
      *         There is no default value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStackResourcesRequest withStackName(String stackName) {
@@ -146,7 +147,7 @@ public class ListStackResourcesRequest extends AmazonWebServiceRequest implement
      * @param nextToken String that identifies the start of the next list of stack resource
      *         summaries, if there is one. <p>Default: There is no default value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStackResourcesRequest withNextToken(String nextToken) {

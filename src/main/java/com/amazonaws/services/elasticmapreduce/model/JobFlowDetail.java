@@ -28,7 +28,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String jobFlowId;
 
@@ -37,7 +37,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String name;
 
@@ -46,7 +46,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String logUri;
 
@@ -60,7 +60,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String amiVersion;
 
@@ -108,9 +108,19 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String jobFlowRole;
+
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     */
+    private String serviceRole;
 
     /**
      * Default constructor for a new JobFlowDetail object.  Callers should use the
@@ -141,7 +151,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The job flow identifier.
      */
@@ -154,7 +164,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowId The job flow identifier.
      */
@@ -169,11 +179,11 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowId The job flow identifier.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withJobFlowId(String jobFlowId) {
@@ -186,7 +196,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the job flow.
      */
@@ -199,7 +209,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param name The name of the job flow.
      */
@@ -214,11 +224,11 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param name The name of the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withName(String name) {
@@ -231,7 +241,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The location in Amazon S3 where log files for the job are stored.
      */
@@ -244,7 +254,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param logUri The location in Amazon S3 where log files for the job are stored.
      */
@@ -259,11 +269,11 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param logUri The location in Amazon S3 where log files for the job are stored.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withLogUri(String logUri) {
@@ -281,7 +291,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The version of the AMI used to initialize Amazon EC2 instances in the
      *         job flow. For a list of AMI versions currently supported by Amazon
@@ -304,7 +314,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param amiVersion The version of the AMI used to initialize Amazon EC2 instances in the
      *         job flow. For a list of AMI versions currently supported by Amazon
@@ -329,7 +339,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param amiVersion The version of the AMI used to initialize Amazon EC2 instances in the
      *         job flow. For a list of AMI versions currently supported by Amazon
@@ -338,7 +348,7 @@ public class JobFlowDetail implements Serializable {
      *         Versions Supported in Elastic MapReduce</a> in the <i>Amazon Elastic
      *         MapReduce Developer's Guide.</i>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withAmiVersion(String amiVersion) {
@@ -371,7 +381,7 @@ public class JobFlowDetail implements Serializable {
      *
      * @param executionStatusDetail Describes the execution status of the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withExecutionStatusDetail(JobFlowExecutionStatusDetail executionStatusDetail) {
@@ -404,7 +414,7 @@ public class JobFlowDetail implements Serializable {
      *
      * @param instances Describes the Amazon EC2 instances of the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withInstances(JobFlowInstancesDetail instances) {
@@ -447,7 +457,7 @@ public class JobFlowDetail implements Serializable {
      *
      * @param steps A list of steps run by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withSteps(StepDetail... steps) {
@@ -465,7 +475,7 @@ public class JobFlowDetail implements Serializable {
      *
      * @param steps A list of steps run by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withSteps(java.util.Collection<StepDetail> steps) {
@@ -515,7 +525,7 @@ public class JobFlowDetail implements Serializable {
      *
      * @param bootstrapActions A list of the bootstrap actions run by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withBootstrapActions(BootstrapActionDetail... bootstrapActions) {
@@ -533,7 +543,7 @@ public class JobFlowDetail implements Serializable {
      *
      * @param bootstrapActions A list of the bootstrap actions run by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withBootstrapActions(java.util.Collection<BootstrapActionDetail> bootstrapActions) {
@@ -595,7 +605,7 @@ public class JobFlowDetail implements Serializable {
      *         launched. If you are not using third party software to manage the job
      *         flow this value is empty.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withSupportedProducts(String... supportedProducts) {
@@ -617,7 +627,7 @@ public class JobFlowDetail implements Serializable {
      *         launched. If you are not using third party software to manage the job
      *         flow this value is empty.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withSupportedProducts(java.util.Collection<String> supportedProducts) {
@@ -693,7 +703,7 @@ public class JobFlowDetail implements Serializable {
      *         job flow can view and manage it. This value can be changed using the
      *         <a>SetVisibleToAllUsers</a> action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withVisibleToAllUsers(Boolean visibleToAllUsers) {
@@ -728,7 +738,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The IAM role that was specified when the job flow was launched. The
      *         EC2 instances of the job flow assume this role.
@@ -743,7 +753,7 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowRole The IAM role that was specified when the job flow was launched. The
      *         EC2 instances of the job flow assume this role.
@@ -760,16 +770,67 @@ public class JobFlowDetail implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowRole The IAM role that was specified when the job flow was launched. The
      *         EC2 instances of the job flow assume this role.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public JobFlowDetail withJobFlowRole(String jobFlowRole) {
         this.jobFlowRole = jobFlowRole;
+        return this;
+    }
+
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     *
+     * @return The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     */
+    public String getServiceRole() {
+        return serviceRole;
+    }
+    
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     *
+     * @param serviceRole The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     */
+    public void setServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
+    }
+    
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     *
+     * @param serviceRole The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public JobFlowDetail withServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
         return this;
     }
 
@@ -795,7 +856,8 @@ public class JobFlowDetail implements Serializable {
         if (getBootstrapActions() != null) sb.append("BootstrapActions: " + getBootstrapActions() + ",");
         if (getSupportedProducts() != null) sb.append("SupportedProducts: " + getSupportedProducts() + ",");
         if (isVisibleToAllUsers() != null) sb.append("VisibleToAllUsers: " + isVisibleToAllUsers() + ",");
-        if (getJobFlowRole() != null) sb.append("JobFlowRole: " + getJobFlowRole() );
+        if (getJobFlowRole() != null) sb.append("JobFlowRole: " + getJobFlowRole() + ",");
+        if (getServiceRole() != null) sb.append("ServiceRole: " + getServiceRole() );
         sb.append("}");
         return sb.toString();
     }
@@ -816,6 +878,7 @@ public class JobFlowDetail implements Serializable {
         hashCode = prime * hashCode + ((getSupportedProducts() == null) ? 0 : getSupportedProducts().hashCode()); 
         hashCode = prime * hashCode + ((isVisibleToAllUsers() == null) ? 0 : isVisibleToAllUsers().hashCode()); 
         hashCode = prime * hashCode + ((getJobFlowRole() == null) ? 0 : getJobFlowRole().hashCode()); 
+        hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode()); 
         return hashCode;
     }
     
@@ -849,6 +912,8 @@ public class JobFlowDetail implements Serializable {
         if (other.isVisibleToAllUsers() != null && other.isVisibleToAllUsers().equals(this.isVisibleToAllUsers()) == false) return false; 
         if (other.getJobFlowRole() == null ^ this.getJobFlowRole() == null) return false;
         if (other.getJobFlowRole() != null && other.getJobFlowRole().equals(this.getJobFlowRole()) == false) return false; 
+        if (other.getServiceRole() == null ^ this.getServiceRole() == null) return false;
+        if (other.getServiceRole() != null && other.getServiceRole().equals(this.getServiceRole()) == false) return false; 
         return true;
     }
     

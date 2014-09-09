@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the subnet associated with a cache cluster. This parameter refers to subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used
- * with ElastiCache.
+ * Represents the subnet associated with a cache cluster. This parameter
+ * refers to subnets defined in Amazon Virtual Private Cloud (Amazon VPC)
+ * and used with ElastiCache.
  * </p>
  */
 public class Subnet implements Serializable {
@@ -59,7 +60,7 @@ public class Subnet implements Serializable {
      *
      * @param subnetIdentifier The unique identifier for the subnet
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Subnet withSubnetIdentifier(String subnetIdentifier) {
@@ -92,7 +93,7 @@ public class Subnet implements Serializable {
      *
      * @param subnetAvailabilityZone The Availability Zone associated with the subnet
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Subnet withSubnetAvailabilityZone(AvailabilityZone subnetAvailabilityZone) {

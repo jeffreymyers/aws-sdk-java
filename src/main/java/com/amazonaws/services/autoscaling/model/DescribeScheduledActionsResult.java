@@ -18,10 +18,13 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A scaling action that is scheduled for a future time and date. An action can be scheduled up to thirty days in advance.
+ * A scaling action that is scheduled for a future time and date. An
+ * action can be scheduled up to thirty days in advance.
  * </p>
  * <p>
- * Starting with API version 2011-01-01, you can use <code>recurrence</code> to specify that a scaling action occurs regularly on a schedule.
+ * Starting with API version 2011-01-01, you can use
+ * <code>recurrence</code> to specify that a scaling action occurs
+ * regularly on a schedule.
  * </p>
  */
 public class DescribeScheduledActionsResult implements Serializable {
@@ -35,7 +38,7 @@ public class DescribeScheduledActionsResult implements Serializable {
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String nextToken;
 
@@ -74,7 +77,7 @@ public class DescribeScheduledActionsResult implements Serializable {
      *
      * @param scheduledUpdateGroupActions A list of scheduled actions designed to update an Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsResult withScheduledUpdateGroupActions(ScheduledUpdateGroupAction... scheduledUpdateGroupActions) {
@@ -92,7 +95,7 @@ public class DescribeScheduledActionsResult implements Serializable {
      *
      * @param scheduledUpdateGroupActions A list of scheduled actions designed to update an Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsResult withScheduledUpdateGroupActions(java.util.Collection<ScheduledUpdateGroupAction> scheduledUpdateGroupActions) {
@@ -111,7 +114,7 @@ public class DescribeScheduledActionsResult implements Serializable {
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A string that marks the start of the next batch of returned results.
      */
@@ -123,7 +126,7 @@ public class DescribeScheduledActionsResult implements Serializable {
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that marks the start of the next batch of returned results.
      */
@@ -137,11 +140,11 @@ public class DescribeScheduledActionsResult implements Serializable {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that marks the start of the next batch of returned results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsResult withNextToken(String nextToken) {

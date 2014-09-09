@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#rebuildEnvironment(RebuildEnvironmentRequest) RebuildEnvironment operation}.
  * <p>
- * Deletes and recreates all of the AWS resources (for example: the Auto Scaling group, load balancer, etc.) for a specified environment and forces a
- * restart.
+ * Deletes and recreates all of the AWS resources (for example: the Auto
+ * Scaling group, load balancer, etc.) for a specified environment and
+ * forces a restart.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#rebuildEnvironment(RebuildEnvironmentRequest)
@@ -97,7 +98,7 @@ public class RebuildEnvironmentRequest extends AmazonWebServiceRequest implement
      *         either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RebuildEnvironmentRequest withEnvironmentId(String environmentId) {
@@ -157,7 +158,7 @@ public class RebuildEnvironmentRequest extends AmazonWebServiceRequest implement
      *         specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RebuildEnvironmentRequest withEnvironmentName(String environmentName) {

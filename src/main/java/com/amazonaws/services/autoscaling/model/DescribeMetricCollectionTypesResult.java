@@ -27,9 +27,11 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      * The list of Metrics collected. The following metrics are supported:
      * <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<MetricCollectionType> metrics;
 
@@ -42,16 +44,20 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      * The list of Metrics collected. The following metrics are supported:
      * <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      *
      * @return The list of Metrics collected. The following metrics are supported:
      *         <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      */
     public java.util.List<MetricCollectionType> getMetrics() {
         if (metrics == null) {
@@ -65,16 +71,20 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      * The list of Metrics collected. The following metrics are supported:
      * <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      *
      * @param metrics The list of Metrics collected. The following metrics are supported:
      *         <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      */
     public void setMetrics(java.util.Collection<MetricCollectionType> metrics) {
         if (metrics == null) {
@@ -90,20 +100,24 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      * The list of Metrics collected. The following metrics are supported:
      * <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param metrics The list of Metrics collected. The following metrics are supported:
      *         <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeMetricCollectionTypesResult withMetrics(MetricCollectionType... metrics) {
@@ -118,20 +132,24 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      * The list of Metrics collected. The following metrics are supported:
      * <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param metrics The list of Metrics collected. The following metrics are supported:
      *         <ul> <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeMetricCollectionTypesResult withMetrics(java.util.Collection<MetricCollectionType> metrics) {
@@ -181,7 +199,7 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      *
      * @param granularities A list of granularities for the listed Metrics.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeMetricCollectionTypesResult withGranularities(MetricGranularityType... granularities) {
@@ -199,7 +217,7 @@ public class DescribeMetricCollectionTypesResult implements Serializable {
      *
      * @param granularities A list of granularities for the listed Metrics.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeMetricCollectionTypesResult withGranularities(java.util.Collection<MetricGranularityType> granularities) {

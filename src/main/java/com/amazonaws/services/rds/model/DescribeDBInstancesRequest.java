@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeDBInstances(DescribeDBInstancesRequest) DescribeDBInstances operation}.
  * <p>
- * Returns information about provisioned RDS instances. This API supports pagination.
+ * Returns information about provisioned RDS instances. This API
+ * supports pagination.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeDBInstances(DescribeDBInstancesRequest)
@@ -121,7 +122,7 @@ public class DescribeDBInstancesRequest extends AmazonWebServiceRequest implemen
      *         character must be a letter</li> <li>Cannot end with a hyphen or
      *         contain two consecutive hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesRequest withDBInstanceIdentifier(String dBInstanceIdentifier) {
@@ -164,7 +165,7 @@ public class DescribeDBInstancesRequest extends AmazonWebServiceRequest implemen
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesRequest withFilters(Filter... filters) {
@@ -182,7 +183,7 @@ public class DescribeDBInstancesRequest extends AmazonWebServiceRequest implemen
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesRequest withFilters(java.util.Collection<Filter> filters) {
@@ -246,7 +247,7 @@ public class DescribeDBInstancesRequest extends AmazonWebServiceRequest implemen
      *         the remaining results may be retrieved. <p>Default: 100
      *         <p>Constraints: minimum 20, maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesRequest withMaxRecords(Integer maxRecords) {
@@ -297,7 +298,7 @@ public class DescribeDBInstancesRequest extends AmazonWebServiceRequest implemen
      *         response includes only records beyond the marker, up to the value
      *         specified by <code>MaxRecords</code> .
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesRequest withMarker(String marker) {

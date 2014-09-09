@@ -24,8 +24,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Lists all tags on an Amazon RDS resource.
  * </p>
  * <p>
- * For an overview on tagging an Amazon RDS resource, see <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging
- * Amazon RDS Resources </a> .
+ * For an overview on tagging an Amazon RDS resource, see
+ * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#listTagsForResource(ListTagsForResourceRequest)
@@ -90,7 +91,7 @@ public class ListTagsForResourceRequest extends AmazonWebServiceRequest implemen
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      *         Constructing an RDS Amazon Resource Name (ARN)</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListTagsForResourceRequest withResourceName(String resourceName) {

@@ -18,10 +18,12 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The AccessKey data type contains information about an AWS access key, without its secret key.
+ * The AccessKey data type contains information about an AWS access key,
+ * without its secret key.
  * </p>
  * <p>
- * This data type is used as a response element in the action ListAccessKeys.
+ * This data type is used as a response element in the action
+ * ListAccessKeys.
  * </p>
  */
 public class AccessKeyMetadata implements Serializable {
@@ -101,7 +103,7 @@ public class AccessKeyMetadata implements Serializable {
      *
      * @param userName Name of the user the key is associated with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AccessKeyMetadata withUserName(String userName) {
@@ -146,7 +148,7 @@ public class AccessKeyMetadata implements Serializable {
      *
      * @param accessKeyId The ID for this access key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AccessKeyMetadata withAccessKeyId(String accessKeyId) {
@@ -198,7 +200,7 @@ public class AccessKeyMetadata implements Serializable {
      * @param status The status of the access key. <code>Active</code> means the key is
      *         valid for API calls, while <code>Inactive</code> means it is not.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StatusType
@@ -236,7 +238,7 @@ public class AccessKeyMetadata implements Serializable {
      * @param status The status of the access key. <code>Active</code> means the key is
      *         valid for API calls, while <code>Inactive</code> means it is not.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StatusType
@@ -271,7 +273,7 @@ public class AccessKeyMetadata implements Serializable {
      *
      * @param createDate The date when the access key was created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AccessKeyMetadata withCreateDate(java.util.Date createDate) {

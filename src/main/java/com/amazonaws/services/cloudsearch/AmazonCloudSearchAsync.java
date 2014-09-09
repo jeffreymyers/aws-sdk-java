@@ -1,12 +1,12 @@
 /*
  * Copyright 2010-2014 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
- * 
+ *
  *  http://aws.amazon.com/apache2.0
- * 
+ *
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
@@ -34,7 +34,14 @@ import com.amazonaws.services.cloudsearch.model.*;
  * cloudsearch.us-east-1.amazonaws.com. For a current list of supported regions and endpoints, see <a
  * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region"> Regions and Endpoints </a> .
  * </p>
+ * @deprecated This code uses the older version of Amazon Cloud Search API (2011-02-01) and
+ *             hence deprecated. The code in the package
+ *             {@link com.amazonaws.services.cloudsearchv2} uses the latest
+ *             version of Amazon Cloud Search API.Use
+ *             {@link com.amazonaws.services.cloudsearchv2.AmazonCloudSearch}
+ *             instead.
  */
+ @Deprecated
 public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
     /**
      * <p>
@@ -47,11 +54,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param updateDefaultSearchFieldRequest Container for the necessary
      *           parameters to execute the UpdateDefaultSearchField operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateDefaultSearchField service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -61,7 +68,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateDefaultSearchFieldResult> updateDefaultSearchFieldAsync(UpdateDefaultSearchFieldRequest updateDefaultSearchFieldRequest) 
+    public Future<UpdateDefaultSearchFieldResult> updateDefaultSearchFieldAsync(UpdateDefaultSearchFieldRequest updateDefaultSearchFieldRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -79,11 +86,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateDefaultSearchField service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -105,10 +112,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param deleteRankExpressionRequest Container for the necessary
      *           parameters to execute the DeleteRankExpression operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DeleteRankExpression service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -118,7 +125,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DeleteRankExpressionResult> deleteRankExpressionAsync(DeleteRankExpressionRequest deleteRankExpressionRequest) 
+    public Future<DeleteRankExpressionResult> deleteRankExpressionAsync(DeleteRankExpressionRequest deleteRankExpressionRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -133,10 +140,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DeleteRankExpression service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -160,11 +167,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param describeRankExpressionsRequest Container for the necessary
      *           parameters to execute the DescribeRankExpressions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeRankExpressions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -174,7 +181,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeRankExpressionsResult> describeRankExpressionsAsync(DescribeRankExpressionsRequest describeRankExpressionsRequest) 
+    public Future<DescribeRankExpressionsResult> describeRankExpressionsAsync(DescribeRankExpressionsRequest describeRankExpressionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -191,11 +198,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeRankExpressions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -216,10 +223,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *
      * @param createDomainRequest Container for the necessary parameters to
      *           execute the CreateDomain operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         CreateDomain service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -229,7 +236,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CreateDomainResult> createDomainAsync(CreateDomainRequest createDomainRequest) 
+    public Future<CreateDomainResult> createDomainAsync(CreateDomainRequest createDomainRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -243,10 +250,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         CreateDomain service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -270,11 +277,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param updateServiceAccessPoliciesRequest Container for the necessary
      *           parameters to execute the UpdateServiceAccessPolicies operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateServiceAccessPolicies service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -284,7 +291,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateServiceAccessPoliciesResult> updateServiceAccessPoliciesAsync(UpdateServiceAccessPoliciesRequest updateServiceAccessPoliciesRequest) 
+    public Future<UpdateServiceAccessPoliciesResult> updateServiceAccessPoliciesAsync(UpdateServiceAccessPoliciesRequest updateServiceAccessPoliciesRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -301,11 +308,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateServiceAccessPolicies service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -329,10 +336,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *
      * @param defineIndexFieldRequest Container for the necessary parameters
      *           to execute the DefineIndexField operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DefineIndexField service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -342,7 +349,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DefineIndexFieldResult> defineIndexFieldAsync(DefineIndexFieldRequest defineIndexFieldRequest) 
+    public Future<DefineIndexFieldResult> defineIndexFieldAsync(DefineIndexFieldRequest defineIndexFieldRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -359,10 +366,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DefineIndexField service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -387,10 +394,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param defineRankExpressionRequest Container for the necessary
      *           parameters to execute the DefineRankExpression operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DefineRankExpression service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -400,7 +407,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DefineRankExpressionResult> defineRankExpressionAsync(DefineRankExpressionRequest defineRankExpressionRequest) 
+    public Future<DefineRankExpressionResult> defineRankExpressionAsync(DefineRankExpressionRequest defineRankExpressionRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -418,10 +425,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DefineRankExpression service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -443,11 +450,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param describeSynonymOptionsRequest Container for the necessary
      *           parameters to execute the DescribeSynonymOptions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeSynonymOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -457,7 +464,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeSynonymOptionsResult> describeSynonymOptionsAsync(DescribeSynonymOptionsRequest describeSynonymOptionsRequest) 
+    public Future<DescribeSynonymOptionsResult> describeSynonymOptionsAsync(DescribeSynonymOptionsRequest describeSynonymOptionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -472,11 +479,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeSynonymOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -498,11 +505,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param describeStopwordOptionsRequest Container for the necessary
      *           parameters to execute the DescribeStopwordOptions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeStopwordOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -512,7 +519,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeStopwordOptionsResult> describeStopwordOptionsAsync(DescribeStopwordOptionsRequest describeStopwordOptionsRequest) 
+    public Future<DescribeStopwordOptionsResult> describeStopwordOptionsAsync(DescribeStopwordOptionsRequest describeStopwordOptionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -527,11 +534,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeStopwordOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -552,10 +559,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *
      * @param deleteDomainRequest Container for the necessary parameters to
      *           execute the DeleteDomain operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DeleteDomain service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -565,7 +572,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DeleteDomainResult> deleteDomainAsync(DeleteDomainRequest deleteDomainRequest) 
+    public Future<DeleteDomainResult> deleteDomainAsync(DeleteDomainRequest deleteDomainRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -579,10 +586,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DeleteDomain service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -605,11 +612,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param describeServiceAccessPoliciesRequest Container for the
      *           necessary parameters to execute the DescribeServiceAccessPolicies
      *           operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeServiceAccessPolicies service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -619,7 +626,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeServiceAccessPoliciesResult> describeServiceAccessPoliciesAsync(DescribeServiceAccessPoliciesRequest describeServiceAccessPoliciesRequest) 
+    public Future<DescribeServiceAccessPoliciesResult> describeServiceAccessPoliciesAsync(DescribeServiceAccessPoliciesRequest describeServiceAccessPoliciesRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -635,11 +642,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeServiceAccessPolicies service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -655,15 +662,21 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
 
     /**
      * <p>
-     * Gets the default search field configured for the search domain.
+     * Configures the availability options for a domain. Enabling the
+     * Multi-AZ option expands an Amazon CloudSearch domain to an additional
+     * Availability Zone in the same Region to increase fault tolerance in
+     * the event of a service disruption. Changes to the Multi-AZ option can
+     * take about half an hour to become active. For more information, see
+     * <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html"> Configuring Availability Options </a>
+     * in the <i>Amazon CloudSearch Developer Guide</i> .
      * </p>
      *
-     * @param describeDefaultSearchFieldRequest Container for the necessary
-     *           parameters to execute the DescribeDefaultSearchField operation on
+     * @param updateAvailabilityOptionsRequest Container for the necessary
+     *           parameters to execute the UpdateAvailabilityOptions operation on
      *           AmazonCloudSearch.
      * 
      * @return A Java Future object containing the response from the
-     *         DescribeDefaultSearchField service method, as returned by
+     *         UpdateAvailabilityOptions service method, as returned by
      *         AmazonCloudSearch.
      * 
      *
@@ -675,7 +688,68 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeDefaultSearchFieldResult> describeDefaultSearchFieldAsync(DescribeDefaultSearchFieldRequest describeDefaultSearchFieldRequest) 
+    public Future<UpdateAvailabilityOptionsResult> updateAvailabilityOptionsAsync(UpdateAvailabilityOptionsRequest updateAvailabilityOptionsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Configures the availability options for a domain. Enabling the
+     * Multi-AZ option expands an Amazon CloudSearch domain to an additional
+     * Availability Zone in the same Region to increase fault tolerance in
+     * the event of a service disruption. Changes to the Multi-AZ option can
+     * take about half an hour to become active. For more information, see
+     * <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html"> Configuring Availability Options </a>
+     * in the <i>Amazon CloudSearch Developer Guide</i> .
+     * </p>
+     *
+     * @param updateAvailabilityOptionsRequest Container for the necessary
+     *           parameters to execute the UpdateAvailabilityOptions operation on
+     *           AmazonCloudSearch.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UpdateAvailabilityOptions service method, as returned by
+     *         AmazonCloudSearch.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudSearch indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<UpdateAvailabilityOptionsResult> updateAvailabilityOptionsAsync(UpdateAvailabilityOptionsRequest updateAvailabilityOptionsRequest,
+            AsyncHandler<UpdateAvailabilityOptionsRequest, UpdateAvailabilityOptionsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Gets the default search field configured for the search domain.
+     * </p>
+     *
+     * @param describeDefaultSearchFieldRequest Container for the necessary
+     *           parameters to execute the DescribeDefaultSearchField operation on
+     *           AmazonCloudSearch.
+     *
+     * @return A Java Future object containing the response from the
+     *         DescribeDefaultSearchField service method, as returned by
+     *         AmazonCloudSearch.
+     *
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudSearch indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeDefaultSearchFieldResult> describeDefaultSearchFieldAsync(DescribeDefaultSearchFieldRequest describeDefaultSearchFieldRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -690,11 +764,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeDefaultSearchField service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -718,11 +792,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param updateStopwordOptionsRequest Container for the necessary
      *           parameters to execute the UpdateStopwordOptions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateStopwordOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -732,7 +806,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateStopwordOptionsResult> updateStopwordOptionsAsync(UpdateStopwordOptionsRequest updateStopwordOptionsRequest) 
+    public Future<UpdateStopwordOptionsResult> updateStopwordOptionsAsync(UpdateStopwordOptionsRequest updateStopwordOptionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -749,11 +823,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateStopwordOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -778,10 +852,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param updateSynonymOptionsRequest Container for the necessary
      *           parameters to execute the UpdateSynonymOptions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateSynonymOptions service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -791,7 +865,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateSynonymOptionsResult> updateSynonymOptionsAsync(UpdateSynonymOptionsRequest updateSynonymOptionsRequest) 
+    public Future<UpdateSynonymOptionsResult> updateSynonymOptionsAsync(UpdateSynonymOptionsRequest updateSynonymOptionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -809,10 +883,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateSynonymOptions service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -836,11 +910,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param updateStemmingOptionsRequest Container for the necessary
      *           parameters to execute the UpdateStemmingOptions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateStemmingOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -850,7 +924,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateStemmingOptionsResult> updateStemmingOptionsAsync(UpdateStemmingOptionsRequest updateStemmingOptionsRequest) 
+    public Future<UpdateStemmingOptionsResult> updateStemmingOptionsAsync(UpdateStemmingOptionsRequest updateStemmingOptionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -867,11 +941,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         UpdateStemmingOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -893,11 +967,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      * @param describeStemmingOptionsRequest Container for the necessary
      *           parameters to execute the DescribeStemmingOptions operation on
      *           AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeStemmingOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -907,7 +981,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeStemmingOptionsResult> describeStemmingOptionsAsync(DescribeStemmingOptionsRequest describeStemmingOptionsRequest) 
+    public Future<DescribeStemmingOptionsResult> describeStemmingOptionsAsync(DescribeStemmingOptionsRequest describeStemmingOptionsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -922,11 +996,11 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeStemmingOptions service method, as returned by
      *         AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -948,10 +1022,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *
      * @param describeDomainsRequest Container for the necessary parameters
      *           to execute the DescribeDomains operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeDomains service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -961,7 +1035,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeDomainsResult> describeDomainsAsync(DescribeDomainsRequest describeDomainsRequest) 
+    public Future<DescribeDomainsResult> describeDomainsAsync(DescribeDomainsRequest describeDomainsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -976,10 +1050,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeDomains service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1004,10 +1078,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *
      * @param indexDocumentsRequest Container for the necessary parameters to
      *           execute the IndexDocuments operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         IndexDocuments service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1017,7 +1091,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<IndexDocumentsResult> indexDocumentsAsync(IndexDocumentsRequest indexDocumentsRequest) 
+    public Future<IndexDocumentsResult> indexDocumentsAsync(IndexDocumentsRequest indexDocumentsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -1035,10 +1109,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         IndexDocuments service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1054,17 +1128,21 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
 
     /**
      * <p>
-     * Gets information about the index fields configured for the search
-     * domain. Can be limited to specific fields by name. Shows all fields by
-     * default.
+     * Gets the availability options configured for a domain. By default,
+     * shows the configuration with any pending changes. Set the
+     * <code>Deployed</code> option to <code>true</code> to show the active
+     * configuration and exclude pending changes. For more information, see
+     * <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html"> Configuring Availability Options </a>
+     * in the <i>Amazon CloudSearch Developer Guide</i> .
      * </p>
      *
-     * @param describeIndexFieldsRequest Container for the necessary
-     *           parameters to execute the DescribeIndexFields operation on
+     * @param describeAvailabilityOptionsRequest Container for the necessary
+     *           parameters to execute the DescribeAvailabilityOptions operation on
      *           AmazonCloudSearch.
      * 
      * @return A Java Future object containing the response from the
-     *         DescribeIndexFields service method, as returned by AmazonCloudSearch.
+     *         DescribeAvailabilityOptions service method, as returned by
+     *         AmazonCloudSearch.
      * 
      *
      * @throws AmazonClientException
@@ -1075,7 +1153,68 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeIndexFieldsResult> describeIndexFieldsAsync(DescribeIndexFieldsRequest describeIndexFieldsRequest) 
+    public Future<DescribeAvailabilityOptionsResult> describeAvailabilityOptionsAsync(DescribeAvailabilityOptionsRequest describeAvailabilityOptionsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Gets the availability options configured for a domain. By default,
+     * shows the configuration with any pending changes. Set the
+     * <code>Deployed</code> option to <code>true</code> to show the active
+     * configuration and exclude pending changes. For more information, see
+     * <a href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html"> Configuring Availability Options </a>
+     * in the <i>Amazon CloudSearch Developer Guide</i> .
+     * </p>
+     *
+     * @param describeAvailabilityOptionsRequest Container for the necessary
+     *           parameters to execute the DescribeAvailabilityOptions operation on
+     *           AmazonCloudSearch.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeAvailabilityOptions service method, as returned by
+     *         AmazonCloudSearch.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudSearch indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeAvailabilityOptionsResult> describeAvailabilityOptionsAsync(DescribeAvailabilityOptionsRequest describeAvailabilityOptionsRequest,
+            AsyncHandler<DescribeAvailabilityOptionsRequest, DescribeAvailabilityOptionsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Gets information about the index fields configured for the search
+     * domain. Can be limited to specific fields by name. Shows all fields by
+     * default.
+     * </p>
+     *
+     * @param describeIndexFieldsRequest Container for the necessary
+     *           parameters to execute the DescribeIndexFields operation on
+     *           AmazonCloudSearch.
+     *
+     * @return A Java Future object containing the response from the
+     *         DescribeIndexFields service method, as returned by AmazonCloudSearch.
+     *
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudSearch indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeIndexFieldsResult> describeIndexFieldsAsync(DescribeIndexFieldsRequest describeIndexFieldsRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -1092,10 +1231,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DescribeIndexFields service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1116,10 +1255,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *
      * @param deleteIndexFieldRequest Container for the necessary parameters
      *           to execute the DeleteIndexField operation on AmazonCloudSearch.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DeleteIndexField service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1129,7 +1268,7 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *             If an error response is returned by AmazonCloudSearch indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DeleteIndexFieldResult> deleteIndexFieldAsync(DeleteIndexFieldRequest deleteIndexFieldRequest) 
+    public Future<DeleteIndexFieldResult> deleteIndexFieldAsync(DeleteIndexFieldRequest deleteIndexFieldRequest)
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -1143,10 +1282,10 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
-     * 
+     *
      * @return A Java Future object containing the response from the
      *         DeleteIndexField service method, as returned by AmazonCloudSearch.
-     * 
+     *
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1160,4 +1299,3 @@ public interface AmazonCloudSearchAsync extends AmazonCloudSearch {
             AsyncHandler<DeleteIndexFieldRequest, DeleteIndexFieldResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException;
 }
-        

@@ -26,24 +26,31 @@ import com.amazonaws.services.cloudformation.model.*;
  * Each asynchronous method will return a Java Future object, and users are also allowed
  * to provide a callback handler.
  * AWS CloudFormation <p>
- * AWS CloudFormation enables you to create and manage AWS infrastructure deployments predictably and repeatedly. AWS CloudFormation helps you leverage
- * AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and Auto Scaling to build highly-reliable, highly scalable, cost effective applications without
- * worrying about creating and configuring the underlying the AWS infrastructure.
+ * AWS CloudFormation enables you to create and manage AWS infrastructure
+ * deployments predictably and repeatedly. AWS CloudFormation helps you
+ * leverage AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and
+ * Auto Scaling to build highly-reliable, highly scalable, cost effective
+ * applications without worrying about creating and configuring the
+ * underlying AWS infrastructure.
  * </p>
  * <p>
- * With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a
- * single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the
- * resources for you.
+ * With AWS CloudFormation, you declare all of your resources and
+ * dependencies in a template file. The template defines a collection of
+ * resources as a single unit called a stack. AWS CloudFormation creates
+ * and deletes all member resources of the stack together and manages all
+ * dependencies between the resources for you.
  * </p>
  * <p>
- * For more information about this product, go to the <a href="http://aws.amazon.com/cloudformation/"> CloudFormation Product Page </a> .
+ * For more information about this product, go to the
+ * <a href="http://aws.amazon.com/cloudformation/"> CloudFormation Product Page </a>
+ * .
  * </p>
  * <p>
- * Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the
- * product's technical documentation at <a href="http://aws.amazon.com/documentation/"> http://aws.amazon.com/documentation/ </a> .
- * </p>
- * <p>
- * <b>NOTE:</b>You must call the AWS CloudFormation API as a regular IAM user. AWS CloudFormation does not support calling the API with an IAM role
+ * Amazon CloudFormation makes use of other AWS products. If you need
+ * additional technical information about a specific AWS product, you can
+ * find the product's technical documentation at
+ * <a href="http://aws.amazon.com/documentation/"> http://aws.amazon.com/documentation/ </a>
+ * .
  * </p>
  */
 public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
@@ -157,8 +164,8 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * template for running or deleted stacks.
      * </p>
      * <p>
-     * For deleted stacks, GetTemplate returns the template for up to 90 days
-     * after the stack has been deleted.
+     * For deleted stacks, GetTemplate returns the template for up to 90
+     * days after the stack has been deleted.
      * </p>
      * <p>
      * <b>NOTE:</b> If the template does not exist, a ValidationError is
@@ -189,8 +196,8 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * template for running or deleted stacks.
      * </p>
      * <p>
-     * For deleted stacks, GetTemplate returns the template for up to 90 days
-     * after the stack has been deleted.
+     * For deleted stacks, GetTemplate returns the template for up to 90
+     * days after the stack has been deleted.
      * </p>
      * <p>
      * <b>NOTE:</b> If the template does not exist, a ValidationError is
@@ -336,13 +343,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
-     * Creates a stack as specified in the template. After the call completes
-     * successfully, the stack creation starts. You can check the status of
-     * the stack via the DescribeStacks API.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Currently, the limit for stacks is 20 stacks per account
-     * per region.
+     * Creates a stack as specified in the template. After the call
+     * completes successfully, the stack creation starts. You can check the
+     * status of the stack via the DescribeStacks API.
      * </p>
      *
      * @param createStackRequest Container for the necessary parameters to
@@ -365,13 +368,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
-     * Creates a stack as specified in the template. After the call completes
-     * successfully, the stack creation starts. You can check the status of
-     * the stack via the DescribeStacks API.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Currently, the limit for stacks is 20 stacks per account
-     * per region.
+     * Creates a stack as specified in the template. After the call
+     * completes successfully, the stack creation starts. You can check the
+     * status of the stack via the DescribeStacks API.
      * </p>
      *
      * @param createStackRequest Container for the necessary parameters to
@@ -510,13 +509,14 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
     /**
      * <p>
      * Returns all stack related events for a specified stack. For more
-     * information about a stack's event history, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * information about a stack's event history, go to
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html"> Stacks </a>
+     * in the AWS CloudFormation User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Events are returned, even if the stack never existed or
-     * has been successfully deleted.
+     * <b>NOTE:</b>You can list events for stacks that have failed to create
+     * or have been deleted by specifying the unique stack identifier (stack
+     * ID).
      * </p>
      *
      * @param describeStackEventsRequest Container for the necessary
@@ -542,13 +542,14 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
     /**
      * <p>
      * Returns all stack related events for a specified stack. For more
-     * information about a stack's event history, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * information about a stack's event history, go to
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html"> Stacks </a>
+     * in the AWS CloudFormation User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Events are returned, even if the stack never existed or
-     * has been successfully deleted.
+     * <b>NOTE:</b>You can list events for stacks that have failed to create
+     * or have been deleted by specifying the unique stack identifier (stack
+     * ID).
      * </p>
      *
      * @param describeStackEventsRequest Container for the necessary
@@ -582,8 +583,8 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * stack.
      * </p>
      * <p>
-     * For deleted stacks, DescribeStackResource returns resource information
-     * for up to 90 days after the stack has been deleted.
+     * For deleted stacks, DescribeStackResource returns resource
+     * information for up to 90 days after the stack has been deleted.
      * </p>
      *
      * @param describeStackResourceRequest Container for the necessary
@@ -612,8 +613,8 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * stack.
      * </p>
      * <p>
-     * For deleted stacks, DescribeStackResource returns resource information
-     * for up to 90 days after the stack has been deleted.
+     * For deleted stacks, DescribeStackResource returns resource
+     * information for up to 90 days after the stack has been deleted.
      * </p>
      *
      * @param describeStackResourceRequest Container for the necessary
@@ -706,18 +707,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
-     * Updates a stack as specified in the template. After the call completes
-     * successfully, the stack update starts. You can check the status of the
-     * stack via the DescribeStacks action.
-     * </p>
-     * <p>
-     * </p>
-     * <p>
-     * <b>Note: </b> You cannot update <a
-     * com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">
-     * AWS::S3::Bucket </a> resources, for example, to add or modify tags.
-     * </p>
-     * <p>
+     * Updates a stack as specified in the template. After the call
+     * completes successfully, the stack update starts. You can check the
+     * status of the stack via the DescribeStacks action.
      * </p>
      * <p>
      * To get a copy of the template for an existing stack, you can use the
@@ -730,9 +722,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * </p>
      * <p>
      * For more information about creating an update template, updating a
-     * stack, and monitoring the progress of the update, see <a
-     * om/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html">
-     * Updating a Stack </a> .
+     * stack, and monitoring the progress of the update, see
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a>
+     * .
      * </p>
      *
      * @param updateStackRequest Container for the necessary parameters to
@@ -755,18 +747,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
-     * Updates a stack as specified in the template. After the call completes
-     * successfully, the stack update starts. You can check the status of the
-     * stack via the DescribeStacks action.
-     * </p>
-     * <p>
-     * </p>
-     * <p>
-     * <b>Note: </b> You cannot update <a
-     * com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">
-     * AWS::S3::Bucket </a> resources, for example, to add or modify tags.
-     * </p>
-     * <p>
+     * Updates a stack as specified in the template. After the call
+     * completes successfully, the stack update starts. You can check the
+     * status of the stack via the DescribeStacks action.
      * </p>
      * <p>
      * To get a copy of the template for an existing stack, you can use the
@@ -779,9 +762,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * </p>
      * <p>
      * For more information about creating an update template, updating a
-     * stack, and monitoring the progress of the update, see <a
-     * om/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html">
-     * Updating a Stack </a> .
+     * stack, and monitoring the progress of the update, see
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a>
+     * .
      * </p>
      *
      * @param updateStackRequest Container for the necessary parameters to
@@ -831,9 +814,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * specify <code>LogicalResourceId</code> to filter the returned result.
      * For more information about resources, the
      * <code>LogicalResourceId</code> and <code>PhysicalResourceId</code> ,
-     * go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * go to the
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide"> AWS CloudFormation User Guide </a>
+     * .
      * </p>
      * <p>
      * <b>NOTE:</b>A ValidationError is returned if you specify both
@@ -884,9 +867,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * specify <code>LogicalResourceId</code> to filter the returned result.
      * For more information about resources, the
      * <code>LogicalResourceId</code> and <code>PhysicalResourceId</code> ,
-     * go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * go to the
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide"> AWS CloudFormation User Guide </a>
+     * .
      * </p>
      * <p>
      * <b>NOTE:</b>A ValidationError is returned if you specify both
@@ -920,9 +903,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
-     * Deletes a specified stack. Once the call completes successfully, stack
-     * deletion starts. Deleted stacks do not show up in the DescribeStacks
-     * API if the deletion has been completed successfully.
+     * Deletes a specified stack. Once the call completes successfully,
+     * stack deletion starts. Deleted stacks do not show up in the
+     * DescribeStacks API if the deletion has been completed successfully.
      * </p>
      *
      * @param deleteStackRequest Container for the necessary parameters to
@@ -945,9 +928,9 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
-     * Deletes a specified stack. Once the call completes successfully, stack
-     * deletion starts. Deleted stacks do not show up in the DescribeStacks
-     * API if the deletion has been completed successfully.
+     * Deletes a specified stack. Once the call completes successfully,
+     * stack deletion starts. Deleted stacks do not show up in the
+     * DescribeStacks API if the deletion has been completed successfully.
      * </p>
      *
      * @param deleteStackRequest Container for the necessary parameters to

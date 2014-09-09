@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#deleteLoadBalancerPolicy(DeleteLoadBalancerPolicyRequest) DeleteLoadBalancerPolicy operation}.
  * <p>
- * Deletes a policy from the load balancer. The specified policy must not be enabled for any listeners.
+ * Deletes a policy from the load balancer. The specified policy must
+ * not be enabled for any listeners.
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#deleteLoadBalancerPolicy(DeleteLoadBalancerPolicyRequest)
@@ -83,7 +84,7 @@ public class DeleteLoadBalancerPolicyRequest extends AmazonWebServiceRequest imp
      *
      * @param loadBalancerName The mnemonic name associated with the load balancer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteLoadBalancerPolicyRequest withLoadBalancerName(String loadBalancerName) {
@@ -116,7 +117,7 @@ public class DeleteLoadBalancerPolicyRequest extends AmazonWebServiceRequest imp
      *
      * @param policyName The mnemonic name for the policy being deleted.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteLoadBalancerPolicyRequest withPolicyName(String policyName) {

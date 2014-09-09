@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeDBParameterGroups action.
+ * Contains the result of a successful invocation of the
+ * DescribeDBParameterGroups action.
  * </p>
  */
 public class DescribeDBParameterGroupsResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeDBParameterGroupsResult implements Serializable {
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeDBParameterGroupsResult implements Serializable {
      *
      * @param dBParameterGroups A list of <a>DBParameterGroup</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsResult withDBParameterGroups(DBParameterGroup... dBParameterGroups) {
@@ -133,7 +134,7 @@ public class DescribeDBParameterGroupsResult implements Serializable {
      *
      * @param dBParameterGroups A list of <a>DBParameterGroup</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsResult withDBParameterGroups(java.util.Collection<DBParameterGroup> dBParameterGroups) {

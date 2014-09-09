@@ -21,22 +21,29 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#authorizeClusterSecurityGroupIngress(AuthorizeClusterSecurityGroupIngressRequest) AuthorizeClusterSecurityGroupIngress operation}.
  * <p>
- * Adds an inbound (ingress) rule to an Amazon Redshift security group. Depending on whether the application accessing your cluster is running on the
- * Internet or an EC2 instance, you can authorize inbound access to either a Classless Interdomain Routing (CIDR) IP address range or an EC2 security
- * group. You can add as many as 20 ingress rules to an Amazon Redshift security group.
+ * Adds an inbound (ingress) rule to an Amazon Redshift security group.
+ * Depending on whether the application accessing your cluster is running
+ * on the Internet or an EC2 instance, you can authorize inbound access
+ * to either a Classless Interdomain Routing (CIDR) IP address range or
+ * an EC2 security group. You can add as many as 20 ingress rules to an
+ * Amazon Redshift security group.
  * </p>
  * <p>
- * <b>NOTE:</b> The EC2 security group must be defined in the AWS region where the cluster resides.
+ * <b>NOTE:</b> The EC2 security group must be defined in the AWS region
+ * where the cluster resides.
  * </p>
  * <p>
- * For an overview of CIDR blocks, see the Wikipedia article on <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Classless
- * Inter-Domain Routing </a> .
+ * For an overview of CIDR blocks, see the Wikipedia article on
+ * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Classless Inter-Domain Routing </a>
+ * .
  * </p>
  * <p>
- * You must also associate the security group with a cluster so that clients running on these IP addresses or the EC2 instance are authorized to connect
- * to the cluster. For information about managing security groups, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Working with Security Groups </a> in the <i>Amazon Redshift
- * Management Guide</i> .
+ * You must also associate the security group with a cluster so that
+ * clients running on these IP addresses or the EC2 instance are
+ * authorized to connect to the cluster. For information about managing
+ * security groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Working with Security Groups </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#authorizeClusterSecurityGroupIngress(AuthorizeClusterSecurityGroupIngressRequest)
@@ -90,7 +97,7 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends AmazonWebServic
      *
      * @param clusterSecurityGroupName The name of the security group to which the ingress rule is added.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeClusterSecurityGroupIngressRequest withClusterSecurityGroupName(String clusterSecurityGroupName) {
@@ -123,7 +130,7 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends AmazonWebServic
      *
      * @param cIDRIP The IP range to be added the Amazon Redshift security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeClusterSecurityGroupIngressRequest withCIDRIP(String cIDRIP) {
@@ -156,7 +163,7 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends AmazonWebServic
      *
      * @param eC2SecurityGroupName The EC2 security group to be added the Amazon Redshift security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeClusterSecurityGroupIngressRequest withEC2SecurityGroupName(String eC2SecurityGroupName) {
@@ -201,7 +208,7 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends AmazonWebServic
      *         the <i>EC2SecurityGroupName</i> parameter. The AWS Access Key ID is
      *         not an acceptable value. <p> Example: <code>111122223333</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AuthorizeClusterSecurityGroupIngressRequest withEC2SecurityGroupOwnerId(String eC2SecurityGroupOwnerId) {

@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#domainMetadata(DomainMetadataRequest) DomainMetadata operation}.
  * <p>
- * Returns information about the domain, including when the domain was created, the number of items and attributes in the domain, and the size of the
- * attribute names and values.
+ * Returns information about the domain, including when the domain was
+ * created, the number of items and attributes in the domain, and the
+ * size of the attribute names and values.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#domainMetadata(DomainMetadataRequest)
@@ -77,7 +78,7 @@ public class DomainMetadataRequest extends AmazonWebServiceRequest implements Se
      *
      * @param domainName The name of the domain for which to display the metadata of.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DomainMetadataRequest withDomainName(String domainName) {

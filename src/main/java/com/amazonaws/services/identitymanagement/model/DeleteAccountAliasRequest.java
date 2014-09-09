@@ -21,9 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteAccountAlias(DeleteAccountAliasRequest) DeleteAccountAlias operation}.
  * <p>
- * Deletes the specified AWS account alias. For information about using an AWS account alias, see <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity and
- * Access Management</i> .
+ * Deletes the specified AWS account alias. For information about using
+ * an AWS account alias, see
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteAccountAlias(DeleteAccountAliasRequest)
@@ -93,7 +94,7 @@ public class DeleteAccountAliasRequest extends AmazonWebServiceRequest implement
      *
      * @param accountAlias Name of the account alias to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteAccountAliasRequest withAccountAlias(String accountAlias) {

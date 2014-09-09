@@ -23,11 +23,34 @@ import com.amazonaws.services.ec2.model.transform.TerminateInstancesRequestMarsh
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#terminateInstances(TerminateInstancesRequest) TerminateInstances operation}.
  * <p>
- * The TerminateInstances operation shuts down one or more instances. This operation is idempotent; if you terminate an instance more than once, each
- * call will succeed.
+ * Shuts down one or more instances. This operation is idempotent; if you
+ * terminate an instance more than once, each call succeeds.
  * </p>
  * <p>
- * Terminated instances will remain visible after termination (approximately one hour).
+ * Terminated instances remain visible after termination (for
+ * approximately one hour).
+ * </p>
+ * <p>
+ * By default, Amazon EC2 deletes all Amazon EBS volumes that were
+ * attached when the instance launched. Volumes attached after instance
+ * launch continue running.
+ * </p>
+ * <p>
+ * You can stop, start, and terminate EBS-backed instances. You can only
+ * terminate instance store-backed instances. What happens to an instance
+ * differs if you stop it or terminate it. For example, when you stop an
+ * instance, the root device and any other devices attached to the
+ * instance persist. When you terminate an instance, the root device and
+ * any other devices attached during the instance launch are
+ * automatically deleted. For more information about the differences
+ * between stopping and terminating instances, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html"> Instance Lifecycle </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+ * </p>
+ * <p>
+ * For more information about troubleshooting, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesShuttingDown.html"> Troubleshooting Terminating Your Instance </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#terminateInstances(TerminateInstancesRequest)
@@ -35,7 +58,7 @@ import com.amazonaws.services.ec2.model.transform.TerminateInstancesRequestMarsh
 public class TerminateInstancesRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<TerminateInstancesRequest> {
 
     /**
-     * The list of instances to terminate.
+     * One or more instance IDs.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> instanceIds;
 
@@ -50,16 +73,16 @@ public class TerminateInstancesRequest extends AmazonWebServiceRequest implement
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param instanceIds The list of instances to terminate.
+     * @param instanceIds One or more instance IDs.
      */
     public TerminateInstancesRequest(java.util.List<String> instanceIds) {
         setInstanceIds(instanceIds);
     }
 
     /**
-     * The list of instances to terminate.
+     * One or more instance IDs.
      *
-     * @return The list of instances to terminate.
+     * @return One or more instance IDs.
      */
     public java.util.List<String> getInstanceIds() {
         if (instanceIds == null) {
@@ -70,9 +93,9 @@ public class TerminateInstancesRequest extends AmazonWebServiceRequest implement
     }
     
     /**
-     * The list of instances to terminate.
+     * One or more instance IDs.
      *
-     * @param instanceIds The list of instances to terminate.
+     * @param instanceIds One or more instance IDs.
      */
     public void setInstanceIds(java.util.Collection<String> instanceIds) {
         if (instanceIds == null) {
@@ -85,13 +108,13 @@ public class TerminateInstancesRequest extends AmazonWebServiceRequest implement
     }
     
     /**
-     * The list of instances to terminate.
+     * One or more instance IDs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceIds The list of instances to terminate.
+     * @param instanceIds One or more instance IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public TerminateInstancesRequest withInstanceIds(String... instanceIds) {
@@ -103,13 +126,13 @@ public class TerminateInstancesRequest extends AmazonWebServiceRequest implement
     }
     
     /**
-     * The list of instances to terminate.
+     * One or more instance IDs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceIds The list of instances to terminate.
+     * @param instanceIds One or more instance IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public TerminateInstancesRequest withInstanceIds(java.util.Collection<String> instanceIds) {

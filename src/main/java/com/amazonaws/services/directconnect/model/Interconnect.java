@@ -21,13 +21,18 @@ import java.io.Serializable;
  * An interconnect is a connection that can host other connections.
  * </p>
  * <p>
- * Like a standard AWS Direct Connect connection, an interconnect represents the physical connection between an AWS Direct Connect partner's network and
- * a specific Direct Connect location. An AWS Direct Connect partner who owns an interconnect can provision hosted connections on the interconnect for
- * their end customers, thereby providing the end customers with connectivity to AWS services.
+ * Like a standard AWS Direct Connect connection, an interconnect
+ * represents the physical connection between an AWS Direct Connect
+ * partner's network and a specific Direct Connect location. An AWS
+ * Direct Connect partner who owns an interconnect can provision hosted
+ * connections on the interconnect for their end customers, thereby
+ * providing the end customers with connectivity to AWS services.
  * </p>
  * <p>
- * The resources of the interconnect, including bandwidth and VLAN numbers, are shared by all of the hosted connections on the interconnect, and the
- * owner of the interconnect determines how these resources are assigned.
+ * The resources of the interconnect, including bandwidth and VLAN
+ * numbers, are shared by all of the hosted connections on the
+ * interconnect, and the owner of the interconnect determines how these
+ * resources are assigned.
  * </p>
  */
 public class Interconnect implements Serializable {
@@ -99,7 +104,7 @@ public class Interconnect implements Serializable {
      *
      * @param interconnectId The ID of the interconnect. <p>Example: dxcon-abc123
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Interconnect withInterconnectId(String interconnectId) {
@@ -138,7 +143,7 @@ public class Interconnect implements Serializable {
      * @param interconnectName The name of the interconnect. <p>Example: "<i>1G Interconnect to
      *         AWS</i>"
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Interconnect withInterconnectName(String interconnectName) {
@@ -226,7 +231,7 @@ public class Interconnect implements Serializable {
      *         The network link is down.</li> <li><b>Deleted</b>: The interconnect
      *         has been deleted.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InterconnectState
@@ -288,7 +293,7 @@ public class Interconnect implements Serializable {
      *         The network link is down.</li> <li><b>Deleted</b>: The interconnect
      *         has been deleted.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InterconnectState
@@ -329,7 +334,7 @@ public class Interconnect implements Serializable {
      * @param region The AWS region where the connection is located. <p>Example: us-east-1
      *         <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Interconnect withRegion(String region) {
@@ -362,7 +367,7 @@ public class Interconnect implements Serializable {
      *
      * @param location Where the connection is located. <p>Example: EqSV5 <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Interconnect withLocation(String location) {
@@ -395,7 +400,7 @@ public class Interconnect implements Serializable {
      *
      * @param bandwidth Bandwidth of the connection. <p>Example: 1Gbps <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Interconnect withBandwidth(String bandwidth) {

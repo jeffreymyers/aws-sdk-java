@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful call to the GetSessionToken action, including temporary AWS credentials that can be used to make AWS requests.
+ * Contains the result of a successful call to the GetSessionToken
+ * action, including temporary AWS credentials that can be used to make
+ * AWS requests.
  * </p>
  */
 public class GetSessionTokenResult implements Serializable {
@@ -53,7 +55,7 @@ public class GetSessionTokenResult implements Serializable {
      *
      * @param credentials The session credentials for API authentication.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetSessionTokenResult withCredentials(Credentials credentials) {

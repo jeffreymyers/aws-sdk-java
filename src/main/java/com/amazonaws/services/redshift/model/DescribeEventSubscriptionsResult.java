@@ -23,10 +23,12 @@ import java.io.Serializable;
 public class DescribeEventSubscriptionsResult implements Serializable {
 
     /**
-     * An optional pagination token provided by a previous
-     * DescribeOrderableClusterOptions request. If this parameter is
-     * specified, the response includes only records beyond the marker, up to
-     * the value specified by MaxRecords.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      */
     private String marker;
 
@@ -36,49 +38,61 @@ public class DescribeEventSubscriptionsResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<EventSubscription> eventSubscriptionsList;
 
     /**
-     * An optional pagination token provided by a previous
-     * DescribeOrderableClusterOptions request. If this parameter is
-     * specified, the response includes only records beyond the marker, up to
-     * the value specified by MaxRecords.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @return An optional pagination token provided by a previous
-     *         DescribeOrderableClusterOptions request. If this parameter is
-     *         specified, the response includes only records beyond the marker, up to
-     *         the value specified by MaxRecords.
+     * @return A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional pagination token provided by a previous
-     * DescribeOrderableClusterOptions request. If this parameter is
-     * specified, the response includes only records beyond the marker, up to
-     * the value specified by MaxRecords.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @param marker An optional pagination token provided by a previous
-     *         DescribeOrderableClusterOptions request. If this parameter is
-     *         specified, the response includes only records beyond the marker, up to
-     *         the value specified by MaxRecords.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional pagination token provided by a previous
-     * DescribeOrderableClusterOptions request. If this parameter is
-     * specified, the response includes only records beyond the marker, up to
-     * the value specified by MaxRecords.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional pagination token provided by a previous
-     *         DescribeOrderableClusterOptions request. If this parameter is
-     *         specified, the response includes only records beyond the marker, up to
-     *         the value specified by MaxRecords.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsResult withMarker(String marker) {
@@ -121,7 +135,7 @@ public class DescribeEventSubscriptionsResult implements Serializable {
      *
      * @param eventSubscriptionsList A list of event subscriptions.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsResult withEventSubscriptionsList(EventSubscription... eventSubscriptionsList) {
@@ -139,7 +153,7 @@ public class DescribeEventSubscriptionsResult implements Serializable {
      *
      * @param eventSubscriptionsList A list of event subscriptions.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventSubscriptionsResult withEventSubscriptionsList(java.util.Collection<EventSubscription> eventSubscriptionsList) {

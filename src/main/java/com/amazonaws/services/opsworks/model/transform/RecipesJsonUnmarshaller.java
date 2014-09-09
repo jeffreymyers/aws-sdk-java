@@ -37,7 +37,7 @@ public class RecipesJsonUnmarshaller implements Unmarshaller<Recipes, JsonUnmars
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,18 +46,23 @@ public class RecipesJsonUnmarshaller implements Unmarshaller<Recipes, JsonUnmars
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Setup", targetDepth)) {
+                    context.nextToken();
                     recipes.setSetup(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Configure", targetDepth)) {
+                    context.nextToken();
                     recipes.setConfigure(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Deploy", targetDepth)) {
+                    context.nextToken();
                     recipes.setDeploy(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Undeploy", targetDepth)) {
+                    context.nextToken();
                     recipes.setUndeploy(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Shutdown", targetDepth)) {
+                    context.nextToken();
                     recipes.setShutdown(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

@@ -13,14 +13,11 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.util;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,40 +27,101 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.amazonaws.AmazonClientException;
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
+import com.sun.org.apache.xml.internal.dtm.DTMManager;
+import com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault;
+import com.sun.org.apache.xpath.internal.XPathContext;
 
 /**
  * Utility methods for extracting data from XML documents using Xpath
  * expressions.
  */
 public class XpathUtils {
+    /** The default property name to load the Xalan DTM manager. */
+    private static final String DTM_MANAGER_DEFAULT_PROP_NAME =
+      "com.sun.org.apache.xml.internal.dtm.DTMManager";
+    /** The default property name to load the Xalan Document Builder Factory. */
+    private static final String DOCUMENT_BUILDER_FACTORY_PROP_NAME =
+      "javax.xml.parsers.DocumentBuilderFactory";
+    private static final Log log = LogFactory.getLog(XpathUtils.class);
 
-    private static XPathFactory xpathFactory = XPathFactory.newInstance();
+    /**
+     * Used to optimize performance by avoiding expensive file access every time
+     * a DTMManager is constructed as a result of constructing a Xalan xpath
+     * context!
+     */
+    private static void speedUpDTMManager() {
+        // https://github.com/aws/aws-sdk-java/issues/238
+        // http://stackoverflow.com/questions/6340802/java-xpath-apache-jaxp-implementation-performance
+        String className = System.getProperty(DTM_MANAGER_DEFAULT_PROP_NAME);
+        if (className == null) {
+            DTMManager dtmManager = new XPathContext().getDTMManager();
+            if (dtmManager instanceof DTMManagerDefault) {
+                // This would avoid the file system to be accessed every time
+                // the internal XPathContext is instantiated.
+                System.setProperty(DTM_MANAGER_DEFAULT_PROP_NAME,
+                        DTMManagerDefault.class.getName());
+            }
+        }
+    }
 
-    private static XPath xpath = xpathFactory.newXPath();
+    /**
+     * Used to optimize performance by avoiding expensive file access every time
+     * a DocumentBuilderFactory is constructed as a result of constructing a
+     * Xalan document factory.
+     */
+    private static void speedUpDcoumentBuilderFactory() {
+        String className = System.getProperty(DOCUMENT_BUILDER_FACTORY_PROP_NAME);
+        if (className == null) {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            if (factory instanceof DocumentBuilderFactoryImpl) {
+                // This would avoid the file system to be accessed every time
+                // the internal DocumentBuilderFactory is instantiated.
+                System.setProperty(DOCUMENT_BUILDER_FACTORY_PROP_NAME,
+                        DocumentBuilderFactoryImpl.class.getName());
+            }
+        }
+    }
 
-    /** Shared DateUtils object for parsing and formatting dates */
-    private static DateUtils dateUtils = new DateUtils();
+    // static initialization block to conservatively speed things up whenever we
+    // can
+    static {
+        try {
+            speedUpDcoumentBuilderFactory();
+        } catch(Throwable t) {
+            log.debug("Ingore failure in speeding up DocumentBuilderFactory", t);
+        }
+        try {
+            speedUpDTMManager();
+        } catch(Throwable t) {
+            log.debug("Ingore failure in speeding up DTMManager", t);
+        }
+    }    
+    
+    // XPath is not thread safe and not reentrant.
+    /**
+     * Returns a new instance of XPath, which is not thread safe and not
+     * reentrant.
+     */
+    public static XPath xpath() {
+        return XPathFactory.newInstance().newXPath();
+    }
 
-    /** Shared logger */
-    private static Log log = LogFactory.getLog(XpathUtils.class);
-
-    private static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-
+    /**
+     * This method closes the given input stream upon completion.
+     */
     public static Document documentFrom(InputStream is)
             throws SAXException, IOException, ParserConfigurationException {
-
         is = new NamespaceRemovingInputStream(is);
+        // DocumentBuilderFactory is not thread safe
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document doc = factory.newDocumentBuilder().parse(is);
         is.close();
         return doc;
@@ -71,7 +129,7 @@ public class XpathUtils {
 
     public static Document documentFrom(String xml) throws SAXException,
             IOException, ParserConfigurationException {
-        return documentFrom(new ByteArrayInputStream(xml.getBytes()));
+        return documentFrom(new ByteArrayInputStream(xml.getBytes(StringUtils.UTF8)));
     }
 
     public static Document documentFrom(URL url) throws SAXException,
@@ -82,27 +140,46 @@ public class XpathUtils {
     /**
      * Evaluates the specified XPath expression and returns the results as a
      * Double.
-     *
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
+     * 
      * @param expression
      *            The XPath expression to evaluate.
      * @param node
      *            The node to run the expression on.
-     *
+     * 
      * @return The Double result.
-     *
+     * 
      * @throws XPathExpressionException
      *             If there was a problem processing the specified XPath
      *             expression.
      */
     public static Double asDouble(String expression, Node node)
             throws XPathExpressionException {
-        String doubleString = evaluateAsString(expression, node);
+        return asDouble(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asDouble(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Double asDouble(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String doubleString = evaluateAsString(expression, node, xpath);
         return (isEmptyString(doubleString)) ? null : Double.parseDouble(doubleString);
     }
 
     /**
      * Evaluates the specified XPath expression and returns the result as a
      * string.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -117,12 +194,26 @@ public class XpathUtils {
      */
     public static String asString(String expression, Node node)
             throws XPathExpressionException {
-        return evaluateAsString(expression, node);
+        return evaluateAsString(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asString(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static String asString(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        return evaluateAsString(expression, node, xpath);
     }
 
     /**
      * Evaluates the specified XPath expression and returns the result as an
      * Integer.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -137,13 +228,27 @@ public class XpathUtils {
      */
     public static Integer asInteger(String expression, Node node)
             throws XPathExpressionException {
-        String intString = evaluateAsString(expression, node);
+        return asInteger(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asInteger(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Integer asInteger(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String intString = evaluateAsString(expression, node, xpath);
         return (isEmptyString(intString)) ? null : Integer.parseInt(intString);
     }
 
     /**
      * Evaluates the specified XPath expression and returns the result as a
      * Boolean.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -158,13 +263,27 @@ public class XpathUtils {
      */
     public static Boolean asBoolean(String expression, Node node)
             throws XPathExpressionException {
-        String booleanString = evaluateAsString(expression, node);
+        return asBoolean(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asBoolean(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Boolean asBoolean(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String booleanString = evaluateAsString(expression, node, xpath);
         return (isEmptyString(booleanString)) ? null : Boolean.parseBoolean(booleanString);
     }
 
     /**
      * Evaluates the specified XPath expression and returns the result as a
      * Float.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -179,13 +298,27 @@ public class XpathUtils {
      */
     public static Float asFloat(String expression, Node node)
             throws XPathExpressionException {
-        String floatString = evaluateAsString(expression, node);
+        return asFloat(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asFloat(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Float asFloat(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String floatString = evaluateAsString(expression, node, xpath);
         return (isEmptyString(floatString)) ? null : Float.valueOf(floatString);
     }
 
     /**
      * Evaluates the specified XPath expression and returns the result as a
      * Long.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -200,13 +333,27 @@ public class XpathUtils {
      */
     public static Long asLong(String expression, Node node)
             throws XPathExpressionException {
-        String longString = evaluateAsString(expression, node);
+        return asLong(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asLong(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Long asLong(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String longString = evaluateAsString(expression, node, xpath);
         return (isEmptyString(longString)) ? null : Long.parseLong(longString);
     }
 
     /**
      * Evaluates the specified XPath expression and returns the result as a
      * Byte.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -221,7 +368,16 @@ public class XpathUtils {
      */
     public static Byte asByte(String expression, Node node)
             throws XPathExpressionException {
-        String byteString = evaluateAsString(expression, node);
+        return asByte(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asByte(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Byte asByte(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String byteString = evaluateAsString(expression, node, xpath);
         return (isEmptyString(byteString)) ? null : Byte.valueOf(byteString);
     }
 
@@ -229,6 +385,11 @@ public class XpathUtils {
      * Evaluates the specified XPath expression and returns the result as a
      * Date. Assumes that the node's text is formatted as an ISO 8601 date, as
      * specified by xs:dateTime.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The XPath expression to evaluate.
@@ -243,12 +404,21 @@ public class XpathUtils {
      */
     public static Date asDate(String expression, Node node)
             throws XPathExpressionException {
-        String dateString = evaluateAsString(expression, node);
+        return asDate(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asDate(String, Node)} but allows an xpath to be passed
+     * in explicitly for reuse.
+     */
+    public static Date asDate(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String dateString = evaluateAsString(expression, node, xpath);
         if (isEmptyString(dateString)) return null;
 
         try {
-            return dateUtils.parseIso8601Date(dateString);
-        } catch (ParseException e) {
+            return DateUtils.parseISO8601Date(dateString);
+        } catch (Exception e) {
             log.warn("Unable to parse date '" + dateString + "':  " + e.getMessage(), e);
             return null;
         }
@@ -257,6 +427,11 @@ public class XpathUtils {
     /**
      * Evaluates the specified xpath expression, base64 decodes the data and
      * returns the result as a ByteBuffer.
+     * <p>
+     * This method can be expensive as a new xpath is instantiated per
+     * invocation. Consider passing in the xpath explicitly via {
+     * {@link #asDouble(String, Node, XPath)} instead.  Note {@link XPath} is
+     * not thread-safe and not reentrant.
      *
      * @param expression
      *            The Xpath expression to evaluate.
@@ -271,17 +446,21 @@ public class XpathUtils {
      */
     public static ByteBuffer asByteBuffer(String expression, Node node)
             throws XPathExpressionException {
-        String base64EncodedString = evaluateAsString(expression, node);
+        return asByteBuffer(expression, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asByteBuffer(String, Node)} but allows an xpath to be
+     * passed in explicitly for reuse.
+     */
+    public static ByteBuffer asByteBuffer(String expression, Node node, XPath xpath)
+            throws XPathExpressionException {
+        String base64EncodedString = evaluateAsString(expression, node, xpath);
         if (isEmptyString(base64EncodedString)) return null;
 
         if (!isEmpty(node)) {
-            try {
-                byte[] base64EncodedBytes = base64EncodedString.getBytes("UTF-8");
-                byte[] decodedBytes = Base64.decodeBase64(base64EncodedBytes);
-                return ByteBuffer.wrap(decodedBytes);
-            } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to unmarshall XML data into a ByteBuffer", e);
-            }
+            byte[] decodedBytes = Base64.decode(base64EncodedString);
+            return ByteBuffer.wrap(decodedBytes);
         }
         return null;
     }
@@ -315,6 +494,15 @@ public class XpathUtils {
      */
     public static Node asNode(String nodeName, Node node)
             throws XPathExpressionException {
+        return asNode(nodeName, node, xpath());
+    }
+
+    /**
+     * Same as {@link #asNode(String, Node)} but allows an xpath to be
+     * passed in explicitly for reuse.
+     */
+    public static Node asNode(String nodeName, Node node, XPath xpath)
+            throws XPathExpressionException {
         if (node == null) return null;
         return (Node) xpath.evaluate(nodeName, node, XPathConstants.NODE);
     }
@@ -346,7 +534,8 @@ public class XpathUtils {
      * @throws XPathExpressionException
      *             If there are any problems evaluating the Xpath expression.
      */
-    private static String evaluateAsString(String expression, Node node) throws XPathExpressionException {
+    private static String evaluateAsString(String expression, Node node,
+            XPath xpath) throws XPathExpressionException {
         if (isEmpty(node)) return null;
 
         if (!expression.equals(".")) {
@@ -360,7 +549,7 @@ public class XpathUtils {
              * We skip this test if the expression is "." since we've already
              * checked that the node exists.
              */
-            if (asNode(expression, node) == null) return null;
+            if (asNode(expression, node, xpath) == null) return null;
         }
 
         String s = xpath.evaluate(expression, node);
@@ -376,10 +565,6 @@ public class XpathUtils {
      * @return True if the specified string is null or empty.
      */
     private static boolean isEmptyString(String s) {
-        if (s == null) return true;
-        if (s.trim().equals("")) return true;
-
-        return false;
+        return s == null || s.trim().length() == 0;
     }
-
 }

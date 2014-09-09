@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeDBSnapshots action.
+ * Contains the result of a successful invocation of the
+ * DescribeDBSnapshots action.
  * </p>
  */
 public class DescribeDBSnapshotsResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeDBSnapshotsResult implements Serializable {
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSnapshotsResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeDBSnapshotsResult implements Serializable {
      *
      * @param dBSnapshots A list of <a>DBSnapshot</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSnapshotsResult withDBSnapshots(DBSnapshot... dBSnapshots) {
@@ -133,7 +134,7 @@ public class DescribeDBSnapshotsResult implements Serializable {
      *
      * @param dBSnapshots A list of <a>DBSnapshot</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSnapshotsResult withDBSnapshots(java.util.Collection<DBSnapshot> dBSnapshots) {

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeReservedDBInstances(DescribeReservedDBInstancesRequest) DescribeReservedDBInstances operation}.
  * <p>
- * Returns information about reserved DB instances for this account, or about a specified reserved DB instance.
+ * Returns information about reserved DB instances for this account, or
+ * about a specified reserved DB instance.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeReservedDBInstances(DescribeReservedDBInstancesRequest)
@@ -139,7 +140,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *         parameter to show only the reservation that matches the specified
      *         reservation ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withReservedDBInstanceId(String reservedDBInstanceId) {
@@ -184,7 +185,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *         only purchased reservations matching the specified offering
      *         identifier.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withReservedDBInstancesOfferingId(String reservedDBInstancesOfferingId) {
@@ -223,7 +224,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      * @param dBInstanceClass The DB instance class filter value. Specify this parameter to show
      *         only those reservations matching the specified DB instances class.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withDBInstanceClass(String dBInstanceClass) {
@@ -268,7 +269,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *         parameter to show only reservations for this duration. <p>Valid
      *         Values: <code>1 | 3 | 31536000 | 94608000</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withDuration(String duration) {
@@ -307,7 +308,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      * @param productDescription The product description filter value. Specify this parameter to show
      *         only those reservations matching the specified product description.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withProductDescription(String productDescription) {
@@ -358,7 +359,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *         Values: <code>"Light Utilization" | "Medium Utilization" | "Heavy
      *         Utilization" </code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withOfferingType(String offeringType) {
@@ -397,7 +398,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      * @param multiAZ The Multi-AZ filter value. Specify this parameter to show only those
      *         reservations matching the specified Multi-AZ parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withMultiAZ(Boolean multiAZ) {
@@ -451,7 +452,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withFilters(Filter... filters) {
@@ -469,7 +470,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withFilters(java.util.Collection<Filter> filters) {
@@ -533,7 +534,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *         results can be retrieved. <p>Default: 100 <p>Constraints: minimum 20,
      *         maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withMaxRecords(Integer maxRecords) {
@@ -578,7 +579,7 @@ public class DescribeReservedDBInstancesRequest extends AmazonWebServiceRequest 
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesRequest withMarker(String marker) {

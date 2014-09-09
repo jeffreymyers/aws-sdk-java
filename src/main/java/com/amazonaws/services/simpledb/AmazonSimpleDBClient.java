@@ -30,6 +30,7 @@ import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import static com.amazonaws.util.IOUtils.*;
 
 import com.amazonaws.services.simpledb.model.*;
 import com.amazonaws.services.simpledb.model.transform.*;
@@ -40,18 +41,27 @@ import com.amazonaws.services.simpledb.model.transform.*;
  * completes.
  * <p>
  * Amazon SimpleDB <p>
- * Amazon SimpleDB is a web service providing the core database functions of data indexing and querying in the cloud. By offloading the time and effort
- * associated with building and operating a web-scale database, SimpleDB provides developers the freedom to focus on application development.
+ * Amazon SimpleDB is a web service providing the core database
+ * functions of data indexing and querying in the cloud. By offloading
+ * the time and effort associated with building and operating a web-scale
+ * database, SimpleDB provides developers the freedom to focus on
+ * application development.
  * </p>
  * <p>
- * A traditional, clustered relational database requires a sizable upfront capital outlay, is complex to design, and often requires extensive and
- * repetitive database administration. Amazon SimpleDB is dramatically simpler, requiring no schema, automatically indexing your data and providing a
- * simple API for storage and access. This approach eliminates the administrative burden of data modeling, index maintenance, and performance tuning.
- * Developers gain access to this functionality within Amazon's proven computing environment, are able to scale instantly, and pay only for what they
- * use.
+ * A traditional, clustered relational database requires a sizable
+ * upfront capital outlay, is complex to design, and often requires
+ * extensive and repetitive database administration. Amazon SimpleDB is
+ * dramatically simpler, requiring no schema, automatically indexing your
+ * data and providing a simple API for storage and access. This approach
+ * eliminates the administrative burden of data modeling, index
+ * maintenance, and performance tuning. Developers gain access to this
+ * functionality within Amazon's proven computing environment, are able
+ * to scale instantly, and pay only for what they use.
  * </p>
  * <p>
- * Visit <a href="http://aws.amazon.com/simpledb/"> http://aws.amazon.com/simpledb/ </a> for more information.
+ * Visit
+ * <a href="http://aws.amazon.com/simpledb/"> http://aws.amazon.com/simpledb/ </a>
+ * for more information.
  * </p>
  */
 public class AmazonSimpleDBClient extends AmazonWebServiceClient implements AmazonSimpleDB {
@@ -226,8 +236,10 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
         exceptionUnmarshallers.add(new InvalidNumberValueTestsExceptionUnmarshaller());
         
         exceptionUnmarshallers.add(new LegacyErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("sdb.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/simpledb/request.handlers"));
@@ -281,16 +293,24 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
     public SelectResult select(SelectRequest selectRequest) {
         ExecutionContext executionContext = createExecutionContext(selectRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<SelectRequest> request = null;
         Response<SelectResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new SelectRequestMarshaller().marshall(selectRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SelectRequestMarshaller().marshall(selectRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new SelectResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -301,9 +321,9 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * item. The client may specify new attributes using a combination of the
      * <code>Attribute.X.Name</code> and <code>Attribute.X.Value</code>
      * parameters. The client specifies the first attribute by the parameters
-     * <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code> ,
-     * the second attribute by the parameters <code>Attribute.1.Name</code>
-     * and <code>Attribute.1.Value</code> , and so on.
+     * <code>Attribute.0.Name</code> and <code>Attribute.0.Value</code> , the
+     * second attribute by the parameters <code>Attribute.1.Name</code> and
+     * <code>Attribute.1.Value</code> , and so on.
      * </p>
      * <p>
      * Attributes are uniquely identified in an item by their name/value
@@ -318,14 +338,13 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * parameter for each individual attribute. Setting this value to
      * <code>true</code> causes the new attribute value to replace the
      * existing attribute value(s). For example, if an item has the
-     * attributes <code>{ 'a', '1' }</code> ,
-     * 
-     * <code>{ 'b', '2'}</code> and <code>{ 'b', '3'
-     * }</code> and the requestor calls <code>PutAttributes</code> using the
-     * attributes <code>{ 'b', '4' }</code> with the <code>Replace</code>
-     * parameter set to true, the final attributes of the item are changed to
-     * <code>{ 'a', '1' }</code> and <code>{ 'b', '4' }</code> , which
-     * replaces the previous values of the 'b' attribute with the new value.
+     * attributes <code>{ 'a', '1' }</code> , <code>{ 'b', '2'}</code> and
+     * <code>{ 'b', '3' }</code> and the requestor calls
+     * <code>PutAttributes</code> using the attributes <code>{ 'b', '4'
+     * }</code> with the <code>Replace</code> parameter set to true, the
+     * final attributes of the item are changed to <code>{ 'a', '1' }</code>
+     * and <code>{ 'b', '4' }</code> , which replaces the previous values of
+     * the 'b' attribute with the new value.
      * </p>
      * <p>
      * <b>NOTE:</b> Using PutAttributes to replace attribute values that do
@@ -504,9 +523,9 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * The client can create up to 100 domains per account.
      * </p>
      * <p>
-     * If the client requires additional domains, go to <a
-     * href="http://aws.amazon.com/contact-us/simpledb-limit-request/">
-     * http://aws.amazon.com/contact-us/simpledb-limit-request/ </a> .
+     * If the client requires additional domains, go to
+     * <a href="http://aws.amazon.com/contact-us/simpledb-limit-request/"> http://aws.amazon.com/contact-us/simpledb-limit-request/ </a>
+     * .
      * </p>
      *
      * @param createDomainRequest Container for the necessary parameters to
@@ -627,16 +646,24 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
     public ListDomainsResult listDomains(ListDomainsRequest listDomainsRequest) {
         ExecutionContext executionContext = createExecutionContext(listDomainsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListDomainsRequest> request = null;
         Response<ListDomainsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListDomainsRequestMarshaller().marshall(listDomainsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDomainsRequestMarshaller().marshall(listDomainsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListDomainsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -679,16 +706,24 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
     public GetAttributesResult getAttributes(GetAttributesRequest getAttributesRequest) {
         ExecutionContext executionContext = createExecutionContext(getAttributesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetAttributesRequest> request = null;
         Response<GetAttributesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetAttributesRequestMarshaller().marshall(getAttributesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAttributesRequestMarshaller().marshall(getAttributesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetAttributesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -710,19 +745,17 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * <code>Item.X.Attribute.Y.Value</code> parameters. The client may
      * specify the first attribute for the first item using the parameters
      * <code>Item.0.Attribute.0.Name</code> and
-     * <code>Item.0.Attribute.0.Value</code> ,
-     * and for the second attribute for the first item by the parameters
+     * <code>Item.0.Attribute.0.Value</code> , and for the second attribute
+     * for the first item by the parameters
      * <code>Item.0.Attribute.1.Name</code> and
-     * <code>Item.0.Attribute.1.Value</code> ,
-     * and so on.
+     * <code>Item.0.Attribute.1.Value</code> , and so on.
      * </p>
      * <p>
      * Attributes are uniquely identified within an item by their name/value
      * combination. For example, a single item can have the attributes
      * <code>{ "first_name", "first_value" }</code> and <code>{ "first_name",
-     * "second_value" }</code> .
-     * However, it cannot have two attribute instances where both the
-     * <code>Item.X.Attribute.Y.Name</code> and
+     * "second_value" }</code> . However, it cannot have two attribute
+     * instances where both the <code>Item.X.Attribute.Y.Name</code> and
      * <code>Item.X.Attribute.Y.Value</code> are the same.
      * </p>
      * <p>
@@ -734,9 +767,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * '3' }</code> and the requester does a BatchPutAttributes of
      * <code>{'I', 'b', '4' }</code> with the Replace parameter set to true,
      * the final attributes of the item will be <code>{ 'a', '1' }</code> and
-     * <code>{ 'b', '4' }</code> ,
-     * replacing the previous values of the 'b' attribute with the new
-     * value.
+     * <code>{ 'b', '4' }</code> , replacing the previous values of the 'b'
+     * attribute with the new value.
      * </p>
      * <p>
      * <b>NOTE:</b> You cannot specify an empty string as an item or as an
@@ -833,16 +865,24 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
     public DomainMetadataResult domainMetadata(DomainMetadataRequest domainMetadataRequest) {
         ExecutionContext executionContext = createExecutionContext(domainMetadataRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DomainMetadataRequest> request = null;
         Response<DomainMetadataResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DomainMetadataRequestMarshaller().marshall(domainMetadataRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DomainMetadataRequestMarshaller().marshall(domainMetadataRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DomainMetadataResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -917,7 +957,6 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<X>(unmarshaller);

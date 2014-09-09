@@ -21,15 +21,19 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#getAttributes(GetAttributesRequest) GetAttributes operation}.
  * <p>
- * Returns all of the attributes associated with the specified item. Optionally, the attributes returned can be limited to one or more attributes by
- * specifying an attribute name parameter.
+ * Returns all of the attributes associated with the specified item.
+ * Optionally, the attributes returned can be limited to one or more
+ * attributes by specifying an attribute name parameter.
  * </p>
  * <p>
- * If the item does not exist on the replica that was accessed for this operation, an empty set is returned. The system does not return an error as it
- * cannot guarantee the item does not exist on other replicas.
+ * If the item does not exist on the replica that was accessed for this
+ * operation, an empty set is returned. The system does not return an
+ * error as it cannot guarantee the item does not exist on other
+ * replicas.
  * </p>
  * <p>
- * <b>NOTE:</b> If GetAttributes is called without being passed any attribute names, all the attributes for the item are returned.
+ * <b>NOTE:</b> If GetAttributes is called without being passed any
+ * attribute names, all the attributes for the item are returned.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#getAttributes(GetAttributesRequest)
@@ -105,7 +109,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param domainName The name of the domain in which to perform the operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetAttributesRequest withDomainName(String domainName) {
@@ -138,7 +142,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param itemName The name of the item.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetAttributesRequest withItemName(String itemName) {
@@ -181,7 +185,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param attributeNames The names of the attributes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetAttributesRequest withAttributeNames(String... attributeNames) {
@@ -199,7 +203,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param attributeNames The names of the attributes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetAttributesRequest withAttributeNames(java.util.Collection<String> attributeNames) {
@@ -263,7 +267,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest implements Ser
      *         consistent eventually, and the client may not see data that was
      *         written immediately before your read.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetAttributesRequest withConsistentRead(Boolean consistentRead) {

@@ -37,7 +37,7 @@ public class InstanceJsonUnmarshaller implements Unmarshaller<Instance, JsonUnma
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -53,6 +53,10 @@ public class InstanceJsonUnmarshaller implements Unmarshaller<Instance, JsonUnma
                     context.nextToken();
                     instance.setEc2InstanceId(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("VirtualizationType", targetDepth)) {
+                    context.nextToken();
+                    instance.setVirtualizationType(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("Hostname", targetDepth)) {
                     context.nextToken();
                     instance.setHostname(StringJsonUnmarshaller.getInstance().unmarshall(context));
@@ -62,9 +66,11 @@ public class InstanceJsonUnmarshaller implements Unmarshaller<Instance, JsonUnma
                     instance.setStackId(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("LayerIds", targetDepth)) {
+                    context.nextToken();
                     instance.setLayerIds(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("SecurityGroupIds", targetDepth)) {
+                    context.nextToken();
                     instance.setSecurityGroupIds(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("InstanceType", targetDepth)) {
@@ -154,6 +160,10 @@ public class InstanceJsonUnmarshaller implements Unmarshaller<Instance, JsonUnma
                 if (context.testExpression("InstallUpdatesOnBoot", targetDepth)) {
                     context.nextToken();
                     instance.setInstallUpdatesOnBoot(BooleanJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("EbsOptimized", targetDepth)) {
+                    context.nextToken();
+                    instance.setEbsOptimized(BooleanJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

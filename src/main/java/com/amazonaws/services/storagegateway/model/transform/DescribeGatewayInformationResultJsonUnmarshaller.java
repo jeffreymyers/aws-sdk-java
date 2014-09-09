@@ -37,7 +37,7 @@ public class DescribeGatewayInformationResultJsonUnmarshaller implements Unmarsh
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -62,6 +62,7 @@ public class DescribeGatewayInformationResultJsonUnmarshaller implements Unmarsh
                     describeGatewayInformationResult.setGatewayState(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("GatewayNetworkInterfaces", targetDepth)) {
+                    context.nextToken();
                     describeGatewayInformationResult.setGatewayNetworkInterfaces(new ListUnmarshaller<NetworkInterface>(NetworkInterfaceJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("GatewayType", targetDepth)) {

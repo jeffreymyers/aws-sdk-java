@@ -17,42 +17,53 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Internet Gateway
+ * <p>
+ * Describes an Internet gateway.
+ * </p>
  */
 public class InternetGateway implements Serializable {
 
+    /**
+     * The ID of the Internet gateway.
+     */
     private String internetGatewayId;
 
+    /**
+     * Any VPCs attached to the Internet gateway.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<InternetGatewayAttachment> attachments;
 
+    /**
+     * Any tags assigned to the Internet gateway.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
     /**
-     * Returns the value of the InternetGatewayId property for this object.
+     * The ID of the Internet gateway.
      *
-     * @return The value of the InternetGatewayId property for this object.
+     * @return The ID of the Internet gateway.
      */
     public String getInternetGatewayId() {
         return internetGatewayId;
     }
     
     /**
-     * Sets the value of the InternetGatewayId property for this object.
+     * The ID of the Internet gateway.
      *
-     * @param internetGatewayId The new value for the InternetGatewayId property for this object.
+     * @param internetGatewayId The ID of the Internet gateway.
      */
     public void setInternetGatewayId(String internetGatewayId) {
         this.internetGatewayId = internetGatewayId;
     }
     
     /**
-     * Sets the value of the InternetGatewayId property for this object.
+     * The ID of the Internet gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param internetGatewayId The new value for the InternetGatewayId property for this object.
+     * @param internetGatewayId The ID of the Internet gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InternetGateway withInternetGatewayId(String internetGatewayId) {
@@ -61,9 +72,9 @@ public class InternetGateway implements Serializable {
     }
 
     /**
-     * Returns the value of the Attachments property for this object.
+     * Any VPCs attached to the Internet gateway.
      *
-     * @return The value of the Attachments property for this object.
+     * @return Any VPCs attached to the Internet gateway.
      */
     public java.util.List<InternetGatewayAttachment> getAttachments() {
         if (attachments == null) {
@@ -74,9 +85,9 @@ public class InternetGateway implements Serializable {
     }
     
     /**
-     * Sets the value of the Attachments property for this object.
+     * Any VPCs attached to the Internet gateway.
      *
-     * @param attachments The new value for the Attachments property for this object.
+     * @param attachments Any VPCs attached to the Internet gateway.
      */
     public void setAttachments(java.util.Collection<InternetGatewayAttachment> attachments) {
         if (attachments == null) {
@@ -89,13 +100,13 @@ public class InternetGateway implements Serializable {
     }
     
     /**
-     * Sets the value of the Attachments property for this object.
+     * Any VPCs attached to the Internet gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attachments The new value for the Attachments property for this object.
+     * @param attachments Any VPCs attached to the Internet gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InternetGateway withAttachments(InternetGatewayAttachment... attachments) {
@@ -107,13 +118,13 @@ public class InternetGateway implements Serializable {
     }
     
     /**
-     * Sets the value of the Attachments property for this object.
+     * Any VPCs attached to the Internet gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attachments The new value for the Attachments property for this object.
+     * @param attachments Any VPCs attached to the Internet gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InternetGateway withAttachments(java.util.Collection<InternetGatewayAttachment> attachments) {
@@ -129,9 +140,9 @@ public class InternetGateway implements Serializable {
     }
 
     /**
-     * Returns the value of the Tags property for this object.
+     * Any tags assigned to the Internet gateway.
      *
-     * @return The value of the Tags property for this object.
+     * @return Any tags assigned to the Internet gateway.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -142,9 +153,9 @@ public class InternetGateway implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the Internet gateway.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the Internet gateway.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -157,13 +168,13 @@ public class InternetGateway implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the Internet gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the Internet gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InternetGateway withTags(Tag... tags) {
@@ -175,13 +186,13 @@ public class InternetGateway implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the Internet gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the Internet gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InternetGateway withTags(java.util.Collection<Tag> tags) {

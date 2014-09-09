@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>ContinueAsNewWorkflowExecutionFailed</code> event.
+ * Provides details of the
+ * <code>ContinueAsNewWorkflowExecutionFailed</code> event.
  * </p>
  */
 public class ContinueAsNewWorkflowExecutionFailedEventAttributes implements Serializable {
@@ -113,7 +114,7 @@ public class ContinueAsNewWorkflowExecutionFailedEventAttributes implements Seri
      *         href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
      *         IAM to Manage Access to Amazon SWF Workflows</a>.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ContinueAsNewWorkflowExecutionFailedCause
@@ -167,7 +168,7 @@ public class ContinueAsNewWorkflowExecutionFailedEventAttributes implements Seri
      *         href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using
      *         IAM to Manage Access to Amazon SWF Workflows</a>.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ContinueAsNewWorkflowExecutionFailedCause
@@ -226,7 +227,7 @@ public class ContinueAsNewWorkflowExecutionFailedEventAttributes implements Seri
      *         execution. This information can be useful for diagnosing problems by
      *         tracing back the cause of events.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ContinueAsNewWorkflowExecutionFailedEventAttributes withDecisionTaskCompletedEventId(Long decisionTaskCompletedEventId) {

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeDBSecurityGroups action.
+ * Contains the result of a successful invocation of the
+ * DescribeDBSecurityGroups action.
  * </p>
  */
 public class DescribeDBSecurityGroupsResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeDBSecurityGroupsResult implements Serializable {
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeDBSecurityGroupsResult implements Serializable {
      *
      * @param dBSecurityGroups A list of <a>DBSecurityGroup</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsResult withDBSecurityGroups(DBSecurityGroup... dBSecurityGroups) {
@@ -133,7 +134,7 @@ public class DescribeDBSecurityGroupsResult implements Serializable {
      *
      * @param dBSecurityGroups A list of <a>DBSecurityGroup</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsResult withDBSecurityGroups(java.util.Collection<DBSecurityGroup> dBSecurityGroups) {

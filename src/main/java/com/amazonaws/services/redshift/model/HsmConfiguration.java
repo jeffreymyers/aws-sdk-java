@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Returns information about an HSM configuration, which is an object that describes to Amazon Redshift clusters the information they require to connect
- * to an HSM where they can store database encryption keys.
+ * Returns information about an HSM configuration, which is an object
+ * that describes to Amazon Redshift clusters the information they
+ * require to connect to an HSM where they can store database encryption
+ * keys.
  * </p>
  */
 public class HsmConfiguration implements Serializable {
@@ -71,7 +73,7 @@ public class HsmConfiguration implements Serializable {
      *
      * @param hsmConfigurationIdentifier The name of the Amazon Redshift HSM configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HsmConfiguration withHsmConfigurationIdentifier(String hsmConfigurationIdentifier) {
@@ -104,7 +106,7 @@ public class HsmConfiguration implements Serializable {
      *
      * @param description A text description of the HSM configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HsmConfiguration withDescription(String description) {
@@ -143,7 +145,7 @@ public class HsmConfiguration implements Serializable {
      * @param hsmIpAddress The IP address that the Amazon Redshift cluster must use to access the
      *         HSM.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HsmConfiguration withHsmIpAddress(String hsmIpAddress) {
@@ -182,7 +184,7 @@ public class HsmConfiguration implements Serializable {
      * @param hsmPartitionName The name of the partition in the HSM where the Amazon Redshift
      *         clusters will store their database encryption keys.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HsmConfiguration withHsmPartitionName(String hsmPartitionName) {

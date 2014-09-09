@@ -17,48 +17,68 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Route Table
+ * <p>
+ * Describes a route table.
+ * </p>
  */
 public class RouteTable implements Serializable {
 
+    /**
+     * The ID of the route table.
+     */
     private String routeTableId;
 
+    /**
+     * The ID of the VPC.
+     */
     private String vpcId;
 
+    /**
+     * The routes in the route table.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Route> routes;
 
+    /**
+     * The associations between the route table and one or more subnets.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<RouteTableAssociation> associations;
 
+    /**
+     * Any tags assigned to the route table.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
+    /**
+     * Any virtual private gateway (VGW) propagating routes.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<PropagatingVgw> propagatingVgws;
 
     /**
-     * Returns the value of the RouteTableId property for this object.
+     * The ID of the route table.
      *
-     * @return The value of the RouteTableId property for this object.
+     * @return The ID of the route table.
      */
     public String getRouteTableId() {
         return routeTableId;
     }
     
     /**
-     * Sets the value of the RouteTableId property for this object.
+     * The ID of the route table.
      *
-     * @param routeTableId The new value for the RouteTableId property for this object.
+     * @param routeTableId The ID of the route table.
      */
     public void setRouteTableId(String routeTableId) {
         this.routeTableId = routeTableId;
     }
     
     /**
-     * Sets the value of the RouteTableId property for this object.
+     * The ID of the route table.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param routeTableId The new value for the RouteTableId property for this object.
+     * @param routeTableId The ID of the route table.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withRouteTableId(String routeTableId) {
@@ -67,31 +87,31 @@ public class RouteTable implements Serializable {
     }
 
     /**
-     * Returns the value of the VpcId property for this object.
+     * The ID of the VPC.
      *
-     * @return The value of the VpcId property for this object.
+     * @return The ID of the VPC.
      */
     public String getVpcId() {
         return vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC.
      */
     public void setVpcId(String vpcId) {
         this.vpcId = vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withVpcId(String vpcId) {
@@ -100,9 +120,9 @@ public class RouteTable implements Serializable {
     }
 
     /**
-     * Returns the value of the Routes property for this object.
+     * The routes in the route table.
      *
-     * @return The value of the Routes property for this object.
+     * @return The routes in the route table.
      */
     public java.util.List<Route> getRoutes() {
         if (routes == null) {
@@ -113,9 +133,9 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Routes property for this object.
+     * The routes in the route table.
      *
-     * @param routes The new value for the Routes property for this object.
+     * @param routes The routes in the route table.
      */
     public void setRoutes(java.util.Collection<Route> routes) {
         if (routes == null) {
@@ -128,13 +148,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Routes property for this object.
+     * The routes in the route table.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param routes The new value for the Routes property for this object.
+     * @param routes The routes in the route table.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withRoutes(Route... routes) {
@@ -146,13 +166,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Routes property for this object.
+     * The routes in the route table.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param routes The new value for the Routes property for this object.
+     * @param routes The routes in the route table.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withRoutes(java.util.Collection<Route> routes) {
@@ -168,9 +188,9 @@ public class RouteTable implements Serializable {
     }
 
     /**
-     * Returns the value of the Associations property for this object.
+     * The associations between the route table and one or more subnets.
      *
-     * @return The value of the Associations property for this object.
+     * @return The associations between the route table and one or more subnets.
      */
     public java.util.List<RouteTableAssociation> getAssociations() {
         if (associations == null) {
@@ -181,9 +201,9 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Associations property for this object.
+     * The associations between the route table and one or more subnets.
      *
-     * @param associations The new value for the Associations property for this object.
+     * @param associations The associations between the route table and one or more subnets.
      */
     public void setAssociations(java.util.Collection<RouteTableAssociation> associations) {
         if (associations == null) {
@@ -196,13 +216,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Associations property for this object.
+     * The associations between the route table and one or more subnets.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param associations The new value for the Associations property for this object.
+     * @param associations The associations between the route table and one or more subnets.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withAssociations(RouteTableAssociation... associations) {
@@ -214,13 +234,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Associations property for this object.
+     * The associations between the route table and one or more subnets.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param associations The new value for the Associations property for this object.
+     * @param associations The associations between the route table and one or more subnets.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withAssociations(java.util.Collection<RouteTableAssociation> associations) {
@@ -236,9 +256,9 @@ public class RouteTable implements Serializable {
     }
 
     /**
-     * Returns the value of the Tags property for this object.
+     * Any tags assigned to the route table.
      *
-     * @return The value of the Tags property for this object.
+     * @return Any tags assigned to the route table.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -249,9 +269,9 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the route table.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the route table.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -264,13 +284,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the route table.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the route table.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withTags(Tag... tags) {
@@ -282,13 +302,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the route table.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the route table.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withTags(java.util.Collection<Tag> tags) {
@@ -304,9 +324,9 @@ public class RouteTable implements Serializable {
     }
 
     /**
-     * Returns the value of the PropagatingVgws property for this object.
+     * Any virtual private gateway (VGW) propagating routes.
      *
-     * @return The value of the PropagatingVgws property for this object.
+     * @return Any virtual private gateway (VGW) propagating routes.
      */
     public java.util.List<PropagatingVgw> getPropagatingVgws() {
         if (propagatingVgws == null) {
@@ -317,9 +337,9 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the PropagatingVgws property for this object.
+     * Any virtual private gateway (VGW) propagating routes.
      *
-     * @param propagatingVgws The new value for the PropagatingVgws property for this object.
+     * @param propagatingVgws Any virtual private gateway (VGW) propagating routes.
      */
     public void setPropagatingVgws(java.util.Collection<PropagatingVgw> propagatingVgws) {
         if (propagatingVgws == null) {
@@ -332,13 +352,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the PropagatingVgws property for this object.
+     * Any virtual private gateway (VGW) propagating routes.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param propagatingVgws The new value for the PropagatingVgws property for this object.
+     * @param propagatingVgws Any virtual private gateway (VGW) propagating routes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withPropagatingVgws(PropagatingVgw... propagatingVgws) {
@@ -350,13 +370,13 @@ public class RouteTable implements Serializable {
     }
     
     /**
-     * Sets the value of the PropagatingVgws property for this object.
+     * Any virtual private gateway (VGW) propagating routes.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param propagatingVgws The new value for the PropagatingVgws property for this object.
+     * @param propagatingVgws Any virtual private gateway (VGW) propagating routes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RouteTable withPropagatingVgws(java.util.Collection<PropagatingVgw> propagatingVgws) {

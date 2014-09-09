@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#addTags(AddTagsRequest) AddTags operation}.
  * <p>
- * Adds tags to an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as grouping clusters to track your Amazon EMR
- * resource allocation costs. For more information, see <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">
- * Tagging Amazon EMR Resources </a> .
+ * Adds tags to an Amazon EMR resource. Tags make it easier to associate
+ * clusters in various ways, such as grouping clusters to track your
+ * Amazon EMR resource allocation costs. For more information, see
+ * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html"> Tagging Amazon EMR Resources </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#addTags(AddTagsRequest)
@@ -110,7 +112,7 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
      * @param resourceId The Amazon EMR resource identifier to which tags will be added. This
      *         value must be a cluster identifier.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddTagsRequest withResourceId(String resourceId) {
@@ -171,7 +173,7 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
      *         required key string with a maximum of 128 characters, and an optional
      *         value string with a maximum of 256 characters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddTagsRequest withTags(Tag... tags) {
@@ -195,7 +197,7 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
      *         required key string with a maximum of 128 characters, and an optional
      *         value string with a maximum of 256 characters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddTagsRequest withTags(java.util.Collection<Tag> tags) {

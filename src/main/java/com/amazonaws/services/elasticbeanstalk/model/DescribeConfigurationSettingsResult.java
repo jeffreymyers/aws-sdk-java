@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The results from a request to change the configuration settings of an environment.
+ * The results from a request to change the configuration settings of an
+ * environment.
  * </p>
  */
 public class DescribeConfigurationSettingsResult implements Serializable {
@@ -63,7 +64,7 @@ public class DescribeConfigurationSettingsResult implements Serializable {
      *
      * @param configurationSettings A list of <a>ConfigurationSettingsDescription</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConfigurationSettingsResult withConfigurationSettings(ConfigurationSettingsDescription... configurationSettings) {
@@ -81,7 +82,7 @@ public class DescribeConfigurationSettingsResult implements Serializable {
      *
      * @param configurationSettings A list of <a>ConfigurationSettingsDescription</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConfigurationSettingsResult withConfigurationSettings(java.util.Collection<ConfigurationSettingsDescription> configurationSettings) {

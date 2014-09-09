@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#modifyInstanceGroups(ModifyInstanceGroupsRequest) ModifyInstanceGroups operation}.
  * <p>
- * ModifyInstanceGroups modifies the number of nodes and configuration settings of an instance group. The input parameters include the new target
- * instance count for the group and the instance group ID. The call will either succeed or fail atomically.
+ * ModifyInstanceGroups modifies the number of nodes and configuration
+ * settings of an instance group. The input parameters include the new
+ * target instance count for the group and the instance group ID. The
+ * call will either succeed or fail atomically.
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#modifyInstanceGroups(ModifyInstanceGroupsRequest)
@@ -86,7 +88,7 @@ public class ModifyInstanceGroupsRequest extends AmazonWebServiceRequest impleme
      *
      * @param instanceGroups Instance groups to change.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyInstanceGroupsRequest withInstanceGroups(InstanceGroupModifyConfig... instanceGroups) {
@@ -104,7 +106,7 @@ public class ModifyInstanceGroupsRequest extends AmazonWebServiceRequest impleme
      *
      * @param instanceGroups Instance groups to change.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyInstanceGroupsRequest withInstanceGroups(java.util.Collection<InstanceGroupModifyConfig> instanceGroups) {

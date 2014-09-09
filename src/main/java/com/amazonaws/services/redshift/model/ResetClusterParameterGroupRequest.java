@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#resetClusterParameterGroup(ResetClusterParameterGroupRequest) ResetClusterParameterGroup operation}.
  * <p>
- * Sets one or more parameters of the specified parameter group to their default values and sets the source values of the parameters to
- * "engine-default". To reset the entire parameter group specify the <i>ResetAllParameters</i> parameter. For parameter changes to take effect you must
- * reboot any associated clusters.
+ * Sets one or more parameters of the specified parameter group to their
+ * default values and sets the source values of the parameters to
+ * "engine-default". To reset the entire parameter group specify the
+ * <i>ResetAllParameters</i> parameter. For parameter changes to take
+ * effect you must reboot any associated clusters.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#resetClusterParameterGroup(ResetClusterParameterGroupRequest)
@@ -74,7 +76,7 @@ public class ResetClusterParameterGroupRequest extends AmazonWebServiceRequest i
      *
      * @param parameterGroupName The name of the cluster parameter group to be reset.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetClusterParameterGroupRequest withParameterGroupName(String parameterGroupName) {
@@ -113,7 +115,7 @@ public class ResetClusterParameterGroupRequest extends AmazonWebServiceRequest i
      * @param resetAllParameters If <code>true</code>, all parameters in the specified parameter group
      *         will be reset to their default values. <p>Default: <code>true</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetClusterParameterGroupRequest withResetAllParameters(Boolean resetAllParameters) {
@@ -185,7 +187,7 @@ public class ResetClusterParameterGroupRequest extends AmazonWebServiceRequest i
      *         parameter name must be supplied. <p>Constraints: A maximum of 20
      *         parameters can be reset in a single request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetClusterParameterGroupRequest withParameters(Parameter... parameters) {
@@ -209,7 +211,7 @@ public class ResetClusterParameterGroupRequest extends AmazonWebServiceRequest i
      *         parameter name must be supplied. <p>Constraints: A maximum of 20
      *         parameters can be reset in a single request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetClusterParameterGroupRequest withParameters(java.util.Collection<Parameter> parameters) {

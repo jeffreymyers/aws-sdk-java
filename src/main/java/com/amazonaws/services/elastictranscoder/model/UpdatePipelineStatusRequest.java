@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#updatePipelineStatus(UpdatePipelineStatusRequest) UpdatePipelineStatus operation}.
  * <p>
- * The UpdatePipelineStatus operation pauses or reactivates a pipeline, so that the pipeline stops or restarts the processing of jobs.
+ * The UpdatePipelineStatus operation pauses or reactivates a pipeline,
+ * so that the pipeline stops or restarts the processing of jobs.
  * </p>
  * <p>
- * Changing the pipeline status is useful if you want to cancel one or more jobs. You can't cancel jobs after Elastic Transcoder has started processing
- * them; if you pause the pipeline to which you submitted the jobs, you have more time to get the job IDs for the jobs that you want to cancel, and to
- * send a CancelJob request.
+ * Changing the pipeline status is useful if you want to cancel one or
+ * more jobs. You can't cancel jobs after Elastic Transcoder has started
+ * processing them; if you pause the pipeline to which you submitted the
+ * jobs, you have more time to get the job IDs for the jobs that you want
+ * to cancel, and to send a CancelJob request.
  * </p>
  *
  * @see com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#updatePipelineStatus(UpdatePipelineStatusRequest)
@@ -85,7 +88,7 @@ public class UpdatePipelineStatusRequest extends AmazonWebServiceRequest impleme
      *
      * @param id The identifier of the pipeline to update.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineStatusRequest withId(String id) {
@@ -139,7 +142,7 @@ public class UpdatePipelineStatusRequest extends AmazonWebServiceRequest impleme
      *         pipeline is processing jobs.</li> <li> <code>Paused</code>: The
      *         pipeline is not currently processing jobs.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineStatusRequest withStatus(String status) {

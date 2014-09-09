@@ -18,70 +18,68 @@ import java.io.Serializable;
 
 /**
  * <p>
- * An Amazon EC2 reservation of requested EC2 instances.
+ * Describes a reservation.
  * </p>
  */
 public class Reservation implements Serializable {
 
     /**
-     * The unique ID of this reservation.
+     * The ID of the reservation.
      */
     private String reservationId;
 
     /**
-     * The AWS Access Key ID of the user who owns the reservation.
+     * The ID of the AWS account that owns the reservation.
      */
     private String ownerId;
 
     /**
-     * The unique ID of the user who requested the instances in this
-     * reservation.
+     * The ID of the requester that launched the instances on your behalf
+     * (for example, AWS Management Console or Auto Scaling).
      */
     private String requesterId;
 
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<GroupIdentifier> groups;
 
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> groupNames;
 
     /**
-     * The list of Amazon EC2 instances included in this reservation.
+     * One or more instances.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Instance> instances;
 
     /**
-     * The unique ID of this reservation.
+     * The ID of the reservation.
      *
-     * @return The unique ID of this reservation.
+     * @return The ID of the reservation.
      */
     public String getReservationId() {
         return reservationId;
     }
     
     /**
-     * The unique ID of this reservation.
+     * The ID of the reservation.
      *
-     * @param reservationId The unique ID of this reservation.
+     * @param reservationId The ID of the reservation.
      */
     public void setReservationId(String reservationId) {
         this.reservationId = reservationId;
     }
     
     /**
-     * The unique ID of this reservation.
+     * The ID of the reservation.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param reservationId The unique ID of this reservation.
+     * @param reservationId The ID of the reservation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withReservationId(String reservationId) {
@@ -90,31 +88,31 @@ public class Reservation implements Serializable {
     }
 
     /**
-     * The AWS Access Key ID of the user who owns the reservation.
+     * The ID of the AWS account that owns the reservation.
      *
-     * @return The AWS Access Key ID of the user who owns the reservation.
+     * @return The ID of the AWS account that owns the reservation.
      */
     public String getOwnerId() {
         return ownerId;
     }
     
     /**
-     * The AWS Access Key ID of the user who owns the reservation.
+     * The ID of the AWS account that owns the reservation.
      *
-     * @param ownerId The AWS Access Key ID of the user who owns the reservation.
+     * @param ownerId The ID of the AWS account that owns the reservation.
      */
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
     
     /**
-     * The AWS Access Key ID of the user who owns the reservation.
+     * The ID of the AWS account that owns the reservation.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param ownerId The AWS Access Key ID of the user who owns the reservation.
+     * @param ownerId The ID of the AWS account that owns the reservation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withOwnerId(String ownerId) {
@@ -123,37 +121,37 @@ public class Reservation implements Serializable {
     }
 
     /**
-     * The unique ID of the user who requested the instances in this
-     * reservation.
+     * The ID of the requester that launched the instances on your behalf
+     * (for example, AWS Management Console or Auto Scaling).
      *
-     * @return The unique ID of the user who requested the instances in this
-     *         reservation.
+     * @return The ID of the requester that launched the instances on your behalf
+     *         (for example, AWS Management Console or Auto Scaling).
      */
     public String getRequesterId() {
         return requesterId;
     }
     
     /**
-     * The unique ID of the user who requested the instances in this
-     * reservation.
+     * The ID of the requester that launched the instances on your behalf
+     * (for example, AWS Management Console or Auto Scaling).
      *
-     * @param requesterId The unique ID of the user who requested the instances in this
-     *         reservation.
+     * @param requesterId The ID of the requester that launched the instances on your behalf
+     *         (for example, AWS Management Console or Auto Scaling).
      */
     public void setRequesterId(String requesterId) {
         this.requesterId = requesterId;
     }
     
     /**
-     * The unique ID of the user who requested the instances in this
-     * reservation.
+     * The ID of the requester that launched the instances on your behalf
+     * (for example, AWS Management Console or Auto Scaling).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param requesterId The unique ID of the user who requested the instances in this
-     *         reservation.
+     * @param requesterId The ID of the requester that launched the instances on your behalf
+     *         (for example, AWS Management Console or Auto Scaling).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withRequesterId(String requesterId) {
@@ -162,11 +160,9 @@ public class Reservation implements Serializable {
     }
 
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      *
-     * @return The list of security groups requested for the instances in this
-     *         reservation.
+     * @return One or more security groups.
      */
     public java.util.List<GroupIdentifier> getGroups() {
         if (groups == null) {
@@ -177,11 +173,9 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      *
-     * @param groups The list of security groups requested for the instances in this
-     *         reservation.
+     * @param groups One or more security groups.
      */
     public void setGroups(java.util.Collection<GroupIdentifier> groups) {
         if (groups == null) {
@@ -194,15 +188,13 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groups The list of security groups requested for the instances in this
-     *         reservation.
+     * @param groups One or more security groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withGroups(GroupIdentifier... groups) {
@@ -214,15 +206,13 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groups The list of security groups requested for the instances in this
-     *         reservation.
+     * @param groups One or more security groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withGroups(java.util.Collection<GroupIdentifier> groups) {
@@ -238,11 +228,9 @@ public class Reservation implements Serializable {
     }
 
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      *
-     * @return The list of security groups requested for the instances in this
-     *         reservation.
+     * @return One or more security groups.
      */
     public java.util.List<String> getGroupNames() {
         if (groupNames == null) {
@@ -253,11 +241,9 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      *
-     * @param groupNames The list of security groups requested for the instances in this
-     *         reservation.
+     * @param groupNames One or more security groups.
      */
     public void setGroupNames(java.util.Collection<String> groupNames) {
         if (groupNames == null) {
@@ -270,15 +256,13 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groupNames The list of security groups requested for the instances in this
-     *         reservation.
+     * @param groupNames One or more security groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withGroupNames(String... groupNames) {
@@ -290,15 +274,13 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of security groups requested for the instances in this
-     * reservation.
+     * One or more security groups.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groupNames The list of security groups requested for the instances in this
-     *         reservation.
+     * @param groupNames One or more security groups.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withGroupNames(java.util.Collection<String> groupNames) {
@@ -314,9 +296,9 @@ public class Reservation implements Serializable {
     }
 
     /**
-     * The list of Amazon EC2 instances included in this reservation.
+     * One or more instances.
      *
-     * @return The list of Amazon EC2 instances included in this reservation.
+     * @return One or more instances.
      */
     public java.util.List<Instance> getInstances() {
         if (instances == null) {
@@ -327,9 +309,9 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of Amazon EC2 instances included in this reservation.
+     * One or more instances.
      *
-     * @param instances The list of Amazon EC2 instances included in this reservation.
+     * @param instances One or more instances.
      */
     public void setInstances(java.util.Collection<Instance> instances) {
         if (instances == null) {
@@ -342,13 +324,13 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of Amazon EC2 instances included in this reservation.
+     * One or more instances.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instances The list of Amazon EC2 instances included in this reservation.
+     * @param instances One or more instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withInstances(Instance... instances) {
@@ -360,13 +342,13 @@ public class Reservation implements Serializable {
     }
     
     /**
-     * The list of Amazon EC2 instances included in this reservation.
+     * One or more instances.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instances The list of Amazon EC2 instances included in this reservation.
+     * @param instances One or more instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Reservation withInstances(java.util.Collection<Instance> instances) {

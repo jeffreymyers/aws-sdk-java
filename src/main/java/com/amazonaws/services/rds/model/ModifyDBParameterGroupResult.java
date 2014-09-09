@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the ModifyDBParameterGroup or ResetDBParameterGroup action.
+ * Contains the result of a successful invocation of the
+ * ModifyDBParameterGroup or ResetDBParameterGroup action.
  * </p>
  */
 public class ModifyDBParameterGroupResult implements Serializable {
@@ -53,7 +54,7 @@ public class ModifyDBParameterGroupResult implements Serializable {
      *
      * @param dBParameterGroupName The name of the DB parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBParameterGroupResult withDBParameterGroupName(String dBParameterGroupName) {

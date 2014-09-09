@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#createCacheSecurityGroup(CreateCacheSecurityGroupRequest) CreateCacheSecurityGroup operation}.
  * <p>
- * The <i>CreateCacheSecurityGroup</i> operation creates a new cache security group. Use a cache security group to control access to one or more cache
- * clusters.
+ * The <i>CreateCacheSecurityGroup</i> operation creates a new cache
+ * security group. Use a cache security group to control access to one or
+ * more cache clusters.
  * </p>
  * <p>
- * Cache security groups are only used when you are creating a cluster outside of an Amazon Virtual Private Cloud (VPC). If you are creating a cluster
- * inside of a VPC, use a cache subnet group instead. For more information, see <i>CreateCacheSubnetGroup</i> .
+ * Cache security groups are only used when you are creating a cluster
+ * outside of an Amazon Virtual Private Cloud (VPC). If you are creating
+ * a cluster inside of a VPC, use a cache subnet group instead. For more
+ * information, see <i>CreateCacheSubnetGroup</i> .
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#createCacheSecurityGroup(CreateCacheSecurityGroupRequest)
@@ -111,7 +114,7 @@ public class CreateCacheSecurityGroupRequest extends AmazonWebServiceRequest imp
      *         alphanumeric characters. Must not be the word "Default". <p>Example:
      *         <code>mysecuritygroup</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCacheSecurityGroupRequest withCacheSecurityGroupName(String cacheSecurityGroupName) {
@@ -144,7 +147,7 @@ public class CreateCacheSecurityGroupRequest extends AmazonWebServiceRequest imp
      *
      * @param description A description for the cache security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCacheSecurityGroupRequest withDescription(String description) {

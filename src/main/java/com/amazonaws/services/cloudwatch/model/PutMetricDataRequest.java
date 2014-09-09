@@ -21,20 +21,25 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#putMetricData(PutMetricDataRequest) PutMetricData operation}.
  * <p>
- * Publishes metric data points to Amazon CloudWatch. Amazon Cloudwatch associates the data points with the specified metric. If the specified metric
- * does not exist, Amazon CloudWatch creates the metric.
+ * Publishes metric data points to Amazon CloudWatch. Amazon Cloudwatch
+ * associates the data points with the specified metric. If the specified
+ * metric does not exist, Amazon CloudWatch creates the metric.
  * </p>
  * <p>
- * <b>NOTE:</b> If you create a metric with the PutMetricData action, allow up to fifteen minutes for the metric to appear in calls to the ListMetrics
- * action.
+ * <b>NOTE:</b> If you create a metric with the PutMetricData action,
+ * allow up to fifteen minutes for the metric to appear in calls to the
+ * ListMetrics action.
  * </p>
  * <p>
- * The size of a PutMetricData request is limited to 8 KB for HTTP GET requests and 40 KB for HTTP POST requests.
+ * The size of a PutMetricData request is limited to 8 KB for HTTP GET
+ * requests and 40 KB for HTTP POST requests.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> Although the Value parameter accepts numbers of type Double, Amazon CloudWatch truncates values with very large exponents. Values
- * with base-10 exponents greater than 126 (1 x 10^126) are truncated. Likewise, values with base-10 exponents less than -130 (1 x 10^-130) are also
- * truncated.
+ * <b>IMPORTANT:</b> Although the Value parameter accepts numbers of type
+ * Double, Amazon CloudWatch truncates values with very large exponents.
+ * Values with base-10 exponents greater than 126 (1 x 10^126) are
+ * truncated. Likewise, values with base-10 exponents less than -130 (1 x
+ * 10^-130) are also truncated.
  * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#putMetricData(PutMetricDataRequest)
@@ -92,7 +97,7 @@ public class PutMetricDataRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param namespace The namespace for the metric data.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutMetricDataRequest withNamespace(String namespace) {
@@ -135,7 +140,7 @@ public class PutMetricDataRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param metricData A list of data describing the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutMetricDataRequest withMetricData(MetricDatum... metricData) {
@@ -153,7 +158,7 @@ public class PutMetricDataRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param metricData A list of data describing the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PutMetricDataRequest withMetricData(java.util.Collection<MetricDatum> metricData) {

@@ -27,6 +27,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#updateDefaultSearchField(UpdateDefaultSearchFieldRequest)
  */
+@Deprecated
 public class UpdateDefaultSearchFieldRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

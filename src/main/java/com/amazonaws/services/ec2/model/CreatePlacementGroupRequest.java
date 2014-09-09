@@ -23,8 +23,14 @@ import com.amazonaws.services.ec2.model.transform.CreatePlacementGroupRequestMar
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#createPlacementGroup(CreatePlacementGroupRequest) CreatePlacementGroup operation}.
  * <p>
- * Creates a PlacementGroup into which multiple Amazon EC2 instances can be launched. Users must give the group a name unique within the scope of the
- * user account.
+ * Creates a placement group that you launch cluster instances into. You
+ * must give the group a name that's unique within the scope of your
+ * account.
+ * </p>
+ * <p>
+ * For more information about placement groups and cluster instances, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#createPlacementGroup(CreatePlacementGroupRequest)
@@ -32,12 +38,13 @@ import com.amazonaws.services.ec2.model.transform.CreatePlacementGroupRequestMar
 public class CreatePlacementGroupRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<CreatePlacementGroupRequest> {
 
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * A name for the placement group. <p>Constraints: Up to 255 ASCII
+     * characters
      */
     private String groupName;
 
     /**
-     * The <code>PlacementGroup</code> strategy.
+     * The placement strategy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>cluster
@@ -55,8 +62,9 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param groupName The name of the <code>PlacementGroup</code>.
-     * @param strategy The <code>PlacementGroup</code> strategy.
+     * @param groupName A name for the placement group. <p>Constraints: Up to
+     * 255 ASCII characters
+     * @param strategy The placement strategy.
      */
     public CreatePlacementGroupRequest(String groupName, String strategy) {
         setGroupName(groupName);
@@ -68,8 +76,9 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param groupName The name of the <code>PlacementGroup</code>.
-     * @param strategy The <code>PlacementGroup</code> strategy.
+     * @param groupName A name for the placement group. <p>Constraints: Up to
+     * 255 ASCII characters
+     * @param strategy The placement strategy.
      */
     public CreatePlacementGroupRequest(String groupName, PlacementStrategy strategy) {
         this.groupName = groupName;
@@ -77,31 +86,37 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * A name for the placement group. <p>Constraints: Up to 255 ASCII
+     * characters
      *
-     * @return The name of the <code>PlacementGroup</code>.
+     * @return A name for the placement group. <p>Constraints: Up to 255 ASCII
+     *         characters
      */
     public String getGroupName() {
         return groupName;
     }
     
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * A name for the placement group. <p>Constraints: Up to 255 ASCII
+     * characters
      *
-     * @param groupName The name of the <code>PlacementGroup</code>.
+     * @param groupName A name for the placement group. <p>Constraints: Up to 255 ASCII
+     *         characters
      */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
     
     /**
-     * The name of the <code>PlacementGroup</code>.
+     * A name for the placement group. <p>Constraints: Up to 255 ASCII
+     * characters
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param groupName The name of the <code>PlacementGroup</code>.
+     * @param groupName A name for the placement group. <p>Constraints: Up to 255 ASCII
+     *         characters
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreatePlacementGroupRequest withGroupName(String groupName) {
@@ -110,12 +125,12 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
-     * The <code>PlacementGroup</code> strategy.
+     * The placement strategy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>cluster
      *
-     * @return The <code>PlacementGroup</code> strategy.
+     * @return The placement strategy.
      *
      * @see PlacementStrategy
      */
@@ -124,12 +139,12 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
     
     /**
-     * The <code>PlacementGroup</code> strategy.
+     * The placement strategy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>cluster
      *
-     * @param strategy The <code>PlacementGroup</code> strategy.
+     * @param strategy The placement strategy.
      *
      * @see PlacementStrategy
      */
@@ -138,16 +153,16 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
     
     /**
-     * The <code>PlacementGroup</code> strategy.
+     * The placement strategy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>cluster
      *
-     * @param strategy The <code>PlacementGroup</code> strategy.
+     * @param strategy The placement strategy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PlacementStrategy
@@ -158,12 +173,12 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
-     * The <code>PlacementGroup</code> strategy.
+     * The placement strategy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>cluster
      *
-     * @param strategy The <code>PlacementGroup</code> strategy.
+     * @param strategy The placement strategy.
      *
      * @see PlacementStrategy
      */
@@ -172,16 +187,16 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
     
     /**
-     * The <code>PlacementGroup</code> strategy.
+     * The placement strategy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>cluster
      *
-     * @param strategy The <code>PlacementGroup</code> strategy.
+     * @param strategy The placement strategy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see PlacementStrategy

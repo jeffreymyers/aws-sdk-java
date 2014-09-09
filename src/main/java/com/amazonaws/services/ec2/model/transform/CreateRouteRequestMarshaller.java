@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class CreateRouteRequestMarshaller implements Marshaller<Request<CreateRo
 
         Request<CreateRouteRequest> request = new DefaultRequest<CreateRouteRequest>(createRouteRequest, "AmazonEC2");
         request.addParameter("Action", "CreateRoute");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (createRouteRequest.getRouteTableId() != null) {
             request.addParameter("RouteTableId", StringUtils.fromString(createRouteRequest.getRouteTableId()));
@@ -54,6 +55,9 @@ public class CreateRouteRequestMarshaller implements Marshaller<Request<CreateRo
         }
         if (createRouteRequest.getNetworkInterfaceId() != null) {
             request.addParameter("NetworkInterfaceId", StringUtils.fromString(createRouteRequest.getNetworkInterfaceId()));
+        }
+        if (createRouteRequest.getVpcPeeringConnectionId() != null) {
+            request.addParameter("VpcPeeringConnectionId", StringUtils.fromString(createRouteRequest.getVpcPeeringConnectionId()));
         }
 
         return request;

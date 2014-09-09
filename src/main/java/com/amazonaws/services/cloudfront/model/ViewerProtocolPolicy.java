@@ -20,7 +20,8 @@ package com.amazonaws.services.cloudfront.model;
 public enum ViewerProtocolPolicy {
     
     AllowAll("allow-all"),
-    HttpsOnly("https-only");
+    HttpsOnly("https-only"),
+    RedirectToHttps("redirect-to-https");
 
     private String value;
 
@@ -48,6 +49,8 @@ public enum ViewerProtocolPolicy {
             return ViewerProtocolPolicy.AllowAll;
         } else if ("https-only".equals(value)) {
             return ViewerProtocolPolicy.HttpsOnly;
+        } else if ("redirect-to-https".equals(value)) {
+            return ViewerProtocolPolicy.RedirectToHttps;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

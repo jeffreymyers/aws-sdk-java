@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#listJobsByPipeline(ListJobsByPipelineRequest) ListJobsByPipeline operation}.
  * <p>
- * The ListJobsByPipeline operation gets a list of the jobs currently in a pipeline.
+ * The ListJobsByPipeline operation gets a list of the jobs currently in
+ * a pipeline.
  * </p>
  * <p>
- * Elastic Transcoder returns all of the jobs currently in the specified pipeline. The response body contains one element for each job that satisfies the
- * search criteria.
+ * Elastic Transcoder returns all of the jobs currently in the specified
+ * pipeline. The response body contains one element for each job that
+ * satisfies the search criteria.
  * </p>
  *
  * @see com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#listJobsByPipeline(ListJobsByPipelineRequest)
@@ -94,7 +96,7 @@ public class ListJobsByPipelineRequest extends AmazonWebServiceRequest implement
      *
      * @param pipelineId The ID of the pipeline for which you want to get job information.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListJobsByPipelineRequest withPipelineId(String pipelineId) {
@@ -148,7 +150,7 @@ public class ListJobsByPipelineRequest extends AmazonWebServiceRequest implement
      *         were submitted, enter <code>true</code>. To list jobs in reverse
      *         chronological order, enter <code>false</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListJobsByPipelineRequest withAscending(String ascending) {
@@ -202,7 +204,7 @@ public class ListJobsByPipelineRequest extends AmazonWebServiceRequest implement
      *         <code>pageToken</code> in subsequent <code>GET</code> requests to get
      *         each successive page of results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListJobsByPipelineRequest withPageToken(String pageToken) {

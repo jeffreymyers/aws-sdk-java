@@ -21,14 +21,19 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#activateGateway(ActivateGatewayRequest) ActivateGateway operation}.
  * <p>
- * This operation activates the gateway you previously deployed on your host. For more information, see <a
- * href="http://docs.aws.amazon.com/storagegateway/latest/userguide/DownloadAndDeploy.html"> Downloading and Deploying AWS Storage Gateway VM </a> . In
- * the activation process you specify information such as the region you want to use for storing snapshots, the time zone for scheduled snapshots and the
- * gateway schedule window, an activation key, and a name for your gateway. The activation process also associates your gateway with your account (see
+ * This operation activates the gateway you previously deployed on your
+ * host. For more information, see
+ * <a href="http://docs.aws.amazon.com/storagegateway/latest/userguide/DownloadAndDeploy.html"> Downloading and Deploying AWS Storage Gateway VM </a>
+ * . In the activation process you specify information such as the
+ * region you want to use for storing snapshots, the time zone for
+ * scheduled snapshots and the gateway schedule window, an activation
+ * key, and a name for your gateway. The activation process also
+ * associates your gateway with your account (see
  * UpdateGatewayInformation).
  * </p>
  * <p>
- * <b>NOTE:</b>You must power on the gateway VM before you can activate your gateway.
+ * <b>NOTE:</b>You must power on the gateway VM before you can activate
+ * your gateway.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#activateGateway(ActivateGatewayRequest)
@@ -178,7 +183,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *         the arguments you pass to the <code>ActivateGateway</code> API call
      *         determine the actual configuration of your gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withActivationKey(String activationKey) {
@@ -235,7 +240,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *         gateway Amazon Resources Name (ARN) which is what you use as an input
      *         to other operations.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withGatewayName(String gatewayName) {
@@ -289,7 +294,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *         gateway. The time zone is used, for example, for scheduling snapshots
      *         and your gateway's maintenance schedule.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withGatewayTimezone(String gatewayTimezone) {
@@ -379,7 +384,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *         <p><i>Valid Values</i>: "us-east-1", "us-west-1", "us-west-2",
      *         "eu-west-1", "ap-northeast-1", "ap-southest-1", "sa-east-1"
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withGatewayRegion(String gatewayRegion) {
@@ -439,7 +444,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *         cannot be changed after activation. The default value is
      *         <code>STORED</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withGatewayType(String gatewayType) {
@@ -481,7 +486,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *
      * @param tapeDriveType The new value for the TapeDriveType property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withTapeDriveType(String tapeDriveType) {
@@ -523,7 +528,7 @@ public class ActivateGatewayRequest extends AmazonWebServiceRequest implements S
      *
      * @param mediumChangerType The new value for the MediumChangerType property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ActivateGatewayRequest withMediumChangerType(String mediumChangerType) {

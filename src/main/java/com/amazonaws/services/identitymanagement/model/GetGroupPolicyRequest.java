@@ -21,8 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#getGroupPolicy(GetGroupPolicyRequest) GetGroupPolicy operation}.
  * <p>
- * Retrieves the specified policy document for the specified group. The returned policy is URL-encoded according to RFC 3986. For more information about
- * RFC 3986, go to <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a> .
+ * Retrieves the specified policy document for the specified group. The
+ * returned policy is URL-encoded according to RFC 3986. For more
+ * information about RFC 3986, go to
+ * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#getGroupPolicy(GetGroupPolicyRequest)
@@ -103,7 +106,7 @@ public class GetGroupPolicyRequest extends AmazonWebServiceRequest implements Se
      *
      * @param groupName Name of the group the policy is associated with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetGroupPolicyRequest withGroupName(String groupName) {
@@ -148,7 +151,7 @@ public class GetGroupPolicyRequest extends AmazonWebServiceRequest implements Se
      *
      * @param policyName Name of the policy document to get.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetGroupPolicyRequest withPolicyName(String policyName) {

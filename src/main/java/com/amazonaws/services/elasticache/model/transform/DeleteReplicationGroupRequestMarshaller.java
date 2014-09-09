@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.elasticache.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,10 +39,16 @@ public class DeleteReplicationGroupRequestMarshaller implements Marshaller<Reque
 
         Request<DeleteReplicationGroupRequest> request = new DefaultRequest<DeleteReplicationGroupRequest>(deleteReplicationGroupRequest, "AmazonElastiCache");
         request.addParameter("Action", "DeleteReplicationGroup");
-        request.addParameter("Version", "2013-06-15");
+        request.addParameter("Version", "2014-07-15");
 
         if (deleteReplicationGroupRequest.getReplicationGroupId() != null) {
             request.addParameter("ReplicationGroupId", StringUtils.fromString(deleteReplicationGroupRequest.getReplicationGroupId()));
+        }
+        if (deleteReplicationGroupRequest.isRetainPrimaryCluster() != null) {
+            request.addParameter("RetainPrimaryCluster", StringUtils.fromBoolean(deleteReplicationGroupRequest.isRetainPrimaryCluster()));
+        }
+        if (deleteReplicationGroupRequest.getFinalSnapshotIdentifier() != null) {
+            request.addParameter("FinalSnapshotIdentifier", StringUtils.fromString(deleteReplicationGroupRequest.getFinalSnapshotIdentifier()));
         }
 
         return request;

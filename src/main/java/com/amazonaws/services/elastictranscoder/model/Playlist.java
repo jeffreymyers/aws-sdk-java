@@ -18,9 +18,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Use Only for MPEG-TS Outputs. If you specify a preset for which the value of Container is <code>ts</code> (MPEG-TS), Playlists contains information
- * about the master playlists that you want Elastic Transcoder to create. We recommend that you create only one master playlist. The maximum number of
- * master playlists in a job is 30.
+ * Use Only for MPEG-TS Outputs. If you specify a preset for which the
+ * value of Container is <code>ts</code> (MPEG-TS), Playlists contains
+ * information about the master playlists that you want Elastic
+ * Transcoder to create. We recommend that you create only one master
+ * playlist. The maximum number of master playlists in a job is 30.
  * </p>
  */
 public class Playlist implements Serializable {
@@ -144,7 +146,7 @@ public class Playlist implements Serializable {
      *         the file name. If you include .m3u8 in <code>Name</code>, it will
      *         appear twice in the file name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Playlist withName(String name) {
@@ -186,7 +188,7 @@ public class Playlist implements Serializable {
      *
      * @param format This value must currently be <code>HLSv3</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Playlist withFormat(String format) {
@@ -256,7 +258,7 @@ public class Playlist implements Serializable {
      *         than one output in a playlist, the value of
      *         <code>SegmentDuration</code> for all of the outputs must be the same.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Playlist withOutputKeys(String... outputKeys) {
@@ -283,7 +285,7 @@ public class Playlist implements Serializable {
      *         than one output in a playlist, the value of
      *         <code>SegmentDuration</code> for all of the outputs must be the same.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Playlist withOutputKeys(java.util.Collection<String> outputKeys) {
@@ -332,7 +334,7 @@ public class Playlist implements Serializable {
      *
      * @param status The status of the job with which the playlist is associated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Playlist withStatus(String status) {
@@ -374,7 +376,7 @@ public class Playlist implements Serializable {
      *
      * @param statusDetail Information that further explains the status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Playlist withStatusDetail(String statusDetail) {

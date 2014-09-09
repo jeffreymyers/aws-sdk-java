@@ -24,21 +24,30 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Gets statistics for the specified metric.
  * </p>
  * <p>
- * <b>NOTE:</b> The maximum number of data points returned from a single GetMetricStatistics request is 1,440. If a request is made that generates more
- * than 1,440 data points, Amazon CloudWatch returns an error. In such a case, alter the request by narrowing the specified time range or increasing the
- * specified period. Alternatively, make multiple requests across adjacent time ranges.
+ * <b>NOTE:</b> The maximum number of data points returned from a single
+ * GetMetricStatistics request is 1,440. If a request is made that
+ * generates more than 1,440 data points, Amazon CloudWatch returns an
+ * error. In such a case, alter the request by narrowing the specified
+ * time range or increasing the specified period. Alternatively, make
+ * multiple requests across adjacent time ranges.
  * </p>
  * <p>
- * Amazon CloudWatch aggregates data points based on the length of the <code>period</code> that you specify. For example, if you request statistics with
- * a one-minute granularity, Amazon CloudWatch aggregates data points with time stamps that fall within the same one-minute period. In such a case, the
- * data points queried can greatly outnumber the data points returned.
+ * Amazon CloudWatch aggregates data points based on the length of the
+ * <code>period</code> that you specify. For example, if you request
+ * statistics with a one-minute granularity, Amazon CloudWatch aggregates
+ * data points with time stamps that fall within the same one-minute
+ * period. In such a case, the data points queried can greatly outnumber
+ * the data points returned.
  * </p>
  * <p>
- * <b>NOTE:</b> The maximum number of data points that can be queried is 50,850; whereas the maximum number of data points returned is 1,440.
+ * <b>NOTE:</b> The maximum number of data points that can be queried is
+ * 50,850; whereas the maximum number of data points returned is 1,440.
  * </p>
  * <p>
- * The following examples show various statistics allowed by the data point query maximum of 50,850 when you call <code>GetMetricStatistics</code> on
- * Amazon EC2 instances with detailed (one-minute) monitoring enabled:
+ * The following examples show various statistics allowed by the data
+ * point query maximum of 50,850 when you call
+ * <code>GetMetricStatistics</code> on Amazon EC2 instances with detailed
+ * (one-minute) monitoring enabled:
  * </p>
  * 
  * <ul>
@@ -158,7 +167,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param namespace The namespace of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withNamespace(String namespace) {
@@ -200,7 +209,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param metricName The name of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withMetricName(String metricName) {
@@ -252,7 +261,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param dimensions A list of dimensions describing qualities of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withDimensions(Dimension... dimensions) {
@@ -273,7 +282,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param dimensions A list of dimensions describing qualities of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withDimensions(java.util.Collection<Dimension> dimensions) {
@@ -349,7 +358,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *         weeks in the past will not return datapoints for metrics that are
      *         older than two weeks. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withStartTime(java.util.Date startTime) {
@@ -394,7 +403,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *         The value specified is exclusive; results will include datapoints up
      *         to the time stamp specified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withEndTime(java.util.Date endTime) {
@@ -448,7 +457,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *         <code>Period</code> must be at least 60 seconds and must be a multiple
      *         of 60. The default value is 60.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withPeriod(Integer period) {
@@ -500,7 +509,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param statistics The metric statistics to return.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withStatistics(String... statistics) {
@@ -521,7 +530,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param statistics The metric statistics to return.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withStatistics(java.util.Collection<String> statistics) {
@@ -546,7 +555,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param statistics The metric statistics to return.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetMetricStatisticsRequest withStatistics(Statistic... statistics) {
@@ -600,7 +609,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param unit The unit for the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StandardUnit
@@ -634,7 +643,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest implemen
      *
      * @param unit The unit for the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StandardUnit

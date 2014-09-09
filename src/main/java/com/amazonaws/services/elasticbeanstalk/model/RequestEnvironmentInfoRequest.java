@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#requestEnvironmentInfo(RequestEnvironmentInfoRequest) RequestEnvironmentInfo operation}.
  * <p>
- * Initiates a request to compile the specified type of information of the deployed environment.
+ * Initiates a request to compile the specified type of information of
+ * the deployed environment.
  * </p>
  * <p>
- * Setting the <code>InfoType</code> to <code>tail</code> compiles the last lines from the application server log files of every Amazon EC2 instance in
- * your environment. Use RetrieveEnvironmentInfo to access the compiled information.
+ * Setting the <code>InfoType</code> to <code>tail</code> compiles the
+ * last lines from the application server log files of every Amazon EC2
+ * instance in your environment. Use RetrieveEnvironmentInfo to access
+ * the compiled information.
  * </p>
  * <p>
  * Related Topics
@@ -154,7 +157,7 @@ public class RequestEnvironmentInfoRequest extends AmazonWebServiceRequest imple
      *         specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RequestEnvironmentInfoRequest withEnvironmentId(String environmentId) {
@@ -226,7 +229,7 @@ public class RequestEnvironmentInfoRequest extends AmazonWebServiceRequest imple
      *         specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RequestEnvironmentInfoRequest withEnvironmentName(String environmentName) {
@@ -272,7 +275,7 @@ public class RequestEnvironmentInfoRequest extends AmazonWebServiceRequest imple
      *
      * @param infoType The type of information to request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EnvironmentInfoType
@@ -306,7 +309,7 @@ public class RequestEnvironmentInfoRequest extends AmazonWebServiceRequest imple
      *
      * @param infoType The type of information to request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EnvironmentInfoType

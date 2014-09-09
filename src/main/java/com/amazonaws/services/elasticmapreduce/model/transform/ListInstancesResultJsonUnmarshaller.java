@@ -37,7 +37,7 @@ public class ListInstancesResultJsonUnmarshaller implements Unmarshaller<ListIns
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class ListInstancesResultJsonUnmarshaller implements Unmarshaller<ListIns
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Instances", targetDepth)) {
+                    context.nextToken();
                     listInstancesResult.setInstances(new ListUnmarshaller<Instance>(InstanceJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Marker", targetDepth)) {

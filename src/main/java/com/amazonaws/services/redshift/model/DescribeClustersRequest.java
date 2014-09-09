@@ -21,10 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#describeClusters(DescribeClustersRequest) DescribeClusters operation}.
  * <p>
- * Returns properties of provisioned clusters including general cluster properties, cluster database properties, maintenance and backup properties, and
- * security and access properties. This operation supports pagination. For more information about managing clusters, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
- * Guide</i> .
+ * Returns properties of provisioned clusters including general cluster
+ * properties, cluster database properties, maintenance and backup
+ * properties, and security and access properties. This operation
+ * supports pagination. For more information about managing clusters, go
+ * to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -34,38 +37,42 @@ public class DescribeClustersRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The unique identifier of a cluster whose properties you are
-     * requesting. This parameter isn't case sensitive. <p>The default is
-     * that all clusters defined for an account are returned.
+     * requesting. This parameter is case sensitive. <p>The default is that
+     * all clusters defined for an account are returned.
      */
     private String clusterIdentifier;
 
     /**
-     * The maximum number of records that the response can include. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * <code>marker</code> is included in the response that can be used in a
-     * new <b>DescribeClusters</b> request to continue listing results.
-     * <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     * and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     private Integer maxRecords;
 
     /**
-     * An optional marker returned by a previous <b>DescribeClusters</b>
-     * request to indicate the first cluster that the current
-     * <b>DescribeClusters</b> request will return. <p>You can specify either
-     * a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     * <b>DescribeClusters</b> request, but not both.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeClusters</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request. <p> Constraints: You can specify either the
+     * <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     * not both.
      */
     private String marker;
 
     /**
      * The unique identifier of a cluster whose properties you are
-     * requesting. This parameter isn't case sensitive. <p>The default is
-     * that all clusters defined for an account are returned.
+     * requesting. This parameter is case sensitive. <p>The default is that
+     * all clusters defined for an account are returned.
      *
      * @return The unique identifier of a cluster whose properties you are
-     *         requesting. This parameter isn't case sensitive. <p>The default is
-     *         that all clusters defined for an account are returned.
+     *         requesting. This parameter is case sensitive. <p>The default is that
+     *         all clusters defined for an account are returned.
      */
     public String getClusterIdentifier() {
         return clusterIdentifier;
@@ -73,12 +80,12 @@ public class DescribeClustersRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The unique identifier of a cluster whose properties you are
-     * requesting. This parameter isn't case sensitive. <p>The default is
-     * that all clusters defined for an account are returned.
+     * requesting. This parameter is case sensitive. <p>The default is that
+     * all clusters defined for an account are returned.
      *
      * @param clusterIdentifier The unique identifier of a cluster whose properties you are
-     *         requesting. This parameter isn't case sensitive. <p>The default is
-     *         that all clusters defined for an account are returned.
+     *         requesting. This parameter is case sensitive. <p>The default is that
+     *         all clusters defined for an account are returned.
      */
     public void setClusterIdentifier(String clusterIdentifier) {
         this.clusterIdentifier = clusterIdentifier;
@@ -86,16 +93,16 @@ public class DescribeClustersRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The unique identifier of a cluster whose properties you are
-     * requesting. This parameter isn't case sensitive. <p>The default is
-     * that all clusters defined for an account are returned.
+     * requesting. This parameter is case sensitive. <p>The default is that
+     * all clusters defined for an account are returned.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param clusterIdentifier The unique identifier of a cluster whose properties you are
-     *         requesting. This parameter isn't case sensitive. <p>The default is
-     *         that all clusters defined for an account are returned.
+     *         requesting. This parameter is case sensitive. <p>The default is that
+     *         all clusters defined for an account are returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClustersRequest withClusterIdentifier(String clusterIdentifier) {
@@ -104,61 +111,61 @@ public class DescribeClustersRequest extends AmazonWebServiceRequest implements 
     }
 
     /**
-     * The maximum number of records that the response can include. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * <code>marker</code> is included in the response that can be used in a
-     * new <b>DescribeClusters</b> request to continue listing results.
-     * <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     * and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return The maximum number of records that the response can include. If more
-     *         records exist than the specified <code>MaxRecords</code> value, a
-     *         <code>marker</code> is included in the response that can be used in a
-     *         new <b>DescribeClusters</b> request to continue listing results.
-     *         <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     *         and no more than 100.
+     * @return The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public Integer getMaxRecords() {
         return maxRecords;
     }
     
     /**
-     * The maximum number of records that the response can include. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * <code>marker</code> is included in the response that can be used in a
-     * new <b>DescribeClusters</b> request to continue listing results.
-     * <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     * and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @param maxRecords The maximum number of records that the response can include. If more
-     *         records exist than the specified <code>MaxRecords</code> value, a
-     *         <code>marker</code> is included in the response that can be used in a
-     *         new <b>DescribeClusters</b> request to continue listing results.
-     *         <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     *         and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
     }
     
     /**
-     * The maximum number of records that the response can include. If more
-     * records exist than the specified <code>MaxRecords</code> value, a
-     * <code>marker</code> is included in the response that can be used in a
-     * new <b>DescribeClusters</b> request to continue listing results.
-     * <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     * and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param maxRecords The maximum number of records that the response can include. If more
-     *         records exist than the specified <code>MaxRecords</code> value, a
-     *         <code>marker</code> is included in the response that can be used in a
-     *         new <b>DescribeClusters</b> request to continue listing results.
-     *         <p>Default: <code>100</code> <p>Constraints: Value must be at least 20
-     *         and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClustersRequest withMaxRecords(Integer maxRecords) {
@@ -167,55 +174,79 @@ public class DescribeClustersRequest extends AmazonWebServiceRequest implements 
     }
 
     /**
-     * An optional marker returned by a previous <b>DescribeClusters</b>
-     * request to indicate the first cluster that the current
-     * <b>DescribeClusters</b> request will return. <p>You can specify either
-     * a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     * <b>DescribeClusters</b> request, but not both.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeClusters</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request. <p> Constraints: You can specify either the
+     * <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     * not both.
      *
-     * @return An optional marker returned by a previous <b>DescribeClusters</b>
-     *         request to indicate the first cluster that the current
-     *         <b>DescribeClusters</b> request will return. <p>You can specify either
-     *         a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     *         <b>DescribeClusters</b> request, but not both.
+     * @return An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a <a>DescribeClusters</a>
+     *         request exceed the value specified in <code>MaxRecords</code>, AWS
+     *         returns a value in the <code>Marker</code> field of the response. You
+     *         can retrieve the next set of response records by providing the
+     *         returned marker value in the <code>Marker</code> parameter and
+     *         retrying the request. <p> Constraints: You can specify either the
+     *         <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     *         not both.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional marker returned by a previous <b>DescribeClusters</b>
-     * request to indicate the first cluster that the current
-     * <b>DescribeClusters</b> request will return. <p>You can specify either
-     * a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     * <b>DescribeClusters</b> request, but not both.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeClusters</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request. <p> Constraints: You can specify either the
+     * <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     * not both.
      *
-     * @param marker An optional marker returned by a previous <b>DescribeClusters</b>
-     *         request to indicate the first cluster that the current
-     *         <b>DescribeClusters</b> request will return. <p>You can specify either
-     *         a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     *         <b>DescribeClusters</b> request, but not both.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a <a>DescribeClusters</a>
+     *         request exceed the value specified in <code>MaxRecords</code>, AWS
+     *         returns a value in the <code>Marker</code> field of the response. You
+     *         can retrieve the next set of response records by providing the
+     *         returned marker value in the <code>Marker</code> parameter and
+     *         retrying the request. <p> Constraints: You can specify either the
+     *         <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     *         not both.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional marker returned by a previous <b>DescribeClusters</b>
-     * request to indicate the first cluster that the current
-     * <b>DescribeClusters</b> request will return. <p>You can specify either
-     * a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     * <b>DescribeClusters</b> request, but not both.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a <a>DescribeClusters</a>
+     * request exceed the value specified in <code>MaxRecords</code>, AWS
+     * returns a value in the <code>Marker</code> field of the response. You
+     * can retrieve the next set of response records by providing the
+     * returned marker value in the <code>Marker</code> parameter and
+     * retrying the request. <p> Constraints: You can specify either the
+     * <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     * not both.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional marker returned by a previous <b>DescribeClusters</b>
-     *         request to indicate the first cluster that the current
-     *         <b>DescribeClusters</b> request will return. <p>You can specify either
-     *         a <b>Marker</b> parameter or a <b>ClusterIdentifier</b> parameter in a
-     *         <b>DescribeClusters</b> request, but not both.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a <a>DescribeClusters</a>
+     *         request exceed the value specified in <code>MaxRecords</code>, AWS
+     *         returns a value in the <code>Marker</code> field of the response. You
+     *         can retrieve the next set of response records by providing the
+     *         returned marker value in the <code>Marker</code> parameter and
+     *         retrying the request. <p> Constraints: You can specify either the
+     *         <b>ClusterIdentifier</b> parameter or the <b>Marker</b> parameter, but
+     *         not both.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClustersRequest withMarker(String marker) {

@@ -18,7 +18,9 @@ import java.io.File;
 
 import com.amazonaws.services.s3.internal.InputSubstream;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.SSECustomerKey;
 import com.amazonaws.services.s3.model.UploadPartRequest;
+import com.amazonaws.services.s3.transfer.TransferManager;
 
 /**
  * Factory for creating all the individual UploadPartRequest objects for a
@@ -39,6 +41,7 @@ public class UploadPartRequestFactory {
     private int partNumber = 1;
     private long offset = 0;
     private long remainingBytes;
+    private SSECustomerKey sseCustomerKey;
 
     public UploadPartRequestFactory(PutObjectRequest putObjectRequest, String uploadId, long optimalPartSize) {
         this.putObjectRequest = putObjectRequest;
@@ -48,6 +51,7 @@ public class UploadPartRequestFactory {
         this.key = putObjectRequest.getKey();
         this.file = TransferManagerUtils.getRequestFile(putObjectRequest);
         this.remainingBytes = TransferManagerUtils.getContentLength(putObjectRequest);
+        this.sseCustomerKey = putObjectRequest.getSSECustomerKey();
     }
 
     public synchronized boolean hasMoreRequests() {
@@ -57,7 +61,7 @@ public class UploadPartRequestFactory {
     public synchronized UploadPartRequest getNextUploadPartRequest() {
         long partSize = Math.min(optimalPartSize, remainingBytes);
         boolean isLastPart = (remainingBytes - partSize <= 0);
-
+        
         UploadPartRequest request = null;
         if (putObjectRequest.getInputStream() != null) {
             request = new UploadPartRequest()
@@ -77,10 +81,13 @@ public class UploadPartRequestFactory {
                 .withPartNumber(partNumber++)
                 .withPartSize(partSize);
         }
+        TransferManager.appendMultipartUserAgent(request);
+
+        if (sseCustomerKey != null) request.setSSECustomerKey(sseCustomerKey);
 
         offset += partSize;
         remainingBytes -= partSize;
-        
+
         request.setLastPart(isLastPart);
         request.setGeneralProgressListener(putObjectRequest.getGeneralProgressListener());
 

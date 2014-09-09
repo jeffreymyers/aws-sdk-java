@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#getUser(GetUserRequest) GetUser operation}.
  * <p>
- * Retrieves information about the specified user, including the user's path, unique ID, and ARN.
+ * Retrieves information about the specified user, including the user's
+ * path, unique ID, and ARN.
  * </p>
  * <p>
- * If you do not specify a user name, IAM determines the user name implicitly based on the AWS access key ID signing the request.
+ * If you do not specify a user name, IAM determines the user name
+ * implicitly based on the AWS access key ID signing the request.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#getUser(GetUserRequest)
@@ -97,7 +99,7 @@ public class GetUserRequest extends AmazonWebServiceRequest implements Serializa
      *         optional. If it is not included, it defaults to the user making the
      *         request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetUserRequest withUserName(String userName) {

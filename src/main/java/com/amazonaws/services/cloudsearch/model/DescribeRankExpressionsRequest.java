@@ -27,6 +27,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#describeRankExpressions(DescribeRankExpressionsRequest)
  */
+@Deprecated
 public class DescribeRankExpressionsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

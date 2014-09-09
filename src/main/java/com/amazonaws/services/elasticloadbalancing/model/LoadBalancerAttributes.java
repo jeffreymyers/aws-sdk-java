@@ -24,40 +24,308 @@ import java.io.Serializable;
 public class LoadBalancerAttributes implements Serializable {
 
     /**
-     * The name of the load balancer attribute.
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * routes the request traffic evenly across all back-end instances
+     * regardless of the Availability Zones. <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     * Cross-Zone Load Balancing</a>.
      */
     private CrossZoneLoadBalancing crossZoneLoadBalancing;
 
     /**
-     * The name of the load balancer attribute.
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * captures detailed information of all the requests and delivers the
+     * information to the Amazon S3 bucket that you specify. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     * Access Logs</a>.
+     */
+    private AccessLog accessLog;
+
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * allows existing requests to complete before the load balancer shifts
+     * traffic away from a deregistered or unhealthy back-end instance.
+     * <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     * Connection Draining</a>.
+     */
+    private ConnectionDraining connectionDraining;
+
+    /**
+     * The name of the load balancer attribute. <p>By default, Elastic Load
+     * Balancing maintains a 60-second idle connection timeout for both
+     * front-end and back-end connections of your load balancer. If the
+     * <code>ConnectionSettings</code> attribute is set, Elastic Load
+     * Balancing will allow the connections to remain idle (no data is sent
+     * over the connection) for the specified duration. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     * Idle Connection Timeout</a>.
+     */
+    private ConnectionSettings connectionSettings;
+
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * routes the request traffic evenly across all back-end instances
+     * regardless of the Availability Zones. <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     * Cross-Zone Load Balancing</a>.
      *
-     * @return The name of the load balancer attribute.
+     * @return The name of the load balancer attribute. If enabled, the load balancer
+     *         routes the request traffic evenly across all back-end instances
+     *         regardless of the Availability Zones. <p>For more information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     *         Cross-Zone Load Balancing</a>.
      */
     public CrossZoneLoadBalancing getCrossZoneLoadBalancing() {
         return crossZoneLoadBalancing;
     }
     
     /**
-     * The name of the load balancer attribute.
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * routes the request traffic evenly across all back-end instances
+     * regardless of the Availability Zones. <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     * Cross-Zone Load Balancing</a>.
      *
-     * @param crossZoneLoadBalancing The name of the load balancer attribute.
+     * @param crossZoneLoadBalancing The name of the load balancer attribute. If enabled, the load balancer
+     *         routes the request traffic evenly across all back-end instances
+     *         regardless of the Availability Zones. <p>For more information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     *         Cross-Zone Load Balancing</a>.
      */
     public void setCrossZoneLoadBalancing(CrossZoneLoadBalancing crossZoneLoadBalancing) {
         this.crossZoneLoadBalancing = crossZoneLoadBalancing;
     }
     
     /**
-     * The name of the load balancer attribute.
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * routes the request traffic evenly across all back-end instances
+     * regardless of the Availability Zones. <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     * Cross-Zone Load Balancing</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param crossZoneLoadBalancing The name of the load balancer attribute.
+     * @param crossZoneLoadBalancing The name of the load balancer attribute. If enabled, the load balancer
+     *         routes the request traffic evenly across all back-end instances
+     *         regardless of the Availability Zones. <p>For more information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-disable-crosszone-lb.html">Enable
+     *         Cross-Zone Load Balancing</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public LoadBalancerAttributes withCrossZoneLoadBalancing(CrossZoneLoadBalancing crossZoneLoadBalancing) {
         this.crossZoneLoadBalancing = crossZoneLoadBalancing;
+        return this;
+    }
+
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * captures detailed information of all the requests and delivers the
+     * information to the Amazon S3 bucket that you specify. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     * Access Logs</a>.
+     *
+     * @return The name of the load balancer attribute. If enabled, the load balancer
+     *         captures detailed information of all the requests and delivers the
+     *         information to the Amazon S3 bucket that you specify. <p>For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     *         Access Logs</a>.
+     */
+    public AccessLog getAccessLog() {
+        return accessLog;
+    }
+    
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * captures detailed information of all the requests and delivers the
+     * information to the Amazon S3 bucket that you specify. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     * Access Logs</a>.
+     *
+     * @param accessLog The name of the load balancer attribute. If enabled, the load balancer
+     *         captures detailed information of all the requests and delivers the
+     *         information to the Amazon S3 bucket that you specify. <p>For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     *         Access Logs</a>.
+     */
+    public void setAccessLog(AccessLog accessLog) {
+        this.accessLog = accessLog;
+    }
+    
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * captures detailed information of all the requests and delivers the
+     * information to the Amazon S3 bucket that you specify. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     * Access Logs</a>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param accessLog The name of the load balancer attribute. If enabled, the load balancer
+     *         captures detailed information of all the requests and delivers the
+     *         information to the Amazon S3 bucket that you specify. <p>For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-access-logs.html">Enable
+     *         Access Logs</a>.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public LoadBalancerAttributes withAccessLog(AccessLog accessLog) {
+        this.accessLog = accessLog;
+        return this;
+    }
+
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * allows existing requests to complete before the load balancer shifts
+     * traffic away from a deregistered or unhealthy back-end instance.
+     * <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     * Connection Draining</a>.
+     *
+     * @return The name of the load balancer attribute. If enabled, the load balancer
+     *         allows existing requests to complete before the load balancer shifts
+     *         traffic away from a deregistered or unhealthy back-end instance.
+     *         <p>For more information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     *         Connection Draining</a>.
+     */
+    public ConnectionDraining getConnectionDraining() {
+        return connectionDraining;
+    }
+    
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * allows existing requests to complete before the load balancer shifts
+     * traffic away from a deregistered or unhealthy back-end instance.
+     * <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     * Connection Draining</a>.
+     *
+     * @param connectionDraining The name of the load balancer attribute. If enabled, the load balancer
+     *         allows existing requests to complete before the load balancer shifts
+     *         traffic away from a deregistered or unhealthy back-end instance.
+     *         <p>For more information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     *         Connection Draining</a>.
+     */
+    public void setConnectionDraining(ConnectionDraining connectionDraining) {
+        this.connectionDraining = connectionDraining;
+    }
+    
+    /**
+     * The name of the load balancer attribute. If enabled, the load balancer
+     * allows existing requests to complete before the load balancer shifts
+     * traffic away from a deregistered or unhealthy back-end instance.
+     * <p>For more information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     * Connection Draining</a>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param connectionDraining The name of the load balancer attribute. If enabled, the load balancer
+     *         allows existing requests to complete before the load balancer shifts
+     *         traffic away from a deregistered or unhealthy back-end instance.
+     *         <p>For more information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-conn-drain.html">Enable
+     *         Connection Draining</a>.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public LoadBalancerAttributes withConnectionDraining(ConnectionDraining connectionDraining) {
+        this.connectionDraining = connectionDraining;
+        return this;
+    }
+
+    /**
+     * The name of the load balancer attribute. <p>By default, Elastic Load
+     * Balancing maintains a 60-second idle connection timeout for both
+     * front-end and back-end connections of your load balancer. If the
+     * <code>ConnectionSettings</code> attribute is set, Elastic Load
+     * Balancing will allow the connections to remain idle (no data is sent
+     * over the connection) for the specified duration. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     * Idle Connection Timeout</a>.
+     *
+     * @return The name of the load balancer attribute. <p>By default, Elastic Load
+     *         Balancing maintains a 60-second idle connection timeout for both
+     *         front-end and back-end connections of your load balancer. If the
+     *         <code>ConnectionSettings</code> attribute is set, Elastic Load
+     *         Balancing will allow the connections to remain idle (no data is sent
+     *         over the connection) for the specified duration. <p>For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     *         Idle Connection Timeout</a>.
+     */
+    public ConnectionSettings getConnectionSettings() {
+        return connectionSettings;
+    }
+    
+    /**
+     * The name of the load balancer attribute. <p>By default, Elastic Load
+     * Balancing maintains a 60-second idle connection timeout for both
+     * front-end and back-end connections of your load balancer. If the
+     * <code>ConnectionSettings</code> attribute is set, Elastic Load
+     * Balancing will allow the connections to remain idle (no data is sent
+     * over the connection) for the specified duration. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     * Idle Connection Timeout</a>.
+     *
+     * @param connectionSettings The name of the load balancer attribute. <p>By default, Elastic Load
+     *         Balancing maintains a 60-second idle connection timeout for both
+     *         front-end and back-end connections of your load balancer. If the
+     *         <code>ConnectionSettings</code> attribute is set, Elastic Load
+     *         Balancing will allow the connections to remain idle (no data is sent
+     *         over the connection) for the specified duration. <p>For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     *         Idle Connection Timeout</a>.
+     */
+    public void setConnectionSettings(ConnectionSettings connectionSettings) {
+        this.connectionSettings = connectionSettings;
+    }
+    
+    /**
+     * The name of the load balancer attribute. <p>By default, Elastic Load
+     * Balancing maintains a 60-second idle connection timeout for both
+     * front-end and back-end connections of your load balancer. If the
+     * <code>ConnectionSettings</code> attribute is set, Elastic Load
+     * Balancing will allow the connections to remain idle (no data is sent
+     * over the connection) for the specified duration. <p>For more
+     * information, see <a
+     * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     * Idle Connection Timeout</a>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param connectionSettings The name of the load balancer attribute. <p>By default, Elastic Load
+     *         Balancing maintains a 60-second idle connection timeout for both
+     *         front-end and back-end connections of your load balancer. If the
+     *         <code>ConnectionSettings</code> attribute is set, Elastic Load
+     *         Balancing will allow the connections to remain idle (no data is sent
+     *         over the connection) for the specified duration. <p>For more
+     *         information, see <a
+     *         href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/config-idle-timeout.html">Configure
+     *         Idle Connection Timeout</a>.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public LoadBalancerAttributes withConnectionSettings(ConnectionSettings connectionSettings) {
+        this.connectionSettings = connectionSettings;
         return this;
     }
 
@@ -73,7 +341,10 @@ public class LoadBalancerAttributes implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getCrossZoneLoadBalancing() != null) sb.append("CrossZoneLoadBalancing: " + getCrossZoneLoadBalancing() );
+        if (getCrossZoneLoadBalancing() != null) sb.append("CrossZoneLoadBalancing: " + getCrossZoneLoadBalancing() + ",");
+        if (getAccessLog() != null) sb.append("AccessLog: " + getAccessLog() + ",");
+        if (getConnectionDraining() != null) sb.append("ConnectionDraining: " + getConnectionDraining() + ",");
+        if (getConnectionSettings() != null) sb.append("ConnectionSettings: " + getConnectionSettings() );
         sb.append("}");
         return sb.toString();
     }
@@ -84,6 +355,9 @@ public class LoadBalancerAttributes implements Serializable {
         int hashCode = 1;
         
         hashCode = prime * hashCode + ((getCrossZoneLoadBalancing() == null) ? 0 : getCrossZoneLoadBalancing().hashCode()); 
+        hashCode = prime * hashCode + ((getAccessLog() == null) ? 0 : getAccessLog().hashCode()); 
+        hashCode = prime * hashCode + ((getConnectionDraining() == null) ? 0 : getConnectionDraining().hashCode()); 
+        hashCode = prime * hashCode + ((getConnectionSettings() == null) ? 0 : getConnectionSettings().hashCode()); 
         return hashCode;
     }
     
@@ -97,6 +371,12 @@ public class LoadBalancerAttributes implements Serializable {
         
         if (other.getCrossZoneLoadBalancing() == null ^ this.getCrossZoneLoadBalancing() == null) return false;
         if (other.getCrossZoneLoadBalancing() != null && other.getCrossZoneLoadBalancing().equals(this.getCrossZoneLoadBalancing()) == false) return false; 
+        if (other.getAccessLog() == null ^ this.getAccessLog() == null) return false;
+        if (other.getAccessLog() != null && other.getAccessLog().equals(this.getAccessLog()) == false) return false; 
+        if (other.getConnectionDraining() == null ^ this.getConnectionDraining() == null) return false;
+        if (other.getConnectionDraining() != null && other.getConnectionDraining().equals(this.getConnectionDraining()) == false) return false; 
+        if (other.getConnectionSettings() == null ^ this.getConnectionSettings() == null) return false;
+        if (other.getConnectionSettings() != null && other.getConnectionSettings().equals(this.getConnectionSettings()) == false) return false; 
         return true;
     }
     

@@ -21,15 +21,23 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#pollForTask(PollForTaskRequest) PollForTask operation}.
  * <p>
- * Task runners call this action to receive a task to perform from AWS Data Pipeline. The task runner specifies which tasks it can perform by setting a
- * value for the workerGroup parameter of the PollForTask call. The task returned by PollForTask may come from any of the pipelines that match the
- * workerGroup value passed in by the task runner and that was launched using the IAM user credentials specified by the task runner.
+ * Task runners call this action to receive a task to perform from AWS
+ * Data Pipeline. The task runner specifies which tasks it can perform by
+ * setting a value for the workerGroup parameter of the PollForTask call.
+ * The task returned by PollForTask may come from any of the pipelines
+ * that match the workerGroup value passed in by the task runner and that
+ * was launched using the IAM user credentials specified by the task
+ * runner.
  * </p>
  * <p>
- * If tasks are ready in the work queue, PollForTask returns a response immediately. If no tasks are available in the queue, PollForTask uses
- * long-polling and holds on to a poll connection for up to a 90 seconds during which time the first newly scheduled task is handed to the task runner.
- * To accomodate this, set the socket timeout in your task runner to 90 seconds. The task runner should not call PollForTask again on the same
- * <code>workerGroup</code> until it receives a response, and this may take up to 90 seconds.
+ * If tasks are ready in the work queue, PollForTask returns a response
+ * immediately. If no tasks are available in the queue, PollForTask uses
+ * long-polling and holds on to a poll connection for up to a 90 seconds
+ * during which time the first newly scheduled task is handed to the task
+ * runner. To accomodate this, set the socket timeout in your task runner
+ * to 90 seconds. The task runner should not call PollForTask again on
+ * the same <code>workerGroup</code> until it receives a response, and
+ * this may take up to 90 seconds.
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#pollForTask(PollForTaskRequest)
@@ -46,7 +54,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String workerGroup;
 
@@ -55,7 +63,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String hostname;
 
@@ -82,7 +90,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Indicates the type of task the task runner is configured to accept and
      *         process. The worker group is set as a field on objects in the pipeline
@@ -105,7 +113,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param workerGroup Indicates the type of task the task runner is configured to accept and
      *         process. The worker group is set as a field on objects in the pipeline
@@ -130,7 +138,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param workerGroup Indicates the type of task the task runner is configured to accept and
      *         process. The worker group is set as a field on objects in the pipeline
@@ -139,7 +147,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      *         no wildcard values permitted in <code>workerGroup</code>, the string
      *         must be an exact, case-sensitive, match.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PollForTaskRequest withWorkerGroup(String workerGroup) {
@@ -152,7 +160,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The public DNS name of the calling task runner.
      */
@@ -165,7 +173,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param hostname The public DNS name of the calling task runner.
      */
@@ -180,11 +188,11 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param hostname The public DNS name of the calling task runner.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PollForTaskRequest withHostname(String hostname) {
@@ -265,7 +273,7 @@ public class PollForTaskRequest extends AmazonWebServiceRequest implements Seria
      *         EC2 instance, and ensures the proper AWS Data Pipeline service charges
      *         are applied to your pipeline.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PollForTaskRequest withInstanceIdentity(InstanceIdentity instanceIdentity) {

@@ -34,19 +34,11 @@ import com.amazonaws.services.ec2.model.*;
  * All asynchronous calls made using this client are non-blocking. Callers could either
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
- * <p>
- * Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud. It is designed to make web-scale
- * computing easier for developers.
- * </p>
- * <p>
- * Amazon EC2's simple web service interface allows you to obtain and configure capacity with minimal friction. It provides you with complete control of
- * your computing resources and lets you run on Amazon's proven computing environment. Amazon EC2 reduces the time required to obtain and boot new server
- * instances to minutes, allowing you to quickly scale capacity, both up and down, as your computing requirements change. Amazon EC2 changes the
- * economics of computing by allowing you to pay only for capacity that you actually use. Amazon EC2 provides developers the tools to build failure
- * resilient applications and isolate themselves from common failure scenarios.
- * </p>
- * <p>
- * Visit <a href="http://aws.amazon.com/ec2/"> http://aws.amazon.com/ec2/ </a> for more information.
+ * Amazon Elastic Compute Cloud <p>
+ * Amazon Elastic Compute Cloud (Amazon EC2) provides resizable computing
+ * capacity in the Amazon Web Services (AWS) cloud. Using Amazon EC2
+ * eliminates your need to invest in hardware up front, so you can
+ * develop and deploy applications faster.
  * </p>
  */
 public class AmazonEC2AsyncClient extends AmazonEC2Client
@@ -56,6 +48,8 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -98,13 +92,13 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonEC2AsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonEC2 using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -116,7 +110,7 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      *                       when authenticating with AWS services.
      */
     public AmazonEC2AsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -170,7 +164,7 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonEC2 using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -183,7 +177,7 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      *            to authenticate requests with AWS services.
      */
     public AmazonEC2AsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -226,7 +220,7 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      */
     public AmazonEC2AsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -270,7 +264,8 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -280,11 +275,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             
     /**
      * <p>
-     * The RebootInstances operation requests a reboot of one or more
-     * instances. This operation is asynchronous; it only queues a request to
-     * reboot the specified instance(s). The operation will succeed if the
-     * instances are valid and belong to the user. Requests to reboot
-     * terminated instances are ignored.
+     * Requests a reboot of one or more instances. This operation is
+     * asynchronous; it only queues a request to reboot the specified
+     * instances. The operation succeeds if the instances are valid and
+     * belong to you. Requests to reboot terminated instances are ignored.
+     * </p>
+     * <p>
+     * If a Linux/Unix instance does not cleanly shut down within four
+     * minutes, Amazon EC2 performs a hard reboot.
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html"> Getting Console Output and Rebooting Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param rebootInstancesRequest Container for the necessary parameters
@@ -308,17 +311,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 rebootInstances(rebootInstancesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The RebootInstances operation requests a reboot of one or more
-     * instances. This operation is asynchronous; it only queues a request to
-     * reboot the specified instance(s). The operation will succeed if the
-     * instances are valid and belong to the user. Requests to reboot
-     * terminated instances are ignored.
+     * Requests a reboot of one or more instances. This operation is
+     * asynchronous; it only queues a request to reboot the specified
+     * instances. The operation succeeds if the instances are valid and
+     * belong to you. Requests to reboot terminated instances are ignored.
+     * </p>
+     * <p>
+     * If a Linux/Unix instance does not cleanly shut down within four
+     * minutes, Amazon EC2 performs a hard reboot.
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html"> Getting Console Output and Rebooting Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param rebootInstancesRequest Container for the necessary parameters
@@ -346,22 +357,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    rebootInstances(rebootInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(rebootInstancesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                rebootInstances(rebootInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(rebootInstancesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeReservedInstances operation describes Reserved Instances
-     * that were purchased for use with your account.
+     * Describes one or more of the Reserved Instances that you purchased.
+     * </p>
+     * <p>
+     * For more information about Reserved Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html"> Reserved Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeReservedInstancesRequest Container for the necessary
@@ -385,14 +400,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeReservedInstancesResult>() {
             public DescribeReservedInstancesResult call() throws Exception {
                 return describeReservedInstances(describeReservedInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeReservedInstances operation describes Reserved Instances
-     * that were purchased for use with your account.
+     * Describes one or more of the Reserved Instances that you purchased.
+     * </p>
+     * <p>
+     * For more information about Reserved Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html"> Reserved Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeReservedInstancesRequest Container for the necessary
@@ -421,29 +440,31 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReservedInstancesResult>() {
             public DescribeReservedInstancesResult call() throws Exception {
-                DescribeReservedInstancesResult result;
+              DescribeReservedInstancesResult result;
                 try {
-                    result = describeReservedInstances(describeReservedInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedInstances(describeReservedInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeAvailabilityZones operation describes availability zones
-     * that are currently available to the account and their states.
+     * Describes one or more of the Availability Zones that are available to
+     * you. The results include zones only for the region you're currently
+     * using. If there is an event impacting an Availability Zone, you can
+     * use this request to view the state and any provided message for that
+     * Availability Zone.
      * </p>
      * <p>
-     * Availability zones are not the same across accounts. The availability
-     * zone <code>us-east-1a</code> for account A is not necessarily the same
-     * as <code>us-east-1a</code> for account B. Zone assignments are mapped
-     * independently for each account.
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"> Regions and Availability Zones </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeAvailabilityZonesRequest Container for the necessary
@@ -467,20 +488,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeAvailabilityZonesResult>() {
             public DescribeAvailabilityZonesResult call() throws Exception {
                 return describeAvailabilityZones(describeAvailabilityZonesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeAvailabilityZones operation describes availability zones
-     * that are currently available to the account and their states.
+     * Describes one or more of the Availability Zones that are available to
+     * you. The results include zones only for the region you're currently
+     * using. If there is an event impacting an Availability Zone, you can
+     * use this request to view the state and any provided message for that
+     * Availability Zone.
      * </p>
      * <p>
-     * Availability zones are not the same across accounts. The availability
-     * zone <code>us-east-1a</code> for account A is not necessarily the same
-     * as <code>us-east-1a</code> for account B. Zone assignments are mapped
-     * independently for each account.
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"> Regions and Availability Zones </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeAvailabilityZonesRequest Container for the necessary
@@ -509,22 +532,40 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeAvailabilityZonesResult>() {
             public DescribeAvailabilityZonesResult call() throws Exception {
-                DescribeAvailabilityZonesResult result;
+              DescribeAvailabilityZonesResult result;
                 try {
-                    result = describeAvailabilityZones(describeAvailabilityZonesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeAvailabilityZonesRequest, result);
-                   return result;
-            }
-        });
+                result = describeAvailabilityZones(describeAvailabilityZonesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeAvailabilityZonesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Detach a previously attached volume from a running instance.
+     * Detaches an Amazon EBS volume from an instance. Make sure to unmount
+     * any file systems on the device within your operating system before
+     * detaching the volume. Failure to do so results in the volume being
+     * stuck in a busy state while detaching.
+     * </p>
+     * <p>
+     * If an Amazon EBS volume is the root device of an instance, it can't
+     * be detached while the instance is running. To detach the root volume,
+     * stop the instance first.
+     * </p>
+     * <p>
+     * If the root volume is detached from an instance with an AWS
+     * Marketplace product code, then the AWS Marketplace product codes from
+     * that volume are no longer associated with the instance.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html"> Detaching an Amazon EBS Volume </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param detachVolumeRequest Container for the necessary parameters to
@@ -547,13 +588,31 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DetachVolumeResult>() {
             public DetachVolumeResult call() throws Exception {
                 return detachVolume(detachVolumeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Detach a previously attached volume from a running instance.
+     * Detaches an Amazon EBS volume from an instance. Make sure to unmount
+     * any file systems on the device within your operating system before
+     * detaching the volume. Failure to do so results in the volume being
+     * stuck in a busy state while detaching.
+     * </p>
+     * <p>
+     * If an Amazon EBS volume is the root device of an instance, it can't
+     * be detached while the instance is running. To detach the root volume,
+     * stop the instance first.
+     * </p>
+     * <p>
+     * If the root volume is detached from an instance with an AWS
+     * Marketplace product code, then the AWS Marketplace product codes from
+     * that volume are no longer associated with the instance.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html"> Detaching an Amazon EBS Volume </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param detachVolumeRequest Container for the necessary parameters to
@@ -581,22 +640,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DetachVolumeResult>() {
             public DetachVolumeResult call() throws Exception {
-                DetachVolumeResult result;
+              DetachVolumeResult result;
                 try {
-                    result = detachVolume(detachVolumeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(detachVolumeRequest, result);
-                   return result;
-            }
-        });
+                result = detachVolume(detachVolumeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(detachVolumeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DeleteKeyPair operation deletes a key pair.
+     * Deletes the specified key pair, by removing the public key from
+     * Amazon EC2.
      * </p>
      *
      * @param deleteKeyPairRequest Container for the necessary parameters to
@@ -620,13 +680,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteKeyPair(deleteKeyPairRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DeleteKeyPair operation deletes a key pair.
+     * Deletes the specified key pair, by removing the public key from
+     * Amazon EC2.
      * </p>
      *
      * @param deleteKeyPairRequest Container for the necessary parameters to
@@ -654,21 +715,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteKeyPair(deleteKeyPairRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteKeyPairRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteKeyPair(deleteKeyPairRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteKeyPairRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Disables monitoring for a running instance.
+     * Disables monitoring for a running instance. For more information
+     * about monitoring instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html"> Monitoring Your Instances and Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param unmonitorInstancesRequest Container for the necessary
@@ -691,13 +755,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<UnmonitorInstancesResult>() {
             public UnmonitorInstancesResult call() throws Exception {
                 return unmonitorInstances(unmonitorInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Disables monitoring for a running instance.
+     * Disables monitoring for a running instance. For more information
+     * about monitoring instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html"> Monitoring Your Instances and Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param unmonitorInstancesRequest Container for the necessary
@@ -725,25 +792,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UnmonitorInstancesResult>() {
             public UnmonitorInstancesResult call() throws Exception {
-                UnmonitorInstancesResult result;
+              UnmonitorInstancesResult result;
                 try {
-                    result = unmonitorInstances(unmonitorInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(unmonitorInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = unmonitorInstances(unmonitorInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(unmonitorInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Attaches a VPN gateway to a VPC. This is the last step required to
-     * get your VPC fully connected to your data center before launching
-     * instances in it. For more information, go to Process for Using Amazon
-     * VPC in the Amazon Virtual Private Cloud Developer Guide.
+     * Attaches a virtual private gateway to a VPC. For more information,
+     * see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param attachVpnGatewayRequest Container for the necessary parameters
@@ -766,16 +833,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<AttachVpnGatewayResult>() {
             public AttachVpnGatewayResult call() throws Exception {
                 return attachVpnGateway(attachVpnGatewayRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Attaches a VPN gateway to a VPC. This is the last step required to
-     * get your VPC fully connected to your data center before launching
-     * instances in it. For more information, go to Process for Using Amazon
-     * VPC in the Amazon Virtual Private Cloud Developer Guide.
+     * Attaches a virtual private gateway to a VPC. For more information,
+     * see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param attachVpnGatewayRequest Container for the necessary parameters
@@ -803,26 +870,35 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<AttachVpnGatewayResult>() {
             public AttachVpnGatewayResult call() throws Exception {
-                AttachVpnGatewayResult result;
+              AttachVpnGatewayResult result;
                 try {
-                    result = attachVpnGateway(attachVpnGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(attachVpnGatewayRequest, result);
-                   return result;
-            }
-        });
+                result = attachVpnGateway(attachVpnGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(attachVpnGatewayRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates an Amazon EBS-backed AMI from a "running" or "stopped"
-     * instance. AMIs that use an Amazon EBS root device boot faster than
-     * AMIs that use instance stores. They can be up to 1 TiB in size, use
-     * storage that persists on instance failure, and can be stopped and
-     * started.
+     * Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance
+     * that is either running or stopped.
+     * </p>
+     * <p>
+     * If you customized your instance with instance store volumes or EBS
+     * volumes in addition to the root device volume, the new AMI contains
+     * block device mapping information for those volumes. When you launch an
+     * instance from this new AMI, the instance automatically launches with
+     * those additional volumes.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html"> Creating Amazon EBS-Backed Linux AMIs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createImageRequest Container for the necessary parameters to
@@ -845,17 +921,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateImageResult>() {
             public CreateImageResult call() throws Exception {
                 return createImage(createImageRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates an Amazon EBS-backed AMI from a "running" or "stopped"
-     * instance. AMIs that use an Amazon EBS root device boot faster than
-     * AMIs that use instance stores. They can be up to 1 TiB in size, use
-     * storage that persists on instance failure, and can be stopped and
-     * started.
+     * Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance
+     * that is either running or stopped.
+     * </p>
+     * <p>
+     * If you customized your instance with instance store volumes or EBS
+     * volumes in addition to the root device volume, the new AMI contains
+     * block device mapping information for those volumes. When you launch an
+     * instance from this new AMI, the instance automatically launches with
+     * those additional volumes.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html"> Creating Amazon EBS-Backed Linux AMIs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createImageRequest Container for the necessary parameters to
@@ -883,30 +968,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateImageResult>() {
             public CreateImageResult call() throws Exception {
-                CreateImageResult result;
+              CreateImageResult result;
                 try {
-                    result = createImage(createImageRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createImageRequest, result);
-                   return result;
-            }
-        });
+                result = createImage(createImageRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createImageRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DeleteSecurityGroup operation deletes a security group.
+     * Deletes a security group.
      * </p>
      * <p>
-     * <b>NOTE:</b> If you attempt to delete a security group that contains
-     * instances, a fault is returned. If you attempt to delete a security
-     * group that is referenced by another security group, a fault is
-     * returned. For example, if security group B has a rule that allows
-     * access from security group A, security group A cannot be deleted until
-     * the allow rule is removed.
+     * If you attempt to delete a security group that is associated with an
+     * instance, or is referenced by another security group, the operation
+     * fails with <code>InvalidGroup.InUse</code> in EC2-Classic or
+     * <code>DependencyViolation</code> in EC2-VPC.
      * </p>
      *
      * @param deleteSecurityGroupRequest Container for the necessary
@@ -930,21 +1013,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteSecurityGroup(deleteSecurityGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DeleteSecurityGroup operation deletes a security group.
+     * Deletes a security group.
      * </p>
      * <p>
-     * <b>NOTE:</b> If you attempt to delete a security group that contains
-     * instances, a fault is returned. If you attempt to delete a security
-     * group that is referenced by another security group, a fault is
-     * returned. For example, if security group B has a rule that allows
-     * access from security group A, security group A cannot be deleted until
-     * the allow rule is removed.
+     * If you attempt to delete a security group that is associated with an
+     * instance, or is referenced by another security group, the operation
+     * fails with <code>InvalidGroup.InUse</code> in EC2-Classic or
+     * <code>DependencyViolation</code> in EC2-VPC.
      * </p>
      *
      * @param deleteSecurityGroupRequest Container for the necessary
@@ -972,19 +1053,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteSecurityGroup(deleteSecurityGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteSecurityGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteSecurityGroup(deleteSecurityGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSecurityGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Exports a running or stopped instance to an Amazon S3 bucket.
+     * </p>
+     * <p>
+     * For information about the supported operating systems, image formats,
+     * and known limitations for the types of instances you can export, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ExportingEC2Instances.html"> Exporting EC2 Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param createInstanceExportTaskRequest Container for the necessary
      *           parameters to execute the CreateInstanceExportTask operation on
@@ -1007,11 +1097,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateInstanceExportTaskResult>() {
             public CreateInstanceExportTaskResult call() throws Exception {
                 return createInstanceExportTask(createInstanceExportTaskRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Exports a running or stopped instance to an Amazon S3 bucket.
+     * </p>
+     * <p>
+     * For information about the supported operating systems, image formats,
+     * and known limitations for the types of instances you can export, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ExportingEC2Instances.html"> Exporting EC2 Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param createInstanceExportTaskRequest Container for the necessary
      *           parameters to execute the CreateInstanceExportTask operation on
@@ -1039,29 +1138,38 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateInstanceExportTaskResult>() {
             public CreateInstanceExportTaskResult call() throws Exception {
-                CreateInstanceExportTaskResult result;
+              CreateInstanceExportTaskResult result;
                 try {
-                    result = createInstanceExportTask(createInstanceExportTaskRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createInstanceExportTaskRequest, result);
-                   return result;
-            }
-        });
+                result = createInstanceExportTask(createInstanceExportTaskRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createInstanceExportTaskRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Retrieves the encrypted administrator password for the instances
+     * Retrieves the encrypted administrator password for an instance
      * running Windows.
      * </p>
      * <p>
-     * <b>NOTE:</b> The Windows password is only generated the first time an
-     * AMI is launched. It is not generated for rebundled AMIs or after the
-     * password is changed on an instance. The password is encrypted using
-     * the key pair that you provided.
+     * The Windows password is only generated the first time an AMI is
+     * launched. It is not generated for rebundled AMIs or after the password
+     * is changed on an instance.
+     * </p>
+     * <p>
+     * The password is encrypted using the key pair that you specified when
+     * you launched the instance. You must provide the corresponding key pair
+     * file.
+     * </p>
+     * <p>
+     * Password generation and encryption takes a few moments. We recommend
+     * that you wait up to 15 minutes after launching an instance before
+     * trying to retrieve the generated password.
      * </p>
      *
      * @param getPasswordDataRequest Container for the necessary parameters
@@ -1084,20 +1192,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<GetPasswordDataResult>() {
             public GetPasswordDataResult call() throws Exception {
                 return getPasswordData(getPasswordDataRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Retrieves the encrypted administrator password for the instances
+     * Retrieves the encrypted administrator password for an instance
      * running Windows.
      * </p>
      * <p>
-     * <b>NOTE:</b> The Windows password is only generated the first time an
-     * AMI is launched. It is not generated for rebundled AMIs or after the
-     * password is changed on an instance. The password is encrypted using
-     * the key pair that you provided.
+     * The Windows password is only generated the first time an AMI is
+     * launched. It is not generated for rebundled AMIs or after the password
+     * is changed on an instance.
+     * </p>
+     * <p>
+     * The password is encrypted using the key pair that you specified when
+     * you launched the instance. You must provide the corresponding key pair
+     * file.
+     * </p>
+     * <p>
+     * Password generation and encryption takes a few moments. We recommend
+     * that you wait up to 15 minutes after launching an instance before
+     * trying to retrieve the generated password.
      * </p>
      *
      * @param getPasswordDataRequest Container for the necessary parameters
@@ -1125,30 +1242,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetPasswordDataResult>() {
             public GetPasswordDataResult call() throws Exception {
-                GetPasswordDataResult result;
+              GetPasswordDataResult result;
                 try {
-                    result = getPasswordData(getPasswordDataRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getPasswordDataRequest, result);
-                   return result;
-            }
-        });
+                result = getPasswordData(getPasswordDataRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getPasswordDataRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Associates a set of DHCP options (that you've previously created)
-     * with the specified VPC. Or, associates the default DHCP options with
-     * the VPC. The default set consists of the standard EC2 host name, no
-     * domain name, no DNS server, no NTP server, and no NetBIOS server or
-     * node type. After you associate the options with the VPC, any existing
-     * instances and all new instances that you launch in that VPC use the
-     * options. For more information about the supported DHCP options and
-     * using them with Amazon VPC, go to Using DHCP Options in the Amazon
-     * Virtual Private Cloud Developer Guide.
+     * with the specified VPC, or associates no DHCP options with the VPC.
+     * </p>
+     * <p>
+     * After you associate the options with the VPC, any existing instances
+     * and all new instances that you launch in that VPC use the options. You
+     * don't need to restart or relaunch the instances. They automatically
+     * pick up the changes within a few hours, depending on how frequently
+     * the instance renews its DHCP lease. You can explicitly renew the lease
+     * using the operating system on the instance.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param associateDhcpOptionsRequest Container for the necessary
@@ -1172,21 +1295,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 associateDhcpOptions(associateDhcpOptionsRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Associates a set of DHCP options (that you've previously created)
-     * with the specified VPC. Or, associates the default DHCP options with
-     * the VPC. The default set consists of the standard EC2 host name, no
-     * domain name, no DNS server, no NTP server, and no NetBIOS server or
-     * node type. After you associate the options with the VPC, any existing
-     * instances and all new instances that you launch in that VPC use the
-     * options. For more information about the supported DHCP options and
-     * using them with Amazon VPC, go to Using DHCP Options in the Amazon
-     * Virtual Private Cloud Developer Guide.
+     * with the specified VPC, or associates no DHCP options with the VPC.
+     * </p>
+     * <p>
+     * After you associate the options with the VPC, any existing instances
+     * and all new instances that you launch in that VPC use the options. You
+     * don't need to restart or relaunch the instances. They automatically
+     * pick up the changes within a few hours, depending on how frequently
+     * the instance renews its DHCP lease. You can explicitly renew the lease
+     * using the operating system on the instance.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param associateDhcpOptionsRequest Container for the necessary
@@ -1214,45 +1343,46 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    associateDhcpOptions(associateDhcpOptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(associateDhcpOptionsRequest, null);
-                   return null;
-            }
-        });
+              try {
+                associateDhcpOptions(associateDhcpOptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(associateDhcpOptionsRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * This action applies only to security groups in a VPC; it's not
-     * supported for EC2 security groups. For information about Amazon
-     * Virtual Private Cloud and VPC security groups, go to the Amazon
-     * Virtual Private Cloud User Guide.
+     * Adds one or more egress rules to a security group for use with a VPC.
+     * Specifically, this action permits instances to send traffic to one or
+     * more CIDR IP address ranges, or to one or more security groups for the
+     * same VPC.
      * </p>
      * <p>
-     * The action adds one or more egress rules to a VPC security group.
-     * Specifically, this permits instances in a security group to send
-     * traffic to either one or more destination CIDR IP address ranges, or
-     * to one or more destination security groups in the same VPC.
+     * <b>IMPORTANT:</b> You can have up to 50 rules per security group
+     * (covering both ingress and egress rules).
      * </p>
      * <p>
-     * Each rule consists of the protocol (e.g., TCP), plus either a CIDR
-     * range, or a source group. For the TCP and UDP protocols, you must also
-     * specify the destination port or port range. For the ICMP protocol, you
-     * must also specify the ICMP type and code. You can use <code>-1</code>
-     * as a wildcard for the ICMP type or code.
+     * A security group is for use with instances either in the EC2-Classic
+     * platform or in a specific VPC. This action doesn't apply to security
+     * groups for use in EC2-Classic. For more information, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html"> Security Groups for Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      * <p>
-     * Rule changes are propagated to instances within the security group as
-     * quickly as possible. However, a small delay might occur.
+     * Each rule consists of the protocol (for example, TCP), plus either a
+     * CIDR range or a source group. For the TCP and UDP protocols, you must
+     * also specify the destination port or port range. For the ICMP
+     * protocol, you must also specify the ICMP type and code. You can use -1
+     * for the type or code to mean all types or all codes.
      * </p>
      * <p>
-     * <b>Important:</b> For VPC security groups: You can have up to 50
-     * rules total per group (covering both ingress and egress).
+     * Rule changes are propagated to affected instances as quickly as
+     * possible. However, a small delay might occur.
      * </p>
      *
      * @param authorizeSecurityGroupEgressRequest Container for the necessary
@@ -1277,37 +1407,38 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 authorizeSecurityGroupEgress(authorizeSecurityGroupEgressRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * This action applies only to security groups in a VPC; it's not
-     * supported for EC2 security groups. For information about Amazon
-     * Virtual Private Cloud and VPC security groups, go to the Amazon
-     * Virtual Private Cloud User Guide.
+     * Adds one or more egress rules to a security group for use with a VPC.
+     * Specifically, this action permits instances to send traffic to one or
+     * more CIDR IP address ranges, or to one or more security groups for the
+     * same VPC.
      * </p>
      * <p>
-     * The action adds one or more egress rules to a VPC security group.
-     * Specifically, this permits instances in a security group to send
-     * traffic to either one or more destination CIDR IP address ranges, or
-     * to one or more destination security groups in the same VPC.
+     * <b>IMPORTANT:</b> You can have up to 50 rules per security group
+     * (covering both ingress and egress rules).
      * </p>
      * <p>
-     * Each rule consists of the protocol (e.g., TCP), plus either a CIDR
-     * range, or a source group. For the TCP and UDP protocols, you must also
-     * specify the destination port or port range. For the ICMP protocol, you
-     * must also specify the ICMP type and code. You can use <code>-1</code>
-     * as a wildcard for the ICMP type or code.
+     * A security group is for use with instances either in the EC2-Classic
+     * platform or in a specific VPC. This action doesn't apply to security
+     * groups for use in EC2-Classic. For more information, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html"> Security Groups for Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      * <p>
-     * Rule changes are propagated to instances within the security group as
-     * quickly as possible. However, a small delay might occur.
+     * Each rule consists of the protocol (for example, TCP), plus either a
+     * CIDR range or a source group. For the TCP and UDP protocols, you must
+     * also specify the destination port or port range. For the ICMP
+     * protocol, you must also specify the ICMP type and code. You can use -1
+     * for the type or code to mean all types or all codes.
      * </p>
      * <p>
-     * <b>Important:</b> For VPC security groups: You can have up to 50
-     * rules total per group (covering both ingress and egress).
+     * Rule changes are propagated to affected instances as quickly as
+     * possible. However, a small delay might occur.
      * </p>
      *
      * @param authorizeSecurityGroupEgressRequest Container for the necessary
@@ -1336,21 +1467,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    authorizeSecurityGroupEgress(authorizeSecurityGroupEgressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(authorizeSecurityGroupEgressRequest, null);
-                   return null;
-            }
-        });
+              try {
+                authorizeSecurityGroupEgress(authorizeSecurityGroupEgressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(authorizeSecurityGroupEgressRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Stops an instance that uses an Amazon EBS volume as its root device.
+     * Stops an Amazon EBS-backed instance. Each time you transition an
+     * instance from stopped to started, Amazon EC2 charges a full instance
+     * hour, even if transitions happen multiple times within a single hour.
+     * </p>
+     * <p>
+     * You can't start or stop Spot Instances.
+     * </p>
+     * <p>
      * Instances that use Amazon EBS volumes as their root devices can be
      * quickly stopped and started. When an instance is stopped, the compute
      * resources are released and you are not billed for hourly instance
@@ -1359,10 +1497,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * volume usage. You can restart your instance at any time.
      * </p>
      * <p>
-     * <b>NOTE:</b> Before stopping an instance, make sure it is in a state
-     * from which it can be restarted. Stopping an instance does not preserve
-     * data stored in RAM. Performing this operation on an instance that uses
-     * an instance store as its root device returns an error.
+     * Before stopping an instance, make sure it is in a state from which it
+     * can be restarted. Stopping an instance does not preserve data stored
+     * in RAM.
+     * </p>
+     * <p>
+     * Performing this operation on an instance that uses an instance store
+     * as its root device returns an error.
+     * </p>
+     * <p>
+     * You can stop, start, and terminate EBS-backed instances. You can only
+     * terminate instance store-backed instances. What happens to an instance
+     * differs if you stop it or terminate it. For example, when you stop an
+     * instance, the root device and any other devices attached to the
+     * instance persist. When you terminate an instance, the root device and
+     * any other devices attached during the instance launch are
+     * automatically deleted. For more information about the differences
+     * between stopping and terminating instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html"> Instance Lifecycle </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html"> Troubleshooting Stopping Your Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param stopInstancesRequest Container for the necessary parameters to
@@ -1385,13 +1543,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<StopInstancesResult>() {
             public StopInstancesResult call() throws Exception {
                 return stopInstances(stopInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Stops an instance that uses an Amazon EBS volume as its root device.
+     * Stops an Amazon EBS-backed instance. Each time you transition an
+     * instance from stopped to started, Amazon EC2 charges a full instance
+     * hour, even if transitions happen multiple times within a single hour.
+     * </p>
+     * <p>
+     * You can't start or stop Spot Instances.
+     * </p>
+     * <p>
      * Instances that use Amazon EBS volumes as their root devices can be
      * quickly stopped and started. When an instance is stopped, the compute
      * resources are released and you are not billed for hourly instance
@@ -1400,10 +1565,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * volume usage. You can restart your instance at any time.
      * </p>
      * <p>
-     * <b>NOTE:</b> Before stopping an instance, make sure it is in a state
-     * from which it can be restarted. Stopping an instance does not preserve
-     * data stored in RAM. Performing this operation on an instance that uses
-     * an instance store as its root device returns an error.
+     * Before stopping an instance, make sure it is in a state from which it
+     * can be restarted. Stopping an instance does not preserve data stored
+     * in RAM.
+     * </p>
+     * <p>
+     * Performing this operation on an instance that uses an instance store
+     * as its root device returns an error.
+     * </p>
+     * <p>
+     * You can stop, start, and terminate EBS-backed instances. You can only
+     * terminate instance store-backed instances. What happens to an instance
+     * differs if you stop it or terminate it. For example, when you stop an
+     * instance, the root device and any other devices attached to the
+     * instance persist. When you terminate an instance, the root device and
+     * any other devices attached during the instance launch are
+     * automatically deleted. For more information about the differences
+     * between stopping and terminating instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html"> Instance Lifecycle </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html"> Troubleshooting Stopping Your Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param stopInstancesRequest Container for the necessary parameters to
@@ -1431,43 +1616,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<StopInstancesResult>() {
             public StopInstancesResult call() throws Exception {
-                StopInstancesResult result;
+              StopInstancesResult result;
                 try {
-                    result = stopInstances(stopInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(stopInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = stopInstances(stopInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(stopInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Imports the public key from an RSA key pair created with a
-     * third-party tool. This operation differs from CreateKeyPair as the
-     * private key is never transferred between the caller and AWS servers.
+     * Imports the public key from an RSA key pair that you created with a
+     * third-party tool. Compare this with CreateKeyPair, in which AWS
+     * creates the key pair and gives the keys to you (AWS keeps a copy of
+     * the public key). With ImportKeyPair, you create the key pair and give
+     * AWS just the public key. The private key is never transferred between
+     * you and AWS.
      * </p>
      * <p>
-     * RSA key pairs are easily created on Microsoft Windows and Linux OS
-     * systems using the <code>ssh-keygen</code> command line tool provided
-     * with the standard OpenSSH installation. Standard library support for
-     * RSA key pair creation is also available for Java, Ruby, Python, and
-     * many other programming languages.
+     * For more information about key pairs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
-     * <p>
-     * The following formats are supported:
-     * </p>
-     * 
-     * <ul>
-     * <li> OpenSSH public key format, </li>
-     * <li> Base64 encoded DER format. </li>
-     * <li> SSH public key file format as specified in <a
-     * href="http://tools.ietf.org/html/rfc4716"> RFC4716 </a> . </li>
-     * 
-     * </ul>
      *
      * @param importKeyPairRequest Container for the necessary parameters to
      *           execute the ImportKeyPair operation on AmazonEC2.
@@ -1489,34 +1664,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ImportKeyPairResult>() {
             public ImportKeyPairResult call() throws Exception {
                 return importKeyPair(importKeyPairRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Imports the public key from an RSA key pair created with a
-     * third-party tool. This operation differs from CreateKeyPair as the
-     * private key is never transferred between the caller and AWS servers.
+     * Imports the public key from an RSA key pair that you created with a
+     * third-party tool. Compare this with CreateKeyPair, in which AWS
+     * creates the key pair and gives the keys to you (AWS keeps a copy of
+     * the public key). With ImportKeyPair, you create the key pair and give
+     * AWS just the public key. The private key is never transferred between
+     * you and AWS.
      * </p>
      * <p>
-     * RSA key pairs are easily created on Microsoft Windows and Linux OS
-     * systems using the <code>ssh-keygen</code> command line tool provided
-     * with the standard OpenSSH installation. Standard library support for
-     * RSA key pair creation is also available for Java, Ruby, Python, and
-     * many other programming languages.
+     * For more information about key pairs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
-     * <p>
-     * The following formats are supported:
-     * </p>
-     * 
-     * <ul>
-     * <li> OpenSSH public key format, </li>
-     * <li> Base64 encoded DER format. </li>
-     * <li> SSH public key file format as specified in <a
-     * href="http://tools.ietf.org/html/rfc4716"> RFC4716 </a> . </li>
-     * 
-     * </ul>
      *
      * @param importKeyPairRequest Container for the necessary parameters to
      *           execute the ImportKeyPair operation on AmazonEC2.
@@ -1543,20 +1708,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ImportKeyPairResult>() {
             public ImportKeyPairResult call() throws Exception {
-                ImportKeyPairResult result;
+              ImportKeyPairResult result;
                 try {
-                    result = importKeyPair(importKeyPairRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(importKeyPairRequest, result);
-                   return result;
-            }
-        });
+                result = importKeyPair(importKeyPairRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(importKeyPairRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Deletes the specified network interface. You must detach the network
+     * interface before you can delete it.
+     * </p>
      *
      * @param deleteNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the DeleteNetworkInterface operation on
@@ -1580,11 +1749,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteNetworkInterface(deleteNetworkInterfaceRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Deletes the specified network interface. You must detach the network
+     * interface before you can delete it.
+     * </p>
      *
      * @param deleteNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the DeleteNetworkInterface operation on
@@ -1612,19 +1785,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteNetworkInterface(deleteNetworkInterfaceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteNetworkInterfaceRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteNetworkInterface(deleteNetworkInterfaceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteNetworkInterfaceRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Modifies the specified attribute of the specified VPC.
+     * </p>
      *
      * @param modifyVpcAttributeRequest Container for the necessary
      *           parameters to execute the ModifyVpcAttribute operation on AmazonEC2.
@@ -1647,11 +1823,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 modifyVpcAttribute(modifyVpcAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Modifies the specified attribute of the specified VPC.
+     * </p>
      *
      * @param modifyVpcAttributeRequest Container for the necessary
      *           parameters to execute the ModifyVpcAttribute operation on AmazonEC2.
@@ -1678,31 +1857,51 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    modifyVpcAttribute(modifyVpcAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyVpcAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                modifyVpcAttribute(modifyVpcAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyVpcAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The CreateSecurityGroup operation creates a new security group.
+     * Creates a security group.
      * </p>
      * <p>
-     * Every instance is launched in a security group. If no security group
-     * is specified during launch, the instances are launched in the default
-     * security group. Instances within the same security group have
-     * unrestricted network access to each other. Instances will reject
-     * network access attempts from other instances in a different security
-     * group. As the owner of instances you can grant or revoke specific
-     * permissions using the AuthorizeSecurityGroupIngress and
-     * RevokeSecurityGroupIngress operations.
+     * A security group is for use with instances either in the EC2-Classic
+     * platform or in a specific VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"> Amazon EC2 Security Groups </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> and <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html"> Security Groups for Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> EC2-Classic: You can have up to 500 security
+     * groups. EC2-VPC: You can create up to 100 security groups per VPC.
+     * </p>
+     * <p>
+     * When you create a security group, you specify a friendly name of your
+     * choice. You can have a security group for use in EC2-Classic with the
+     * same name as a security group for use in a VPC. However, you can't
+     * have two security groups for use in EC2-Classic with the same name or
+     * two security groups for use in a VPC with the same name.
+     * </p>
+     * <p>
+     * You have a default security group for use in EC2-Classic and a
+     * default security group for use in your VPC. If you don't specify a
+     * security group when you launch an instance, the instance is launched
+     * into the appropriate default security group. A default security group
+     * includes a default rule that grants instances unrestricted network
+     * access to each other.
+     * </p>
+     * <p>
+     * You can add or remove rules from your security groups using
+     * AuthorizeSecurityGroupIngress, AuthorizeSecurityGroupEgress,
+     * RevokeSecurityGroupIngress, and RevokeSecurityGroupEgress.
      * </p>
      *
      * @param createSecurityGroupRequest Container for the necessary
@@ -1725,23 +1924,43 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateSecurityGroupResult>() {
             public CreateSecurityGroupResult call() throws Exception {
                 return createSecurityGroup(createSecurityGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The CreateSecurityGroup operation creates a new security group.
+     * Creates a security group.
      * </p>
      * <p>
-     * Every instance is launched in a security group. If no security group
-     * is specified during launch, the instances are launched in the default
-     * security group. Instances within the same security group have
-     * unrestricted network access to each other. Instances will reject
-     * network access attempts from other instances in a different security
-     * group. As the owner of instances you can grant or revoke specific
-     * permissions using the AuthorizeSecurityGroupIngress and
-     * RevokeSecurityGroupIngress operations.
+     * A security group is for use with instances either in the EC2-Classic
+     * platform or in a specific VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"> Amazon EC2 Security Groups </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> and <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html"> Security Groups for Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> EC2-Classic: You can have up to 500 security
+     * groups. EC2-VPC: You can create up to 100 security groups per VPC.
+     * </p>
+     * <p>
+     * When you create a security group, you specify a friendly name of your
+     * choice. You can have a security group for use in EC2-Classic with the
+     * same name as a security group for use in a VPC. However, you can't
+     * have two security groups for use in EC2-Classic with the same name or
+     * two security groups for use in a VPC with the same name.
+     * </p>
+     * <p>
+     * You have a default security group for use in EC2-Classic and a
+     * default security group for use in your VPC. If you don't specify a
+     * security group when you launch an instance, the instance is launched
+     * into the appropriate default security group. A default security group
+     * includes a default rule that grants instances unrestricted network
+     * access to each other.
+     * </p>
+     * <p>
+     * You can add or remove rules from your security groups using
+     * AuthorizeSecurityGroupIngress, AuthorizeSecurityGroupEgress,
+     * RevokeSecurityGroupIngress, and RevokeSecurityGroupEgress.
      * </p>
      *
      * @param createSecurityGroupRequest Container for the necessary
@@ -1769,34 +1988,38 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateSecurityGroupResult>() {
             public CreateSecurityGroupResult call() throws Exception {
-                CreateSecurityGroupResult result;
+              CreateSecurityGroupResult result;
                 try {
-                    result = createSecurityGroup(createSecurityGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createSecurityGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createSecurityGroup(createSecurityGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createSecurityGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Describes the Spot Price history.
+     * Describes the Spot Price history. Spot Instances are instances that
+     * Amazon EC2 starts on your behalf when the maximum price that you
+     * specify exceeds the current Spot Price. Amazon EC2 periodically sets
+     * the Spot Price based on available Spot Instance capacity and current
+     * Spot Instance requests. For more information about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * Spot Instances are instances that Amazon EC2 starts on your behalf
-     * when the maximum price that you specify exceeds the current Spot
-     * Price. Amazon EC2 periodically sets the Spot Price based on available
-     * Spot Instance capacity and current spot instance requests.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * When you specify an Availability Zone, this operation describes the
+     * price history for the specified Availability Zone with the most recent
+     * set of prices listed first. If you don't specify an Availability Zone,
+     * you get the prices across all Availability Zones, starting with the
+     * most recent set. However, if you're using an API version earlier than
+     * 2011-05-15, you get the lowest price across the region for the
+     * specified time period. The prices returned are listed in chronological
+     * order, from the oldest to the most recent.
      * </p>
      *
      * @param describeSpotPriceHistoryRequest Container for the necessary
@@ -1820,25 +2043,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeSpotPriceHistoryResult>() {
             public DescribeSpotPriceHistoryResult call() throws Exception {
                 return describeSpotPriceHistory(describeSpotPriceHistoryRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes the Spot Price history.
+     * Describes the Spot Price history. Spot Instances are instances that
+     * Amazon EC2 starts on your behalf when the maximum price that you
+     * specify exceeds the current Spot Price. Amazon EC2 periodically sets
+     * the Spot Price based on available Spot Instance capacity and current
+     * Spot Instance requests. For more information about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * Spot Instances are instances that Amazon EC2 starts on your behalf
-     * when the maximum price that you specify exceeds the current Spot
-     * Price. Amazon EC2 periodically sets the Spot Price based on available
-     * Spot Instance capacity and current spot instance requests.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * When you specify an Availability Zone, this operation describes the
+     * price history for the specified Availability Zone with the most recent
+     * set of prices listed first. If you don't specify an Availability Zone,
+     * you get the prices across all Availability Zones, starting with the
+     * most recent set. However, if you're using an API version earlier than
+     * 2011-05-15, you get the lowest price across the region for the
+     * specified time period. The prices returned are listed in chronological
+     * order, from the oldest to the most recent.
      * </p>
      *
      * @param describeSpotPriceHistoryRequest Container for the necessary
@@ -1867,20 +2094,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeSpotPriceHistoryResult>() {
             public DescribeSpotPriceHistoryResult call() throws Exception {
-                DescribeSpotPriceHistoryResult result;
+              DescribeSpotPriceHistoryResult result;
                 try {
-                    result = describeSpotPriceHistory(describeSpotPriceHistoryRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSpotPriceHistoryRequest, result);
-                   return result;
-            }
-        });
+                result = describeSpotPriceHistory(describeSpotPriceHistoryRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSpotPriceHistoryRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes one or more of your network interfaces.
+     * </p>
      *
      * @param describeNetworkInterfacesRequest Container for the necessary
      *           parameters to execute the DescribeNetworkInterfaces operation on
@@ -1903,11 +2133,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeNetworkInterfacesResult>() {
             public DescribeNetworkInterfacesResult call() throws Exception {
                 return describeNetworkInterfaces(describeNetworkInterfacesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes one or more of your network interfaces.
+     * </p>
      *
      * @param describeNetworkInterfacesRequest Container for the necessary
      *           parameters to execute the DescribeNetworkInterfaces operation on
@@ -1935,23 +2168,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeNetworkInterfacesResult>() {
             public DescribeNetworkInterfacesResult call() throws Exception {
-                DescribeNetworkInterfacesResult result;
+              DescribeNetworkInterfacesResult result;
                 try {
-                    result = describeNetworkInterfaces(describeNetworkInterfacesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeNetworkInterfacesRequest, result);
-                   return result;
-            }
-        });
+                result = describeNetworkInterfaces(describeNetworkInterfacesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeNetworkInterfacesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeRegions operation describes regions zones that are
-     * currently available to the account.
+     * Describes one or more regions that are currently available to you.
+     * </p>
+     * <p>
+     * For a list of the regions supported by Amazon EC2, see
+     * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region"> Regions and Endpoints </a>
+     * .
      * </p>
      *
      * @param describeRegionsRequest Container for the necessary parameters
@@ -1974,14 +2211,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeRegionsResult>() {
             public DescribeRegionsResult call() throws Exception {
                 return describeRegions(describeRegionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeRegions operation describes regions zones that are
-     * currently available to the account.
+     * Describes one or more regions that are currently available to you.
+     * </p>
+     * <p>
+     * For a list of the regions supported by Amazon EC2, see
+     * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region"> Regions and Endpoints </a>
+     * .
      * </p>
      *
      * @param describeRegionsRequest Container for the necessary parameters
@@ -2009,20 +2250,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeRegionsResult>() {
             public DescribeRegionsResult call() throws Exception {
-                DescribeRegionsResult result;
+              DescribeRegionsResult result;
                 try {
-                    result = describeRegions(describeRegionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeRegionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeRegions(describeRegionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeRegionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Creates a listing for Amazon EC2 Reserved Instances to be sold in the
+     * Reserved Instance Marketplace. You can submit one Reserved Instance
+     * listing at a time.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param createReservedInstancesListingRequest Container for the
      *           necessary parameters to execute the CreateReservedInstancesListing
@@ -2046,11 +2297,21 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateReservedInstancesListingResult>() {
             public CreateReservedInstancesListingResult call() throws Exception {
                 return createReservedInstancesListing(createReservedInstancesListingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Creates a listing for Amazon EC2 Reserved Instances to be sold in the
+     * Reserved Instance Marketplace. You can submit one Reserved Instance
+     * listing at a time.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param createReservedInstancesListingRequest Container for the
      *           necessary parameters to execute the CreateReservedInstancesListing
@@ -2079,28 +2340,59 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateReservedInstancesListingResult>() {
             public CreateReservedInstancesListingResult call() throws Exception {
-                CreateReservedInstancesListingResult result;
+              CreateReservedInstancesListingResult result;
                 try {
-                    result = createReservedInstancesListing(createReservedInstancesListingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createReservedInstancesListingRequest, result);
-                   return result;
-            }
-        });
+                result = createReservedInstancesListing(createReservedInstancesListingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createReservedInstancesListingRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a set of DHCP options that you can then associate with one or
-     * more VPCs, causing all existing and new instances that you launch in
-     * those VPCs to use the set of DHCP options. The following table lists
-     * the individual DHCP options you can specify. For more information
-     * about the options, go to <a
-     * href="http://www.ietf.org/rfc/rfc2132.txt">
-     * http://www.ietf.org/rfc/rfc2132.txt </a>
+     * Creates a set of DHCP options for your VPC. After creating the set,
+     * you must associate it with the VPC, causing all existing and new
+     * instances that you launch in the VPC to use this set of DHCP options.
+     * The following are the individual DHCP options you can specify. For
+     * more information about the options, see
+     * <a href="http://www.ietf.org/rfc/rfc2132.txt"> RFC 2132 </a>
+     * .
+     * </p>
+     * 
+     * <ul>
+     * <li> <code>domain-name-servers</code> - The IP addresses of up to
+     * four domain name servers, or <code>AmazonProvidedDNS</code> . The
+     * default DHCP option set specifies <code>AmazonProvidedDNS</code> . If
+     * specifying more than one domain name server, specify the IP addresses
+     * in a single parameter, separated by commas.</li>
+     * <li> <code>domain-name</code> - If you're using AmazonProvidedDNS in
+     * <code>us-east-1</code> , specify <code>ec2.internal</code> . If you're
+     * using AmazonProvidedDNS in another region, specify
+     * <code>region.compute.internal</code> (for example,
+     * <code>ap-northeast-1.compute.internal</code> ). Otherwise, specify a
+     * domain name (for example, <code>MyCompany.com</code> ). If specifying
+     * more than one domain name, separate them with spaces.</li>
+     * <li> <code>ntp-servers</code> - The IP addresses of up to four
+     * Network Time Protocol (NTP) servers.</li>
+     * <li> <code>netbios-name-servers</code> - The IP addresses of up to
+     * four NetBIOS name servers.</li>
+     * <li> <code>netbios-node-type</code> - The NetBIOS node type (1, 2, 4,
+     * or 8). We recommend that you specify 2 (broadcast and multicast are
+     * not currently supported). For more information about these node types,
+     * see
+     * <a href="http://www.ietf.org/rfc/rfc2132.txt"> RFC 2132 </a>
+     * . </li>
+     * 
+     * </ul>
+     * <p>
+     * For more information about DHCP options, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createDhcpOptionsRequest Container for the necessary parameters
@@ -2123,19 +2415,50 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateDhcpOptionsResult>() {
             public CreateDhcpOptionsResult call() throws Exception {
                 return createDhcpOptions(createDhcpOptionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a set of DHCP options that you can then associate with one or
-     * more VPCs, causing all existing and new instances that you launch in
-     * those VPCs to use the set of DHCP options. The following table lists
-     * the individual DHCP options you can specify. For more information
-     * about the options, go to <a
-     * href="http://www.ietf.org/rfc/rfc2132.txt">
-     * http://www.ietf.org/rfc/rfc2132.txt </a>
+     * Creates a set of DHCP options for your VPC. After creating the set,
+     * you must associate it with the VPC, causing all existing and new
+     * instances that you launch in the VPC to use this set of DHCP options.
+     * The following are the individual DHCP options you can specify. For
+     * more information about the options, see
+     * <a href="http://www.ietf.org/rfc/rfc2132.txt"> RFC 2132 </a>
+     * .
+     * </p>
+     * 
+     * <ul>
+     * <li> <code>domain-name-servers</code> - The IP addresses of up to
+     * four domain name servers, or <code>AmazonProvidedDNS</code> . The
+     * default DHCP option set specifies <code>AmazonProvidedDNS</code> . If
+     * specifying more than one domain name server, specify the IP addresses
+     * in a single parameter, separated by commas.</li>
+     * <li> <code>domain-name</code> - If you're using AmazonProvidedDNS in
+     * <code>us-east-1</code> , specify <code>ec2.internal</code> . If you're
+     * using AmazonProvidedDNS in another region, specify
+     * <code>region.compute.internal</code> (for example,
+     * <code>ap-northeast-1.compute.internal</code> ). Otherwise, specify a
+     * domain name (for example, <code>MyCompany.com</code> ). If specifying
+     * more than one domain name, separate them with spaces.</li>
+     * <li> <code>ntp-servers</code> - The IP addresses of up to four
+     * Network Time Protocol (NTP) servers.</li>
+     * <li> <code>netbios-name-servers</code> - The IP addresses of up to
+     * four NetBIOS name servers.</li>
+     * <li> <code>netbios-node-type</code> - The NetBIOS node type (1, 2, 4,
+     * or 8). We recommend that you specify 2 (broadcast and multicast are
+     * not currently supported). For more information about these node types,
+     * see
+     * <a href="http://www.ietf.org/rfc/rfc2132.txt"> RFC 2132 </a>
+     * . </li>
+     * 
+     * </ul>
+     * <p>
+     * For more information about DHCP options, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createDhcpOptionsRequest Container for the necessary parameters
@@ -2163,22 +2486,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateDhcpOptionsResult>() {
             public CreateDhcpOptionsResult call() throws Exception {
-                CreateDhcpOptionsResult result;
+              CreateDhcpOptionsResult result;
                 try {
-                    result = createDhcpOptions(createDhcpOptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createDhcpOptionsRequest, result);
-                   return result;
-            }
-        });
+                result = createDhcpOptions(createDhcpOptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createDhcpOptionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Resets permission settings for the specified snapshot.
+     * </p>
+     * <p>
+     * For more information on modifying snapshot permissions, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"> Sharing Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param resetSnapshotAttributeRequest Container for the necessary
@@ -2203,13 +2531,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 resetSnapshotAttribute(resetSnapshotAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Resets permission settings for the specified snapshot.
+     * </p>
+     * <p>
+     * For more information on modifying snapshot permissions, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"> Sharing Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param resetSnapshotAttributeRequest Container for the necessary
@@ -2238,24 +2571,21 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    resetSnapshotAttribute(resetSnapshotAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resetSnapshotAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                resetSnapshotAttribute(resetSnapshotAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resetSnapshotAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a route from a route table in a VPC. For more information
-     * about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified route from the specified route table.
      * </p>
      *
      * @param deleteRouteRequest Container for the necessary parameters to
@@ -2279,16 +2609,13 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteRoute(deleteRouteRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a route from a route table in a VPC. For more information
-     * about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified route from the specified route table.
      * </p>
      *
      * @param deleteRouteRequest Container for the necessary parameters to
@@ -2316,41 +2643,21 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteRoute(deleteRouteRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteRouteRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteRoute(deleteRouteRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteRouteRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about your Internet gateways. You can filter
-     * the results to return information only about Internet gateways that
-     * match criteria you specify. For example, you could get information
-     * only about gateways with particular tags. The Internet gateway must
-     * match at least one of the specified values for it to be included in
-     * the results.
-     * </p>
-     * <p>
-     * You can specify multiple filters (e.g., the Internet gateway is
-     * attached to a particular VPC and is tagged with a particular value).
-     * The result includes information for a particular Internet gateway only
-     * if the gateway matches all your filters. If there's no match, no
-     * special message is returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * Describes one or more of your Internet gateways.
      * </p>
      *
      * @param describeInternetGatewaysRequest Container for the necessary
@@ -2374,33 +2681,13 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeInternetGatewaysResult>() {
             public DescribeInternetGatewaysResult call() throws Exception {
                 return describeInternetGateways(describeInternetGatewaysRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about your Internet gateways. You can filter
-     * the results to return information only about Internet gateways that
-     * match criteria you specify. For example, you could get information
-     * only about gateways with particular tags. The Internet gateway must
-     * match at least one of the specified values for it to be included in
-     * the results.
-     * </p>
-     * <p>
-     * You can specify multiple filters (e.g., the Internet gateway is
-     * attached to a particular VPC and is tagged with a particular value).
-     * The result includes information for a particular Internet gateway only
-     * if the gateway matches all your filters. If there's no match, no
-     * special message is returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * Describes one or more of your Internet gateways.
      * </p>
      *
      * @param describeInternetGatewaysRequest Container for the necessary
@@ -2429,20 +2716,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeInternetGatewaysResult>() {
             public DescribeInternetGatewaysResult call() throws Exception {
-                DescribeInternetGatewaysResult result;
+              DescribeInternetGatewaysResult result;
                 try {
-                    result = describeInternetGateways(describeInternetGatewaysRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeInternetGatewaysRequest, result);
-                   return result;
-            }
-        });
+                result = describeInternetGateways(describeInternetGatewaysRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeInternetGatewaysRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Creates an import volume task using metadata from the specified disk
+     * image. After importing the image, you then upload it using the
+     * ec2-import-volume command in the Amazon EC2 command-line interface
+     * (CLI) tools. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param importVolumeRequest Container for the necessary parameters to
      *           execute the ImportVolume operation on AmazonEC2.
@@ -2464,11 +2759,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ImportVolumeResult>() {
             public ImportVolumeResult call() throws Exception {
                 return importVolume(importVolumeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Creates an import volume task using metadata from the specified disk
+     * image. After importing the image, you then upload it using the
+     * ec2-import-volume command in the Amazon EC2 command-line interface
+     * (CLI) tools. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param importVolumeRequest Container for the necessary parameters to
      *           execute the ImportVolume operation on AmazonEC2.
@@ -2495,29 +2798,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ImportVolumeResult>() {
             public ImportVolumeResult call() throws Exception {
-                ImportVolumeResult result;
+              ImportVolumeResult result;
                 try {
-                    result = importVolume(importVolumeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(importVolumeRequest, result);
-                   return result;
-            }
-        });
+                result = importVolume(importVolumeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(importVolumeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeSecurityGroups operation returns information about
-     * security groups that you own.
+     * Describes one or more of your security groups.
      * </p>
      * <p>
-     * If you specify security group names, information about those security
-     * group is returned. Otherwise, information for all security group is
-     * returned. If you specify a group that does not exist, a fault is
-     * returned.
+     * A security group is for use with instances either in the EC2-Classic
+     * platform or in a specific VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"> Amazon EC2 Security Groups </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> and <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html"> Security Groups for Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeSecurityGroupsRequest Container for the necessary
@@ -2541,20 +2843,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeSecurityGroupsResult>() {
             public DescribeSecurityGroupsResult call() throws Exception {
                 return describeSecurityGroups(describeSecurityGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeSecurityGroups operation returns information about
-     * security groups that you own.
+     * Describes one or more of your security groups.
      * </p>
      * <p>
-     * If you specify security group names, information about those security
-     * group is returned. Otherwise, information for all security group is
-     * returned. If you specify a group that does not exist, a fault is
-     * returned.
+     * A security group is for use with instances either in the EC2-Classic
+     * platform or in a specific VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"> Amazon EC2 Security Groups </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> and <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html"> Security Groups for Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeSecurityGroupsRequest Container for the necessary
@@ -2583,29 +2884,111 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeSecurityGroupsResult>() {
             public DescribeSecurityGroupsResult call() throws Exception {
-                DescribeSecurityGroupsResult result;
+              DescribeSecurityGroupsResult result;
                 try {
-                    result = describeSecurityGroups(describeSecurityGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSecurityGroupsRequest, result);
-                   return result;
-            }
-        });
+                result = describeSecurityGroups(describeSecurityGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSecurityGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Detaches a VPN gateway from a VPC. You do this if you're planning to
-     * turn off the VPC and not use it anymore. You can confirm a VPN gateway
-     * has been completely detached from a VPC by describing the VPN gateway
-     * (any attachments to the VPN gateway are also described).
+     * Rejects a VPC peering connection request. The VPC peering connection
+     * must be in the <code>pending-acceptance</code> state. Use the
+     * <code>DescribeVpcPeeringConnections</code> request to view your
+     * outstanding VPC peering connection requests.
+     * </p>
+     *
+     * @param rejectVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the RejectVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RejectVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<RejectVpcPeeringConnectionResult> rejectVpcPeeringConnectionAsync(final RejectVpcPeeringConnectionRequest rejectVpcPeeringConnectionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<RejectVpcPeeringConnectionResult>() {
+            public RejectVpcPeeringConnectionResult call() throws Exception {
+                return rejectVpcPeeringConnection(rejectVpcPeeringConnectionRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Rejects a VPC peering connection request. The VPC peering connection
+     * must be in the <code>pending-acceptance</code> state. Use the
+     * <code>DescribeVpcPeeringConnections</code> request to view your
+     * outstanding VPC peering connection requests.
+     * </p>
+     *
+     * @param rejectVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the RejectVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RejectVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<RejectVpcPeeringConnectionResult> rejectVpcPeeringConnectionAsync(
+            final RejectVpcPeeringConnectionRequest rejectVpcPeeringConnectionRequest,
+            final AsyncHandler<RejectVpcPeeringConnectionRequest, RejectVpcPeeringConnectionResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<RejectVpcPeeringConnectionResult>() {
+            public RejectVpcPeeringConnectionResult call() throws Exception {
+              RejectVpcPeeringConnectionResult result;
+                try {
+                result = rejectVpcPeeringConnection(rejectVpcPeeringConnectionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(rejectVpcPeeringConnectionRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Detaches a virtual private gateway from a VPC. You do this if you're
+     * planning to turn off the VPC and not use it anymore. You can confirm a
+     * virtual private gateway has been completely detached from a VPC by
+     * describing the virtual private gateway (any attachments to the virtual
+     * private gateway are also described).
      * </p>
      * <p>
-     * You must wait for the attachment's state to switch to detached before
-     * you can delete the VPC or attach a different VPC to the VPN gateway.
+     * You must wait for the attachment's state to switch to
+     * <code>detached</code> before you can delete the VPC or attach a
+     * different VPC to the virtual private gateway.
      * </p>
      *
      * @param detachVpnGatewayRequest Container for the necessary parameters
@@ -2629,20 +3012,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 detachVpnGateway(detachVpnGatewayRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Detaches a VPN gateway from a VPC. You do this if you're planning to
-     * turn off the VPC and not use it anymore. You can confirm a VPN gateway
-     * has been completely detached from a VPC by describing the VPN gateway
-     * (any attachments to the VPN gateway are also described).
+     * Detaches a virtual private gateway from a VPC. You do this if you're
+     * planning to turn off the VPC and not use it anymore. You can confirm a
+     * virtual private gateway has been completely detached from a VPC by
+     * describing the virtual private gateway (any attachments to the virtual
+     * private gateway are also described).
      * </p>
      * <p>
-     * You must wait for the attachment's state to switch to detached before
-     * you can delete the VPC or attach a different VPC to the VPN gateway.
+     * You must wait for the attachment's state to switch to
+     * <code>detached</code> before you can delete the VPC or attach a
+     * different VPC to the virtual private gateway.
      * </p>
      *
      * @param detachVpnGatewayRequest Container for the necessary parameters
@@ -2670,22 +3055,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    detachVpnGateway(detachVpnGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(detachVpnGatewayRequest, null);
-                   return null;
-            }
-        });
+              try {
+                detachVpnGateway(detachVpnGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(detachVpnGatewayRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DeregisterImage operation deregisters an AMI. Once deregistered,
-     * instances of the AMI can no longer be launched.
+     * Deregisters the specified AMI. After you deregister an AMI, it can't
+     * be used to launch new instances.
+     * </p>
+     * <p>
+     * This command does not delete the AMI.
      * </p>
      *
      * @param deregisterImageRequest Container for the necessary parameters
@@ -2709,14 +3097,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deregisterImage(deregisterImageRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DeregisterImage operation deregisters an AMI. Once deregistered,
-     * instances of the AMI can no longer be launched.
+     * Deregisters the specified AMI. After you deregister an AMI, it can't
+     * be used to launch new instances.
+     * </p>
+     * <p>
+     * This command does not delete the AMI.
      * </p>
      *
      * @param deregisterImageRequest Container for the necessary parameters
@@ -2744,27 +3135,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deregisterImage(deregisterImageRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deregisterImageRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deregisterImage(deregisterImageRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deregisterImageRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Describes the data feed for Spot Instances.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * Describes the datafeed for Spot Instances. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeSpotDatafeedSubscriptionRequest Container for the
@@ -2789,19 +3176,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeSpotDatafeedSubscriptionResult>() {
             public DescribeSpotDatafeedSubscriptionResult call() throws Exception {
                 return describeSpotDatafeedSubscription(describeSpotDatafeedSubscriptionRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes the data feed for Spot Instances.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * Describes the datafeed for Spot Instances. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeSpotDatafeedSubscriptionRequest Container for the
@@ -2831,22 +3214,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeSpotDatafeedSubscriptionResult>() {
             public DescribeSpotDatafeedSubscriptionResult call() throws Exception {
-                DescribeSpotDatafeedSubscriptionResult result;
+              DescribeSpotDatafeedSubscriptionResult result;
                 try {
-                    result = describeSpotDatafeedSubscription(describeSpotDatafeedSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSpotDatafeedSubscriptionRequest, result);
-                   return result;
-            }
-        });
+                result = describeSpotDatafeedSubscription(describeSpotDatafeedSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSpotDatafeedSubscriptionRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes tags from the specified Amazon EC2 resources.
+     * Deletes the specified set of tags from the specified set of
+     * resources. This call is designed to follow a <code>DescribeTags</code>
+     * request.
+     * </p>
+     * <p>
+     * For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging Your Resources </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteTagsRequest Container for the necessary parameters to
@@ -2870,13 +3260,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteTags(deleteTagsRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes tags from the specified Amazon EC2 resources.
+     * Deletes the specified set of tags from the specified set of
+     * resources. This call is designed to follow a <code>DescribeTags</code>
+     * request.
+     * </p>
+     * <p>
+     * For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging Your Resources </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteTagsRequest Container for the necessary parameters to
@@ -2904,23 +3301,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteTags(deleteTagsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteTagsRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteTags(deleteTagsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteTagsRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a subnet from a VPC. You must terminate all running instances
-     * in the subnet before deleting it, otherwise Amazon VPC returns an
-     * error.
+     * Deletes the specified subnet. You must terminate all running
+     * instances in the subnet before you can delete the subnet.
      * </p>
      *
      * @param deleteSubnetRequest Container for the necessary parameters to
@@ -2944,15 +3340,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteSubnet(deleteSubnetRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a subnet from a VPC. You must terminate all running instances
-     * in the subnet before deleting it, otherwise Amazon VPC returns an
-     * error.
+     * Deletes the specified subnet. You must terminate all running
+     * instances in the subnet before you can delete the subnet.
      * </p>
      *
      * @param deleteSubnetRequest Container for the necessary parameters to
@@ -2980,19 +3375,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteSubnet(deleteSubnetRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteSubnetRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteSubnet(deleteSubnetRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSubnetRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes the specified attribute of your AWS account.
+     * </p>
      *
      * @param describeAccountAttributesRequest Container for the necessary
      *           parameters to execute the DescribeAccountAttributes operation on
@@ -3015,11 +3413,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeAccountAttributesResult>() {
             public DescribeAccountAttributesResult call() throws Exception {
                 return describeAccountAttributes(describeAccountAttributesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes the specified attribute of your AWS account.
+     * </p>
      *
      * @param describeAccountAttributesRequest Container for the necessary
      *           parameters to execute the DescribeAccountAttributes operation on
@@ -3047,24 +3448,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeAccountAttributesResult>() {
             public DescribeAccountAttributesResult call() throws Exception {
-                DescribeAccountAttributesResult result;
+              DescribeAccountAttributesResult result;
                 try {
-                    result = describeAccountAttributes(describeAccountAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeAccountAttributesRequest, result);
-                   return result;
-            }
-        });
+                result = describeAccountAttributes(describeAccountAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeAccountAttributesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a new VPN gateway. A VPN gateway is the VPC-side endpoint for
-     * your VPN connection. You can create a VPN gateway before creating the
-     * VPC itself.
+     * Creates a virtual private gateway. A virtual private gateway is the
+     * endpoint on the VPC side of your VPN connection. You can create a
+     * virtual private gateway before creating the VPC itself.
+     * </p>
+     * <p>
+     * For more information about virtual private gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createVpnGatewayRequest Container for the necessary parameters
@@ -3087,15 +3493,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateVpnGatewayResult>() {
             public CreateVpnGatewayResult call() throws Exception {
                 return createVpnGateway(createVpnGatewayRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a new VPN gateway. A VPN gateway is the VPC-side endpoint for
-     * your VPN connection. You can create a VPN gateway before creating the
-     * VPC itself.
+     * Creates a virtual private gateway. A virtual private gateway is the
+     * endpoint on the VPC side of your VPN connection. You can create a
+     * virtual private gateway before creating the VPC itself.
+     * </p>
+     * <p>
+     * For more information about virtual private gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createVpnGatewayRequest Container for the necessary parameters
@@ -3123,22 +3534,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateVpnGatewayResult>() {
             public CreateVpnGatewayResult call() throws Exception {
-                CreateVpnGatewayResult result;
+              CreateVpnGatewayResult result;
                 try {
-                    result = createVpnGateway(createVpnGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVpnGatewayRequest, result);
-                   return result;
-            }
-        });
+                result = createVpnGateway(createVpnGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVpnGatewayRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Enable IO on the volume after an event has occured.
+     * Enables I/O operations for a volume that had I/O operations disabled
+     * because the data on the volume was potentially inconsistent.
      * </p>
      *
      * @param enableVolumeIORequest Container for the necessary parameters to
@@ -3162,13 +3574,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 enableVolumeIO(enableVolumeIORequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Enable IO on the volume after an event has occured.
+     * Enables I/O operations for a volume that had I/O operations disabled
+     * because the data on the volume was potentially inconsistent.
      * </p>
      *
      * @param enableVolumeIORequest Container for the necessary parameters to
@@ -3196,26 +3609,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    enableVolumeIO(enableVolumeIORequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(enableVolumeIORequest, null);
-                   return null;
-            }
-        });
+              try {
+                enableVolumeIO(enableVolumeIORequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(enableVolumeIORequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a VPN gateway. Use this when you want to delete a VPC and all
-     * its associated components because you no longer need them. We
-     * recommend that before you delete a VPN gateway, you detach it from the
+     * Deletes the specified virtual private gateway. We recommend that
+     * before you delete a virtual private gateway, you detach it from the
      * VPC and delete the VPN connection. Note that you don't need to delete
-     * the VPN gateway if you just want to delete and re-create the VPN
-     * connection between your VPC and data center.
+     * the virtual private gateway if you plan to delete and recreate the VPN
+     * connection between your VPC and your network.
      * </p>
      *
      * @param deleteVpnGatewayRequest Container for the necessary parameters
@@ -3239,18 +3651,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteVpnGateway(deleteVpnGatewayRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a VPN gateway. Use this when you want to delete a VPC and all
-     * its associated components because you no longer need them. We
-     * recommend that before you delete a VPN gateway, you detach it from the
+     * Deletes the specified virtual private gateway. We recommend that
+     * before you delete a virtual private gateway, you detach it from the
      * VPC and delete the VPN connection. Note that you don't need to delete
-     * the VPN gateway if you just want to delete and re-create the VPN
-     * connection between your VPC and data center.
+     * the virtual private gateway if you plan to delete and recreate the VPN
+     * connection between your VPC and your network.
      * </p>
      *
      * @param deleteVpnGatewayRequest Container for the necessary parameters
@@ -3278,21 +3689,60 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVpnGateway(deleteVpnGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVpnGatewayRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVpnGateway(deleteVpnGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVpnGatewayRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Attach a previously created volume to a running instance.
+     * Attaches an Amazon EBS volume to a running or stopped instance and
+     * exposes it to the instance with the specified device name.
+     * </p>
+     * <p>
+     * Encrypted Amazon EBS volumes may only be attached to instances that
+     * support Amazon EBS encryption. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For a list of supported device names, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"> Attaching an Amazon EBS Volume to an Instance </a> . Any device names that aren't reserved for instance store volumes can be used for Amazon EBS volumes. For more information, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html"> Amazon EC2 Instance Store </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * If a volume has an AWS Marketplace product code:
+     * </p>
+     * 
+     * <ul>
+     * <li>The volume can only be attached as the root device of a stopped
+     * instance.</li>
+     * <li>You must be subscribed to the AWS Marketplace code that is on the
+     * volume.</li>
+     * <li>The configuration (instance type, operating system) of the
+     * instance must support that specific AWS Marketplace code. For example,
+     * you cannot take a volume from a Windows instance and attach it to a
+     * Linux instance.</li>
+     * <li>AWS Marketplace product codes are copied from the volume to the
+     * instance.</li>
+     * 
+     * </ul>
+     * <p>
+     * For an overview of the AWS Marketplace, see
+     * <a href="https://aws.amazon.com/marketplace/help/200900000"> https://aws.amazon.com/marketplace/help/200900000 </a> . For more information about how to use the AWS Marketplace, see <a href="https://aws.amazon.com/marketplace"> AWS Marketplace </a>
+     * .
+     * </p>
+     * <p>
+     * For more information about Amazon EBS volumes, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"> Attaching Amazon EBS Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param attachVolumeRequest Container for the necessary parameters to
@@ -3315,13 +3765,52 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<AttachVolumeResult>() {
             public AttachVolumeResult call() throws Exception {
                 return attachVolume(attachVolumeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Attach a previously created volume to a running instance.
+     * Attaches an Amazon EBS volume to a running or stopped instance and
+     * exposes it to the instance with the specified device name.
+     * </p>
+     * <p>
+     * Encrypted Amazon EBS volumes may only be attached to instances that
+     * support Amazon EBS encryption. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For a list of supported device names, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"> Attaching an Amazon EBS Volume to an Instance </a> . Any device names that aren't reserved for instance store volumes can be used for Amazon EBS volumes. For more information, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html"> Amazon EC2 Instance Store </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * If a volume has an AWS Marketplace product code:
+     * </p>
+     * 
+     * <ul>
+     * <li>The volume can only be attached as the root device of a stopped
+     * instance.</li>
+     * <li>You must be subscribed to the AWS Marketplace code that is on the
+     * volume.</li>
+     * <li>The configuration (instance type, operating system) of the
+     * instance must support that specific AWS Marketplace code. For example,
+     * you cannot take a volume from a Windows instance and attach it to a
+     * Linux instance.</li>
+     * <li>AWS Marketplace product codes are copied from the volume to the
+     * instance.</li>
+     * 
+     * </ul>
+     * <p>
+     * For an overview of the AWS Marketplace, see
+     * <a href="https://aws.amazon.com/marketplace/help/200900000"> https://aws.amazon.com/marketplace/help/200900000 </a> . For more information about how to use the AWS Marketplace, see <a href="https://aws.amazon.com/marketplace"> AWS Marketplace </a>
+     * .
+     * </p>
+     * <p>
+     * For more information about Amazon EBS volumes, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html"> Attaching Amazon EBS Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param attachVolumeRequest Container for the necessary parameters to
@@ -3349,98 +3838,69 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<AttachVolumeResult>() {
             public AttachVolumeResult call() throws Exception {
-                AttachVolumeResult result;
+              AttachVolumeResult result;
                 try {
-                    result = attachVolume(attachVolumeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(attachVolumeRequest, result);
-                   return result;
-            }
-        });
+                result = attachVolume(attachVolumeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(attachVolumeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Provides details of a user's registered licenses. Zero or more IDs
-     * may be specified on the call. When one or more license IDs are
-     * specified, only data for the specified IDs are returned.
+     * Describes the status of the specified volumes. Volume status provides
+     * the result of the checks performed on your volumes to determine events
+     * that can impair the performance of your volumes. The performance of a
+     * volume can be affected if an issue occurs on the volume's underlying
+     * host. If the volume's underlying host experiences a power outage or
+     * system issue, after the system is restored, there could be data
+     * inconsistencies on the volume. Volume events notify you if this
+     * occurs. Volume actions notify you if any action needs to be taken in
+     * response to the event.
      * </p>
-     *
-     * @param describeLicensesRequest Container for the necessary parameters
-     *           to execute the DescribeLicenses operation on AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeLicenses service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeLicensesResult> describeLicensesAsync(final DescribeLicensesRequest describeLicensesRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeLicensesResult>() {
-            public DescribeLicensesResult call() throws Exception {
-                return describeLicenses(describeLicensesRequest);
-            }
-        });
-    }
-
-    /**
      * <p>
-     * Provides details of a user's registered licenses. Zero or more IDs
-     * may be specified on the call. When one or more license IDs are
-     * specified, only data for the specified IDs are returned.
+     * The <code>DescribeVolumeStatus</code> operation provides the
+     * following information about the specified volumes:
      * </p>
-     *
-     * @param describeLicensesRequest Container for the necessary parameters
-     *           to execute the DescribeLicenses operation on AmazonEC2.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeLicenses service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeLicensesResult> describeLicensesAsync(
-            final DescribeLicensesRequest describeLicensesRequest,
-            final AsyncHandler<DescribeLicensesRequest, DescribeLicensesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeLicensesResult>() {
-            public DescribeLicensesResult call() throws Exception {
-                DescribeLicensesResult result;
-                try {
-                    result = describeLicenses(describeLicensesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeLicensesRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
      * <p>
-     * Describes the status of a volume.
+     * <i>Status</i> : Reflects the current status of the volume. The
+     * possible values are <code>ok</code> , <code>impaired</code> ,
+     * <code>warning</code> , or <code>insufficient-data</code> . If all
+     * checks pass, the overall status of the volume is <code>ok</code> . If
+     * the check fails, the overall status is <code>impaired</code> . If the
+     * status is <code>insufficient-data</code> , then the checks may still
+     * be taking place on your volume at the time. We recommend that you
+     * retry the request. For more information on volume status, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-volume-status.html"> Monitoring the Status of Your Volumes </a>
+     * .
+     * </p>
+     * <p>
+     * <i>Events</i> : Reflect the cause of a volume status and may require
+     * you to take action. For example, if your volume returns an
+     * <code>impaired</code> status, then the volume event might be
+     * <code>potential-data-inconsistency</code> . This means that your
+     * volume has been affected by an issue with the underlying host, has all
+     * I/O operations disabled, and may have inconsistent data.
+     * </p>
+     * <p>
+     * <i>Actions</i> : Reflect the actions you may have to take in response
+     * to an event. For example, if the status of the volume is
+     * <code>impaired</code> and the volume event shows
+     * <code>potential-data-inconsistency</code> , then the action shows
+     * <code>enable-volume-io</code> . This means that you may want to enable
+     * the I/O operations for the volume by calling the EnableVolumeIO action
+     * and then check the volume for data consistency.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Volume status is based on the volume status checks, and
+     * does not reflect the volume state. Therefore, volume status does not
+     * indicate volumes in the error state (for example, when a volume is
+     * incapable of accepting I/O.)
      * </p>
      *
      * @param describeVolumeStatusRequest Container for the necessary
@@ -3463,13 +3923,60 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVolumeStatusResult>() {
             public DescribeVolumeStatusResult call() throws Exception {
                 return describeVolumeStatus(describeVolumeStatusRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes the status of a volume.
+     * Describes the status of the specified volumes. Volume status provides
+     * the result of the checks performed on your volumes to determine events
+     * that can impair the performance of your volumes. The performance of a
+     * volume can be affected if an issue occurs on the volume's underlying
+     * host. If the volume's underlying host experiences a power outage or
+     * system issue, after the system is restored, there could be data
+     * inconsistencies on the volume. Volume events notify you if this
+     * occurs. Volume actions notify you if any action needs to be taken in
+     * response to the event.
+     * </p>
+     * <p>
+     * The <code>DescribeVolumeStatus</code> operation provides the
+     * following information about the specified volumes:
+     * </p>
+     * <p>
+     * <i>Status</i> : Reflects the current status of the volume. The
+     * possible values are <code>ok</code> , <code>impaired</code> ,
+     * <code>warning</code> , or <code>insufficient-data</code> . If all
+     * checks pass, the overall status of the volume is <code>ok</code> . If
+     * the check fails, the overall status is <code>impaired</code> . If the
+     * status is <code>insufficient-data</code> , then the checks may still
+     * be taking place on your volume at the time. We recommend that you
+     * retry the request. For more information on volume status, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-volume-status.html"> Monitoring the Status of Your Volumes </a>
+     * .
+     * </p>
+     * <p>
+     * <i>Events</i> : Reflect the cause of a volume status and may require
+     * you to take action. For example, if your volume returns an
+     * <code>impaired</code> status, then the volume event might be
+     * <code>potential-data-inconsistency</code> . This means that your
+     * volume has been affected by an issue with the underlying host, has all
+     * I/O operations disabled, and may have inconsistent data.
+     * </p>
+     * <p>
+     * <i>Actions</i> : Reflect the actions you may have to take in response
+     * to an event. For example, if the status of the volume is
+     * <code>impaired</code> and the volume event shows
+     * <code>potential-data-inconsistency</code> , then the action shows
+     * <code>enable-volume-io</code> . This means that you may want to enable
+     * the I/O operations for the volume by calling the EnableVolumeIO action
+     * and then check the volume for data consistency.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Volume status is based on the volume status checks, and
+     * does not reflect the volume state. Therefore, volume status does not
+     * indicate volumes in the error state (for example, when a volume is
+     * incapable of accepting I/O.)
      * </p>
      *
      * @param describeVolumeStatusRequest Container for the necessary
@@ -3497,100 +4004,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVolumeStatusResult>() {
             public DescribeVolumeStatusResult call() throws Exception {
-                DescribeVolumeStatusResult result;
+              DescribeVolumeStatusResult result;
                 try {
-                    result = describeVolumeStatus(describeVolumeStatusRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVolumeStatusRequest, result);
-                   return result;
-            }
-        });
+                result = describeVolumeStatus(describeVolumeStatusRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVolumeStatusRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Activates a specific number of licenses for a 90-day period.
-     * Activations can be done against a specific license ID.
-     * </p>
-     *
-     * @param activateLicenseRequest Container for the necessary parameters
-     *           to execute the ActivateLicense operation on AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ActivateLicense service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> activateLicenseAsync(final ActivateLicenseRequest activateLicenseRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                activateLicense(activateLicenseRequest);
-                return null;
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * Activates a specific number of licenses for a 90-day period.
-     * Activations can be done against a specific license ID.
-     * </p>
-     *
-     * @param activateLicenseRequest Container for the necessary parameters
-     *           to execute the ActivateLicense operation on AmazonEC2.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ActivateLicense service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> activateLicenseAsync(
-            final ActivateLicenseRequest activateLicenseRequest,
-            final AsyncHandler<ActivateLicenseRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                try {
-                    activateLicense(activateLicenseRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(activateLicenseRequest, null);
-                   return null;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The ResetImageAttribute operation resets an attribute of an AMI to
-     * its default value.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> The productCodes attribute cannot be reset.
+     * Resets an attribute of an AMI to its default value.
      * </p>
      *
      * @param resetImageAttributeRequest Container for the necessary
@@ -3614,17 +4043,13 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 resetImageAttribute(resetImageAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The ResetImageAttribute operation resets an attribute of an AMI to
-     * its default value.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> The productCodes attribute cannot be reset.
+     * Resets an attribute of an AMI to its default value.
      * </p>
      *
      * @param resetImageAttributeRequest Container for the necessary
@@ -3652,36 +4077,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    resetImageAttribute(resetImageAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resetImageAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                resetImageAttribute(resetImageAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resetImageAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about your VPN connections.
+     * Describes one or more of your VPN connections.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> We strongly recommend you use HTTPS when calling
-     * this operation because the response contains sensitive cryptographic
-     * information for configuring your customer gateway. You can filter the
-     * results to return information only about VPN connections that match
-     * criteria you specify. For example, you could ask to get information
-     * about a particular VPN connection (or all) only if the VPN's state is
-     * pending or available. You can specify multiple filters (e.g., the VPN
-     * connection is associated with a particular VPN gateway, and the
-     * gateway's state is pending or available). The result includes
-     * information for a particular VPN connection only if the VPN connection
-     * matches all your filters. If there's no match, no special message is
-     * returned; the response is simply empty. The following table shows the
-     * available filters.
+     * For more information about VPN connections, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeVpnConnectionsRequest Container for the necessary
@@ -3705,28 +4120,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVpnConnectionsResult>() {
             public DescribeVpnConnectionsResult call() throws Exception {
                 return describeVpnConnections(describeVpnConnectionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about your VPN connections.
+     * Describes one or more of your VPN connections.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> We strongly recommend you use HTTPS when calling
-     * this operation because the response contains sensitive cryptographic
-     * information for configuring your customer gateway. You can filter the
-     * results to return information only about VPN connections that match
-     * criteria you specify. For example, you could ask to get information
-     * about a particular VPN connection (or all) only if the VPN's state is
-     * pending or available. You can specify multiple filters (e.g., the VPN
-     * connection is associated with a particular VPN gateway, and the
-     * gateway's state is pending or available). The result includes
-     * information for a particular VPN connection only if the VPN connection
-     * matches all your filters. If there's no match, no special message is
-     * returned; the response is simply empty. The following table shows the
-     * available filters.
+     * For more information about VPN connections, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeVpnConnectionsRequest Container for the necessary
@@ -3755,20 +4160,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVpnConnectionsResult>() {
             public DescribeVpnConnectionsResult call() throws Exception {
-                DescribeVpnConnectionsResult result;
+              DescribeVpnConnectionsResult result;
                 try {
-                    result = describeVpnConnections(describeVpnConnectionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVpnConnectionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeVpnConnections(describeVpnConnectionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVpnConnectionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Enables a virtual private gateway (VGW) to propagate routes to the
+     * routing tables of a VPC.
+     * </p>
      *
      * @param enableVgwRoutePropagationRequest Container for the necessary
      *           parameters to execute the EnableVgwRoutePropagation operation on
@@ -3792,11 +4201,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 enableVgwRoutePropagation(enableVgwRoutePropagationRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Enables a virtual private gateway (VGW) to propagate routes to the
+     * routing tables of a VPC.
+     * </p>
      *
      * @param enableVgwRoutePropagationRequest Container for the necessary
      *           parameters to execute the EnableVgwRoutePropagation operation on
@@ -3824,31 +4237,55 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    enableVgwRoutePropagation(enableVgwRoutePropagationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(enableVgwRoutePropagationRequest, null);
-                   return null;
-            }
-        });
+              try {
+                enableVgwRoutePropagation(enableVgwRoutePropagationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(enableVgwRoutePropagationRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Create a snapshot of the volume identified by volume ID. A volume
-     * does not have to be detached at the time the snapshot is taken.
+     * Creates a snapshot of an Amazon EBS volume and stores it in Amazon
+     * S3. You can use snapshots for backups, to make copies of Amazon EBS
+     * volumes, and to save data before shutting down an instance.
      * </p>
      * <p>
-     * <b>NOTE:</b> Snapshot creation requires that the system is in a
-     * consistent state. For instance, this means that if taking a snapshot
-     * of a database, the tables must be read-only locked to ensure that the
-     * snapshot will not contain a corrupted version of the database.
-     * Therefore, be careful when using this API to ensure that the system
-     * remains in the consistent state until the create snapshot status has
-     * returned.
+     * When a snapshot is created, any AWS Marketplace product codes that
+     * are associated with the source volume are propagated to the snapshot.
+     * </p>
+     * <p>
+     * You can take a snapshot of an attached volume that is in use.
+     * However, snapshots only capture data that has been written to your
+     * Amazon EBS volume at the time the snapshot command is issued; this may
+     * exclude any data that has been cached by any applications or the
+     * operating system. If you can pause any file writes to the volume long
+     * enough to take a snapshot, your snapshot should be complete. However,
+     * if you cannot pause all file writes to the volume, you should unmount
+     * the volume from within the instance, issue the snapshot command, and
+     * then remount the volume to ensure a consistent and complete snapshot.
+     * You may remount and use your volume while the snapshot status is
+     * <code>pending</code> .
+     * </p>
+     * <p>
+     * To create a snapshot for Amazon EBS volumes that serve as root
+     * devices, you should stop the instance before taking the snapshot.
+     * </p>
+     * <p>
+     * Snapshots that are taken from encrypted volumes are automatically
+     * encrypted. Volumes that are created from encrypted snapshots are also
+     * automatically encrypted. Your encrypted volumes and any associated
+     * snapshots always remain protected.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html"> Amazon Elastic Block Store </a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createSnapshotRequest Container for the necessary parameters to
@@ -3871,23 +4308,47 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateSnapshotResult>() {
             public CreateSnapshotResult call() throws Exception {
                 return createSnapshot(createSnapshotRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Create a snapshot of the volume identified by volume ID. A volume
-     * does not have to be detached at the time the snapshot is taken.
+     * Creates a snapshot of an Amazon EBS volume and stores it in Amazon
+     * S3. You can use snapshots for backups, to make copies of Amazon EBS
+     * volumes, and to save data before shutting down an instance.
      * </p>
      * <p>
-     * <b>NOTE:</b> Snapshot creation requires that the system is in a
-     * consistent state. For instance, this means that if taking a snapshot
-     * of a database, the tables must be read-only locked to ensure that the
-     * snapshot will not contain a corrupted version of the database.
-     * Therefore, be careful when using this API to ensure that the system
-     * remains in the consistent state until the create snapshot status has
-     * returned.
+     * When a snapshot is created, any AWS Marketplace product codes that
+     * are associated with the source volume are propagated to the snapshot.
+     * </p>
+     * <p>
+     * You can take a snapshot of an attached volume that is in use.
+     * However, snapshots only capture data that has been written to your
+     * Amazon EBS volume at the time the snapshot command is issued; this may
+     * exclude any data that has been cached by any applications or the
+     * operating system. If you can pause any file writes to the volume long
+     * enough to take a snapshot, your snapshot should be complete. However,
+     * if you cannot pause all file writes to the volume, you should unmount
+     * the volume from within the instance, issue the snapshot command, and
+     * then remount the volume to ensure a consistent and complete snapshot.
+     * You may remount and use your volume while the snapshot status is
+     * <code>pending</code> .
+     * </p>
+     * <p>
+     * To create a snapshot for Amazon EBS volumes that serve as root
+     * devices, you should stop the instance before taking the snapshot.
+     * </p>
+     * <p>
+     * Snapshots that are taken from encrypted volumes are automatically
+     * encrypted. Volumes that are created from encrypted snapshots are also
+     * automatically encrypted. Your encrypted volumes and any associated
+     * snapshots always remain protected.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html"> Amazon Elastic Block Store </a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createSnapshotRequest Container for the necessary parameters to
@@ -3915,23 +4376,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateSnapshotResult>() {
             public CreateSnapshotResult call() throws Exception {
-                CreateSnapshotResult result;
+              CreateSnapshotResult result;
                 try {
-                    result = createSnapshot(createSnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createSnapshotRequest, result);
-                   return result;
-            }
-        });
+                result = createSnapshot(createSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a previously created volume. Once successfully deleted, a
-     * new volume can be created with the same name.
+     * Deletes the specified Amazon EBS volume. The volume must be in the
+     * <code>available</code> state (not attached to an instance).
+     * </p>
+     * <p>
+     * <b>NOTE:</b> The volume may remain in the deleting state for several
+     * minutes.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-volume.html"> Deleting an Amazon EBS Volume </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteVolumeRequest Container for the necessary parameters to
@@ -3955,14 +4425,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteVolume(deleteVolumeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a previously created volume. Once successfully deleted, a
-     * new volume can be created with the same name.
+     * Deletes the specified Amazon EBS volume. The volume must be in the
+     * <code>available</code> state (not attached to an instance).
+     * </p>
+     * <p>
+     * <b>NOTE:</b> The volume may remain in the deleting state for several
+     * minutes.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-volume.html"> Deleting an Amazon EBS Volume </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteVolumeRequest Container for the necessary parameters to
@@ -3990,19 +4469,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVolume(deleteVolumeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVolumeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVolume(deleteVolumeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVolumeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Creates a network interface in the specified subnet.
+     * </p>
+     * <p>
+     * For more information about network interfaces, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html"> Elastic Network Interfaces </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param createNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the CreateNetworkInterface operation on
@@ -4025,11 +4512,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateNetworkInterfaceResult>() {
             public CreateNetworkInterfaceResult call() throws Exception {
                 return createNetworkInterface(createNetworkInterfaceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Creates a network interface in the specified subnet.
+     * </p>
+     * <p>
+     * For more information about network interfaces, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html"> Elastic Network Interfaces </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param createNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the CreateNetworkInterface operation on
@@ -4057,24 +4552,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateNetworkInterfaceResult>() {
             public CreateNetworkInterfaceResult call() throws Exception {
-                CreateNetworkInterfaceResult result;
+              CreateNetworkInterfaceResult result;
                 try {
-                    result = createNetworkInterface(createNetworkInterfaceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createNetworkInterfaceRequest, result);
-                   return result;
-            }
-        });
+                result = createNetworkInterface(createNetworkInterfaceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createNetworkInterfaceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The ModifyReservedInstances operation modifies the Availability Zone,
-     * instance count, instance type, or network platform (EC2-Classic or
-     * EC2-VPC) of your Reserved Instances.
+     * Modifies the Availability Zone, instance count, instance type, or
+     * network platform (EC2-Classic or EC2-VPC) of your Reserved Instances.
+     * The Reserved Instances to be modified must be identical, except for
+     * Availability Zone, network platform, and instance type.
      * </p>
      *
      * @param modifyReservedInstancesRequest Container for the necessary
@@ -4098,15 +4594,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ModifyReservedInstancesResult>() {
             public ModifyReservedInstancesResult call() throws Exception {
                 return modifyReservedInstances(modifyReservedInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The ModifyReservedInstances operation modifies the Availability Zone,
-     * instance count, instance type, or network platform (EC2-Classic or
-     * EC2-VPC) of your Reserved Instances.
+     * Modifies the Availability Zone, instance count, instance type, or
+     * network platform (EC2-Classic or EC2-VPC) of your Reserved Instances.
+     * The Reserved Instances to be modified must be identical, except for
+     * Availability Zone, network platform, and instance type.
      * </p>
      *
      * @param modifyReservedInstancesRequest Container for the necessary
@@ -4135,103 +4632,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ModifyReservedInstancesResult>() {
             public ModifyReservedInstancesResult call() throws Exception {
-                ModifyReservedInstancesResult result;
+              ModifyReservedInstancesResult result;
                 try {
-                    result = modifyReservedInstances(modifyReservedInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyReservedInstancesRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     *
-     * @param unassignPrivateIpAddressesRequest Container for the necessary
-     *           parameters to execute the UnassignPrivateIpAddresses operation on
-     *           AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UnassignPrivateIpAddresses service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> unassignPrivateIpAddressesAsync(final UnassignPrivateIpAddressesRequest unassignPrivateIpAddressesRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                unassignPrivateIpAddresses(unassignPrivateIpAddressesRequest);
-                return null;
-            }
-        });
-    }
-
-    /**
-     *
-     * @param unassignPrivateIpAddressesRequest Container for the necessary
-     *           parameters to execute the UnassignPrivateIpAddresses operation on
-     *           AmazonEC2.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UnassignPrivateIpAddresses service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> unassignPrivateIpAddressesAsync(
-            final UnassignPrivateIpAddressesRequest unassignPrivateIpAddressesRequest,
-            final AsyncHandler<UnassignPrivateIpAddressesRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                try {
-                    unassignPrivateIpAddresses(unassignPrivateIpAddressesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(unassignPrivateIpAddressesRequest, null);
-                   return null;
-            }
-        });
+                result = modifyReservedInstances(modifyReservedInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyReservedInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about your VPCs. You can filter the results to
-     * return information only about VPCs that match criteria you specify.
-     * </p>
-     * <p>
-     * For example, you could ask to get information about a particular VPC
-     * or VPCs (or all your VPCs) only if the VPC's state is available. You
-     * can specify multiple filters (e.g., the VPC uses one of several sets
-     * of DHCP options, and the VPC's state is available). The result
-     * includes information for a particular VPC only if the VPC matches all
-     * your filters.
-     * </p>
-     * <p>
-     * If there's no match, no special message is returned; the response is
-     * simply empty. The following table shows the available filters.
+     * Describes one or more of your VPCs.
      * </p>
      *
      * @param describeVpcsRequest Container for the necessary parameters to
@@ -4254,26 +4670,13 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVpcsResult>() {
             public DescribeVpcsResult call() throws Exception {
                 return describeVpcs(describeVpcsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about your VPCs. You can filter the results to
-     * return information only about VPCs that match criteria you specify.
-     * </p>
-     * <p>
-     * For example, you could ask to get information about a particular VPC
-     * or VPCs (or all your VPCs) only if the VPC's state is available. You
-     * can specify multiple filters (e.g., the VPC uses one of several sets
-     * of DHCP options, and the VPC's state is available). The result
-     * includes information for a particular VPC only if the VPC matches all
-     * your filters.
-     * </p>
-     * <p>
-     * If there's no match, no special message is returned; the response is
-     * simply empty. The following table shows the available filters.
+     * Describes one or more of your VPCs.
      * </p>
      *
      * @param describeVpcsRequest Container for the necessary parameters to
@@ -4301,20 +4704,108 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVpcsResult>() {
             public DescribeVpcsResult call() throws Exception {
-                DescribeVpcsResult result;
+              DescribeVpcsResult result;
                 try {
-                    result = describeVpcs(describeVpcsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVpcsRequest, result);
-                   return result;
-            }
-        });
+                result = describeVpcs(describeVpcsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVpcsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Unassigns one or more secondary private IP addresses from a network
+     * interface.
+     * </p>
+     *
+     * @param unassignPrivateIpAddressesRequest Container for the necessary
+     *           parameters to execute the UnassignPrivateIpAddresses operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UnassignPrivateIpAddresses service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> unassignPrivateIpAddressesAsync(final UnassignPrivateIpAddressesRequest unassignPrivateIpAddressesRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                unassignPrivateIpAddresses(unassignPrivateIpAddressesRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Unassigns one or more secondary private IP addresses from a network
+     * interface.
+     * </p>
+     *
+     * @param unassignPrivateIpAddressesRequest Container for the necessary
+     *           parameters to execute the UnassignPrivateIpAddresses operation on
+     *           AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UnassignPrivateIpAddresses service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> unassignPrivateIpAddressesAsync(
+            final UnassignPrivateIpAddressesRequest unassignPrivateIpAddressesRequest,
+            final AsyncHandler<UnassignPrivateIpAddressesRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                unassignPrivateIpAddresses(unassignPrivateIpAddressesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(unassignPrivateIpAddressesRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Cancels an active conversion task. The task can be the import of an
+     * instance or volume. The action removes all artifacts of the
+     * conversion, including a partially uploaded volume or instance. If the
+     * conversion is complete or is in the process of transferring the final
+     * disk image, the command fails and returns an exception.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param cancelConversionTaskRequest Container for the necessary
      *           parameters to execute the CancelConversionTask operation on AmazonEC2.
@@ -4337,11 +4828,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 cancelConversionTask(cancelConversionTaskRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Cancels an active conversion task. The task can be the import of an
+     * instance or volume. The action removes all artifacts of the
+     * conversion, including a partially uploaded volume or instance. If the
+     * conversion is complete or is in the process of transferring the final
+     * disk image, the command fails and returns an exception.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param cancelConversionTaskRequest Container for the necessary
      *           parameters to execute the CancelConversionTask operation on AmazonEC2.
@@ -4368,28 +4871,43 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    cancelConversionTask(cancelConversionTaskRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(cancelConversionTaskRequest, null);
-                   return null;
-            }
-        });
+              try {
+                cancelConversionTask(cancelConversionTaskRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(cancelConversionTaskRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The AssociateAddress operation associates an elastic IP address with
-     * an instance.
+     * Associates an Elastic IP address with an instance or a network
+     * interface.
      * </p>
      * <p>
-     * If the IP address is currently assigned to another instance, the IP
-     * address is assigned to the new instance. This is an idempotent
-     * operation. If you enter it more than once, Amazon EC2 does not return
-     * an error.
+     * An Elastic IP address is for use in either the EC2-Classic platform
+     * or in a VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * [EC2-Classic, default VPC] If the Elastic IP address is already
+     * associated with a different instance, it is disassociated from that
+     * instance and associated with the specified instance.
+     * </p>
+     * <p>
+     * [EC2-VPC] If you don't specify a private IP address, the Elastic IP
+     * address is associated with the primary IP address. If the Elastic IP
+     * address is already associated with a different instance or a network
+     * interface, you get an error unless you allow reassociation.
+     * </p>
+     * <p>
+     * This is an idempotent operation. If you perform the operation more
+     * than once, Amazon EC2 doesn't return an error.
      * </p>
      *
      * @param associateAddressRequest Container for the necessary parameters
@@ -4412,20 +4930,35 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<AssociateAddressResult>() {
             public AssociateAddressResult call() throws Exception {
                 return associateAddress(associateAddressRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The AssociateAddress operation associates an elastic IP address with
-     * an instance.
+     * Associates an Elastic IP address with an instance or a network
+     * interface.
      * </p>
      * <p>
-     * If the IP address is currently assigned to another instance, the IP
-     * address is assigned to the new instance. This is an idempotent
-     * operation. If you enter it more than once, Amazon EC2 does not return
-     * an error.
+     * An Elastic IP address is for use in either the EC2-Classic platform
+     * or in a VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * [EC2-Classic, default VPC] If the Elastic IP address is already
+     * associated with a different instance, it is disassociated from that
+     * instance and associated with the specified instance.
+     * </p>
+     * <p>
+     * [EC2-VPC] If you don't specify a private IP address, the Elastic IP
+     * address is associated with the primary IP address. If the Elastic IP
+     * address is already associated with a different instance or a network
+     * interface, you get an error unless you allow reassociation.
+     * </p>
+     * <p>
+     * This is an idempotent operation. If you perform the operation more
+     * than once, Amazon EC2 doesn't return an error.
      * </p>
      *
      * @param associateAddressRequest Container for the necessary parameters
@@ -4453,105 +4986,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<AssociateAddressResult>() {
             public AssociateAddressResult call() throws Exception {
-                AssociateAddressResult result;
+              AssociateAddressResult result;
                 try {
-                    result = associateAddress(associateAddressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(associateAddressRequest, result);
-                   return result;
-            }
-        });
+                result = associateAddress(associateAddressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(associateAddressRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deactivates a specific number of licenses. Deactivations can be done
-     * against a specific license ID after they have persisted for at least a
-     * 90-day period.
-     * </p>
-     *
-     * @param deactivateLicenseRequest Container for the necessary parameters
-     *           to execute the DeactivateLicense operation on AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeactivateLicense service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deactivateLicenseAsync(final DeactivateLicenseRequest deactivateLicenseRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deactivateLicense(deactivateLicenseRequest);
-                return null;
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * Deactivates a specific number of licenses. Deactivations can be done
-     * against a specific license ID after they have persisted for at least a
-     * 90-day period.
-     * </p>
-     *
-     * @param deactivateLicenseRequest Container for the necessary parameters
-     *           to execute the DeactivateLicense operation on AmazonEC2.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeactivateLicense service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deactivateLicenseAsync(
-            final DeactivateLicenseRequest deactivateLicenseRequest,
-            final AsyncHandler<DeactivateLicenseRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                try {
-                    deactivateLicense(deactivateLicenseRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deactivateLicenseRequest, null);
-                   return null;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * Deletes a customer gateway. You must delete the VPN connection before
-     * deleting the customer gateway.
-     * </p>
-     * <p>
-     * You can have a single active customer gateway per AWS account (active
-     * means that you've created a VPN connection with that customer
-     * gateway). AWS might delete any customer gateway you leave inactive for
-     * an extended period of time.
+     * Deletes the specified customer gateway. You must delete the VPN
+     * connection before you can delete the customer gateway.
      * </p>
      *
      * @param deleteCustomerGatewayRequest Container for the necessary
@@ -4576,20 +5027,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteCustomerGateway(deleteCustomerGatewayRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a customer gateway. You must delete the VPN connection before
-     * deleting the customer gateway.
-     * </p>
-     * <p>
-     * You can have a single active customer gateway per AWS account (active
-     * means that you've created a VPN connection with that customer
-     * gateway). AWS might delete any customer gateway you leave inactive for
-     * an extended period of time.
+     * Deletes the specified customer gateway. You must delete the VPN
+     * connection before you can delete the customer gateway.
      * </p>
      *
      * @param deleteCustomerGatewayRequest Container for the necessary
@@ -4618,40 +5063,42 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteCustomerGateway(deleteCustomerGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteCustomerGatewayRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteCustomerGateway(deleteCustomerGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteCustomerGatewayRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates an entry (i.e., rule) in a network ACL with a rule number you
-     * specify. Each network ACL has a set of numbered ingress rules and a
+     * Creates an entry (a rule) in a network ACL with the specified rule
+     * number. Each network ACL has a set of numbered ingress rules and a
      * separate set of numbered egress rules. When determining whether a
      * packet should be allowed in or out of a subnet associated with the
-     * ACL, Amazon VPC processes the entries in the ACL according to the rule
-     * numbers, in ascending order.
+     * ACL, we process the entries in the ACL according to the rule numbers,
+     * in ascending order. Each network ACL has a set of ingress rules and a
+     * separate set of egress rules.
      * </p>
      * <p>
-     * <b>Important:</b> We recommend that you leave room between the rules
-     * (e.g., 100, 110, 120, etc.), and not number them sequentially (101,
-     * 102, 103, etc.). This allows you to easily add a new rule between
-     * existing ones without having to renumber the rules.
+     * We recommend that you leave room between the rule numbers (for
+     * example, 100, 110, 120, ...), and not number them one right after the
+     * other (for example, 101, 102, 103, ...). This makes it easier to add a
+     * rule between existing ones without having to renumber the rules.
      * </p>
      * <p>
      * After you add an entry, you can't modify it; you must either replace
-     * it, or create a new entry and delete the old one.
+     * it, or create an entry and delete the old one.
      * </p>
      * <p>
-     * For more information about network ACLs, go to Network ACLs in the
-     * Amazon Virtual Private Cloud User Guide.
+     * For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createNetworkAclEntryRequest Container for the necessary
@@ -4676,32 +5123,34 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 createNetworkAclEntry(createNetworkAclEntryRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates an entry (i.e., rule) in a network ACL with a rule number you
-     * specify. Each network ACL has a set of numbered ingress rules and a
+     * Creates an entry (a rule) in a network ACL with the specified rule
+     * number. Each network ACL has a set of numbered ingress rules and a
      * separate set of numbered egress rules. When determining whether a
      * packet should be allowed in or out of a subnet associated with the
-     * ACL, Amazon VPC processes the entries in the ACL according to the rule
-     * numbers, in ascending order.
+     * ACL, we process the entries in the ACL according to the rule numbers,
+     * in ascending order. Each network ACL has a set of ingress rules and a
+     * separate set of egress rules.
      * </p>
      * <p>
-     * <b>Important:</b> We recommend that you leave room between the rules
-     * (e.g., 100, 110, 120, etc.), and not number them sequentially (101,
-     * 102, 103, etc.). This allows you to easily add a new rule between
-     * existing ones without having to renumber the rules.
+     * We recommend that you leave room between the rule numbers (for
+     * example, 100, 110, 120, ...), and not number them one right after the
+     * other (for example, 101, 102, 103, ...). This makes it easier to add a
+     * rule between existing ones without having to renumber the rules.
      * </p>
      * <p>
      * After you add an entry, you can't modify it; you must either replace
-     * it, or create a new entry and delete the old one.
+     * it, or create an entry and delete the old one.
      * </p>
      * <p>
-     * For more information about network ACLs, go to Network ACLs in the
-     * Amazon Virtual Private Cloud User Guide.
+     * For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createNetworkAclEntryRequest Container for the necessary
@@ -4730,19 +5179,104 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createNetworkAclEntry(createNetworkAclEntryRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createNetworkAclEntryRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createNetworkAclEntry(createNetworkAclEntryRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createNetworkAclEntryRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Accept a VPC peering connection request. To accept a request, the VPC
+     * peering connection must be in the <code>pending-acceptance</code>
+     * state, and you must be the owner of the peer VPC. Use the
+     * <code>DescribeVpcPeeringConnections</code> request to view your
+     * outstanding VPC peering connection requests.
+     * </p>
+     *
+     * @param acceptVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the AcceptVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AcceptVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<AcceptVpcPeeringConnectionResult> acceptVpcPeeringConnectionAsync(final AcceptVpcPeeringConnectionRequest acceptVpcPeeringConnectionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<AcceptVpcPeeringConnectionResult>() {
+            public AcceptVpcPeeringConnectionResult call() throws Exception {
+                return acceptVpcPeeringConnection(acceptVpcPeeringConnectionRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Accept a VPC peering connection request. To accept a request, the VPC
+     * peering connection must be in the <code>pending-acceptance</code>
+     * state, and you must be the owner of the peer VPC. Use the
+     * <code>DescribeVpcPeeringConnections</code> request to view your
+     * outstanding VPC peering connection requests.
+     * </p>
+     *
+     * @param acceptVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the AcceptVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AcceptVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<AcceptVpcPeeringConnectionResult> acceptVpcPeeringConnectionAsync(
+            final AcceptVpcPeeringConnectionRequest acceptVpcPeeringConnectionRequest,
+            final AsyncHandler<AcceptVpcPeeringConnectionRequest, AcceptVpcPeeringConnectionResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<AcceptVpcPeeringConnectionResult>() {
+            public AcceptVpcPeeringConnectionResult call() throws Exception {
+              AcceptVpcPeeringConnectionResult result;
+                try {
+                result = acceptVpcPeeringConnection(acceptVpcPeeringConnectionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(acceptVpcPeeringConnectionRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Describes one or more of your export tasks.
+     * </p>
      *
      * @param describeExportTasksRequest Container for the necessary
      *           parameters to execute the DescribeExportTasks operation on AmazonEC2.
@@ -4764,11 +5298,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeExportTasksResult>() {
             public DescribeExportTasksResult call() throws Exception {
                 return describeExportTasks(describeExportTasksRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes one or more of your export tasks.
+     * </p>
      *
      * @param describeExportTasksRequest Container for the necessary
      *           parameters to execute the DescribeExportTasks operation on AmazonEC2.
@@ -4795,30 +5332,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeExportTasksResult>() {
             public DescribeExportTasksResult call() throws Exception {
-                DescribeExportTasksResult result;
+              DescribeExportTasksResult result;
                 try {
-                    result = describeExportTasks(describeExportTasksRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeExportTasksRequest, result);
-                   return result;
-            }
-        });
+                result = describeExportTasks(describeExportTasksRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeExportTasksRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Detaches an Internet gateway from a VPC, disabling connectivity
      * between the Internet and the VPC. The VPC must not contain any running
-     * instances with elastic IP addresses. For more information about your
-     * VPC and Internet gateway, go to Amazon Virtual Private Cloud User
-     * Guide.
-     * </p>
-     * <p>
-     * For more information about Amazon Virtual Private Cloud and Internet
-     * gateways, go to the Amazon Virtual Private Cloud User Guide.
+     * instances with Elastic IP addresses.
      * </p>
      *
      * @param detachInternetGatewayRequest Container for the necessary
@@ -4843,21 +5374,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 detachInternetGateway(detachInternetGatewayRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Detaches an Internet gateway from a VPC, disabling connectivity
      * between the Internet and the VPC. The VPC must not contain any running
-     * instances with elastic IP addresses. For more information about your
-     * VPC and Internet gateway, go to Amazon Virtual Private Cloud User
-     * Guide.
-     * </p>
-     * <p>
-     * For more information about Amazon Virtual Private Cloud and Internet
-     * gateways, go to the Amazon Virtual Private Cloud User Guide.
+     * instances with Elastic IP addresses.
      * </p>
      *
      * @param detachInternetGatewayRequest Container for the necessary
@@ -4886,25 +5411,127 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    detachInternetGateway(detachInternetGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(detachInternetGatewayRequest, null);
-                   return null;
-            }
-        });
+              try {
+                detachInternetGateway(detachInternetGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(detachInternetGatewayRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a new route table within a VPC. After you create a new route
-     * table, you can add routes and associate the table with a subnet. For
-     * more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Requests a VPC peering connection between two VPCs: a requester VPC
+     * that you own and a peer VPC with which to create the connection. The
+     * peer VPC can belong to another AWS account. The requester VPC and peer
+     * VPC cannot have overlapping CIDR blocks.
+     * </p>
+     * <p>
+     * The owner of the peer VPC must accept the peering request to activate
+     * the peering connection. The VPC peering connection request expires
+     * after 7 days, after which it cannot be accepted or rejected.
+     * </p>
+     * <p>
+     * A <code>CreateVpcPeeringConnection</code> request between VPCs with
+     * overlapping CIDR blocks results in the VPC peering connection having a
+     * status of <code>failed</code> .
+     * </p>
+     *
+     * @param createVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the CreateVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateVpcPeeringConnectionResult> createVpcPeeringConnectionAsync(final CreateVpcPeeringConnectionRequest createVpcPeeringConnectionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateVpcPeeringConnectionResult>() {
+            public CreateVpcPeeringConnectionResult call() throws Exception {
+                return createVpcPeeringConnection(createVpcPeeringConnectionRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Requests a VPC peering connection between two VPCs: a requester VPC
+     * that you own and a peer VPC with which to create the connection. The
+     * peer VPC can belong to another AWS account. The requester VPC and peer
+     * VPC cannot have overlapping CIDR blocks.
+     * </p>
+     * <p>
+     * The owner of the peer VPC must accept the peering request to activate
+     * the peering connection. The VPC peering connection request expires
+     * after 7 days, after which it cannot be accepted or rejected.
+     * </p>
+     * <p>
+     * A <code>CreateVpcPeeringConnection</code> request between VPCs with
+     * overlapping CIDR blocks results in the VPC peering connection having a
+     * status of <code>failed</code> .
+     * </p>
+     *
+     * @param createVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the CreateVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateVpcPeeringConnectionResult> createVpcPeeringConnectionAsync(
+            final CreateVpcPeeringConnectionRequest createVpcPeeringConnectionRequest,
+            final AsyncHandler<CreateVpcPeeringConnectionRequest, CreateVpcPeeringConnectionResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateVpcPeeringConnectionResult>() {
+            public CreateVpcPeeringConnectionResult call() throws Exception {
+              CreateVpcPeeringConnectionResult result;
+                try {
+                result = createVpcPeeringConnection(createVpcPeeringConnectionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVpcPeeringConnectionRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Creates a route table for the specified VPC. After you create a route
+     * table, you can add routes and associate the table with a subnet.
+     * </p>
+     * <p>
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createRouteTableRequest Container for the necessary parameters
@@ -4927,17 +5554,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateRouteTableResult>() {
             public CreateRouteTableResult call() throws Exception {
                 return createRouteTable(createRouteTableRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a new route table within a VPC. After you create a new route
-     * table, you can add routes and associate the table with a subnet. For
-     * more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Creates a route table for the specified VPC. After you create a route
+     * table, you can add routes and associate the table with a subnet.
+     * </p>
+     * <p>
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createRouteTableRequest Container for the necessary parameters
@@ -4965,24 +5594,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateRouteTableResult>() {
             public CreateRouteTableResult call() throws Exception {
-                CreateRouteTableResult result;
+              CreateRouteTableResult result;
                 try {
-                    result = createRouteTable(createRouteTableRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createRouteTableRequest, result);
-                   return result;
-            }
-        });
+                result = createRouteTable(createRouteTableRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createRouteTableRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Describes the status of the indicated volume or, in lieu of any
-     * specified, all volumes belonging to the caller. Volumes that have been
-     * deleted are not described.
+     * Describes the specified Amazon EBS volumes.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS volumes, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html"> Amazon EBS Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeVolumesRequest Container for the necessary parameters
@@ -5005,15 +5637,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVolumesResult>() {
             public DescribeVolumesResult call() throws Exception {
                 return describeVolumes(describeVolumesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes the status of the indicated volume or, in lieu of any
-     * specified, all volumes belonging to the caller. Volumes that have been
-     * deleted are not described.
+     * Describes the specified Amazon EBS volumes.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS volumes, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html"> Amazon EBS Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeVolumesRequest Container for the necessary parameters
@@ -5041,20 +5676,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVolumesResult>() {
             public DescribeVolumesResult call() throws Exception {
-                DescribeVolumesResult result;
+              DescribeVolumesResult result;
                 try {
-                    result = describeVolumes(describeVolumesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVolumesRequest, result);
-                   return result;
-            }
-        });
+                result = describeVolumes(describeVolumesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVolumesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes your account's Reserved Instance listings in the Reserved
+     * Instance Marketplace.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeReservedInstancesListingsRequest Container for the
      *           necessary parameters to execute the DescribeReservedInstancesListings
@@ -5078,11 +5722,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeReservedInstancesListingsResult>() {
             public DescribeReservedInstancesListingsResult call() throws Exception {
                 return describeReservedInstancesListings(describeReservedInstancesListingsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes your account's Reserved Instance listings in the Reserved
+     * Instance Marketplace.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeReservedInstancesListingsRequest Container for the
      *           necessary parameters to execute the DescribeReservedInstancesListings
@@ -5111,20 +5764,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReservedInstancesListingsResult>() {
             public DescribeReservedInstancesListingsResult call() throws Exception {
-                DescribeReservedInstancesListingsResult result;
+              DescribeReservedInstancesListingsResult result;
                 try {
-                    result = describeReservedInstancesListings(describeReservedInstancesListingsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedInstancesListingsRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedInstancesListings(describeReservedInstancesListingsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedInstancesListingsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Submits feedback about the status of an instance. The instance must
+     * be in the <code>running</code> state. If your experience with the
+     * instance differs from the instance status returned by
+     * DescribeInstanceStatus, use ReportInstanceStatus to report your
+     * experience with the instance. Amazon EC2 collects this information to
+     * improve the accuracy of status checks.
+     * </p>
      *
      * @param reportInstanceStatusRequest Container for the necessary
      *           parameters to execute the ReportInstanceStatus operation on AmazonEC2.
@@ -5147,11 +5808,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 reportInstanceStatus(reportInstanceStatusRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Submits feedback about the status of an instance. The instance must
+     * be in the <code>running</code> state. If your experience with the
+     * instance differs from the instance status returned by
+     * DescribeInstanceStatus, use ReportInstanceStatus to report your
+     * experience with the instance. Amazon EC2 collects this information to
+     * improve the accuracy of status checks.
+     * </p>
      *
      * @param reportInstanceStatusRequest Container for the necessary
      *           parameters to execute the ReportInstanceStatus operation on AmazonEC2.
@@ -5178,41 +5847,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    reportInstanceStatus(reportInstanceStatusRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(reportInstanceStatusRequest, null);
-                   return null;
-            }
-        });
+              try {
+                reportInstanceStatus(reportInstanceStatusRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(reportInstanceStatusRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about your route tables. You can filter the
-     * results to return information only about tables that match criteria
-     * you specify. For example, you could get information only about a table
-     * associated with a particular subnet. You can specify multiple values
-     * for the filter. The table must match at least one of the specified
-     * values for it to be included in the results.
+     * Describes one or more of your route tables.
      * </p>
      * <p>
-     * You can specify multiple filters (e.g., the table has a particular
-     * route, and is associated with a particular subnet). The result
-     * includes information for a particular table only if it matches all
-     * your filters. If there's no match, no special message is returned; the
-     * response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeRouteTablesRequest Container for the necessary
@@ -5235,33 +5889,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeRouteTablesResult>() {
             public DescribeRouteTablesResult call() throws Exception {
                 return describeRouteTables(describeRouteTablesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about your route tables. You can filter the
-     * results to return information only about tables that match criteria
-     * you specify. For example, you could get information only about a table
-     * associated with a particular subnet. You can specify multiple values
-     * for the filter. The table must match at least one of the specified
-     * values for it to be included in the results.
+     * Describes one or more of your route tables.
      * </p>
      * <p>
-     * You can specify multiple filters (e.g., the table has a particular
-     * route, and is associated with a particular subnet). The result
-     * includes information for a particular table only if it matches all
-     * your filters. If there's no match, no special message is returned; the
-     * response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeRouteTablesRequest Container for the necessary
@@ -5289,31 +5928,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeRouteTablesResult>() {
             public DescribeRouteTablesResult call() throws Exception {
-                DescribeRouteTablesResult result;
+              DescribeRouteTablesResult result;
                 try {
-                    result = describeRouteTables(describeRouteTablesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeRouteTablesRequest, result);
-                   return result;
-            }
-        });
+                result = describeRouteTables(describeRouteTablesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeRouteTablesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about one or more sets of DHCP options. You can
-     * specify one or more DHCP options set IDs, or no IDs (to describe all
-     * your sets of DHCP options). The returned information consists of:
+     * Describes one or more of your DHCP options sets.
      * </p>
-     * 
-     * <ul>
-     * <li> The DHCP options set ID </li>
-     * <li> The options </li>
-     * 
-     * </ul>
+     * <p>
+     * For more information about DHCP options sets, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
      *
      * @param describeDhcpOptionsRequest Container for the necessary
      *           parameters to execute the DescribeDhcpOptions operation on AmazonEC2.
@@ -5335,22 +5971,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeDhcpOptionsResult>() {
             public DescribeDhcpOptionsResult call() throws Exception {
                 return describeDhcpOptions(describeDhcpOptionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about one or more sets of DHCP options. You can
-     * specify one or more DHCP options set IDs, or no IDs (to describe all
-     * your sets of DHCP options). The returned information consists of:
+     * Describes one or more of your DHCP options sets.
      * </p>
-     * 
-     * <ul>
-     * <li> The DHCP options set ID </li>
-     * <li> The options </li>
-     * 
-     * </ul>
+     * <p>
+     * For more information about DHCP options sets, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
      *
      * @param describeDhcpOptionsRequest Container for the necessary
      *           parameters to execute the DescribeDhcpOptions operation on AmazonEC2.
@@ -5377,22 +6010,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeDhcpOptionsResult>() {
             public DescribeDhcpOptionsResult call() throws Exception {
-                DescribeDhcpOptionsResult result;
+              DescribeDhcpOptionsResult result;
                 try {
-                    result = describeDhcpOptions(describeDhcpOptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeDhcpOptionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeDhcpOptions(describeDhcpOptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeDhcpOptionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Enables monitoring for a running instance.
+     * Enables monitoring for a running instance. For more information about
+     * monitoring instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html"> Monitoring Your Instances and Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param monitorInstancesRequest Container for the necessary parameters
@@ -5415,13 +6051,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<MonitorInstancesResult>() {
             public MonitorInstancesResult call() throws Exception {
                 return monitorInstances(monitorInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Enables monitoring for a running instance.
+     * Enables monitoring for a running instance. For more information about
+     * monitoring instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html"> Monitoring Your Instances and Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param monitorInstancesRequest Container for the necessary parameters
@@ -5449,41 +6088,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<MonitorInstancesResult>() {
             public MonitorInstancesResult call() throws Exception {
-                MonitorInstancesResult result;
+              MonitorInstancesResult result;
                 try {
-                    result = monitorInstances(monitorInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(monitorInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = monitorInstances(monitorInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(monitorInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about the network ACLs in your VPC. You can
-     * filter the results to return information only about ACLs that match
-     * criteria you specify. For example, you could get information only the
-     * ACL associated with a particular subnet. The ACL must match at least
-     * one of the specified values for it to be included in the results.
+     * Describes one or more of your network ACLs.
      * </p>
      * <p>
-     * You can specify multiple filters (e.g., the ACL is associated with a
-     * particular subnet and has an egress entry that denies traffic to a
-     * particular port). The result includes information for a particular ACL
-     * only if it matches all your filters. If there's no match, no special
-     * message is returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeNetworkAclsRequest Container for the necessary
@@ -5506,32 +6131,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeNetworkAclsResult>() {
             public DescribeNetworkAclsResult call() throws Exception {
                 return describeNetworkAcls(describeNetworkAclsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about the network ACLs in your VPC. You can
-     * filter the results to return information only about ACLs that match
-     * criteria you specify. For example, you could get information only the
-     * ACL associated with a particular subnet. The ACL must match at least
-     * one of the specified values for it to be included in the results.
+     * Describes one or more of your network ACLs.
      * </p>
      * <p>
-     * You can specify multiple filters (e.g., the ACL is associated with a
-     * particular subnet and has an egress entry that denies traffic to a
-     * particular port). The result includes information for a particular ACL
-     * only if it matches all your filters. If there's no match, no special
-     * message is returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeNetworkAclsRequest Container for the necessary
@@ -5559,25 +6170,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeNetworkAclsResult>() {
             public DescribeNetworkAclsResult call() throws Exception {
-                DescribeNetworkAclsResult result;
+              DescribeNetworkAclsResult result;
                 try {
-                    result = describeNetworkAcls(describeNetworkAclsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeNetworkAclsRequest, result);
-                   return result;
-            }
-        });
+                result = describeNetworkAcls(describeNetworkAclsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeNetworkAclsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeBundleTasks operation describes in-progress and recent
-     * bundle tasks. Complete and failed tasks are removed from the list a
-     * short time after completion. If no bundle ids are given, all bundle
-     * tasks are returned.
+     * Describes one or more of your bundling tasks.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Completed bundle tasks are listed for only a limited
+     * time. If your bundle task is no longer in the list, you can still
+     * register an AMI from it. Just use RegisterImage with the Amazon S3
+     * bucket name and image manifest name you provided to the bundle task.
      * </p>
      *
      * @param describeBundleTasksRequest Container for the necessary
@@ -5600,16 +6214,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeBundleTasksResult>() {
             public DescribeBundleTasksResult call() throws Exception {
                 return describeBundleTasks(describeBundleTasksRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeBundleTasks operation describes in-progress and recent
-     * bundle tasks. Complete and failed tasks are removed from the list a
-     * short time after completion. If no bundle ids are given, all bundle
-     * tasks are returned.
+     * Describes one or more of your bundling tasks.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Completed bundle tasks are listed for only a limited
+     * time. If your bundle task is no longer in the list, you can still
+     * register an AMI from it. Just use RegisterImage with the Amazon S3
+     * bucket name and image manifest name you provided to the bundle task.
      * </p>
      *
      * @param describeBundleTasksRequest Container for the necessary
@@ -5637,20 +6254,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeBundleTasksResult>() {
             public DescribeBundleTasksResult call() throws Exception {
-                DescribeBundleTasksResult result;
+              DescribeBundleTasksResult result;
                 try {
-                    result = describeBundleTasks(describeBundleTasksRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeBundleTasksRequest, result);
-                   return result;
-            }
-        });
+                result = describeBundleTasks(describeBundleTasksRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeBundleTasksRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Creates an import instance task using metadata from the specified
+     * disk image. After importing the image, you then upload it using the
+     * ec2-import-volume command in the EC2 command line tools. For more
+     * information, see Using the Command Line Tools to Import Your Virtual
+     * Machine to Amazon EC2 in the Amazon Elastic Compute Cloud User Guide.
+     * </p>
      *
      * @param importInstanceRequest Container for the necessary parameters to
      *           execute the ImportInstance operation on AmazonEC2.
@@ -5672,11 +6296,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ImportInstanceResult>() {
             public ImportInstanceResult call() throws Exception {
                 return importInstance(importInstanceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Creates an import instance task using metadata from the specified
+     * disk image. After importing the image, you then upload it using the
+     * ec2-import-volume command in the EC2 command line tools. For more
+     * information, see Using the Command Line Tools to Import Your Virtual
+     * Machine to Amazon EC2 in the Amazon Elastic Compute Cloud User Guide.
+     * </p>
      *
      * @param importInstanceRequest Container for the necessary parameters to
      *           execute the ImportInstance operation on AmazonEC2.
@@ -5703,35 +6334,34 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ImportInstanceResult>() {
             public ImportInstanceResult call() throws Exception {
-                ImportInstanceResult result;
+              ImportInstanceResult result;
                 try {
-                    result = importInstance(importInstanceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(importInstanceRequest, result);
-                   return result;
-            }
-        });
+                result = importInstance(importInstanceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(importInstanceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The RevokeSecurityGroupIngress operation revokes permissions from a
-     * security group. The permissions used to revoke must be specified using
-     * the same values used to grant the permissions.
+     * Removes one or more ingress rules from a security group. The values
+     * that you specify in the revoke request (for example, ports) must match
+     * the existing rule's values for the rule to be removed.
      * </p>
      * <p>
-     * Permissions are specified by IP protocol (TCP, UDP, or ICMP), the
-     * source of the request (by IP range or an Amazon EC2 user-group pair),
-     * the source and destination port ranges (for TCP and UDP), and the ICMP
-     * codes and types (for ICMP).
+     * Each rule consists of the protocol and the CIDR range or source
+     * security group. For the TCP and UDP protocols, you must also specify
+     * the destination port or range of ports. For the ICMP protocol, you
+     * must also specify the ICMP type and code.
      * </p>
      * <p>
-     * Permission changes are quickly propagated to instances within the
-     * security group. However, depending on the number of instances in the
-     * group, a small delay might occur.
+     * Rule changes are propagated to instances within the security group as
+     * quickly as possible. However, a small delay might occur.
      * </p>
      *
      * @param revokeSecurityGroupIngressRequest Container for the necessary
@@ -5756,26 +6386,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 revokeSecurityGroupIngress(revokeSecurityGroupIngressRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The RevokeSecurityGroupIngress operation revokes permissions from a
-     * security group. The permissions used to revoke must be specified using
-     * the same values used to grant the permissions.
+     * Removes one or more ingress rules from a security group. The values
+     * that you specify in the revoke request (for example, ports) must match
+     * the existing rule's values for the rule to be removed.
      * </p>
      * <p>
-     * Permissions are specified by IP protocol (TCP, UDP, or ICMP), the
-     * source of the request (by IP range or an Amazon EC2 user-group pair),
-     * the source and destination port ranges (for TCP and UDP), and the ICMP
-     * codes and types (for ICMP).
+     * Each rule consists of the protocol and the CIDR range or source
+     * security group. For the TCP and UDP protocols, you must also specify
+     * the destination port or range of ports. For the ICMP protocol, you
+     * must also specify the ICMP type and code.
      * </p>
      * <p>
-     * Permission changes are quickly propagated to instances within the
-     * security group. However, depending on the number of instances in the
-     * group, a small delay might occur.
+     * Rule changes are propagated to instances within the security group as
+     * quickly as possible. However, a small delay might occur.
      * </p>
      *
      * @param revokeSecurityGroupIngressRequest Container for the necessary
@@ -5804,28 +6433,126 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    revokeSecurityGroupIngress(revokeSecurityGroupIngressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(revokeSecurityGroupIngressRequest, null);
-                   return null;
-            }
-        });
+              try {
+                revokeSecurityGroupIngress(revokeSecurityGroupIngressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(revokeSecurityGroupIngressRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The GetConsoleOutput operation retrieves console output for the
-     * specified instance.
+     * Deletes a VPC peering connection. Either the owner of the requester
+     * VPC or the owner of the peer VPC can delete the VPC peering connection
+     * if it's in the <code>active</code> state. The owner of the requester
+     * VPC can delete a VPC peering connection in the
+     * <code>pending-acceptance</code> state.
+     * </p>
+     *
+     * @param deleteVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the DeleteVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DeleteVpcPeeringConnectionResult> deleteVpcPeeringConnectionAsync(final DeleteVpcPeeringConnectionRequest deleteVpcPeeringConnectionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DeleteVpcPeeringConnectionResult>() {
+            public DeleteVpcPeeringConnectionResult call() throws Exception {
+                return deleteVpcPeeringConnection(deleteVpcPeeringConnectionRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Deletes a VPC peering connection. Either the owner of the requester
+     * VPC or the owner of the peer VPC can delete the VPC peering connection
+     * if it's in the <code>active</code> state. The owner of the requester
+     * VPC can delete a VPC peering connection in the
+     * <code>pending-acceptance</code> state.
+     * </p>
+     *
+     * @param deleteVpcPeeringConnectionRequest Container for the necessary
+     *           parameters to execute the DeleteVpcPeeringConnection operation on
+     *           AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteVpcPeeringConnection service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DeleteVpcPeeringConnectionResult> deleteVpcPeeringConnectionAsync(
+            final DeleteVpcPeeringConnectionRequest deleteVpcPeeringConnectionRequest,
+            final AsyncHandler<DeleteVpcPeeringConnectionRequest, DeleteVpcPeeringConnectionResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DeleteVpcPeeringConnectionResult>() {
+            public DeleteVpcPeeringConnectionResult call() throws Exception {
+              DeleteVpcPeeringConnectionResult result;
+                try {
+                result = deleteVpcPeeringConnection(deleteVpcPeeringConnectionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVpcPeeringConnectionRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Gets the console output for the specified instance.
+     * </p>
+     * <p>
+     * Instances do not have a physical monitor through which you can view
+     * their console output. They also lack physical controls that allow you
+     * to power up, reboot, or shut them down. To allow these actions, we
+     * provide them through the Amazon EC2 API and command line interface.
      * </p>
      * <p>
      * Instance console output is buffered and posted shortly after instance
      * boot, reboot, and termination. Amazon EC2 preserves the most recent 64
-     * KB output which will be available for at least one hour after the most
+     * KB output which is available for at least one hour after the most
      * recent post.
+     * </p>
+     * <p>
+     * For Linux/Unix instances, the instance console output displays the
+     * exact console output that would normally be displayed on a physical
+     * monitor attached to a machine. This output is buffered because the
+     * instance produces it and then posts it to a store where the instance's
+     * owner can retrieve it.
+     * </p>
+     * <p>
+     * For Windows instances, the instance console output displays the last
+     * three system event log errors.
      * </p>
      *
      * @param getConsoleOutputRequest Container for the necessary parameters
@@ -5848,20 +6575,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<GetConsoleOutputResult>() {
             public GetConsoleOutputResult call() throws Exception {
                 return getConsoleOutput(getConsoleOutputRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The GetConsoleOutput operation retrieves console output for the
-     * specified instance.
+     * Gets the console output for the specified instance.
+     * </p>
+     * <p>
+     * Instances do not have a physical monitor through which you can view
+     * their console output. They also lack physical controls that allow you
+     * to power up, reboot, or shut them down. To allow these actions, we
+     * provide them through the Amazon EC2 API and command line interface.
      * </p>
      * <p>
      * Instance console output is buffered and posted shortly after instance
      * boot, reboot, and termination. Amazon EC2 preserves the most recent 64
-     * KB output which will be available for at least one hour after the most
+     * KB output which is available for at least one hour after the most
      * recent post.
+     * </p>
+     * <p>
+     * For Linux/Unix instances, the instance console output displays the
+     * exact console output that would normally be displayed on a physical
+     * monitor attached to a machine. This output is buffered because the
+     * instance produces it and then posts it to a store where the instance's
+     * owner can retrieve it.
+     * </p>
+     * <p>
+     * For Windows instances, the instance console output displays the last
+     * three system event log errors.
      * </p>
      *
      * @param getConsoleOutputRequest Container for the necessary parameters
@@ -5889,26 +6632,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetConsoleOutputResult>() {
             public GetConsoleOutputResult call() throws Exception {
-                GetConsoleOutputResult result;
+              GetConsoleOutputResult result;
                 try {
-                    result = getConsoleOutput(getConsoleOutputRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getConsoleOutputRequest, result);
-                   return result;
-            }
-        });
+                result = getConsoleOutput(getConsoleOutputRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getConsoleOutputRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a new Internet gateway in your AWS account. After creating
-     * the Internet gateway, you then attach it to a VPC using
-     * <code>AttachInternetGateway</code> . For more information about your
-     * VPC and Internet gateway, go to Amazon Virtual Private Cloud User
-     * Guide.
+     * Creates an Internet gateway for use with a VPC. After creating the
+     * Internet gateway, you attach it to a VPC using AttachInternetGateway.
+     * </p>
+     * <p>
+     * For more information about your VPC and Internet gateway, see the
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/"> Amazon Virtual Private Cloud User Guide </a>
+     * .
      * </p>
      *
      * @param createInternetGatewayRequest Container for the necessary
@@ -5932,17 +6677,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateInternetGatewayResult>() {
             public CreateInternetGatewayResult call() throws Exception {
                 return createInternetGateway(createInternetGatewayRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a new Internet gateway in your AWS account. After creating
-     * the Internet gateway, you then attach it to a VPC using
-     * <code>AttachInternetGateway</code> . For more information about your
-     * VPC and Internet gateway, go to Amazon Virtual Private Cloud User
-     * Guide.
+     * Creates an Internet gateway for use with a VPC. After creating the
+     * Internet gateway, you attach it to a VPC using AttachInternetGateway.
+     * </p>
+     * <p>
+     * For more information about your VPC and Internet gateway, see the
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/"> Amazon Virtual Private Cloud User Guide </a>
+     * .
      * </p>
      *
      * @param createInternetGatewayRequest Container for the necessary
@@ -5971,20 +6718,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateInternetGatewayResult>() {
             public CreateInternetGatewayResult call() throws Exception {
-                CreateInternetGatewayResult result;
+              CreateInternetGatewayResult result;
                 try {
-                    result = createInternetGateway(createInternetGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createInternetGatewayRequest, result);
-                   return result;
-            }
-        });
+                result = createInternetGateway(createInternetGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createInternetGatewayRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Deletes the specified static route associated with a VPN connection
+     * between an existing virtual private gateway and a VPN customer
+     * gateway. The static route allows traffic to be routed from the virtual
+     * private gateway to the VPN customer gateway.
+     * </p>
      *
      * @param deleteVpnConnectionRouteRequest Container for the necessary
      *           parameters to execute the DeleteVpnConnectionRoute operation on
@@ -6008,11 +6761,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteVpnConnectionRoute(deleteVpnConnectionRouteRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Deletes the specified static route associated with a VPN connection
+     * between an existing virtual private gateway and a VPN customer
+     * gateway. The static route allows traffic to be routed from the virtual
+     * private gateway to the VPN customer gateway.
+     * </p>
      *
      * @param deleteVpnConnectionRouteRequest Container for the necessary
      *           parameters to execute the DeleteVpnConnectionRoute operation on
@@ -6040,19 +6799,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVpnConnectionRoute(deleteVpnConnectionRouteRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVpnConnectionRouteRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVpnConnectionRoute(deleteVpnConnectionRouteRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVpnConnectionRouteRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Detaches a network interface from an instance.
+     * </p>
      *
      * @param detachNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the DetachNetworkInterface operation on
@@ -6076,11 +6838,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 detachNetworkInterface(detachNetworkInterfaceRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Detaches a network interface from an instance.
+     * </p>
      *
      * @param detachNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the DetachNetworkInterface operation on
@@ -6108,21 +6873,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    detachNetworkInterface(detachNetworkInterfaceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(detachNetworkInterfaceRequest, null);
-                   return null;
-            }
-        });
+              try {
+                detachNetworkInterface(detachNetworkInterfaceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(detachNetworkInterfaceRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The ModifyImageAttribute operation modifies an attribute of an AMI.
+     * Modifies the specified attribute of the specified AMI. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> AWS Marketplace product codes cannot be modified. Images
+     * with an AWS Marketplace product code cannot be made public.
      * </p>
      *
      * @param modifyImageAttributeRequest Container for the necessary
@@ -6146,13 +6916,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 modifyImageAttribute(modifyImageAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The ModifyImageAttribute operation modifies an attribute of an AMI.
+     * Modifies the specified attribute of the specified AMI. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> AWS Marketplace product codes cannot be modified. Images
+     * with an AWS Marketplace product code cannot be made public.
      * </p>
      *
      * @param modifyImageAttributeRequest Container for the necessary
@@ -6180,41 +6955,43 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    modifyImageAttribute(modifyImageAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyImageAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                modifyImageAttribute(modifyImageAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyImageAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Provides information to AWS about your customer gateway device. The
-     * customer gateway is the appliance at your end of the VPN connection
-     * (compared to the VPN gateway, which is the device at the AWS side of
-     * the VPN connection). You can have a single active customer gateway per
-     * AWS account (active means that you've created a VPN connection to use
-     * with the customer gateway). AWS might delete any customer gateway that
-     * you create with this operation if you leave it inactive for an
-     * extended period of time.
+     * Provides information to AWS about your VPN customer gateway device.
+     * The customer gateway is the appliance at your end of the VPN
+     * connection. (The device on the AWS side of the VPN connection is the
+     * virtual private gateway.) You must provide the Internet-routable IP
+     * address of the customer gateway's external interface. The IP address
+     * must be static and can't be behind a device performing network address
+     * translation (NAT).
      * </p>
      * <p>
-     * You must provide the Internet-routable IP address of the customer
-     * gateway's external interface. The IP address must be static.
+     * For devices that use Border Gateway Protocol (BGP), you can also
+     * provide the device's BGP Autonomous System Number (ASN). You can use
+     * an existing ASN assigned to your network. If you don't have an ASN
+     * already, you can use a private ASN (in the 64512 - 65534 range).
      * </p>
      * <p>
-     * You must also provide the device's Border Gateway Protocol (BGP)
-     * Autonomous System Number (ASN). You can use an existing ASN assigned
-     * to your network. If you don't have an ASN already, you can use a
-     * private ASN (in the 64512 - 65534 range). For more information about
-     * ASNs, go to <a
-     * href="http://en.wikipedia.org/wiki/Autonomous_system_%28Internet%29">
-     * http://en.wikipedia.org/wiki/Autonomous_system_%28Internet%29 </a> .
+     * <b>NOTE:</b> Amazon EC2 supports all 2-byte ASN numbers in the range
+     * of 1 - 65534, with the exception of 7224, which is reserved in the
+     * us-east-1 region, and 9059, which is reserved in the eu-west-1 region.
+     * </p>
+     * <p>
+     * For more information about VPN customer gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createCustomerGatewayRequest Container for the necessary
@@ -6238,33 +7015,35 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateCustomerGatewayResult>() {
             public CreateCustomerGatewayResult call() throws Exception {
                 return createCustomerGateway(createCustomerGatewayRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Provides information to AWS about your customer gateway device. The
-     * customer gateway is the appliance at your end of the VPN connection
-     * (compared to the VPN gateway, which is the device at the AWS side of
-     * the VPN connection). You can have a single active customer gateway per
-     * AWS account (active means that you've created a VPN connection to use
-     * with the customer gateway). AWS might delete any customer gateway that
-     * you create with this operation if you leave it inactive for an
-     * extended period of time.
+     * Provides information to AWS about your VPN customer gateway device.
+     * The customer gateway is the appliance at your end of the VPN
+     * connection. (The device on the AWS side of the VPN connection is the
+     * virtual private gateway.) You must provide the Internet-routable IP
+     * address of the customer gateway's external interface. The IP address
+     * must be static and can't be behind a device performing network address
+     * translation (NAT).
      * </p>
      * <p>
-     * You must provide the Internet-routable IP address of the customer
-     * gateway's external interface. The IP address must be static.
+     * For devices that use Border Gateway Protocol (BGP), you can also
+     * provide the device's BGP Autonomous System Number (ASN). You can use
+     * an existing ASN assigned to your network. If you don't have an ASN
+     * already, you can use a private ASN (in the 64512 - 65534 range).
      * </p>
      * <p>
-     * You must also provide the device's Border Gateway Protocol (BGP)
-     * Autonomous System Number (ASN). You can use an existing ASN assigned
-     * to your network. If you don't have an ASN already, you can use a
-     * private ASN (in the 64512 - 65534 range). For more information about
-     * ASNs, go to <a
-     * href="http://en.wikipedia.org/wiki/Autonomous_system_%28Internet%29">
-     * http://en.wikipedia.org/wiki/Autonomous_system_%28Internet%29 </a> .
+     * <b>NOTE:</b> Amazon EC2 supports all 2-byte ASN numbers in the range
+     * of 1 - 65534, with the exception of 7224, which is reserved in the
+     * us-east-1 region, and 9059, which is reserved in the eu-west-1 region.
+     * </p>
+     * <p>
+     * For more information about VPN customer gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createCustomerGatewayRequest Container for the necessary
@@ -6293,29 +7072,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateCustomerGatewayResult>() {
             public CreateCustomerGatewayResult call() throws Exception {
-                CreateCustomerGatewayResult result;
+              CreateCustomerGatewayResult result;
                 try {
-                    result = createCustomerGateway(createCustomerGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createCustomerGatewayRequest, result);
-                   return result;
-            }
-        });
+                result = createCustomerGateway(createCustomerGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createCustomerGatewayRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates the data feed for Spot Instances, enabling you to view Spot
-     * Instance usage logs. You can create one data feed per account.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * Creates a datafeed for Spot Instances, enabling you to view Spot
+     * Instance usage logs. You can create one data feed per AWS account. For
+     * more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createSpotDatafeedSubscriptionRequest Container for the
@@ -6340,20 +7116,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateSpotDatafeedSubscriptionResult>() {
             public CreateSpotDatafeedSubscriptionResult call() throws Exception {
                 return createSpotDatafeedSubscription(createSpotDatafeedSubscriptionRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates the data feed for Spot Instances, enabling you to view Spot
-     * Instance usage logs. You can create one data feed per account.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * Creates a datafeed for Spot Instances, enabling you to view Spot
+     * Instance usage logs. You can create one data feed per AWS account. For
+     * more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createSpotDatafeedSubscriptionRequest Container for the
@@ -6383,24 +7156,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateSpotDatafeedSubscriptionResult>() {
             public CreateSpotDatafeedSubscriptionResult call() throws Exception {
-                CreateSpotDatafeedSubscriptionResult result;
+              CreateSpotDatafeedSubscriptionResult result;
                 try {
-                    result = createSpotDatafeedSubscription(createSpotDatafeedSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createSpotDatafeedSubscriptionRequest, result);
-                   return result;
-            }
-        });
+                result = createSpotDatafeedSubscription(createSpotDatafeedSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createSpotDatafeedSubscriptionRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Attaches an Internet gateway to a VPC, enabling connectivity between
      * the Internet and the VPC. For more information about your VPC and
-     * Internet gateway, go to the Amazon Virtual Private Cloud User Guide.
+     * Internet gateway, see the
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/"> Amazon Virtual Private Cloud User Guide </a>
+     * .
      * </p>
      *
      * @param attachInternetGatewayRequest Container for the necessary
@@ -6425,15 +7200,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 attachInternetGateway(attachInternetGatewayRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Attaches an Internet gateway to a VPC, enabling connectivity between
      * the Internet and the VPC. For more information about your VPC and
-     * Internet gateway, go to the Amazon Virtual Private Cloud User Guide.
+     * Internet gateway, see the
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/"> Amazon Virtual Private Cloud User Guide </a>
+     * .
      * </p>
      *
      * @param attachInternetGatewayRequest Container for the necessary
@@ -6462,33 +7239,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    attachInternetGateway(attachInternetGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(attachInternetGatewayRequest, null);
-                   return null;
-            }
-        });
+              try {
+                attachInternetGateway(attachInternetGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(attachInternetGatewayRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a VPN connection. Use this if you want to delete a VPC and
-     * all its associated components. Another reason to use this operation is
-     * if you believe the tunnel credentials for your VPN connection have
-     * been compromised. In that situation, you can delete the VPN connection
-     * and create a new one that has new keys, without needing to delete the
-     * VPC or VPN gateway. If you create a new VPN connection, you must
-     * reconfigure the customer gateway using the new configuration
-     * information returned with the new VPN connection ID.
+     * Deletes the specified VPN connection.
      * </p>
      * <p>
-     * If you're deleting the VPC and all its associated parts, we recommend
-     * you detach the VPN gateway from the VPC and delete the VPC before
-     * deleting the VPN connection.
+     * If you're deleting the VPC and its associated components, we
+     * recommend that you detach the virtual private gateway from the VPC and
+     * delete the VPC before deleting the VPN connection.
      * </p>
      *
      * @param deleteVpnConnectionRequest Container for the necessary
@@ -6512,25 +7282,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteVpnConnection(deleteVpnConnectionRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a VPN connection. Use this if you want to delete a VPC and
-     * all its associated components. Another reason to use this operation is
-     * if you believe the tunnel credentials for your VPN connection have
-     * been compromised. In that situation, you can delete the VPN connection
-     * and create a new one that has new keys, without needing to delete the
-     * VPC or VPN gateway. If you create a new VPN connection, you must
-     * reconfigure the customer gateway using the new configuration
-     * information returned with the new VPN connection ID.
+     * Deletes the specified VPN connection.
      * </p>
      * <p>
-     * If you're deleting the VPC and all its associated parts, we recommend
-     * you detach the VPN gateway from the VPC and delete the VPC before
-     * deleting the VPN connection.
+     * If you're deleting the VPC and its associated components, we
+     * recommend that you detach the virtual private gateway from the VPC and
+     * delete the VPC before deleting the VPN connection.
      * </p>
      *
      * @param deleteVpnConnectionRequest Container for the necessary
@@ -6558,19 +7321,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVpnConnection(deleteVpnConnectionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVpnConnectionRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVpnConnection(deleteVpnConnectionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVpnConnectionRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes one or more of your conversion tasks. For more information,
+     * see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeConversionTasksRequest Container for the necessary
      *           parameters to execute the DescribeConversionTasks operation on
@@ -6593,11 +7362,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeConversionTasksResult>() {
             public DescribeConversionTasksResult call() throws Exception {
                 return describeConversionTasks(describeConversionTasksRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes one or more of your conversion tasks. For more information,
+     * see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UploadingYourInstancesandVolumes.html"> Using the Command Line Tools to Import Your Virtual Machine to Amazon EC2 </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeConversionTasksRequest Container for the necessary
      *           parameters to execute the DescribeConversionTasks operation on
@@ -6625,41 +7400,43 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeConversionTasksResult>() {
             public DescribeConversionTasksResult call() throws Exception {
-                DescribeConversionTasksResult result;
+              DescribeConversionTasksResult result;
                 try {
-                    result = describeConversionTasks(describeConversionTasksRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeConversionTasksRequest, result);
-                   return result;
-            }
-        });
+                result = describeConversionTasks(describeConversionTasksRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeConversionTasksRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a new VPN connection between an existing VPN gateway and
-     * customer gateway. The only supported connection type is ipsec.1.
+     * Creates a VPN connection between an existing virtual private gateway
+     * and a VPN customer gateway. The only supported connection type is
+     * <code>ipsec.1</code> .
      * </p>
      * <p>
-     * The response includes information that you need to configure your
-     * customer gateway, in XML format. We recommend you use the command line
-     * version of this operation ( <code>ec2-create-vpn-connection</code> ),
-     * which takes an <code>-f</code> option (for format) and returns
-     * configuration information formatted as expected by the vendor you
-     * specified, or in a generic, human readable format. For information
-     * about the command, go to <code>ec2-create-vpn-connection</code> in the
-     * Amazon Virtual Private Cloud Command Line Reference.
+     * The response includes information that you need to give to your
+     * network administrator to configure your customer gateway.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> We strongly recommend you use HTTPS when calling
-     * this operation because the response contains sensitive cryptographic
-     * information for configuring your customer gateway. If you decide to
-     * shut down your VPN connection for any reason and then create a new
-     * one, you must re-configure your customer gateway with the new
-     * information returned from this call.
+     * <b>IMPORTANT:</b> We strongly recommend that you use HTTPS when
+     * calling this operation because the response contains sensitive
+     * cryptographic information for configuring your customer gateway.
+     * </p>
+     * <p>
+     * If you decide to shut down your VPN connection for any reason and
+     * later create a new VPN connection, you must reconfigure your customer
+     * gateway with the new information returned from this call.
+     * </p>
+     * <p>
+     * For more information about VPN connections, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createVpnConnectionRequest Container for the necessary
@@ -6682,32 +7459,34 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateVpnConnectionResult>() {
             public CreateVpnConnectionResult call() throws Exception {
                 return createVpnConnection(createVpnConnectionRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a new VPN connection between an existing VPN gateway and
-     * customer gateway. The only supported connection type is ipsec.1.
+     * Creates a VPN connection between an existing virtual private gateway
+     * and a VPN customer gateway. The only supported connection type is
+     * <code>ipsec.1</code> .
      * </p>
      * <p>
-     * The response includes information that you need to configure your
-     * customer gateway, in XML format. We recommend you use the command line
-     * version of this operation ( <code>ec2-create-vpn-connection</code> ),
-     * which takes an <code>-f</code> option (for format) and returns
-     * configuration information formatted as expected by the vendor you
-     * specified, or in a generic, human readable format. For information
-     * about the command, go to <code>ec2-create-vpn-connection</code> in the
-     * Amazon Virtual Private Cloud Command Line Reference.
+     * The response includes information that you need to give to your
+     * network administrator to configure your customer gateway.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> We strongly recommend you use HTTPS when calling
-     * this operation because the response contains sensitive cryptographic
-     * information for configuring your customer gateway. If you decide to
-     * shut down your VPN connection for any reason and then create a new
-     * one, you must re-configure your customer gateway with the new
-     * information returned from this call.
+     * <b>IMPORTANT:</b> We strongly recommend that you use HTTPS when
+     * calling this operation because the response contains sensitive
+     * cryptographic information for configuring your customer gateway.
+     * </p>
+     * <p>
+     * If you decide to shut down your VPN connection for any reason and
+     * later create a new VPN connection, you must reconfigure your customer
+     * gateway with the new information returned from this call.
+     * </p>
+     * <p>
+     * For more information about VPN connections, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createVpnConnectionRequest Container for the necessary
@@ -6735,23 +7514,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateVpnConnectionResult>() {
             public CreateVpnConnectionResult call() throws Exception {
-                CreateVpnConnectionResult result;
+              CreateVpnConnectionResult result;
                 try {
-                    result = createVpnConnection(createVpnConnectionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVpnConnectionRequest, result);
-                   return result;
-            }
-        });
+                result = createVpnConnection(createVpnConnectionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVpnConnectionRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Returns information about an attribute of an instance. Only one
-     * attribute can be specified per call.
+     * Describes the specified attribute of the specified instance. You can
+     * specify only one attribute at a time.
      * </p>
      *
      * @param describeInstanceAttributeRequest Container for the necessary
@@ -6775,14 +7554,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeInstanceAttributeResult>() {
             public DescribeInstanceAttributeResult call() throws Exception {
                 return describeInstanceAttribute(describeInstanceAttributeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Returns information about an attribute of an instance. Only one
-     * attribute can be specified per call.
+     * Describes the specified attribute of the specified instance. You can
+     * specify only one attribute at a time.
      * </p>
      *
      * @param describeInstanceAttributeRequest Container for the necessary
@@ -6811,23 +7590,337 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeInstanceAttributeResult>() {
             public DescribeInstanceAttributeResult call() throws Exception {
-                DescribeInstanceAttributeResult result;
+              DescribeInstanceAttributeResult result;
                 try {
-                    result = describeInstanceAttribute(describeInstanceAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeInstanceAttributeRequest, result);
-                   return result;
-            }
-        });
+                result = describeInstanceAttribute(describeInstanceAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeInstanceAttributeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Returns information about one or more PlacementGroup instances in a
-     * user's account.
+     * Describes one or more of your VPC peering connections.
+     * </p>
+     *
+     * @param describeVpcPeeringConnectionsRequest Container for the
+     *           necessary parameters to execute the DescribeVpcPeeringConnections
+     *           operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeVpcPeeringConnections service method, as returned by
+     *         AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeVpcPeeringConnectionsResult> describeVpcPeeringConnectionsAsync(final DescribeVpcPeeringConnectionsRequest describeVpcPeeringConnectionsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeVpcPeeringConnectionsResult>() {
+            public DescribeVpcPeeringConnectionsResult call() throws Exception {
+                return describeVpcPeeringConnections(describeVpcPeeringConnectionsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Describes one or more of your VPC peering connections.
+     * </p>
+     *
+     * @param describeVpcPeeringConnectionsRequest Container for the
+     *           necessary parameters to execute the DescribeVpcPeeringConnections
+     *           operation on AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeVpcPeeringConnections service method, as returned by
+     *         AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeVpcPeeringConnectionsResult> describeVpcPeeringConnectionsAsync(
+            final DescribeVpcPeeringConnectionsRequest describeVpcPeeringConnectionsRequest,
+            final AsyncHandler<DescribeVpcPeeringConnectionsRequest, DescribeVpcPeeringConnectionsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeVpcPeeringConnectionsResult>() {
+            public DescribeVpcPeeringConnectionsResult call() throws Exception {
+              DescribeVpcPeeringConnectionsResult result;
+                try {
+                result = describeVpcPeeringConnections(describeVpcPeeringConnectionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVpcPeeringConnectionsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Describes one or more of your subnets.
+     * </p>
+     * <p>
+     * For more information about subnets, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html"> Your VPC and Subnets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
+     *
+     * @param describeSubnetsRequest Container for the necessary parameters
+     *           to execute the DescribeSubnets operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeSubnets service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeSubnetsResult> describeSubnetsAsync(final DescribeSubnetsRequest describeSubnetsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeSubnetsResult>() {
+            public DescribeSubnetsResult call() throws Exception {
+                return describeSubnets(describeSubnetsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Describes one or more of your subnets.
+     * </p>
+     * <p>
+     * For more information about subnets, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html"> Your VPC and Subnets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
+     *
+     * @param describeSubnetsRequest Container for the necessary parameters
+     *           to execute the DescribeSubnets operation on AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeSubnets service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeSubnetsResult> describeSubnetsAsync(
+            final DescribeSubnetsRequest describeSubnetsRequest,
+            final AsyncHandler<DescribeSubnetsRequest, DescribeSubnetsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeSubnetsResult>() {
+            public DescribeSubnetsResult call() throws Exception {
+              DescribeSubnetsResult result;
+                try {
+                result = describeSubnets(describeSubnetsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSubnetsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Launches the specified number of instances using an AMI for which you
+     * have permissions.
+     * </p>
+     * <p>
+     * When you launch an instance, it enters the <code>pending</code>
+     * state. After the instance is ready for you, it enters the
+     * <code>running</code> state. To check the state of your instance, call
+     * DescribeInstances.
+     * </p>
+     * <p>
+     * If you don't specify a security group when launching an instance,
+     * Amazon EC2 uses the default security group. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"> Security Groups </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * Linux instances have access to the public key of the key pair at
+     * boot. You can use this key to provide secure access to the instance.
+     * Amazon EC2 public images use this feature to provide secure access
+     * without passwords. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * You can provide optional user data when launching an instance. For
+     * more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html"> Instance Metadata </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * If any of the AMIs have a product code attached for which the user
+     * has not subscribed, <code>RunInstances</code> fails.
+     * </p>
+     * <p>
+     * T2 instance types can only be launched into a VPC. If you do not have
+     * a default VPC, or if you do not specify a subnet ID in the request,
+     * <code>RunInstances</code> fails.
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_InstanceStraightToTerminated.html"> What To Do If An Instance Immediately Terminates </a> , and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html"> Troubleshooting Connecting to Your Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     *
+     * @param runInstancesRequest Container for the necessary parameters to
+     *           execute the RunInstances operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RunInstances service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<RunInstancesResult> runInstancesAsync(final RunInstancesRequest runInstancesRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<RunInstancesResult>() {
+            public RunInstancesResult call() throws Exception {
+                return runInstances(runInstancesRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Launches the specified number of instances using an AMI for which you
+     * have permissions.
+     * </p>
+     * <p>
+     * When you launch an instance, it enters the <code>pending</code>
+     * state. After the instance is ready for you, it enters the
+     * <code>running</code> state. To check the state of your instance, call
+     * DescribeInstances.
+     * </p>
+     * <p>
+     * If you don't specify a security group when launching an instance,
+     * Amazon EC2 uses the default security group. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"> Security Groups </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * Linux instances have access to the public key of the key pair at
+     * boot. You can use this key to provide secure access to the instance.
+     * Amazon EC2 public images use this feature to provide secure access
+     * without passwords. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * You can provide optional user data when launching an instance. For
+     * more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html"> Instance Metadata </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * If any of the AMIs have a product code attached for which the user
+     * has not subscribed, <code>RunInstances</code> fails.
+     * </p>
+     * <p>
+     * T2 instance types can only be launched into a VPC. If you do not have
+     * a default VPC, or if you do not specify a subnet ID in the request,
+     * <code>RunInstances</code> fails.
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_InstanceStraightToTerminated.html"> What To Do If An Instance Immediately Terminates </a> , and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html"> Troubleshooting Connecting to Your Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     *
+     * @param runInstancesRequest Container for the necessary parameters to
+     *           execute the RunInstances operation on AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RunInstances service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<RunInstancesResult> runInstancesAsync(
+            final RunInstancesRequest runInstancesRequest,
+            final AsyncHandler<RunInstancesRequest, RunInstancesResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<RunInstancesResult>() {
+            public RunInstancesResult call() throws Exception {
+              RunInstancesResult result;
+                try {
+                result = runInstances(runInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(runInstancesRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Describes one or more of your placement groups. For more information
+     * about placement groups and cluster instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describePlacementGroupsRequest Container for the necessary
@@ -6851,14 +7944,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribePlacementGroupsResult>() {
             public DescribePlacementGroupsResult call() throws Exception {
                 return describePlacementGroups(describePlacementGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Returns information about one or more PlacementGroup instances in a
-     * user's account.
+     * Describes one or more of your placement groups. For more information
+     * about placement groups and cluster instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describePlacementGroupsRequest Container for the necessary
@@ -6887,287 +7982,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribePlacementGroupsResult>() {
             public DescribePlacementGroupsResult call() throws Exception {
-                DescribePlacementGroupsResult result;
+              DescribePlacementGroupsResult result;
                 try {
-                    result = describePlacementGroups(describePlacementGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describePlacementGroupsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * Gives you information about your subnets. You can filter the results
-     * to return information only about subnets that match criteria you
-     * specify.
-     * </p>
-     * <p>
-     * For example, you could ask to get information about a particular
-     * subnet (or all) only if the subnet's state is available. You can
-     * specify multiple filters (e.g., the subnet is in a particular VPC, and
-     * the subnet's state is available).
-     * </p>
-     * <p>
-     * The result includes information for a particular subnet only if the
-     * subnet matches all your filters. If there's no match, no special
-     * message is returned; the response is simply empty. The following table
-     * shows the available filters.
-     * </p>
-     *
-     * @param describeSubnetsRequest Container for the necessary parameters
-     *           to execute the DescribeSubnets operation on AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeSubnets service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeSubnetsResult> describeSubnetsAsync(final DescribeSubnetsRequest describeSubnetsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeSubnetsResult>() {
-            public DescribeSubnetsResult call() throws Exception {
-                return describeSubnets(describeSubnetsRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * Gives you information about your subnets. You can filter the results
-     * to return information only about subnets that match criteria you
-     * specify.
-     * </p>
-     * <p>
-     * For example, you could ask to get information about a particular
-     * subnet (or all) only if the subnet's state is available. You can
-     * specify multiple filters (e.g., the subnet is in a particular VPC, and
-     * the subnet's state is available).
-     * </p>
-     * <p>
-     * The result includes information for a particular subnet only if the
-     * subnet matches all your filters. If there's no match, no special
-     * message is returned; the response is simply empty. The following table
-     * shows the available filters.
-     * </p>
-     *
-     * @param describeSubnetsRequest Container for the necessary parameters
-     *           to execute the DescribeSubnets operation on AmazonEC2.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeSubnets service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeSubnetsResult> describeSubnetsAsync(
-            final DescribeSubnetsRequest describeSubnetsRequest,
-            final AsyncHandler<DescribeSubnetsRequest, DescribeSubnetsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeSubnetsResult>() {
-            public DescribeSubnetsResult call() throws Exception {
-                DescribeSubnetsResult result;
-                try {
-                    result = describeSubnets(describeSubnetsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSubnetsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The RunInstances operation launches a specified number of instances.
-     * </p>
-     * <p>
-     * If Amazon EC2 cannot launch the minimum number AMIs you request, no
-     * instances launch. If there is insufficient capacity to launch the
-     * maximum number of AMIs you request, Amazon EC2 launches as many as
-     * possible to satisfy the requested maximum values.
-     * </p>
-     * <p>
-     * Every instance is launched in a security group. If you do not specify
-     * a security group at launch, the instances start in your default
-     * security group. For more information on creating security groups, see
-     * CreateSecurityGroup.
-     * </p>
-     * <p>
-     * An optional instance type can be specified. For information about
-     * instance types, see Instance Types.
-     * </p>
-     * <p>
-     * You can provide an optional key pair ID for each image in the launch
-     * request (for more information, see CreateKeyPair). All instances that
-     * are created from images that use this key pair will have access to the
-     * associated public key at boot. You can use this key to provide secure
-     * access to an instance of an image on a per-instance basis. Amazon EC2
-     * public images use this feature to provide secure access without
-     * passwords.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> Launching public images without a key pair ID will
-     * leave them inaccessible. The public key material is made available to
-     * the instance at boot time by placing it in the openssh_id.pub file on
-     * a logical device that is exposed to the instance as /dev/sda2 (the
-     * ephemeral store). The format of this file is suitable for use as an
-     * entry within ~/.ssh/authorized_keys (the OpenSSH format). This can be
-     * done at boot (e.g., as part of rc.local) allowing for secure access
-     * without passwords. Optional user data can be provided in the launch
-     * request. All instances that collectively comprise the launch request
-     * have access to this data For more information, see Instance Metadata.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> If any of the AMIs have a product code attached for which
-     * the user has not subscribed, the RunInstances call will fail.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> We strongly recommend using the 2.6.18 Xen stock
-     * kernel with the c1.medium and c1.xlarge instances. Although the
-     * default Amazon EC2 kernels will work, the new kernels provide greater
-     * stability and performance for these instance types. For more
-     * information about kernels, see Kernels, RAM Disks, and Block Device
-     * Mappings.
-     * </p>
-     *
-     * @param runInstancesRequest Container for the necessary parameters to
-     *           execute the RunInstances operation on AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RunInstances service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<RunInstancesResult> runInstancesAsync(final RunInstancesRequest runInstancesRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<RunInstancesResult>() {
-            public RunInstancesResult call() throws Exception {
-                return runInstances(runInstancesRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The RunInstances operation launches a specified number of instances.
-     * </p>
-     * <p>
-     * If Amazon EC2 cannot launch the minimum number AMIs you request, no
-     * instances launch. If there is insufficient capacity to launch the
-     * maximum number of AMIs you request, Amazon EC2 launches as many as
-     * possible to satisfy the requested maximum values.
-     * </p>
-     * <p>
-     * Every instance is launched in a security group. If you do not specify
-     * a security group at launch, the instances start in your default
-     * security group. For more information on creating security groups, see
-     * CreateSecurityGroup.
-     * </p>
-     * <p>
-     * An optional instance type can be specified. For information about
-     * instance types, see Instance Types.
-     * </p>
-     * <p>
-     * You can provide an optional key pair ID for each image in the launch
-     * request (for more information, see CreateKeyPair). All instances that
-     * are created from images that use this key pair will have access to the
-     * associated public key at boot. You can use this key to provide secure
-     * access to an instance of an image on a per-instance basis. Amazon EC2
-     * public images use this feature to provide secure access without
-     * passwords.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> Launching public images without a key pair ID will
-     * leave them inaccessible. The public key material is made available to
-     * the instance at boot time by placing it in the openssh_id.pub file on
-     * a logical device that is exposed to the instance as /dev/sda2 (the
-     * ephemeral store). The format of this file is suitable for use as an
-     * entry within ~/.ssh/authorized_keys (the OpenSSH format). This can be
-     * done at boot (e.g., as part of rc.local) allowing for secure access
-     * without passwords. Optional user data can be provided in the launch
-     * request. All instances that collectively comprise the launch request
-     * have access to this data For more information, see Instance Metadata.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> If any of the AMIs have a product code attached for which
-     * the user has not subscribed, the RunInstances call will fail.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> We strongly recommend using the 2.6.18 Xen stock
-     * kernel with the c1.medium and c1.xlarge instances. Although the
-     * default Amazon EC2 kernels will work, the new kernels provide greater
-     * stability and performance for these instance types. For more
-     * information about kernels, see Kernels, RAM Disks, and Block Device
-     * Mappings.
-     * </p>
-     *
-     * @param runInstancesRequest Container for the necessary parameters to
-     *           execute the RunInstances operation on AmazonEC2.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RunInstances service method, as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<RunInstancesResult> runInstancesAsync(
-            final RunInstancesRequest runInstancesRequest,
-            final AsyncHandler<RunInstancesRequest, RunInstancesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<RunInstancesResult>() {
-            public RunInstancesResult call() throws Exception {
-                RunInstancesResult result;
-                try {
-                    result = runInstances(runInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(runInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = describePlacementGroups(describePlacementGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describePlacementGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -7175,14 +8000,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * Associates a subnet with a route table. The subnet and route table
      * must be in the same VPC. This association causes traffic originating
      * from the subnet to be routed according to the routes in the route
-     * table. The action returns an association ID, which you need if you
-     * want to disassociate the route table from the subnet later. A route
-     * table can be associated with multiple subnets.
+     * table. The action returns an association ID, which you need in order
+     * to disassociate the route table from the subnet later. A route table
+     * can be associated with multiple subnets.
      * </p>
      * <p>
-     * For more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param associateRouteTableRequest Container for the necessary
@@ -7205,8 +8030,8 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<AssociateRouteTableResult>() {
             public AssociateRouteTableResult call() throws Exception {
                 return associateRouteTable(associateRouteTableRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -7214,14 +8039,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * Associates a subnet with a route table. The subnet and route table
      * must be in the same VPC. This association causes traffic originating
      * from the subnet to be routed according to the routes in the route
-     * table. The action returns an association ID, which you need if you
-     * want to disassociate the route table from the subnet later. A route
-     * table can be associated with multiple subnets.
+     * table. The action returns an association ID, which you need in order
+     * to disassociate the route table from the subnet later. A route table
+     * can be associated with multiple subnets.
      * </p>
      * <p>
-     * For more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param associateRouteTableRequest Container for the necessary
@@ -7249,31 +8074,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<AssociateRouteTableResult>() {
             public AssociateRouteTableResult call() throws Exception {
-                AssociateRouteTableResult result;
+              AssociateRouteTableResult result;
                 try {
-                    result = associateRouteTable(associateRouteTableRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(associateRouteTableRequest, result);
-                   return result;
-            }
-        });
+                result = associateRouteTable(associateRouteTableRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(associateRouteTableRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeInstances operation returns information about instances
-     * that you own.
+     * Describes one or more of your instances.
      * </p>
      * <p>
      * If you specify one or more instance IDs, Amazon EC2 returns
      * information for those instances. If you do not specify instance IDs,
      * Amazon EC2 returns information for all relevant instances. If you
-     * specify an invalid instance ID, a fault is returned. If you specify an
-     * instance that you do not own, it will not be included in the returned
-     * results.
+     * specify an instance ID that is not valid, an error is returned. If you
+     * specify an instance that you do not own, it is not included in the
+     * returned results.
      * </p>
      * <p>
      * Recently terminated instances might appear in the returned results.
@@ -7300,22 +8124,21 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeInstancesResult>() {
             public DescribeInstancesResult call() throws Exception {
                 return describeInstances(describeInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeInstances operation returns information about instances
-     * that you own.
+     * Describes one or more of your instances.
      * </p>
      * <p>
      * If you specify one or more instance IDs, Amazon EC2 returns
      * information for those instances. If you do not specify instance IDs,
      * Amazon EC2 returns information for all relevant instances. If you
-     * specify an invalid instance ID, a fault is returned. If you specify an
-     * instance that you do not own, it will not be included in the returned
-     * results.
+     * specify an instance ID that is not valid, an error is returned. If you
+     * specify an instance that you do not own, it is not included in the
+     * returned results.
      * </p>
      * <p>
      * Recently terminated instances might appear in the returned results.
@@ -7347,25 +8170,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeInstancesResult>() {
             public DescribeInstancesResult call() throws Exception {
-                DescribeInstancesResult result;
+              DescribeInstancesResult result;
                 try {
-                    result = describeInstances(describeInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = describeInstances(describeInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a network ACL from a VPC. The ACL must not have any subnets
-     * associated with it. You can't delete the default network ACL. For more
-     * information about network ACLs, go to Network ACLs in the Amazon
-     * Virtual Private Cloud User Guide.
+     * Deletes the specified network ACL. You can't delete the ACL if it's
+     * associated with any subnets. You can't delete the default network ACL.
      * </p>
      *
      * @param deleteNetworkAclRequest Container for the necessary parameters
@@ -7389,16 +8210,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteNetworkAcl(deleteNetworkAclRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a network ACL from a VPC. The ACL must not have any subnets
-     * associated with it. You can't delete the default network ACL. For more
-     * information about network ACLs, go to Network ACLs in the Amazon
-     * Virtual Private Cloud User Guide.
+     * Deletes the specified network ACL. You can't delete the ACL if it's
+     * associated with any subnets. You can't delete the default network ACL.
      * </p>
      *
      * @param deleteNetworkAclRequest Container for the necessary parameters
@@ -7426,19 +8245,34 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteNetworkAcl(deleteNetworkAclRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteNetworkAclRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteNetworkAcl(deleteNetworkAclRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteNetworkAclRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Modifies a volume attribute.
+     * </p>
+     * <p>
+     * By default, all I/O operations for the volume are suspended when the
+     * data on the volume is determined to be potentially inconsistent, to
+     * prevent undetectable, latent data corruption. The I/O access to the
+     * volume can be resumed by first enabling I/O access and then checking
+     * the data consistency on your volume.
+     * </p>
+     * <p>
+     * You can change the default behavior to resume I/O operations. We
+     * recommend that you change this only for boot volumes or for volumes
+     * that are stateless or disposable.
+     * </p>
      *
      * @param modifyVolumeAttributeRequest Container for the necessary
      *           parameters to execute the ModifyVolumeAttribute operation on
@@ -7462,11 +8296,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 modifyVolumeAttribute(modifyVolumeAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Modifies a volume attribute.
+     * </p>
+     * <p>
+     * By default, all I/O operations for the volume are suspended when the
+     * data on the volume is determined to be potentially inconsistent, to
+     * prevent undetectable, latent data corruption. The I/O access to the
+     * volume can be resumed by first enabling I/O access and then checking
+     * the data consistency on your volume.
+     * </p>
+     * <p>
+     * You can change the default behavior to resume I/O operations. We
+     * recommend that you change this only for boot volumes or for volumes
+     * that are stateless or disposable.
+     * </p>
      *
      * @param modifyVolumeAttributeRequest Container for the necessary
      *           parameters to execute the ModifyVolumeAttribute operation on
@@ -7494,64 +8343,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    modifyVolumeAttribute(modifyVolumeAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyVolumeAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                modifyVolumeAttribute(modifyVolumeAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyVolumeAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeImages operation returns information about AMIs, AKIs,
-     * and ARIs available to the user. Information returned includes image
-     * type, product codes, architecture, and kernel and RAM disk IDs. Images
-     * available to the user include public images available for any user to
-     * launch, private images owned by the user making the request, and
-     * private images owned by other users for which the user has explicit
-     * launch permissions.
-     * </p>
-     * <p>
-     * Launch permissions fall into three categories:
-     * </p>
-     * 
-     * <ul>
-     * <li> <b>Public:</b> The owner of the AMI granted launch permissions
-     * for the AMI to the all group. All users have launch permissions for
-     * these AMIs. </li>
-     * <li> <b>Explicit:</b> The owner of the AMI granted launch permissions
-     * to a specific user. </li>
-     * <li> <b>Implicit:</b> A user has implicit launch permissions for all
-     * AMIs he or she owns. </li>
-     * 
-     * </ul>
-     * <p>
-     * The list of AMIs returned can be modified by specifying AMI IDs, AMI
-     * owners, or users with launch permissions. If no options are specified,
-     * Amazon EC2 returns all AMIs for which the user has launch permissions.
-     * </p>
-     * <p>
-     * If you specify one or more AMI IDs, only AMIs that have the specified
-     * IDs are returned. If you specify an invalid AMI ID, a fault is
-     * returned. If you specify an AMI ID for which you do not have access,
-     * it will not be included in the returned results.
-     * </p>
-     * <p>
-     * If you specify one or more AMI owners, only AMIs from the specified
-     * owners and for which you have access are returned. The results can
-     * include the account IDs of the specified owners, amazon for AMIs owned
-     * by Amazon or self for AMIs that you own.
-     * </p>
-     * <p>
-     * If you specify a list of executable users, only users that have
-     * launch permissions for the AMIs are returned. You can specify account
-     * IDs (if you own the AMI(s)), self for AMIs for which you own or have
-     * explicit permissions, or all for public AMIs.
+     * Describes one or more of the images (AMIs, AKIs, and ARIs) available
+     * to you. Images available to you include public images, private images
+     * that you own, and private images owned by other AWS accounts but for
+     * which you have explicit launch permissions.
      * </p>
      * <p>
      * <b>NOTE:</b> Deregistered images are included in the returned results
@@ -7578,56 +8387,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeImagesResult>() {
             public DescribeImagesResult call() throws Exception {
                 return describeImages(describeImagesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeImages operation returns information about AMIs, AKIs,
-     * and ARIs available to the user. Information returned includes image
-     * type, product codes, architecture, and kernel and RAM disk IDs. Images
-     * available to the user include public images available for any user to
-     * launch, private images owned by the user making the request, and
-     * private images owned by other users for which the user has explicit
-     * launch permissions.
-     * </p>
-     * <p>
-     * Launch permissions fall into three categories:
-     * </p>
-     * 
-     * <ul>
-     * <li> <b>Public:</b> The owner of the AMI granted launch permissions
-     * for the AMI to the all group. All users have launch permissions for
-     * these AMIs. </li>
-     * <li> <b>Explicit:</b> The owner of the AMI granted launch permissions
-     * to a specific user. </li>
-     * <li> <b>Implicit:</b> A user has implicit launch permissions for all
-     * AMIs he or she owns. </li>
-     * 
-     * </ul>
-     * <p>
-     * The list of AMIs returned can be modified by specifying AMI IDs, AMI
-     * owners, or users with launch permissions. If no options are specified,
-     * Amazon EC2 returns all AMIs for which the user has launch permissions.
-     * </p>
-     * <p>
-     * If you specify one or more AMI IDs, only AMIs that have the specified
-     * IDs are returned. If you specify an invalid AMI ID, a fault is
-     * returned. If you specify an AMI ID for which you do not have access,
-     * it will not be included in the returned results.
-     * </p>
-     * <p>
-     * If you specify one or more AMI owners, only AMIs from the specified
-     * owners and for which you have access are returned. The results can
-     * include the account IDs of the specified owners, amazon for AMIs owned
-     * by Amazon or self for AMIs that you own.
-     * </p>
-     * <p>
-     * If you specify a list of executable users, only users that have
-     * launch permissions for the AMIs are returned. You can specify account
-     * IDs (if you own the AMI(s)), self for AMIs for which you own or have
-     * explicit permissions, or all for public AMIs.
+     * Describes one or more of the images (AMIs, AKIs, and ARIs) available
+     * to you. Images available to you include public images, private images
+     * that you own, and private images owned by other AWS accounts but for
+     * which you have explicit launch permissions.
      * </p>
      * <p>
      * <b>NOTE:</b> Deregistered images are included in the returned results
@@ -7659,32 +8428,47 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeImagesResult>() {
             public DescribeImagesResult call() throws Exception {
-                DescribeImagesResult result;
+              DescribeImagesResult result;
                 try {
-                    result = describeImages(describeImagesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeImagesRequest, result);
-                   return result;
-            }
-        });
+                result = describeImages(describeImagesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeImagesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Starts an instance that uses an Amazon EBS volume as its root device.
+     * Starts an Amazon EBS-backed AMI that you've previously stopped.
+     * </p>
+     * <p>
      * Instances that use Amazon EBS volumes as their root devices can be
      * quickly stopped and started. When an instance is stopped, the compute
      * resources are released and you are not billed for hourly instance
      * usage. However, your root partition Amazon EBS volume remains,
      * continues to persist your data, and you are charged for Amazon EBS
-     * volume usage. You can restart your instance at any time.
+     * volume usage. You can restart your instance at any time. Each time you
+     * transition an instance from stopped to started, Amazon EC2 charges a
+     * full instance hour, even if transitions happen multiple times within a
+     * single hour.
      * </p>
      * <p>
-     * <b>NOTE:</b> Performing this operation on an instance that uses an
-     * instance store as its root device returns an error.
+     * Before stopping an instance, make sure it is in a state from which it
+     * can be restarted. Stopping an instance does not preserve data stored
+     * in RAM.
+     * </p>
+     * <p>
+     * Performing this operation on an instance that uses an instance store
+     * as its root device returns an error.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html"> Stopping Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param startInstancesRequest Container for the necessary parameters to
@@ -7707,23 +8491,38 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<StartInstancesResult>() {
             public StartInstancesResult call() throws Exception {
                 return startInstances(startInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Starts an instance that uses an Amazon EBS volume as its root device.
+     * Starts an Amazon EBS-backed AMI that you've previously stopped.
+     * </p>
+     * <p>
      * Instances that use Amazon EBS volumes as their root devices can be
      * quickly stopped and started. When an instance is stopped, the compute
      * resources are released and you are not billed for hourly instance
      * usage. However, your root partition Amazon EBS volume remains,
      * continues to persist your data, and you are charged for Amazon EBS
-     * volume usage. You can restart your instance at any time.
+     * volume usage. You can restart your instance at any time. Each time you
+     * transition an instance from stopped to started, Amazon EC2 charges a
+     * full instance hour, even if transitions happen multiple times within a
+     * single hour.
      * </p>
      * <p>
-     * <b>NOTE:</b> Performing this operation on an instance that uses an
-     * instance store as its root device returns an error.
+     * Before stopping an instance, make sure it is in a state from which it
+     * can be restarted. Stopping an instance does not preserve data stored
+     * in RAM.
+     * </p>
+     * <p>
+     * Performing this operation on an instance that uses an instance store
+     * as its root device returns an error.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html"> Stopping Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param startInstancesRequest Container for the necessary parameters to
@@ -7751,20 +8550,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<StartInstancesResult>() {
             public StartInstancesResult call() throws Exception {
-                StartInstancesResult result;
+              StartInstancesResult result;
                 try {
-                    result = startInstances(startInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(startInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = startInstances(startInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(startInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Cancels the specified Reserved Instance listing in the Reserved
+     * Instance Marketplace.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param cancelReservedInstancesListingRequest Container for the
      *           necessary parameters to execute the CancelReservedInstancesListing
@@ -7788,11 +8596,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CancelReservedInstancesListingResult>() {
             public CancelReservedInstancesListingResult call() throws Exception {
                 return cancelReservedInstancesListing(cancelReservedInstancesListingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Cancels the specified Reserved Instance listing in the Reserved
+     * Instance Marketplace.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param cancelReservedInstancesListingRequest Container for the
      *           necessary parameters to execute the CancelReservedInstancesListing
@@ -7821,22 +8638,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CancelReservedInstancesListingResult>() {
             public CancelReservedInstancesListingResult call() throws Exception {
-                CancelReservedInstancesListingResult result;
+              CancelReservedInstancesListingResult result;
                 try {
-                    result = cancelReservedInstancesListing(cancelReservedInstancesListingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(cancelReservedInstancesListingRequest, result);
-                   return result;
-            }
-        });
+                result = cancelReservedInstancesListing(cancelReservedInstancesListingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(cancelReservedInstancesListingRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Modifies an attribute of an instance.
+     * Modifies the specified attribute of the specified instance. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * To modify some attributes, the instance must be stopped. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_ChangingAttributesWhileInstanceStopped.html"> Modifying Attributes of a Stopped Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param modifyInstanceAttributeRequest Container for the necessary
@@ -7861,13 +8685,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 modifyInstanceAttribute(modifyInstanceAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Modifies an attribute of an instance.
+     * Modifies the specified attribute of the specified instance. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * To modify some attributes, the instance must be stopped. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_ChangingAttributesWhileInstanceStopped.html"> Modifying Attributes of a Stopped Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param modifyInstanceAttributeRequest Container for the necessary
@@ -7896,24 +8727,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    modifyInstanceAttribute(modifyInstanceAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyInstanceAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                modifyInstanceAttribute(modifyInstanceAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyInstanceAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a set of DHCP options that you specify. Amazon VPC returns an
-     * error if the set of options you specify is currently associated with a
-     * VPC. You can disassociate the set of options by associating either a
-     * new set of options or the default options with the VPC.
+     * Deletes the specified set of DHCP options. You must disassociate the
+     * set of DHCP options before you can delete it. You can disassociate the
+     * set of DHCP options by associating either a new set of options or the
+     * default set of options with the VPC.
      * </p>
      *
      * @param deleteDhcpOptionsRequest Container for the necessary parameters
@@ -7937,16 +8768,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteDhcpOptions(deleteDhcpOptionsRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a set of DHCP options that you specify. Amazon VPC returns an
-     * error if the set of options you specify is currently associated with a
-     * VPC. You can disassociate the set of options by associating either a
-     * new set of options or the default options with the VPC.
+     * Deletes the specified set of DHCP options. You must disassociate the
+     * set of DHCP options before you can delete it. You can disassociate the
+     * set of DHCP options by associating either a new set of options or the
+     * default set of options with the VPC.
      * </p>
      *
      * @param deleteDhcpOptionsRequest Container for the necessary parameters
@@ -7974,34 +8805,44 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteDhcpOptions(deleteDhcpOptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteDhcpOptionsRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteDhcpOptions(deleteDhcpOptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteDhcpOptionsRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The AuthorizeSecurityGroupIngress operation adds permissions to a
-     * security group.
+     * Adds one or more ingress rules to a security group.
      * </p>
      * <p>
-     * Permissions are specified by the IP protocol (TCP, UDP or ICMP), the
-     * source of the request (by IP range or an Amazon EC2 user-group pair),
-     * the source and destination port ranges (for TCP and UDP), and the ICMP
-     * codes and types (for ICMP). When authorizing ICMP, <code>-1</code> can
-     * be used as a wildcard in the type and code fields.
+     * <b>IMPORTANT:</b> EC2-Classic: You can have up to 100 rules per
+     * group. EC2-VPC: You can have up to 50 rules per group (covering both
+     * ingress and egress rules).
      * </p>
      * <p>
-     * Permission changes are propagated to instances within the security
-     * group as quickly as possible. However, depending on the number of
-     * instances, a small delay might occur.
+     * Rule changes are propagated to instances within the security group as
+     * quickly as possible. However, a small delay might occur.
+     * </p>
+     * <p>
+     * [EC2-Classic] This action gives one or more CIDR IP address ranges
+     * permission to access a security group in your account, or gives one or
+     * more security groups (called the <i>source groups</i> ) permission to
+     * access a security group for your account. A source group can be for
+     * your own AWS account, or another.
+     * </p>
+     * <p>
+     * [EC2-VPC] This action gives one or more CIDR IP address ranges
+     * permission to access a security group in your VPC, or gives one or
+     * more other security groups (called the <i>source groups</i> )
+     * permission to access a security group for your VPC. The security
+     * groups must all be for the same VPC.
      * </p>
      *
      * @param authorizeSecurityGroupIngressRequest Container for the
@@ -8027,26 +8868,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The AuthorizeSecurityGroupIngress operation adds permissions to a
-     * security group.
+     * Adds one or more ingress rules to a security group.
      * </p>
      * <p>
-     * Permissions are specified by the IP protocol (TCP, UDP or ICMP), the
-     * source of the request (by IP range or an Amazon EC2 user-group pair),
-     * the source and destination port ranges (for TCP and UDP), and the ICMP
-     * codes and types (for ICMP). When authorizing ICMP, <code>-1</code> can
-     * be used as a wildcard in the type and code fields.
+     * <b>IMPORTANT:</b> EC2-Classic: You can have up to 100 rules per
+     * group. EC2-VPC: You can have up to 50 rules per group (covering both
+     * ingress and egress rules).
      * </p>
      * <p>
-     * Permission changes are propagated to instances within the security
-     * group as quickly as possible. However, depending on the number of
-     * instances, a small delay might occur.
+     * Rule changes are propagated to instances within the security group as
+     * quickly as possible. However, a small delay might occur.
+     * </p>
+     * <p>
+     * [EC2-Classic] This action gives one or more CIDR IP address ranges
+     * permission to access a security group in your account, or gives one or
+     * more security groups (called the <i>source groups</i> ) permission to
+     * access a security group for your account. A source group can be for
+     * your own AWS account, or another.
+     * </p>
+     * <p>
+     * [EC2-VPC] This action gives one or more CIDR IP address ranges
+     * permission to access a security group in your VPC, or gives one or
+     * more other security groups (called the <i>source groups</i> )
+     * permission to access a security group for your VPC. The security
+     * groups must all be for the same VPC.
      * </p>
      *
      * @param authorizeSecurityGroupIngressRequest Container for the
@@ -8076,55 +8927,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(authorizeSecurityGroupIngressRequest, null);
-                   return null;
-            }
-        });
+              try {
+                authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(authorizeSecurityGroupIngressRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Describes Spot Instance requests. Spot Instances are instances that
-     * Amazon EC2 starts on your behalf when the maximum price that you
-     * specify exceeds the current Spot Price. Amazon EC2 periodically sets
-     * the Spot Price based on available Spot Instance capacity and current
-     * spot instance requests. For conceptual information about Spot
-     * Instances, refer to the <a
-     * "http://docs.amazonwebservices.com/AWSEC2/2010-08-31/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide </a> or <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2010-08-31/UserGuide/">
-     * Amazon Elastic Compute Cloud User Guide </a> .
+     * Describes the Spot Instance requests that belong to your account.
+     * Spot Instances are instances that Amazon EC2 starts on your behalf
+     * when the maximum price that you specify exceeds the current Spot
+     * Price. Amazon EC2 periodically sets the Spot Price based on available
+     * Spot Instance capacity and current Spot Instance requests. For more
+     * information about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * You can filter the results to return information only about Spot
-     * Instance requests that match criteria you specify. For example, you
-     * could get information about requests where the Spot Price you
-     * specified is a certain value (you can't use greater than or less than
-     * comparison, but you can use <code>*</code> and <code>?</code>
-     * wildcards). You can specify multiple values for a filter. A Spot
-     * Instance request must match at least one of the specified values for
-     * it to be included in the results.
-     * </p>
-     * <p>
-     * You can specify multiple filters (e.g., the Spot Price is equal to a
-     * particular value, and the instance type is <code>m1.small</code> ).
-     * The result includes information for a particular request only if it
-     * matches all your filters. If there's no match, no special message is
-     * returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * You can use <code>DescribeSpotInstanceRequests</code> to find a
+     * running Spot Instance by examining the response. If the status of the
+     * Spot Instance is <code>fulfilled</code> , the instance ID appears in
+     * the response and contains the identifier of the instance.
+     * Alternatively, you can use DescribeInstances with a filter to look for
+     * instances where the instance lifecycle is <code>spot</code> .
      * </p>
      *
      * @param describeSpotInstanceRequestsRequest Container for the necessary
@@ -8148,47 +8980,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeSpotInstanceRequestsResult>() {
             public DescribeSpotInstanceRequestsResult call() throws Exception {
                 return describeSpotInstanceRequests(describeSpotInstanceRequestsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes Spot Instance requests. Spot Instances are instances that
-     * Amazon EC2 starts on your behalf when the maximum price that you
-     * specify exceeds the current Spot Price. Amazon EC2 periodically sets
-     * the Spot Price based on available Spot Instance capacity and current
-     * spot instance requests. For conceptual information about Spot
-     * Instances, refer to the <a
-     * "http://docs.amazonwebservices.com/AWSEC2/2010-08-31/DeveloperGuide/">
-     * Amazon Elastic Compute Cloud Developer Guide </a> or <a
-     * href="http://docs.amazonwebservices.com/AWSEC2/2010-08-31/UserGuide/">
-     * Amazon Elastic Compute Cloud User Guide </a> .
+     * Describes the Spot Instance requests that belong to your account.
+     * Spot Instances are instances that Amazon EC2 starts on your behalf
+     * when the maximum price that you specify exceeds the current Spot
+     * Price. Amazon EC2 periodically sets the Spot Price based on available
+     * Spot Instance capacity and current Spot Instance requests. For more
+     * information about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * You can filter the results to return information only about Spot
-     * Instance requests that match criteria you specify. For example, you
-     * could get information about requests where the Spot Price you
-     * specified is a certain value (you can't use greater than or less than
-     * comparison, but you can use <code>*</code> and <code>?</code>
-     * wildcards). You can specify multiple values for a filter. A Spot
-     * Instance request must match at least one of the specified values for
-     * it to be included in the results.
-     * </p>
-     * <p>
-     * You can specify multiple filters (e.g., the Spot Price is equal to a
-     * particular value, and the instance type is <code>m1.small</code> ).
-     * The result includes information for a particular request only if it
-     * matches all your filters. If there's no match, no special message is
-     * returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: an asterisk matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
+     * You can use <code>DescribeSpotInstanceRequests</code> to find a
+     * running Spot Instance by examining the response. If the status of the
+     * Spot Instance is <code>fulfilled</code> , the instance ID appears in
+     * the response and contains the identifier of the instance.
+     * Alternatively, you can use DescribeInstances with a filter to look for
+     * instances where the instance lifecycle is <code>spot</code> .
      * </p>
      *
      * @param describeSpotInstanceRequestsRequest Container for the necessary
@@ -8217,31 +9030,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeSpotInstanceRequestsResult>() {
             public DescribeSpotInstanceRequestsResult call() throws Exception {
-                DescribeSpotInstanceRequestsResult result;
+              DescribeSpotInstanceRequestsResult result;
                 try {
-                    result = describeSpotInstanceRequests(describeSpotInstanceRequestsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSpotInstanceRequestsRequest, result);
-                   return result;
-            }
-        });
+                result = describeSpotInstanceRequests(describeSpotInstanceRequestsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSpotInstanceRequestsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a VPC with the CIDR block you specify. The smallest VPC you
-     * can create uses a <code>/28</code> netmask (16 IP addresses), and the
-     * largest uses a <code>/18</code> netmask (16,384 IP addresses). To help
-     * you decide how big to make your VPC, go to the topic about creating
-     * VPCs in the Amazon Virtual Private Cloud Developer Guide.
+     * Creates a VPC with the specified CIDR block.
+     * </p>
+     * <p>
+     * The smallest VPC you can create uses a /28 netmask (16 IP addresses),
+     * and the largest uses a /16 netmask (65,536 IP addresses). To help you
+     * decide how big to make your VPC, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html"> Your VPC and Subnets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      * <p>
      * By default, each instance you launch in the VPC has the default DHCP
-     * options (the standard EC2 host name, no domain name, no DNS server, no
-     * NTP server, and no NetBIOS server or node type).
+     * options, which includes only a default DNS server that we provide
+     * (AmazonProvidedDNS). For more information about DHCP options, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createVpcRequest Container for the necessary parameters to
@@ -8264,22 +9082,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateVpcResult>() {
             public CreateVpcResult call() throws Exception {
                 return createVpc(createVpcRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a VPC with the CIDR block you specify. The smallest VPC you
-     * can create uses a <code>/28</code> netmask (16 IP addresses), and the
-     * largest uses a <code>/18</code> netmask (16,384 IP addresses). To help
-     * you decide how big to make your VPC, go to the topic about creating
-     * VPCs in the Amazon Virtual Private Cloud Developer Guide.
+     * Creates a VPC with the specified CIDR block.
+     * </p>
+     * <p>
+     * The smallest VPC you can create uses a /28 netmask (16 IP addresses),
+     * and the largest uses a /16 netmask (65,536 IP addresses). To help you
+     * decide how big to make your VPC, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html"> Your VPC and Subnets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      * <p>
      * By default, each instance you launch in the VPC has the default DHCP
-     * options (the standard EC2 host name, no domain name, no DNS server, no
-     * NTP server, and no NetBIOS server or node type).
+     * options, which includes only a default DNS server that we provide
+     * (AmazonProvidedDNS). For more information about DHCP options, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html"> DHCP Options Sets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createVpcRequest Container for the necessary parameters to
@@ -8307,33 +9130,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateVpcResult>() {
             public CreateVpcResult call() throws Exception {
-                CreateVpcResult result;
+              CreateVpcResult result;
                 try {
-                    result = createVpc(createVpcRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVpcRequest, result);
-                   return result;
-            }
-        });
+                result = createVpc(createVpcRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVpcRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about your customer gateways. You can filter
-     * the results to return information only about customer gateways that
-     * match criteria you specify. For example, you could ask to get
-     * information about a particular customer gateway (or all) only if the
-     * gateway's state is pending or available. You can specify multiple
-     * filters (e.g., the customer gateway has a particular IP address for
-     * the Internet-routable external interface, and the gateway's state is
-     * pending or available). The result includes information for a
-     * particular customer gateway only if the gateway matches all your
-     * filters. If there's no match, no special message is returned; the
-     * response is simply empty. The following table shows the available
-     * filters.
+     * Describes one or more of your VPN customer gateways.
+     * </p>
+     * <p>
+     * For more information about VPN customer gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeCustomerGatewaysRequest Container for the necessary
@@ -8357,24 +9174,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeCustomerGatewaysResult>() {
             public DescribeCustomerGatewaysResult call() throws Exception {
                 return describeCustomerGateways(describeCustomerGatewaysRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about your customer gateways. You can filter
-     * the results to return information only about customer gateways that
-     * match criteria you specify. For example, you could ask to get
-     * information about a particular customer gateway (or all) only if the
-     * gateway's state is pending or available. You can specify multiple
-     * filters (e.g., the customer gateway has a particular IP address for
-     * the Internet-routable external interface, and the gateway's state is
-     * pending or available). The result includes information for a
-     * particular customer gateway only if the gateway matches all your
-     * filters. If there's no match, no special message is returned; the
-     * response is simply empty. The following table shows the available
-     * filters.
+     * Describes one or more of your VPN customer gateways.
+     * </p>
+     * <p>
+     * For more information about VPN customer gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeCustomerGatewaysRequest Container for the necessary
@@ -8403,20 +9214,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeCustomerGatewaysResult>() {
             public DescribeCustomerGatewaysResult call() throws Exception {
-                DescribeCustomerGatewaysResult result;
+              DescribeCustomerGatewaysResult result;
                 try {
-                    result = describeCustomerGateways(describeCustomerGatewaysRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCustomerGatewaysRequest, result);
-                   return result;
-            }
-        });
+                result = describeCustomerGateways(describeCustomerGatewaysRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCustomerGatewaysRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Cancels an active export task. The request removes all artifacts of
+     * the export, including any partially-created Amazon S3 objects. If the
+     * export task is complete or is in the process of transferring the final
+     * disk image, the command fails and returns an error.
+     * </p>
      *
      * @param cancelExportTaskRequest Container for the necessary parameters
      *           to execute the CancelExportTask operation on AmazonEC2.
@@ -8439,11 +9256,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 cancelExportTask(cancelExportTaskRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Cancels an active export task. The request removes all artifacts of
+     * the export, including any partially-created Amazon S3 objects. If the
+     * export task is complete or is in the process of transferring the final
+     * disk image, the command fails and returns an error.
+     * </p>
      *
      * @param cancelExportTaskRequest Container for the necessary parameters
      *           to execute the CancelExportTask operation on AmazonEC2.
@@ -8470,23 +9293,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    cancelExportTask(cancelExportTaskRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(cancelExportTaskRequest, null);
-                   return null;
-            }
-        });
+              try {
+                cancelExportTask(cancelExportTaskRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(cancelExportTaskRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a new route in a route table within a VPC. The route's target
-     * can be either a gateway attached to the VPC or a NAT instance in the
-     * VPC.
+     * Creates a route in a route table within a VPC.
+     * </p>
+     * <p>
+     * You must specify one of the following targets: Internet gateway, NAT
+     * instance, VPC peering connection, or network interface.
      * </p>
      * <p>
      * When determining how to route traffic, we use the route with the most
@@ -8496,19 +9321,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * </p>
      * 
      * <ul>
-     * <li> <code>192.0.2.0/24</code> (goes to some target A) </li>
-     * <li> <code>192.0.2.0/28</code> (goes to some target B) </li>
+     * <li> <p>
+     * <code>192.0.2.0/24</code> (goes to some target A)
+     * </p>
+     * </li>
+     * <li> <p>
+     * <code>192.0.2.0/28</code> (goes to some target B)
+     * </p>
+     * </li>
      * 
      * </ul>
      * <p>
      * Both routes apply to the traffic destined for <code>192.0.2.3</code>
-     * . However, the second route in the list is more specific, so we use
-     * that route to determine where to target the traffic.
+     * . However, the second route in the list covers a smaller number of IP
+     * addresses and is therefore more specific, so we use that route to
+     * determine where to target the traffic.
      * </p>
      * <p>
-     * For more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createRouteRequest Container for the necessary parameters to
@@ -8532,15 +9364,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 createRoute(createRouteRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a new route in a route table within a VPC. The route's target
-     * can be either a gateway attached to the VPC or a NAT instance in the
-     * VPC.
+     * Creates a route in a route table within a VPC.
+     * </p>
+     * <p>
+     * You must specify one of the following targets: Internet gateway, NAT
+     * instance, VPC peering connection, or network interface.
      * </p>
      * <p>
      * When determining how to route traffic, we use the route with the most
@@ -8550,19 +9384,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * </p>
      * 
      * <ul>
-     * <li> <code>192.0.2.0/24</code> (goes to some target A) </li>
-     * <li> <code>192.0.2.0/28</code> (goes to some target B) </li>
+     * <li> <p>
+     * <code>192.0.2.0/24</code> (goes to some target A)
+     * </p>
+     * </li>
+     * <li> <p>
+     * <code>192.0.2.0/28</code> (goes to some target B)
+     * </p>
+     * </li>
      * 
      * </ul>
      * <p>
      * Both routes apply to the traffic destined for <code>192.0.2.3</code>
-     * . However, the second route in the list is more specific, so we use
-     * that route to determine where to target the traffic.
+     * . However, the second route in the list covers a smaller number of IP
+     * addresses and is therefore more specific, so we use that route to
+     * determine where to target the traffic.
      * </p>
      * <p>
-     * For more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createRouteRequest Container for the necessary parameters to
@@ -8590,19 +9431,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createRoute(createRouteRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createRouteRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createRoute(createRouteRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createRouteRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Initiates the copy of an AMI from the specified source region to the
+     * region in which the request was made. You specify the destination
+     * region by using its endpoint when making the request. AMIs that use
+     * encrypted Amazon EBS snapshots cannot be copied with this method.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html"> Copying AMIs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param copyImageRequest Container for the necessary parameters to
      *           execute the CopyImage operation on AmazonEC2.
@@ -8624,11 +9476,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CopyImageResult>() {
             public CopyImageResult call() throws Exception {
                 return copyImage(copyImageRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Initiates the copy of an AMI from the specified source region to the
+     * region in which the request was made. You specify the destination
+     * region by using its endpoint when making the request. AMIs that use
+     * encrypted Amazon EBS snapshots cannot be copied with this method.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html"> Copying AMIs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param copyImageRequest Container for the necessary parameters to
      *           execute the CopyImage operation on AmazonEC2.
@@ -8655,20 +9518,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CopyImageResult>() {
             public CopyImageResult call() throws Exception {
-                CopyImageResult result;
+              CopyImageResult result;
                 try {
-                    result = copyImage(copyImageRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(copyImageRequest, result);
-                   return result;
-            }
-        });
+                result = copyImage(copyImageRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(copyImageRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Modifies the specified network interface attribute. You can specify
+     * only one attribute at a time.
+     * </p>
      *
      * @param modifyNetworkInterfaceAttributeRequest Container for the
      *           necessary parameters to execute the ModifyNetworkInterfaceAttribute
@@ -8693,11 +9560,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 modifyNetworkInterfaceAttribute(modifyNetworkInterfaceAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Modifies the specified network interface attribute. You can specify
+     * only one attribute at a time.
+     * </p>
      *
      * @param modifyNetworkInterfaceAttributeRequest Container for the
      *           necessary parameters to execute the ModifyNetworkInterfaceAttribute
@@ -8726,25 +9597,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    modifyNetworkInterfaceAttribute(modifyNetworkInterfaceAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyNetworkInterfaceAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                modifyNetworkInterfaceAttribute(modifyNetworkInterfaceAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyNetworkInterfaceAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a route table from a VPC. The route table must not be
-     * associated with a subnet. You can't delete the main route table. For
-     * more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified route table. You must disassociate the route
+     * table from any subnets before you can delete it. You can't delete the
+     * main route table.
      * </p>
      *
      * @param deleteRouteTableRequest Container for the necessary parameters
@@ -8768,17 +9637,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteRouteTable(deleteRouteTableRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a route table from a VPC. The route table must not be
-     * associated with a subnet. You can't delete the main route table. For
-     * more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified route table. You must disassociate the route
+     * table from any subnets before you can delete it. You can't delete the
+     * main route table.
      * </p>
      *
      * @param deleteRouteTableRequest Container for the necessary parameters
@@ -8806,19 +9673,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteRouteTable(deleteRouteTableRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteRouteTableRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteRouteTable(deleteRouteTableRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteRouteTableRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes a network interface attribute. You can specify only one
+     * attribute at a time.
+     * </p>
      *
      * @param describeNetworkInterfaceAttributeRequest Container for the
      *           necessary parameters to execute the DescribeNetworkInterfaceAttribute
@@ -8842,11 +9713,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeNetworkInterfaceAttributeResult>() {
             public DescribeNetworkInterfaceAttributeResult call() throws Exception {
                 return describeNetworkInterfaceAttribute(describeNetworkInterfaceAttributeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes a network interface attribute. You can specify only one
+     * attribute at a time.
+     * </p>
      *
      * @param describeNetworkInterfaceAttributeRequest Container for the
      *           necessary parameters to execute the DescribeNetworkInterfaceAttribute
@@ -8875,33 +9750,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeNetworkInterfaceAttributeResult>() {
             public DescribeNetworkInterfaceAttributeResult call() throws Exception {
-                DescribeNetworkInterfaceAttributeResult result;
+              DescribeNetworkInterfaceAttributeResult result;
                 try {
-                    result = describeNetworkInterfaceAttribute(describeNetworkInterfaceAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeNetworkInterfaceAttributeRequest, result);
-                   return result;
-            }
-        });
+                result = describeNetworkInterfaceAttribute(describeNetworkInterfaceAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeNetworkInterfaceAttributeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a Spot Instance request.
-     * </p>
-     * <p>
-     * Spot Instances are instances that Amazon EC2 starts on your behalf
-     * when the maximum price that you specify exceeds the current Spot
-     * Price. Amazon EC2 periodically sets the Spot Price based on available
-     * Spot Instance capacity and current spot instance requests.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide.
+     * Creates a Spot Instance request. Spot Instances are instances that
+     * Amazon EC2 starts on your behalf when the maximum price that you
+     * specify exceeds the current Spot Price. Amazon EC2 periodically sets
+     * the Spot Price based on available Spot Instance capacity and current
+     * Spot Instance requests. For more information about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param requestSpotInstancesRequest Container for the necessary
@@ -8924,24 +9794,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<RequestSpotInstancesResult>() {
             public RequestSpotInstancesResult call() throws Exception {
                 return requestSpotInstances(requestSpotInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a Spot Instance request.
-     * </p>
-     * <p>
-     * Spot Instances are instances that Amazon EC2 starts on your behalf
-     * when the maximum price that you specify exceeds the current Spot
-     * Price. Amazon EC2 periodically sets the Spot Price based on available
-     * Spot Instance capacity and current spot instance requests.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide.
+     * Creates a Spot Instance request. Spot Instances are instances that
+     * Amazon EC2 starts on your behalf when the maximum price that you
+     * specify exceeds the current Spot Price. Amazon EC2 periodically sets
+     * the Spot Price based on available Spot Instance capacity and current
+     * Spot Instance requests. For more information about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param requestSpotInstancesRequest Container for the necessary
@@ -8969,24 +9834,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<RequestSpotInstancesResult>() {
             public RequestSpotInstancesResult call() throws Exception {
-                RequestSpotInstancesResult result;
+              RequestSpotInstancesResult result;
                 try {
-                    result = requestSpotInstances(requestSpotInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(requestSpotInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = requestSpotInstances(requestSpotInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(requestSpotInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Adds or overwrites tags for the specified resources. Each resource
-     * can have a maximum of 10 tags. Each tag consists of a key-value pair.
-     * Tag keys must be unique per resource.
+     * Adds or overwrites one or more tags for the specified EC2 resource or
+     * resources. Each resource can have a maximum of 10 tags. Each tag
+     * consists of a key and optional value. Tag keys must be unique per
+     * resource.
+     * </p>
+     * <p>
+     * For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging Your Resources </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createTagsRequest Container for the necessary parameters to
@@ -9010,15 +9881,21 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 createTags(createTagsRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Adds or overwrites tags for the specified resources. Each resource
-     * can have a maximum of 10 tags. Each tag consists of a key-value pair.
-     * Tag keys must be unique per resource.
+     * Adds or overwrites one or more tags for the specified EC2 resource or
+     * resources. Each resource can have a maximum of 10 tags. Each tag
+     * consists of a key and optional value. Tag keys must be unique per
+     * resource.
+     * </p>
+     * <p>
+     * For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging Your Resources </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createTagsRequest Container for the necessary parameters to
@@ -9046,19 +9923,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createTags(createTagsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createTagsRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createTags(createTagsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createTagsRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes the specified attribute of the specified volume. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS volumes, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html"> Amazon EBS Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeVolumeAttributeRequest Container for the necessary
      *           parameters to execute the DescribeVolumeAttribute operation on
@@ -9081,11 +9967,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVolumeAttributeResult>() {
             public DescribeVolumeAttributeResult call() throws Exception {
                 return describeVolumeAttribute(describeVolumeAttributeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes the specified attribute of the specified volume. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS volumes, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html"> Amazon EBS Volumes </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeVolumeAttributeRequest Container for the necessary
      *           parameters to execute the DescribeVolumeAttribute operation on
@@ -9113,20 +10008,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVolumeAttributeResult>() {
             public DescribeVolumeAttributeResult call() throws Exception {
-                DescribeVolumeAttributeResult result;
+              DescribeVolumeAttributeResult result;
                 try {
-                    result = describeVolumeAttribute(describeVolumeAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVolumeAttributeRequest, result);
-                   return result;
-            }
-        });
+                result = describeVolumeAttribute(describeVolumeAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVolumeAttributeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Attaches a network interface to an instance.
+     * </p>
      *
      * @param attachNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the AttachNetworkInterface operation on
@@ -9149,11 +10047,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<AttachNetworkInterfaceResult>() {
             public AttachNetworkInterfaceResult call() throws Exception {
                 return attachNetworkInterface(attachNetworkInterfaceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Attaches a network interface to an instance.
+     * </p>
      *
      * @param attachNetworkInterfaceRequest Container for the necessary
      *           parameters to execute the AttachNetworkInterface operation on
@@ -9181,25 +10082,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<AttachNetworkInterfaceResult>() {
             public AttachNetworkInterfaceResult call() throws Exception {
-                AttachNetworkInterfaceResult result;
+              AttachNetworkInterfaceResult result;
                 try {
-                    result = attachNetworkInterface(attachNetworkInterfaceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(attachNetworkInterfaceRequest, result);
-                   return result;
-            }
-        });
+                result = attachNetworkInterface(attachNetworkInterfaceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(attachNetworkInterfaceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Replaces an existing route within a route table in a VPC. For more
-     * information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Replaces an existing route within a route table in a VPC. You must
+     * provide only one of the following: Internet gateway, NAT instance, VPC
+     * peering connection, or network interface.
+     * </p>
+     * <p>
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param replaceRouteRequest Container for the necessary parameters to
@@ -9223,16 +10128,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 replaceRoute(replaceRouteRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Replaces an existing route within a route table in a VPC. For more
-     * information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * Replaces an existing route within a route table in a VPC. You must
+     * provide only one of the following: Internet gateway, NAT instance, VPC
+     * peering connection, or network interface.
+     * </p>
+     * <p>
+     * For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param replaceRouteRequest Container for the necessary parameters to
@@ -9260,21 +10169,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    replaceRoute(replaceRouteRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(replaceRouteRequest, null);
-                   return null;
-            }
-        });
+              try {
+                replaceRoute(replaceRouteRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(replaceRouteRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Describes the tags for the specified resources.
+     * Describes one or more of the tags for your EC2 resources.
+     * </p>
+     * <p>
+     * For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging Your Resources </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeTagsRequest Container for the necessary parameters to
@@ -9297,13 +10211,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeTagsResult>() {
             public DescribeTagsResult call() throws Exception {
                 return describeTags(describeTagsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes the tags for the specified resources.
+     * Describes one or more of the tags for your EC2 resources.
+     * </p>
+     * <p>
+     * For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html"> Tagging Your Resources </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeTagsRequest Container for the necessary parameters to
@@ -9331,26 +10250,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeTagsResult>() {
             public DescribeTagsResult call() throws Exception {
-                DescribeTagsResult result;
+              DescribeTagsResult result;
                 try {
-                    result = describeTags(describeTagsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeTagsRequest, result);
-                   return result;
-            }
-        });
+                result = describeTags(describeTagsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeTagsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * CancelBundleTask operation cancels a pending or in-progress bundling
-     * task. This is an asynchronous call and it make take a while for the
-     * task to be canceled. If a task is canceled while it is storing items,
-     * there may be parts of the incomplete AMI stored in S3. It is up to the
-     * caller to clean up these parts from S3.
+     * Cancels a bundling operation for an instance store-backed Windows
+     * instance.
      * </p>
      *
      * @param cancelBundleTaskRequest Container for the necessary parameters
@@ -9373,17 +10289,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CancelBundleTaskResult>() {
             public CancelBundleTaskResult call() throws Exception {
                 return cancelBundleTask(cancelBundleTaskRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * CancelBundleTask operation cancels a pending or in-progress bundling
-     * task. This is an asynchronous call and it make take a while for the
-     * task to be canceled. If a task is canceled while it is storing items,
-     * there may be parts of the incomplete AMI stored in S3. It is up to the
-     * caller to clean up these parts from S3.
+     * Cancels a bundling operation for an instance store-backed Windows
+     * instance.
      * </p>
      *
      * @param cancelBundleTaskRequest Container for the necessary parameters
@@ -9411,20 +10324,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CancelBundleTaskResult>() {
             public CancelBundleTaskResult call() throws Exception {
-                CancelBundleTaskResult result;
+              CancelBundleTaskResult result;
                 try {
-                    result = cancelBundleTask(cancelBundleTaskRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(cancelBundleTaskRequest, result);
-                   return result;
-            }
-        });
+                result = cancelBundleTask(cancelBundleTaskRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(cancelBundleTaskRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Disables a virtual private gateway (VGW) from propagating routes to
+     * the routing tables of a VPC.
+     * </p>
      *
      * @param disableVgwRoutePropagationRequest Container for the necessary
      *           parameters to execute the DisableVgwRoutePropagation operation on
@@ -9448,11 +10365,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 disableVgwRoutePropagation(disableVgwRoutePropagationRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Disables a virtual private gateway (VGW) from propagating routes to
+     * the routing tables of a VPC.
+     * </p>
      *
      * @param disableVgwRoutePropagationRequest Container for the necessary
      *           parameters to execute the DisableVgwRoutePropagation operation on
@@ -9480,33 +10401,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    disableVgwRoutePropagation(disableVgwRoutePropagationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(disableVgwRoutePropagationRequest, null);
-                   return null;
-            }
-        });
+              try {
+                disableVgwRoutePropagation(disableVgwRoutePropagationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(disableVgwRoutePropagationRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Cancels one or more Spot Instance requests.
+     * Cancels one or more Spot Instance requests. Spot Instances are
+     * instances that Amazon EC2 starts on your behalf when the maximum price
+     * that you specify exceeds the current Spot Price. Amazon EC2
+     * periodically sets the Spot Price based on available Spot Instance
+     * capacity and current Spot Instance requests. For more information
+     * about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * Spot Instances are instances that Amazon EC2 starts on your behalf
-     * when the maximum price that you specify exceeds the current Spot
-     * Price. Amazon EC2 periodically sets the Spot Price based on available
-     * Spot Instance capacity and current spot instance requests.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * <b>IMPORTANT:</b> Canceling a Spot Instance request does not
+     * terminate running Spot Instances associated with the request.
      * </p>
      *
      * @param cancelSpotInstanceRequestsRequest Container for the necessary
@@ -9530,25 +10450,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CancelSpotInstanceRequestsResult>() {
             public CancelSpotInstanceRequestsResult call() throws Exception {
                 return cancelSpotInstanceRequests(cancelSpotInstanceRequestsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Cancels one or more Spot Instance requests.
+     * Cancels one or more Spot Instance requests. Spot Instances are
+     * instances that Amazon EC2 starts on your behalf when the maximum price
+     * that you specify exceeds the current Spot Price. Amazon EC2
+     * periodically sets the Spot Price based on available Spot Instance
+     * capacity and current Spot Instance requests. For more information
+     * about Spot Instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * Spot Instances are instances that Amazon EC2 starts on your behalf
-     * when the maximum price that you specify exceeds the current Spot
-     * Price. Amazon EC2 periodically sets the Spot Price based on available
-     * Spot Instance capacity and current spot instance requests.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * <b>IMPORTANT:</b> Canceling a Spot Instance request does not
+     * terminate running Spot Instances associated with the request.
      * </p>
      *
      * @param cancelSpotInstanceRequestsRequest Container for the necessary
@@ -9577,26 +10496,31 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CancelSpotInstanceRequestsResult>() {
             public CancelSpotInstanceRequestsResult call() throws Exception {
-                CancelSpotInstanceRequestsResult result;
+              CancelSpotInstanceRequestsResult result;
                 try {
-                    result = cancelSpotInstanceRequests(cancelSpotInstanceRequestsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(cancelSpotInstanceRequestsRequest, result);
-                   return result;
-            }
-        });
+                result = cancelSpotInstanceRequests(cancelSpotInstanceRequestsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(cancelSpotInstanceRequestsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The PurchaseReservedInstancesOffering operation purchases a Reserved
-     * Instance for use with your account. With Amazon EC2 Reserved
-     * Instances, you purchase the right to launch Amazon EC2 instances for a
-     * period of time (without getting insufficient capacity errors) and pay
-     * a lower usage rate for the actual time used.
+     * Purchases a Reserved Instance for use with your account. With Amazon
+     * EC2 Reserved Instances, you obtain a capacity reservation for a
+     * certain instance configuration over a specified period of time. You
+     * pay a lower usage rate than with On-Demand instances for the time that
+     * you actually use the capacity reservation.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param purchaseReservedInstancesOfferingRequest Container for the
@@ -9621,17 +10545,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<PurchaseReservedInstancesOfferingResult>() {
             public PurchaseReservedInstancesOfferingResult call() throws Exception {
                 return purchaseReservedInstancesOffering(purchaseReservedInstancesOfferingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The PurchaseReservedInstancesOffering operation purchases a Reserved
-     * Instance for use with your account. With Amazon EC2 Reserved
-     * Instances, you purchase the right to launch Amazon EC2 instances for a
-     * period of time (without getting insufficient capacity errors) and pay
-     * a lower usage rate for the actual time used.
+     * Purchases a Reserved Instance for use with your account. With Amazon
+     * EC2 Reserved Instances, you obtain a capacity reservation for a
+     * certain instance configuration over a specified period of time. You
+     * pay a lower usage rate than with On-Demand instances for the time that
+     * you actually use the capacity reservation.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param purchaseReservedInstancesOfferingRequest Container for the
@@ -9661,22 +10590,35 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<PurchaseReservedInstancesOfferingResult>() {
             public PurchaseReservedInstancesOfferingResult call() throws Exception {
-                PurchaseReservedInstancesOfferingResult result;
+              PurchaseReservedInstancesOfferingResult result;
                 try {
-                    result = purchaseReservedInstancesOffering(purchaseReservedInstancesOfferingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(purchaseReservedInstancesOfferingRequest, result);
-                   return result;
-            }
-        });
+                result = purchaseReservedInstancesOffering(purchaseReservedInstancesOfferingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(purchaseReservedInstancesOfferingRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Adds or remove permission settings for the specified snapshot.
+     * Adds or removes permission settings for the specified snapshot. You
+     * may add or remove specified AWS account IDs from a snapshot's list of
+     * create volume permissions, but you cannot do both in a single API
+     * call. If you need to both add and remove account IDs for a snapshot,
+     * you must use multiple API calls.
+     * </p>
+     * <p>
+     * For more information on modifying snapshot permissions, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"> Sharing Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Snapshots with AWS Marketplace product codes cannot be
+     * made public.
      * </p>
      *
      * @param modifySnapshotAttributeRequest Container for the necessary
@@ -9701,13 +10643,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 modifySnapshotAttribute(modifySnapshotAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Adds or remove permission settings for the specified snapshot.
+     * Adds or removes permission settings for the specified snapshot. You
+     * may add or remove specified AWS account IDs from a snapshot's list of
+     * create volume permissions, but you cannot do both in a single API
+     * call. If you need to both add and remove account IDs for a snapshot,
+     * you must use multiple API calls.
+     * </p>
+     * <p>
+     * For more information on modifying snapshot permissions, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"> Sharing Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Snapshots with AWS Marketplace product codes cannot be
+     * made public.
      * </p>
      *
      * @param modifySnapshotAttributeRequest Container for the necessary
@@ -9736,22 +10691,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    modifySnapshotAttribute(modifySnapshotAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifySnapshotAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                modifySnapshotAttribute(modifySnapshotAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifySnapshotAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeReservedInstancesModifications operation describes
-     * modifications made to Reserved Instances in your account.
+     * Describes the modifications made to your Reserved Instances. If no
+     * parameter is specified, information about all your Reserved Instances
+     * modification requests is returned. If a modification ID is specified,
+     * only information about the specific modification is returned.
      * </p>
      *
      * @param describeReservedInstancesModificationsRequest Container for the
@@ -9776,14 +10733,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeReservedInstancesModificationsResult>() {
             public DescribeReservedInstancesModificationsResult call() throws Exception {
                 return describeReservedInstancesModifications(describeReservedInstancesModificationsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeReservedInstancesModifications operation describes
-     * modifications made to Reserved Instances in your account.
+     * Describes the modifications made to your Reserved Instances. If no
+     * parameter is specified, information about all your Reserved Instances
+     * modification requests is returned. If a modification ID is specified,
+     * only information about the specific modification is returned.
      * </p>
      *
      * @param describeReservedInstancesModificationsRequest Container for the
@@ -9813,28 +10772,49 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReservedInstancesModificationsResult>() {
             public DescribeReservedInstancesModificationsResult call() throws Exception {
-                DescribeReservedInstancesModificationsResult result;
+              DescribeReservedInstancesModificationsResult result;
                 try {
-                    result = describeReservedInstancesModifications(describeReservedInstancesModificationsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedInstancesModificationsRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedInstancesModifications(describeReservedInstancesModificationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedInstancesModificationsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The TerminateInstances operation shuts down one or more instances.
-     * This operation is idempotent; if you terminate an instance more than
-     * once, each call will succeed.
+     * Shuts down one or more instances. This operation is idempotent; if
+     * you terminate an instance more than once, each call succeeds.
      * </p>
      * <p>
-     * Terminated instances will remain visible after termination
-     * (approximately one hour).
+     * Terminated instances remain visible after termination (for
+     * approximately one hour).
+     * </p>
+     * <p>
+     * By default, Amazon EC2 deletes all Amazon EBS volumes that were
+     * attached when the instance launched. Volumes attached after instance
+     * launch continue running.
+     * </p>
+     * <p>
+     * You can stop, start, and terminate EBS-backed instances. You can only
+     * terminate instance store-backed instances. What happens to an instance
+     * differs if you stop it or terminate it. For example, when you stop an
+     * instance, the root device and any other devices attached to the
+     * instance persist. When you terminate an instance, the root device and
+     * any other devices attached during the instance launch are
+     * automatically deleted. For more information about the differences
+     * between stopping and terminating instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html"> Instance Lifecycle </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesShuttingDown.html"> Troubleshooting Terminating Your Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param terminateInstancesRequest Container for the necessary
@@ -9857,19 +10837,40 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<TerminateInstancesResult>() {
             public TerminateInstancesResult call() throws Exception {
                 return terminateInstances(terminateInstancesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The TerminateInstances operation shuts down one or more instances.
-     * This operation is idempotent; if you terminate an instance more than
-     * once, each call will succeed.
+     * Shuts down one or more instances. This operation is idempotent; if
+     * you terminate an instance more than once, each call succeeds.
      * </p>
      * <p>
-     * Terminated instances will remain visible after termination
-     * (approximately one hour).
+     * Terminated instances remain visible after termination (for
+     * approximately one hour).
+     * </p>
+     * <p>
+     * By default, Amazon EC2 deletes all Amazon EBS volumes that were
+     * attached when the instance launched. Volumes attached after instance
+     * launch continue running.
+     * </p>
+     * <p>
+     * You can stop, start, and terminate EBS-backed instances. You can only
+     * terminate instance store-backed instances. What happens to an instance
+     * differs if you stop it or terminate it. For example, when you stop an
+     * instance, the root device and any other devices attached to the
+     * instance persist. When you terminate an instance, the root device and
+     * any other devices attached during the instance launch are
+     * automatically deleted. For more information about the differences
+     * between stopping and terminating instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html"> Instance Lifecycle </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For more information about troubleshooting, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesShuttingDown.html"> Troubleshooting Terminating Your Instance </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param terminateInstancesRequest Container for the necessary
@@ -9897,28 +10898,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<TerminateInstancesResult>() {
             public TerminateInstancesResult call() throws Exception {
-                TerminateInstancesResult result;
+              TerminateInstancesResult result;
                 try {
-                    result = terminateInstances(terminateInstancesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(terminateInstancesRequest, result);
-                   return result;
-            }
-        });
+                result = terminateInstances(terminateInstancesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(terminateInstancesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes the data feed for Spot Instances.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * Deletes the datafeed for Spot Instances. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteSpotDatafeedSubscriptionRequest Container for the
@@ -9944,19 +10941,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteSpotDatafeedSubscription(deleteSpotDatafeedSubscriptionRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes the data feed for Spot Instances.
-     * </p>
-     * <p>
-     * For conceptual information about Spot Instances, refer to the Amazon
-     * Elastic Compute Cloud Developer Guide or Amazon Elastic Compute Cloud
-     * User Guide .
-     * 
+     * Deletes the datafeed for Spot Instances. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"> Spot Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteSpotDatafeedSubscriptionRequest Container for the
@@ -9986,23 +10979,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteSpotDatafeedSubscription(deleteSpotDatafeedSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteSpotDatafeedSubscriptionRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteSpotDatafeedSubscription(deleteSpotDatafeedSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSpotDatafeedSubscriptionRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes an Internet gateway from your AWS account. The gateway must
-     * not be attached to a VPC. For more information about your VPC and
-     * Internet gateway, go to Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified Internet gateway. You must detach the Internet
+     * gateway from the VPC before you can delete it.
      * </p>
      *
      * @param deleteInternetGatewayRequest Container for the necessary
@@ -10027,15 +11019,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteInternetGateway(deleteInternetGatewayRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes an Internet gateway from your AWS account. The gateway must
-     * not be attached to a VPC. For more information about your VPC and
-     * Internet gateway, go to Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified Internet gateway. You must detach the Internet
+     * gateway from the VPC before you can delete it.
      * </p>
      *
      * @param deleteInternetGatewayRequest Container for the necessary
@@ -10064,22 +11055,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteInternetGateway(deleteInternetGatewayRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteInternetGatewayRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteInternetGateway(deleteInternetGatewayRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteInternetGatewayRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Returns information about an attribute of a snapshot. Only one
-     * attribute can be specified per call.
+     * Describes the specified attribute of the specified snapshot. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS snapshots, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html"> Amazon EBS Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeSnapshotAttributeRequest Container for the necessary
@@ -10103,14 +11099,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeSnapshotAttributeResult>() {
             public DescribeSnapshotAttributeResult call() throws Exception {
                 return describeSnapshotAttribute(describeSnapshotAttributeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Returns information about an attribute of a snapshot. Only one
-     * attribute can be specified per call.
+     * Describes the specified attribute of the specified snapshot. You can
+     * specify only one attribute at a time.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS snapshots, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html"> Amazon EBS Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeSnapshotAttributeRequest Container for the necessary
@@ -10139,32 +11140,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeSnapshotAttributeResult>() {
             public DescribeSnapshotAttributeResult call() throws Exception {
-                DescribeSnapshotAttributeResult result;
+              DescribeSnapshotAttributeResult result;
                 try {
-                    result = describeSnapshotAttribute(describeSnapshotAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSnapshotAttributeRequest, result);
-                   return result;
-            }
-        });
+                result = describeSnapshotAttribute(describeSnapshotAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSnapshotAttributeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Changes the route table associated with a given subnet in a VPC.
-     * After you execute this action, the subnet uses the routes in the new
+     * After the operation completes, the subnet uses the routes in the new
      * route table it's associated with. For more information about route
-     * tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      * <p>
-     * You can also use this to change which table is the main route table
-     * in the VPC. You just specify the main route table's association ID and
-     * the route table that you want to be the new main route table.
+     * You can also use ReplaceRouteTableAssociation to change which table
+     * is the main route table in the VPC. You just specify the main route
+     * table's association ID and the route table to be the new main route
+     * table.
      * </p>
      *
      * @param replaceRouteTableAssociationRequest Container for the necessary
@@ -10188,23 +11190,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ReplaceRouteTableAssociationResult>() {
             public ReplaceRouteTableAssociationResult call() throws Exception {
                 return replaceRouteTableAssociation(replaceRouteTableAssociationRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Changes the route table associated with a given subnet in a VPC.
-     * After you execute this action, the subnet uses the routes in the new
+     * After the operation completes, the subnet uses the routes in the new
      * route table it's associated with. For more information about route
-     * tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      * <p>
-     * You can also use this to change which table is the main route table
-     * in the VPC. You just specify the main route table's association ID and
-     * the route table that you want to be the new main route table.
+     * You can also use ReplaceRouteTableAssociation to change which table
+     * is the main route table in the VPC. You just specify the main route
+     * table's association ID and the route table to be the new main route
+     * table.
      * </p>
      *
      * @param replaceRouteTableAssociationRequest Container for the necessary
@@ -10233,23 +11236,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ReplaceRouteTableAssociationResult>() {
             public ReplaceRouteTableAssociationResult call() throws Exception {
-                ReplaceRouteTableAssociationResult result;
+              ReplaceRouteTableAssociationResult result;
                 try {
-                    result = replaceRouteTableAssociation(replaceRouteTableAssociationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(replaceRouteTableAssociationRequest, result);
-                   return result;
-            }
-        });
+                result = replaceRouteTableAssociation(replaceRouteTableAssociationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(replaceRouteTableAssociationRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeAddresses operation lists elastic IP addresses assigned
-     * to your account.
+     * Describes one or more of your Elastic IP addresses.
+     * </p>
+     * <p>
+     * An Elastic IP address is for use in either the EC2-Classic platform
+     * or in a VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeAddressesRequest Container for the necessary parameters
@@ -10272,14 +11280,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeAddressesResult>() {
             public DescribeAddressesResult call() throws Exception {
                 return describeAddresses(describeAddressesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeAddresses operation lists elastic IP addresses assigned
-     * to your account.
+     * Describes one or more of your Elastic IP addresses.
+     * </p>
+     * <p>
+     * An Elastic IP address is for use in either the EC2-Classic platform
+     * or in a VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeAddressesRequest Container for the necessary parameters
@@ -10307,23 +11320,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeAddressesResult>() {
             public DescribeAddressesResult call() throws Exception {
-                DescribeAddressesResult result;
+              DescribeAddressesResult result;
                 try {
-                    result = describeAddresses(describeAddressesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeAddressesRequest, result);
-                   return result;
-            }
-        });
+                result = describeAddresses(describeAddressesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeAddressesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeImageAttribute operation returns information about an
-     * attribute of an AMI. Only one attribute can be specified per call.
+     * Describes the specified attribute of the specified AMI. You can
+     * specify only one attribute at a time.
      * </p>
      *
      * @param describeImageAttributeRequest Container for the necessary
@@ -10347,14 +11360,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeImageAttributeResult>() {
             public DescribeImageAttributeResult call() throws Exception {
                 return describeImageAttribute(describeImageAttributeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeImageAttribute operation returns information about an
-     * attribute of an AMI. Only one attribute can be specified per call.
+     * Describes the specified attribute of the specified AMI. You can
+     * specify only one attribute at a time.
      * </p>
      *
      * @param describeImageAttributeRequest Container for the necessary
@@ -10383,25 +11396,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeImageAttributeResult>() {
             public DescribeImageAttributeResult call() throws Exception {
-                DescribeImageAttributeResult result;
+              DescribeImageAttributeResult result;
                 try {
-                    result = describeImageAttribute(describeImageAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeImageAttributeRequest, result);
-                   return result;
-            }
-        });
+                result = describeImageAttribute(describeImageAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeImageAttributeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeKeyPairs operation returns information about key pairs
-     * available to you. If you specify key pairs, information about those
-     * key pairs is returned. Otherwise, information for all registered key
-     * pairs is returned.
+     * Describes one or more of your key pairs.
+     * </p>
+     * <p>
+     * For more information about key pairs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeKeyPairsRequest Container for the necessary parameters
@@ -10424,16 +11439,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeKeyPairsResult>() {
             public DescribeKeyPairsResult call() throws Exception {
                 return describeKeyPairs(describeKeyPairsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeKeyPairs operation returns information about key pairs
-     * available to you. If you specify key pairs, information about those
-     * key pairs is returned. Otherwise, information for all registered key
-     * pairs is returned.
+     * Describes one or more of your key pairs.
+     * </p>
+     * <p>
+     * For more information about key pairs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeKeyPairsRequest Container for the necessary parameters
@@ -10461,30 +11478,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeKeyPairsResult>() {
             public DescribeKeyPairsResult call() throws Exception {
-                DescribeKeyPairsResult result;
+              DescribeKeyPairsResult result;
                 try {
-                    result = describeKeyPairs(describeKeyPairsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeKeyPairsRequest, result);
-                   return result;
-            }
-        });
+                result = describeKeyPairs(describeKeyPairsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeKeyPairsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The ConfirmProductInstance operation returns true if the specified
-     * product code is attached to the specified instance. The operation
-     * returns false if the product code is not attached to the instance.
-     * </p>
-     * <p>
-     * The ConfirmProductInstance operation can only be executed by the
-     * owner of the AMI. This feature is useful when an AMI owner is
-     * providing support and wants to verify whether a user's instance is
-     * eligible.
+     * Determines whether a product code is associated with an instance.
+     * This action can only be used by the owner of the product code. It is
+     * useful when a product code owner needs to verify whether another
+     * user's instance is eligible for support.
      * </p>
      *
      * @param confirmProductInstanceRequest Container for the necessary
@@ -10508,21 +11520,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ConfirmProductInstanceResult>() {
             public ConfirmProductInstanceResult call() throws Exception {
                 return confirmProductInstance(confirmProductInstanceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The ConfirmProductInstance operation returns true if the specified
-     * product code is attached to the specified instance. The operation
-     * returns false if the product code is not attached to the instance.
-     * </p>
-     * <p>
-     * The ConfirmProductInstance operation can only be executed by the
-     * owner of the AMI. This feature is useful when an AMI owner is
-     * providing support and wants to verify whether a user's instance is
-     * eligible.
+     * Determines whether a product code is associated with an instance.
+     * This action can only be used by the owner of the product code. It is
+     * useful when a product code owner needs to verify whether another
+     * user's instance is eligible for support.
      * </p>
      *
      * @param confirmProductInstanceRequest Container for the necessary
@@ -10551,17 +11558,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ConfirmProductInstanceResult>() {
             public ConfirmProductInstanceResult call() throws Exception {
-                ConfirmProductInstanceResult result;
+              ConfirmProductInstanceResult result;
                 try {
-                    result = confirmProductInstance(confirmProductInstanceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(confirmProductInstanceRequest, result);
-                   return result;
-            }
-        });
+                result = confirmProductInstance(confirmProductInstanceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(confirmProductInstanceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -10570,10 +11577,10 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * </p>
      * <p>
      * After you perform this action, the subnet no longer uses the routes
-     * in the route table. Instead it uses the routes in the VPC's main route
-     * table. For more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * in the route table. Instead, it uses the routes in the VPC's main
+     * route table. For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param disassociateRouteTableRequest Container for the necessary
@@ -10598,8 +11605,8 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 disassociateRouteTable(disassociateRouteTableRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -10608,10 +11615,10 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
      * </p>
      * <p>
      * After you perform this action, the subnet no longer uses the routes
-     * in the route table. Instead it uses the routes in the VPC's main route
-     * table. For more information about route tables, go to <a
-     * azonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html">
-     * Route Tables </a> in the Amazon Virtual Private Cloud User Guide.
+     * in the route table. Instead, it uses the routes in the VPC's main
+     * route table. For more information about route tables, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param disassociateRouteTableRequest Container for the necessary
@@ -10640,19 +11647,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    disassociateRouteTable(disassociateRouteTableRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(disassociateRouteTableRequest, null);
-                   return null;
-            }
-        });
+              try {
+                disassociateRouteTable(disassociateRouteTableRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(disassociateRouteTableRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Describes the specified attribute of the specified VPC. You can
+     * specify only one attribute at a time.
+     * </p>
      *
      * @param describeVpcAttributeRequest Container for the necessary
      *           parameters to execute the DescribeVpcAttribute operation on AmazonEC2.
@@ -10674,11 +11685,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVpcAttributeResult>() {
             public DescribeVpcAttributeResult call() throws Exception {
                 return describeVpcAttribute(describeVpcAttributeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Describes the specified attribute of the specified VPC. You can
+     * specify only one attribute at a time.
+     * </p>
      *
      * @param describeVpcAttributeRequest Container for the necessary
      *           parameters to execute the DescribeVpcAttribute operation on AmazonEC2.
@@ -10705,34 +11720,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVpcAttributeResult>() {
             public DescribeVpcAttributeResult call() throws Exception {
-                DescribeVpcAttributeResult result;
+              DescribeVpcAttributeResult result;
                 try {
-                    result = describeVpcAttribute(describeVpcAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVpcAttributeRequest, result);
-                   return result;
-            }
-        });
+                result = describeVpcAttribute(describeVpcAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVpcAttributeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * This action applies only to security groups in a VPC. It doesn't work
-     * with EC2 security groups. For information about Amazon Virtual Private
-     * Cloud and VPC security groups, go to the Amazon Virtual Private Cloud
-     * User Guide.
+     * Removes one or more egress rules from a security group for EC2-VPC.
+     * The values that you specify in the revoke request (for example, ports)
+     * must match the existing rule's values for the rule to be revoked.
      * </p>
      * <p>
-     * The action removes one or more egress rules from a VPC security
-     * group. The values that you specify in the revoke request (e.g., ports,
-     * etc.) must match the existing rule's values in order for the rule to
-     * be revoked.
-     * </p>
-     * <p>
-     * Each rule consists of the protocol, and the CIDR range or destination
+     * Each rule consists of the protocol and the CIDR range or source
      * security group. For the TCP and UDP protocols, you must also specify
      * the destination port or range of ports. For the ICMP protocol, you
      * must also specify the ICMP type and code.
@@ -10764,25 +11772,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 revokeSecurityGroupEgress(revokeSecurityGroupEgressRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * This action applies only to security groups in a VPC. It doesn't work
-     * with EC2 security groups. For information about Amazon Virtual Private
-     * Cloud and VPC security groups, go to the Amazon Virtual Private Cloud
-     * User Guide.
+     * Removes one or more egress rules from a security group for EC2-VPC.
+     * The values that you specify in the revoke request (for example, ports)
+     * must match the existing rule's values for the rule to be revoked.
      * </p>
      * <p>
-     * The action removes one or more egress rules from a VPC security
-     * group. The values that you specify in the revoke request (e.g., ports,
-     * etc.) must match the existing rule's values in order for the rule to
-     * be revoked.
-     * </p>
-     * <p>
-     * Each rule consists of the protocol, and the CIDR range or destination
+     * Each rule consists of the protocol and the CIDR range or source
      * security group. For the TCP and UDP protocols, you must also specify
      * the destination port or range of ports. For the ICMP protocol, you
      * must also specify the ICMP type and code.
@@ -10818,23 +11819,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    revokeSecurityGroupEgress(revokeSecurityGroupEgressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(revokeSecurityGroupEgressRequest, null);
-                   return null;
-            }
-        });
+              try {
+                revokeSecurityGroupEgress(revokeSecurityGroupEgressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(revokeSecurityGroupEgressRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes an ingress or egress entry (i.e., rule) from a network ACL.
-     * For more information about network ACLs, go to Network ACLs in the
-     * Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified ingress or egress entry (rule) from the
+     * specified network ACL.
      * </p>
      *
      * @param deleteNetworkAclEntryRequest Container for the necessary
@@ -10859,15 +11859,14 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteNetworkAclEntry(deleteNetworkAclEntryRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes an ingress or egress entry (i.e., rule) from a network ACL.
-     * For more information about network ACLs, go to Network ACLs in the
-     * Amazon Virtual Private Cloud User Guide.
+     * Deletes the specified ingress or egress entry (rule) from the
+     * specified network ACL.
      * </p>
      *
      * @param deleteNetworkAclEntryRequest Container for the necessary
@@ -10896,21 +11895,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteNetworkAclEntry(deleteNetworkAclEntryRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteNetworkAclEntryRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteNetworkAclEntry(deleteNetworkAclEntryRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteNetworkAclEntryRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Initializes an empty volume of a given size.
+     * Creates an Amazon EBS volume that can be attached to an instance in
+     * the same Availability Zone. The volume is created in the specified
+     * region.
+     * </p>
+     * <p>
+     * You can create a new empty volume or restore a volume from an Amazon
+     * EBS snapshot. Any AWS Marketplace product codes from the snapshot are
+     * propagated to the volume.
+     * </p>
+     * <p>
+     * You can create encrypted volumes with the <code>Encrypted</code>
+     * parameter. Encrypted volumes may only be attached to instances that
+     * support Amazon EBS encryption. Volumes that are created from encrypted
+     * snapshots are also automatically encrypted. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"> Creating or Restoring an Amazon EBS Volume </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createVolumeRequest Container for the necessary parameters to
@@ -10933,13 +11952,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateVolumeResult>() {
             public CreateVolumeResult call() throws Exception {
                 return createVolume(createVolumeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Initializes an empty volume of a given size.
+     * Creates an Amazon EBS volume that can be attached to an instance in
+     * the same Availability Zone. The volume is created in the specified
+     * region.
+     * </p>
+     * <p>
+     * You can create a new empty volume or restore a volume from an Amazon
+     * EBS snapshot. Any AWS Marketplace product codes from the snapshot are
+     * propagated to the volume.
+     * </p>
+     * <p>
+     * You can create encrypted volumes with the <code>Encrypted</code>
+     * parameter. Encrypted volumes may only be attached to instances that
+     * support Amazon EBS encryption. Volumes that are created from encrypted
+     * snapshots are also automatically encrypted. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"> Creating or Restoring an Amazon EBS Volume </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createVolumeRequest Container for the necessary parameters to
@@ -10967,89 +12006,111 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateVolumeResult>() {
             public CreateVolumeResult call() throws Exception {
-                CreateVolumeResult result;
+              CreateVolumeResult result;
                 try {
-                    result = createVolume(createVolumeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVolumeRequest, result);
-                   return result;
-            }
-        });
+                result = createVolume(createVolumeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVolumeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Describes the status of an Amazon Elastic Compute Cloud (Amazon EC2)
-     * instance. Instance status provides information about two types of
-     * scheduled events for an instance that may require your attention:
+     * Describes the status of one or more instances, including any
+     * scheduled events.
+     * </p>
+     * <p>
+     * Instance status has two main components:
      * </p>
      * 
      * <ul>
-     * <li> Scheduled Reboot: When Amazon EC2 determines that an instance
-     * must be rebooted, the instance's status will return one of two event
-     * codes: <code>system-reboot</code> or <code>instance-reboot</code> .
-     * System reboot commonly occurs if certain maintenance or upgrade
-     * operations require a reboot of the underlying host that supports an
-     * instance. Instance reboot commonly occurs if the instance must be
-     * rebooted, rather than the underlying host. Rebooting events include a
-     * scheduled start and end time. </li>
-     * <li> Scheduled Retirement: When Amazon EC2 determines that an
-     * instance must be shut down, the instance's status will return an event
-     * code called <code>instance-retirement</code> . Retirement commonly
-     * occurs when the underlying host is degraded and must be replaced.
-     * Retirement events include a scheduled start and end time. You're also
-     * notified by email if one of your instances is set to retiring. The
-     * email message indicates when your instance will be permanently
-     * retired. </li>
+     * <li> <p>
+     * System Status reports impaired functionality that stems from issues
+     * related to the systems that support an instance, such as such as
+     * hardware failures and network connectivity problems. This call reports
+     * such problems as impaired reachability.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Instance Status reports impaired functionality that arises from
+     * problems internal to the instance. This call reports such problems as
+     * impaired reachability.
+     * </p>
+     * </li>
      * 
      * </ul>
      * <p>
-     * If your instance is permanently retired, it will not be restarted.
-     * You can avoid retirement by manually restarting your instance when its
-     * event code is <code>instance-retirement</code> . This ensures that
-     * your instance is started on a healthy host.
-     * </p>
-     * <p>
-     * <code>DescribeInstanceStatus</code> returns information only for
-     * instances in the running state.
-     * </p>
-     * <p>
-     * You can filter the results to return information only about instances
-     * that match criteria you specify. For example, you could get
-     * information about instances in a specific Availability Zone. You can
-     * specify multiple values for a filter (e.g., more than one Availability
-     * Zone). An instance must match at least one of the specified values for
-     * it to be included in the results.
-     * </p>
-     * <p>
-     * You can specify multiple filters. An instance must match all the
-     * filters for it to be included in the results. If there's no match, no
-     * special message is returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: <code>*</code> matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
-     * </p>
-     * <p>
-     * The following filters are available:
+     * Instance status provides information about four types of scheduled
+     * events for an instance that may require your attention:
      * </p>
      * 
      * <ul>
-     * <li> <code>availability-zone</code> - Filter on an instance's
-     * availability zone. </li>
-     * <li> <code>instance-state-name</code> - Filter on the intended state
-     * of the instance, e.g., running. </li>
-     * <li> <code>instance-state-code</code> - Filter on the intended state
-     * code of the instance, e.g., 16. </li>
+     * <li> <p>
+     * Scheduled Reboot: When Amazon EC2 determines that an instance must be
+     * rebooted, the instances status returns one of two event codes:
+     * <code>system-reboot</code> or <code>instance-reboot</code> . System
+     * reboot commonly occurs if certain maintenance or upgrade operations
+     * require a reboot of the underlying host that supports an instance.
+     * Instance reboot commonly occurs if the instance must be rebooted,
+     * rather than the underlying host. Rebooting events include a scheduled
+     * start and end time.
+     * </p>
+     * </li>
+     * <li> <p>
+     * System Maintenance: When Amazon EC2 determines that an instance
+     * requires maintenance that requires power or network impact, the
+     * instance status is the event code <code>system-maintenance</code> .
+     * System maintenance is either power maintenance or network maintenance.
+     * For power maintenance, your instance will be unavailable for a brief
+     * period of time and then rebooted. For network maintenance, your
+     * instance will experience a brief loss of network connectivity. System
+     * maintenance events include a scheduled start and end time. You will
+     * also be notified by email if one of your instances is set for system
+     * maintenance. The email message indicates when your instance is
+     * scheduled for maintenance.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Scheduled Retirement: When Amazon EC2 determines that an instance
+     * must be shut down, the instance status is the event code
+     * <code>instance-retirement</code> . Retirement commonly occurs when the
+     * underlying host is degraded and must be replaced. Retirement events
+     * include a scheduled start and end time. You will also be notified by
+     * email if one of your instances is set to retiring. The email message
+     * indicates when your instance will be permanently retired.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Scheduled Stop: When Amazon EC2 determines that an instance must be
+     * shut down, the instances status returns an event code called
+     * <code>instance-stop</code> . Stop events include a scheduled start and
+     * end time. You will also be notified by email if one of your instances
+     * is set to stop. The email message indicates when your instance will be
+     * stopped.
+     * </p>
+     * </li>
      * 
      * </ul>
+     * <p>
+     * When your instance is retired, it will either be terminated (if its
+     * root device type is the instance-store) or stopped (if its root device
+     * type is an EBS volume). Instances stopped due to retirement will not
+     * be restarted, but you can do so manually. You can also avoid
+     * retirement of EBS-backed instances by manually restarting your
+     * instance when its event code is <code>instance-retirement</code> .
+     * This ensures that your instance is started on a different underlying
+     * host.
+     * </p>
+     * <p>
+     * For more information about failed status checks, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstances.html"> Troubleshooting Instances with Failed Status Checks </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> . For more information about working with scheduled events, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html#schedevents_actions"> Working with an Instance That Has a Scheduled Event </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeInstanceStatusRequest Container for the necessary
      *           parameters to execute the DescribeInstanceStatus operation on
@@ -11072,80 +12133,102 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeInstanceStatusResult>() {
             public DescribeInstanceStatusResult call() throws Exception {
                 return describeInstanceStatus(describeInstanceStatusRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Describes the status of an Amazon Elastic Compute Cloud (Amazon EC2)
-     * instance. Instance status provides information about two types of
-     * scheduled events for an instance that may require your attention:
+     * Describes the status of one or more instances, including any
+     * scheduled events.
+     * </p>
+     * <p>
+     * Instance status has two main components:
      * </p>
      * 
      * <ul>
-     * <li> Scheduled Reboot: When Amazon EC2 determines that an instance
-     * must be rebooted, the instance's status will return one of two event
-     * codes: <code>system-reboot</code> or <code>instance-reboot</code> .
-     * System reboot commonly occurs if certain maintenance or upgrade
-     * operations require a reboot of the underlying host that supports an
-     * instance. Instance reboot commonly occurs if the instance must be
-     * rebooted, rather than the underlying host. Rebooting events include a
-     * scheduled start and end time. </li>
-     * <li> Scheduled Retirement: When Amazon EC2 determines that an
-     * instance must be shut down, the instance's status will return an event
-     * code called <code>instance-retirement</code> . Retirement commonly
-     * occurs when the underlying host is degraded and must be replaced.
-     * Retirement events include a scheduled start and end time. You're also
-     * notified by email if one of your instances is set to retiring. The
-     * email message indicates when your instance will be permanently
-     * retired. </li>
+     * <li> <p>
+     * System Status reports impaired functionality that stems from issues
+     * related to the systems that support an instance, such as such as
+     * hardware failures and network connectivity problems. This call reports
+     * such problems as impaired reachability.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Instance Status reports impaired functionality that arises from
+     * problems internal to the instance. This call reports such problems as
+     * impaired reachability.
+     * </p>
+     * </li>
      * 
      * </ul>
      * <p>
-     * If your instance is permanently retired, it will not be restarted.
-     * You can avoid retirement by manually restarting your instance when its
-     * event code is <code>instance-retirement</code> . This ensures that
-     * your instance is started on a healthy host.
-     * </p>
-     * <p>
-     * <code>DescribeInstanceStatus</code> returns information only for
-     * instances in the running state.
-     * </p>
-     * <p>
-     * You can filter the results to return information only about instances
-     * that match criteria you specify. For example, you could get
-     * information about instances in a specific Availability Zone. You can
-     * specify multiple values for a filter (e.g., more than one Availability
-     * Zone). An instance must match at least one of the specified values for
-     * it to be included in the results.
-     * </p>
-     * <p>
-     * You can specify multiple filters. An instance must match all the
-     * filters for it to be included in the results. If there's no match, no
-     * special message is returned; the response is simply empty.
-     * </p>
-     * <p>
-     * You can use wildcards with the filter values: <code>*</code> matches
-     * zero or more characters, and <code>?</code> matches exactly one
-     * character. You can escape special characters using a backslash before
-     * the character. For example, a value of <code>\*amazon\?\\</code>
-     * searches for the literal string <code>*amazon?\</code> .
-     * 
-     * </p>
-     * <p>
-     * The following filters are available:
+     * Instance status provides information about four types of scheduled
+     * events for an instance that may require your attention:
      * </p>
      * 
      * <ul>
-     * <li> <code>availability-zone</code> - Filter on an instance's
-     * availability zone. </li>
-     * <li> <code>instance-state-name</code> - Filter on the intended state
-     * of the instance, e.g., running. </li>
-     * <li> <code>instance-state-code</code> - Filter on the intended state
-     * code of the instance, e.g., 16. </li>
+     * <li> <p>
+     * Scheduled Reboot: When Amazon EC2 determines that an instance must be
+     * rebooted, the instances status returns one of two event codes:
+     * <code>system-reboot</code> or <code>instance-reboot</code> . System
+     * reboot commonly occurs if certain maintenance or upgrade operations
+     * require a reboot of the underlying host that supports an instance.
+     * Instance reboot commonly occurs if the instance must be rebooted,
+     * rather than the underlying host. Rebooting events include a scheduled
+     * start and end time.
+     * </p>
+     * </li>
+     * <li> <p>
+     * System Maintenance: When Amazon EC2 determines that an instance
+     * requires maintenance that requires power or network impact, the
+     * instance status is the event code <code>system-maintenance</code> .
+     * System maintenance is either power maintenance or network maintenance.
+     * For power maintenance, your instance will be unavailable for a brief
+     * period of time and then rebooted. For network maintenance, your
+     * instance will experience a brief loss of network connectivity. System
+     * maintenance events include a scheduled start and end time. You will
+     * also be notified by email if one of your instances is set for system
+     * maintenance. The email message indicates when your instance is
+     * scheduled for maintenance.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Scheduled Retirement: When Amazon EC2 determines that an instance
+     * must be shut down, the instance status is the event code
+     * <code>instance-retirement</code> . Retirement commonly occurs when the
+     * underlying host is degraded and must be replaced. Retirement events
+     * include a scheduled start and end time. You will also be notified by
+     * email if one of your instances is set to retiring. The email message
+     * indicates when your instance will be permanently retired.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Scheduled Stop: When Amazon EC2 determines that an instance must be
+     * shut down, the instances status returns an event code called
+     * <code>instance-stop</code> . Stop events include a scheduled start and
+     * end time. You will also be notified by email if one of your instances
+     * is set to stop. The email message indicates when your instance will be
+     * stopped.
+     * </p>
+     * </li>
      * 
      * </ul>
+     * <p>
+     * When your instance is retired, it will either be terminated (if its
+     * root device type is the instance-store) or stopped (if its root device
+     * type is an EBS volume). Instances stopped due to retirement will not
+     * be restarted, but you can do so manually. You can also avoid
+     * retirement of EBS-backed instances by manually restarting your
+     * instance when its event code is <code>instance-retirement</code> .
+     * This ensures that your instance is started on a different underlying
+     * host.
+     * </p>
+     * <p>
+     * For more information about failed status checks, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstances.html"> Troubleshooting Instances with Failed Status Checks </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> . For more information about working with scheduled events, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html#schedevents_actions"> Working with an Instance That Has a Scheduled Event </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param describeInstanceStatusRequest Container for the necessary
      *           parameters to execute the DescribeInstanceStatus operation on
@@ -11173,37 +12256,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeInstanceStatusResult>() {
             public DescribeInstanceStatusResult call() throws Exception {
-                DescribeInstanceStatusResult result;
+              DescribeInstanceStatusResult result;
                 try {
-                    result = describeInstanceStatus(describeInstanceStatusRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeInstanceStatusRequest, result);
-                   return result;
-            }
-        });
+                result = describeInstanceStatus(describeInstanceStatusRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeInstanceStatusRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Gives you information about your VPN gateways. You can filter the
-     * results to return information only about VPN gateways that match
-     * criteria you specify.
+     * Describes one or more of your virtual private gateways.
      * </p>
      * <p>
-     * For example, you could ask to get information about a particular VPN
-     * gateway (or all) only if the gateway's state is pending or available.
-     * You can specify multiple filters (e.g., the VPN gateway is in a
-     * particular Availability Zone and the gateway's state is pending or
-     * available).
-     * </p>
-     * <p>
-     * The result includes information for a particular VPN gateway only if
-     * the gateway matches all your filters. If there's no match, no special
-     * message is returned; the response is simply empty. The following table
-     * shows the available filters.
+     * For more information about virtual private gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding an IPsec Hardware VPN to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeVpnGatewaysRequest Container for the necessary
@@ -11226,28 +12299,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVpnGatewaysResult>() {
             public DescribeVpnGatewaysResult call() throws Exception {
                 return describeVpnGateways(describeVpnGatewaysRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Gives you information about your VPN gateways. You can filter the
-     * results to return information only about VPN gateways that match
-     * criteria you specify.
+     * Describes one or more of your virtual private gateways.
      * </p>
      * <p>
-     * For example, you could ask to get information about a particular VPN
-     * gateway (or all) only if the gateway's state is pending or available.
-     * You can specify multiple filters (e.g., the VPN gateway is in a
-     * particular Availability Zone and the gateway's state is pending or
-     * available).
-     * </p>
-     * <p>
-     * The result includes information for a particular VPN gateway only if
-     * the gateway matches all your filters. If there's no match, no special
-     * message is returned; the response is simply empty. The following table
-     * shows the available filters.
+     * For more information about virtual private gateways, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding an IPsec Hardware VPN to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param describeVpnGatewaysRequest Container for the necessary
@@ -11275,36 +12338,45 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeVpnGatewaysResult>() {
             public DescribeVpnGatewaysResult call() throws Exception {
-                DescribeVpnGatewaysResult result;
+              DescribeVpnGatewaysResult result;
                 try {
-                    result = describeVpnGateways(describeVpnGatewaysRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeVpnGatewaysRequest, result);
-                   return result;
-            }
-        });
+                result = describeVpnGateways(describeVpnGatewaysRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVpnGatewaysRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a subnet in an existing VPC. You can create up to 20 subnets
-     * in a VPC. If you add more than one subnet to a VPC, they're set up in
-     * a star topology with a logical router in the middle. When you create
-     * each subnet, you provide the VPC ID and the CIDR block you want for
-     * the subnet. Once you create a subnet, you can't change its CIDR block.
-     * The subnet's CIDR block can be the same as the VPC's CIDR block
-     * (assuming you want only a single subnet in the VPC), or a subset of
-     * the VPC's CIDR block. If you create more than one subnet in a VPC, the
-     * subnets' CIDR blocks must not overlap. The smallest subnet (and VPC)
-     * you can create uses a <code>/28</code> netmask (16 IP addresses), and
-     * the largest uses a <code>/18</code> netmask (16,384 IP addresses).
+     * Creates a subnet in an existing VPC.
+     * </p>
+     * <p>
+     * When you create each subnet, you provide the VPC ID and the CIDR
+     * block you want for the subnet. After you create a subnet, you can't
+     * change its CIDR block. The subnet's CIDR block can be the same as the
+     * VPC's CIDR block (assuming you want only a single subnet in the VPC),
+     * or a subset of the VPC's CIDR block. If you create more than one
+     * subnet in a VPC, the subnets' CIDR blocks must not overlap. The
+     * smallest subnet (and VPC) you can create uses a /28 netmask (16 IP
+     * addresses), and the largest uses a /16 netmask (65,536 IP addresses).
      * </p>
      * <p>
      * <b>IMPORTANT:</b> AWS reserves both the first four and the last IP
      * address in each subnet's CIDR block. They're not available for use.
+     * </p>
+     * <p>
+     * If you add more than one subnet to a VPC, they're set up in a star
+     * topology with a logical router in the middle.
+     * </p>
+     * <p>
+     * For more information about subnets, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html"> Your VPC and Subnets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createSubnetRequest Container for the necessary parameters to
@@ -11327,27 +12399,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateSubnetResult>() {
             public CreateSubnetResult call() throws Exception {
                 return createSubnet(createSubnetRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a subnet in an existing VPC. You can create up to 20 subnets
-     * in a VPC. If you add more than one subnet to a VPC, they're set up in
-     * a star topology with a logical router in the middle. When you create
-     * each subnet, you provide the VPC ID and the CIDR block you want for
-     * the subnet. Once you create a subnet, you can't change its CIDR block.
-     * The subnet's CIDR block can be the same as the VPC's CIDR block
-     * (assuming you want only a single subnet in the VPC), or a subset of
-     * the VPC's CIDR block. If you create more than one subnet in a VPC, the
-     * subnets' CIDR blocks must not overlap. The smallest subnet (and VPC)
-     * you can create uses a <code>/28</code> netmask (16 IP addresses), and
-     * the largest uses a <code>/18</code> netmask (16,384 IP addresses).
+     * Creates a subnet in an existing VPC.
+     * </p>
+     * <p>
+     * When you create each subnet, you provide the VPC ID and the CIDR
+     * block you want for the subnet. After you create a subnet, you can't
+     * change its CIDR block. The subnet's CIDR block can be the same as the
+     * VPC's CIDR block (assuming you want only a single subnet in the VPC),
+     * or a subset of the VPC's CIDR block. If you create more than one
+     * subnet in a VPC, the subnets' CIDR blocks must not overlap. The
+     * smallest subnet (and VPC) you can create uses a /28 netmask (16 IP
+     * addresses), and the largest uses a /16 netmask (65,536 IP addresses).
      * </p>
      * <p>
      * <b>IMPORTANT:</b> AWS reserves both the first four and the last IP
      * address in each subnet's CIDR block. They're not available for use.
+     * </p>
+     * <p>
+     * If you add more than one subnet to a VPC, they're set up in a star
+     * topology with a logical router in the middle.
+     * </p>
+     * <p>
+     * For more information about subnets, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html"> Your VPC and Subnets </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createSubnetRequest Container for the necessary parameters to
@@ -11375,26 +12456,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateSubnetResult>() {
             public CreateSubnetResult call() throws Exception {
-                CreateSubnetResult result;
+              CreateSubnetResult result;
                 try {
-                    result = createSubnet(createSubnetRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createSubnetRequest, result);
-                   return result;
-            }
-        });
+                result = createSubnet(createSubnetRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createSubnetRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DescribeReservedInstancesOfferings operation describes Reserved
-     * Instance offerings that are available for purchase. With Amazon EC2
-     * Reserved Instances, you purchase the right to launch Amazon EC2
-     * instances for a period of time (without getting insufficient capacity
-     * errors) and pay a lower usage rate for the actual time used.
+     * Describes Reserved Instance offerings that are available for
+     * purchase. With Reserved Instances, you purchase the right to launch
+     * instances for a period of time. During that time period, you do not
+     * receive insufficient capacity errors, and you pay a lower usage rate
+     * than the rate charged for On-Demand instances for the actual time
+     * used.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeReservedInstancesOfferingsRequest Container for the
@@ -11419,17 +12506,23 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeReservedInstancesOfferingsResult>() {
             public DescribeReservedInstancesOfferingsResult call() throws Exception {
                 return describeReservedInstancesOfferings(describeReservedInstancesOfferingsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DescribeReservedInstancesOfferings operation describes Reserved
-     * Instance offerings that are available for purchase. With Amazon EC2
-     * Reserved Instances, you purchase the right to launch Amazon EC2
-     * instances for a period of time (without getting insufficient capacity
-     * errors) and pay a lower usage rate for the actual time used.
+     * Describes Reserved Instance offerings that are available for
+     * purchase. With Reserved Instances, you purchase the right to launch
+     * instances for a period of time. During that time period, you do not
+     * receive insufficient capacity errors, and you pay a lower usage rate
+     * than the rate charged for On-Demand instances for the actual time
+     * used.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeReservedInstancesOfferingsRequest Container for the
@@ -11459,20 +12552,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReservedInstancesOfferingsResult>() {
             public DescribeReservedInstancesOfferingsResult call() throws Exception {
-                DescribeReservedInstancesOfferingsResult result;
+              DescribeReservedInstancesOfferingsResult result;
                 try {
-                    result = describeReservedInstancesOfferings(describeReservedInstancesOfferingsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedInstancesOfferingsRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedInstancesOfferings(describeReservedInstancesOfferingsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedInstancesOfferingsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Assigns one or more secondary private IP addresses to the specified
+     * network interface. You can specify one or more specific secondary IP
+     * addresses, or you can specify the number of secondary IP addresses to
+     * be automatically assigned within the subnet's CIDR block range. The
+     * number of secondary IP addresses that you can assign to an instance
+     * varies by instance type. For information about instance types, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html"> Instance Types </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> . For more information about Elastic IP addresses, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * AssignPrivateIpAddresses is available only in EC2-VPC.
+     * </p>
      *
      * @param assignPrivateIpAddressesRequest Container for the necessary
      *           parameters to execute the AssignPrivateIpAddresses operation on
@@ -11496,11 +12602,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 assignPrivateIpAddresses(assignPrivateIpAddressesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Assigns one or more secondary private IP addresses to the specified
+     * network interface. You can specify one or more specific secondary IP
+     * addresses, or you can specify the number of secondary IP addresses to
+     * be automatically assigned within the subnet's CIDR block range. The
+     * number of secondary IP addresses that you can assign to an instance
+     * varies by instance type. For information about instance types, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html"> Instance Types </a> in the <i>Amazon Elastic Compute Cloud User Guide</i> . For more information about Elastic IP addresses, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * AssignPrivateIpAddresses is available only in EC2-VPC.
+     * </p>
      *
      * @param assignPrivateIpAddressesRequest Container for the necessary
      *           parameters to execute the AssignPrivateIpAddresses operation on
@@ -11528,22 +12647,40 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    assignPrivateIpAddresses(assignPrivateIpAddressesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(assignPrivateIpAddressesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                assignPrivateIpAddresses(assignPrivateIpAddressesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(assignPrivateIpAddressesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes the snapshot identified by <code>snapshotId</code> .
-     * 
+     * Deletes the specified snapshot.
+     * </p>
+     * <p>
+     * When you make periodic snapshots of a volume, the snapshots are
+     * incremental, and only the blocks on the device that have changed since
+     * your last snapshot are saved in the new snapshot. When you delete a
+     * snapshot, only the data not needed for any other snapshot is removed.
+     * So regardless of which prior snapshots have been deleted, all active
+     * snapshots will have access to all the information needed to restore
+     * the volume.
+     * </p>
+     * <p>
+     * You cannot delete a snapshot of the root device of an Amazon EBS
+     * volume used by a registered AMI. You must first de-register the AMI
+     * before you can delete the snapshot.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-snapshot.html"> Deleting an Amazon EBS Snapshot </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteSnapshotRequest Container for the necessary parameters to
@@ -11567,14 +12704,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteSnapshot(deleteSnapshotRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes the snapshot identified by <code>snapshotId</code> .
-     * 
+     * Deletes the specified snapshot.
+     * </p>
+     * <p>
+     * When you make periodic snapshots of a volume, the snapshots are
+     * incremental, and only the blocks on the device that have changed since
+     * your last snapshot are saved in the new snapshot. When you delete a
+     * snapshot, only the data not needed for any other snapshot is removed.
+     * So regardless of which prior snapshots have been deleted, all active
+     * snapshots will have access to all the information needed to restore
+     * the volume.
+     * </p>
+     * <p>
+     * You cannot delete a snapshot of the root device of an Amazon EBS
+     * volume used by a registered AMI. You must first de-register the AMI
+     * before you can delete the snapshot.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-snapshot.html"> Deleting an Amazon EBS Snapshot </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deleteSnapshotRequest Container for the necessary parameters to
@@ -11602,24 +12757,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteSnapshot(deleteSnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteSnapshotRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteSnapshot(deleteSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSnapshotRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Changes which network ACL a subnet is associated with. By default
      * when you create a subnet, it's automatically associated with the
-     * default network ACL. For more information about network ACLs, go to
-     * Network ACLs in the Amazon Virtual Private Cloud User Guide.
+     * default network ACL. For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param replaceNetworkAclAssociationRequest Container for the necessary
@@ -11643,16 +12799,17 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<ReplaceNetworkAclAssociationResult>() {
             public ReplaceNetworkAclAssociationResult call() throws Exception {
                 return replaceNetworkAclAssociation(replaceNetworkAclAssociationRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Changes which network ACL a subnet is associated with. By default
      * when you create a subnet, it's automatically associated with the
-     * default network ACL. For more information about network ACLs, go to
-     * Network ACLs in the Amazon Virtual Private Cloud User Guide.
+     * default network ACL. For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param replaceNetworkAclAssociationRequest Container for the necessary
@@ -11681,25 +12838,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ReplaceNetworkAclAssociationResult>() {
             public ReplaceNetworkAclAssociationResult call() throws Exception {
-                ReplaceNetworkAclAssociationResult result;
+              ReplaceNetworkAclAssociationResult result;
                 try {
-                    result = replaceNetworkAclAssociation(replaceNetworkAclAssociationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(replaceNetworkAclAssociationRequest, result);
-                   return result;
-            }
-        });
+                result = replaceNetworkAclAssociation(replaceNetworkAclAssociationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(replaceNetworkAclAssociationRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The DisassociateAddress operation disassociates the specified elastic
-     * IP address from the instance to which it is assigned. This is an
-     * idempotent operation. If you enter it more than once, Amazon EC2 does
-     * not return an error.
+     * Disassociates an Elastic IP address from the instance or network
+     * interface it's associated with.
+     * </p>
+     * <p>
+     * This is an idempotent operation. If you perform the operation more
+     * than once, Amazon EC2 doesn't return an error.
      * </p>
      *
      * @param disassociateAddressRequest Container for the necessary
@@ -11723,16 +12882,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 disassociateAddress(disassociateAddressRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The DisassociateAddress operation disassociates the specified elastic
-     * IP address from the instance to which it is assigned. This is an
-     * idempotent operation. If you enter it more than once, Amazon EC2 does
-     * not return an error.
+     * Disassociates an Elastic IP address from the instance or network
+     * interface it's associated with.
+     * </p>
+     * <p>
+     * This is an idempotent operation. If you perform the operation more
+     * than once, Amazon EC2 doesn't return an error.
      * </p>
      *
      * @param disassociateAddressRequest Container for the necessary
@@ -11760,23 +12921,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    disassociateAddress(disassociateAddressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(disassociateAddressRequest, null);
-                   return null;
-            }
-        });
+              try {
+                disassociateAddress(disassociateAddressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(disassociateAddressRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a PlacementGroup into which multiple Amazon EC2 instances can
-     * be launched. Users must give the group a name unique within the scope
-     * of the user account.
+     * Creates a placement group that you launch cluster instances into. You
+     * must give the group a name that's unique within the scope of your
+     * account.
+     * </p>
+     * <p>
+     * For more information about placement groups and cluster instances,
+     * see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createPlacementGroupRequest Container for the necessary
@@ -11800,15 +12967,21 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 createPlacementGroup(createPlacementGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a PlacementGroup into which multiple Amazon EC2 instances can
-     * be launched. Users must give the group a name unique within the scope
-     * of the user account.
+     * Creates a placement group that you launch cluster instances into. You
+     * must give the group a name that's unique within the scope of your
+     * account.
+     * </p>
+     * <p>
+     * For more information about placement groups and cluster instances,
+     * see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createPlacementGroupRequest Container for the necessary
@@ -11836,25 +13009,34 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createPlacementGroup(createPlacementGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createPlacementGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createPlacementGroup(createPlacementGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createPlacementGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The BundleInstance operation request that an instance is bundled the
-     * next time it boots. The bundling process creates a new image from a
-     * running instance and stores the AMI data in S3. Once bundled, the
-     * image must be registered in the normal way using the RegisterImage
-     * API.
+     * Bundles an Amazon instance store-backed Windows instance.
+     * </p>
+     * <p>
+     * During bundling, only the root device volume (C:\) is bundled. Data
+     * on other instance store volumes is not preserved.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This procedure is not applicable for Linux/Unix
+     * instances or Windows instances that are backed by Amazon EBS.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/Creating_InstanceStoreBacked_WinAMI.html"> Creating an Instance Store-Backed Windows AMI </a>
+     * .
      * </p>
      *
      * @param bundleInstanceRequest Container for the necessary parameters to
@@ -11877,17 +13059,26 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<BundleInstanceResult>() {
             public BundleInstanceResult call() throws Exception {
                 return bundleInstance(bundleInstanceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The BundleInstance operation request that an instance is bundled the
-     * next time it boots. The bundling process creates a new image from a
-     * running instance and stores the AMI data in S3. Once bundled, the
-     * image must be registered in the normal way using the RegisterImage
-     * API.
+     * Bundles an Amazon instance store-backed Windows instance.
+     * </p>
+     * <p>
+     * During bundling, only the root device volume (C:\) is bundled. Data
+     * on other instance store volumes is not preserved.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This procedure is not applicable for Linux/Unix
+     * instances or Windows instances that are backed by Amazon EBS.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/Creating_InstanceStoreBacked_WinAMI.html"> Creating an Instance Store-Backed Windows AMI </a>
+     * .
      * </p>
      *
      * @param bundleInstanceRequest Container for the necessary parameters to
@@ -11915,23 +13106,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<BundleInstanceResult>() {
             public BundleInstanceResult call() throws Exception {
-                BundleInstanceResult result;
+              BundleInstanceResult result;
                 try {
-                    result = bundleInstance(bundleInstanceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(bundleInstanceRequest, result);
-                   return result;
-            }
-        });
+                result = bundleInstance(bundleInstanceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(bundleInstanceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a PlacementGroup from a user's account. Terminate all Amazon
-     * EC2 instances in the placement group before deletion.
+     * Deletes the specified placement group. You must terminate all
+     * instances in the placement group before you can delete the placement
+     * group. For more information about placement groups and cluster
+     * instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deletePlacementGroupRequest Container for the necessary
@@ -11955,14 +13150,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deletePlacementGroup(deletePlacementGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a PlacementGroup from a user's account. Terminate all Amazon
-     * EC2 instances in the placement group before deletion.
+     * Deletes the specified placement group. You must terminate all
+     * instances in the placement group before you can delete the placement
+     * group. For more information about placement groups and cluster
+     * instances, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html"> Cluster Instances </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param deletePlacementGroupRequest Container for the necessary
@@ -11990,25 +13189,100 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deletePlacementGroup(deletePlacementGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deletePlacementGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deletePlacementGroup(deletePlacementGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deletePlacementGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a VPC. You must detach or delete all gateways or other
-     * objects that are dependent on the VPC first. For example, you must
-     * terminate all running instances, delete all VPC security groups
-     * (except the default), delete all the route tables (except the
-     * default), etc.
+     * Modifies a subnet attribute.
+     * </p>
+     *
+     * @param modifySubnetAttributeRequest Container for the necessary
+     *           parameters to execute the ModifySubnetAttribute operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifySubnetAttribute service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> modifySubnetAttributeAsync(final ModifySubnetAttributeRequest modifySubnetAttributeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                modifySubnetAttribute(modifySubnetAttributeRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Modifies a subnet attribute.
+     * </p>
+     *
+     * @param modifySubnetAttributeRequest Container for the necessary
+     *           parameters to execute the ModifySubnetAttribute operation on
+     *           AmazonEC2.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifySubnetAttribute service method, as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> modifySubnetAttributeAsync(
+            final ModifySubnetAttributeRequest modifySubnetAttributeRequest,
+            final AsyncHandler<ModifySubnetAttributeRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                modifySubnetAttribute(modifySubnetAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifySubnetAttributeRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Deletes the specified VPC. You must detach or delete all gateways and
+     * resources that are associated with the VPC before you can delete it.
+     * For example, you must terminate all instances running in the VPC,
+     * delete all security groups associated with the VPC (except the default
+     * one), delete all route tables associated with the VPC (except the
+     * default one), and so on.
      * </p>
      *
      * @param deleteVpcRequest Container for the necessary parameters to
@@ -12032,17 +13306,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 deleteVpc(deleteVpcRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a VPC. You must detach or delete all gateways or other
-     * objects that are dependent on the VPC first. For example, you must
-     * terminate all running instances, delete all VPC security groups
-     * (except the default), delete all the route tables (except the
-     * default), etc.
+     * Deletes the specified VPC. You must detach or delete all gateways and
+     * resources that are associated with the VPC before you can delete it.
+     * For example, you must terminate all instances running in the VPC,
+     * delete all security groups associated with the VPC (except the default
+     * one), delete all route tables associated with the VPC (except the
+     * default one), and so on.
      * </p>
      *
      * @param deleteVpcRequest Container for the necessary parameters to
@@ -12070,19 +13345,35 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVpc(deleteVpcRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVpcRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVpc(deleteVpcRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVpcRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Copies a point-in-time snapshot of an Amazon EBS volume and stores it
+     * in Amazon S3. You can copy the snapshot within the same region or from
+     * one region to another. You can use the snapshot to create Amazon EBS
+     * volumes or Amazon Machine Images (AMIs). The snapshot is copied to the
+     * regional endpoint that you send the HTTP request to.
+     * </p>
+     * <p>
+     * Copies of encrypted Amazon EBS snapshots remain encrypted. Copies of
+     * unencrypted snapshots remain unencrypted.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-copy-snapshot.html"> Copying an Amazon EBS Snapshot </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param copySnapshotRequest Container for the necessary parameters to
      *           execute the CopySnapshot operation on AmazonEC2.
@@ -12104,11 +13395,27 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CopySnapshotResult>() {
             public CopySnapshotResult call() throws Exception {
                 return copySnapshot(copySnapshotRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Copies a point-in-time snapshot of an Amazon EBS volume and stores it
+     * in Amazon S3. You can copy the snapshot within the same region or from
+     * one region to another. You can use the snapshot to create Amazon EBS
+     * volumes or Amazon Machine Images (AMIs). The snapshot is copied to the
+     * regional endpoint that you send the HTTP request to.
+     * </p>
+     * <p>
+     * Copies of encrypted Amazon EBS snapshots remain encrypted. Copies of
+     * unencrypted snapshots remain unencrypted.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-copy-snapshot.html"> Copying an Amazon EBS Snapshot </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
      *
      * @param copySnapshotRequest Container for the necessary parameters to
      *           execute the CopySnapshot operation on AmazonEC2.
@@ -12135,23 +13442,28 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CopySnapshotResult>() {
             public CopySnapshotResult call() throws Exception {
-                CopySnapshotResult result;
+              CopySnapshotResult result;
                 try {
-                    result = copySnapshot(copySnapshotRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(copySnapshotRequest, result);
-                   return result;
-            }
-        });
+                result = copySnapshot(copySnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(copySnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The AllocateAddress operation acquires an elastic IP address for use
-     * with your account.
+     * Acquires an Elastic IP address.
+     * </p>
+     * <p>
+     * An Elastic IP address is for use either in the EC2-Classic platform
+     * or in a VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param allocateAddressRequest Container for the necessary parameters
@@ -12174,14 +13486,19 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<AllocateAddressResult>() {
             public AllocateAddressResult call() throws Exception {
                 return allocateAddress(allocateAddressRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The AllocateAddress operation acquires an elastic IP address for use
-     * with your account.
+     * Acquires an Elastic IP address.
+     * </p>
+     * <p>
+     * An Elastic IP address is for use either in the EC2-Classic platform
+     * or in a VPC. For more information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP Addresses </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param allocateAddressRequest Container for the necessary parameters
@@ -12209,37 +13526,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<AllocateAddressResult>() {
             public AllocateAddressResult call() throws Exception {
-                AllocateAddressResult result;
+              AllocateAddressResult result;
                 try {
-                    result = allocateAddress(allocateAddressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(allocateAddressRequest, result);
-                   return result;
-            }
-        });
+                result = allocateAddress(allocateAddressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(allocateAddressRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The ReleaseAddress operation releases an elastic IP address
-     * associated with your account.
+     * Releases the specified Elastic IP address.
      * </p>
      * <p>
-     * <b>NOTE:</b> Releasing an IP address automatically disassociates it
-     * from any instance with which it is associated. For more information,
-     * see DisassociateAddress.
+     * After releasing an Elastic IP address, it is released to the IP
+     * address pool and might be unavailable to you. Be sure to update your
+     * DNS records and any servers or devices that communicate with the
+     * address. If you attempt to release an Elastic IP address that you
+     * already released, you'll get an <code>AuthFailure</code> error if the
+     * address is already allocated to another AWS account.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> After releasing an elastic IP address, it is
-     * released to the IP address pool and might no longer be available to
-     * your account. Make sure to update your DNS records and any servers or
-     * devices that communicate with the address. If you run this operation
-     * on an elastic IP address that is already released, the address might
-     * be assigned to another account which will cause Amazon EC2 to return
-     * an error.
+     * [EC2-Classic, default VPC] Releasing an Elastic IP address
+     * automatically disassociates it from any instance that it's associated
+     * with. To disassociate an Elastic IP address without releasing it, use
+     * DisassociateAddress.
+     * </p>
+     * <p>
+     * [Nondefault VPC] You must use the DisassociateAddress to disassociate
+     * the Elastic IP address before you try to release it. Otherwise, Amazon
+     * EC2 returns an error ( <code>InvalidIPAddress.InUse</code> ).
      * </p>
      *
      * @param releaseAddressRequest Container for the necessary parameters to
@@ -12263,28 +13584,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 releaseAddress(releaseAddressRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The ReleaseAddress operation releases an elastic IP address
-     * associated with your account.
+     * Releases the specified Elastic IP address.
      * </p>
      * <p>
-     * <b>NOTE:</b> Releasing an IP address automatically disassociates it
-     * from any instance with which it is associated. For more information,
-     * see DisassociateAddress.
+     * After releasing an Elastic IP address, it is released to the IP
+     * address pool and might be unavailable to you. Be sure to update your
+     * DNS records and any servers or devices that communicate with the
+     * address. If you attempt to release an Elastic IP address that you
+     * already released, you'll get an <code>AuthFailure</code> error if the
+     * address is already allocated to another AWS account.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> After releasing an elastic IP address, it is
-     * released to the IP address pool and might no longer be available to
-     * your account. Make sure to update your DNS records and any servers or
-     * devices that communicate with the address. If you run this operation
-     * on an elastic IP address that is already released, the address might
-     * be assigned to another account which will cause Amazon EC2 to return
-     * an error.
+     * [EC2-Classic, default VPC] Releasing an Elastic IP address
+     * automatically disassociates it from any instance that it's associated
+     * with. To disassociate an Elastic IP address without releasing it, use
+     * DisassociateAddress.
+     * </p>
+     * <p>
+     * [Nondefault VPC] You must use the DisassociateAddress to disassociate
+     * the Elastic IP address before you try to release it. Otherwise, Amazon
+     * EC2 returns an error ( <code>InvalidIPAddress.InUse</code> ).
      * </p>
      *
      * @param releaseAddressRequest Container for the necessary parameters to
@@ -12312,21 +13637,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    releaseAddress(releaseAddressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(releaseAddressRequest, null);
-                   return null;
-            }
-        });
+              try {
+                releaseAddress(releaseAddressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(releaseAddressRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Resets an attribute of an instance to its default value.
+     * Resets an attribute of an instance to its default value. To reset the
+     * kernel or RAM disk, the instance must be in a stopped state. To reset
+     * the <code>SourceDestCheck</code> , the instance can be either running
+     * or stopped.
+     * </p>
+     * <p>
+     * The <code>SourceDestCheck</code> attribute controls whether
+     * source/destination checking is enabled. The default value is
+     * <code>true</code> , which means checking is enabled. This value must
+     * be <code>false</code> for a NAT instance to perform NAT. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html"> NAT Instances </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param resetInstanceAttributeRequest Container for the necessary
@@ -12351,13 +13688,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 resetInstanceAttribute(resetInstanceAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Resets an attribute of an instance to its default value.
+     * Resets an attribute of an instance to its default value. To reset the
+     * kernel or RAM disk, the instance must be in a stopped state. To reset
+     * the <code>SourceDestCheck</code> , the instance can be either running
+     * or stopped.
+     * </p>
+     * <p>
+     * The <code>SourceDestCheck</code> attribute controls whether
+     * source/destination checking is enabled. The default value is
+     * <code>true</code> , which means checking is enabled. This value must
+     * be <code>false</code> for a NAT instance to perform NAT. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html"> NAT Instances </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param resetInstanceAttributeRequest Container for the necessary
@@ -12386,23 +13735,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    resetInstanceAttribute(resetInstanceAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resetInstanceAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                resetInstanceAttribute(resetInstanceAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resetInstanceAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The CreateKeyPair operation creates a new 2048 bit RSA key pair and
-     * returns a unique ID that can be used to reference this key pair when
-     * launching new instances. For more information, see RunInstances.
+     * Creates a 2048-bit RSA key pair with the specified name. Amazon EC2
+     * stores the public key and displays the private key for you to save to
+     * a file. The private key is returned as an unencrypted PEM encoded
+     * PKCS#8 private key. If a key with the specified name already exists,
+     * Amazon EC2 returns an error.
+     * </p>
+     * <p>
+     * You can have up to five thousand key pairs per region.
+     * </p>
+     * <p>
+     * For more information about key pairs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createKeyPairRequest Container for the necessary parameters to
@@ -12425,15 +13784,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateKeyPairResult>() {
             public CreateKeyPairResult call() throws Exception {
                 return createKeyPair(createKeyPairRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The CreateKeyPair operation creates a new 2048 bit RSA key pair and
-     * returns a unique ID that can be used to reference this key pair when
-     * launching new instances. For more information, see RunInstances.
+     * Creates a 2048-bit RSA key pair with the specified name. Amazon EC2
+     * stores the public key and displays the private key for you to save to
+     * a file. The private key is returned as an unencrypted PEM encoded
+     * PKCS#8 private key. If a key with the specified name already exists,
+     * Amazon EC2 returns an error.
+     * </p>
+     * <p>
+     * You can have up to five thousand key pairs per region.
+     * </p>
+     * <p>
+     * For more information about key pairs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html"> Key Pairs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param createKeyPairRequest Container for the necessary parameters to
@@ -12461,24 +13830,25 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateKeyPairResult>() {
             public CreateKeyPairResult call() throws Exception {
-                CreateKeyPairResult result;
+              CreateKeyPairResult result;
                 try {
-                    result = createKeyPair(createKeyPairRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createKeyPairRequest, result);
-                   return result;
-            }
-        });
+                result = createKeyPair(createKeyPairRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createKeyPairRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Replaces an entry (i.e., rule) in a network ACL. For more information
-     * about network ACLs, go to Network ACLs in the Amazon Virtual Private
-     * Cloud User Guide.
+     * Replaces an entry (rule) in a network ACL. For more information about
+     * network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param replaceNetworkAclEntryRequest Container for the necessary
@@ -12503,15 +13873,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 replaceNetworkAclEntry(replaceNetworkAclEntryRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Replaces an entry (i.e., rule) in a network ACL. For more information
-     * about network ACLs, go to Network ACLs in the Amazon Virtual Private
-     * Cloud User Guide.
+     * Replaces an entry (rule) in a network ACL. For more information about
+     * network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param replaceNetworkAclEntryRequest Container for the necessary
@@ -12540,25 +13911,70 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    replaceNetworkAclEntry(replaceNetworkAclEntryRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(replaceNetworkAclEntryRequest, null);
-                   return null;
-            }
-        });
+              try {
+                replaceNetworkAclEntry(replaceNetworkAclEntryRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(replaceNetworkAclEntryRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Returns information about the Amazon EBS snapshots available to you.
-     * Snapshots available to you include public snapshots available for any
-     * AWS account to launch, private snapshots you own, and private
+     * Describes one or more of the Amazon EBS snapshots available to you.
+     * Available snapshots include public snapshots available for any AWS
+     * account to launch, private snapshots that you own, and private
      * snapshots owned by another AWS account but for which you've been given
      * explicit create volume permissions.
+     * </p>
+     * <p>
+     * The create volume permissions fall into the following categories:
+     * </p>
+     * 
+     * <ul>
+     * <li> <i>public</i> : The owner of the snapshot granted create volume
+     * permissions for the snapshot to the <code>all</code> group. All AWS
+     * accounts have create volume permissions for these snapshots.</li>
+     * <li> <i>explicit</i> : The owner of the snapshot granted create
+     * volume permissions to a specific AWS account.</li>
+     * <li> <i>implicit</i> : An AWS account has implicit create volume
+     * permissions for all snapshots it owns.</li>
+     * 
+     * </ul>
+     * <p>
+     * The list of snapshots returned can be modified by specifying snapshot
+     * IDs, snapshot owners, or AWS accounts with create volume permissions.
+     * If no options are specified, Amazon EC2 returns all snapshots for
+     * which you have create volume permissions.
+     * </p>
+     * <p>
+     * If you specify one or more snapshot IDs, only snapshots that have the
+     * specified IDs are returned. If you specify an invalid snapshot ID, an
+     * error is returned. If you specify a snapshot ID for which you do not
+     * have access, it is not included in the returned results.
+     * </p>
+     * <p>
+     * If you specify one or more snapshot owners, only snapshots from the
+     * specified owners and for which you have access are returned. The
+     * results can include the AWS account IDs of the specified owners,
+     * <code>amazon</code> for snapshots owned by Amazon, or
+     * <code>self</code> for snapshots that you own.
+     * </p>
+     * <p>
+     * If you specify a list of restorable users, only snapshots with create
+     * snapshot permissions for those users are returned. You can specify AWS
+     * account IDs (if you own the snapshots), <code>self</code> for
+     * snapshots for which you own or have explicit permissions, or
+     * <code>all</code> for public snapshots.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS snapshots, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html"> Amazon EBS Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeSnapshotsRequest Container for the necessary parameters
@@ -12581,17 +13997,62 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeSnapshotsResult>() {
             public DescribeSnapshotsResult call() throws Exception {
                 return describeSnapshots(describeSnapshotsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Returns information about the Amazon EBS snapshots available to you.
-     * Snapshots available to you include public snapshots available for any
-     * AWS account to launch, private snapshots you own, and private
+     * Describes one or more of the Amazon EBS snapshots available to you.
+     * Available snapshots include public snapshots available for any AWS
+     * account to launch, private snapshots that you own, and private
      * snapshots owned by another AWS account but for which you've been given
      * explicit create volume permissions.
+     * </p>
+     * <p>
+     * The create volume permissions fall into the following categories:
+     * </p>
+     * 
+     * <ul>
+     * <li> <i>public</i> : The owner of the snapshot granted create volume
+     * permissions for the snapshot to the <code>all</code> group. All AWS
+     * accounts have create volume permissions for these snapshots.</li>
+     * <li> <i>explicit</i> : The owner of the snapshot granted create
+     * volume permissions to a specific AWS account.</li>
+     * <li> <i>implicit</i> : An AWS account has implicit create volume
+     * permissions for all snapshots it owns.</li>
+     * 
+     * </ul>
+     * <p>
+     * The list of snapshots returned can be modified by specifying snapshot
+     * IDs, snapshot owners, or AWS accounts with create volume permissions.
+     * If no options are specified, Amazon EC2 returns all snapshots for
+     * which you have create volume permissions.
+     * </p>
+     * <p>
+     * If you specify one or more snapshot IDs, only snapshots that have the
+     * specified IDs are returned. If you specify an invalid snapshot ID, an
+     * error is returned. If you specify a snapshot ID for which you do not
+     * have access, it is not included in the returned results.
+     * </p>
+     * <p>
+     * If you specify one or more snapshot owners, only snapshots from the
+     * specified owners and for which you have access are returned. The
+     * results can include the AWS account IDs of the specified owners,
+     * <code>amazon</code> for snapshots owned by Amazon, or
+     * <code>self</code> for snapshots that you own.
+     * </p>
+     * <p>
+     * If you specify a list of restorable users, only snapshots with create
+     * snapshot permissions for those users are returned. You can specify AWS
+     * account IDs (if you own the snapshots), <code>self</code> for
+     * snapshots for which you own or have explicit permissions, or
+     * <code>all</code> for public snapshots.
+     * </p>
+     * <p>
+     * For more information about Amazon EBS snapshots, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html"> Amazon EBS Snapshots </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      *
      * @param describeSnapshotsRequest Container for the necessary parameters
@@ -12619,25 +14080,29 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeSnapshotsResult>() {
             public DescribeSnapshotsResult call() throws Exception {
-                DescribeSnapshotsResult result;
+              DescribeSnapshotsResult result;
                 try {
-                    result = describeSnapshots(describeSnapshotsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeSnapshotsRequest, result);
-                   return result;
-            }
-        });
+                result = describeSnapshots(describeSnapshotsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSnapshotsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a new network ACL in a VPC. Network ACLs provide an optional
-     * layer of security (on top of security groups) for the instances in
-     * your VPC. For more information about network ACLs, go to Network ACLs
-     * in the Amazon Virtual Private Cloud User Guide.
+     * Creates a network ACL in a VPC. Network ACLs provide an optional
+     * layer of security (in addition to security groups) for the instances
+     * in your VPC.
+     * </p>
+     * <p>
+     * For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createNetworkAclRequest Container for the necessary parameters
@@ -12660,16 +14125,20 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateNetworkAclResult>() {
             public CreateNetworkAclResult call() throws Exception {
                 return createNetworkAcl(createNetworkAclRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a new network ACL in a VPC. Network ACLs provide an optional
-     * layer of security (on top of security groups) for the instances in
-     * your VPC. For more information about network ACLs, go to Network ACLs
-     * in the Amazon Virtual Private Cloud User Guide.
+     * Creates a network ACL in a VPC. Network ACLs provide an optional
+     * layer of security (in addition to security groups) for the instances
+     * in your VPC.
+     * </p>
+     * <p>
+     * For more information about network ACLs, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html"> Network ACLs </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
      * </p>
      *
      * @param createNetworkAclRequest Container for the necessary parameters
@@ -12697,38 +14166,48 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateNetworkAclResult>() {
             public CreateNetworkAclResult call() throws Exception {
-                CreateNetworkAclResult result;
+              CreateNetworkAclResult result;
                 try {
-                    result = createNetworkAcl(createNetworkAclRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createNetworkAclRequest, result);
-                   return result;
-            }
-        });
+                result = createNetworkAcl(createNetworkAclRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createNetworkAclRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The RegisterImage operation registers an AMI with Amazon EC2. Images
-     * must be registered before they can be launched. For more information,
-     * see RunInstances.
+     * Registers an AMI. When you're creating an AMI, this is the final step
+     * you must complete before you can launch an instance from the AMI. For
+     * more information about creating AMIs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html"> Creating Your Own AMIs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * Each AMI is associated with an unique ID which is provided by the
-     * Amazon EC2 service through the RegisterImage operation. During
-     * registration, Amazon EC2 retrieves the specified image manifest from
-     * Amazon S3 and verifies that the image is owned by the user registering
-     * the image.
+     * <b>NOTE:</b> For Amazon EBS-backed instances, CreateImage creates and
+     * registers the AMI in a single request, so you don't have to register
+     * the AMI yourself.
      * </p>
      * <p>
-     * The image manifest is retrieved once and stored within the Amazon
-     * EC2. Any modifications to an image in Amazon S3 invalidates this
+     * You can also use <code>RegisterImage</code> to create an Amazon
+     * EBS-backed AMI from a snapshot of a root device volume. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_LaunchingInstanceFromSnapshot.html"> Launching an Instance from a Snapshot </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * If needed, you can deregister an AMI at any time. Any modifications
+     * you make to an AMI backed by an instance store volume invalidates its
      * registration. If you make changes to an image, deregister the previous
-     * image and register the new image. For more information, see
-     * DeregisterImage.
+     * image and register the new image.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> You can't register an image where a secondary (non-root)
+     * snapshot has AWS Marketplace product codes.
      * </p>
      *
      * @param registerImageRequest Container for the necessary parameters to
@@ -12751,29 +14230,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<RegisterImageResult>() {
             public RegisterImageResult call() throws Exception {
                 return registerImage(registerImageRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The RegisterImage operation registers an AMI with Amazon EC2. Images
-     * must be registered before they can be launched. For more information,
-     * see RunInstances.
+     * Registers an AMI. When you're creating an AMI, this is the final step
+     * you must complete before you can launch an instance from the AMI. For
+     * more information about creating AMIs, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html"> Creating Your Own AMIs </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
      * </p>
      * <p>
-     * Each AMI is associated with an unique ID which is provided by the
-     * Amazon EC2 service through the RegisterImage operation. During
-     * registration, Amazon EC2 retrieves the specified image manifest from
-     * Amazon S3 and verifies that the image is owned by the user registering
-     * the image.
+     * <b>NOTE:</b> For Amazon EBS-backed instances, CreateImage creates and
+     * registers the AMI in a single request, so you don't have to register
+     * the AMI yourself.
      * </p>
      * <p>
-     * The image manifest is retrieved once and stored within the Amazon
-     * EC2. Any modifications to an image in Amazon S3 invalidates this
+     * You can also use <code>RegisterImage</code> to create an Amazon
+     * EBS-backed AMI from a snapshot of a root device volume. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_LaunchingInstanceFromSnapshot.html"> Launching an Instance from a Snapshot </a>
+     * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+     * </p>
+     * <p>
+     * If needed, you can deregister an AMI at any time. Any modifications
+     * you make to an AMI backed by an instance store volume invalidates its
      * registration. If you make changes to an image, deregister the previous
-     * image and register the new image. For more information, see
-     * DeregisterImage.
+     * image and register the new image.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> You can't register an image where a secondary (non-root)
+     * snapshot has AWS Marketplace product codes.
      * </p>
      *
      * @param registerImageRequest Container for the necessary parameters to
@@ -12801,20 +14290,24 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<RegisterImageResult>() {
             public RegisterImageResult call() throws Exception {
-                RegisterImageResult result;
+              RegisterImageResult result;
                 try {
-                    result = registerImage(registerImageRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(registerImageRequest, result);
-                   return result;
-            }
-        });
+                result = registerImage(registerImageRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(registerImageRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Resets a network interface attribute. You can specify only one
+     * attribute at a time.
+     * </p>
      *
      * @param resetNetworkInterfaceAttributeRequest Container for the
      *           necessary parameters to execute the ResetNetworkInterfaceAttribute
@@ -12839,11 +14332,15 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 resetNetworkInterfaceAttribute(resetNetworkInterfaceAttributeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Resets a network interface attribute. You can specify only one
+     * attribute at a time.
+     * </p>
      *
      * @param resetNetworkInterfaceAttributeRequest Container for the
      *           necessary parameters to execute the ResetNetworkInterfaceAttribute
@@ -12872,19 +14369,30 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    resetNetworkInterfaceAttribute(resetNetworkInterfaceAttributeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resetNetworkInterfaceAttributeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                resetNetworkInterfaceAttribute(resetNetworkInterfaceAttributeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resetNetworkInterfaceAttributeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
+     * <p>
+     * Creates a static route associated with a VPN connection between an
+     * existing virtual private gateway and a VPN customer gateway. The
+     * static route allows traffic to be routed from the virtual private
+     * gateway to the VPN customer gateway.
+     * </p>
+     * <p>
+     * For more information about VPN connections, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
      *
      * @param createVpnConnectionRouteRequest Container for the necessary
      *           parameters to execute the CreateVpnConnectionRoute operation on
@@ -12908,11 +14416,22 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 createVpnConnectionRoute(createVpnConnectionRouteRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
+     * <p>
+     * Creates a static route associated with a VPN connection between an
+     * existing virtual private gateway and a VPN customer gateway. The
+     * static route allows traffic to be routed from the virtual private
+     * gateway to the VPN customer gateway.
+     * </p>
+     * <p>
+     * For more information about VPN connections, see
+     * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html"> Adding a Hardware Virtual Private Gateway to Your VPC </a>
+     * in the <i>Amazon Virtual Private Cloud User Guide</i> .
+     * </p>
      *
      * @param createVpnConnectionRouteRequest Container for the necessary
      *           parameters to execute the CreateVpnConnectionRoute operation on
@@ -12940,16 +14459,16 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createVpnConnectionRoute(createVpnConnectionRouteRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVpnConnectionRouteRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createVpnConnectionRoute(createVpnConnectionRouteRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVpnConnectionRouteRequest, null);
+                 return null;
+        }
+    });
     }
     
 }

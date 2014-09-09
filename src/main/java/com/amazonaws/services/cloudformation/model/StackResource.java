@@ -45,9 +45,10 @@ public class StackResource implements Serializable {
     private String physicalResourceId;
 
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      */
     private String resourceType;
 
@@ -99,7 +100,7 @@ public class StackResource implements Serializable {
      *
      * @param stackName The name associated with the stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withStackName(String stackName) {
@@ -132,7 +133,7 @@ public class StackResource implements Serializable {
      *
      * @param stackId Unique identifier of the stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withStackId(String stackId) {
@@ -165,7 +166,7 @@ public class StackResource implements Serializable {
      *
      * @param logicalResourceId The logical name of the resource specified in the template.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withLogicalResourceId(String logicalResourceId) {
@@ -204,7 +205,7 @@ public class StackResource implements Serializable {
      * @param physicalResourceId The name or unique identifier that corresponds to a physical instance
      *         ID of a resource supported by AWS CloudFormation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withPhysicalResourceId(String physicalResourceId) {
@@ -213,43 +214,49 @@ public class StackResource implements Serializable {
     }
 
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      *
-     * @return Type of the resource. (For more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.)
+     * @return Type of resource. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     *         AWS Resource Types Reference</a> in the AWS CloudFormation User
+     *         Guide.)
      */
     public String getResourceType() {
         return resourceType;
     }
     
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      *
-     * @param resourceType Type of the resource. (For more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.)
+     * @param resourceType Type of resource. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     *         AWS Resource Types Reference</a> in the AWS CloudFormation User
+     *         Guide.)
      */
     public void setResourceType(String resourceType) {
         this.resourceType = resourceType;
     }
     
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param resourceType Type of the resource. (For more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.)
+     * @param resourceType Type of resource. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     *         AWS Resource Types Reference</a> in the AWS CloudFormation User
+     *         Guide.)
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withResourceType(String resourceType) {
@@ -282,7 +289,7 @@ public class StackResource implements Serializable {
      *
      * @param timestamp Time the status was updated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withTimestamp(java.util.Date timestamp) {
@@ -328,7 +335,7 @@ public class StackResource implements Serializable {
      *
      * @param resourceStatus Current status of the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ResourceStatus
@@ -362,7 +369,7 @@ public class StackResource implements Serializable {
      *
      * @param resourceStatus Current status of the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ResourceStatus
@@ -397,7 +404,7 @@ public class StackResource implements Serializable {
      *
      * @param resourceStatusReason Success/failure message associated with the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withResourceStatusReason(String resourceStatusReason) {
@@ -430,7 +437,7 @@ public class StackResource implements Serializable {
      *
      * @param description User defined description associated with the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResource withDescription(String description) {

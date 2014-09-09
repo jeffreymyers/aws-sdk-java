@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.route53.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class GetHostedZoneRequestMarshaller implements Marshaller<Request<GetHos
         Request<GetHostedZoneRequest> request = new DefaultRequest<GetHostedZoneRequest>(getHostedZoneRequest, "AmazonRoute53");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "/2012-12-12/hostedzone/{Id}"; 
+        String uriResourcePath = "/2013-04-01/hostedzone/{Id}"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(getHostedZoneRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {

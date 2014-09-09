@@ -21,6 +21,7 @@ import java.io.Serializable;
  * Specifies how to trim common words from the beginning of a field to enable title sorting by that field.
  * </p>
  */
+@Deprecated
 public class SourceDataTrimTitle implements Serializable {
 
     /**

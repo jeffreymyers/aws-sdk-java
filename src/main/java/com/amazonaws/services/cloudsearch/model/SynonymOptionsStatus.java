@@ -21,6 +21,7 @@ import java.io.Serializable;
  * The synonym options configured for this search domain and the current status of those options.
  * </p>
  */
+@Deprecated
 public class SynonymOptionsStatus implements Serializable {
 
     /**

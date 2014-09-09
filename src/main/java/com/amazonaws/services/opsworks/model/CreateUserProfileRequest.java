@@ -24,8 +24,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Creates a new user profile.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have an attached policy that explicitly grants permissions. For more information
- * on user permissions, see <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have an attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#createUserProfile(CreateUserProfileRequest)
@@ -38,7 +41,11 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     private String iamUserArn;
 
     /**
-     * The user's SSH user name.
+     * The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     * [0-9], '-', and '_'. If the specified name includes other punctuation
+     * marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     * will be changed to <code>myname</code>. If you do not specify an SSH
+     * user name, AWS OpsWorks generates one from the IAM user name.
      */
     private String sshUsername;
 
@@ -50,7 +57,8 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     /**
      * Whether users can specify their own SSH public key through the My
      * Settings page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     * an IAM User's Public SSH Key</a>.
      */
     private Boolean allowSelfManagement;
 
@@ -79,7 +87,7 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
      *
      * @param iamUserArn The user's IAM ARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateUserProfileRequest withIamUserArn(String iamUserArn) {
@@ -88,31 +96,55 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * The user's SSH user name.
+     * The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     * [0-9], '-', and '_'. If the specified name includes other punctuation
+     * marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     * will be changed to <code>myname</code>. If you do not specify an SSH
+     * user name, AWS OpsWorks generates one from the IAM user name.
      *
-     * @return The user's SSH user name.
+     * @return The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     *         [0-9], '-', and '_'. If the specified name includes other punctuation
+     *         marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     *         will be changed to <code>myname</code>. If you do not specify an SSH
+     *         user name, AWS OpsWorks generates one from the IAM user name.
      */
     public String getSshUsername() {
         return sshUsername;
     }
     
     /**
-     * The user's SSH user name.
+     * The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     * [0-9], '-', and '_'. If the specified name includes other punctuation
+     * marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     * will be changed to <code>myname</code>. If you do not specify an SSH
+     * user name, AWS OpsWorks generates one from the IAM user name.
      *
-     * @param sshUsername The user's SSH user name.
+     * @param sshUsername The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     *         [0-9], '-', and '_'. If the specified name includes other punctuation
+     *         marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     *         will be changed to <code>myname</code>. If you do not specify an SSH
+     *         user name, AWS OpsWorks generates one from the IAM user name.
      */
     public void setSshUsername(String sshUsername) {
         this.sshUsername = sshUsername;
     }
     
     /**
-     * The user's SSH user name.
+     * The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     * [0-9], '-', and '_'. If the specified name includes other punctuation
+     * marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     * will be changed to <code>myname</code>. If you do not specify an SSH
+     * user name, AWS OpsWorks generates one from the IAM user name.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sshUsername The user's SSH user name.
+     * @param sshUsername The user's SSH user name. The allowable characters are [a-z], [A-Z],
+     *         [0-9], '-', and '_'. If the specified name includes other punctuation
+     *         marks, AWS OpsWorks removes them. For example, <code>my.name</code>
+     *         will be changed to <code>myname</code>. If you do not specify an SSH
+     *         user name, AWS OpsWorks generates one from the IAM user name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateUserProfileRequest withSshUsername(String sshUsername) {
@@ -145,7 +177,7 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
      *
      * @param sshPublicKey The user's public SSH key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateUserProfileRequest withSshPublicKey(String sshPublicKey) {
@@ -156,11 +188,13 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     /**
      * Whether users can specify their own SSH public key through the My
      * Settings page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     * an IAM User's Public SSH Key</a>.
      *
      * @return Whether users can specify their own SSH public key through the My
      *         Settings page. For more information, see <a
-     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     *         an IAM User's Public SSH Key</a>.
      */
     public Boolean isAllowSelfManagement() {
         return allowSelfManagement;
@@ -169,11 +203,13 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     /**
      * Whether users can specify their own SSH public key through the My
      * Settings page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     * an IAM User's Public SSH Key</a>.
      *
      * @param allowSelfManagement Whether users can specify their own SSH public key through the My
      *         Settings page. For more information, see <a
-     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     *         an IAM User's Public SSH Key</a>.
      */
     public void setAllowSelfManagement(Boolean allowSelfManagement) {
         this.allowSelfManagement = allowSelfManagement;
@@ -182,15 +218,17 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     /**
      * Whether users can specify their own SSH public key through the My
      * Settings page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     * an IAM User's Public SSH Key</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param allowSelfManagement Whether users can specify their own SSH public key through the My
      *         Settings page. For more information, see <a
-     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     *         an IAM User's Public SSH Key</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateUserProfileRequest withAllowSelfManagement(Boolean allowSelfManagement) {
@@ -201,11 +239,13 @@ public class CreateUserProfileRequest extends AmazonWebServiceRequest implements
     /**
      * Whether users can specify their own SSH public key through the My
      * Settings page. For more information, see <a
-     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     * an IAM User's Public SSH Key</a>.
      *
      * @return Whether users can specify their own SSH public key through the My
      *         Settings page. For more information, see <a
-     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html"></a>.
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html">Setting
+     *         an IAM User's Public SSH Key</a>.
      */
     public Boolean getAllowSelfManagement() {
         return allowSelfManagement;

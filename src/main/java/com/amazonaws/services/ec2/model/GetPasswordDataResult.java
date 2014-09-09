@@ -17,15 +17,12 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * <p>
- * The result of the GetPasswordData operation.
- * </p>
+ * 
  */
 public class GetPasswordDataResult implements Serializable {
 
     /**
-     * The ID of the instance whose Windows administrator password was
-     * requested.
+     * The ID of the Windows instance.
      */
     private String instanceId;
 
@@ -35,42 +32,36 @@ public class GetPasswordDataResult implements Serializable {
     private java.util.Date timestamp;
 
     /**
-     * The Windows administrator password of the specified instance.
+     * The password of the instance.
      */
     private String passwordData;
 
     /**
-     * The ID of the instance whose Windows administrator password was
-     * requested.
+     * The ID of the Windows instance.
      *
-     * @return The ID of the instance whose Windows administrator password was
-     *         requested.
+     * @return The ID of the Windows instance.
      */
     public String getInstanceId() {
         return instanceId;
     }
     
     /**
-     * The ID of the instance whose Windows administrator password was
-     * requested.
+     * The ID of the Windows instance.
      *
-     * @param instanceId The ID of the instance whose Windows administrator password was
-     *         requested.
+     * @param instanceId The ID of the Windows instance.
      */
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
     }
     
     /**
-     * The ID of the instance whose Windows administrator password was
-     * requested.
+     * The ID of the Windows instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceId The ID of the instance whose Windows administrator password was
-     *         requested.
+     * @param instanceId The ID of the Windows instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetPasswordDataResult withInstanceId(String instanceId) {
@@ -103,7 +94,7 @@ public class GetPasswordDataResult implements Serializable {
      *
      * @param timestamp The time the data was last updated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetPasswordDataResult withTimestamp(java.util.Date timestamp) {
@@ -112,31 +103,31 @@ public class GetPasswordDataResult implements Serializable {
     }
 
     /**
-     * The Windows administrator password of the specified instance.
+     * The password of the instance.
      *
-     * @return The Windows administrator password of the specified instance.
+     * @return The password of the instance.
      */
     public String getPasswordData() {
         return passwordData;
     }
     
     /**
-     * The Windows administrator password of the specified instance.
+     * The password of the instance.
      *
-     * @param passwordData The Windows administrator password of the specified instance.
+     * @param passwordData The password of the instance.
      */
     public void setPasswordData(String passwordData) {
         this.passwordData = passwordData;
     }
     
     /**
-     * The Windows administrator password of the specified instance.
+     * The password of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param passwordData The Windows administrator password of the specified instance.
+     * @param passwordData The password of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetPasswordDataResult withPasswordData(String passwordData) {

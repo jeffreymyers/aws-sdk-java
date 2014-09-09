@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class ImportInstanceRequestMarshaller implements Marshaller<Request<Impor
 
         Request<ImportInstanceRequest> request = new DefaultRequest<ImportInstanceRequest>(importInstanceRequest, "AmazonEC2");
         request.addParameter("Action", "ImportInstance");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (importInstanceRequest.getDescription() != null) {
             request.addParameter("Description", StringUtils.fromString(importInstanceRequest.getDescription()));
@@ -81,7 +82,7 @@ public class ImportInstanceRequestMarshaller implements Marshaller<Request<Impor
                 }
             }
             if (importInstanceLaunchSpecificationLaunchSpecification.isMonitoring() != null) {
-                request.addParameter("LaunchSpecification.Monitoring", StringUtils.fromBoolean(importInstanceLaunchSpecificationLaunchSpecification.isMonitoring()));
+                request.addParameter("LaunchSpecification.Monitoring.Enabled", StringUtils.fromBoolean(importInstanceLaunchSpecificationLaunchSpecification.isMonitoring()));
             }
             if (importInstanceLaunchSpecificationLaunchSpecification.getSubnetId() != null) {
                 request.addParameter("LaunchSpecification.SubnetId", StringUtils.fromString(importInstanceLaunchSpecificationLaunchSpecification.getSubnetId()));

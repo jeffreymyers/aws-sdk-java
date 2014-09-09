@@ -21,10 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#resetDBParameterGroup(ResetDBParameterGroupRequest) ResetDBParameterGroup operation}.
  * <p>
- * Modifies the parameters of a DB parameter group to the engine/system default value. To reset specific parameters submit a list of the following:
- * <code>ParameterName</code> and <code>ApplyMethod</code> . To reset the entire DB parameter group, specify the <code>DBParameterGroup</code> name and
- * <code>ResetAllParameters</code> parameters. When resetting the entire group, dynamic parameters are updated immediately and static parameters are set
- * to <code>pending-reboot</code> to take effect on the next DB instance restart or <code>RebootDBInstance</code> request.
+ * Modifies the parameters of a DB parameter group to the engine/system
+ * default value. To reset specific parameters submit a list of the
+ * following: <code>ParameterName</code> and <code>ApplyMethod</code> .
+ * To reset the entire DB parameter group, specify the
+ * <code>DBParameterGroup</code> name and <code>ResetAllParameters</code>
+ * parameters. When resetting the entire group, dynamic parameters are
+ * updated immediately and static parameters are set to
+ * <code>pending-reboot</code> to take effect on the next DB instance
+ * restart or <code>RebootDBInstance</code> request.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#resetDBParameterGroup(ResetDBParameterGroupRequest)
@@ -123,7 +128,7 @@ public class ResetDBParameterGroupRequest extends AmazonWebServiceRequest implem
      *         letter</li> <li>Cannot end with a hyphen or contain two consecutive
      *         hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetDBParameterGroupRequest withDBParameterGroupName(String dBParameterGroupName) {
@@ -168,7 +173,7 @@ public class ResetDBParameterGroupRequest extends AmazonWebServiceRequest implem
      *         reset all parameters in the DB parameter group to default values.
      *         <p>Default: <code>true</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetDBParameterGroupRequest withResetAllParameters(Boolean resetAllParameters) {
@@ -278,7 +283,7 @@ public class ResetDBParameterGroupRequest extends AmazonWebServiceRequest implem
      *         when DB instance reboots. <p><b>Oracle</b> <p>Valid Values (for Apply
      *         method): <code>pending-reboot</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetDBParameterGroupRequest withParameters(Parameter... parameters) {
@@ -314,7 +319,7 @@ public class ResetDBParameterGroupRequest extends AmazonWebServiceRequest implem
      *         when DB instance reboots. <p><b>Oracle</b> <p>Valid Values (for Apply
      *         method): <code>pending-reboot</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetDBParameterGroupRequest withParameters(java.util.Collection<Parameter> parameters) {

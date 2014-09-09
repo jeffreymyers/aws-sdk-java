@@ -37,7 +37,7 @@ public class JobFlowDetailJsonUnmarshaller implements Unmarshaller<JobFlowDetail
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -70,12 +70,15 @@ public class JobFlowDetailJsonUnmarshaller implements Unmarshaller<JobFlowDetail
                     jobFlowDetail.setInstances(JobFlowInstancesDetailJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Steps", targetDepth)) {
+                    context.nextToken();
                     jobFlowDetail.setSteps(new ListUnmarshaller<StepDetail>(StepDetailJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("BootstrapActions", targetDepth)) {
+                    context.nextToken();
                     jobFlowDetail.setBootstrapActions(new ListUnmarshaller<BootstrapActionDetail>(BootstrapActionDetailJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("SupportedProducts", targetDepth)) {
+                    context.nextToken();
                     jobFlowDetail.setSupportedProducts(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("VisibleToAllUsers", targetDepth)) {
@@ -85,6 +88,10 @@ public class JobFlowDetailJsonUnmarshaller implements Unmarshaller<JobFlowDetail
                 if (context.testExpression("JobFlowRole", targetDepth)) {
                     context.nextToken();
                     jobFlowDetail.setJobFlowRole(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ServiceRole", targetDepth)) {
+                    context.nextToken();
+                    jobFlowDetail.setServiceRole(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

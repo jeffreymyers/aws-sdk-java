@@ -21,13 +21,19 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#listVolumes(ListVolumesRequest) ListVolumes operation}.
  * <p>
- * This operation lists the iSCSI stored volumes of a gateway. Results are sorted by volume ARN. The response includes only the volume ARNs. If you want
- * additional volume information, use the DescribeStorediSCSIVolumes API.
+ * This operation lists the iSCSI stored volumes of a gateway. Results
+ * are sorted by volume ARN. The response includes only the volume ARNs.
+ * If you want additional volume information, use the
+ * DescribeStorediSCSIVolumes API.
  * </p>
  * <p>
- * The operation supports pagination. By default, the operation returns a maximum of up to 100 volumes. You can optionally specify the <code>Limit</code>
- * field in the body to limit the number of volumes in the response. If the number of volumes returned in the response is truncated, the response
- * includes a Marker field. You can use this Marker value in your subsequent request to retrieve the next set of volumes.
+ * The operation supports pagination. By default, the operation returns a
+ * maximum of up to 100 volumes. You can optionally specify the
+ * <code>Limit</code> field in the body to limit the number of volumes in
+ * the response. If the number of volumes returned in the response is
+ * truncated, the response includes a Marker field. You can use this
+ * Marker value in your subsequent request to retrieve the next set of
+ * volumes.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#listVolumes(ListVolumesRequest)
@@ -109,7 +115,7 @@ public class ListVolumesRequest extends AmazonWebServiceRequest implements Seria
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVolumesRequest withGatewayARN(String gatewayARN) {
@@ -163,7 +169,7 @@ public class ListVolumesRequest extends AmazonWebServiceRequest implements Seria
      *         list of volumes. Obtain the marker from the response of a previous
      *         List iSCSI Volumes request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVolumesRequest withMarker(String marker) {
@@ -211,7 +217,7 @@ public class ListVolumesRequest extends AmazonWebServiceRequest implements Seria
      * @param limit Specifies that the list of volumes returned be limited to the
      *         specified number of items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVolumesRequest withLimit(Integer limit) {

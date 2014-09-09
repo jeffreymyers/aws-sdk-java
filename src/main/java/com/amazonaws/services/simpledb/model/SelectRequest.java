@@ -21,16 +21,21 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#select(SelectRequest) Select operation}.
  * <p>
- * The <code>Select</code> operation returns a set of attributes for <code>ItemNames</code> that match the select expression. <code>Select</code> is
- * similar to the standard SQL SELECT statement.
+ * The <code>Select</code> operation returns a set of attributes for
+ * <code>ItemNames</code> that match the select expression.
+ * <code>Select</code> is similar to the standard SQL SELECT statement.
  * </p>
  * <p>
- * The total size of the response cannot exceed 1 MB in total size. Amazon SimpleDB automatically adjusts the number of items returned per page to
- * enforce this limit. For example, if the client asks to retrieve 2500 items, but each individual item is 10 kB in size, the system returns 100 items
- * and an appropriate <code>NextToken</code> so the client can access the next page of results.
+ * The total size of the response cannot exceed 1 MB in total size.
+ * Amazon SimpleDB automatically adjusts the number of items returned per
+ * page to enforce this limit. For example, if the client asks to
+ * retrieve 2500 items, but each individual item is 10 kB in size, the
+ * system returns 100 items and an appropriate <code>NextToken</code> so
+ * the client can access the next page of results.
  * </p>
  * <p>
- * For information on how to construct select expressions, see Using Select to Create Amazon SimpleDB Queries in the Developer Guide.
+ * For information on how to construct select expressions, see Using
+ * Select to Create Amazon SimpleDB Queries in the Developer Guide.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#select(SelectRequest)
@@ -116,7 +121,7 @@ public class SelectRequest extends AmazonWebServiceRequest implements Serializab
      *
      * @param selectExpression The expression used to query the domain.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SelectRequest withSelectExpression(String selectExpression) {
@@ -155,7 +160,7 @@ public class SelectRequest extends AmazonWebServiceRequest implements Serializab
      * @param nextToken A string informing Amazon SimpleDB where to start the next list of
      *         <code>ItemNames</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SelectRequest withNextToken(String nextToken) {
@@ -212,7 +217,7 @@ public class SelectRequest extends AmazonWebServiceRequest implements Serializab
      *         consistent eventually, and the client may not see data that was
      *         written immediately before your read.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SelectRequest withConsistentRead(Boolean consistentRead) {

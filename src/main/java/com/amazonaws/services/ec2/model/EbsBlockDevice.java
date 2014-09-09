@@ -18,57 +18,80 @@ import java.io.Serializable;
 
 /**
  * <p>
- * An EBS volume backed block device.
+ * Describes an Amazon EBS block device.
  * </p>
  */
 public class EbsBlockDevice implements Serializable {
 
     /**
-     * The ID of the snapshot from which the volume will be created.
+     * The ID of the snapshot.
      */
     private String snapshotId;
 
     /**
-     * The size of the volume, in gigabytes.
+     * The size of the volume, in GiB. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      */
     private Integer volumeSize;
 
     /**
-     * Specifies whether the Amazon EBS volume is deleted on instance
+     * Indicates whether the Amazon EBS volume is deleted on instance
      * termination.
      */
     private Boolean deleteOnTermination;
 
+    /**
+     * The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     * <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>standard, io1, gp2
+     */
     private String volumeType;
 
+    /**
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     * when the volume type is <code>io1</code>; not used with
+     * <code>standard</code> or <code>gp2</code> volumes.
+     */
     private Integer iops;
 
     /**
-     * The ID of the snapshot from which the volume will be created.
+     * Indicates whether the Amazon EBS volume is encrypted.
+     */
+    private Boolean encrypted;
+
+    /**
+     * The ID of the snapshot.
      *
-     * @return The ID of the snapshot from which the volume will be created.
+     * @return The ID of the snapshot.
      */
     public String getSnapshotId() {
         return snapshotId;
     }
     
     /**
-     * The ID of the snapshot from which the volume will be created.
+     * The ID of the snapshot.
      *
-     * @param snapshotId The ID of the snapshot from which the volume will be created.
+     * @param snapshotId The ID of the snapshot.
      */
     public void setSnapshotId(String snapshotId) {
         this.snapshotId = snapshotId;
     }
     
     /**
-     * The ID of the snapshot from which the volume will be created.
+     * The ID of the snapshot.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param snapshotId The ID of the snapshot from which the volume will be created.
+     * @param snapshotId The ID of the snapshot.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EbsBlockDevice withSnapshotId(String snapshotId) {
@@ -77,31 +100,49 @@ public class EbsBlockDevice implements Serializable {
     }
 
     /**
-     * The size of the volume, in gigabytes.
+     * The size of the volume, in GiB. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      *
-     * @return The size of the volume, in gigabytes.
+     * @return The size of the volume, in GiB. <p>Constraints: If the volume type is
+     *         <code>io1</code>, the minimum size of the volume is 10 GiB.
+     *         <p>Default: If you're creating the volume from a snapshot and don't
+     *         specify a volume size, the default is the snapshot size.
      */
     public Integer getVolumeSize() {
         return volumeSize;
     }
     
     /**
-     * The size of the volume, in gigabytes.
+     * The size of the volume, in GiB. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      *
-     * @param volumeSize The size of the volume, in gigabytes.
+     * @param volumeSize The size of the volume, in GiB. <p>Constraints: If the volume type is
+     *         <code>io1</code>, the minimum size of the volume is 10 GiB.
+     *         <p>Default: If you're creating the volume from a snapshot and don't
+     *         specify a volume size, the default is the snapshot size.
      */
     public void setVolumeSize(Integer volumeSize) {
         this.volumeSize = volumeSize;
     }
     
     /**
-     * The size of the volume, in gigabytes.
+     * The size of the volume, in GiB. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param volumeSize The size of the volume, in gigabytes.
+     * @param volumeSize The size of the volume, in GiB. <p>Constraints: If the volume type is
+     *         <code>io1</code>, the minimum size of the volume is 10 GiB.
+     *         <p>Default: If you're creating the volume from a snapshot and don't
+     *         specify a volume size, the default is the snapshot size.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EbsBlockDevice withVolumeSize(Integer volumeSize) {
@@ -110,10 +151,10 @@ public class EbsBlockDevice implements Serializable {
     }
 
     /**
-     * Specifies whether the Amazon EBS volume is deleted on instance
+     * Indicates whether the Amazon EBS volume is deleted on instance
      * termination.
      *
-     * @return Specifies whether the Amazon EBS volume is deleted on instance
+     * @return Indicates whether the Amazon EBS volume is deleted on instance
      *         termination.
      */
     public Boolean isDeleteOnTermination() {
@@ -121,10 +162,10 @@ public class EbsBlockDevice implements Serializable {
     }
     
     /**
-     * Specifies whether the Amazon EBS volume is deleted on instance
+     * Indicates whether the Amazon EBS volume is deleted on instance
      * termination.
      *
-     * @param deleteOnTermination Specifies whether the Amazon EBS volume is deleted on instance
+     * @param deleteOnTermination Indicates whether the Amazon EBS volume is deleted on instance
      *         termination.
      */
     public void setDeleteOnTermination(Boolean deleteOnTermination) {
@@ -132,15 +173,15 @@ public class EbsBlockDevice implements Serializable {
     }
     
     /**
-     * Specifies whether the Amazon EBS volume is deleted on instance
+     * Indicates whether the Amazon EBS volume is deleted on instance
      * termination.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param deleteOnTermination Specifies whether the Amazon EBS volume is deleted on instance
+     * @param deleteOnTermination Indicates whether the Amazon EBS volume is deleted on instance
      *         termination.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EbsBlockDevice withDeleteOnTermination(Boolean deleteOnTermination) {
@@ -149,10 +190,10 @@ public class EbsBlockDevice implements Serializable {
     }
 
     /**
-     * Specifies whether the Amazon EBS volume is deleted on instance
+     * Indicates whether the Amazon EBS volume is deleted on instance
      * termination.
      *
-     * @return Specifies whether the Amazon EBS volume is deleted on instance
+     * @return Indicates whether the Amazon EBS volume is deleted on instance
      *         termination.
      */
     public Boolean getDeleteOnTermination() {
@@ -160,12 +201,18 @@ public class EbsBlockDevice implements Serializable {
     }
 
     /**
-     * Returns the value of the VolumeType property for this object.
+     * The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     * <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @return The value of the VolumeType property for this object.
+     * @return The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     *         <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
      * @see VolumeType
      */
@@ -174,12 +221,18 @@ public class EbsBlockDevice implements Serializable {
     }
     
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     * <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     *         <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
      * @see VolumeType
      */
@@ -188,16 +241,22 @@ public class EbsBlockDevice implements Serializable {
     }
     
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     * <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     *         <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VolumeType
@@ -208,12 +267,18 @@ public class EbsBlockDevice implements Serializable {
     }
 
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     * <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     *         <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
      * @see VolumeType
      */
@@ -222,16 +287,22 @@ public class EbsBlockDevice implements Serializable {
     }
     
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     * <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. <code>gp2</code> for General Purpose (SSD) volumes,
+     *         <code>io1</code> for Provisioned IOPS (SSD) volumes, and
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VolumeType
@@ -242,36 +313,96 @@ public class EbsBlockDevice implements Serializable {
     }
 
     /**
-     * Returns the value of the Iops property for this object.
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     * when the volume type is <code>io1</code>; not used with
+     * <code>standard</code> or <code>gp2</code> volumes.
      *
-     * @return The value of the Iops property for this object.
+     * @return The number of I/O operations per second (IOPS) that the volume
+     *         supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     *         when the volume type is <code>io1</code>; not used with
+     *         <code>standard</code> or <code>gp2</code> volumes.
      */
     public Integer getIops() {
         return iops;
     }
     
     /**
-     * Sets the value of the Iops property for this object.
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     * when the volume type is <code>io1</code>; not used with
+     * <code>standard</code> or <code>gp2</code> volumes.
      *
-     * @param iops The new value for the Iops property for this object.
+     * @param iops The number of I/O operations per second (IOPS) that the volume
+     *         supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     *         when the volume type is <code>io1</code>; not used with
+     *         <code>standard</code> or <code>gp2</code> volumes.
      */
     public void setIops(Integer iops) {
         this.iops = iops;
     }
     
     /**
-     * Sets the value of the Iops property for this object.
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     * when the volume type is <code>io1</code>; not used with
+     * <code>standard</code> or <code>gp2</code> volumes.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param iops The new value for the Iops property for this object.
+     * @param iops The number of I/O operations per second (IOPS) that the volume
+     *         supports. <p>Constraint: Range is 100 to 4000. <p>Condition: Required
+     *         when the volume type is <code>io1</code>; not used with
+     *         <code>standard</code> or <code>gp2</code> volumes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EbsBlockDevice withIops(Integer iops) {
         this.iops = iops;
         return this;
+    }
+
+    /**
+     * Indicates whether the Amazon EBS volume is encrypted.
+     *
+     * @return Indicates whether the Amazon EBS volume is encrypted.
+     */
+    public Boolean isEncrypted() {
+        return encrypted;
+    }
+    
+    /**
+     * Indicates whether the Amazon EBS volume is encrypted.
+     *
+     * @param encrypted Indicates whether the Amazon EBS volume is encrypted.
+     */
+    public void setEncrypted(Boolean encrypted) {
+        this.encrypted = encrypted;
+    }
+    
+    /**
+     * Indicates whether the Amazon EBS volume is encrypted.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param encrypted Indicates whether the Amazon EBS volume is encrypted.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public EbsBlockDevice withEncrypted(Boolean encrypted) {
+        this.encrypted = encrypted;
+        return this;
+    }
+
+    /**
+     * Indicates whether the Amazon EBS volume is encrypted.
+     *
+     * @return Indicates whether the Amazon EBS volume is encrypted.
+     */
+    public Boolean getEncrypted() {
+        return encrypted;
     }
 
     /**
@@ -290,7 +421,8 @@ public class EbsBlockDevice implements Serializable {
         if (getVolumeSize() != null) sb.append("VolumeSize: " + getVolumeSize() + ",");
         if (isDeleteOnTermination() != null) sb.append("DeleteOnTermination: " + isDeleteOnTermination() + ",");
         if (getVolumeType() != null) sb.append("VolumeType: " + getVolumeType() + ",");
-        if (getIops() != null) sb.append("Iops: " + getIops() );
+        if (getIops() != null) sb.append("Iops: " + getIops() + ",");
+        if (isEncrypted() != null) sb.append("Encrypted: " + isEncrypted() );
         sb.append("}");
         return sb.toString();
     }
@@ -305,6 +437,7 @@ public class EbsBlockDevice implements Serializable {
         hashCode = prime * hashCode + ((isDeleteOnTermination() == null) ? 0 : isDeleteOnTermination().hashCode()); 
         hashCode = prime * hashCode + ((getVolumeType() == null) ? 0 : getVolumeType().hashCode()); 
         hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode()); 
+        hashCode = prime * hashCode + ((isEncrypted() == null) ? 0 : isEncrypted().hashCode()); 
         return hashCode;
     }
     
@@ -326,6 +459,8 @@ public class EbsBlockDevice implements Serializable {
         if (other.getVolumeType() != null && other.getVolumeType().equals(this.getVolumeType()) == false) return false; 
         if (other.getIops() == null ^ this.getIops() == null) return false;
         if (other.getIops() != null && other.getIops().equals(this.getIops()) == false) return false; 
+        if (other.isEncrypted() == null ^ this.isEncrypted() == null) return false;
+        if (other.isEncrypted() != null && other.isEncrypted().equals(this.isEncrypted()) == false) return false; 
         return true;
     }
     

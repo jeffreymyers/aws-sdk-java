@@ -24,26 +24,37 @@ import java.io.Serializable;
  * <b>Access Control</b>
  * </p>
  * <p>
- * You can use IAM policies to control this decision's access to Amazon SWF in much the same way as for the regular API:
+ * You can use IAM policies to control this decision's access to Amazon
+ * SWF in much the same way as for the regular API:
  * </p>
  * 
  * <ul>
- * <li>Use a <code>Resource</code> element with the domain name to limit the decision to only specified domains.</li>
- * <li>Use an <code>Action</code> element to allow or deny permission to specify this decision.</li>
- * <li>Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+ * <li>Use a <code>Resource</code> element with the domain name to limit
+ * the decision to only specified domains.</li>
+ * <li>Use an <code>Action</code> element to allow or deny permission to
+ * specify this decision.</li>
+ * <li>Constrain the following parameters by using a
+ * <code>Condition</code> element with the appropriate keys.
  * <ul>
- * <li> <code>activityType.name</code> : String constraint. The key is ???swf:activityType.name???.</li>
- * <li> <code>activityType.version</code> : String constraint. The key is ???swf:activityType.version???.</li>
- * <li> <code>taskList</code> : String constraint. The key is ???swf:taskList.name???.</li>
+ * <li> <code>activityType.name</code> : String constraint. The key is
+ * ???swf:activityType.name???.</li>
+ * <li> <code>activityType.version</code> : String constraint. The key
+ * is ???swf:activityType.version???.</li>
+ * <li> <code>taskList</code> : String constraint. The key is
+ * ???swf:taskList.name???.</li>
  * 
  * </ul>
  * </li>
  * 
  * </ul>
  * <p>
- * If the caller does not have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action
- * fails. The associated event attribute's <b>cause</b> parameter will be set to OPERATION_NOT_PERMITTED. For details and example IAM policies, see <a
- * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a> .
+ * If the caller does not have sufficient permissions to invoke the
+ * action, or the parameter values fall outside the specified
+ * constraints, the action fails. The associated event attribute's
+ * <b>cause</b> parameter will be set to OPERATION_NOT_PERMITTED. For
+ * details and example IAM policies, see
+ * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+ * .
  * </p>
  */
 public class ScheduleActivityTaskDecisionAttributes implements Serializable {
@@ -192,7 +203,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *
      * @param activityType The type of the activity task to schedule. This field is required.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withActivityType(ActivityType activityType) {
@@ -264,7 +275,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *         characters (\u0000-\u001f | \u007f - \u009f). Also, it must not
      *         contain the literal string "arn".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withActivityId(String activityId) {
@@ -312,7 +323,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      * @param control Optional data attached to the event that can be used by the decider in
      *         subsequent workflow tasks. This data is not sent to the activity.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withControl(String control) {
@@ -354,7 +365,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *
      * @param input The input provided to the activity task.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withInput(String input) {
@@ -438,7 +449,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *         set nor a default schedule-to-close timeout was specified at
      *         registration time then a fault will be returned.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withScheduleToCloseTimeout(String scheduleToCloseTimeout) {
@@ -531,7 +542,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *         characters (\u0000-\u001f | \u007f - \u009f). Also, it must not
      *         contain the literal string "arn".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withTaskList(TaskList taskList) {
@@ -633,7 +644,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *         schedule-to-start timeout was specified at registration time then a
      *         fault will be returned.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withScheduleToStartTimeout(String scheduleToStartTimeout) {
@@ -735,7 +746,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *         start-to-close timeout was specified at registration time then a fault
      *         will be returned.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withStartToCloseTimeout(String startToCloseTimeout) {
@@ -837,7 +848,7 @@ public class ScheduleActivityTaskDecisionAttributes implements Serializable {
      *         in seconds while <code>NONE</code> can be used to specify unlimited
      *         duration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ScheduleActivityTaskDecisionAttributes withHeartbeatTimeout(String heartbeatTimeout) {

@@ -37,7 +37,7 @@ public class DescribeLayersResultJsonUnmarshaller implements Unmarshaller<Descri
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class DescribeLayersResultJsonUnmarshaller implements Unmarshaller<Descri
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Layers", targetDepth)) {
+                    context.nextToken();
                     describeLayersResult.setLayers(new ListUnmarshaller<Layer>(LayerJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

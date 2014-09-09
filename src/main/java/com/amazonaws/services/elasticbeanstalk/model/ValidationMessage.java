@@ -44,12 +44,12 @@ public class ValidationMessage implements Serializable {
     private String severity;
 
     /**
-     * 
+     * <p/>
      */
     private String namespace;
 
     /**
-     * 
+     * <p/>
      */
     private String optionName;
 
@@ -84,7 +84,7 @@ public class ValidationMessage implements Serializable {
      *
      * @param message A message describing the error or warning.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidationMessage withMessage(String message) {
@@ -172,7 +172,7 @@ public class ValidationMessage implements Serializable {
      *         warning: This message is providing information you should take into
      *         account. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ValidationSeverity
@@ -234,7 +234,7 @@ public class ValidationMessage implements Serializable {
      *         warning: This message is providing information you should take into
      *         account. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ValidationSeverity
@@ -245,31 +245,31 @@ public class ValidationMessage implements Serializable {
     }
 
     /**
-     * 
+     * <p/>
      *
-     * @return 
+     * @return <p/>
      */
     public String getNamespace() {
         return namespace;
     }
     
     /**
-     * 
+     * <p/>
      *
-     * @param namespace 
+     * @param namespace <p/>
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
     /**
-     * 
+     * <p/>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param namespace 
+     * @param namespace <p/>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidationMessage withNamespace(String namespace) {
@@ -278,31 +278,31 @@ public class ValidationMessage implements Serializable {
     }
 
     /**
-     * 
+     * <p/>
      *
-     * @return 
+     * @return <p/>
      */
     public String getOptionName() {
         return optionName;
     }
     
     /**
-     * 
+     * <p/>
      *
-     * @param optionName 
+     * @param optionName <p/>
      */
     public void setOptionName(String optionName) {
         this.optionName = optionName;
     }
     
     /**
-     * 
+     * <p/>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param optionName 
+     * @param optionName <p/>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ValidationMessage withOptionName(String optionName) {

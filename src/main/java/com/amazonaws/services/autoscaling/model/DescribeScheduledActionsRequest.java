@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#describeScheduledActions(DescribeScheduledActionsRequest) DescribeScheduledActions operation}.
  * <p>
- * Lists all the actions scheduled for your Auto Scaling group that haven't been executed. To see a list of actions already executed, see the activity
- * record returned in DescribeScalingActivities.
+ * Lists all the actions scheduled for your Auto Scaling group that
+ * haven't been executed. To see a list of actions already executed, see
+ * the activity record returned in DescribeScalingActivities.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeScheduledActions(DescribeScheduledActionsRequest)
@@ -34,7 +35,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -63,15 +64,12 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String nextToken;
 
     /**
      * The maximum number of scheduled actions to return.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      */
     private Integer maxRecords;
 
@@ -80,7 +78,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the Auto Scaling group.
      */
@@ -93,7 +91,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group.
      */
@@ -108,11 +106,11 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withAutoScalingGroupName(String autoScalingGroupName) {
@@ -179,7 +177,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      *         name is provided, the results are limited to that group. If unknown
      *         scheduled actions are requested, they are ignored with no error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withScheduledActionNames(String... scheduledActionNames) {
@@ -205,7 +203,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      *         name is provided, the results are limited to that group. If unknown
      *         scheduled actions are requested, they are ignored with no error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withScheduledActionNames(java.util.Collection<String> scheduledActionNames) {
@@ -251,7 +249,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * @param startTime The earliest scheduled start time to return. If scheduled action names
      *         are provided, this field will be ignored.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withStartTime(java.util.Date startTime) {
@@ -290,7 +288,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * @param endTime The latest scheduled start time to return. If scheduled action names
      *         are provided, this field is ignored.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withEndTime(java.util.Date endTime) {
@@ -302,7 +300,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A string that marks the start of the next batch of returned results.
      */
@@ -314,7 +312,7 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * A string that marks the start of the next batch of returned results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that marks the start of the next batch of returned results.
      */
@@ -328,11 +326,11 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken A string that marks the start of the next batch of returned results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withNextToken(String nextToken) {
@@ -342,9 +340,6 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
 
     /**
      * The maximum number of scheduled actions to return.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @return The maximum number of scheduled actions to return.
      */
@@ -354,9 +349,6 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
     
     /**
      * The maximum number of scheduled actions to return.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of scheduled actions to return.
      */
@@ -368,13 +360,10 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * The maximum number of scheduled actions to return.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Range: </b>1 - 50<br/>
      *
      * @param maxRecords The maximum number of scheduled actions to return.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScheduledActionsRequest withMaxRecords(Integer maxRecords) {

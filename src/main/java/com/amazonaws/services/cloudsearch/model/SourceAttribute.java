@@ -22,6 +22,7 @@ import java.io.Serializable;
  * default, the value of the source attribute is copied to the index field.
  * </p>
  */
+@Deprecated
 public class SourceAttribute implements Serializable {
 
     /**

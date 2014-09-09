@@ -18,7 +18,24 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Encloses a receipt handle and an entry id for each message in ChangeMessageVisibilityBatch.
+ * Encloses a receipt handle and an entry id for each message in
+ * ChangeMessageVisibilityBatch.
+ * </p>
+ * <p>
+ * <b>IMPORTANT:</b> All of the following parameters are list parameters
+ * that must be prefixed with ChangeMessageVisibilityBatchRequestEntry.n,
+ * where n is an integer value starting with 1. For example, a parameter
+ * list for this action might look like this:
+ * </p>
+ * <p>
+ * MessageVisibilityBatchRequestEntry.1.Id=change_visibility_msg_2</code>
+ * </p>
+ * <p>
+ * MessageVisibilityBatchRequestEntry.1.ReceiptHandle=Your_Receipt_Handle
+ * </code>
+ * </p>
+ * <p>
+ * ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout=45</code>
  * </p>
  */
 public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
@@ -98,7 +115,7 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
      *         communicate the result. Note that the <code>Id</code>s of a batch
      *         request need to be unique within the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchRequestEntry withId(String id) {
@@ -131,7 +148,7 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
      *
      * @param receiptHandle A receipt handle.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchRequestEntry withReceiptHandle(String receiptHandle) {
@@ -164,7 +181,7 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
      *
      * @param visibilityTimeout The new value (in seconds) for the message's visibility timeout.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchRequestEntry withVisibilityTimeout(Integer visibilityTimeout) {

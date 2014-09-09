@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class ListDistributionsRequestMarshaller implements Marshaller<Request<Li
         Request<ListDistributionsRequest> request = new DefaultRequest<ListDistributionsRequest>(listDistributionsRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "2013-11-11/distribution?Marker={Marker}&MaxItems={MaxItems}"; 
+        String uriResourcePath = "2014-05-31/distribution?Marker={Marker}&MaxItems={MaxItems}"; 
         uriResourcePath = uriResourcePath.replace("{Marker}", getString(listDistributionsRequest.getMarker())); 
         uriResourcePath = uriResourcePath.replace("{MaxItems}", getString(listDistributionsRequest.getMaxItems())); 
 

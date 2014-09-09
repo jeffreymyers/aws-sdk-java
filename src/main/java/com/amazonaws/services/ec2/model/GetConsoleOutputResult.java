@@ -21,14 +21,12 @@ import com.amazonaws.AmazonClientException;
 import java.io.UnsupportedEncodingException;
 
 /**
- * <p>
- * The result of the GetConsoleOutput operation.
- * </p>
+ * 
  */
 public class GetConsoleOutputResult implements Serializable {
 
     /**
-     * The ID of the instance whose console output was requested.
+     * The ID of the instance.
      */
     private String instanceId;
 
@@ -43,31 +41,31 @@ public class GetConsoleOutputResult implements Serializable {
     private String output;
 
     /**
-     * The ID of the instance whose console output was requested.
+     * The ID of the instance.
      *
-     * @return The ID of the instance whose console output was requested.
+     * @return The ID of the instance.
      */
     public String getInstanceId() {
         return instanceId;
     }
     
     /**
-     * The ID of the instance whose console output was requested.
+     * The ID of the instance.
      *
-     * @param instanceId The ID of the instance whose console output was requested.
+     * @param instanceId The ID of the instance.
      */
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
     }
     
     /**
-     * The ID of the instance whose console output was requested.
+     * The ID of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceId The ID of the instance whose console output was requested.
+     * @param instanceId The ID of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetConsoleOutputResult withInstanceId(String instanceId) {
@@ -100,7 +98,7 @@ public class GetConsoleOutputResult implements Serializable {
      *
      * @param timestamp The time the output was last updated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetConsoleOutputResult withTimestamp(java.util.Date timestamp) {
@@ -133,7 +131,7 @@ public class GetConsoleOutputResult implements Serializable {
      *
      * @param output The console output, Base64 encoded.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetConsoleOutputResult withOutput(String output) {

@@ -37,7 +37,7 @@ public class HadoopStepConfigJsonUnmarshaller implements Unmarshaller<HadoopStep
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -50,6 +50,7 @@ public class HadoopStepConfigJsonUnmarshaller implements Unmarshaller<HadoopStep
                     hadoopStepConfig.setJar(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Properties", targetDepth)) {
+                    context.nextToken();
                     hadoopStepConfig.setProperties(new MapUnmarshaller<String,String>(StringJsonUnmarshaller.getInstance(), StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("MainClass", targetDepth)) {
@@ -57,6 +58,7 @@ public class HadoopStepConfigJsonUnmarshaller implements Unmarshaller<HadoopStep
                     hadoopStepConfig.setMainClass(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Args", targetDepth)) {
+                    context.nextToken();
                     hadoopStepConfig.setArgs(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

@@ -18,10 +18,12 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The PasswordPolicy data type contains information about the account password policy.
+ * The PasswordPolicy data type contains information about the account
+ * password policy.
  * </p>
  * <p>
- * This data type is used as a response element in the action GetAccountPasswordPolicy.
+ * This data type is used as a response element in the action
+ * GetAccountPasswordPolicy.
  * </p>
  */
 public class PasswordPolicy implements Serializable {
@@ -57,13 +59,38 @@ public class PasswordPolicy implements Serializable {
     private Boolean requireLowercaseCharacters;
 
     /**
-     * Specifies whether to allow IAM users to change their own password.
+     * Specifies whether IAM users are allowed to change their own password.
      */
     private Boolean allowUsersToChangePassword;
 
+    /**
+     * Specifies whether IAM users are required to change their password
+     * after a specified number of days.
+     */
     private Boolean expirePasswords;
 
+    /**
+     * The number of days that an IAM user password is valid.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 1095<br/>
+     */
     private Integer maxPasswordAge;
+
+    /**
+     * Specifies the number of previous passwords that IAM users are
+     * prevented from reusing.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 24<br/>
+     */
+    private Integer passwordReusePrevention;
+
+    /**
+     * Specifies whether IAM users are prevented from setting a new password
+     * after their password has expired.
+     */
+    private Boolean hardExpiry;
 
     /**
      * Minimum length to require for IAM user passwords.
@@ -99,7 +126,7 @@ public class PasswordPolicy implements Serializable {
      *
      * @param minimumPasswordLength Minimum length to require for IAM user passwords.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withMinimumPasswordLength(Integer minimumPasswordLength) {
@@ -132,7 +159,7 @@ public class PasswordPolicy implements Serializable {
      *
      * @param requireSymbols Specifies whether to require symbols for IAM user passwords.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withRequireSymbols(Boolean requireSymbols) {
@@ -174,7 +201,7 @@ public class PasswordPolicy implements Serializable {
      *
      * @param requireNumbers Specifies whether to require numbers for IAM user passwords.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withRequireNumbers(Boolean requireNumbers) {
@@ -222,7 +249,7 @@ public class PasswordPolicy implements Serializable {
      * @param requireUppercaseCharacters Specifies whether to require uppercase characters for IAM user
      *         passwords.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withRequireUppercaseCharacters(Boolean requireUppercaseCharacters) {
@@ -272,7 +299,7 @@ public class PasswordPolicy implements Serializable {
      * @param requireLowercaseCharacters Specifies whether to require lowercase characters for IAM user
      *         passwords.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withRequireLowercaseCharacters(Boolean requireLowercaseCharacters) {
@@ -292,31 +319,31 @@ public class PasswordPolicy implements Serializable {
     }
 
     /**
-     * Specifies whether to allow IAM users to change their own password.
+     * Specifies whether IAM users are allowed to change their own password.
      *
-     * @return Specifies whether to allow IAM users to change their own password.
+     * @return Specifies whether IAM users are allowed to change their own password.
      */
     public Boolean isAllowUsersToChangePassword() {
         return allowUsersToChangePassword;
     }
     
     /**
-     * Specifies whether to allow IAM users to change their own password.
+     * Specifies whether IAM users are allowed to change their own password.
      *
-     * @param allowUsersToChangePassword Specifies whether to allow IAM users to change their own password.
+     * @param allowUsersToChangePassword Specifies whether IAM users are allowed to change their own password.
      */
     public void setAllowUsersToChangePassword(Boolean allowUsersToChangePassword) {
         this.allowUsersToChangePassword = allowUsersToChangePassword;
     }
     
     /**
-     * Specifies whether to allow IAM users to change their own password.
+     * Specifies whether IAM users are allowed to change their own password.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param allowUsersToChangePassword Specifies whether to allow IAM users to change their own password.
+     * @param allowUsersToChangePassword Specifies whether IAM users are allowed to change their own password.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withAllowUsersToChangePassword(Boolean allowUsersToChangePassword) {
@@ -325,40 +352,46 @@ public class PasswordPolicy implements Serializable {
     }
 
     /**
-     * Specifies whether to allow IAM users to change their own password.
+     * Specifies whether IAM users are allowed to change their own password.
      *
-     * @return Specifies whether to allow IAM users to change their own password.
+     * @return Specifies whether IAM users are allowed to change their own password.
      */
     public Boolean getAllowUsersToChangePassword() {
         return allowUsersToChangePassword;
     }
 
     /**
-     * Returns the value of the ExpirePasswords property for this object.
+     * Specifies whether IAM users are required to change their password
+     * after a specified number of days.
      *
-     * @return The value of the ExpirePasswords property for this object.
+     * @return Specifies whether IAM users are required to change their password
+     *         after a specified number of days.
      */
     public Boolean isExpirePasswords() {
         return expirePasswords;
     }
     
     /**
-     * Sets the value of the ExpirePasswords property for this object.
+     * Specifies whether IAM users are required to change their password
+     * after a specified number of days.
      *
-     * @param expirePasswords The new value for the ExpirePasswords property for this object.
+     * @param expirePasswords Specifies whether IAM users are required to change their password
+     *         after a specified number of days.
      */
     public void setExpirePasswords(Boolean expirePasswords) {
         this.expirePasswords = expirePasswords;
     }
     
     /**
-     * Sets the value of the ExpirePasswords property for this object.
+     * Specifies whether IAM users are required to change their password
+     * after a specified number of days.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param expirePasswords The new value for the ExpirePasswords property for this object.
+     * @param expirePasswords Specifies whether IAM users are required to change their password
+     *         after a specified number of days.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withExpirePasswords(Boolean expirePasswords) {
@@ -367,45 +400,154 @@ public class PasswordPolicy implements Serializable {
     }
 
     /**
-     * Returns the value of the ExpirePasswords property for this object.
+     * Specifies whether IAM users are required to change their password
+     * after a specified number of days.
      *
-     * @return The value of the ExpirePasswords property for this object.
+     * @return Specifies whether IAM users are required to change their password
+     *         after a specified number of days.
      */
     public Boolean getExpirePasswords() {
         return expirePasswords;
     }
 
     /**
-     * Returns the value of the MaxPasswordAge property for this object.
+     * The number of days that an IAM user password is valid.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 1095<br/>
      *
-     * @return The value of the MaxPasswordAge property for this object.
+     * @return The number of days that an IAM user password is valid.
      */
     public Integer getMaxPasswordAge() {
         return maxPasswordAge;
     }
     
     /**
-     * Sets the value of the MaxPasswordAge property for this object.
+     * The number of days that an IAM user password is valid.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 1095<br/>
      *
-     * @param maxPasswordAge The new value for the MaxPasswordAge property for this object.
+     * @param maxPasswordAge The number of days that an IAM user password is valid.
      */
     public void setMaxPasswordAge(Integer maxPasswordAge) {
         this.maxPasswordAge = maxPasswordAge;
     }
     
     /**
-     * Sets the value of the MaxPasswordAge property for this object.
+     * The number of days that an IAM user password is valid.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 1095<br/>
      *
-     * @param maxPasswordAge The new value for the MaxPasswordAge property for this object.
+     * @param maxPasswordAge The number of days that an IAM user password is valid.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PasswordPolicy withMaxPasswordAge(Integer maxPasswordAge) {
         this.maxPasswordAge = maxPasswordAge;
         return this;
+    }
+
+    /**
+     * Specifies the number of previous passwords that IAM users are
+     * prevented from reusing.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 24<br/>
+     *
+     * @return Specifies the number of previous passwords that IAM users are
+     *         prevented from reusing.
+     */
+    public Integer getPasswordReusePrevention() {
+        return passwordReusePrevention;
+    }
+    
+    /**
+     * Specifies the number of previous passwords that IAM users are
+     * prevented from reusing.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 24<br/>
+     *
+     * @param passwordReusePrevention Specifies the number of previous passwords that IAM users are
+     *         prevented from reusing.
+     */
+    public void setPasswordReusePrevention(Integer passwordReusePrevention) {
+        this.passwordReusePrevention = passwordReusePrevention;
+    }
+    
+    /**
+     * Specifies the number of previous passwords that IAM users are
+     * prevented from reusing.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 24<br/>
+     *
+     * @param passwordReusePrevention Specifies the number of previous passwords that IAM users are
+     *         prevented from reusing.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public PasswordPolicy withPasswordReusePrevention(Integer passwordReusePrevention) {
+        this.passwordReusePrevention = passwordReusePrevention;
+        return this;
+    }
+
+    /**
+     * Specifies whether IAM users are prevented from setting a new password
+     * after their password has expired.
+     *
+     * @return Specifies whether IAM users are prevented from setting a new password
+     *         after their password has expired.
+     */
+    public Boolean isHardExpiry() {
+        return hardExpiry;
+    }
+    
+    /**
+     * Specifies whether IAM users are prevented from setting a new password
+     * after their password has expired.
+     *
+     * @param hardExpiry Specifies whether IAM users are prevented from setting a new password
+     *         after their password has expired.
+     */
+    public void setHardExpiry(Boolean hardExpiry) {
+        this.hardExpiry = hardExpiry;
+    }
+    
+    /**
+     * Specifies whether IAM users are prevented from setting a new password
+     * after their password has expired.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param hardExpiry Specifies whether IAM users are prevented from setting a new password
+     *         after their password has expired.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public PasswordPolicy withHardExpiry(Boolean hardExpiry) {
+        this.hardExpiry = hardExpiry;
+        return this;
+    }
+
+    /**
+     * Specifies whether IAM users are prevented from setting a new password
+     * after their password has expired.
+     *
+     * @return Specifies whether IAM users are prevented from setting a new password
+     *         after their password has expired.
+     */
+    public Boolean getHardExpiry() {
+        return hardExpiry;
     }
 
     /**
@@ -427,7 +569,9 @@ public class PasswordPolicy implements Serializable {
         if (isRequireLowercaseCharacters() != null) sb.append("RequireLowercaseCharacters: " + isRequireLowercaseCharacters() + ",");
         if (isAllowUsersToChangePassword() != null) sb.append("AllowUsersToChangePassword: " + isAllowUsersToChangePassword() + ",");
         if (isExpirePasswords() != null) sb.append("ExpirePasswords: " + isExpirePasswords() + ",");
-        if (getMaxPasswordAge() != null) sb.append("MaxPasswordAge: " + getMaxPasswordAge() );
+        if (getMaxPasswordAge() != null) sb.append("MaxPasswordAge: " + getMaxPasswordAge() + ",");
+        if (getPasswordReusePrevention() != null) sb.append("PasswordReusePrevention: " + getPasswordReusePrevention() + ",");
+        if (isHardExpiry() != null) sb.append("HardExpiry: " + isHardExpiry() );
         sb.append("}");
         return sb.toString();
     }
@@ -445,6 +589,8 @@ public class PasswordPolicy implements Serializable {
         hashCode = prime * hashCode + ((isAllowUsersToChangePassword() == null) ? 0 : isAllowUsersToChangePassword().hashCode()); 
         hashCode = prime * hashCode + ((isExpirePasswords() == null) ? 0 : isExpirePasswords().hashCode()); 
         hashCode = prime * hashCode + ((getMaxPasswordAge() == null) ? 0 : getMaxPasswordAge().hashCode()); 
+        hashCode = prime * hashCode + ((getPasswordReusePrevention() == null) ? 0 : getPasswordReusePrevention().hashCode()); 
+        hashCode = prime * hashCode + ((isHardExpiry() == null) ? 0 : isHardExpiry().hashCode()); 
         return hashCode;
     }
     
@@ -472,6 +618,10 @@ public class PasswordPolicy implements Serializable {
         if (other.isExpirePasswords() != null && other.isExpirePasswords().equals(this.isExpirePasswords()) == false) return false; 
         if (other.getMaxPasswordAge() == null ^ this.getMaxPasswordAge() == null) return false;
         if (other.getMaxPasswordAge() != null && other.getMaxPasswordAge().equals(this.getMaxPasswordAge()) == false) return false; 
+        if (other.getPasswordReusePrevention() == null ^ this.getPasswordReusePrevention() == null) return false;
+        if (other.getPasswordReusePrevention() != null && other.getPasswordReusePrevention().equals(this.getPasswordReusePrevention()) == false) return false; 
+        if (other.isHardExpiry() == null ^ this.isHardExpiry() == null) return false;
+        if (other.isHardExpiry() != null && other.isHardExpiry().equals(this.isHardExpiry()) == false) return false; 
         return true;
     }
     

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudtrail.AWSCloudTrail#startLogging(StartLoggingRequest) StartLogging operation}.
  * <p>
- * Starts the recording of AWS API calls and log file delivery for a trail.
+ * Starts the recording of AWS API calls and log file delivery for a
+ * trail.
  * </p>
  *
  * @see com.amazonaws.services.cloudtrail.AWSCloudTrail#startLogging(StartLoggingRequest)
@@ -58,7 +59,7 @@ public class StartLoggingRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param name The name of the <a>Trail</a> for which CloudTrail logs AWS API calls.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StartLoggingRequest withName(String name) {

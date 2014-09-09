@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the CreateInstanceProfile action.
+ * Contains the result of a successful invocation of the
+ * CreateInstanceProfile action.
  * </p>
  */
 public class CreateInstanceProfileResult implements Serializable {
@@ -53,7 +54,7 @@ public class CreateInstanceProfileResult implements Serializable {
      *
      * @param instanceProfile Information about the instance profile.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateInstanceProfileResult withInstanceProfile(InstanceProfile instanceProfile) {

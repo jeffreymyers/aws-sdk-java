@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A response message that contains the status of updated stopword options.
  * </p>
  */
+@Deprecated
 public class UpdateStopwordOptionsResult implements Serializable {
 
     /**

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#removeSourceIdentifierFromSubscription(RemoveSourceIdentifierFromSubscriptionRequest) RemoveSourceIdentifierFromSubscription operation}.
  * <p>
- * Removes a source identifier from an existing RDS event notification subscription.
+ * Removes a source identifier from an existing RDS event notification
+ * subscription.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#removeSourceIdentifierFromSubscription(RemoveSourceIdentifierFromSubscriptionRequest)
@@ -72,7 +73,7 @@ public class RemoveSourceIdentifierFromSubscriptionRequest extends AmazonWebServ
      * @param subscriptionName The name of the RDS event notification subscription you want to remove
      *         a source identifier from.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveSourceIdentifierFromSubscriptionRequest withSubscriptionName(String subscriptionName) {
@@ -117,7 +118,7 @@ public class RemoveSourceIdentifierFromSubscriptionRequest extends AmazonWebServ
      *         <b>DB instance identifier</b> for a DB instance or the name of a
      *         security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveSourceIdentifierFromSubscriptionRequest withSourceIdentifier(String sourceIdentifier) {

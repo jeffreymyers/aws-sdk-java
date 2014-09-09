@@ -14,13 +14,18 @@
  */
 package com.amazonaws.services.opsworks.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+import static com.amazonaws.util.StringUtils.COMMA_SEPARATOR;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
@@ -39,37 +44,17 @@ import com.amazonaws.util.json.*;
 public class UpdateAppRequestMarshaller implements Marshaller<Request<UpdateAppRequest>, UpdateAppRequest> {
 
     public Request<UpdateAppRequest> marshall(UpdateAppRequest updateAppRequest) {
-    if (updateAppRequest == null) {
-        throw new AmazonClientException("Invalid argument passed to marshall(...)");
-    }
+        if (updateAppRequest == null) {
+            throw new AmazonClientException("Invalid argument passed to marshall(...)");
+        }
 
         Request<UpdateAppRequest> request = new DefaultRequest<UpdateAppRequest>(updateAppRequest, "AWSOpsWorks");
         String target = "OpsWorks_20130218.UpdateApp";
         request.addHeader("X-Amz-Target", target);
-        request.addHeader("Content-Type", "application/x-amz-json-1.1");
 
         request.setHttpMethod(HttpMethodName.POST);
-
-        String uriResourcePath = ""; 
-
-        uriResourcePath = uriResourcePath.replaceAll("//", "/");
-
-        if (uriResourcePath.contains("?")) {
-            String queryString = uriResourcePath.substring(uriResourcePath.indexOf("?") + 1);
-            uriResourcePath    = uriResourcePath.substring(0, uriResourcePath.indexOf("?"));
-
-            for (String s : queryString.split("[;&]")) {
-                String[] nameValuePair = s.split("=");
-                if (nameValuePair.length == 2) {
-                    request.addParameter(nameValuePair[0], nameValuePair[1]);
-                } else {
-                    request.addParameter(s, null);
-                }
-            }
-        }
-
-        request.setResourcePath(uriResourcePath);
-
+        request.setResourcePath("");
+        
         try {
           StringWriter stringWriter = new StringWriter();
           JSONWriter jsonWriter = new JSONWriter(stringWriter);
@@ -84,6 +69,30 @@ public class UpdateAppRequestMarshaller implements Marshaller<Request<UpdateAppR
             }
             if (updateAppRequest.getDescription() != null) {
                 jsonWriter.key("Description").value(updateAppRequest.getDescription());
+            }
+
+            com.amazonaws.internal.ListWithAutoConstructFlag<DataSource> dataSourcesList = (com.amazonaws.internal.ListWithAutoConstructFlag<DataSource>)(updateAppRequest.getDataSources());
+            if (dataSourcesList != null && !(dataSourcesList.isAutoConstruct() && dataSourcesList.isEmpty())) {
+
+                jsonWriter.key("DataSources");
+                jsonWriter.array();
+
+                for (DataSource dataSourcesListValue : dataSourcesList) {
+                    if (dataSourcesListValue != null) {
+                        jsonWriter.object();
+                        if (dataSourcesListValue.getType() != null) {
+                            jsonWriter.key("Type").value(dataSourcesListValue.getType());
+                        }
+                        if (dataSourcesListValue.getArn() != null) {
+                            jsonWriter.key("Arn").value(dataSourcesListValue.getArn());
+                        }
+                        if (dataSourcesListValue.getDatabaseName() != null) {
+                            jsonWriter.key("DatabaseName").value(dataSourcesListValue.getDatabaseName());
+                        }
+                        jsonWriter.endObject();
+                    }
+                }
+                jsonWriter.endArray();
             }
             if (updateAppRequest.getType() != null) {
                 jsonWriter.key("Type").value(updateAppRequest.getType());
@@ -164,9 +173,10 @@ public class UpdateAppRequestMarshaller implements Marshaller<Request<UpdateAppR
           jsonWriter.endObject();
 
           String snippet = stringWriter.toString();
-          byte[] content = snippet.getBytes("UTF-8");
+          byte[] content = snippet.getBytes(UTF8);
           request.setContent(new StringInputStream(snippet));
           request.addHeader("Content-Length", Integer.toString(content.length));
+          request.addHeader("Content-Type", "application/x-amz-json-1.1");
         } catch(Throwable t) {
           throw new AmazonClientException("Unable to marshall request to JSON: " + t.getMessage(), t);
         }

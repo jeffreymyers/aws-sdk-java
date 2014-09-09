@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#deleteBandwidthRateLimit(DeleteBandwidthRateLimitRequest) DeleteBandwidthRateLimit operation}.
  * <p>
- * This operation deletes the bandwidth rate limits of a gateway. You can delete either the upload and download bandwidth rate limit, or you can delete
- * both. If you delete only one of the limits, the other limit remains unchanged. To specify which gateway to work with, use the Amazon Resource Name
- * (ARN) of the gateway in your request.
+ * This operation deletes the bandwidth rate limits of a gateway. You can
+ * delete either the upload and download bandwidth rate limit, or you can
+ * delete both. If you delete only one of the limits, the other limit
+ * remains unchanged. To specify which gateway to work with, use the
+ * Amazon Resource Name (ARN) of the gateway in your request.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#deleteBandwidthRateLimit(DeleteBandwidthRateLimitRequest)
@@ -88,7 +90,7 @@ public class DeleteBandwidthRateLimitRequest extends AmazonWebServiceRequest imp
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteBandwidthRateLimitRequest withGatewayARN(String gatewayARN) {
@@ -130,7 +132,7 @@ public class DeleteBandwidthRateLimitRequest extends AmazonWebServiceRequest imp
      *
      * @param bandwidthType The new value for the BandwidthType property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteBandwidthRateLimitRequest withBandwidthType(String bandwidthType) {

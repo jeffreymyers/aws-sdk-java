@@ -37,7 +37,7 @@ public class ServiceJsonUnmarshaller implements Unmarshaller<Service, JsonUnmars
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -54,6 +54,7 @@ public class ServiceJsonUnmarshaller implements Unmarshaller<Service, JsonUnmars
                     service.setName(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("categories", targetDepth)) {
+                    context.nextToken();
                     service.setCategories(new ListUnmarshaller<Category>(CategoryJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

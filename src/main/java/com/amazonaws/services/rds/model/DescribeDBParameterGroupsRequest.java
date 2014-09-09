@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeDBParameterGroups(DescribeDBParameterGroupsRequest) DescribeDBParameterGroups operation}.
  * <p>
- * Returns a list of <code>DBParameterGroup</code> descriptions. If a <code>DBParameterGroupName</code> is specified, the list will contain only the
- * description of the specified DB parameter group.
+ * Returns a list of <code>DBParameterGroup</code> descriptions. If a
+ * <code>DBParameterGroupName</code> is specified, the list will contain
+ * only the description of the specified DB parameter group.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeDBParameterGroups(DescribeDBParameterGroupsRequest)
@@ -108,7 +109,7 @@ public class DescribeDBParameterGroupsRequest extends AmazonWebServiceRequest im
      *         <li>First character must be a letter</li> <li>Cannot end with a hyphen
      *         or contain two consecutive hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsRequest withDBParameterGroupName(String dBParameterGroupName) {
@@ -151,7 +152,7 @@ public class DescribeDBParameterGroupsRequest extends AmazonWebServiceRequest im
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsRequest withFilters(Filter... filters) {
@@ -169,7 +170,7 @@ public class DescribeDBParameterGroupsRequest extends AmazonWebServiceRequest im
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsRequest withFilters(java.util.Collection<Filter> filters) {
@@ -233,7 +234,7 @@ public class DescribeDBParameterGroupsRequest extends AmazonWebServiceRequest im
      *         the remaining results may be retrieved. <p>Default: 100
      *         <p>Constraints: minimum 20, maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -284,7 +285,7 @@ public class DescribeDBParameterGroupsRequest extends AmazonWebServiceRequest im
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBParameterGroupsRequest withMarker(String marker) {

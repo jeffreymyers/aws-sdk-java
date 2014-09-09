@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Deletes a DB security group.
  * </p>
  * <p>
- * <b>NOTE:</b>The specified DB security group must not be associated with any DB instances.
+ * <b>NOTE:</b>The specified DB security group must not be associated
+ * with any DB instances.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#deleteDBSecurityGroup(DeleteDBSecurityGroupRequest)
@@ -118,7 +119,7 @@ public class DeleteDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      *         hyphens</li> <li>Must not be "Default"</li> <li>May not contain
      *         spaces</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteDBSecurityGroupRequest withDBSecurityGroupName(String dBSecurityGroupName) {

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.directconnect.AmazonDirectConnect#describeConnectionsOnInterconnect(DescribeConnectionsOnInterconnectRequest) DescribeConnectionsOnInterconnect operation}.
  * <p>
- * Return a list of connections that have been provisioned on the given interconnect.
+ * Return a list of connections that have been provisioned on the given
+ * interconnect.
  * </p>
  *
  * @see com.amazonaws.services.directconnect.AmazonDirectConnect#describeConnectionsOnInterconnect(DescribeConnectionsOnInterconnectRequest)
@@ -65,7 +66,7 @@ public class DescribeConnectionsOnInterconnectRequest extends AmazonWebServiceRe
      * @param interconnectId ID of the interconnect on which a list of connection is provisioned.
      *         <p>Example: dxcon-abc123 <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConnectionsOnInterconnectRequest withInterconnectId(String interconnectId) {

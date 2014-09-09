@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains a logical operation for comparing the value of a field with a specified value.
+ * Contains a logical operation for comparing the value of a field with a
+ * specified value.
  * </p>
  */
 public class Operator implements Serializable {
@@ -214,7 +215,7 @@ public class Operator implements Serializable {
      *         User-defined fields that you add to a pipeline should prefix their
      *         name with the string "my".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see OperatorType
@@ -328,7 +329,7 @@ public class Operator implements Serializable {
      *         User-defined fields that you add to a pipeline should prefix their
      *         name with the string "my".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see OperatorType
@@ -373,7 +374,7 @@ public class Operator implements Serializable {
      *
      * @param values The value that the actual field value will be compared with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Operator withValues(String... values) {
@@ -391,7 +392,7 @@ public class Operator implements Serializable {
      *
      * @param values The value that the actual field value will be compared with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Operator withValues(java.util.Collection<String> values) {

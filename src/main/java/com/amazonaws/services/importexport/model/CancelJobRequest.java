@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.importexport.AmazonImportExport#cancelJob(CancelJobRequest) CancelJob operation}.
  * <p>
- * This operation cancels a specified job. Only the job owner can cancel it. The operation fails if the job has already started or is complete.
+ * This operation cancels a specified job. Only the job owner can cancel
+ * it. The operation fails if the job has already started or is complete.
  * </p>
  *
  * @see com.amazonaws.services.importexport.AmazonImportExport#cancelJob(CancelJobRequest)
@@ -58,7 +59,7 @@ public class CancelJobRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param jobId A unique identifier which refers to a particular job.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CancelJobRequest withJobId(String jobId) {

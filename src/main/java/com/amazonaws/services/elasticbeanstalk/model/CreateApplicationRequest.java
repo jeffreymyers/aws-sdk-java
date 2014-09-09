@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#createApplication(CreateApplicationRequest) CreateApplication operation}.
  * <p>
- * Creates an application that has one configuration template named <code>default</code> and no application versions.
+ * Creates an application that has one configuration template named
+ * <code>default</code> and no application versions.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#createApplication(CreateApplicationRequest)
@@ -112,7 +113,7 @@ public class CreateApplicationRequest extends AmazonWebServiceRequest implements
      *         within your account. If the specified name already exists, the action
      *         returns an <code>InvalidParameterValue</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateApplicationRequest withApplicationName(String applicationName) {
@@ -154,7 +155,7 @@ public class CreateApplicationRequest extends AmazonWebServiceRequest implements
      *
      * @param description Describes the application.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateApplicationRequest withDescription(String description) {

@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A response message that contains the status of updated synonym options.
  * </p>
  */
+@Deprecated
 public class UpdateSynonymOptionsResult implements Serializable {
 
     /**

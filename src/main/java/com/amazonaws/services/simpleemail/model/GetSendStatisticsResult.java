@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents a list of <code>SendDataPoint</code> items returned from a successful <code>GetSendStatistics</code> request. This list contains aggregated
- * data from the previous two weeks of sending activity.
+ * Represents a list of <code>SendDataPoint</code> items returned from a
+ * successful <code>GetSendStatistics</code> request. This list contains
+ * aggregated data from the previous two weeks of sending activity.
  * </p>
  */
 public class GetSendStatisticsResult implements Serializable {
@@ -71,7 +72,7 @@ public class GetSendStatisticsResult implements Serializable {
      * @param sendDataPoints A list of data points, each of which represents 15 minutes of
      *         activity.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetSendStatisticsResult withSendDataPoints(SendDataPoint... sendDataPoints) {
@@ -91,7 +92,7 @@ public class GetSendStatisticsResult implements Serializable {
      * @param sendDataPoints A list of data points, each of which represents 15 minutes of
      *         activity.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetSendStatisticsResult withSendDataPoints(java.util.Collection<SendDataPoint> sendDataPoints) {

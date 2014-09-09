@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#deletePreset(DeletePresetRequest) DeletePreset operation}.
  * <p>
- * The DeletePreset operation removes a preset that you've added in an AWS region.
+ * The DeletePreset operation removes a preset that you've added in an
+ * AWS region.
  * </p>
  * <p>
- * <b>NOTE:</b> You can't delete the default presets that are included with Elastic Transcoder.
+ * <b>NOTE:</b> You can't delete the default presets that are included
+ * with Elastic Transcoder.
  * </p>
  *
  * @see com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#deletePreset(DeletePresetRequest)
@@ -80,7 +82,7 @@ public class DeletePresetRequest extends AmazonWebServiceRequest implements Seri
      * @param id The identifier of the preset for which you want to get detailed
      *         information.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeletePresetRequest withId(String id) {

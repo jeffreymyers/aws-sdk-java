@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents sending statistics data. Each <code>SendDataPoint</code> contains statistics for a 15-minute period of sending activity.
+ * Represents sending statistics data. Each <code>SendDataPoint</code>
+ * contains statistics for a 15-minute period of sending activity.
  * </p>
  */
 public class SendDataPoint implements Serializable {
@@ -73,7 +74,7 @@ public class SendDataPoint implements Serializable {
      *
      * @param timestamp Time of the data point.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendDataPoint withTimestamp(java.util.Date timestamp) {
@@ -106,7 +107,7 @@ public class SendDataPoint implements Serializable {
      *
      * @param deliveryAttempts Number of emails that have been enqueued for sending.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendDataPoint withDeliveryAttempts(Long deliveryAttempts) {
@@ -139,7 +140,7 @@ public class SendDataPoint implements Serializable {
      *
      * @param bounces Number of emails that have bounced.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendDataPoint withBounces(Long bounces) {
@@ -172,7 +173,7 @@ public class SendDataPoint implements Serializable {
      *
      * @param complaints Number of unwanted emails that were rejected by recipients.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendDataPoint withComplaints(Long complaints) {
@@ -205,7 +206,7 @@ public class SendDataPoint implements Serializable {
      *
      * @param rejects Number of emails rejected by Amazon SES.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendDataPoint withRejects(Long rejects) {

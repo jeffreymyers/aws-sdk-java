@@ -17,38 +17,43 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Volume Detail
+ * <p>
+ * Describes an Amazon EBS volume.
+ * </p>
  */
 public class VolumeDetail implements Serializable {
 
+    /**
+     * The size of the volume, in GiB.
+     */
     private Long size;
 
     /**
-     * Returns the value of the Size property for this object.
+     * The size of the volume, in GiB.
      *
-     * @return The value of the Size property for this object.
+     * @return The size of the volume, in GiB.
      */
     public Long getSize() {
         return size;
     }
     
     /**
-     * Sets the value of the Size property for this object.
+     * The size of the volume, in GiB.
      *
-     * @param size The new value for the Size property for this object.
+     * @param size The size of the volume, in GiB.
      */
     public void setSize(Long size) {
         this.size = size;
     }
     
     /**
-     * Sets the value of the Size property for this object.
+     * The size of the volume, in GiB.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param size The new value for the Size property for this object.
+     * @param size The size of the volume, in GiB.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VolumeDetail withSize(Long size) {

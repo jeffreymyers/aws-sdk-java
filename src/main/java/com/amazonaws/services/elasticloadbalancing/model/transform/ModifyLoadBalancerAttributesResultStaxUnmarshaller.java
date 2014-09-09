@@ -43,6 +43,14 @@ public class ModifyLoadBalancerAttributesResultStaxUnmarshaller implements Unmar
             if (xmlEvent.isEndDocument()) return modifyLoadBalancerAttributesResult;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+                if (context.testExpression("LoadBalancerName", targetDepth)) {
+                    modifyLoadBalancerAttributesResult.setLoadBalancerName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("LoadBalancerAttributes", targetDepth)) {
+                    modifyLoadBalancerAttributesResult.setLoadBalancerAttributes(LoadBalancerAttributesStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return modifyLoadBalancerAttributesResult;

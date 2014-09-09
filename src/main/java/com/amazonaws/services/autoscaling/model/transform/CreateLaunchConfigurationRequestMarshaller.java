@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.autoscaling.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -130,6 +131,9 @@ public class CreateLaunchConfigurationRequestMarshaller implements Marshaller<Re
         }
         if (createLaunchConfigurationRequest.isAssociatePublicIpAddress() != null) {
             request.addParameter("AssociatePublicIpAddress", StringUtils.fromBoolean(createLaunchConfigurationRequest.isAssociatePublicIpAddress()));
+        }
+        if (createLaunchConfigurationRequest.getPlacementTenancy() != null) {
+            request.addParameter("PlacementTenancy", StringUtils.fromString(createLaunchConfigurationRequest.getPlacementTenancy()));
         }
 
         return request;

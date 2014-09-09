@@ -35,44 +35,87 @@ import com.amazonaws.services.identitymanagement.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * AWS Identity and Access Management <p>
- * AWS Identity and Access Management (IAM) is a web service that you can use to manage users and user permissions under your AWS account. This guide
- * provides descriptions of the IAM API. For general information about IAM, see <a href="http://aws.amazon.com/iam/"> AWS Identity and Access Management
- * (IAM) </a> . For the user guide for IAM, see <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/"> Using IAM </a> .
+ * AWS Identity and Access Management (IAM) is a web service that you can
+ * use to manage users and user permissions under your AWS account. This
+ * guide provides descriptions of the IAM API. For general information
+ * about IAM, see
+ * <a href="http://aws.amazon.com/iam/"> AWS Identity and Access Management (IAM) </a> . For the user guide for IAM, see <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/"> Using IAM </a>
+ * .
  * </p>
  * <p>
- * <b>NOTE:</b> AWS provides SDKs that consist of libraries and sample code for various programming languages and platforms (Java, Ruby, .NET, iOS,
- * Android, etc.). The SDKs provide a convenient way to create programmatic access to IAM and AWS. For example, the SDKs take care of tasks such as
- * cryptographically signing requests (see below), managing errors, and retrying requests automatically. For information about the AWS SDKs, including
- * how to download and install them, see the Tools for Amazon Web Services page.
+ * <b>NOTE:</b>AWS provides SDKs that consist of libraries and sample
+ * code for various programming languages and platforms (Java, Ruby,
+ * .NET, iOS, Android, etc.). The SDKs provide a convenient way to create
+ * programmatic access to IAM and AWS. For example, the SDKs take care of
+ * tasks such as cryptographically signing requests (see below), managing
+ * errors, and retrying requests automatically. For information about the
+ * AWS SDKs, including how to download and install them, see the Tools
+ * for Amazon Web Services page.
  * </p>
  * <p>
- * Using the IAM Query API, you make direct calls to the IAM web service. IAM supports GET and POST requests for all actions. That is, the API does not
- * require you to use GET for some actions and POST for others. However, GET requests are subject to the limitation size of a URL; although this limit is
- * browser dependent, a typical limit is 2048 bytes. Therefore, for operations that require larger sizes, you must use a POST request.
+ * Using the IAM Query API, you make direct calls to the IAM web
+ * service. IAM supports GET and POST requests for all actions. That is,
+ * the API does not require you to use GET for some actions and POST for
+ * others. However, GET requests are subject to the limitation size of a
+ * URL. Therefore, for operations that require larger sizes, use a POST
+ * request.
  * </p>
  * <p>
- * <b>Signing Requests</b> Requests must be signed using an access key ID and a secret access key. We strongly recommend that you do not use your AWS
- * account access key ID and secret access key for everyday work with IAM. You can use the access key ID and secret access key for an IAM user or you can
- * use the AWS Security Token Service to generate temporary security credentials and use those to sign requests.
+ * <b>Signing Requests</b>
  * </p>
  * <p>
- * To sign requests, we recommend that you use <a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 </a>
- * . If you have an existing application that uses Signature Version 2, you do not have to update it to use Signature Version 4. However, some operations
- * now require Signature Version 4. The documentation for operations that require version 4 indicate this requirement.
+ * Requests must be signed using an access key ID and a secret access
+ * key. We strongly recommend that you do not use your AWS account access
+ * key ID and secret access key for everyday work with IAM. You can use
+ * the access key ID and secret access key for an IAM user or you can use
+ * the AWS Security Token Service to generate temporary security
+ * credentials and use those to sign requests.
  * </p>
  * <p>
- * <b>Additional Resources</b> For more information, see the following:
+ * To sign requests, we recommend that you use
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 </a>
+ * . If you have an existing application that uses Signature Version 2,
+ * you do not have to update it to use Signature Version 4. However, some
+ * operations now require Signature Version 4. The documentation for
+ * operations that require version 4 indicate this requirement.
+ * </p>
+ * <p>
+ * <b>Recording API requests</b>
+ * </p>
+ * <p>
+ * IAM supports AWS CloudTrail, which is a service that records AWS
+ * calls for your AWS account and delivers log files to an Amazon S3
+ * bucket. By using information collected by CloudTrail, you can
+ * determine what requests were successfully made to IAM, who made the
+ * request, when it was made, and so on. To learn more about CloudTrail,
+ * including how to turn it on and find your log files, see the
+ * <a href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/whatisawscloudtrail.html"> AWS CloudTrail User Guide </a>
+ * .
+ * </p>
+ * <p>
+ * <b>Additional Resources</b>
+ * </p>
+ * <p>
+ * For more information, see the following:
  * </p>
  * 
  * <ul>
- * <li> <a href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html"> AWS Security Credentials </a> . This topic provides
- * general information about the types of credentials used for accessing AWS.</li>
- * <li> <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html"> IAM Best Practices </a> . This topic presents a list of
- * suggestions for using the IAM service to help secure your AWS resources.</li>
- * <li> <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a> . This guide describes how to create and use
- * temporary security credentials.</li>
- * <li> <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a> . This set of topics walk
- * you through the process of signing a request using an access key ID and secret access key.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html"> AWS Security Credentials </a>
+ * . This topic provides general information about the types of
+ * credentials used for accessing AWS.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html"> IAM Best Practices </a>
+ * . This topic presents a list of suggestions for using the IAM service
+ * to help secure your AWS resources.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a>
+ * . This guide describes how to create and use temporary security
+ * credentials.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a>
+ * . This set of topics walk you through the process of signing a
+ * request using an access key ID and secret access key.</li>
  * 
  * </ul>
  */
@@ -83,6 +126,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -125,13 +170,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonIdentityManagementAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonIdentityManagement using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -143,7 +188,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      *                       when authenticating with AWS services.
      */
     public AmazonIdentityManagementAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -197,7 +242,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonIdentityManagement using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -210,7 +255,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      *            to authenticate requests with AWS services.
      */
     public AmazonIdentityManagementAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -253,7 +298,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      */
     public AmazonIdentityManagementAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -297,7 +342,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -308,10 +354,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     /**
      * <p>
      * Deletes the specified AWS account alias. For information about using
-     * an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param deleteAccountAliasRequest Container for the necessary
@@ -337,17 +382,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteAccountAlias(deleteAccountAliasRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Deletes the specified AWS account alias. For information about using
-     * an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param deleteAccountAliasRequest Container for the necessary
@@ -377,16 +421,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteAccountAlias(deleteAccountAliasRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteAccountAliasRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteAccountAlias(deleteAccountAliasRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteAccountAliasRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -418,8 +462,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListGroupsResult>() {
             public ListGroupsResult call() throws Exception {
                 return listGroups(listGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -456,17 +500,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListGroupsResult>() {
             public ListGroupsResult call() throws Exception {
-                ListGroupsResult result;
+              ListGroupsResult result;
                 try {
-                    result = listGroups(listGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listGroupsRequest, result);
-                   return result;
-            }
-        });
+                result = listGroups(listGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -503,8 +547,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteAccessKey(deleteAccessKeyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -545,16 +589,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteAccessKey(deleteAccessKeyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteAccessKeyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteAccessKey(deleteAccessKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteAccessKeyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -562,8 +606,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Deletes a virtual MFA device.
      * </p>
      * <p>
-     * <b>NOTE:</b>You must deactivate a user's virtual MFA device before you
-     * can delete it. For information about deactivating MFA devices, see
+     * <b>NOTE:</b>You must deactivate a user's virtual MFA device before
+     * you can delete it. For information about deactivating MFA devices, see
      * DeactivateMFADevice.
      * </p>
      *
@@ -590,8 +634,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteVirtualMFADevice(deleteVirtualMFADeviceRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -599,8 +643,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Deletes a virtual MFA device.
      * </p>
      * <p>
-     * <b>NOTE:</b>You must deactivate a user's virtual MFA device before you
-     * can delete it. For information about deactivating MFA devices, see
+     * <b>NOTE:</b>You must deactivate a user's virtual MFA device before
+     * you can delete it. For information about deactivating MFA devices, see
      * DeactivateMFADevice.
      * </p>
      *
@@ -631,16 +675,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteVirtualMFADevice(deleteVirtualMFADeviceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteVirtualMFADeviceRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteVirtualMFADevice(deleteVirtualMFADeviceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVirtualMFADeviceRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -670,8 +714,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteUserPolicy(deleteUserPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -705,40 +749,38 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteUserPolicy(deleteUserPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteUserPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteUserPolicy(deleteUserPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteUserPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * user. For information about policies, refer to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * user. For information about policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of policies you can
-     * associate with a user, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * associate with a user, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutUserPolicy. For information about
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutUserPolicy. For information about
      * setting up signatures and authorization through the API, go to Signing
      * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * about using the Query API with IAM, go to Making Query Requests in the
+     * Using IAM guide.
      * </p>
      *
      * @param putUserPolicyRequest Container for the necessary parameters to
@@ -762,32 +804,30 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 putUserPolicy(putUserPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * user. For information about policies, refer to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * user. For information about policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of policies you can
-     * associate with a user, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * associate with a user, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutUserPolicy. For information about
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutUserPolicy. For information about
      * setting up signatures and authorization through the API, go to Signing
      * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * about using the Query API with IAM, go to Making Query Requests in the
+     * Using IAM guide.
      * </p>
      *
      * @param putUserPolicyRequest Container for the necessary parameters to
@@ -815,16 +855,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    putUserPolicy(putUserPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(putUserPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                putUserPolicy(putUserPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(putUserPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -859,8 +899,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListServerCertificatesResult>() {
             public ListServerCertificatesResult call() throws Exception {
                 return listServerCertificates(listServerCertificatesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -900,17 +940,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListServerCertificatesResult>() {
             public ListServerCertificatesResult call() throws Exception {
-                ListServerCertificatesResult result;
+              ListServerCertificatesResult result;
                 try {
-                    result = listServerCertificates(listServerCertificatesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listServerCertificatesRequest, result);
-                   return result;
-            }
-        });
+                result = listServerCertificates(listServerCertificatesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listServerCertificatesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -943,8 +983,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListSAMLProvidersResult>() {
             public ListSAMLProvidersResult call() throws Exception {
                 return listSAMLProviders(listSAMLProvidersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -982,26 +1022,26 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListSAMLProvidersResult>() {
             public ListSAMLProvidersResult call() throws Exception {
-                ListSAMLProvidersResult result;
+              ListSAMLProvidersResult result;
                 try {
-                    result = listSAMLProviders(listSAMLProvidersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listSAMLProvidersRequest, result);
-                   return result;
-            }
-        });
+                result = listSAMLProviders(listSAMLProvidersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listSAMLProvidersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Retrieves the specified policy document for the specified user. The
      * returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getUserPolicyRequest Container for the necessary parameters to
@@ -1024,17 +1064,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetUserPolicyResult>() {
             public GetUserPolicyResult call() throws Exception {
                 return getUserPolicy(getUserPolicyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Retrieves the specified policy document for the specified user. The
      * returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getUserPolicyRequest Container for the necessary parameters to
@@ -1062,17 +1102,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetUserPolicyResult>() {
             public GetUserPolicyResult call() throws Exception {
-                GetUserPolicyResult result;
+              GetUserPolicyResult result;
                 try {
-                    result = getUserPolicy(getUserPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getUserPolicyRequest, result);
-                   return result;
-            }
-        });
+                result = getUserPolicy(getUserPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getUserPolicyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1080,9 +1120,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the name and/or the path of the specified server certificate.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * server certificate's path or name. For more information, see Managing
-     * Server Certificates in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a server certificate's path or name. For more information, see
+     * Managing Server Certificates in the Using IAM guide.
      * </p>
      * <p>
      * <b>NOTE:</b>To change a server certificate name the requester must
@@ -1116,8 +1156,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateServerCertificate(updateServerCertificateRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1125,9 +1165,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the name and/or the path of the specified server certificate.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * server certificate's path or name. For more information, see Managing
-     * Server Certificates in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a server certificate's path or name. For more information, see
+     * Managing Server Certificates in the Using IAM guide.
      * </p>
      * <p>
      * <b>NOTE:</b>To change a server certificate name the requester must
@@ -1165,16 +1205,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateServerCertificate(updateServerCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateServerCertificateRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateServerCertificate(updateServerCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateServerCertificateRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1182,9 +1222,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the name and/or the path of the specified user.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * user's path or name. For more information, see Renaming Users and
-     * Groups in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a user's path or name. For more information, see Renaming Users and
+     * Groups in the Using IAM guide.
      * </p>
      * <p>
      * <b>NOTE:</b>To change a user name the requester must have appropriate
@@ -1215,8 +1255,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateUser(updateUserRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1224,9 +1264,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the name and/or the path of the specified user.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * user's path or name. For more information, see Renaming Users and
-     * Groups in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a user's path or name. For more information, see Renaming Users and
+     * Groups in the Using IAM guide.
      * </p>
      * <p>
      * <b>NOTE:</b>To change a user name the requester must have appropriate
@@ -1261,40 +1301,38 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateUser(updateUserRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateUserRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateUser(updateUserRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateUserRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * role. For information about policies, go to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * role. For information about policies, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the policies you can associate with a
-     * role, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * role, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutRolePolicy. For information about
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutRolePolicy. For information about
      * setting up signatures and authorization through the API, go to Signing
      * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * about using the Query API with IAM, go to Making Query Requests in the
+     * Using IAM guide.
      * </p>
      *
      * @param putRolePolicyRequest Container for the necessary parameters to
@@ -1318,32 +1356,30 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 putRolePolicy(putRolePolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * role. For information about policies, go to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * role. For information about policies, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the policies you can associate with a
-     * role, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * role, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutRolePolicy. For information about
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutRolePolicy. For information about
      * setting up signatures and authorization through the API, go to Signing
      * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * about using the Query API with IAM, go to Making Query Requests in the
+     * Using IAM guide.
      * </p>
      *
      * @param putRolePolicyRequest Container for the necessary parameters to
@@ -1371,23 +1407,24 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    putRolePolicy(putRolePolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(putRolePolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                putRolePolicy(putRolePolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(putRolePolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Changes the status of the specified signing certificate from active to
-     * disabled, or vice versa. This action can be used to disable a user's
-     * signing certificate as part of a certificate rotation work flow.
+     * Changes the status of the specified signing certificate from active
+     * to disabled, or vice versa. This action can be used to disable a
+     * user's signing certificate as part of a certificate rotation work
+     * flow.
      * </p>
      * <p>
      * If the <code>UserName</code> field is not specified, the UserName is
@@ -1397,10 +1434,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * AWS account has no associated users.
      * </p>
      * <p>
-     * For information about rotating certificates, see <a
-     * .amazon.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in <i>Using AWS Identity and
-     * Access Management</i> .
+     * For information about rotating certificates, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateSigningCertificateRequest Container for the necessary
@@ -1426,15 +1462,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateSigningCertificate(updateSigningCertificateRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Changes the status of the specified signing certificate from active to
-     * disabled, or vice versa. This action can be used to disable a user's
-     * signing certificate as part of a certificate rotation work flow.
+     * Changes the status of the specified signing certificate from active
+     * to disabled, or vice versa. This action can be used to disable a
+     * user's signing certificate as part of a certificate rotation work
+     * flow.
      * </p>
      * <p>
      * If the <code>UserName</code> field is not specified, the UserName is
@@ -1444,10 +1481,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * AWS account has no associated users.
      * </p>
      * <p>
-     * For information about rotating certificates, see <a
-     * .amazon.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in <i>Using AWS Identity and
-     * Access Management</i> .
+     * For information about rotating certificates, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateSigningCertificateRequest Container for the necessary
@@ -1477,16 +1513,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateSigningCertificate(updateSigningCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateSigningCertificateRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateSigningCertificate(updateSigningCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateSigningCertificateRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1518,8 +1554,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteGroupPolicy(deleteGroupPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1555,16 +1591,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteGroupPolicy(deleteGroupPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteGroupPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteGroupPolicy(deleteGroupPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteGroupPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1597,8 +1633,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListUsersResult>() {
             public ListUsersResult call() throws Exception {
                 return listUsers(listUsersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1636,17 +1672,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListUsersResult>() {
             public ListUsersResult call() throws Exception {
-                ListUsersResult result;
+              ListUsersResult result;
                 try {
-                    result = listUsers(listUsersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listUsersRequest, result);
-                   return result;
-            }
-        });
+                result = listUsers(listUsersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listUsersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1654,17 +1690,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the name and/or the path of the specified group.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * group's path or name. For more information, see Renaming Users and
-     * Groups in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a group's path or name. For more information, see Renaming Users and
+     * Groups in the Using IAM guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>To change a group name the requester must have appropriate
-     * permissions on both the source object and the target object. For
-     * example, to change Managers to MGRs, the entity making the request
-     * must have permission on Managers and MGRs, or must have permission on
-     * all (*). For more information about permissions, see Permissions and
-     * Policies.
+     * <b>NOTE:</b>To change a group name the requester must have
+     * appropriate permissions on both the source object and the target
+     * object. For example, to change Managers to MGRs, the entity making the
+     * request must have permission on Managers and MGRs, or must have
+     * permission on all (*). For more information about permissions, see
+     * Permissions and Policies.
      * </p>
      *
      * @param updateGroupRequest Container for the necessary parameters to
@@ -1688,8 +1724,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateGroup(updateGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1697,17 +1733,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the name and/or the path of the specified group.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * group's path or name. For more information, see Renaming Users and
-     * Groups in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a group's path or name. For more information, see Renaming Users and
+     * Groups in the Using IAM guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>To change a group name the requester must have appropriate
-     * permissions on both the source object and the target object. For
-     * example, to change Managers to MGRs, the entity making the request
-     * must have permission on Managers and MGRs, or must have permission on
-     * all (*). For more information about permissions, see Permissions and
-     * Policies.
+     * <b>NOTE:</b>To change a group name the requester must have
+     * appropriate permissions on both the source object and the target
+     * object. For example, to change Managers to MGRs, the entity making the
+     * request must have permission on Managers and MGRs, or must have
+     * permission on all (*). For more information about permissions, see
+     * Permissions and Policies.
      * </p>
      *
      * @param updateGroupRequest Container for the necessary parameters to
@@ -1735,16 +1771,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateGroup(updateGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateGroup(updateGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1753,10 +1789,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * For information about limitations on the number of users you can
-     * create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createUserRequest Container for the necessary parameters to
@@ -1779,8 +1814,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateUserResult>() {
             public CreateUserResult call() throws Exception {
                 return createUser(createUserRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1789,10 +1824,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * For information about limitations on the number of users you can
-     * create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createUserRequest Container for the necessary parameters to
@@ -1820,17 +1854,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateUserResult>() {
             public CreateUserResult call() throws Exception {
-                CreateUserResult result;
+              CreateUserResult result;
                 try {
-                    result = createUser(createUserRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createUserRequest, result);
-                   return result;
-            }
-        });
+                result = createUser(createUserRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createUserRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1870,8 +1904,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteSAMLProvider(deleteSAMLProviderRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1915,16 +1949,98 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
+              try {
+                deleteSAMLProvider(deleteSAMLProviderRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSAMLProviderRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Retrieves a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param getCredentialReportRequest Container for the necessary
+     *           parameters to execute the GetCredentialReport operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetCredentialReport service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetCredentialReportResult> getCredentialReportAsync(final GetCredentialReportRequest getCredentialReportRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetCredentialReportResult>() {
+            public GetCredentialReportResult call() throws Exception {
+                return getCredentialReport(getCredentialReportRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Retrieves a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param getCredentialReportRequest Container for the necessary
+     *           parameters to execute the GetCredentialReport operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetCredentialReport service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetCredentialReportResult> getCredentialReportAsync(
+            final GetCredentialReportRequest getCredentialReportRequest,
+            final AsyncHandler<GetCredentialReportRequest, GetCredentialReportResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetCredentialReportResult>() {
+            public GetCredentialReportResult call() throws Exception {
+              GetCredentialReportResult result;
                 try {
-                    deleteSAMLProvider(deleteSAMLProviderRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteSAMLProviderRequest, null);
-                   return null;
-            }
-        });
+                result = getCredentialReport(getCredentialReportRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getCredentialReportRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1956,8 +2072,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 enableMFADevice(enableMFADeviceRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1993,16 +2109,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    enableMFADevice(enableMFADeviceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(enableMFADeviceRequest, null);
-                   return null;
-            }
-        });
+              try {
+                enableMFADevice(enableMFADeviceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(enableMFADeviceRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2033,8 +2149,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteAccountPasswordPolicy(deleteAccountPasswordPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2069,16 +2185,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteAccountPasswordPolicy(deleteAccountPasswordPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteAccountPasswordPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteAccountPasswordPolicy(deleteAccountPasswordPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteAccountPasswordPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2109,8 +2225,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetLoginProfileResult>() {
             public GetLoginProfileResult call() throws Exception {
                 return getLoginProfile(getLoginProfileRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2146,17 +2262,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetLoginProfileResult>() {
             public GetLoginProfileResult call() throws Exception {
-                GetLoginProfileResult result;
+              GetLoginProfileResult result;
                 try {
-                    result = getLoginProfile(getLoginProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getLoginProfileRequest, result);
-                   return result;
-            }
-        });
+                result = getLoginProfile(getLoginProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getLoginProfileRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2189,8 +2305,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<UpdateSAMLProviderResult>() {
             public UpdateSAMLProviderResult call() throws Exception {
                 return updateSAMLProvider(updateSAMLProviderRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2228,17 +2344,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UpdateSAMLProviderResult>() {
             public UpdateSAMLProviderResult call() throws Exception {
-                UpdateSAMLProviderResult result;
+              UpdateSAMLProviderResult result;
                 try {
-                    result = updateSAMLProvider(updateSAMLProviderRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateSAMLProviderRequest, result);
-                   return result;
-            }
-        });
+                result = updateSAMLProvider(updateSAMLProviderRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateSAMLProviderRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2249,10 +2365,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * For information about the number of server certificates you can
-     * upload, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * upload, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>NOTE:</b>Because the body of the public key certificate, private
@@ -2261,7 +2376,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * about setting up signatures and authorization through the API, go to
      * Signing AWS API Requests in the AWS General Reference. For general
      * information about using the Query API with IAM, go to Making Query
-     * Requests in Using IAM.
+     * Requests in the Using IAM guide.
      * </p>
      *
      * @param uploadServerCertificateRequest Container for the necessary
@@ -2286,8 +2401,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<UploadServerCertificateResult>() {
             public UploadServerCertificateResult call() throws Exception {
                 return uploadServerCertificate(uploadServerCertificateRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2298,10 +2413,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * For information about the number of server certificates you can
-     * upload, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * upload, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>NOTE:</b>Because the body of the public key certificate, private
@@ -2310,7 +2424,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * about setting up signatures and authorization through the API, go to
      * Signing AWS API Requests in the AWS General Reference. For general
      * information about using the Query API with IAM, go to Making Query
-     * Requests in Using IAM.
+     * Requests in the Using IAM guide.
      * </p>
      *
      * @param uploadServerCertificateRequest Container for the necessary
@@ -2340,17 +2454,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UploadServerCertificateResult>() {
             public UploadServerCertificateResult call() throws Exception {
-                UploadServerCertificateResult result;
+              UploadServerCertificateResult result;
                 try {
-                    result = uploadServerCertificate(uploadServerCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(uploadServerCertificateRequest, result);
-                   return result;
-            }
-        });
+                result = uploadServerCertificate(uploadServerCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(uploadServerCertificateRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2358,10 +2472,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Creates a new group.
      * </p>
      * <p>
-     * For information about the number of groups you can create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about the number of groups you can create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createGroupRequest Container for the necessary parameters to
@@ -2384,8 +2497,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateGroupResult>() {
             public CreateGroupResult call() throws Exception {
                 return createGroup(createGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2393,10 +2506,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Creates a new group.
      * </p>
      * <p>
-     * For information about the number of groups you can create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about the number of groups you can create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createGroupRequest Container for the necessary parameters to
@@ -2424,26 +2536,25 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateGroupResult>() {
             public CreateGroupResult call() throws Exception {
-                CreateGroupResult result;
+              CreateGroupResult result;
                 try {
-                    result = createGroup(createGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createGroup(createGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * This action creates an alias for your AWS account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createAccountAliasRequest Container for the necessary
@@ -2469,17 +2580,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 createAccountAlias(createAccountAliasRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * This action creates an alias for your AWS account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createAccountAliasRequest Container for the necessary
@@ -2509,16 +2619,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    createAccountAlias(createAccountAliasRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createAccountAliasRequest, null);
-                   return null;
-            }
-        });
+              try {
+                createAccountAlias(createAccountAliasRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createAccountAliasRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2548,8 +2658,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteUser(deleteUserRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2583,16 +2693,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteUser(deleteUserRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteUserRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteUser(deleteUserRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteUserRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2624,8 +2734,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deactivateMFADevice(deactivateMFADeviceRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2661,16 +2771,98 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
+              try {
+                deactivateMFADevice(deactivateMFADeviceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deactivateMFADeviceRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Generates a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param generateCredentialReportRequest Container for the necessary
+     *           parameters to execute the GenerateCredentialReport operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GenerateCredentialReport service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GenerateCredentialReportResult> generateCredentialReportAsync(final GenerateCredentialReportRequest generateCredentialReportRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GenerateCredentialReportResult>() {
+            public GenerateCredentialReportResult call() throws Exception {
+                return generateCredentialReport(generateCredentialReportRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Generates a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param generateCredentialReportRequest Container for the necessary
+     *           parameters to execute the GenerateCredentialReport operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GenerateCredentialReport service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GenerateCredentialReportResult> generateCredentialReportAsync(
+            final GenerateCredentialReportRequest generateCredentialReportRequest,
+            final AsyncHandler<GenerateCredentialReportRequest, GenerateCredentialReportResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GenerateCredentialReportResult>() {
+            public GenerateCredentialReportResult call() throws Exception {
+              GenerateCredentialReportResult result;
                 try {
-                    deactivateMFADevice(deactivateMFADeviceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deactivateMFADeviceRequest, null);
-                   return null;
-            }
-        });
+                result = generateCredentialReport(generateCredentialReportRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(generateCredentialReportRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2701,8 +2893,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 removeUserFromGroup(removeUserFromGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2737,24 +2929,24 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    removeUserFromGroup(removeUserFromGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(removeUserFromGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                removeUserFromGroup(removeUserFromGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(removeUserFromGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Deletes the specified role. The role must not have any policies
-     * attached. For more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * attached. For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
@@ -2784,16 +2976,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteRole(deleteRoleRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Deletes the specified role. The role must not have any policies
-     * attached. For more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * attached. For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
@@ -2827,16 +3019,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteRole(deleteRoleRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteRoleRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteRole(deleteRoleRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteRoleRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2879,8 +3071,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteServerCertificate(deleteServerCertificateRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2927,16 +3119,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteServerCertificate(deleteServerCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteServerCertificateRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteServerCertificate(deleteServerCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteServerCertificateRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -2953,11 +3145,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * associated users.
      * </p>
      * <p>
-     * For information about limits on the number of keys you can create, see
-     * <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limits on the number of keys you can create,
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>To ensure the security of your AWS account, the
@@ -2988,8 +3179,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateAccessKeyResult>() {
             public CreateAccessKeyResult call() throws Exception {
                 return createAccessKey(createAccessKeyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3006,11 +3197,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * associated users.
      * </p>
      * <p>
-     * For information about limits on the number of keys you can create, see
-     * <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limits on the number of keys you can create,
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>To ensure the security of your AWS account, the
@@ -3046,17 +3236,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateAccessKeyResult>() {
             public CreateAccessKeyResult call() throws Exception {
-                CreateAccessKeyResult result;
+              CreateAccessKeyResult result;
                 try {
-                    result = createAccessKey(createAccessKeyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createAccessKeyRequest, result);
-                   return result;
-            }
-        });
+                result = createAccessKey(createAccessKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createAccessKeyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3089,8 +3279,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetUserResult>() {
             public GetUserResult call() throws Exception {
                 return getUser(getUserRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3128,17 +3318,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetUserResult>() {
             public GetUserResult call() throws Exception {
-                GetUserResult result;
+              GetUserResult result;
                 try {
-                    result = getUser(getUserRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getUserRequest, result);
-                   return result;
-            }
-        });
+                result = getUser(getUserRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getUserRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3168,8 +3358,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 resyncMFADevice(resyncMFADeviceRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3203,16 +3393,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    resyncMFADevice(resyncMFADeviceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resyncMFADeviceRequest, null);
-                   return null;
-            }
-        });
+              try {
+                resyncMFADevice(resyncMFADeviceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resyncMFADeviceRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -3248,8 +3438,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListMFADevicesResult>() {
             public ListMFADevicesResult call() throws Exception {
                 return listMFADevices(listMFADevicesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3290,41 +3480,35 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListMFADevicesResult>() {
             public ListMFADevicesResult call() throws Exception {
-                ListMFADevicesResult result;
+              ListMFADevicesResult result;
                 try {
-                    result = listMFADevices(listMFADevicesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listMFADevicesRequest, result);
-                   return result;
-            }
-        });
+                result = listMFADevices(listMFADevicesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listMFADevicesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Creates a new virtual MFA device for the AWS account. After creating
-     * the virtual MFA, use <a
-     * docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html">
-     * EnableMFADevice </a> to attach the MFA device to an IAM user. For
-     * more information about creating and working with virtual MFA devices,
-     * go to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?Using_VirtualMFA.html">
-     * Using a Virtual MFA Device </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * the virtual MFA, use
+     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html"> EnableMFADevice </a> to attach the MFA device to an IAM user. For more information about creating and working with virtual MFA devices, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of MFA devices you can
-     * create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>The seed information contained in the QR code and the
-     * Base32 string should be treated like any other secret access
+     * <b>IMPORTANT:</b>The seed information contained in the QR code and
+     * the Base32 string should be treated like any other secret access
      * information, such as your AWS access keys or your passwords. After you
      * provision your virtual device, you should ensure that the information
      * is destroyed following secure procedures.
@@ -3352,32 +3536,26 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateVirtualMFADeviceResult>() {
             public CreateVirtualMFADeviceResult call() throws Exception {
                 return createVirtualMFADevice(createVirtualMFADeviceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Creates a new virtual MFA device for the AWS account. After creating
-     * the virtual MFA, use <a
-     * docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html">
-     * EnableMFADevice </a> to attach the MFA device to an IAM user. For
-     * more information about creating and working with virtual MFA devices,
-     * go to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?Using_VirtualMFA.html">
-     * Using a Virtual MFA Device </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * the virtual MFA, use
+     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html"> EnableMFADevice </a> to attach the MFA device to an IAM user. For more information about creating and working with virtual MFA devices, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of MFA devices you can
-     * create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>The seed information contained in the QR code and the
-     * Base32 string should be treated like any other secret access
+     * <b>IMPORTANT:</b>The seed information contained in the QR code and
+     * the Base32 string should be treated like any other secret access
      * information, such as your AWS access keys or your passwords. After you
      * provision your virtual device, you should ensure that the information
      * is destroyed following secure procedures.
@@ -3410,26 +3588,26 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateVirtualMFADeviceResult>() {
             public CreateVirtualMFADeviceResult call() throws Exception {
-                CreateVirtualMFADeviceResult result;
+              CreateVirtualMFADeviceResult result;
                 try {
-                    result = createVirtualMFADevice(createVirtualMFADeviceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createVirtualMFADeviceRequest, result);
-                   return result;
-            }
-        });
+                result = createVirtualMFADevice(createVirtualMFADeviceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createVirtualMFADeviceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Lists the instance profiles that have the specified path prefix. If
      * there are none, the action returns an empty list. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3458,17 +3636,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListInstanceProfilesResult>() {
             public ListInstanceProfilesResult call() throws Exception {
                 return listInstanceProfiles(listInstanceProfilesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Lists the instance profiles that have the specified path prefix. If
      * there are none, the action returns an empty list. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3502,17 +3680,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListInstanceProfilesResult>() {
             public ListInstanceProfilesResult call() throws Exception {
-                ListInstanceProfilesResult result;
+              ListInstanceProfilesResult result;
                 try {
-                    result = listInstanceProfiles(listInstanceProfilesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listInstanceProfilesRequest, result);
-                   return result;
-            }
-        });
+                result = listInstanceProfiles(listInstanceProfilesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listInstanceProfilesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3529,10 +3707,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * AWS account has no associated users.
      * </p>
      * <p>
-     * For information about rotating keys, see <a
-     * .amazon.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in <i>Using AWS Identity and
-     * Access Management</i> .
+     * For information about rotating keys, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
+     * in the <i>Using IAM </i> guide.
      * </p>
      *
      * @param updateAccessKeyRequest Container for the necessary parameters
@@ -3557,8 +3734,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateAccessKey(updateAccessKeyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3575,10 +3752,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * AWS account has no associated users.
      * </p>
      * <p>
-     * For information about rotating keys, see <a
-     * .amazon.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in <i>Using AWS Identity and
-     * Access Management</i> .
+     * For information about rotating keys, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
+     * in the <i>Using IAM </i> guide.
      * </p>
      *
      * @param updateAccessKeyRequest Container for the necessary parameters
@@ -3607,16 +3783,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateAccessKey(updateAccessKeyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateAccessKeyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateAccessKey(updateAccessKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateAccessKeyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -3646,8 +3822,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 addUserToGroup(addUserToGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3681,16 +3857,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    addUserToGroup(addUserToGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(addUserToGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                addUserToGroup(addUserToGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(addUserToGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -3720,8 +3896,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetGroupResult>() {
             public GetGroupResult call() throws Exception {
                 return getGroup(getGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3756,26 +3932,25 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetGroupResult>() {
             public GetGroupResult call() throws Exception {
-                GetGroupResult result;
+              GetGroupResult result;
                 try {
-                    result = getGroup(getGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getGroupRequest, result);
-                   return result;
-            }
-        });
+                result = getGroup(getGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Lists the account aliases associated with the account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * Lists the account aliases associated with the account. For
+     * information about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3804,17 +3979,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListAccountAliasesResult>() {
             public ListAccountAliasesResult call() throws Exception {
                 return listAccountAliases(listAccountAliasesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Lists the account aliases associated with the account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * Lists the account aliases associated with the account. For
+     * information about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3848,17 +4022,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListAccountAliasesResult>() {
             public ListAccountAliasesResult call() throws Exception {
-                ListAccountAliasesResult result;
+              ListAccountAliasesResult result;
                 try {
-                    result = listAccountAliases(listAccountAliasesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listAccountAliasesRequest, result);
-                   return result;
-            }
-        });
+                result = listAccountAliases(listAccountAliasesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listAccountAliasesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -3888,8 +4062,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteGroup(deleteGroupRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -3923,32 +4097,31 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteGroup(deleteGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteGroupRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteGroup(deleteGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteGroupRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Retrieves information about the specified role, including the role's
-     * path, GUID, ARN, and the policy granting permission to EC2 to assume
-     * the role. For more information about ARNs, go to ARNs. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * path, GUID, ARN, and the policy granting permission to assume the
+     * role. For more information about ARNs, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a> . For more information about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getRoleRequest Container for the necessary parameters to
@@ -3971,24 +4144,23 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetRoleResult>() {
             public GetRoleResult call() throws Exception {
                 return getRole(getRoleRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Retrieves information about the specified role, including the role's
-     * path, GUID, ARN, and the policy granting permission to EC2 to assume
-     * the role. For more information about ARNs, go to ARNs. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * path, GUID, ARN, and the policy granting permission to assume the
+     * role. For more information about ARNs, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a> . For more information about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getRoleRequest Container for the necessary parameters to
@@ -4016,23 +4188,23 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetRoleResult>() {
             public GetRoleResult call() throws Exception {
-                GetRoleResult result;
+              GetRoleResult result;
                 try {
-                    result = getRole(getRoleRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getRoleRequest, result);
-                   return result;
-            }
-        });
+                result = getRole(getRoleRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getRoleRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Lists the names of the policies associated with the specified role. If
-     * there are none, the action returns an empty list.
+     * Lists the names of the policies associated with the specified role.
+     * If there are none, the action returns an empty list.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -4060,14 +4232,14 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListRolePoliciesResult>() {
             public ListRolePoliciesResult call() throws Exception {
                 return listRolePolicies(listRolePoliciesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Lists the names of the policies associated with the specified role. If
-     * there are none, the action returns an empty list.
+     * Lists the names of the policies associated with the specified role.
+     * If there are none, the action returns an empty list.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -4100,23 +4272,24 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListRolePoliciesResult>() {
             public ListRolePoliciesResult call() throws Exception {
-                ListRolePoliciesResult result;
+              ListRolePoliciesResult result;
                 try {
-                    result = listRolePolicies(listRolePoliciesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listRolePoliciesRequest, result);
-                   return result;
-            }
-        });
+                result = listRolePolicies(listRolePoliciesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listRolePoliciesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Returns information about the signing certificates associated with the
-     * specified user. If there are none, the action returns an empty list.
+     * Returns information about the signing certificates associated with
+     * the specified user. If there are none, the action returns an empty
+     * list.
      * </p>
      * <p>
      * Although each user is limited to a small number of signing
@@ -4153,14 +4326,15 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListSigningCertificatesResult>() {
             public ListSigningCertificatesResult call() throws Exception {
                 return listSigningCertificates(listSigningCertificatesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Returns information about the signing certificates associated with the
-     * specified user. If there are none, the action returns an empty list.
+     * Returns information about the signing certificates associated with
+     * the specified user. If there are none, the action returns an empty
+     * list.
      * </p>
      * <p>
      * Although each user is limited to a small number of signing
@@ -4202,17 +4376,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListSigningCertificatesResult>() {
             public ListSigningCertificatesResult call() throws Exception {
-                ListSigningCertificatesResult result;
+              ListSigningCertificatesResult result;
                 try {
-                    result = listSigningCertificates(listSigningCertificatesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listSigningCertificatesRequest, result);
-                   return result;
-            }
-        });
+                result = listSigningCertificates(listSigningCertificatesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listSigningCertificatesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4236,7 +4410,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about setting up signatures and authorization through
      * the API, go to Signing AWS API Requests in the AWS General Reference.
      * For general information about using the Query API with IAM, go to
-     * Making Query Requests in Using IAM.
+     * Making Query Requests in the Using IAMguide.
      * </p>
      *
      * @param uploadSigningCertificateRequest Container for the necessary
@@ -4261,8 +4435,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<UploadSigningCertificateResult>() {
             public UploadSigningCertificateResult call() throws Exception {
                 return uploadSigningCertificate(uploadSigningCertificateRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4286,7 +4460,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about setting up signatures and authorization through
      * the API, go to Signing AWS API Requests in the AWS General Reference.
      * For general information about using the Query API with IAM, go to
-     * Making Query Requests in Using IAM.
+     * Making Query Requests in the Using IAMguide.
      * </p>
      *
      * @param uploadSigningCertificateRequest Container for the necessary
@@ -4316,17 +4490,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UploadSigningCertificateResult>() {
             public UploadSigningCertificateResult call() throws Exception {
-                UploadSigningCertificateResult result;
+              UploadSigningCertificateResult result;
                 try {
-                    result = uploadSigningCertificate(uploadSigningCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(uploadSigningCertificateRequest, result);
-                   return result;
-            }
-        });
+                result = uploadSigningCertificate(uploadSigningCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(uploadSigningCertificateRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4341,9 +4515,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * will break any applications running on the instance.
      * </p>
      * <p>
-     * For more information about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * For more information about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param deleteInstanceProfileRequest Container for the necessary
@@ -4369,8 +4543,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteInstanceProfile(deleteInstanceProfileRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4385,9 +4559,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * will break any applications running on the instance.
      * </p>
      * <p>
-     * For more information about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * For more information about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param deleteInstanceProfileRequest Container for the necessary
@@ -4417,16 +4591,108 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
+              try {
+                deleteInstanceProfile(deleteInstanceProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteInstanceProfileRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Creates a new role for your AWS account. For more information about
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     * <p>
+     * The example policy grants permission to an EC2 instance to assume the
+     * role. The policy is URL-encoded according to RFC 3986. For more
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
+     * </p>
+     *
+     * @param createRoleRequest Container for the necessary parameters to
+     *           execute the CreateRole operation on AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateRole service method, as returned by AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateRoleResult> createRoleAsync(final CreateRoleRequest createRoleRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateRoleResult>() {
+            public CreateRoleResult call() throws Exception {
+                return createRole(createRoleRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Creates a new role for your AWS account. For more information about
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     * <p>
+     * The example policy grants permission to an EC2 instance to assume the
+     * role. The policy is URL-encoded according to RFC 3986. For more
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
+     * </p>
+     *
+     * @param createRoleRequest Container for the necessary parameters to
+     *           execute the CreateRole operation on AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateRole service method, as returned by AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateRoleResult> createRoleAsync(
+            final CreateRoleRequest createRoleRequest,
+            final AsyncHandler<CreateRoleRequest, CreateRoleResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateRoleResult>() {
+            public CreateRoleResult call() throws Exception {
+              CreateRoleResult result;
                 try {
-                    deleteInstanceProfile(deleteInstanceProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteInstanceProfileRequest, null);
-                   return null;
-            }
-        });
+                result = createRole(createRoleRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createRoleRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4459,8 +4725,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetSAMLProviderResult>() {
             public GetSAMLProviderResult call() throws Exception {
                 return getSAMLProvider(getSAMLProviderRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4498,117 +4764,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetSAMLProviderResult>() {
             public GetSAMLProviderResult call() throws Exception {
-                GetSAMLProviderResult result;
+              GetSAMLProviderResult result;
                 try {
-                    result = getSAMLProvider(getSAMLProviderRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getSAMLProviderRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * Creates a new role for your AWS account. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For information about limitations on role
-     * names and the number of roles you can create, go to <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
-     * </p>
-     * <p>
-     * The policy grants permission to an EC2 instance to assume the role.
-     * The policy is URL-encoded according to RFC 3986. For more information
-     * about RFC 3986, go to <a href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> . Currently, only EC2
-     * instances can assume roles.
-     * </p>
-     *
-     * @param createRoleRequest Container for the necessary parameters to
-     *           execute the CreateRole operation on AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateRole service method, as returned by AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateRoleResult> createRoleAsync(final CreateRoleRequest createRoleRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateRoleResult>() {
-            public CreateRoleResult call() throws Exception {
-                return createRole(createRoleRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * Creates a new role for your AWS account. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For information about limitations on role
-     * names and the number of roles you can create, go to <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
-     * </p>
-     * <p>
-     * The policy grants permission to an EC2 instance to assume the role.
-     * The policy is URL-encoded according to RFC 3986. For more information
-     * about RFC 3986, go to <a href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> . Currently, only EC2
-     * instances can assume roles.
-     * </p>
-     *
-     * @param createRoleRequest Container for the necessary parameters to
-     *           execute the CreateRole operation on AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateRole service method, as returned by AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateRoleResult> createRoleAsync(
-            final CreateRoleRequest createRoleRequest,
-            final AsyncHandler<CreateRoleRequest, CreateRoleResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateRoleResult>() {
-            public CreateRoleResult call() throws Exception {
-                CreateRoleResult result;
-                try {
-                    result = createRole(createRoleRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createRoleRequest, result);
-                   return result;
-            }
-        });
+                result = getSAMLProvider(getSAMLProviderRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getSAMLProviderRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -4639,8 +4805,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateLoginProfile(updateLoginProfileRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4675,16 +4841,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateLoginProfile(updateLoginProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateLoginProfileRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateLoginProfile(updateLoginProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateLoginProfileRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -4724,8 +4890,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteLoginProfile(deleteLoginProfileRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4769,16 +4935,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteLoginProfile(deleteLoginProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteLoginProfileRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteLoginProfile(deleteLoginProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteLoginProfileRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -4786,9 +4952,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Changes the password of the IAM user calling
      * <code>ChangePassword</code> . The root account password is not
      * affected by this action. For information about modifying passwords,
-     * see <a
-     * //docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html">
-     * Managing Passwords </a> .
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param changePasswordRequest Container for the necessary parameters to
@@ -4813,8 +4979,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 changePassword(changePasswordRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4822,9 +4988,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Changes the password of the IAM user calling
      * <code>ChangePassword</code> . The root account password is not
      * affected by this action. For information about modifying passwords,
-     * see <a
-     * //docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html">
-     * Managing Passwords </a> .
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param changePasswordRequest Container for the necessary parameters to
@@ -4853,16 +5019,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    changePassword(changePasswordRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(changePasswordRequest, null);
-                   return null;
-            }
-        });
+              try {
+                changePassword(changePasswordRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(changePasswordRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -4892,8 +5058,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetServerCertificateResult>() {
             public GetServerCertificateResult call() throws Exception {
                 return getServerCertificate(getServerCertificateRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -4928,41 +5094,39 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetServerCertificateResult>() {
             public GetServerCertificateResult call() throws Exception {
-                GetServerCertificateResult result;
+              GetServerCertificateResult result;
                 try {
-                    result = getServerCertificate(getServerCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getServerCertificateRequest, result);
-                   return result;
-            }
-        });
+                result = getServerCertificate(getServerCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getServerCertificateRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * group. For information about policies, refer to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * group. For information about policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of policies you can
-     * associate with a group, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * associate with a group, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutGroupPolicy. For information about
-     * setting up signatures and authorization through the API, go to Signing
-     * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutGroupPolicy. For information
+     * about setting up signatures and authorization through the API, go to
+     * Signing AWS API Requests in the AWS General Reference. For general
+     * information about using the Query API with IAM, go to Making Query
+     * Requests in the Using IAM guide.
      * </p>
      *
      * @param putGroupPolicyRequest Container for the necessary parameters to
@@ -4987,32 +5151,30 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 putGroupPolicy(putGroupPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * group. For information about policies, refer to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * group. For information about policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of policies you can
-     * associate with a group, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * associate with a group, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutGroupPolicy. For information about
-     * setting up signatures and authorization through the API, go to Signing
-     * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutGroupPolicy. For information
+     * about setting up signatures and authorization through the API, go to
+     * Signing AWS API Requests in the AWS General Reference. For general
+     * information about using the Query API with IAM, go to Making Query
+     * Requests in the Using IAM guide.
      * </p>
      *
      * @param putGroupPolicyRequest Container for the necessary parameters to
@@ -5041,16 +5203,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    putGroupPolicy(putGroupPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(putGroupPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                putGroupPolicy(putGroupPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(putGroupPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -5089,8 +5251,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteSigningCertificate(deleteSigningCertificateRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -5133,22 +5295,22 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteSigningCertificate(deleteSigningCertificateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteSigningCertificateRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteSigningCertificate(deleteSigningCertificateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSigningCertificateRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Lists the names of the policies associated with the specified user. If
-     * there are none, the action returns an empty list.
+     * Lists the names of the policies associated with the specified user.
+     * If there are none, the action returns an empty list.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -5176,14 +5338,14 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListUserPoliciesResult>() {
             public ListUserPoliciesResult call() throws Exception {
                 return listUserPolicies(listUserPoliciesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Lists the names of the policies associated with the specified user. If
-     * there are none, the action returns an empty list.
+     * Lists the names of the policies associated with the specified user.
+     * If there are none, the action returns an empty list.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -5216,17 +5378,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListUserPoliciesResult>() {
             public ListUserPoliciesResult call() throws Exception {
-                ListUserPoliciesResult result;
+              ListUserPoliciesResult result;
                 try {
-                    result = listUserPolicies(listUserPoliciesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listUserPoliciesRequest, result);
-                   return result;
-            }
-        });
+                result = listUserPolicies(listUserPoliciesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listUserPoliciesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -5235,8 +5397,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * specified user. If there are none, the action returns an empty list.
      * </p>
      * <p>
-     * Although each user is limited to a small number of keys, you can still
-     * paginate the results using the <code>MaxItems</code> and
+     * Although each user is limited to a small number of keys, you can
+     * still paginate the results using the <code>MaxItems</code> and
      * <code>Marker</code> parameters.
      * </p>
      * <p>
@@ -5272,8 +5434,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListAccessKeysResult>() {
             public ListAccessKeysResult call() throws Exception {
                 return listAccessKeys(listAccessKeysRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -5282,8 +5444,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * specified user. If there are none, the action returns an empty list.
      * </p>
      * <p>
-     * Although each user is limited to a small number of keys, you can still
-     * paginate the results using the <code>MaxItems</code> and
+     * Although each user is limited to a small number of keys, you can
+     * still paginate the results using the <code>MaxItems</code> and
      * <code>Marker</code> parameters.
      * </p>
      * <p>
@@ -5324,17 +5486,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListAccessKeysResult>() {
             public ListAccessKeysResult call() throws Exception {
-                ListAccessKeysResult result;
+              ListAccessKeysResult result;
                 try {
-                    result = listAccessKeys(listAccessKeysRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listAccessKeysRequest, result);
-                   return result;
-            }
-        });
+                result = listAccessKeys(listAccessKeysRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listAccessKeysRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -5368,8 +5530,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListGroupsForUserResult>() {
             public ListGroupsForUserResult call() throws Exception {
                 return listGroupsForUser(listGroupsForUserRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -5408,28 +5570,25 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListGroupsForUserResult>() {
             public ListGroupsForUserResult call() throws Exception {
-                ListGroupsForUserResult result;
+              ListGroupsForUserResult result;
                 try {
-                    result = listGroupsForUser(listGroupsForUserRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listGroupsForUserRequest, result);
-                   return result;
-            }
-        });
+                result = listGroupsForUser(listGroupsForUserRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listGroupsForUserRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Adds the specified role to the specified instance profile. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For more information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param addRoleToInstanceProfileRequest Container for the necessary
@@ -5455,19 +5614,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 addRoleToInstanceProfile(addRoleToInstanceProfileRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Adds the specified role to the specified instance profile. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For more information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param addRoleToInstanceProfileRequest Container for the necessary
@@ -5497,25 +5653,25 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    addRoleToInstanceProfile(addRoleToInstanceProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(addRoleToInstanceProfileRequest, null);
-                   return null;
-            }
-        });
+              try {
+                addRoleToInstanceProfile(addRoleToInstanceProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(addRoleToInstanceProfileRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Retrieves the specified policy document for the specified group. The
      * returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getGroupPolicyRequest Container for the necessary parameters to
@@ -5539,17 +5695,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetGroupPolicyResult>() {
             public GetGroupPolicyResult call() throws Exception {
                 return getGroupPolicy(getGroupPolicyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Retrieves the specified policy document for the specified group. The
      * returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getGroupPolicyRequest Container for the necessary parameters to
@@ -5578,31 +5734,31 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetGroupPolicyResult>() {
             public GetGroupPolicyResult call() throws Exception {
-                GetGroupPolicyResult result;
+              GetGroupPolicyResult result;
                 try {
-                    result = getGroupPolicy(getGroupPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getGroupPolicyRequest, result);
-                   return result;
-            }
-        });
+                result = getGroupPolicy(getGroupPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getGroupPolicyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Retrieves the specified policy document for the specified role. For
-     * more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getRolePolicyRequest Container for the necessary parameters to
@@ -5625,22 +5781,22 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetRolePolicyResult>() {
             public GetRolePolicyResult call() throws Exception {
                 return getRolePolicy(getRolePolicyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Retrieves the specified policy document for the specified role. For
-     * more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getRolePolicyRequest Container for the necessary parameters to
@@ -5668,26 +5824,26 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetRolePolicyResult>() {
             public GetRolePolicyResult call() throws Exception {
-                GetRolePolicyResult result;
+              GetRolePolicyResult result;
                 try {
-                    result = getRolePolicy(getRolePolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getRolePolicyRequest, result);
-                   return result;
-            }
-        });
+                result = getRolePolicy(getRolePolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getRolePolicyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Lists the instance profiles that have the specified associated role.
      * If there are none, the action returns an empty list. For more
-     * information about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * information about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -5716,17 +5872,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListInstanceProfilesForRoleResult>() {
             public ListInstanceProfilesForRoleResult call() throws Exception {
                 return listInstanceProfilesForRole(listInstanceProfilesForRoleRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Lists the instance profiles that have the specified associated role.
      * If there are none, the action returns an empty list. For more
-     * information about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * information about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -5760,17 +5916,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListInstanceProfilesForRoleResult>() {
             public ListInstanceProfilesForRoleResult call() throws Exception {
-                ListInstanceProfilesForRoleResult result;
+              ListInstanceProfilesForRoleResult result;
                 try {
-                    result = listInstanceProfilesForRole(listInstanceProfilesForRoleRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listInstanceProfilesForRoleRequest, result);
-                   return result;
-            }
-        });
+                result = listInstanceProfilesForRole(listInstanceProfilesForRoleRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listInstanceProfilesForRoleRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -5778,8 +5934,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Lists the virtual MFA devices under the AWS account by assignment
      * status. If you do not specify an assignment status, the action returns
      * a list of all virtual MFA devices. Assignment status can be
-     * <code>Assigned</code> ,
-     * <code>Unassigned</code> , or <code>Any</code> .
+     * <code>Assigned</code> , <code>Unassigned</code> , or <code>Any</code>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -5808,8 +5964,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListVirtualMFADevicesResult>() {
             public ListVirtualMFADevicesResult call() throws Exception {
                 return listVirtualMFADevices(listVirtualMFADevicesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -5817,8 +5973,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Lists the virtual MFA devices under the AWS account by assignment
      * status. If you do not specify an assignment status, the action returns
      * a list of all virtual MFA devices. Assignment status can be
-     * <code>Assigned</code> ,
-     * <code>Unassigned</code> , or <code>Any</code> .
+     * <code>Assigned</code> , <code>Unassigned</code> , or <code>Any</code>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -5852,17 +6008,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListVirtualMFADevicesResult>() {
             public ListVirtualMFADevicesResult call() throws Exception {
-                ListVirtualMFADevicesResult result;
+              ListVirtualMFADevicesResult result;
                 try {
-                    result = listVirtualMFADevices(listVirtualMFADevicesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listVirtualMFADevicesRequest, result);
-                   return result;
-            }
-        });
+                result = listVirtualMFADevices(listVirtualMFADevicesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listVirtualMFADevicesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -5892,8 +6048,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 deleteRolePolicy(deleteRolePolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -5927,31 +6083,30 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteRolePolicy(deleteRolePolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteRolePolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteRolePolicy(deleteRolePolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteRolePolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Creates a new instance profile. For information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * For information about the number of instance profiles you can create,
-     * see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createInstanceProfileRequest Container for the necessary
@@ -5976,23 +6131,22 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateInstanceProfileResult>() {
             public CreateInstanceProfileResult call() throws Exception {
                 return createInstanceProfile(createInstanceProfileRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Creates a new instance profile. For information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * For information about the number of instance profiles you can create,
-     * see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createInstanceProfileRequest Container for the necessary
@@ -6022,17 +6176,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateInstanceProfileResult>() {
             public CreateInstanceProfileResult call() throws Exception {
-                CreateInstanceProfileResult result;
+              CreateInstanceProfileResult result;
                 try {
-                    result = createInstanceProfile(createInstanceProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createInstanceProfileRequest, result);
-                   return result;
-            }
-        });
+                result = createInstanceProfile(createInstanceProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createInstanceProfileRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -6067,8 +6221,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListGroupPoliciesResult>() {
             public ListGroupPoliciesResult call() throws Exception {
                 return listGroupPolicies(listGroupPoliciesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -6108,26 +6262,26 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListGroupPoliciesResult>() {
             public ListGroupPoliciesResult call() throws Exception {
-                ListGroupPoliciesResult result;
+              ListGroupPoliciesResult result;
                 try {
-                    result = listGroupPolicies(listGroupPoliciesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listGroupPoliciesRequest, result);
-                   return result;
-            }
-        });
+                result = listGroupPolicies(listGroupPoliciesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listGroupPoliciesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a password for the specified user, giving the user the ability
-     * to access AWS services through the AWS Management Console. For more
-     * information about managing passwords, see <a
-     * amazon.com/IAM/latest/UserGuide/index.html?Using_ManagingLogins.html">
-     * Managing Passwords </a> in <i>Using IAM</i> .
+     * Creates a password for the specified user, giving the user the
+     * ability to access AWS services through the AWS Management Console. For
+     * more information about managing passwords, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createLoginProfileRequest Container for the necessary
@@ -6152,17 +6306,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateLoginProfileResult>() {
             public CreateLoginProfileResult call() throws Exception {
                 return createLoginProfile(createLoginProfileRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a password for the specified user, giving the user the ability
-     * to access AWS services through the AWS Management Console. For more
-     * information about managing passwords, see <a
-     * amazon.com/IAM/latest/UserGuide/index.html?Using_ManagingLogins.html">
-     * Managing Passwords </a> in <i>Using IAM</i> .
+     * Creates a password for the specified user, giving the user the
+     * ability to access AWS services through the AWS Management Console. For
+     * more information about managing passwords, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createLoginProfileRequest Container for the necessary
@@ -6192,17 +6346,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateLoginProfileResult>() {
             public CreateLoginProfileResult call() throws Exception {
-                CreateLoginProfileResult result;
+              CreateLoginProfileResult result;
                 try {
-                    result = createLoginProfile(createLoginProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createLoginProfileRequest, result);
-                   return result;
-            }
-        });
+                result = createLoginProfile(createLoginProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createLoginProfileRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -6217,12 +6371,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * instance.
      * </p>
      * <p>
-     * For more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For more information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param removeRoleFromInstanceProfileRequest Container for the
@@ -6248,8 +6399,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 removeRoleFromInstanceProfile(removeRoleFromInstanceProfileRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -6264,12 +6415,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * instance.
      * </p>
      * <p>
-     * For more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For more information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param removeRoleFromInstanceProfileRequest Container for the
@@ -6299,24 +6447,24 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    removeRoleFromInstanceProfile(removeRoleFromInstanceProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(removeRoleFromInstanceProfileRequest, null);
-                   return null;
-            }
-        });
+              try {
+                removeRoleFromInstanceProfile(removeRoleFromInstanceProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(removeRoleFromInstanceProfileRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Updates the password policy settings for the account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateAccountPasswordPolicyRequest Container for the necessary
@@ -6342,16 +6490,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateAccountPasswordPolicy(updateAccountPasswordPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Updates the password policy settings for the account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateAccountPasswordPolicyRequest Container for the necessary
@@ -6381,25 +6529,24 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateAccountPasswordPolicy(updateAccountPasswordPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateAccountPasswordPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateAccountPasswordPolicy(updateAccountPasswordPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateAccountPasswordPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Updates the policy that grants an entity permission to assume a role.
-     * Currently, only an Amazon EC2 instance can assume a role. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      *
      * @param updateAssumeRolePolicyRequest Container for the necessary
@@ -6425,17 +6572,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             public Void call() throws Exception {
                 updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Updates the policy that grants an entity permission to assume a role.
-     * Currently, only an Amazon EC2 instance can assume a role. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      *
      * @param updateAssumeRolePolicyRequest Container for the necessary
@@ -6465,28 +6611,25 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateAssumeRolePolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateAssumeRolePolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
      * Retrieves information about the specified instance profile, including
      * the instance profile's path, GUID, ARN, and role. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> . For more information about ARNs, go to
-     * <a
-     * zon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs">
-     * ARNs </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a> . For more information about ARNs, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a>
+     * .
      * </p>
      *
      * @param getInstanceProfileRequest Container for the necessary
@@ -6511,20 +6654,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetInstanceProfileResult>() {
             public GetInstanceProfileResult call() throws Exception {
                 return getInstanceProfile(getInstanceProfileRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Retrieves information about the specified instance profile, including
      * the instance profile's path, GUID, ARN, and role. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> . For more information about ARNs, go to
-     * <a
-     * zon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs">
-     * ARNs </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a> . For more information about ARNs, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a>
+     * .
      * </p>
      *
      * @param getInstanceProfileRequest Container for the necessary
@@ -6554,26 +6694,26 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetInstanceProfileResult>() {
             public GetInstanceProfileResult call() throws Exception {
-                GetInstanceProfileResult result;
+              GetInstanceProfileResult result;
                 try {
-                    result = getInstanceProfile(getInstanceProfileRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getInstanceProfileRequest, result);
-                   return result;
-            }
-        });
+                result = getInstanceProfile(getInstanceProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getInstanceProfileRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Lists the roles that have the specified path prefix. If there are
      * none, the action returns an empty list. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -6581,9 +6721,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param listRolesRequest Container for the necessary parameters to
@@ -6606,17 +6746,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<ListRolesResult>() {
             public ListRolesResult call() throws Exception {
                 return listRoles(listRolesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Lists the roles that have the specified path prefix. If there are
      * none, the action returns an empty list. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -6624,9 +6764,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param listRolesRequest Container for the necessary parameters to
@@ -6654,29 +6794,28 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListRolesResult>() {
             public ListRolesResult call() throws Exception {
-                ListRolesResult result;
+              ListRolesResult result;
                 try {
-                    result = listRoles(listRolesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listRolesRequest, result);
-                   return result;
-            }
-        });
+                result = listRoles(listRolesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listRolesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Retrieves account level information about account entity usage and IAM
-     * quotas.
+     * Retrieves account level information about account entity usage and
+     * IAM quotas.
      * </p>
      * <p>
-     * For information about limitations on IAM entities, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limitations on IAM entities, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param getAccountSummaryRequest Container for the necessary parameters
@@ -6701,20 +6840,19 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetAccountSummaryResult>() {
             public GetAccountSummaryResult call() throws Exception {
                 return getAccountSummary(getAccountSummaryRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Retrieves account level information about account entity usage and IAM
-     * quotas.
+     * Retrieves account level information about account entity usage and
+     * IAM quotas.
      * </p>
      * <p>
-     * For information about limitations on IAM entities, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limitations on IAM entities, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param getAccountSummaryRequest Container for the necessary parameters
@@ -6744,17 +6882,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetAccountSummaryResult>() {
             public GetAccountSummaryResult call() throws Exception {
-                GetAccountSummaryResult result;
+              GetAccountSummaryResult result;
                 try {
-                    result = getAccountSummary(getAccountSummaryRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getAccountSummaryRequest, result);
-                   return result;
-            }
-        });
+                result = getAccountSummary(getAccountSummaryRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getAccountSummaryRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -6763,8 +6901,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * supports SAML 2.0.
      * </p>
      * <p>
-     * The SAML provider that you create with this operation can be used as a
-     * principal in a role's trust policy to establish a trust relationship
+     * The SAML provider that you create with this operation can be used as
+     * a principal in a role's trust policy to establish a trust relationship
      * between AWS and a SAML identity provider. You can create an IAM role
      * that supports Web-based single sign-on (SSO) to the AWS Management
      * Console or one that supports API access to AWS.
@@ -6781,12 +6919,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      * <p>
-     * For more information, see <a
-     * -alpha.integ.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html">
-     * Giving Console Access Using SAML </a> and <a
-     * ws-docs-alpha.integ.amazon.com/STS/latest/UsingSTS/CreatingSAML.html">
-     * Creating Temporary Security Credentials for SAML Federation </a> in
-     * the <i>Using Temporary Credentials</i> guide.
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html"> Giving Console Access Using SAML </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html"> Creating Temporary Security Credentials for SAML Federation </a>
+     * in the <i>Using Temporary Credentials</i> guide.
      * </p>
      *
      * @param createSAMLProviderRequest Container for the necessary
@@ -6811,8 +6946,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<CreateSAMLProviderResult>() {
             public CreateSAMLProviderResult call() throws Exception {
                 return createSAMLProvider(createSAMLProviderRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -6821,8 +6956,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * supports SAML 2.0.
      * </p>
      * <p>
-     * The SAML provider that you create with this operation can be used as a
-     * principal in a role's trust policy to establish a trust relationship
+     * The SAML provider that you create with this operation can be used as
+     * a principal in a role's trust policy to establish a trust relationship
      * between AWS and a SAML identity provider. You can create an IAM role
      * that supports Web-based single sign-on (SSO) to the AWS Management
      * Console or one that supports API access to AWS.
@@ -6839,12 +6974,9 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      * <p>
-     * For more information, see <a
-     * -alpha.integ.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html">
-     * Giving Console Access Using SAML </a> and <a
-     * ws-docs-alpha.integ.amazon.com/STS/latest/UsingSTS/CreatingSAML.html">
-     * Creating Temporary Security Credentials for SAML Federation </a> in
-     * the <i>Using Temporary Credentials</i> guide.
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html"> Giving Console Access Using SAML </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html"> Creating Temporary Security Credentials for SAML Federation </a>
+     * in the <i>Using Temporary Credentials</i> guide.
      * </p>
      *
      * @param createSAMLProviderRequest Container for the necessary
@@ -6874,25 +7006,25 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateSAMLProviderResult>() {
             public CreateSAMLProviderResult call() throws Exception {
-                CreateSAMLProviderResult result;
+              CreateSAMLProviderResult result;
                 try {
-                    result = createSAMLProvider(createSAMLProviderRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createSAMLProviderRequest, result);
-                   return result;
-            }
-        });
+                result = createSAMLProvider(createSAMLProviderRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createSAMLProviderRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Retrieves the password policy for the AWS account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * .
      * </p>
      *
      * @param getAccountPasswordPolicyRequest Container for the necessary
@@ -6917,16 +7049,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
         return executorService.submit(new Callable<GetAccountPasswordPolicyResult>() {
             public GetAccountPasswordPolicyResult call() throws Exception {
                 return getAccountPasswordPolicy(getAccountPasswordPolicyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Retrieves the password policy for the AWS account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * .
      * </p>
      *
      * @param getAccountPasswordPolicyRequest Container for the necessary
@@ -6956,17 +7088,17 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetAccountPasswordPolicyResult>() {
             public GetAccountPasswordPolicyResult call() throws Exception {
-                GetAccountPasswordPolicyResult result;
+              GetAccountPasswordPolicyResult result;
                 try {
-                    result = getAccountPasswordPolicy(getAccountPasswordPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getAccountPasswordPolicyRequest, result);
-                   return result;
-            }
-        });
+                result = getAccountPasswordPolicy(getAccountPasswordPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getAccountPasswordPolicyRequest, result);
+                 return result;
+        }
+    });
     }
     
 }

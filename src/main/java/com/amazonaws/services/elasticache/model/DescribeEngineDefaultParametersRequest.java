@@ -21,7 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeEngineDefaultParameters(DescribeEngineDefaultParametersRequest) DescribeEngineDefaultParameters operation}.
  * <p>
- * The <i>DescribeEngineDefaultParameters</i> operation returns the default engine and system parameter information for the specified cache engine.
+ * The <i>DescribeEngineDefaultParameters</i> operation returns the
+ * default engine and system parameter information for the specified
+ * cache engine.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeEngineDefaultParameters(DescribeEngineDefaultParametersRequest)
@@ -30,7 +32,8 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
 
     /**
      * The name of the cache parameter group family. Valid values are:
-     * <code>memcached1.4</code> | <code>redis2.6</code>
+     * <code>memcached1.4</code> | <code>redis2.6</code> |
+     * <code>redis2.8</code>
      */
     private String cacheParameterGroupFamily;
 
@@ -63,7 +66,7 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
      * 
      * @param cacheParameterGroupFamily The name of the cache parameter group
      * family. Valid values are: <code>memcached1.4</code> |
-     * <code>redis2.6</code>
+     * <code>redis2.6</code> | <code>redis2.8</code>
      */
     public DescribeEngineDefaultParametersRequest(String cacheParameterGroupFamily) {
         setCacheParameterGroupFamily(cacheParameterGroupFamily);
@@ -71,10 +74,12 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
 
     /**
      * The name of the cache parameter group family. Valid values are:
-     * <code>memcached1.4</code> | <code>redis2.6</code>
+     * <code>memcached1.4</code> | <code>redis2.6</code> |
+     * <code>redis2.8</code>
      *
      * @return The name of the cache parameter group family. Valid values are:
-     *         <code>memcached1.4</code> | <code>redis2.6</code>
+     *         <code>memcached1.4</code> | <code>redis2.6</code> |
+     *         <code>redis2.8</code>
      */
     public String getCacheParameterGroupFamily() {
         return cacheParameterGroupFamily;
@@ -82,10 +87,12 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
     
     /**
      * The name of the cache parameter group family. Valid values are:
-     * <code>memcached1.4</code> | <code>redis2.6</code>
+     * <code>memcached1.4</code> | <code>redis2.6</code> |
+     * <code>redis2.8</code>
      *
      * @param cacheParameterGroupFamily The name of the cache parameter group family. Valid values are:
-     *         <code>memcached1.4</code> | <code>redis2.6</code>
+     *         <code>memcached1.4</code> | <code>redis2.6</code> |
+     *         <code>redis2.8</code>
      */
     public void setCacheParameterGroupFamily(String cacheParameterGroupFamily) {
         this.cacheParameterGroupFamily = cacheParameterGroupFamily;
@@ -93,14 +100,16 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
     
     /**
      * The name of the cache parameter group family. Valid values are:
-     * <code>memcached1.4</code> | <code>redis2.6</code>
+     * <code>memcached1.4</code> | <code>redis2.6</code> |
+     * <code>redis2.8</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param cacheParameterGroupFamily The name of the cache parameter group family. Valid values are:
-     *         <code>memcached1.4</code> | <code>redis2.6</code>
+     *         <code>memcached1.4</code> | <code>redis2.6</code> |
+     *         <code>redis2.8</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEngineDefaultParametersRequest withCacheParameterGroupFamily(String cacheParameterGroupFamily) {
@@ -151,7 +160,7 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEngineDefaultParametersRequest withMaxRecords(Integer maxRecords) {
@@ -202,7 +211,7 @@ public class DescribeEngineDefaultParametersRequest extends AmazonWebServiceRequ
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEngineDefaultParametersRequest withMarker(String marker) {

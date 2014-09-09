@@ -21,10 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#listDomains(ListDomainsRequest) ListDomains operation}.
  * <p>
- * The <code>ListDomains</code> operation lists all domains associated with the Access Key ID. It returns domain names up to the limit set by
- * MaxNumberOfDomains. A NextToken is returned if there are more than <code>MaxNumberOfDomains</code> domains. Calling <code>ListDomains</code>
- * successive times with the <code>NextToken</code> provided by the operation returns up to <code>MaxNumberOfDomains</code> more domain names with each
- * successive operation call.
+ * The <code>ListDomains</code> operation lists all domains associated
+ * with the Access Key ID. It returns domain names up to the limit set by
+ * MaxNumberOfDomains. A NextToken is returned if there are more than
+ * <code>MaxNumberOfDomains</code> domains. Calling
+ * <code>ListDomains</code> successive times with the
+ * <code>NextToken</code> provided by the operation returns up to
+ * <code>MaxNumberOfDomains</code> more domain names with each successive
+ * operation call.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#listDomains(ListDomainsRequest)
@@ -80,7 +84,7 @@ public class ListDomainsRequest extends AmazonWebServiceRequest implements Seria
      * @param maxNumberOfDomains The maximum number of domain names you want returned. The range is 1
      *         to 100. The default setting is 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListDomainsRequest withMaxNumberOfDomains(Integer maxNumberOfDomains) {
@@ -119,7 +123,7 @@ public class ListDomainsRequest extends AmazonWebServiceRequest implements Seria
      * @param nextToken A string informing Amazon SimpleDB where to start the next list of
      *         domain names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListDomainsRequest withNextToken(String nextToken) {

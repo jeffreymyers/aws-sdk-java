@@ -25,9 +25,9 @@ import com.amazonaws.event.ProgressListener;
  * <p>
  * Required Parameters: BucketName, Key, UploadId, PartNumber
  */
-public class UploadPartRequest extends AmazonWebServiceRequest {
-
-	/**
+public class UploadPartRequest extends AmazonWebServiceRequest implements
+        SSECustomerKeyProvider, S3DataSource {
+    /**
      * The name of the bucket containing the initiated multipart upload with
      * which this new part will be associated.
      */
@@ -79,16 +79,16 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
     private long fileOffset;
 
     /**
-     * The optional progress listener for receiving updates about object download
-     * status.
+     * Allows the caller to indicate if this is the last part being uploaded in
+     * a multipart upload.
      */
-    private ProgressListener generalProgressListener;
+    private boolean isLastPart;
 
-	/**
-	 * Allows the caller to indicate if this is the last part being uploaded in
-	 * a multipart upload.
-	 */
-	private boolean isLastPart;
+    /**
+     * The optional customer-provided server-side encryption key to use to
+     * encrypt the object part being uploaded.
+     */
+    private SSECustomerKey sseCustomerKey;
 
 
     /**
@@ -97,6 +97,7 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      * @param inputStream
      *            the stream containing the data to upload for the new part.
      */
+    @Override
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
     }
@@ -106,6 +107,7 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      *
      * @return the stream containing the data to upload for the new part.
      */
+    @Override
     public InputStream getInputStream() {
         return inputStream;
     }
@@ -371,6 +373,7 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      * @return The file containing the data to upload. Exactly one File or
      *         InputStream must be specified as the input to this operation.
      */
+    @Override
     public File getFile() {
         return file;
     }
@@ -383,6 +386,7 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      *            The file containing the data to upload. Exactly one File or
      *            InputStream must be specified as the input to this operation.
      */
+    @Override
     public void setFile(File file) {
         this.file = file;
     }
@@ -458,12 +462,12 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      *
      * @param progressListener
      *            The legacy progress listener that is used exclusively for Amazon S3 client.
-     * 
+     *
      * @deprecated use {@link #setGeneralProgressListener(ProgressListener)} instead.
      */
     @Deprecated
     public void setProgressListener(com.amazonaws.services.s3.model.ProgressListener progressListener) {
-        this.generalProgressListener = new LegacyS3ProgressListener(progressListener);
+        setGeneralProgressListener(new LegacyS3ProgressListener(progressListener));
     }
 
     /**
@@ -472,11 +476,12 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      *
      * @return the optional progress listener for receiving updates about object
      *         upload status.
-     * 
+     *
      * @deprecated use {@link #getGeneralProgressListener()} instead.
      */
     @Deprecated
     public com.amazonaws.services.s3.model.ProgressListener getProgressListener() {
+        ProgressListener generalProgressListener = getGeneralProgressListener();
         if (generalProgressListener instanceof LegacyS3ProgressListener) {
             return ((LegacyS3ProgressListener)generalProgressListener).unwrap();
         } else {
@@ -493,7 +498,7 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
      *            The legacy progress listener that is used exclusively for Amazon S3 client.
      *
      * @return This updated UploadPartRequest object.
-     * 
+     *
      * @deprecated use {@link #withGeneralProgressListener(ProgressListener)} instead.
      */
     @Deprecated
@@ -541,40 +546,37 @@ public class UploadPartRequest extends AmazonWebServiceRequest {
         return this;
     }
 
-    /**
-     * Sets the optional progress listener for receiving updates about object
-     * download status.
-     *
-     * @param generalProgressListener
-     *            The new progress listener.
-     */
-    public void setGeneralProgressListener(ProgressListener generalProgressListener) {
-        this.generalProgressListener = generalProgressListener;
+    @Override
+    public SSECustomerKey getSSECustomerKey() {
+        return sseCustomerKey;
     }
 
     /**
-     * Returns the optional progress listener for receiving updates about object
-     * download status.
+     * Sets the optional customer-provided server-side encryption key to use to
+     * encrypt the object part being uploaded.
      *
-     * @return the optional progress listener for receiving updates about object
-     *          download status.
+     * @param sseKey
+     *            The optional customer-provided server-side encryption key to
+     *            use to encrypt the object part being uploaded.
      */
-    public ProgressListener getGeneralProgressListener() {
-        return generalProgressListener;
+    public void setSSECustomerKey(SSECustomerKey sseKey) {
+        this.sseCustomerKey = sseKey;
     }
 
     /**
-     * Sets the optional progress listener for receiving updates about object
-     * upload status, and returns this updated object so that additional method
-     * calls can be chained together.
+     * Sets the optional customer-provided server-side encryption key to use to
+     * encrypt the object part being uploaded, and returns the updated request
+     * object so that additional method calls can be chained together.
      *
-     * @param generalProgressListener
-     *            The new progress listener.
+     * @param sseKey
+     *            The optional customer-provided server-side encryption key to
+     *            use to encrypt the object part being uploaded.
      *
-     * @return This updated UploadPartRequest object.
+     * @return This updated request object so that additional method calls can
+     *         be chained together.
      */
-    public UploadPartRequest withGeneralProgressListener(ProgressListener progressListener) {
-        setGeneralProgressListener(progressListener);
+    public UploadPartRequest withSSECustomerKey(SSECustomerKey sseKey) {
+        setSSECustomerKey(sseKey);
         return this;
     }
 }

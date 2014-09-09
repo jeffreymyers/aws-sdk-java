@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.elasticache.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class DescribeCacheParametersRequestMarshaller implements Marshaller<Requ
 
         Request<DescribeCacheParametersRequest> request = new DefaultRequest<DescribeCacheParametersRequest>(describeCacheParametersRequest, "AmazonElastiCache");
         request.addParameter("Action", "DescribeCacheParameters");
-        request.addParameter("Version", "2013-06-15");
+        request.addParameter("Version", "2014-07-15");
 
         if (describeCacheParametersRequest.getCacheParameterGroupName() != null) {
             request.addParameter("CacheParameterGroupName", StringUtils.fromString(describeCacheParametersRequest.getCacheParameterGroupName()));

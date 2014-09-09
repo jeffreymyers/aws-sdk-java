@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listVirtualMFADevices(ListVirtualMFADevicesRequest) ListVirtualMFADevices operation}.
  * <p>
- * Lists the virtual MFA devices under the AWS account by assignment status. If you do not specify an assignment status, the action returns a list of
- * all virtual MFA devices. Assignment status can be <code>Assigned</code> ,
+ * Lists the virtual MFA devices under the AWS account by assignment
+ * status. If you do not specify an assignment status, the action returns
+ * a list of all virtual MFA devices. Assignment status can be
+ * <code>Assigned</code> ,
  * <code>Unassigned</code> , or <code>Any</code> .
  * </p>
  * <p>
- * You can paginate the results using the <code>MaxItems</code> and <code>Marker</code> parameters.
+ * You can paginate the results using the <code>MaxItems</code> and
+ * <code>Marker</code> parameters.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listVirtualMFADevices(ListVirtualMFADevicesRequest)
@@ -52,7 +55,7 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -124,7 +127,7 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      *         <code>Any</code> which lists both assigned and unassigned virtual MFA
      *         devices.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see AssignmentStatusType
@@ -170,7 +173,7 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      *         <code>Any</code> which lists both assigned and unassigned virtual MFA
      *         devices.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see AssignmentStatusType
@@ -188,7 +191,7 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -207,7 +210,7 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -228,14 +231,14 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
      *         are truncated. Set it to the value of the <code>Marker</code> element
      *         in the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVirtualMFADevicesRequest withMarker(String marker) {
@@ -301,7 +304,7 @@ public class ListVirtualMFADevicesRequest extends AmazonWebServiceRequest implem
      *         <code>IsTruncated</code> response element is <code>true</code>. This
      *         parameter is optional. If you do not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVirtualMFADevicesRequest withMaxItems(Integer maxItems) {

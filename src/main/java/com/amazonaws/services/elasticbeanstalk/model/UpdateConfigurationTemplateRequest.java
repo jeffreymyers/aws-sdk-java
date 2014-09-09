@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#updateConfigurationTemplate(UpdateConfigurationTemplateRequest) UpdateConfigurationTemplate operation}.
  * <p>
- * Updates the specified configuration template to have the specified properties or configuration option values.
+ * Updates the specified configuration template to have the specified
+ * properties or configuration option values.
  * </p>
  * <p>
- * <b>NOTE:</b> If a property (for example, ApplicationName) is not provided, its value remains unchanged. To clear such properties, specify an empty
- * string.
+ * <b>NOTE:</b> If a property (for example, ApplicationName) is not
+ * provided, its value remains unchanged. To clear such properties,
+ * specify an empty string.
  * </p>
  * <p>
  * Related Topics
@@ -160,7 +162,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *         <code>UpdateConfigurationTemplate</code> returns an
      *         <code>InvalidParameterValue</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withApplicationName(String applicationName) {
@@ -220,7 +222,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *         <code>UpdateConfigurationTemplate</code> returns an
      *         <code>InvalidParameterValue</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withTemplateName(String templateName) {
@@ -262,7 +264,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *
      * @param description A new description for the configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withDescription(String description) {
@@ -311,7 +313,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      * @param optionSettings A list of configuration option settings to update with the new
      *         specified option value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withOptionSettings(ConfigurationOptionSetting... optionSettings) {
@@ -331,7 +333,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      * @param optionSettings A list of configuration option settings to update with the new
      *         specified option value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withOptionSettings(java.util.Collection<ConfigurationOptionSetting> optionSettings) {
@@ -393,7 +395,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *         <p> Constraint: You can remove only <code>UserDefined</code>
      *         configuration options.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withOptionsToRemove(OptionSpecification... optionsToRemove) {
@@ -415,7 +417,7 @@ public class UpdateConfigurationTemplateRequest extends AmazonWebServiceRequest 
      *         <p> Constraint: You can remove only <code>UserDefined</code>
      *         configuration options.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateConfigurationTemplateRequest withOptionsToRemove(java.util.Collection<OptionSpecification> optionsToRemove) {

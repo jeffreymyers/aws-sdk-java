@@ -23,7 +23,8 @@ import com.amazonaws.services.ec2.model.transform.DescribeInstanceAttributeReque
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describeInstanceAttribute(DescribeInstanceAttributeRequest) DescribeInstanceAttribute operation}.
  * <p>
- * Returns information about an attribute of an instance. Only one attribute can be specified per call.
+ * Describes the specified attribute of the specified instance. You can
+ * specify only one attribute at a time.
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeInstanceAttribute(DescribeInstanceAttributeRequest)
@@ -31,19 +32,15 @@ import com.amazonaws.services.ec2.model.transform.DescribeInstanceAttributeReque
 public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<DescribeInstanceAttributeRequest> {
 
     /**
-     * The ID of the instance whose instance attribute is being described.
+     * The ID of the instance.
      */
     private String instanceId;
 
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>userData</code>, <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * The instance attribute.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized
+     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized, sriovNetSupport
      */
     private String attribute;
 
@@ -58,14 +55,8 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param instanceId The ID of the instance whose instance attribute is
-     * being described.
-     * @param attribute The name of the attribute to describe. <p> Available
-     * attribute names: <code>instanceType</code>, <code>kernel</code>,
-     * <code>ramdisk</code>, <code>userData</code>,
-     * <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @param instanceId The ID of the instance.
+     * @param attribute The instance attribute.
      */
     public DescribeInstanceAttributeRequest(String instanceId, String attribute) {
         setInstanceId(instanceId);
@@ -77,14 +68,8 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param instanceId The ID of the instance whose instance attribute is
-     * being described.
-     * @param attribute The name of the attribute to describe. <p> Available
-     * attribute names: <code>instanceType</code>, <code>kernel</code>,
-     * <code>ramdisk</code>, <code>userData</code>,
-     * <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @param instanceId The ID of the instance.
+     * @param attribute The instance attribute.
      */
     public DescribeInstanceAttributeRequest(String instanceId, InstanceAttributeName attribute) {
         this.instanceId = instanceId;
@@ -92,31 +77,31 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * The ID of the instance whose instance attribute is being described.
+     * The ID of the instance.
      *
-     * @return The ID of the instance whose instance attribute is being described.
+     * @return The ID of the instance.
      */
     public String getInstanceId() {
         return instanceId;
     }
     
     /**
-     * The ID of the instance whose instance attribute is being described.
+     * The ID of the instance.
      *
-     * @param instanceId The ID of the instance whose instance attribute is being described.
+     * @param instanceId The ID of the instance.
      */
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
     }
     
     /**
-     * The ID of the instance whose instance attribute is being described.
+     * The ID of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceId The ID of the instance whose instance attribute is being described.
+     * @param instanceId The ID of the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeInstanceAttributeRequest withInstanceId(String instanceId) {
@@ -125,20 +110,12 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>userData</code>, <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * The instance attribute.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized
+     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized, sriovNetSupport
      *
-     * @return The name of the attribute to describe. <p> Available attribute names:
-     *         <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>userData</code>, <code>disableApiTermination</code>,
-     *         <code>instanceInitiatedShutdownBehavior</code>,
-     *         <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @return The instance attribute.
      *
      * @see InstanceAttributeName
      */
@@ -147,20 +124,12 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
     }
     
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>userData</code>, <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * The instance attribute.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized
+     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized, sriovNetSupport
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>userData</code>, <code>disableApiTermination</code>,
-     *         <code>instanceInitiatedShutdownBehavior</code>,
-     *         <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @param attribute The instance attribute.
      *
      * @see InstanceAttributeName
      */
@@ -169,24 +138,16 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
     }
     
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>userData</code>, <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * The instance attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized
+     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized, sriovNetSupport
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>userData</code>, <code>disableApiTermination</code>,
-     *         <code>instanceInitiatedShutdownBehavior</code>,
-     *         <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @param attribute The instance attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceAttributeName
@@ -197,20 +158,12 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>userData</code>, <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * The instance attribute.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized
+     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized, sriovNetSupport
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>userData</code>, <code>disableApiTermination</code>,
-     *         <code>instanceInitiatedShutdownBehavior</code>,
-     *         <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @param attribute The instance attribute.
      *
      * @see InstanceAttributeName
      */
@@ -219,24 +172,16 @@ public class DescribeInstanceAttributeRequest extends AmazonWebServiceRequest im
     }
     
     /**
-     * The name of the attribute to describe. <p> Available attribute names:
-     * <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     * <code>userData</code>, <code>disableApiTermination</code>,
-     * <code>instanceInitiatedShutdownBehavior</code>,
-     * <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * The instance attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized
+     * <b>Allowed Values: </b>instanceType, kernel, ramdisk, userData, disableApiTermination, instanceInitiatedShutdownBehavior, rootDeviceName, blockDeviceMapping, productCodes, sourceDestCheck, groupSet, ebsOptimized, sriovNetSupport
      *
-     * @param attribute The name of the attribute to describe. <p> Available attribute names:
-     *         <code>instanceType</code>, <code>kernel</code>, <code>ramdisk</code>,
-     *         <code>userData</code>, <code>disableApiTermination</code>,
-     *         <code>instanceInitiatedShutdownBehavior</code>,
-     *         <code>rootDeviceName</code>, <code>blockDeviceMapping</code>
+     * @param attribute The instance attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceAttributeName

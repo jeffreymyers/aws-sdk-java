@@ -21,14 +21,21 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.support.AWSSupport#describeServices(DescribeServicesRequest) DescribeServices operation}.
  * <p>
- * Returns the current list of AWS services and a list of service categories that applies to each one. You then use service names and categories in your
- * CreateCase requests. Each AWS service has its own set of categories.
+ * Returns the current list of AWS services and a list of service
+ * categories that applies to each one. You then use service names and
+ * categories in your CreateCase requests. Each AWS service has its own
+ * set of categories.
  * </p>
  * <p>
- * The service codes and category codes correspond to the values that are displayed in the <b>Service</b> and <b>Category</b> drop-down lists on the AWS
- * Support Center <a href="https://aws.amazon.com/support/createCase"> Open a new case </a> page. The values in those fields, however, do not
- * necessarily match the service codes and categories returned by the <code>DescribeServices</code> request. Always use the service codes and categories
- * obtained programmatically. This practice ensures that you always have the most recent set of service and category codes.
+ * The service codes and category codes correspond to the values that are
+ * displayed in the <b>Service</b> and <b>Category</b> drop-down lists on
+ * the AWS Support Center
+ * <a href="https://aws.amazon.com/support/createCase"> Open a new case </a>
+ * page. The values in those fields, however, do not necessarily match
+ * the service codes and categories returned by the
+ * <code>DescribeServices</code> request. Always use the service codes
+ * and categories obtained programmatically. This practice ensures that
+ * you always have the most recent set of service and category codes.
  * </p>
  *
  * @see com.amazonaws.services.support.AWSSupport#describeServices(DescribeServicesRequest)
@@ -95,7 +102,7 @@ public class DescribeServicesRequest extends AmazonWebServiceRequest implements 
      *
      * @param serviceCodeList A JSON-formatted list of service codes available for AWS services.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServicesRequest withServiceCodeList(String... serviceCodeList) {
@@ -116,7 +123,7 @@ public class DescribeServicesRequest extends AmazonWebServiceRequest implements 
      *
      * @param serviceCodeList A JSON-formatted list of service codes available for AWS services.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServicesRequest withServiceCodeList(java.util.Collection<String> serviceCodeList) {
@@ -174,7 +181,7 @@ public class DescribeServicesRequest extends AmazonWebServiceRequest implements 
      *         Language parameters must be passed explicitly for operations that take
      *         them.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeServicesRequest withLanguage(String language) {

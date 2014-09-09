@@ -25,7 +25,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#describeIndexFields(DescribeIndexFieldsRequest)
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2.model.DescribeIndexFieldsRequest} instead.
  */
+@Deprecated
 public class DescribeIndexFieldsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the amount of provisioned throughput capacity consumed on a table or an index.
+ * Represents the amount of provisioned throughput capacity consumed on a
+ * table or an index.
  * </p>
  */
 public class Capacity implements Serializable {
@@ -53,7 +54,7 @@ public class Capacity implements Serializable {
      *
      * @param capacityUnits The total number of capacity units consumed on a table or an index.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Capacity withCapacityUnits(Double capacityUnits) {

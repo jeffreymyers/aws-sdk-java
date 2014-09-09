@@ -59,4 +59,15 @@ public class AmazonClientException extends RuntimeException {
         super(message);
     }
 
+    public AmazonClientException(Throwable t) {
+        super(t);
+    }
+
+    /**
+     * Returns a hint as to whether it makes sense to retry upon this exception.
+     * Default is true, but subclass may override. 
+     */
+    public boolean isRetryable() {
+        return true;
+    }
 }

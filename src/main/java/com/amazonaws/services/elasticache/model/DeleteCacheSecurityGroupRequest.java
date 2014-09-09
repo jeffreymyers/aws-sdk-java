@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#deleteCacheSecurityGroup(DeleteCacheSecurityGroupRequest) DeleteCacheSecurityGroup operation}.
  * <p>
- * The <i>DeleteCacheSecurityGroup</i> operation deletes a cache security group.
+ * The <i>DeleteCacheSecurityGroup</i> operation deletes a cache security
+ * group.
  * </p>
  * <p>
- * <b>NOTE:</b>You cannot delete a cache security group if it is associated with any cache clusters.
+ * <b>NOTE:</b>You cannot delete a cache security group if it is
+ * associated with any cache clusters.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#deleteCacheSecurityGroup(DeleteCacheSecurityGroupRequest)
@@ -86,7 +88,7 @@ public class DeleteCacheSecurityGroupRequest extends AmazonWebServiceRequest imp
      * @param cacheSecurityGroupName The name of the cache security group to delete. <note>You cannot
      *         delete the default security group.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteCacheSecurityGroupRequest withCacheSecurityGroupName(String cacheSecurityGroupName) {

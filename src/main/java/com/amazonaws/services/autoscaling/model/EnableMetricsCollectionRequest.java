@@ -21,12 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#enableMetricsCollection(EnableMetricsCollectionRequest) EnableMetricsCollection operation}.
  * <p>
- * Enables monitoring of group metrics for the Auto Scaling group specified in <code>AutoScalingGroupName</code> .
- * You can specify the list of enabled metrics with the <code>Metrics</code> parameter.
+ * Enables monitoring of group metrics for the Auto Scaling group
+ * specified in <code>AutoScalingGroupName</code> .
+ * You can specify the list of enabled metrics with the
+ * <code>Metrics</code> parameter.
  * </p>
  * <p>
- * Auto Scaling metrics collection can be turned on only if the <code>InstanceMonitoring</code> flag, in the Auto Scaling group's launch configuration,
- * is set to <code>True</code> .
+ * Auto Scaling metrics collection can be turned on only if the
+ * <code>InstanceMonitoring</code> flag, in the Auto Scaling group's
+ * launch configuration, is set to <code>True</code> .
  * 
  * </p>
  *
@@ -39,7 +42,7 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -48,9 +51,11 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * metrics are enabled. The following metrics are supported: <ul>
      * <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> metrics;
 
@@ -60,7 +65,7 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String granularity;
 
@@ -69,7 +74,7 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name or ARN of the Auto Scaling group.
      */
@@ -82,7 +87,7 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name or ARN of the Auto Scaling group.
      */
@@ -97,11 +102,11 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name or ARN of the Auto Scaling group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMetricsCollectionRequest withAutoScalingGroupName(String autoScalingGroupName) {
@@ -114,17 +119,21 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * metrics are enabled. The following metrics are supported: <ul>
      * <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      *
      * @return The list of metrics to collect. If no metrics are specified, all
      *         metrics are enabled. The following metrics are supported: <ul>
      *         <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      */
     public java.util.List<String> getMetrics() {
         if (metrics == null) {
@@ -139,17 +148,21 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * metrics are enabled. The following metrics are supported: <ul>
      * <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      *
      * @param metrics The list of metrics to collect. If no metrics are specified, all
      *         metrics are enabled. The following metrics are supported: <ul>
      *         <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      */
     public void setMetrics(java.util.Collection<String> metrics) {
         if (metrics == null) {
@@ -166,9 +179,11 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * metrics are enabled. The following metrics are supported: <ul>
      * <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -176,11 +191,13 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      *         metrics are enabled. The following metrics are supported: <ul>
      *         <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMetricsCollectionRequest withMetrics(String... metrics) {
@@ -196,9 +213,11 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * metrics are enabled. The following metrics are supported: <ul>
      * <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      * <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     * <li><p>GroupPendingInstances</li>
+     * <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      * <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     * </ul>
+     * </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     * returned by default. You must explicitly request it when calling
+     * <a>EnableMetricsCollection</a>. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -206,11 +225,13 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      *         metrics are enabled. The following metrics are supported: <ul>
      *         <li><p>GroupMinSize</li> <li><p>GroupMaxSize</li>
      *         <li><p>GroupDesiredCapacity</li> <li><p>GroupInServiceInstances</li>
-     *         <li><p>GroupPendingInstances</li>
+     *         <li><p>GroupPendingInstances</li> <li><p>GroupStandbyInstances</li>
      *         <li><p>GroupTerminatingInstances</li> <li><p>GroupTotalInstances</li>
-     *         </ul>
+     *         </ul> <note> <p>The <code>GroupStandbyInstances</code> metric is not
+     *         returned by default. You must explicitly request it when calling
+     *         <a>EnableMetricsCollection</a>. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMetricsCollectionRequest withMetrics(java.util.Collection<String> metrics) {
@@ -231,7 +252,7 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The granularity to associate with the metrics to collect. Currently,
      *         the only legal granularity is "1Minute".
@@ -246,7 +267,7 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param granularity The granularity to associate with the metrics to collect. Currently,
      *         the only legal granularity is "1Minute".
@@ -263,12 +284,12 @@ public class EnableMetricsCollectionRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param granularity The granularity to associate with the metrics to collect. Currently,
      *         the only legal granularity is "1Minute".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EnableMetricsCollectionRequest withGranularity(String granularity) {

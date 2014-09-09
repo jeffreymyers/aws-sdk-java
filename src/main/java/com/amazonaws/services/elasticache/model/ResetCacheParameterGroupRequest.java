@@ -21,9 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#resetCacheParameterGroup(ResetCacheParameterGroupRequest) ResetCacheParameterGroup operation}.
  * <p>
- * The <i>ResetCacheParameterGroup</i> operation modifies the parameters of a cache parameter group to the engine or system default value. You can reset
- * specific parameters by submitting a list of parameter names. To reset the entire cache parameter group, specify the <i>ResetAllParameters</i> and
- * <i>CacheParameterGroupName</i> parameters.
+ * The <i>ResetCacheParameterGroup</i> operation modifies the parameters
+ * of a cache parameter group to the engine or system default value. You
+ * can reset specific parameters by submitting a list of parameter names.
+ * To reset the entire cache parameter group, specify the
+ * <i>ResetAllParameters</i> and <i>CacheParameterGroupName</i>
+ * parameters.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#resetCacheParameterGroup(ResetCacheParameterGroupRequest)
@@ -96,7 +99,7 @@ public class ResetCacheParameterGroupRequest extends AmazonWebServiceRequest imp
      *
      * @param cacheParameterGroupName The name of the cache parameter group to reset.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetCacheParameterGroupRequest withCacheParameterGroupName(String cacheParameterGroupName) {
@@ -141,7 +144,7 @@ public class ResetCacheParameterGroupRequest extends AmazonWebServiceRequest imp
      *         reset to default values. If <i>false</i>, no such action occurs.
      *         <p>Valid values: <code>true</code> | <code>false</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetCacheParameterGroupRequest withResetAllParameters(Boolean resetAllParameters) {
@@ -209,7 +212,7 @@ public class ResetCacheParameterGroupRequest extends AmazonWebServiceRequest imp
      *         entire cache parameter group, you must specify at least one parameter
      *         name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetCacheParameterGroupRequest withParameterNameValues(ParameterNameValue... parameterNameValues) {
@@ -231,7 +234,7 @@ public class ResetCacheParameterGroupRequest extends AmazonWebServiceRequest imp
      *         entire cache parameter group, you must specify at least one parameter
      *         name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ResetCacheParameterGroupRequest withParameterNameValues(java.util.Collection<ParameterNameValue> parameterNameValues) {

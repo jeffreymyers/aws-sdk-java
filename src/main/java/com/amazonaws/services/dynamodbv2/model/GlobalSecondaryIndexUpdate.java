@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the new provisioned throughput settings to apply to a global secondary index.
+ * Represents the new provisioned throughput settings to apply to a
+ * global secondary index.
  * </p>
  */
 public class GlobalSecondaryIndexUpdate implements Serializable {
@@ -60,7 +61,7 @@ public class GlobalSecondaryIndexUpdate implements Serializable {
      * @param update The name of a global secondary index, along with the updated
      *         provisioned throughput settings that are to be applied to that index.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GlobalSecondaryIndexUpdate withUpdate(UpdateGlobalSecondaryIndexAction update) {

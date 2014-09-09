@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that specifies the whitelisted cookies, if any, that you want CloudFront to forward to your origin that is associated with this cache
- * behavior.
+ * A complex type that specifies the whitelisted cookies, if any, that
+ * you want CloudFront to forward to your origin that is associated with
+ * this cache behavior.
  * </p>
  */
 public class CookieNames implements Serializable {
@@ -60,7 +61,7 @@ public class CookieNames implements Serializable {
      *
      * @param quantity The number of whitelisted cookies for this cache behavior.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CookieNames withQuantity(Integer quantity) {
@@ -109,7 +110,7 @@ public class CookieNames implements Serializable {
      * @param items Optional: A complex type that contains whitelisted cookies for this
      *         cache behavior. If Quantity is 0, you can omit Items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CookieNames withItems(String... items) {
@@ -129,7 +130,7 @@ public class CookieNames implements Serializable {
      * @param items Optional: A complex type that contains whitelisted cookies for this
      *         cache behavior. If Quantity is 0, you can omit Items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CookieNames withItems(java.util.Collection<String> items) {

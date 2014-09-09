@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Updates a specified app.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Deploy or Manage permissions level for the stack, or an attached policy
- * that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Deploy or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#updateApp(UpdateAppRequest)
@@ -47,6 +50,11 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      * A description of the app.
      */
     private String description;
+
+    /**
+     * The app's data sources.
+     */
+    private com.amazonaws.internal.ListWithAutoConstructFlag<DataSource> dataSources;
 
     /**
      * The app type.
@@ -79,7 +87,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * One or more user-defined key/value pairs to be added to the stack
-     * attributes bag.
+     * attributes.
      */
     private java.util.Map<String,String> attributes;
 
@@ -108,7 +116,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param appId The app ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withAppId(String appId) {
@@ -141,7 +149,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param name The app name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withName(String name) {
@@ -174,11 +182,79 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param description A description of the app.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    /**
+     * The app's data sources.
+     *
+     * @return The app's data sources.
+     */
+    public java.util.List<DataSource> getDataSources() {
+        if (dataSources == null) {
+              dataSources = new com.amazonaws.internal.ListWithAutoConstructFlag<DataSource>();
+              dataSources.setAutoConstruct(true);
+        }
+        return dataSources;
+    }
+    
+    /**
+     * The app's data sources.
+     *
+     * @param dataSources The app's data sources.
+     */
+    public void setDataSources(java.util.Collection<DataSource> dataSources) {
+        if (dataSources == null) {
+            this.dataSources = null;
+            return;
+        }
+        com.amazonaws.internal.ListWithAutoConstructFlag<DataSource> dataSourcesCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<DataSource>(dataSources.size());
+        dataSourcesCopy.addAll(dataSources);
+        this.dataSources = dataSourcesCopy;
+    }
+    
+    /**
+     * The app's data sources.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param dataSources The app's data sources.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public UpdateAppRequest withDataSources(DataSource... dataSources) {
+        if (getDataSources() == null) setDataSources(new java.util.ArrayList<DataSource>(dataSources.length));
+        for (DataSource value : dataSources) {
+            getDataSources().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * The app's data sources.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param dataSources The app's data sources.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public UpdateAppRequest withDataSources(java.util.Collection<DataSource> dataSources) {
+        if (dataSources == null) {
+            this.dataSources = null;
+        } else {
+            com.amazonaws.internal.ListWithAutoConstructFlag<DataSource> dataSourcesCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<DataSource>(dataSources.size());
+            dataSourcesCopy.addAll(dataSources);
+            this.dataSources = dataSourcesCopy;
+        }
+
         return this;
     }
 
@@ -220,7 +296,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param type The app type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see AppType
@@ -254,7 +330,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param type The app type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see AppType
@@ -289,7 +365,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param appSource A <code>Source</code> object that specifies the app repository.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withAppSource(Source appSource) {
@@ -338,7 +414,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      * @param domains The app's virtual host settings, with multiple domains separated by
      *         commas. For example: <code>'www.example.com, example.com'</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withDomains(String... domains) {
@@ -358,7 +434,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      * @param domains The app's virtual host settings, with multiple domains separated by
      *         commas. For example: <code>'www.example.com, example.com'</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withDomains(java.util.Collection<String> domains) {
@@ -398,7 +474,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param enableSsl Whether SSL is enabled for the app.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withEnableSsl(Boolean enableSsl) {
@@ -440,7 +516,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param sslConfiguration An <code>SslConfiguration</code> object with the SSL configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withSslConfiguration(SslConfiguration sslConfiguration) {
@@ -450,10 +526,10 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * One or more user-defined key/value pairs to be added to the stack
-     * attributes bag.
+     * attributes.
      *
      * @return One or more user-defined key/value pairs to be added to the stack
-     *         attributes bag.
+     *         attributes.
      */
     public java.util.Map<String,String> getAttributes() {
         
@@ -465,10 +541,10 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
     
     /**
      * One or more user-defined key/value pairs to be added to the stack
-     * attributes bag.
+     * attributes.
      *
      * @param attributes One or more user-defined key/value pairs to be added to the stack
-     *         attributes bag.
+     *         attributes.
      */
     public void setAttributes(java.util.Map<String,String> attributes) {
         this.attributes = attributes;
@@ -476,14 +552,14 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
     
     /**
      * One or more user-defined key/value pairs to be added to the stack
-     * attributes bag.
+     * attributes.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param attributes One or more user-defined key/value pairs to be added to the stack
-     *         attributes bag.
+     *         attributes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateAppRequest withAttributes(java.util.Map<String,String> attributes) {
@@ -493,7 +569,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * One or more user-defined key/value pairs to be added to the stack
-     * attributes bag.
+     * attributes.
      * <p>
      * The method adds a new key-value pair into Attributes parameter, and
      * returns a reference to this object so that method calls can be chained
@@ -537,6 +613,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
         if (getAppId() != null) sb.append("AppId: " + getAppId() + ",");
         if (getName() != null) sb.append("Name: " + getName() + ",");
         if (getDescription() != null) sb.append("Description: " + getDescription() + ",");
+        if (getDataSources() != null) sb.append("DataSources: " + getDataSources() + ",");
         if (getType() != null) sb.append("Type: " + getType() + ",");
         if (getAppSource() != null) sb.append("AppSource: " + getAppSource() + ",");
         if (getDomains() != null) sb.append("Domains: " + getDomains() + ",");
@@ -555,6 +632,7 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
         hashCode = prime * hashCode + ((getAppId() == null) ? 0 : getAppId().hashCode()); 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode()); 
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode()); 
+        hashCode = prime * hashCode + ((getDataSources() == null) ? 0 : getDataSources().hashCode()); 
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode()); 
         hashCode = prime * hashCode + ((getAppSource() == null) ? 0 : getAppSource().hashCode()); 
         hashCode = prime * hashCode + ((getDomains() == null) ? 0 : getDomains().hashCode()); 
@@ -578,6 +656,8 @@ public class UpdateAppRequest extends AmazonWebServiceRequest implements Seriali
         if (other.getName() != null && other.getName().equals(this.getName()) == false) return false; 
         if (other.getDescription() == null ^ this.getDescription() == null) return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false) return false; 
+        if (other.getDataSources() == null ^ this.getDataSources() == null) return false;
+        if (other.getDataSources() != null && other.getDataSources().equals(this.getDataSources()) == false) return false; 
         if (other.getType() == null ^ this.getType() == null) return false;
         if (other.getType() != null && other.getType().equals(this.getType()) == false) return false; 
         if (other.getAppSource() == null ^ this.getAppSource() == null) return false;

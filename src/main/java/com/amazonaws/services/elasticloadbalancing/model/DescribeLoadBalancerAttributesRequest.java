@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeLoadBalancerAttributes(DescribeLoadBalancerAttributesRequest) DescribeLoadBalancerAttributes operation}.
  * <p>
- * Returns detailed information about all of the attributes associated with the specified load balancer.
+ * Returns detailed information about all of the attributes associated
+ * with the specified load balancer.
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeLoadBalancerAttributes(DescribeLoadBalancerAttributesRequest)
@@ -58,7 +59,7 @@ public class DescribeLoadBalancerAttributesRequest extends AmazonWebServiceReque
      *
      * @param loadBalancerName The name of the load balancer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBalancerAttributesRequest withLoadBalancerName(String loadBalancerName) {

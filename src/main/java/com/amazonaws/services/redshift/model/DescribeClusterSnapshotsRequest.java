@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#describeClusterSnapshots(DescribeClusterSnapshotsRequest) DescribeClusterSnapshots operation}.
  * <p>
- * Returns one or more snapshot objects, which contain metadata about your cluster snapshots. By default, this operation returns information about all
- * snapshots of all clusters that are owned by you AWS customer account. No information is returned for snapshots owned by inactive AWS customer
- * accounts.
+ * Returns one or more snapshot objects, which contain metadata about
+ * your cluster snapshots. By default, this operation returns information
+ * about all snapshots of all clusters that are owned by you AWS customer
+ * account. No information is returned for snapshots owned by inactive
+ * AWS customer accounts.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#describeClusterSnapshots(DescribeClusterSnapshotsRequest)
@@ -68,19 +70,23 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
     private java.util.Date endTime;
 
     /**
-     * The maximum number of snapshot records to include in the response. If
-     * more records exist than the specified <code>MaxRecords</code> value,
-     * the response returns a marker that you can use in a subsequent
-     * <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     * set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     * Must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     private Integer maxRecords;
 
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     * that the request will return.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      */
     private String marker;
 
@@ -123,7 +129,7 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
      * @param clusterIdentifier The identifier of the cluster for which information about snapshots is
      *         requested.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withClusterIdentifier(String clusterIdentifier) {
@@ -162,7 +168,7 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
      * @param snapshotIdentifier The snapshot identifier of the snapshot about which to return
      *         information.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withSnapshotIdentifier(String snapshotIdentifier) {
@@ -207,7 +213,7 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
      *         default, snapshots of all types are returned. <p> Valid Values:
      *         <code>automated</code> | <code>manual</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withSnapshotType(String snapshotType) {
@@ -264,7 +270,7 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
      *         href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia
      *         page.</a> <p>Example: <code>2012-07-16T18:00:00Z</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withStartTime(java.util.Date startTime) {
@@ -321,7 +327,7 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
      *         href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia
      *         page.</a> <p>Example: <code>2012-07-16T18:00:00Z</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withEndTime(java.util.Date endTime) {
@@ -330,61 +336,61 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
     }
 
     /**
-     * The maximum number of snapshot records to include in the response. If
-     * more records exist than the specified <code>MaxRecords</code> value,
-     * the response returns a marker that you can use in a subsequent
-     * <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     * set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     * Must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return The maximum number of snapshot records to include in the response. If
-     *         more records exist than the specified <code>MaxRecords</code> value,
-     *         the response returns a marker that you can use in a subsequent
-     *         <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     *         set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     *         Must be at least 20 and no more than 100.
+     * @return The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public Integer getMaxRecords() {
         return maxRecords;
     }
     
     /**
-     * The maximum number of snapshot records to include in the response. If
-     * more records exist than the specified <code>MaxRecords</code> value,
-     * the response returns a marker that you can use in a subsequent
-     * <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     * set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     * Must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @param maxRecords The maximum number of snapshot records to include in the response. If
-     *         more records exist than the specified <code>MaxRecords</code> value,
-     *         the response returns a marker that you can use in a subsequent
-     *         <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     *         set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     *         Must be at least 20 and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
     }
     
     /**
-     * The maximum number of snapshot records to include in the response. If
-     * more records exist than the specified <code>MaxRecords</code> value,
-     * the response returns a marker that you can use in a subsequent
-     * <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     * set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     * Must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param maxRecords The maximum number of snapshot records to include in the response. If
-     *         more records exist than the specified <code>MaxRecords</code> value,
-     *         the response returns a marker that you can use in a subsequent
-     *         <a>DescribeClusterSnapshots</a> request in order to retrieve the next
-     *         set of snapshot records. <p>Default: <code>100</code> <p>Constraints:
-     *         Must be at least 20 and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withMaxRecords(Integer maxRecords) {
@@ -393,43 +399,67 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
     }
 
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     * that the request will return.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      *
-     * @return An optional marker returned by a previous
-     *         <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     *         that the request will return.
+     * @return An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a
+     *         <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     *         <code>MaxRecords</code>, AWS returns a value in the
+     *         <code>Marker</code> field of the response. You can retrieve the next
+     *         set of response records by providing the returned marker value in the
+     *         <code>Marker</code> parameter and retrying the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     * that the request will return.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      *
-     * @param marker An optional marker returned by a previous
-     *         <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     *         that the request will return.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a
+     *         <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     *         <code>MaxRecords</code>, AWS returns a value in the
+     *         <code>Marker</code> field of the response. You can retrieve the next
+     *         set of response records by providing the returned marker value in the
+     *         <code>Marker</code> parameter and retrying the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     * that the request will return.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional marker returned by a previous
-     *         <a>DescribeClusterSnapshots</a> request to indicate the first snapshot
-     *         that the request will return.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a
+     *         <a>DescribeClusterSnapshots</a> request exceed the value specified in
+     *         <code>MaxRecords</code>, AWS returns a value in the
+     *         <code>Marker</code> field of the response. You can retrieve the next
+     *         set of response records by providing the returned marker value in the
+     *         <code>Marker</code> parameter and retrying the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withMarker(String marker) {
@@ -480,7 +510,7 @@ public class DescribeClusterSnapshotsRequest extends AmazonWebServiceRequest imp
      *         account. To describe snapshots you own, either specify your AWS
      *         customer account, or do not specify the parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsRequest withOwnerAccount(String ownerAccount) {

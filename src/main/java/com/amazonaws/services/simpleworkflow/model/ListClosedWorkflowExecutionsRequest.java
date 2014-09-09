@@ -21,36 +21,50 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow#listClosedWorkflowExecutions(ListClosedWorkflowExecutionsRequest) ListClosedWorkflowExecutions operation}.
  * <p>
- * Returns a list of closed workflow executions in the specified domain that meet the filtering criteria. The results may be split into multiple pages.
- * To retrieve subsequent pages, make the call again using the nextPageToken returned by the initial call.
+ * Returns a list of closed workflow executions in the specified domain
+ * that meet the filtering criteria. The results may be split into
+ * multiple pages. To retrieve subsequent pages, make the call again
+ * using the nextPageToken returned by the initial call.
  * </p>
  * <p>
- * <b>NOTE:</b> This operation is eventually consistent. The results are best effort and may not exactly reflect recent updates and changes.
+ * <b>NOTE:</b> This operation is eventually consistent. The results are
+ * best effort and may not exactly reflect recent updates and changes.
  * </p>
  * <p>
  * <b>Access Control</b>
  * </p>
  * <p>
- * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+ * You can use IAM policies to control this action's access to Amazon SWF
+ * resources as follows:
  * </p>
  * 
  * <ul>
- * <li>Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.</li>
- * <li>Use an <code>Action</code> element to allow or deny permission to call this action.</li>
- * <li>Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+ * <li>Use a <code>Resource</code> element with the domain name to limit
+ * the action to only specified domains.</li>
+ * <li>Use an <code>Action</code> element to allow or deny permission to
+ * call this action.</li>
+ * <li>Constrain the following parameters by using a
+ * <code>Condition</code> element with the appropriate keys.
  * <ul>
- * <li> <code>tag</code> : String constraint. The key is <code>swf:tagFilter.tag</code> .</li>
- * <li> <code>typeFilter.name</code> : String constraint. String constraint. The key is <code>swf:typeFilter.name</code> .</li>
- * <li> <code>typeFilter.version</code> : String constraint. String constraint. The key is <code>swf:typeFilter.version</code> .</li>
+ * <li> <code>tag</code> : String constraint. The key is
+ * <code>swf:tagFilter.tag</code> .</li>
+ * <li> <code>typeFilter.name</code> : String constraint. String
+ * constraint. The key is <code>swf:typeFilter.name</code> .</li>
+ * <li> <code>typeFilter.version</code> : String constraint. String
+ * constraint. The key is <code>swf:typeFilter.version</code> .</li>
  * 
  * </ul>
  * </li>
  * 
  * </ul>
  * <p>
- * If the caller does not have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action
- * fails by throwing <code>OperationNotPermitted</code> . For details and example IAM policies, see <a
- * href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a> .
+ * If the caller does not have sufficient permissions to invoke the
+ * action, or the parameter values fall outside the specified
+ * constraints, the action fails by throwing
+ * <code>OperationNotPermitted</code> . For details and example IAM
+ * policies, see
+ * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow#listClosedWorkflowExecutions(ListClosedWorkflowExecutionsRequest)
@@ -188,7 +202,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *
      * @param domain The name of the domain that contains the workflow executions to list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withDomain(String domain) {
@@ -257,7 +271,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         are mutually exclusive. You must specify one of these in a request but
      *         not both.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withStartTimeFilter(ExecutionTimeFilter startTimeFilter) {
@@ -326,7 +340,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         are mutually exclusive. You must specify one of these in a request but
      *         not both.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withCloseTimeFilter(ExecutionTimeFilter closeTimeFilter) {
@@ -383,7 +397,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         <code>typeFilter</code> and <code>tagFilter</code> are mutually
      *         exclusive. You can specify at most one of these in a request.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withExecutionFilter(WorkflowExecutionFilter executionFilter) {
@@ -446,7 +460,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         <code>typeFilter</code> and <code>tagFilter</code> are mutually
      *         exclusive. You can specify at most one of these in a request.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withCloseStatusFilter(CloseStatusFilter closeStatusFilter) {
@@ -503,7 +517,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         <code>tagFilter</code> are mutually exclusive. You can specify at most
      *         one of these in a request.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withTypeFilter(WorkflowTypeFilter typeFilter) {
@@ -554,7 +568,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         <code>typeFilter</code> and <code>tagFilter</code> are mutually
      *         exclusive. You can specify at most one of these in a request.</note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withTagFilter(TagFilter tagFilter) {
@@ -614,7 +628,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         results, repeat the call with the returned token and all other
      *         arguments unchanged.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withNextPageToken(String nextPageToken) {
@@ -686,7 +700,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         the maxiumum page size, in which case, the returned page will have
      *         fewer results than the maximumPageSize specified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withMaximumPageSize(Integer maximumPageSize) {
@@ -731,7 +745,7 @@ public class ListClosedWorkflowExecutionsRequest extends AmazonWebServiceRequest
      *         By default the results are returned in descending order of the start
      *         or the close time of the executions.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListClosedWorkflowExecutionsRequest withReverseOrder(Boolean reverseOrder) {

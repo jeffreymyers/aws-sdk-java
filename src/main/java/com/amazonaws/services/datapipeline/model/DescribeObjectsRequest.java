@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.datapipeline.DataPipeline#describeObjects(DescribeObjectsRequest) DescribeObjects operation}.
  * <p>
- * Returns the object definitions for a set of objects associated with the pipeline. Object definitions are composed of a set of fields that define the
- * properties of the object.
+ * Returns the object definitions for a set of objects associated with
+ * the pipeline. Object definitions are composed of a set of fields that
+ * define the properties of the object.
  * </p>
  *
  * @see com.amazonaws.services.datapipeline.DataPipeline#describeObjects(DescribeObjectsRequest)
@@ -34,7 +35,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String pipelineId;
 
@@ -60,7 +61,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String marker;
 
@@ -69,7 +70,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Identifier of the pipeline that contains the object definitions.
      */
@@ -82,7 +83,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifier of the pipeline that contains the object definitions.
      */
@@ -97,11 +98,11 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param pipelineId Identifier of the pipeline that contains the object definitions.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeObjectsRequest withPipelineId(String pipelineId) {
@@ -156,7 +157,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      *         described. You can pass as many as 25 identifiers in a single call to
      *         DescribeObjects.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeObjectsRequest withObjectIds(String... objectIds) {
@@ -178,7 +179,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      *         described. You can pass as many as 25 identifiers in a single call to
      *         DescribeObjects.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeObjectsRequest withObjectIds(java.util.Collection<String> objectIds) {
@@ -224,7 +225,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * @param evaluateExpressions Indicates whether any expressions in the object should be evaluated
      *         when the object descriptions are returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeObjectsRequest withEvaluateExpressions(Boolean evaluateExpressions) {
@@ -252,7 +253,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The starting point for the results to be returned. The first time you
      *         call <a>DescribeObjects</a>, this value should be empty. As long as
@@ -273,7 +274,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param marker The starting point for the results to be returned. The first time you
      *         call <a>DescribeObjects</a>, this value should be empty. As long as
@@ -296,7 +297,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param marker The starting point for the results to be returned. The first time you
      *         call <a>DescribeObjects</a>, this value should be empty. As long as
@@ -304,7 +305,7 @@ public class DescribeObjectsRequest extends AmazonWebServiceRequest implements S
      *         you can call <a>DescribeObjects</a> again and pass the marker value
      *         from the response to retrieve the next set of results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeObjectsRequest withMarker(String marker) {

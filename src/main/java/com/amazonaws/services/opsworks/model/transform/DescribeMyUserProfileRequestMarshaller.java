@@ -14,13 +14,18 @@
  */
 package com.amazonaws.services.opsworks.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+import static com.amazonaws.util.StringUtils.COMMA_SEPARATOR;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
@@ -39,38 +44,19 @@ import com.amazonaws.util.json.*;
 public class DescribeMyUserProfileRequestMarshaller implements Marshaller<Request<DescribeMyUserProfileRequest>, DescribeMyUserProfileRequest> {
 
     public Request<DescribeMyUserProfileRequest> marshall(DescribeMyUserProfileRequest describeMyUserProfileRequest) {
-    if (describeMyUserProfileRequest == null) {
-        throw new AmazonClientException("Invalid argument passed to marshall(...)");
-    }
+        if (describeMyUserProfileRequest == null) {
+            throw new AmazonClientException("Invalid argument passed to marshall(...)");
+        }
 
         Request<DescribeMyUserProfileRequest> request = new DefaultRequest<DescribeMyUserProfileRequest>(describeMyUserProfileRequest, "AWSOpsWorks");
         String target = "OpsWorks_20130218.DescribeMyUserProfile";
         request.addHeader("X-Amz-Target", target);
-        request.addHeader("Content-Type", "application/x-amz-json-1.1");
 
         request.setHttpMethod(HttpMethodName.POST);
-
-        String uriResourcePath = ""; 
-
-        uriResourcePath = uriResourcePath.replaceAll("//", "/");
-
-        if (uriResourcePath.contains("?")) {
-            String queryString = uriResourcePath.substring(uriResourcePath.indexOf("?") + 1);
-            uriResourcePath    = uriResourcePath.substring(0, uriResourcePath.indexOf("?"));
-
-            for (String s : queryString.split("[;&]")) {
-                String[] nameValuePair = s.split("=");
-                if (nameValuePair.length == 2) {
-                    request.addParameter(nameValuePair[0], nameValuePair[1]);
-                } else {
-                    request.addParameter(s, null);
-                }
-            }
-        }
-
-        request.setResourcePath(uriResourcePath);
-
+        request.setResourcePath("");
+        
         request.setContent(new ByteArrayInputStream(new byte[0]));
+        request.addHeader("Content-Type", "application/x-amz-json-1.1");
 
         return request;
     }

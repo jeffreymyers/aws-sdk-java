@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeReservedDBInstancesOfferings action.
+ * Contains the result of a successful invocation of the
+ * DescribeReservedDBInstancesOfferings action.
  * </p>
  */
 public class DescribeReservedDBInstancesOfferingsResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeReservedDBInstancesOfferingsResult implements Serializable 
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesOfferingsResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeReservedDBInstancesOfferingsResult implements Serializable 
      *
      * @param reservedDBInstancesOfferings A list of reserved DB instance offerings.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesOfferingsResult withReservedDBInstancesOfferings(ReservedDBInstancesOffering... reservedDBInstancesOfferings) {
@@ -133,7 +134,7 @@ public class DescribeReservedDBInstancesOfferingsResult implements Serializable 
      *
      * @param reservedDBInstancesOfferings A list of reserved DB instance offerings.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedDBInstancesOfferingsResult withReservedDBInstancesOfferings(java.util.Collection<ReservedDBInstancesOffering> reservedDBInstancesOfferings) {

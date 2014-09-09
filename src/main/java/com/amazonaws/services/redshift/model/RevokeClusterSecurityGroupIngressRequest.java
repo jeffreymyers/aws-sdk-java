@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#revokeClusterSecurityGroupIngress(RevokeClusterSecurityGroupIngressRequest) RevokeClusterSecurityGroupIngress operation}.
  * <p>
- * Revokes an ingress rule in an Amazon Redshift security group for a previously authorized IP range or Amazon EC2 security group. To add an ingress
- * rule, see AuthorizeClusterSecurityGroupIngress. For information about managing security groups, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a> in the
- * <i>Amazon Redshift Management Guide</i> .
+ * Revokes an ingress rule in an Amazon Redshift security group for a
+ * previously authorized IP range or Amazon EC2 security group. To add an
+ * ingress rule, see AuthorizeClusterSecurityGroupIngress. For
+ * information about managing security groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -88,7 +90,7 @@ public class RevokeClusterSecurityGroupIngressRequest extends AmazonWebServiceRe
      *
      * @param clusterSecurityGroupName The name of the security Group from which to revoke the ingress rule.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeClusterSecurityGroupIngressRequest withClusterSecurityGroupName(String clusterSecurityGroupName) {
@@ -139,7 +141,7 @@ public class RevokeClusterSecurityGroupIngressRequest extends AmazonWebServiceRe
      *         <code>CIDRIP</code> is specified, <code>EC2SecurityGroupName</code>
      *         and <code>EC2SecurityGroupOwnerId</code> cannot be provided.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeClusterSecurityGroupIngressRequest withCIDRIP(String cIDRIP) {
@@ -190,7 +192,7 @@ public class RevokeClusterSecurityGroupIngressRequest extends AmazonWebServiceRe
      *         <code>EC2SecurityGroupOwnerId</code> must also be provided and
      *         <code>CIDRIP</code> cannot be provided.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeClusterSecurityGroupIngressRequest withEC2SecurityGroupName(String eC2SecurityGroupName) {
@@ -253,7 +255,7 @@ public class RevokeClusterSecurityGroupIngressRequest extends AmazonWebServiceRe
      *         and <code>CIDRIP</code> cannot be provided. <p>Example:
      *         <code>111122223333</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeClusterSecurityGroupIngressRequest withEC2SecurityGroupOwnerId(String eC2SecurityGroupOwnerId) {

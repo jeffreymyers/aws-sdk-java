@@ -25,7 +25,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#describeDomains(DescribeDomainsRequest)
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2.model.DescribeDomainsRequest} instead.
  */
+@Deprecated
 public class DescribeDomainsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

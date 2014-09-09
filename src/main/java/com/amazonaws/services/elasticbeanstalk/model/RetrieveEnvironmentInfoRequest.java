@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#retrieveEnvironmentInfo(RetrieveEnvironmentInfoRequest) RetrieveEnvironmentInfo operation}.
  * <p>
- * Retrieves the compiled information from a RequestEnvironmentInfo request.
+ * Retrieves the compiled information from a RequestEnvironmentInfo
+ * request.
  * </p>
  * <p>
  * Related Topics
@@ -142,7 +143,7 @@ public class RetrieveEnvironmentInfoRequest extends AmazonWebServiceRequest impl
      *         not specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RetrieveEnvironmentInfoRequest withEnvironmentId(String environmentId) {
@@ -208,7 +209,7 @@ public class RetrieveEnvironmentInfoRequest extends AmazonWebServiceRequest impl
      *         If you do not specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RetrieveEnvironmentInfoRequest withEnvironmentName(String environmentName) {
@@ -254,7 +255,7 @@ public class RetrieveEnvironmentInfoRequest extends AmazonWebServiceRequest impl
      *
      * @param infoType The type of information to retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EnvironmentInfoType
@@ -288,7 +289,7 @@ public class RetrieveEnvironmentInfoRequest extends AmazonWebServiceRequest impl
      *
      * @param infoType The type of information to retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EnvironmentInfoType

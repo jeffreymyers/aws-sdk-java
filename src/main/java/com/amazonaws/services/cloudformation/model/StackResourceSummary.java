@@ -35,9 +35,10 @@ public class StackResourceSummary implements Serializable {
     private String physicalResourceId;
 
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      */
     private String resourceType;
 
@@ -84,7 +85,7 @@ public class StackResourceSummary implements Serializable {
      *
      * @param logicalResourceId The logical name of the resource specified in the template.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResourceSummary withLogicalResourceId(String logicalResourceId) {
@@ -123,7 +124,7 @@ public class StackResourceSummary implements Serializable {
      * @param physicalResourceId The name or unique identifier that corresponds to a physical instance
      *         ID of the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResourceSummary withPhysicalResourceId(String physicalResourceId) {
@@ -132,43 +133,49 @@ public class StackResourceSummary implements Serializable {
     }
 
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      *
-     * @return Type of the resource. (For more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.)
+     * @return Type of resource. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     *         AWS Resource Types Reference</a> in the AWS CloudFormation User
+     *         Guide.)
      */
     public String getResourceType() {
         return resourceType;
     }
     
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      *
-     * @param resourceType Type of the resource. (For more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.)
+     * @param resourceType Type of resource. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     *         AWS Resource Types Reference</a> in the AWS CloudFormation User
+     *         Guide.)
      */
     public void setResourceType(String resourceType) {
         this.resourceType = resourceType;
     }
     
     /**
-     * Type of the resource. (For more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.)
+     * Type of resource. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     * AWS Resource Types Reference</a> in the AWS CloudFormation User
+     * Guide.)
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param resourceType Type of the resource. (For more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.)
+     * @param resourceType Type of resource. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">
+     *         AWS Resource Types Reference</a> in the AWS CloudFormation User
+     *         Guide.)
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResourceSummary withResourceType(String resourceType) {
@@ -201,7 +208,7 @@ public class StackResourceSummary implements Serializable {
      *
      * @param lastUpdatedTimestamp Time the status was updated.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResourceSummary withLastUpdatedTimestamp(java.util.Date lastUpdatedTimestamp) {
@@ -247,7 +254,7 @@ public class StackResourceSummary implements Serializable {
      *
      * @param resourceStatus Current status of the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ResourceStatus
@@ -281,7 +288,7 @@ public class StackResourceSummary implements Serializable {
      *
      * @param resourceStatus Current status of the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ResourceStatus
@@ -316,7 +323,7 @@ public class StackResourceSummary implements Serializable {
      *
      * @param resourceStatusReason Success/failure message associated with the resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StackResourceSummary withResourceStatusReason(String resourceStatusReason) {

@@ -21,17 +21,21 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#describeClusterParameters(DescribeClusterParametersRequest) DescribeClusterParameters operation}.
  * <p>
- * Returns a detailed list of parameters contained within the specified Amazon Redshift parameter group. For each parameter the response includes
- * information such as parameter name, description, data type, value, whether the parameter value is modifiable, and so on.
+ * Returns a detailed list of parameters contained within the specified
+ * Amazon Redshift parameter group. For each parameter the response
+ * includes information such as parameter name, description, data type,
+ * value, whether the parameter value is modifiable, and so on.
  * </p>
  * <p>
- * You can specify <i>source</i> filter to retrieve parameters of only specific type. For example, to retrieve parameters that were modified by a user
- * action such as from ModifyClusterParameterGroup, you can specify <i>source</i> equal to <i>user</i> .
+ * You can specify <i>source</i> filter to retrieve parameters of only
+ * specific type. For example, to retrieve parameters that were modified
+ * by a user action such as from ModifyClusterParameterGroup, you can
+ * specify <i>source</i> equal to <i>user</i> .
  * </p>
  * <p>
- * For more information about managing parameter groups, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a> in the <i>Amazon
- * Redshift Management Guide</i> .
+ * For more information about managing parameter groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#describeClusterParameters(DescribeClusterParametersRequest)
@@ -53,19 +57,23 @@ public class DescribeClusterParametersRequest extends AmazonWebServiceRequest im
     private String source;
 
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value,
-     * response includes a marker that you can specify in your subsequent
-     * request to retrieve remaining result. <p>Default: <code>100</code>
-     * <p>Constraints: Value must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     private Integer maxRecords;
 
     /**
-     * An optional marker returned from a previous
-     * <b>DescribeClusterParameters</b> request. If this parameter is
-     * specified, the response includes only records beyond the specified
-     * marker, up to the value specified by <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterParameters</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      */
     private String marker;
 
@@ -94,7 +102,7 @@ public class DescribeClusterParametersRequest extends AmazonWebServiceRequest im
      *
      * @param parameterGroupName The name of a cluster parameter group for which to return details.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParametersRequest withParameterGroupName(String parameterGroupName) {
@@ -151,7 +159,7 @@ public class DescribeClusterParametersRequest extends AmazonWebServiceRequest im
      *         the default parameter group. <p>Default: All parameter types returned.
      *         <p>Valid Values: <code>user</code> | <code>engine-default</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParametersRequest withSource(String source) {
@@ -160,55 +168,61 @@ public class DescribeClusterParametersRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value,
-     * response includes a marker that you can specify in your subsequent
-     * request to retrieve remaining result. <p>Default: <code>100</code>
-     * <p>Constraints: Value must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return The maximum number of records to include in the response. If more
-     *         records exist than the specified <code>MaxRecords</code> value,
-     *         response includes a marker that you can specify in your subsequent
-     *         request to retrieve remaining result. <p>Default: <code>100</code>
-     *         <p>Constraints: Value must be at least 20 and no more than 100.
+     * @return The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public Integer getMaxRecords() {
         return maxRecords;
     }
     
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value,
-     * response includes a marker that you can specify in your subsequent
-     * request to retrieve remaining result. <p>Default: <code>100</code>
-     * <p>Constraints: Value must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @param maxRecords The maximum number of records to include in the response. If more
-     *         records exist than the specified <code>MaxRecords</code> value,
-     *         response includes a marker that you can specify in your subsequent
-     *         request to retrieve remaining result. <p>Default: <code>100</code>
-     *         <p>Constraints: Value must be at least 20 and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
     }
     
     /**
-     * The maximum number of records to include in the response. If more
-     * records exist than the specified <code>MaxRecords</code> value,
-     * response includes a marker that you can specify in your subsequent
-     * request to retrieve remaining result. <p>Default: <code>100</code>
-     * <p>Constraints: Value must be at least 20 and no more than 100.
+     * The maximum number of response records to return in each call. If the
+     * number of remaining response records exceeds the specified
+     * <code>MaxRecords</code> value, a value is returned in a
+     * <code>marker</code> field of the response. You can retrieve the next
+     * set of records by retrying the command with the returned marker value.
+     * <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param maxRecords The maximum number of records to include in the response. If more
-     *         records exist than the specified <code>MaxRecords</code> value,
-     *         response includes a marker that you can specify in your subsequent
-     *         request to retrieve remaining result. <p>Default: <code>100</code>
-     *         <p>Constraints: Value must be at least 20 and no more than 100.
+     * @param maxRecords The maximum number of response records to return in each call. If the
+     *         number of remaining response records exceeds the specified
+     *         <code>MaxRecords</code> value, a value is returned in a
+     *         <code>marker</code> field of the response. You can retrieve the next
+     *         set of records by retrying the command with the returned marker value.
+     *         <p>Default: <code>100</code> <p>Constraints: minimum 20, maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParametersRequest withMaxRecords(Integer maxRecords) {
@@ -217,49 +231,67 @@ public class DescribeClusterParametersRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * An optional marker returned from a previous
-     * <b>DescribeClusterParameters</b> request. If this parameter is
-     * specified, the response includes only records beyond the specified
-     * marker, up to the value specified by <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterParameters</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      *
-     * @return An optional marker returned from a previous
-     *         <b>DescribeClusterParameters</b> request. If this parameter is
-     *         specified, the response includes only records beyond the specified
-     *         marker, up to the value specified by <code>MaxRecords</code>.
+     * @return An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a
+     *         <a>DescribeClusterParameters</a> request exceed the value specified in
+     *         <code>MaxRecords</code>, AWS returns a value in the
+     *         <code>Marker</code> field of the response. You can retrieve the next
+     *         set of response records by providing the returned marker value in the
+     *         <code>Marker</code> parameter and retrying the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional marker returned from a previous
-     * <b>DescribeClusterParameters</b> request. If this parameter is
-     * specified, the response includes only records beyond the specified
-     * marker, up to the value specified by <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterParameters</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      *
-     * @param marker An optional marker returned from a previous
-     *         <b>DescribeClusterParameters</b> request. If this parameter is
-     *         specified, the response includes only records beyond the specified
-     *         marker, up to the value specified by <code>MaxRecords</code>.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a
+     *         <a>DescribeClusterParameters</a> request exceed the value specified in
+     *         <code>MaxRecords</code>, AWS returns a value in the
+     *         <code>Marker</code> field of the response. You can retrieve the next
+     *         set of response records by providing the returned marker value in the
+     *         <code>Marker</code> parameter and retrying the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional marker returned from a previous
-     * <b>DescribeClusterParameters</b> request. If this parameter is
-     * specified, the response includes only records beyond the specified
-     * marker, up to the value specified by <code>MaxRecords</code>.
+     * An optional parameter that specifies the starting point to return a
+     * set of response records. When the results of a
+     * <a>DescribeClusterParameters</a> request exceed the value specified in
+     * <code>MaxRecords</code>, AWS returns a value in the
+     * <code>Marker</code> field of the response. You can retrieve the next
+     * set of response records by providing the returned marker value in the
+     * <code>Marker</code> parameter and retrying the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional marker returned from a previous
-     *         <b>DescribeClusterParameters</b> request. If this parameter is
-     *         specified, the response includes only records beyond the specified
-     *         marker, up to the value specified by <code>MaxRecords</code>.
+     * @param marker An optional parameter that specifies the starting point to return a
+     *         set of response records. When the results of a
+     *         <a>DescribeClusterParameters</a> request exceed the value specified in
+     *         <code>MaxRecords</code>, AWS returns a value in the
+     *         <code>Marker</code> field of the response. You can retrieve the next
+     *         set of response records by providing the returned marker value in the
+     *         <code>Marker</code> parameter and retrying the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParametersRequest withMarker(String marker) {

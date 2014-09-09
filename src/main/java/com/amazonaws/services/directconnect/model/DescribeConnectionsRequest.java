@@ -24,7 +24,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Displays all connections in this region.
  * </p>
  * <p>
- * If a connection ID is provided, the call returns only that particular connection.
+ * If a connection ID is provided, the call returns only that particular
+ * connection.
  * </p>
  *
  * @see com.amazonaws.services.directconnect.AmazonDirectConnect#describeConnections(DescribeConnectionsRequest)
@@ -61,7 +62,7 @@ public class DescribeConnectionsRequest extends AmazonWebServiceRequest implemen
      *
      * @param connectionId ID of the connection. <p>Example: dxcon-fg5678gh <p>Default: None
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeConnectionsRequest withConnectionId(String connectionId) {

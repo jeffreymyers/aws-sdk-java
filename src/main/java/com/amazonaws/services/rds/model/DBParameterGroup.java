@@ -18,11 +18,13 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the CreateDBParameterGroup action.
+ * Contains the result of a successful invocation of the
+ * CreateDBParameterGroup action.
  * </p>
  * <p>
- * This data type is used as a request parameter in the DeleteDBParameterGroup action, and as a response element in the DescribeDBParameterGroups
- * action.
+ * This data type is used as a request parameter in the
+ * DeleteDBParameterGroup action, and as a response element in the
+ * DescribeDBParameterGroups action.
  * </p>
  */
 public class DBParameterGroup implements Serializable {
@@ -69,7 +71,7 @@ public class DBParameterGroup implements Serializable {
      *
      * @param dBParameterGroupName Provides the name of the DB parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DBParameterGroup withDBParameterGroupName(String dBParameterGroupName) {
@@ -108,7 +110,7 @@ public class DBParameterGroup implements Serializable {
      * @param dBParameterGroupFamily Provides the name of the DB parameter group family that this DB
      *         parameter group is compatible with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DBParameterGroup withDBParameterGroupFamily(String dBParameterGroupFamily) {
@@ -147,7 +149,7 @@ public class DBParameterGroup implements Serializable {
      * @param description Provides the customer-specified description for this DB parameter
      *         group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DBParameterGroup withDescription(String description) {

@@ -21,25 +21,32 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.glacier.AmazonGlacier#listVaults(ListVaultsRequest) ListVaults operation}.
  * <p>
- * This operation lists all vaults owned by the calling user's account. The list returned in the response is ASCII-sorted by vault name.
+ * This operation lists all vaults owned by the calling user's account.
+ * The list returned in the response is ASCII-sorted by vault name.
  * </p>
  * <p>
- * By default, this operation returns up to 1,000 items. If there are more vaults to list, the response <code>marker</code> field contains the vault
- * Amazon Resource Name (ARN) at which to continue the list with a new List Vaults request; otherwise, the <code>marker</code> field is <code>null</code>
- * . To return a list of vaults that begins at a specific vault, set the <code>marker</code> request parameter to the vault ARN you obtained from a
- * previous List Vaults request. You can also limit the number of vaults returned in the response by specifying the <code>limit</code> parameter in the
- * request.
+ * By default, this operation returns up to 1,000 items. If there are
+ * more vaults to list, the response <code>marker</code> field contains
+ * the vault Amazon Resource Name (ARN) at which to continue the list
+ * with a new List Vaults request; otherwise, the <code>marker</code>
+ * field is <code>null</code> . To return a list of vaults that begins at
+ * a specific vault, set the <code>marker</code> request parameter to the
+ * vault ARN you obtained from a previous List Vaults request. You can
+ * also limit the number of vaults returned in the response by specifying
+ * the <code>limit</code> parameter in the request.
  * </p>
  * <p>
- * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any
- * permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <a
- * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management
- * (IAM) </a> .
+ * An AWS account has full permission to perform all operations
+ * (actions). However, AWS Identity and Access Management (IAM) users
+ * don't have any permissions by default. You must grant them explicit
+ * permission to perform specific actions. For more information, see
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+ * .
  * </p>
  * <p>
- * For conceptual information and underlying REST API, go to <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html">
- * Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html"> List Vaults
- * </a> in the <i>Amazon Glacier Developer Guide</i> .
+ * For conceptual information and underlying REST API, go to
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html"> List Vaults </a>
+ * in the <i>Amazon Glacier Developer Guide</i> .
  * 
  * </p>
  *
@@ -160,7 +167,7 @@ public class ListVaultsRequest extends AmazonWebServiceRequest implements Serial
      *         to sign the request. If you specify your Account ID, do not include
      *         hyphens in it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVaultsRequest withAccountId(String accountId) {
@@ -199,7 +206,7 @@ public class ListVaultsRequest extends AmazonWebServiceRequest implements Serial
      * @param marker A string used for pagination. The marker specifies the vault ARN after
      *         which the listing of vaults should begin.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVaultsRequest withMarker(String marker) {
@@ -238,7 +245,7 @@ public class ListVaultsRequest extends AmazonWebServiceRequest implements Serial
      * @param limit The maximum number of items returned in the response. If you don't
      *         specify a value, the List Vaults operation returns up to 1,000 items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListVaultsRequest withLimit(String limit) {

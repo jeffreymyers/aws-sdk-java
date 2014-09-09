@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents a single element of a key schema. A key schema specifies the attributes that make up the primary key of a table, or the key attributes of
- * an index.
+ * Represents a single element of a key schema. A key schema specifies
+ * the attributes that make up the primary key of a table, or the key
+ * attributes of an index.
  * </p>
  */
 public class KeySchemaElement implements Serializable {
@@ -109,7 +110,7 @@ public class KeySchemaElement implements Serializable {
      *
      * @param attributeName The name of a key attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public KeySchemaElement withAttributeName(String attributeName) {
@@ -161,7 +162,7 @@ public class KeySchemaElement implements Serializable {
      * @param keyType The attribute data, consisting of the data type and the attribute
      *         value itself.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see KeyType
@@ -199,7 +200,7 @@ public class KeySchemaElement implements Serializable {
      * @param keyType The attribute data, consisting of the data type and the attribute
      *         value itself.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see KeyType

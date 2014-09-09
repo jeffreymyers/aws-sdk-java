@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#addSourceIdentifierToSubscription(AddSourceIdentifierToSubscriptionRequest) AddSourceIdentifierToSubscription operation}.
  * <p>
- * Adds a source identifier to an existing RDS event notification subscription.
+ * Adds a source identifier to an existing RDS event notification
+ * subscription.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#addSourceIdentifierToSubscription(AddSourceIdentifierToSubscriptionRequest)
@@ -80,7 +81,7 @@ public class AddSourceIdentifierToSubscriptionRequest extends AmazonWebServiceRe
      * @param subscriptionName The name of the RDS event notification subscription you want to add a
      *         source identifier to.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddSourceIdentifierToSubscriptionRequest withSubscriptionName(String subscriptionName) {
@@ -173,7 +174,7 @@ public class AddSourceIdentifierToSubscriptionRequest extends AmazonWebServiceRe
      *         source type is a DB snapshot, a <code>DBSnapshotIdentifier</code> must
      *         be supplied.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddSourceIdentifierToSubscriptionRequest withSourceIdentifier(String sourceIdentifier) {

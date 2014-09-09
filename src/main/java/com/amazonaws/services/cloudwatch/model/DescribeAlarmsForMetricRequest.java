@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarmsForMetric(DescribeAlarmsForMetricRequest) DescribeAlarmsForMetric operation}.
  * <p>
- * Retrieves all alarms for a single metric. Specify a statistic, period, or unit to filter the set of alarms further.
+ * Retrieves all alarms for a single metric. Specify a statistic,
+ * period, or unit to filter the set of alarms further.
  * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarmsForMetric(DescribeAlarmsForMetricRequest)
@@ -111,7 +112,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param metricName The name of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsForMetricRequest withMetricName(String metricName) {
@@ -156,7 +157,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param namespace The namespace of the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsForMetricRequest withNamespace(String namespace) {
@@ -202,7 +203,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param statistic The statistic for the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see Statistic
@@ -236,7 +237,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param statistic The statistic for the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see Statistic
@@ -290,7 +291,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param dimensions The list of dimensions associated with the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsForMetricRequest withDimensions(Dimension... dimensions) {
@@ -311,7 +312,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param dimensions The list of dimensions associated with the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsForMetricRequest withDimensions(java.util.Collection<Dimension> dimensions) {
@@ -360,7 +361,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param period The period in seconds over which the statistic is applied.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAlarmsForMetricRequest withPeriod(Integer period) {
@@ -406,7 +407,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param unit The unit for the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StandardUnit
@@ -440,7 +441,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest impl
      *
      * @param unit The unit for the metric.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see StandardUnit

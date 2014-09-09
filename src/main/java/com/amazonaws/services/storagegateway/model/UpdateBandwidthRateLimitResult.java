@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A JSON object containing the of the gateway whose throttle information was updated.
+ * A JSON object containing the of the gateway whose throttle information
+ * was updated.
  * </p>
  */
 public class UpdateBandwidthRateLimitResult implements Serializable {
@@ -79,7 +80,7 @@ public class UpdateBandwidthRateLimitResult implements Serializable {
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateBandwidthRateLimitResult withGatewayARN(String gatewayARN) {

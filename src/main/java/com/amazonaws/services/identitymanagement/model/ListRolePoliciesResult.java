@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the ListRolePolicies action.
+ * Contains the result of a successful invocation of the ListRolePolicies
+ * action.
  * </p>
  */
 public class ListRolePoliciesResult implements Serializable {
@@ -43,7 +44,7 @@ public class ListRolePoliciesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -82,7 +83,7 @@ public class ListRolePoliciesResult implements Serializable {
      *
      * @param policyNames A list of policy names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesResult withPolicyNames(String... policyNames) {
@@ -100,7 +101,7 @@ public class ListRolePoliciesResult implements Serializable {
      *
      * @param policyNames A list of policy names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesResult withPolicyNames(java.util.Collection<String> policyNames) {
@@ -158,7 +159,7 @@ public class ListRolePoliciesResult implements Serializable {
      *         request using the <code>Marker</code> request parameter to retrieve
      *         more policy names in the list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesResult withIsTruncated(Boolean isTruncated) {
@@ -188,7 +189,7 @@ public class ListRolePoliciesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return If <code>IsTruncated</code> is <code>true</code>, this element is
      *         present and contains the value to use for the <code>Marker</code>
@@ -205,7 +206,7 @@ public class ListRolePoliciesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker If <code>IsTruncated</code> is <code>true</code>, this element is
      *         present and contains the value to use for the <code>Marker</code>
@@ -224,13 +225,13 @@ public class ListRolePoliciesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker If <code>IsTruncated</code> is <code>true</code>, this element is
      *         present and contains the value to use for the <code>Marker</code>
      *         parameter in a subsequent pagination request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesResult withMarker(String marker) {

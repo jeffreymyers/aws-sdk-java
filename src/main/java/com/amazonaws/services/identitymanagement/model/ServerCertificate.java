@@ -18,10 +18,12 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The ServerCertificate data type contains information about a server certificate.
+ * The ServerCertificate data type contains information about a server
+ * certificate.
  * </p>
  * <p>
- * This data type is used as a response element in the action GetServerCertificate.
+ * This data type is used as a response element in the action
+ * GetServerCertificate.
  * </p>
  */
 public class ServerCertificate implements Serializable {
@@ -37,7 +39,7 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      */
     private String certificateBody;
 
@@ -46,7 +48,7 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      */
     private String certificateChain;
 
@@ -101,7 +103,7 @@ public class ServerCertificate implements Serializable {
      * @param serverCertificateMetadata The meta information of the server certificate, such as its name,
      *         path, ID, and ARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificate withServerCertificateMetadata(ServerCertificateMetadata serverCertificateMetadata) {
@@ -114,7 +116,7 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @return The contents of the public key certificate.
      */
@@ -127,7 +129,7 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param certificateBody The contents of the public key certificate.
      */
@@ -142,11 +144,11 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param certificateBody The contents of the public key certificate.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificate withCertificateBody(String certificateBody) {
@@ -159,7 +161,7 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return The contents of the public key certificate chain.
      */
@@ -172,7 +174,7 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param certificateChain The contents of the public key certificate chain.
      */
@@ -187,11 +189,11 @@ public class ServerCertificate implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param certificateChain The contents of the public key certificate chain.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ServerCertificate withCertificateChain(String certificateChain) {

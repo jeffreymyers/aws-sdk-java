@@ -21,15 +21,20 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.opsworks.AWSOpsWorks#describeElasticIps(DescribeElasticIpsRequest) DescribeElasticIps operation}.
  * <p>
- * Describes <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP addresses </a> .
+ * Describes
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"> Elastic IP addresses </a>
+ * .
  * </p>
  * <p>
- * <b>NOTE:</b>You must specify at least one of the parameters.
+ * <b>NOTE:</b> You must specify at least one of the parameters.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeElasticIps(DescribeElasticIpsRequest)
@@ -95,7 +100,7 @@ public class DescribeElasticIpsRequest extends AmazonWebServiceRequest implement
      *         <code>DescribeElasticIps</code> returns a description of the Elastic
      *         IP addresses associated with the specified instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeElasticIpsRequest withInstanceId(String instanceId) {
@@ -140,7 +145,7 @@ public class DescribeElasticIpsRequest extends AmazonWebServiceRequest implement
      *         <code>DescribeElasticIps</code> returns a description of the Elastic
      *         IP addresses that are registered with the specified stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeElasticIpsRequest withStackId(String stackId) {
@@ -201,7 +206,7 @@ public class DescribeElasticIpsRequest extends AmazonWebServiceRequest implement
      *         the specified Elastic IP addresses. Otherwise, it returns a
      *         description of every Elastic IP address.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeElasticIpsRequest withIps(String... ips) {
@@ -225,7 +230,7 @@ public class DescribeElasticIpsRequest extends AmazonWebServiceRequest implement
      *         the specified Elastic IP addresses. Otherwise, it returns a
      *         description of every Elastic IP address.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeElasticIpsRequest withIps(java.util.Collection<String> ips) {

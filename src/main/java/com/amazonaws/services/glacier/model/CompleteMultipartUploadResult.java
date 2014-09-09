@@ -21,9 +21,9 @@ import java.io.Serializable;
  * Contains the Amazon Glacier response to your request.
  * </p>
  * <p>
- * For information about the underlying REST API, go to <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html"> Upload
- * Archive </a> . For conceptual information, go to <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working
- * with Archives in Amazon Glacier </a> .
+ * For information about the underlying REST API, go to
+ * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html"> Upload Archive </a> . For conceptual information, go to <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a>
+ * .
  * </p>
  */
 public class CompleteMultipartUploadResult implements Serializable {
@@ -69,7 +69,7 @@ public class CompleteMultipartUploadResult implements Serializable {
      *
      * @param location The relative URI path of the newly added archive resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CompleteMultipartUploadResult withLocation(String location) {
@@ -102,7 +102,7 @@ public class CompleteMultipartUploadResult implements Serializable {
      *
      * @param checksum The checksum of the archive computed by Amazon Glacier.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CompleteMultipartUploadResult withChecksum(String checksum) {
@@ -141,7 +141,7 @@ public class CompleteMultipartUploadResult implements Serializable {
      * @param archiveId The ID of the archive. This value is also included as part of the
      *         location.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CompleteMultipartUploadResult withArchiveId(String archiveId) {

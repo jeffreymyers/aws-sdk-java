@@ -37,7 +37,7 @@ public class ConsumedCapacityJsonUnmarshaller implements Unmarshaller<ConsumedCa
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -58,9 +58,11 @@ public class ConsumedCapacityJsonUnmarshaller implements Unmarshaller<ConsumedCa
                     consumedCapacity.setTable(CapacityJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("LocalSecondaryIndexes", targetDepth)) {
+                    context.nextToken();
                     consumedCapacity.setLocalSecondaryIndexes(new MapUnmarshaller<String,Capacity>(StringJsonUnmarshaller.getInstance(), CapacityJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("GlobalSecondaryIndexes", targetDepth)) {
+                    context.nextToken();
                     consumedCapacity.setGlobalSecondaryIndexes(new MapUnmarshaller<String,Capacity>(StringJsonUnmarshaller.getInstance(), CapacityJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

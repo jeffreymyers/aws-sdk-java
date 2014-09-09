@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#createCacheSubnetGroup(CreateCacheSubnetGroupRequest) CreateCacheSubnetGroup operation}.
  * <p>
- * The <i>CreateCacheSubnetGroup</i> operation creates a new cache subnet group.
+ * The <i>CreateCacheSubnetGroup</i> operation creates a new cache subnet
+ * group.
  * </p>
  * <p>
- * Use this parameter only when you are creating a cluster in an Amazon Virtual Private Cloud (VPC).
+ * Use this parameter only when you are creating a cluster in an Amazon
+ * Virtual Private Cloud (VPC).
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#createCacheSubnetGroup(CreateCacheSubnetGroupRequest)
@@ -85,7 +87,7 @@ public class CreateCacheSubnetGroupRequest extends AmazonWebServiceRequest imple
      *         string. <p>Constraints: Must contain no more than 255 alphanumeric
      *         characters or hyphens. <p>Example: <code>mysubnetgroup</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCacheSubnetGroupRequest withCacheSubnetGroupName(String cacheSubnetGroupName) {
@@ -118,7 +120,7 @@ public class CreateCacheSubnetGroupRequest extends AmazonWebServiceRequest imple
      *
      * @param cacheSubnetGroupDescription A description for the cache subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCacheSubnetGroupRequest withCacheSubnetGroupDescription(String cacheSubnetGroupDescription) {
@@ -161,7 +163,7 @@ public class CreateCacheSubnetGroupRequest extends AmazonWebServiceRequest imple
      *
      * @param subnetIds A list of VPC subnet IDs for the cache subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCacheSubnetGroupRequest withSubnetIds(String... subnetIds) {
@@ -179,7 +181,7 @@ public class CreateCacheSubnetGroupRequest extends AmazonWebServiceRequest imple
      *
      * @param subnetIds A list of VPC subnet IDs for the cache subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCacheSubnetGroupRequest withSubnetIds(java.util.Collection<String> subnetIds) {

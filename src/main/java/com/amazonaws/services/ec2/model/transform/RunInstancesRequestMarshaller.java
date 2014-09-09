@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
 
         Request<RunInstancesRequest> request = new DefaultRequest<RunInstancesRequest>(runInstancesRequest, "AmazonEC2");
         request.addParameter("Action", "RunInstances");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         if (runInstancesRequest.getImageId() != null) {
             request.addParameter("ImageId", StringUtils.fromString(runInstancesRequest.getImageId()));
@@ -128,6 +129,9 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                     if (ebsBlockDeviceEbs.getIops() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Iops", StringUtils.fromInteger(ebsBlockDeviceEbs.getIops()));
                     }
+                    if (ebsBlockDeviceEbs.isEncrypted() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted", StringUtils.fromBoolean(ebsBlockDeviceEbs.isEncrypted()));
+                    }
                 }
                 if (blockDeviceMappingMember.getNoDevice() != null) {
                     request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".NoDevice", StringUtils.fromString(blockDeviceMappingMember.getNoDevice()));
@@ -147,12 +151,6 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
         }
         if (runInstancesRequest.getInstanceInitiatedShutdownBehavior() != null) {
             request.addParameter("InstanceInitiatedShutdownBehavior", StringUtils.fromString(runInstancesRequest.getInstanceInitiatedShutdownBehavior()));
-        }
-        InstanceLicenseSpecification instanceLicenseSpecificationLicense = runInstancesRequest.getLicense();
-        if (instanceLicenseSpecificationLicense != null) {
-            if (instanceLicenseSpecificationLicense.getPool() != null) {
-                request.addParameter("License.Pool", StringUtils.fromString(instanceLicenseSpecificationLicense.getPool()));
-            }
         }
         if (runInstancesRequest.getPrivateIpAddress() != null) {
             request.addParameter("PrivateIpAddress", StringUtils.fromString(runInstancesRequest.getPrivateIpAddress()));

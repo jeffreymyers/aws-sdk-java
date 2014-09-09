@@ -17,24 +17,28 @@ package com.amazonaws.services.sqs.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * For each message in the batch, the response contains a
+ * ChangeMessageVisibilityBatchResultEntry tag if the message succeeds or
+ * a BatchResultErrorEntry tag if the message fails.
+ * </p>
  */
 public class ChangeMessageVisibilityBatchResult implements Serializable {
 
     /**
-     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<ChangeMessageVisibilityBatchResultEntry> successful;
 
     /**
-     * A list of <a>BatchResultErrorEntry</a>s.
+     * A list of <a>BatchResultErrorEntry</a> items.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<BatchResultErrorEntry> failed;
 
     /**
-     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      *
-     * @return A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * @return A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      */
     public java.util.List<ChangeMessageVisibilityBatchResultEntry> getSuccessful() {
         if (successful == null) {
@@ -45,9 +49,9 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
     
     /**
-     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      *
-     * @param successful A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * @param successful A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      */
     public void setSuccessful(java.util.Collection<ChangeMessageVisibilityBatchResultEntry> successful) {
         if (successful == null) {
@@ -60,13 +64,13 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
     
     /**
-     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param successful A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * @param successful A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchResult withSuccessful(ChangeMessageVisibilityBatchResultEntry... successful) {
@@ -78,13 +82,13 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
     
     /**
-     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param successful A list of <a>ChangeMessageVisibilityBatchResultEntry</a>s.
+     * @param successful A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchResult withSuccessful(java.util.Collection<ChangeMessageVisibilityBatchResultEntry> successful) {
@@ -100,9 +104,9 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
 
     /**
-     * A list of <a>BatchResultErrorEntry</a>s.
+     * A list of <a>BatchResultErrorEntry</a> items.
      *
-     * @return A list of <a>BatchResultErrorEntry</a>s.
+     * @return A list of <a>BatchResultErrorEntry</a> items.
      */
     public java.util.List<BatchResultErrorEntry> getFailed() {
         if (failed == null) {
@@ -113,9 +117,9 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
     
     /**
-     * A list of <a>BatchResultErrorEntry</a>s.
+     * A list of <a>BatchResultErrorEntry</a> items.
      *
-     * @param failed A list of <a>BatchResultErrorEntry</a>s.
+     * @param failed A list of <a>BatchResultErrorEntry</a> items.
      */
     public void setFailed(java.util.Collection<BatchResultErrorEntry> failed) {
         if (failed == null) {
@@ -128,13 +132,13 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
     
     /**
-     * A list of <a>BatchResultErrorEntry</a>s.
+     * A list of <a>BatchResultErrorEntry</a> items.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param failed A list of <a>BatchResultErrorEntry</a>s.
+     * @param failed A list of <a>BatchResultErrorEntry</a> items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchResult withFailed(BatchResultErrorEntry... failed) {
@@ -146,13 +150,13 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
     
     /**
-     * A list of <a>BatchResultErrorEntry</a>s.
+     * A list of <a>BatchResultErrorEntry</a> items.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param failed A list of <a>BatchResultErrorEntry</a>s.
+     * @param failed A list of <a>BatchResultErrorEntry</a> items.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChangeMessageVisibilityBatchResult withFailed(java.util.Collection<BatchResultErrorEntry> failed) {

@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.s3.transfer.internal;
 
+import static com.amazonaws.event.SDKProgressPublisher.publishProgress;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
@@ -21,9 +23,8 @@ import java.util.concurrent.Future;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.event.ProgressEvent;
+import com.amazonaws.event.ProgressEventType;
 import com.amazonaws.event.ProgressListener;
-import com.amazonaws.event.ProgressListenerCallbackExecutor;
 import com.amazonaws.event.ProgressListenerChain;
 import com.amazonaws.services.s3.model.LegacyS3ProgressListener;
 import com.amazonaws.services.s3.transfer.Transfer;
@@ -46,54 +47,31 @@ public abstract class AbstractTransfer implements Transfer {
     private final String description;
 
     /** Hook for adding/removing more progress listeners. */
-    protected final ProgressListenerChain progressListenerChain;
-    
-    /** Listener call-back executor **/
-    protected final ProgressListenerCallbackExecutor progressListenerChainCallbackExecutor;
-    
+    protected final ProgressListenerChain listenerChain;
+
     /** Collection of listeners to be notified for changes to the state of this transfer via setState() */
     protected final Collection<TransferStateChangeListener> stateChangeListeners = new LinkedList<TransferStateChangeListener>();
-    
+
     AbstractTransfer(String description, TransferProgress transferProgress, ProgressListenerChain progressListenerChain) {
-        this(description, transferProgress, progressListenerChain, null);
-    }
-    
-    /**
-     * @deprecated Replaced by {@link #AbstractTransfer(String, TransferProgress, ProgressListenerChain)}
-     */
-    @Deprecated
-    AbstractTransfer(String description, TransferProgress transferProgress, com.amazonaws.services.s3.transfer.internal.ProgressListenerChain progressListenerChain) {
         this(description, transferProgress, progressListenerChain, null);
     }
 
     AbstractTransfer(String description, TransferProgress transferProgress,
             ProgressListenerChain progressListenerChain, TransferStateChangeListener stateChangeListener) {
         this.description = description;
-        this.progressListenerChain = progressListenerChain;
-        this.progressListenerChainCallbackExecutor = ProgressListenerCallbackExecutor
-                .wrapListener(progressListenerChain);
+        this.listenerChain = progressListenerChain;
         this.transferProgress = transferProgress;
         addStateChangeListener(stateChangeListener);
     }
-    
-    /**
-     * @deprecated Replaced by {@link #AbstractTransfer(String, TransferProgress, ProgressListenerChain)}
-     */
-    @Deprecated
-    AbstractTransfer(String description, TransferProgress transferProgress,
-            com.amazonaws.services.s3.transfer.internal.ProgressListenerChain progressListenerChain, TransferStateChangeListener stateChangeListener) {
-        this(description, transferProgress, progressListenerChain.transformToGeneralProgressListenerChain(),
-                stateChangeListener);
-    }
-    
+
     /**
      * Returns whether or not the transfer is finished (i.e. completed successfully,
-     * failed, or was canceled).
+     * failed, or was canceled).  This method should never block.
      *
      * @return Returns <code>true</code> if this transfer is finished (i.e. completed successfully,
      *         failed, or was canceled).  Returns <code>false</code> if otherwise.
      */
-    public synchronized boolean isDone() {
+    public final synchronized boolean isDone() {
         return (state == TransferState.Failed ||
                 state == TransferState.Completed ||
                 state == TransferState.Canceled);
@@ -123,7 +101,7 @@ public abstract class AbstractTransfer implements Transfer {
             }
         } catch (ExecutionException e) {
             rethrowExecutionException(e);
-            
+
         }
     }
 
@@ -183,7 +161,7 @@ public abstract class AbstractTransfer implements Transfer {
             listener.transferStateChanged(this, state);
         }
     }
-    
+
     /**
      * Notifies all the registered state change listeners of the state update.
      */
@@ -201,7 +179,7 @@ public abstract class AbstractTransfer implements Transfer {
      *            The progress listener to add.
      */
     public synchronized void addProgressListener(ProgressListener listener) {
-        progressListenerChain.addProgressListener(listener);
+        listenerChain.addProgressListener(listener);
     }
 
     /**
@@ -212,25 +190,25 @@ public abstract class AbstractTransfer implements Transfer {
      *            The progress listener to remove.
      */
     public synchronized void removeProgressListener(ProgressListener listener) {
-        progressListenerChain.removeProgressListener(listener);
+        listenerChain.removeProgressListener(listener);
     }
-    
+
     /**
      * @deprecated Replaced by {@link #addProgressListener(ProgressListener)}
      */
     @Deprecated
     public synchronized void addProgressListener(com.amazonaws.services.s3.model.ProgressListener listener) {
-        progressListenerChain.addProgressListener(new LegacyS3ProgressListener(listener));
+        listenerChain.addProgressListener(new LegacyS3ProgressListener(listener));
     }
-    
+
     /**
      * @deprecated Replaced by {@link #removeProgressListener(ProgressListener)}
      */
     @Deprecated
     public synchronized void removeProgressListener(com.amazonaws.services.s3.model.ProgressListener listener) {
-        progressListenerChain.removeProgressListener(new LegacyS3ProgressListener(listener));
+        listenerChain.removeProgressListener(new LegacyS3ProgressListener(listener));
     }
-    
+
     /**
      * Adds the given state change listener to the collection of listeners.
      */
@@ -262,16 +240,15 @@ public abstract class AbstractTransfer implements Transfer {
     public void setMonitor(TransferMonitor monitor) {
         this.monitor = monitor;
     }
-    
+
     public TransferMonitor getMonitor() {
         return monitor;
     }
-    
-    protected void fireProgressEvent(final int eventType) {
-        if (progressListenerChainCallbackExecutor == null) return;
-        progressListenerChainCallbackExecutor.progressChanged(new ProgressEvent(eventType, 0));
+
+    protected void fireProgressEvent(final ProgressEventType eventType) {
+        publishProgress(listenerChain, eventType);
     }
-    
+
     /**
      * Examines the cause of the specified ExecutionException and either
      * rethrows it directly (if it's a type of AmazonClientException) or wraps

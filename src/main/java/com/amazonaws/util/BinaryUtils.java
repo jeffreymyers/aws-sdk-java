@@ -19,24 +19,13 @@ package com.amazonaws.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Locale;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Utilities for encoding and decoding binary data to and from different forms.
  */
 public class BinaryUtils {
-
-    /** Default encoding when extracting binary data from a String */
-    private static final String DEFAULT_ENCODING = "UTF-8";
-
-    private static final Log log = LogFactory.getLog(BinaryUtils.class);
-
     /**
      * Converts byte data to a Hex-encoded string.
      *
@@ -89,8 +78,7 @@ public class BinaryUtils {
      * @return encoded Base64 string.
      */
     public static String toBase64(byte[] data) {
-        byte[] b64 = Base64.encodeBase64(data);
-        return new String(b64);
+        return Base64.encodeAsString(data);
     }
 
     /**
@@ -102,22 +90,14 @@ public class BinaryUtils {
      * @return bytes decoded from a Base64 string.
      */
     public static byte[] fromBase64(String b64Data) {
-        byte[] decoded;
-        try {
-            decoded = Base64.decodeBase64(b64Data.getBytes(DEFAULT_ENCODING));
-        } catch (UnsupportedEncodingException uee) {
-            // Shouldn't happen if the string is truly Base64 encoded.
-            log.warn("Tried to Base64-decode a String with the wrong encoding: ", uee);
-            decoded = Base64.decodeBase64(b64Data.getBytes());
-        }
-        return decoded;
+        return b64Data == null ? null : Base64.decode(b64Data);
     }
 
     /**
-     * Wraps a ByteBuffer in an InputStream. 
-     * 
+     * Wraps a ByteBuffer in an InputStream.
+     *
      * @param byteBuffer The ByteBuffer to wrap.
-     * 
+     *
      * @return An InputStream wrapping the ByteBuffer content.
      */
     public static InputStream toStream(ByteBuffer byteBuffer) {

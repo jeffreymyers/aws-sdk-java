@@ -21,25 +21,33 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#sendEmail(SendEmailRequest) SendEmail operation}.
  * <p>
- * Composes an email message based on input data, and then immediately queues the message for sending.
+ * Composes an email message based on input data, and then immediately
+ * queues the message for sending.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> You can only send email from verified email addresses and domains. If you have not requested production access to Amazon SES, you
- * must also verify every recipient email address except for the recipients provided by the Amazon SES mailbox simulator. For more information, go to the
- * Amazon SES Developer Guide.
+ * <b>IMPORTANT:</b> You can only send email from verified email
+ * addresses and domains. If you have not requested production access to
+ * Amazon SES, you must also verify every recipient email address except
+ * for the recipients provided by the Amazon SES mailbox simulator. For
+ * more information, go to the Amazon SES Developer Guide.
  * </p>
  * <p>
  * The total size of the message cannot exceed 10 MB.
  * </p>
  * <p>
- * Amazon SES has a limit on the total number of recipients per message: The combined number of To:, CC: and BCC: email addresses cannot exceed 50. If
- * you need to send an email message to a larger audience, you can divide your recipient list into groups of 50 or fewer, and then call Amazon SES
- * repeatedly to send the message to each group.
+ * Amazon SES has a limit on the total number of recipients per message:
+ * The combined number of To:, CC: and BCC: email addresses cannot exceed
+ * 50. If you need to send an email message to a larger audience, you can
+ * divide your recipient list into groups of 50 or fewer, and then call
+ * Amazon SES repeatedly to send the message to each group.
  * </p>
  * <p>
- * For every message that you send, the total number of recipients (To:, CC: and BCC:) is counted against your <i>sending quota</i> - the maximum number
- * of emails you can send in a 24-hour period. For information about your sending quota, go to the <a
- * href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html"> Amazon SES Developer Guide </a> .
+ * For every message that you send, the total number of recipients (To:,
+ * CC: and BCC:) is counted against your <i>sending quota</i> - the
+ * maximum number of emails you can send in a 24-hour period. For
+ * information about your sending quota, go to the
+ * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html"> Amazon SES Developer Guide </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#sendEmail(SendEmailRequest)
@@ -73,11 +81,11 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> replyToAddresses;
 
     /**
-     * The email address to which bounce notifications are to be forwarded.
-     * If the message cannot be delivered to the recipient, then an error
-     * message will be returned from the recipient's ISP; this message will
-     * then be forwarded to the email address specified by the
-     * <code>ReturnPath</code> parameter.
+     * The email address to which bounces and complaints are to be forwarded
+     * when feedback forwarding is enabled. If the message cannot be
+     * delivered to the recipient, then an error message will be returned
+     * from the recipient's ISP; this message will then be forwarded to the
+     * email address specified by the <code>ReturnPath</code> parameter.
      */
     private String returnPath;
 
@@ -163,7 +171,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
      *         <code>=?charset?encoding?encoded-text?=</code>. For more information,
      *         see <a href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendEmailRequest withSource(String source) {
@@ -196,7 +204,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param destination The destination for this email, composed of To:, CC:, and BCC: fields.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendEmailRequest withDestination(Destination destination) {
@@ -229,7 +237,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
      *
      * @param message The message to be sent.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendEmailRequest withMessage(Message message) {
@@ -278,7 +286,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
      * @param replyToAddresses The reply-to email address(es) for the message. If the recipient
      *         replies to the message, each reply-to address will receive the reply.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendEmailRequest withReplyToAddresses(String... replyToAddresses) {
@@ -298,7 +306,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
      * @param replyToAddresses The reply-to email address(es) for the message. If the recipient
      *         replies to the message, each reply-to address will receive the reply.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendEmailRequest withReplyToAddresses(java.util.Collection<String> replyToAddresses) {
@@ -314,55 +322,55 @@ public class SendEmailRequest extends AmazonWebServiceRequest implements Seriali
     }
 
     /**
-     * The email address to which bounce notifications are to be forwarded.
-     * If the message cannot be delivered to the recipient, then an error
-     * message will be returned from the recipient's ISP; this message will
-     * then be forwarded to the email address specified by the
-     * <code>ReturnPath</code> parameter.
+     * The email address to which bounces and complaints are to be forwarded
+     * when feedback forwarding is enabled. If the message cannot be
+     * delivered to the recipient, then an error message will be returned
+     * from the recipient's ISP; this message will then be forwarded to the
+     * email address specified by the <code>ReturnPath</code> parameter.
      *
-     * @return The email address to which bounce notifications are to be forwarded.
-     *         If the message cannot be delivered to the recipient, then an error
-     *         message will be returned from the recipient's ISP; this message will
-     *         then be forwarded to the email address specified by the
-     *         <code>ReturnPath</code> parameter.
+     * @return The email address to which bounces and complaints are to be forwarded
+     *         when feedback forwarding is enabled. If the message cannot be
+     *         delivered to the recipient, then an error message will be returned
+     *         from the recipient's ISP; this message will then be forwarded to the
+     *         email address specified by the <code>ReturnPath</code> parameter.
      */
     public String getReturnPath() {
         return returnPath;
     }
     
     /**
-     * The email address to which bounce notifications are to be forwarded.
-     * If the message cannot be delivered to the recipient, then an error
-     * message will be returned from the recipient's ISP; this message will
-     * then be forwarded to the email address specified by the
-     * <code>ReturnPath</code> parameter.
+     * The email address to which bounces and complaints are to be forwarded
+     * when feedback forwarding is enabled. If the message cannot be
+     * delivered to the recipient, then an error message will be returned
+     * from the recipient's ISP; this message will then be forwarded to the
+     * email address specified by the <code>ReturnPath</code> parameter.
      *
-     * @param returnPath The email address to which bounce notifications are to be forwarded.
-     *         If the message cannot be delivered to the recipient, then an error
-     *         message will be returned from the recipient's ISP; this message will
-     *         then be forwarded to the email address specified by the
-     *         <code>ReturnPath</code> parameter.
+     * @param returnPath The email address to which bounces and complaints are to be forwarded
+     *         when feedback forwarding is enabled. If the message cannot be
+     *         delivered to the recipient, then an error message will be returned
+     *         from the recipient's ISP; this message will then be forwarded to the
+     *         email address specified by the <code>ReturnPath</code> parameter.
      */
     public void setReturnPath(String returnPath) {
         this.returnPath = returnPath;
     }
     
     /**
-     * The email address to which bounce notifications are to be forwarded.
-     * If the message cannot be delivered to the recipient, then an error
-     * message will be returned from the recipient's ISP; this message will
-     * then be forwarded to the email address specified by the
-     * <code>ReturnPath</code> parameter.
+     * The email address to which bounces and complaints are to be forwarded
+     * when feedback forwarding is enabled. If the message cannot be
+     * delivered to the recipient, then an error message will be returned
+     * from the recipient's ISP; this message will then be forwarded to the
+     * email address specified by the <code>ReturnPath</code> parameter.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param returnPath The email address to which bounce notifications are to be forwarded.
-     *         If the message cannot be delivered to the recipient, then an error
-     *         message will be returned from the recipient's ISP; this message will
-     *         then be forwarded to the email address specified by the
-     *         <code>ReturnPath</code> parameter.
+     * @param returnPath The email address to which bounces and complaints are to be forwarded
+     *         when feedback forwarding is enabled. If the message cannot be
+     *         delivered to the recipient, then an error message will be returned
+     *         from the recipient's ISP; this message will then be forwarded to the
+     *         email address specified by the <code>ReturnPath</code> parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SendEmailRequest withReturnPath(String returnPath) {

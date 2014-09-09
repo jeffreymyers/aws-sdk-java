@@ -21,13 +21,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#addCache(AddCacheRequest) AddCache operation}.
  * <p>
- * This operation configures one or more gateway local disks as cache for a cached-volume gateway. This operation is supported only for the
- * gateway-cached volume architecture (see <a href="http://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html"> Storage
- * Gateway Concepts </a> ).
+ * This operation configures one or more gateway local disks as cache for
+ * a cached-volume gateway. This operation is supported only for the
+ * gateway-cached volume architecture (see
+ * <a href="http://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html"> Storage Gateway Concepts </a>
+ * ).
  * </p>
  * <p>
- * In the request, you specify the gateway Amazon Resource Name (ARN) to which you want to add cache, and one or more disk IDs that you want to configure
- * as cache.
+ * In the request, you specify the gateway Amazon Resource Name (ARN) to
+ * which you want to add cache, and one or more disk IDs that you want to
+ * configure as cache.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#addCache(AddCacheRequest)
@@ -92,7 +95,7 @@ public class AddCacheRequest extends AmazonWebServiceRequest implements Serializ
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCacheRequest withGatewayARN(String gatewayARN) {
@@ -135,7 +138,7 @@ public class AddCacheRequest extends AmazonWebServiceRequest implements Serializ
      *
      * @param diskIds The new value for the DiskIds property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCacheRequest withDiskIds(String... diskIds) {
@@ -153,7 +156,7 @@ public class AddCacheRequest extends AmazonWebServiceRequest implements Serializ
      *
      * @param diskIds The new value for the DiskIds property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AddCacheRequest withDiskIds(java.util.Collection<String> diskIds) {

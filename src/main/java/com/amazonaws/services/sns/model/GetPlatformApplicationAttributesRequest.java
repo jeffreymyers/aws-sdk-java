@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sns.AmazonSNS#getPlatformApplicationAttributes(GetPlatformApplicationAttributesRequest) GetPlatformApplicationAttributes operation}.
  * <p>
- * The <code>GetPlatformApplicationAttributes</code> action retrieves the attributes of the platform application object for the supported push
- * notification services, such as APNS and GCM. For more information, see <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using
- * Amazon SNS Mobile Push Notifications </a> .
+ * Retrieves the attributes of the platform application object for the
+ * supported push notification services, such as APNS and GCM. For more
+ * information, see
+ * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.sns.AmazonSNS#getPlatformApplicationAttributes(GetPlatformApplicationAttributesRequest)
@@ -60,7 +62,7 @@ public class GetPlatformApplicationAttributesRequest extends AmazonWebServiceReq
      *
      * @param platformApplicationArn PlatformApplicationArn for GetPlatformApplicationAttributesInput.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetPlatformApplicationAttributesRequest withPlatformApplicationArn(String platformApplicationArn) {

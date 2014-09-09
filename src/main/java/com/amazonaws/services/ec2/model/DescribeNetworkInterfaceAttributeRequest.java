@@ -22,48 +22,54 @@ import com.amazonaws.services.ec2.model.transform.DescribeNetworkInterfaceAttrib
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describeNetworkInterfaceAttribute(DescribeNetworkInterfaceAttributeRequest) DescribeNetworkInterfaceAttribute operation}.
- * 
+ * <p>
+ * Describes a network interface attribute. You can specify only one
+ * attribute at a time.
+ * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeNetworkInterfaceAttribute(DescribeNetworkInterfaceAttributeRequest)
  */
 public class DescribeNetworkInterfaceAttributeRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<DescribeNetworkInterfaceAttributeRequest> {
 
+    /**
+     * The ID of the network interface.
+     */
     private String networkInterfaceId;
 
-    private String description;
-
-    private String sourceDestCheck;
-
-    private String groups;
-
-    private String attachment;
+    /**
+     * The attribute of the network interface.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>description, groupSet, sourceDestCheck, attachment
+     */
+    private String attribute;
 
     /**
-     * Returns the value of the NetworkInterfaceId property for this object.
+     * The ID of the network interface.
      *
-     * @return The value of the NetworkInterfaceId property for this object.
+     * @return The ID of the network interface.
      */
     public String getNetworkInterfaceId() {
         return networkInterfaceId;
     }
     
     /**
-     * Sets the value of the NetworkInterfaceId property for this object.
+     * The ID of the network interface.
      *
-     * @param networkInterfaceId The new value for the NetworkInterfaceId property for this object.
+     * @param networkInterfaceId The ID of the network interface.
      */
     public void setNetworkInterfaceId(String networkInterfaceId) {
         this.networkInterfaceId = networkInterfaceId;
     }
     
     /**
-     * Sets the value of the NetworkInterfaceId property for this object.
+     * The ID of the network interface.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param networkInterfaceId The new value for the NetworkInterfaceId property for this object.
+     * @param networkInterfaceId The ID of the network interface.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeNetworkInterfaceAttributeRequest withNetworkInterfaceId(String networkInterfaceId) {
@@ -72,134 +78,84 @@ public class DescribeNetworkInterfaceAttributeRequest extends AmazonWebServiceRe
     }
 
     /**
-     * Returns the value of the Description property for this object.
+     * The attribute of the network interface.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>description, groupSet, sourceDestCheck, attachment
      *
-     * @return The value of the Description property for this object.
+     * @return The attribute of the network interface.
+     *
+     * @see NetworkInterfaceAttribute
      */
-    public String getDescription() {
-        return description;
+    public String getAttribute() {
+        return attribute;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * The attribute of the network interface.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>description, groupSet, sourceDestCheck, attachment
      *
-     * @param description The new value for the Description property for this object.
+     * @param attribute The attribute of the network interface.
+     *
+     * @see NetworkInterfaceAttribute
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * The attribute of the network interface.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>description, groupSet, sourceDestCheck, attachment
      *
-     * @param description The new value for the Description property for this object.
+     * @param attribute The attribute of the network interface.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
+     *
+     * @see NetworkInterfaceAttribute
      */
-    public DescribeNetworkInterfaceAttributeRequest withDescription(String description) {
-        this.description = description;
+    public DescribeNetworkInterfaceAttributeRequest withAttribute(String attribute) {
+        this.attribute = attribute;
         return this;
     }
 
     /**
-     * Returns the value of the SourceDestCheck property for this object.
+     * The attribute of the network interface.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>description, groupSet, sourceDestCheck, attachment
      *
-     * @return The value of the SourceDestCheck property for this object.
+     * @param attribute The attribute of the network interface.
+     *
+     * @see NetworkInterfaceAttribute
      */
-    public String getSourceDestCheck() {
-        return sourceDestCheck;
+    public void setAttribute(NetworkInterfaceAttribute attribute) {
+        this.attribute = attribute.toString();
     }
     
     /**
-     * Sets the value of the SourceDestCheck property for this object.
-     *
-     * @param sourceDestCheck The new value for the SourceDestCheck property for this object.
-     */
-    public void setSourceDestCheck(String sourceDestCheck) {
-        this.sourceDestCheck = sourceDestCheck;
-    }
-    
-    /**
-     * Sets the value of the SourceDestCheck property for this object.
+     * The attribute of the network interface.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param sourceDestCheck The new value for the SourceDestCheck property for this object.
-     *
-     * @return A reference to this updated object so that method calls can be chained 
-     *         together.
-     */
-    public DescribeNetworkInterfaceAttributeRequest withSourceDestCheck(String sourceDestCheck) {
-        this.sourceDestCheck = sourceDestCheck;
-        return this;
-    }
-
-    /**
-     * Returns the value of the Groups property for this object.
-     *
-     * @return The value of the Groups property for this object.
-     */
-    public String getGroups() {
-        return groups;
-    }
-    
-    /**
-     * Sets the value of the Groups property for this object.
-     *
-     * @param groups The new value for the Groups property for this object.
-     */
-    public void setGroups(String groups) {
-        this.groups = groups;
-    }
-    
-    /**
-     * Sets the value of the Groups property for this object.
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>description, groupSet, sourceDestCheck, attachment
      *
-     * @param groups The new value for the Groups property for this object.
+     * @param attribute The attribute of the network interface.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
-     */
-    public DescribeNetworkInterfaceAttributeRequest withGroups(String groups) {
-        this.groups = groups;
-        return this;
-    }
-
-    /**
-     * Returns the value of the Attachment property for this object.
      *
-     * @return The value of the Attachment property for this object.
+     * @see NetworkInterfaceAttribute
      */
-    public String getAttachment() {
-        return attachment;
-    }
-    
-    /**
-     * Sets the value of the Attachment property for this object.
-     *
-     * @param attachment The new value for the Attachment property for this object.
-     */
-    public void setAttachment(String attachment) {
-        this.attachment = attachment;
-    }
-    
-    /**
-     * Sets the value of the Attachment property for this object.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param attachment The new value for the Attachment property for this object.
-     *
-     * @return A reference to this updated object so that method calls can be chained 
-     *         together.
-     */
-    public DescribeNetworkInterfaceAttributeRequest withAttachment(String attachment) {
-        this.attachment = attachment;
+    public DescribeNetworkInterfaceAttributeRequest withAttribute(NetworkInterfaceAttribute attribute) {
+        this.attribute = attribute.toString();
         return this;
     }
 
@@ -228,10 +184,7 @@ public class DescribeNetworkInterfaceAttributeRequest extends AmazonWebServiceRe
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getNetworkInterfaceId() != null) sb.append("NetworkInterfaceId: " + getNetworkInterfaceId() + ",");
-        if (getDescription() != null) sb.append("Description: " + getDescription() + ",");
-        if (getSourceDestCheck() != null) sb.append("SourceDestCheck: " + getSourceDestCheck() + ",");
-        if (getGroups() != null) sb.append("Groups: " + getGroups() + ",");
-        if (getAttachment() != null) sb.append("Attachment: " + getAttachment() );
+        if (getAttribute() != null) sb.append("Attribute: " + getAttribute() );
         sb.append("}");
         return sb.toString();
     }
@@ -242,10 +195,7 @@ public class DescribeNetworkInterfaceAttributeRequest extends AmazonWebServiceRe
         int hashCode = 1;
         
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode()); 
-        hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode()); 
-        hashCode = prime * hashCode + ((getSourceDestCheck() == null) ? 0 : getSourceDestCheck().hashCode()); 
-        hashCode = prime * hashCode + ((getGroups() == null) ? 0 : getGroups().hashCode()); 
-        hashCode = prime * hashCode + ((getAttachment() == null) ? 0 : getAttachment().hashCode()); 
+        hashCode = prime * hashCode + ((getAttribute() == null) ? 0 : getAttribute().hashCode()); 
         return hashCode;
     }
     
@@ -259,14 +209,8 @@ public class DescribeNetworkInterfaceAttributeRequest extends AmazonWebServiceRe
         
         if (other.getNetworkInterfaceId() == null ^ this.getNetworkInterfaceId() == null) return false;
         if (other.getNetworkInterfaceId() != null && other.getNetworkInterfaceId().equals(this.getNetworkInterfaceId()) == false) return false; 
-        if (other.getDescription() == null ^ this.getDescription() == null) return false;
-        if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false) return false; 
-        if (other.getSourceDestCheck() == null ^ this.getSourceDestCheck() == null) return false;
-        if (other.getSourceDestCheck() != null && other.getSourceDestCheck().equals(this.getSourceDestCheck()) == false) return false; 
-        if (other.getGroups() == null ^ this.getGroups() == null) return false;
-        if (other.getGroups() != null && other.getGroups().equals(this.getGroups()) == false) return false; 
-        if (other.getAttachment() == null ^ this.getAttachment() == null) return false;
-        if (other.getAttachment() != null && other.getAttachment().equals(this.getAttachment()) == false) return false; 
+        if (other.getAttribute() == null ^ this.getAttribute() == null) return false;
+        if (other.getAttribute() != null && other.getAttribute().equals(this.getAttribute()) == false) return false; 
         return true;
     }
     

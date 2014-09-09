@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -38,7 +39,7 @@ public class MonitorInstancesRequestMarshaller implements Marshaller<Request<Mon
 
         Request<MonitorInstancesRequest> request = new DefaultRequest<MonitorInstancesRequest>(monitorInstancesRequest, "AmazonEC2");
         request.addParameter("Action", "MonitorInstances");
-        request.addParameter("Version", "2013-10-15");
+        request.addParameter("Version", "2014-06-15");
 
         java.util.List<String> instanceIdsList = monitorInstancesRequest.getInstanceIds();
         int instanceIdsListIndex = 1;

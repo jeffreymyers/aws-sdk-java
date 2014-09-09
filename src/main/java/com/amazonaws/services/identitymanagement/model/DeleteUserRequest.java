@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteUser(DeleteUserRequest) DeleteUser operation}.
  * <p>
- * Deletes the specified user. The user must not belong to any groups, have any keys or signing certificates, or have any attached policies.
+ * Deletes the specified user. The user must not belong to any groups,
+ * have any keys or signing certificates, or have any attached policies.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#deleteUser(DeleteUserRequest)
@@ -91,7 +92,7 @@ public class DeleteUserRequest extends AmazonWebServiceRequest implements Serial
      *
      * @param userName Name of the user to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteUserRequest withUserName(String userName) {

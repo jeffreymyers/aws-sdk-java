@@ -34,6 +34,12 @@ public class Instance implements Serializable {
     private String ec2InstanceId;
 
     /**
+     * The instance's virtualization type, <code>paravirtual</code> or
+     * <code>hvm</code>.
+     */
+    private String virtualizationType;
+
+    /**
      * The instance host name.
      */
     private String hostname;
@@ -204,11 +210,16 @@ public class Instance implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      */
     private Boolean installUpdatesOnBoot;
+
+    /**
+     * Whether this is an Amazon EBS-optimized instance.
+     */
+    private Boolean ebsOptimized;
 
     /**
      * The instance ID.
@@ -235,7 +246,7 @@ public class Instance implements Serializable {
      *
      * @param instanceId The instance ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withInstanceId(String instanceId) {
@@ -268,11 +279,50 @@ public class Instance implements Serializable {
      *
      * @param ec2InstanceId The ID of the associated Amazon EC2 instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withEc2InstanceId(String ec2InstanceId) {
         this.ec2InstanceId = ec2InstanceId;
+        return this;
+    }
+
+    /**
+     * The instance's virtualization type, <code>paravirtual</code> or
+     * <code>hvm</code>.
+     *
+     * @return The instance's virtualization type, <code>paravirtual</code> or
+     *         <code>hvm</code>.
+     */
+    public String getVirtualizationType() {
+        return virtualizationType;
+    }
+    
+    /**
+     * The instance's virtualization type, <code>paravirtual</code> or
+     * <code>hvm</code>.
+     *
+     * @param virtualizationType The instance's virtualization type, <code>paravirtual</code> or
+     *         <code>hvm</code>.
+     */
+    public void setVirtualizationType(String virtualizationType) {
+        this.virtualizationType = virtualizationType;
+    }
+    
+    /**
+     * The instance's virtualization type, <code>paravirtual</code> or
+     * <code>hvm</code>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param virtualizationType The instance's virtualization type, <code>paravirtual</code> or
+     *         <code>hvm</code>.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Instance withVirtualizationType(String virtualizationType) {
+        this.virtualizationType = virtualizationType;
         return this;
     }
 
@@ -301,7 +351,7 @@ public class Instance implements Serializable {
      *
      * @param hostname The instance host name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withHostname(String hostname) {
@@ -334,7 +384,7 @@ public class Instance implements Serializable {
      *
      * @param stackId The stack ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withStackId(String stackId) {
@@ -377,7 +427,7 @@ public class Instance implements Serializable {
      *
      * @param layerIds An array containing the instance layer IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withLayerIds(String... layerIds) {
@@ -395,7 +445,7 @@ public class Instance implements Serializable {
      *
      * @param layerIds An array containing the instance layer IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withLayerIds(java.util.Collection<String> layerIds) {
@@ -445,7 +495,7 @@ public class Instance implements Serializable {
      *
      * @param securityGroupIds An array containing the instance security group IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSecurityGroupIds(String... securityGroupIds) {
@@ -463,7 +513,7 @@ public class Instance implements Serializable {
      *
      * @param securityGroupIds An array containing the instance security group IDs.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -539,7 +589,7 @@ public class Instance implements Serializable {
      *         types are in the API Name column of the Available Instance Types
      *         table.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withInstanceType(String instanceType) {
@@ -590,7 +640,7 @@ public class Instance implements Serializable {
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      *         Identifiers</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withInstanceProfileArn(String instanceProfileArn) {
@@ -653,7 +703,7 @@ public class Instance implements Serializable {
      *         <li><code>terminated</code></li> <li><code>stopped</code></li>
      *         <li><code>connection_lost</code></li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withStatus(String status) {
@@ -686,7 +736,7 @@ public class Instance implements Serializable {
      *
      * @param os The instance operating system.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withOs(String os) {
@@ -737,7 +787,7 @@ public class Instance implements Serializable {
      *         12.04 LTS. For more information, see <a
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances.html">Instances</a>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withAmiId(String amiId) {
@@ -782,7 +832,7 @@ public class Instance implements Serializable {
      *         href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Regions
      *         and Endpoints</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withAvailabilityZone(String availabilityZone) {
@@ -815,7 +865,7 @@ public class Instance implements Serializable {
      *
      * @param subnetId The instance's subnet ID, if the stack is running in a VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSubnetId(String subnetId) {
@@ -848,7 +898,7 @@ public class Instance implements Serializable {
      *
      * @param publicDns The instance public DNS name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPublicDns(String publicDns) {
@@ -881,7 +931,7 @@ public class Instance implements Serializable {
      *
      * @param privateDns The instance private DNS name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPrivateDns(String privateDns) {
@@ -914,7 +964,7 @@ public class Instance implements Serializable {
      *
      * @param publicIp The instance public IP address.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPublicIp(String publicIp) {
@@ -947,7 +997,7 @@ public class Instance implements Serializable {
      *
      * @param privateIp The instance private IP address.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withPrivateIp(String privateIp) {
@@ -992,7 +1042,7 @@ public class Instance implements Serializable {
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">Elastic
      *         IP address </a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withElasticIp(String elasticIp) {
@@ -1074,7 +1124,7 @@ public class Instance implements Serializable {
      *         auto scaling instance, which is started and stopped based on load
      *         metrics.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see AutoScalingType
@@ -1132,7 +1182,7 @@ public class Instance implements Serializable {
      *         auto scaling instance, which is started and stopped based on load
      *         metrics.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see AutoScalingType
@@ -1167,7 +1217,7 @@ public class Instance implements Serializable {
      *
      * @param sshKeyName The instance SSH key name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSshKeyName(String sshKeyName) {
@@ -1200,7 +1250,7 @@ public class Instance implements Serializable {
      *
      * @param sshHostRsaKeyFingerprint The SSH key's RSA fingerprint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSshHostRsaKeyFingerprint(String sshHostRsaKeyFingerprint) {
@@ -1233,7 +1283,7 @@ public class Instance implements Serializable {
      *
      * @param sshHostDsaKeyFingerprint The SSH key's DSA fingerprint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withSshHostDsaKeyFingerprint(String sshHostDsaKeyFingerprint) {
@@ -1266,7 +1316,7 @@ public class Instance implements Serializable {
      *
      * @param createdAt The time that the instance was created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withCreatedAt(String createdAt) {
@@ -1305,7 +1355,7 @@ public class Instance implements Serializable {
      * @param lastServiceErrorId The ID of the last service error. For more information, call
      *         <a>DescribeServiceErrors</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withLastServiceErrorId(String lastServiceErrorId) {
@@ -1351,7 +1401,7 @@ public class Instance implements Serializable {
      *
      * @param architecture The instance architecture, "i386" or "x86_64".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see Architecture
@@ -1385,7 +1435,7 @@ public class Instance implements Serializable {
      *
      * @param architecture The instance architecture, "i386" or "x86_64".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see Architecture
@@ -1445,7 +1495,7 @@ public class Instance implements Serializable {
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      *         for the Root Device</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see RootDeviceType
@@ -1487,7 +1537,7 @@ public class Instance implements Serializable {
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device">Storage
      *         for the Root Device</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see RootDeviceType
@@ -1522,7 +1572,7 @@ public class Instance implements Serializable {
      *
      * @param rootDeviceVolumeId The root device volume ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withRootDeviceVolumeId(String rootDeviceVolumeId) {
@@ -1537,9 +1587,9 @@ public class Instance implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      *
      * @return Whether to install operating system and package updates when the
      *         instance boots. The default value is <code>true</code>. If this value
@@ -1547,9 +1597,9 @@ public class Instance implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      */
     public Boolean isInstallUpdatesOnBoot() {
         return installUpdatesOnBoot;
@@ -1562,9 +1612,9 @@ public class Instance implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      *
      * @param installUpdatesOnBoot Whether to install operating system and package updates when the
      *         instance boots. The default value is <code>true</code>. If this value
@@ -1572,9 +1622,9 @@ public class Instance implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      */
     public void setInstallUpdatesOnBoot(Boolean installUpdatesOnBoot) {
         this.installUpdatesOnBoot = installUpdatesOnBoot;
@@ -1587,9 +1637,9 @@ public class Instance implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1599,11 +1649,11 @@ public class Instance implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Instance withInstallUpdatesOnBoot(Boolean installUpdatesOnBoot) {
@@ -1618,9 +1668,9 @@ public class Instance implements Serializable {
      * manually by using <a>CreateDeployment</a> to run the
      * <code>update_dependencies</code> stack command or manually running
      * <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     * the instances. <note>We strongly recommend using the default value of
-     * <code>true</code>, to ensure that your instances have the latest
-     * security updates.</note>
+     * the instances. <note> <p>We strongly recommend using the default value
+     * of <code>true</code>, to ensure that your instances have the latest
+     * security updates. </note>
      *
      * @return Whether to install operating system and package updates when the
      *         instance boots. The default value is <code>true</code>. If this value
@@ -1628,12 +1678,54 @@ public class Instance implements Serializable {
      *         manually by using <a>CreateDeployment</a> to run the
      *         <code>update_dependencies</code> stack command or manually running
      *         <code>yum</code> (Amazon Linux) or <code>apt-get</code> (Ubuntu) on
-     *         the instances. <note>We strongly recommend using the default value of
-     *         <code>true</code>, to ensure that your instances have the latest
-     *         security updates.</note>
+     *         the instances. <note> <p>We strongly recommend using the default value
+     *         of <code>true</code>, to ensure that your instances have the latest
+     *         security updates. </note>
      */
     public Boolean getInstallUpdatesOnBoot() {
         return installUpdatesOnBoot;
+    }
+
+    /**
+     * Whether this is an Amazon EBS-optimized instance.
+     *
+     * @return Whether this is an Amazon EBS-optimized instance.
+     */
+    public Boolean isEbsOptimized() {
+        return ebsOptimized;
+    }
+    
+    /**
+     * Whether this is an Amazon EBS-optimized instance.
+     *
+     * @param ebsOptimized Whether this is an Amazon EBS-optimized instance.
+     */
+    public void setEbsOptimized(Boolean ebsOptimized) {
+        this.ebsOptimized = ebsOptimized;
+    }
+    
+    /**
+     * Whether this is an Amazon EBS-optimized instance.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param ebsOptimized Whether this is an Amazon EBS-optimized instance.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Instance withEbsOptimized(Boolean ebsOptimized) {
+        this.ebsOptimized = ebsOptimized;
+        return this;
+    }
+
+    /**
+     * Whether this is an Amazon EBS-optimized instance.
+     *
+     * @return Whether this is an Amazon EBS-optimized instance.
+     */
+    public Boolean getEbsOptimized() {
+        return ebsOptimized;
     }
 
     /**
@@ -1650,6 +1742,7 @@ public class Instance implements Serializable {
         sb.append("{");
         if (getInstanceId() != null) sb.append("InstanceId: " + getInstanceId() + ",");
         if (getEc2InstanceId() != null) sb.append("Ec2InstanceId: " + getEc2InstanceId() + ",");
+        if (getVirtualizationType() != null) sb.append("VirtualizationType: " + getVirtualizationType() + ",");
         if (getHostname() != null) sb.append("Hostname: " + getHostname() + ",");
         if (getStackId() != null) sb.append("StackId: " + getStackId() + ",");
         if (getLayerIds() != null) sb.append("LayerIds: " + getLayerIds() + ",");
@@ -1675,7 +1768,8 @@ public class Instance implements Serializable {
         if (getArchitecture() != null) sb.append("Architecture: " + getArchitecture() + ",");
         if (getRootDeviceType() != null) sb.append("RootDeviceType: " + getRootDeviceType() + ",");
         if (getRootDeviceVolumeId() != null) sb.append("RootDeviceVolumeId: " + getRootDeviceVolumeId() + ",");
-        if (isInstallUpdatesOnBoot() != null) sb.append("InstallUpdatesOnBoot: " + isInstallUpdatesOnBoot() );
+        if (isInstallUpdatesOnBoot() != null) sb.append("InstallUpdatesOnBoot: " + isInstallUpdatesOnBoot() + ",");
+        if (isEbsOptimized() != null) sb.append("EbsOptimized: " + isEbsOptimized() );
         sb.append("}");
         return sb.toString();
     }
@@ -1687,6 +1781,7 @@ public class Instance implements Serializable {
         
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode()); 
         hashCode = prime * hashCode + ((getEc2InstanceId() == null) ? 0 : getEc2InstanceId().hashCode()); 
+        hashCode = prime * hashCode + ((getVirtualizationType() == null) ? 0 : getVirtualizationType().hashCode()); 
         hashCode = prime * hashCode + ((getHostname() == null) ? 0 : getHostname().hashCode()); 
         hashCode = prime * hashCode + ((getStackId() == null) ? 0 : getStackId().hashCode()); 
         hashCode = prime * hashCode + ((getLayerIds() == null) ? 0 : getLayerIds().hashCode()); 
@@ -1713,6 +1808,7 @@ public class Instance implements Serializable {
         hashCode = prime * hashCode + ((getRootDeviceType() == null) ? 0 : getRootDeviceType().hashCode()); 
         hashCode = prime * hashCode + ((getRootDeviceVolumeId() == null) ? 0 : getRootDeviceVolumeId().hashCode()); 
         hashCode = prime * hashCode + ((isInstallUpdatesOnBoot() == null) ? 0 : isInstallUpdatesOnBoot().hashCode()); 
+        hashCode = prime * hashCode + ((isEbsOptimized() == null) ? 0 : isEbsOptimized().hashCode()); 
         return hashCode;
     }
     
@@ -1728,6 +1824,8 @@ public class Instance implements Serializable {
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false) return false; 
         if (other.getEc2InstanceId() == null ^ this.getEc2InstanceId() == null) return false;
         if (other.getEc2InstanceId() != null && other.getEc2InstanceId().equals(this.getEc2InstanceId()) == false) return false; 
+        if (other.getVirtualizationType() == null ^ this.getVirtualizationType() == null) return false;
+        if (other.getVirtualizationType() != null && other.getVirtualizationType().equals(this.getVirtualizationType()) == false) return false; 
         if (other.getHostname() == null ^ this.getHostname() == null) return false;
         if (other.getHostname() != null && other.getHostname().equals(this.getHostname()) == false) return false; 
         if (other.getStackId() == null ^ this.getStackId() == null) return false;
@@ -1780,6 +1878,8 @@ public class Instance implements Serializable {
         if (other.getRootDeviceVolumeId() != null && other.getRootDeviceVolumeId().equals(this.getRootDeviceVolumeId()) == false) return false; 
         if (other.isInstallUpdatesOnBoot() == null ^ this.isInstallUpdatesOnBoot() == null) return false;
         if (other.isInstallUpdatesOnBoot() != null && other.isInstallUpdatesOnBoot().equals(this.isInstallUpdatesOnBoot()) == false) return false; 
+        if (other.isEbsOptimized() == null ^ this.isEbsOptimized() == null) return false;
+        if (other.isEbsOptimized() != null && other.isEbsOptimized().equals(this.isEbsOptimized()) == false) return false; 
         return true;
     }
     

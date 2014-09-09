@@ -21,18 +21,24 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.opsworks.AWSOpsWorks#setLoadBasedAutoScaling(SetLoadBasedAutoScalingRequest) SetLoadBasedAutoScaling operation}.
  * <p>
- * Specify the load-based auto scaling configuration for a specified layer. For more information, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autoscaling.html"> Managing Load with Time-based and Load-based Instances
- * </a> .
+ * Specify the load-based auto scaling configuration for a specified
+ * layer. For more information, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autoscaling.html"> Managing Load with Time-based and Load-based Instances </a>
+ * .
  * </p>
  * <p>
- * <b>NOTE:</b>To use load-based auto scaling, you must create a set of load-based auto scaling instances. Load-based auto scaling operates only on the
- * instances from that set, so you must ensure that you have created enough instances to handle the maximum anticipated load.
+ * <b>NOTE:</b> To use load-based auto scaling, you must create a set of
+ * load-based auto scaling instances. Load-based auto scaling operates
+ * only on the instances from that set, so you must ensure that you have
+ * created enough instances to handle the maximum anticipated load.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that
- * explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Manage permissions level for the stack, or an attached policy
+ * that explicitly grants permissions. For more information on user
+ * permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#setLoadBasedAutoScaling(SetLoadBasedAutoScalingRequest)
@@ -90,7 +96,7 @@ public class SetLoadBasedAutoScalingRequest extends AmazonWebServiceRequest impl
      *
      * @param layerId The layer ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetLoadBasedAutoScalingRequest withLayerId(String layerId) {
@@ -123,7 +129,7 @@ public class SetLoadBasedAutoScalingRequest extends AmazonWebServiceRequest impl
      *
      * @param enable Enables load-based auto scaling for the layer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetLoadBasedAutoScalingRequest withEnable(Boolean enable) {
@@ -183,7 +189,7 @@ public class SetLoadBasedAutoScalingRequest extends AmazonWebServiceRequest impl
      *         specified amount of time, AWS OpsWorks starts a specified number of
      *         instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetLoadBasedAutoScalingRequest withUpScaling(AutoScalingThresholds upScaling) {
@@ -234,7 +240,7 @@ public class SetLoadBasedAutoScalingRequest extends AmazonWebServiceRequest impl
      *         a specified amount of time, AWS OpsWorks stops a specified number of
      *         instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetLoadBasedAutoScalingRequest withDownScaling(AutoScalingThresholds downScaling) {

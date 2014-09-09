@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the following objects or data if successful. Otherwise, returns an error.
+ * Contains the following objects or data if successful. Otherwise,
+ * returns an error.
  * </p>
  */
 public class DescribeSeverityLevelsResult implements Serializable {
@@ -70,7 +71,7 @@ public class DescribeSeverityLevelsResult implements Serializable {
      * @param severityLevels The available severity levels for the support case. Available severity
      *         levels are defined by your service level agreement with AWS.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSeverityLevelsResult withSeverityLevels(SeverityLevel... severityLevels) {
@@ -90,7 +91,7 @@ public class DescribeSeverityLevelsResult implements Serializable {
      * @param severityLevels The available severity levels for the support case. Available severity
      *         levels are defined by your service level agreement with AWS.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSeverityLevelsResult withSeverityLevels(java.util.Collection<SeverityLevel> severityLevels) {

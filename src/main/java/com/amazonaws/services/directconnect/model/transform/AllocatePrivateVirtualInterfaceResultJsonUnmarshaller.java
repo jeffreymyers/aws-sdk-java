@@ -37,7 +37,7 @@ public class AllocatePrivateVirtualInterfaceResultJsonUnmarshaller implements Un
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -102,6 +102,7 @@ public class AllocatePrivateVirtualInterfaceResultJsonUnmarshaller implements Un
                     allocatePrivateVirtualInterfaceResult.setVirtualGatewayId(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("routeFilterPrefixes", targetDepth)) {
+                    context.nextToken();
                     allocatePrivateVirtualInterfaceResult.setRouteFilterPrefixes(new ListUnmarshaller<RouteFilterPrefix>(RouteFilterPrefixJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

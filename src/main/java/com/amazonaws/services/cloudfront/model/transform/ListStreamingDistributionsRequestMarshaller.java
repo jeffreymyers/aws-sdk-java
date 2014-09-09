@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class ListStreamingDistributionsRequestMarshaller implements Marshaller<R
         Request<ListStreamingDistributionsRequest> request = new DefaultRequest<ListStreamingDistributionsRequest>(listStreamingDistributionsRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "2013-11-11/streaming-distribution?Marker={Marker}&MaxItems={MaxItems}"; 
+        String uriResourcePath = "2014-05-31/streaming-distribution?Marker={Marker}&MaxItems={MaxItems}"; 
         uriResourcePath = uriResourcePath.replace("{Marker}", getString(listStreamingDistributionsRequest.getMarker())); 
         uriResourcePath = uriResourcePath.replace("{MaxItems}", getString(listStreamingDistributionsRequest.getMaxItems())); 
 

@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeTapeRecoveryPoints(DescribeTapeRecoveryPointsRequest) DescribeTapeRecoveryPoints operation}.
  * <p>
- * Returns a list of virtual tape recovery points that are available for the specified Gateway-Virtual Tape Library.
+ * Returns a list of virtual tape recovery points that are available for
+ * the specified Gateway-Virtual Tape Library.
  * </p>
  * <p>
- * A recovery point is a point in time view of a virtual tape at which all the data on the virtual tape is consistent. If your gateway crashes, virtual
- * tapes that have recovery points can be recovered to a new gateway.
+ * A recovery point is a point in time view of a virtual tape at which
+ * all the data on the virtual tape is consistent. If your gateway
+ * crashes, virtual tapes that have recovery points can be recovered to a
+ * new gateway.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeTapeRecoveryPoints(DescribeTapeRecoveryPointsRequest)
@@ -106,7 +109,7 @@ public class DescribeTapeRecoveryPointsRequest extends AmazonWebServiceRequest i
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapeRecoveryPointsRequest withGatewayARN(String gatewayARN) {
@@ -154,7 +157,7 @@ public class DescribeTapeRecoveryPointsRequest extends AmazonWebServiceRequest i
      * @param marker An opaque string that indicates the position at which to begin
      *         describing the virtual tape recovery points.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapeRecoveryPointsRequest withMarker(String marker) {
@@ -202,7 +205,7 @@ public class DescribeTapeRecoveryPointsRequest extends AmazonWebServiceRequest i
      * @param limit Specifies that the number of virtual tape recovery points that are
      *         described be limited to the specified number.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTapeRecoveryPointsRequest withLimit(Integer limit) {

@@ -18,10 +18,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Describes an Amazon EC2 key pair, including the private key material.
- * </p>
- * <p>
- * The public key portion is stored by Amazon EC2 and the private key is returned only once, in this type, when the key is initially created.
+ * Describes a key pair.
  * </p>
  */
 public class KeyPair implements Serializable {
@@ -37,7 +34,7 @@ public class KeyPair implements Serializable {
     private String keyFingerprint;
 
     /**
-     * The unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA private key.
      */
     private String keyMaterial;
 
@@ -66,7 +63,7 @@ public class KeyPair implements Serializable {
      *
      * @param keyName The name of the key pair.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public KeyPair withKeyName(String keyName) {
@@ -99,7 +96,7 @@ public class KeyPair implements Serializable {
      *
      * @param keyFingerprint The SHA-1 digest of the DER encoded private key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public KeyPair withKeyFingerprint(String keyFingerprint) {
@@ -108,31 +105,31 @@ public class KeyPair implements Serializable {
     }
 
     /**
-     * The unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA private key.
      *
-     * @return The unencrypted PEM encoded RSA private key.
+     * @return An unencrypted PEM encoded RSA private key.
      */
     public String getKeyMaterial() {
         return keyMaterial;
     }
     
     /**
-     * The unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA private key.
      *
-     * @param keyMaterial The unencrypted PEM encoded RSA private key.
+     * @param keyMaterial An unencrypted PEM encoded RSA private key.
      */
     public void setKeyMaterial(String keyMaterial) {
         this.keyMaterial = keyMaterial;
     }
     
     /**
-     * The unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA private key.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param keyMaterial The unencrypted PEM encoded RSA private key.
+     * @param keyMaterial An unencrypted PEM encoded RSA private key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public KeyPair withKeyMaterial(String keyMaterial) {

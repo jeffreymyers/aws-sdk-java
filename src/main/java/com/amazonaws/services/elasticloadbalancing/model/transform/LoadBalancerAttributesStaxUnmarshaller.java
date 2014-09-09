@@ -47,6 +47,18 @@ public class LoadBalancerAttributesStaxUnmarshaller implements Unmarshaller<Load
                     loadBalancerAttributes.setCrossZoneLoadBalancing(CrossZoneLoadBalancingStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("AccessLog", targetDepth)) {
+                    loadBalancerAttributes.setAccessLog(AccessLogStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("ConnectionDraining", targetDepth)) {
+                    loadBalancerAttributes.setConnectionDraining(ConnectionDrainingStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("ConnectionSettings", targetDepth)) {
+                    loadBalancerAttributes.setConnectionSettings(ConnectionSettingsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return loadBalancerAttributes;

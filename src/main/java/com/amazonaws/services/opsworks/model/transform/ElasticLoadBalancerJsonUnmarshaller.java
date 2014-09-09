@@ -37,7 +37,7 @@ public class ElasticLoadBalancerJsonUnmarshaller implements Unmarshaller<Elastic
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -70,12 +70,15 @@ public class ElasticLoadBalancerJsonUnmarshaller implements Unmarshaller<Elastic
                     elasticLoadBalancer.setVpcId(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("AvailabilityZones", targetDepth)) {
+                    context.nextToken();
                     elasticLoadBalancer.setAvailabilityZones(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("SubnetIds", targetDepth)) {
+                    context.nextToken();
                     elasticLoadBalancer.setSubnetIds(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Ec2InstanceIds", targetDepth)) {
+                    context.nextToken();
                     elasticLoadBalancer.setEc2InstanceIds(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

@@ -24,8 +24,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Removes metadata tags from an Amazon RDS resource.
  * </p>
  * <p>
- * For an overview on tagging an Amazon RDS resource, see <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging
- * Amazon RDS Resources </a> .
+ * For an overview on tagging an Amazon RDS resource, see
+ * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#removeTagsFromResource(RemoveTagsFromResourceRequest)
@@ -95,7 +96,7 @@ public class RemoveTagsFromResourceRequest extends AmazonWebServiceRequest imple
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      *         Constructing an RDS Amazon Resource Name (ARN)</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveTagsFromResourceRequest withResourceName(String resourceName) {
@@ -138,7 +139,7 @@ public class RemoveTagsFromResourceRequest extends AmazonWebServiceRequest imple
      *
      * @param tagKeys The tag key (name) of the tag to be removed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveTagsFromResourceRequest withTagKeys(String... tagKeys) {
@@ -156,7 +157,7 @@ public class RemoveTagsFromResourceRequest extends AmazonWebServiceRequest imple
      *
      * @param tagKeys The tag key (name) of the tag to be removed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RemoveTagsFromResourceRequest withTagKeys(java.util.Collection<String> tagKeys) {

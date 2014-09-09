@@ -37,7 +37,7 @@ public class JobFlowInstancesDetailJsonUnmarshaller implements Unmarshaller<JobF
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -66,6 +66,7 @@ public class JobFlowInstancesDetailJsonUnmarshaller implements Unmarshaller<JobF
                     jobFlowInstancesDetail.setInstanceCount(IntegerJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("InstanceGroups", targetDepth)) {
+                    context.nextToken();
                     jobFlowInstancesDetail.setInstanceGroups(new ListUnmarshaller<InstanceGroupDetail>(InstanceGroupDetailJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("NormalizedInstanceHours", targetDepth)) {

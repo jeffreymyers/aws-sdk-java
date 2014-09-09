@@ -24,12 +24,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes the results of specified commands.
  * </p>
  * <p>
- * <b>NOTE:</b>You must specify at least one of the parameters.
+ * <b>NOTE:</b> You must specify at least one of the parameters.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeCommands(DescribeCommandsRequest)
@@ -94,7 +97,7 @@ public class DescribeCommandsRequest extends AmazonWebServiceRequest implements 
      *         <code>DescribeCommands</code> returns a description of the commands
      *         associated with the specified deployment.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommandsRequest withDeploymentId(String deploymentId) {
@@ -139,7 +142,7 @@ public class DescribeCommandsRequest extends AmazonWebServiceRequest implements 
      *         <code>DescribeCommands</code> returns a description of the commands
      *         associated with the specified instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommandsRequest withInstanceId(String instanceId) {
@@ -194,7 +197,7 @@ public class DescribeCommandsRequest extends AmazonWebServiceRequest implements 
      *         <code>DescribeCommands</code> returns a description of the specified
      *         commands. Otherwise, it returns a description of every command.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommandsRequest withCommandIds(String... commandIds) {
@@ -216,7 +219,7 @@ public class DescribeCommandsRequest extends AmazonWebServiceRequest implements 
      *         <code>DescribeCommands</code> returns a description of the specified
      *         commands. Otherwise, it returns a description of every command.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCommandsRequest withCommandIds(java.util.Collection<String> commandIds) {

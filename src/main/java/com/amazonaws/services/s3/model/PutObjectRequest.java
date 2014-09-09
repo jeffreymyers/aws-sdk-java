@@ -80,8 +80,8 @@ import com.amazonaws.event.ProgressListener;
  * @see PutObjectRequest#PutObjectRequest(String, String, File)
  * @see PutObjectRequest#PutObjectRequest(String, String, InputStream, ObjectMetadata)
  */
-public class PutObjectRequest extends AmazonWebServiceRequest {
-
+public class PutObjectRequest extends AmazonWebServiceRequest implements
+        Cloneable, SSECustomerKeyProvider, S3DataSource {
     /**
      * The name of an existing bucket, to which this request will upload a new
      * object. You must have {@link Permission#Write} permission granted to you
@@ -139,14 +139,14 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      */
     private String storageClass;
 
-    /**
-     * The optional progress listener for receiving updates about object download
-     * status.
-     */
-    private ProgressListener generalProgressListener;
-
     /** The optional redirect location about an object */
     private String redirectLocation;
+
+    /**
+     * The optional customer-provided server-side encryption key to use to
+     * encrypt the uploaded object.
+     */
+    private SSECustomerKey sseCustomerKey;
 
     /**
      * Constructs a new
@@ -162,8 +162,8 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @param file
      *            The path of the file to upload to Amazon S3.
      *
-     * @see PutObjectRequest#PutObjectRequest(String, String, InputStream, ObjectMetadata)
-     * @See PutObjectRequest(String bucketName, String key, String redirectLocation)
+     * @see #PutObjectRequest(String, String, InputStream, ObjectMetadata)
+     * @see #PutObjectRequest(String, String, String)
      */
     public PutObjectRequest(String bucketName, String key, File file) {
         this.bucketName = bucketName;
@@ -218,8 +218,8 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      *            The object metadata. At minimum this specifies the
      *            content length for the stream of data being uploaded.
      *
-     * @see PutObjectRequest#PutObjectRequest(String, String, File)
-     * @see PutObjectRequest(String bucketName, String key, String redirectLocation)
+     * @see #PutObjectRequest(String, String, File)
+     * @see #PutObjectRequest(String, String, String)
      */
     public PutObjectRequest(String bucketName, String key, InputStream input, ObjectMetadata metadata) {
         this.bucketName = bucketName;
@@ -363,13 +363,10 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @param storageClass
      *         The storage class to use when storing the new object.
      *
-     * @return The Amazon S3 storage class to use when storing the newly copied
-     *         object.
-     *
-     * @see PutObjectRequest#getStorageClass()
-     * @see PutObjectRequest#setStorageClass(StorageClass
-     * @see PutObjectRequest#withStorageClass(StorageClass)
-     * @see PutObjectRequest#withStorageClass(String)
+     * @see #getStorageClass()
+     * @see #setStorageClass(String)
+     * @see #withStorageClass(StorageClass)
+     * @see #withStorageClass(String)
      */
     public void setStorageClass(String storageClass) {
         this.storageClass = storageClass;
@@ -413,11 +410,8 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @param storageClass
      *         The storage class to use when storing the new object.
      *
-     * @return The Amazon S3 storage class to use when storing the newly copied
-     *         object.
-     *
-     * @see PutObjectRequest#getStorageClass()
-     * @see PutObjectRequest#setStorageClass(String)
+     * @see #getStorageClass()
+     * @see #setStorageClass(String)
      */
     public void setStorageClass(StorageClass storageClass) {
         this.storageClass = storageClass.toString();
@@ -463,6 +457,7 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @see PutObjectRequest#setInputStream(InputStream)
      * @see PutObjectRequest#withInputStream(InputStream)
      */
+    @Override
     public File getFile() {
         return file;
     }
@@ -482,6 +477,7 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @see PutObjectRequest#getInputStream()
      * @see PutObjectRequest#withInputStream(InputStream)
      */
+    @Override
     public void setFile(File file) {
         this.file = file;
     }
@@ -682,6 +678,7 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @see PutObjectRequest#setFile(File)
      * @see PutObjectRequest#withFile(File)
      */
+    @Override
     public InputStream getInputStream() {
         return inputStream;
     }
@@ -701,6 +698,7 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * @see PutObjectRequest#getFile()
      * @see PutObjectRequest#withFile(File)
      */
+    @Override
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
     }
@@ -760,18 +758,52 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
         return this;
     }
 
+    @Override
+    public SSECustomerKey getSSECustomerKey() {
+        return sseCustomerKey;
+    }
+
+    /**
+     * Sets the optional customer-provided server-side encryption key to use to
+     * encrypt the uploaded object.
+     *
+     * @param sseKey
+     *            The optional customer-provided server-side encryption key to
+     *            use to encrypt the uploaded object.
+     */
+    public void setSSECustomerKey(SSECustomerKey sseKey) {
+        this.sseCustomerKey = sseKey;
+    }
+
+    /**
+     * Sets the optional customer-provided server-side encryption key to use to
+     * encrypt the uploaded object, and returns the updated request object so
+     * that additional method calls can be chained together.
+     *
+     * @param sseKey
+     *            The optional customer-provided server-side encryption key to
+     *            use to encrypt the uploaded object.
+     *
+     * @return This updated request object so that additional method calls can
+     *         be chained together.
+     */
+    public PutObjectRequest withSSECustomerKey(SSECustomerKey sseKey) {
+        setSSECustomerKey(sseKey);
+        return this;
+    }
+
     /**
      * Sets the optional progress listener for receiving updates for object
      * upload status.
      *
      * @param progressListener
      *            The legacy progress listener that is used exclusively for Amazon S3 client.
-     * 
+     *
      * @deprecated use {@link #setGeneralProgressListener(ProgressListener)} instead.
      */
     @Deprecated
     public void setProgressListener(com.amazonaws.services.s3.model.ProgressListener progressListener) {
-        this.generalProgressListener = new LegacyS3ProgressListener(progressListener);
+        setGeneralProgressListener(new LegacyS3ProgressListener(progressListener));
     }
 
     /**
@@ -780,16 +812,17 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      *
      * @return the optional progress listener for receiving updates about object
      *         upload status.
-     * 
+     *
      * @deprecated use {@link #getGeneralProgressListener()} instead.
      */
     @Deprecated
     public com.amazonaws.services.s3.model.ProgressListener getProgressListener() {
-         if (generalProgressListener instanceof LegacyS3ProgressListener) {
-             return ((LegacyS3ProgressListener)generalProgressListener).unwrap();
-         } else {
-              return null;
-         }
+        ProgressListener generalProgressListener = getGeneralProgressListener();
+        if (generalProgressListener instanceof LegacyS3ProgressListener) {
+            return ((LegacyS3ProgressListener)generalProgressListener).unwrap();
+        } else {
+             return null;
+        }
     }
 
     /**
@@ -801,7 +834,7 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      *            The legacy progress listener that is used exclusively for Amazon S3 client.
      *
      * @return This updated PutObjectRequest object.
-     * 
+     *
      * @deprecated use {@link #withGeneralProgressListener(ProgressListener)} instead.
      */
     @Deprecated
@@ -811,40 +844,19 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
     }
 
     /**
-     * Sets the optional progress listener for receiving updates about object
-     * download status.
-     *
-     * @param generalProgressListener
-     *            The new progress listener.
+     * Returns a clone of this object so that the metadata can be further
+     * modified without affecting the original.
      */
-    public void setGeneralProgressListener(ProgressListener generalProgressListener) {
-        this.generalProgressListener = generalProgressListener;
+    public PutObjectRequest clone() {
+        return new PutObjectRequest(bucketName, key, redirectLocation).
+             withAccessControlList(accessControlList)
+            .withCannedAcl(cannedAcl)
+            .withFile(file)
+            .withInputStream(inputStream)
+            .withMetadata(metadata == null ? null : metadata.clone())
+            .withStorageClass(storageClass)
+            .withGeneralProgressListener(getGeneralProgressListener())
+            .withRequestMetricCollector(getRequestMetricCollector())
+            ;
     }
-
-    /**
-     * Returns the optional progress listener for receiving updates about object
-     * download status.
-     *
-     * @return the optional progress listener for receiving updates about object
-     *          download status.
-     */
-    public ProgressListener getGeneralProgressListener() {
-        return generalProgressListener;
-    }
-
-    /**
-     * Sets the optional progress listener for receiving updates about object
-     * upload status, and returns this updated object so that additional method
-     * calls can be chained together.
-     *
-     * @param generalProgressListener
-     *            The new progress listener.
-     *
-     * @return This updated PutObjectRequest object.
-     */
-    public PutObjectRequest withGeneralProgressListener(ProgressListener generalProgressListener) {
-        setGeneralProgressListener(generalProgressListener);
-        return this;
-    }
-
 }

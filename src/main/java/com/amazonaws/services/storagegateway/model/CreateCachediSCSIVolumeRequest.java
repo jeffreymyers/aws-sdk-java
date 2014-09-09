@@ -21,16 +21,22 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#createCachediSCSIVolume(CreateCachediSCSIVolumeRequest) CreateCachediSCSIVolume operation}.
  * <p>
- * This operation creates a cached volume on a specified cached gateway. This operation is supported only for the gateway-cached volume architecture.
+ * This operation creates a cached volume on a specified cached gateway.
+ * This operation is supported only for the gateway-cached volume
+ * architecture.
  * </p>
  * <p>
- * <b>NOTE:</b>Cache storage must be allocated to the gateway before you can create a cached volume. Use the AddCache operation to add cache storage to a
- * gateway.
+ * <b>NOTE:</b>Cache storage must be allocated to the gateway before you
+ * can create a cached volume. Use the AddCache operation to add cache
+ * storage to a gateway.
  * </p>
  * <p>
- * In the request, you must specify the gateway, size of the volume in bytes, the iSCSI target name, an IP address on which to expose the target, and a
- * unique client token. In response, AWS Storage Gateway creates the volume and returns information about it such as the volume Amazon Resource Name
- * (ARN), its size, and the iSCSI target ARN that initiators can use to connect to the volume target.
+ * In the request, you must specify the gateway, size of the volume in
+ * bytes, the iSCSI target name, an IP address on which to expose the
+ * target, and a unique client token. In response, AWS Storage Gateway
+ * creates the volume and returns information about it such as the volume
+ * Amazon Resource Name (ARN), its size, and the iSCSI target ARN that
+ * initiators can use to connect to the volume target.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#createCachediSCSIVolume(CreateCachediSCSIVolumeRequest)
@@ -103,7 +109,7 @@ public class CreateCachediSCSIVolumeRequest extends AmazonWebServiceRequest impl
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCachediSCSIVolumeRequest withGatewayARN(String gatewayARN) {
@@ -136,7 +142,7 @@ public class CreateCachediSCSIVolumeRequest extends AmazonWebServiceRequest impl
      *
      * @param volumeSizeInBytes The new value for the VolumeSizeInBytes property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCachediSCSIVolumeRequest withVolumeSizeInBytes(Long volumeSizeInBytes) {
@@ -178,7 +184,7 @@ public class CreateCachediSCSIVolumeRequest extends AmazonWebServiceRequest impl
      *
      * @param snapshotId The new value for the SnapshotId property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCachediSCSIVolumeRequest withSnapshotId(String snapshotId) {
@@ -223,7 +229,7 @@ public class CreateCachediSCSIVolumeRequest extends AmazonWebServiceRequest impl
      *
      * @param targetName The new value for the TargetName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCachediSCSIVolumeRequest withTargetName(String targetName) {
@@ -265,7 +271,7 @@ public class CreateCachediSCSIVolumeRequest extends AmazonWebServiceRequest impl
      *
      * @param networkInterfaceId The new value for the NetworkInterfaceId property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCachediSCSIVolumeRequest withNetworkInterfaceId(String networkInterfaceId) {
@@ -307,7 +313,7 @@ public class CreateCachediSCSIVolumeRequest extends AmazonWebServiceRequest impl
      *
      * @param clientToken The new value for the ClientToken property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCachediSCSIVolumeRequest withClientToken(String clientToken) {

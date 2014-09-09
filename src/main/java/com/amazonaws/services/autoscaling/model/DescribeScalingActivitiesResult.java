@@ -34,7 +34,7 @@ public class DescribeScalingActivitiesResult implements Serializable {
      * this in to subsequent calls to return additional results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String nextToken;
 
@@ -73,7 +73,7 @@ public class DescribeScalingActivitiesResult implements Serializable {
      *
      * @param activities A list of the requested scaling activities.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScalingActivitiesResult withActivities(Activity... activities) {
@@ -91,7 +91,7 @@ public class DescribeScalingActivitiesResult implements Serializable {
      *
      * @param activities A list of the requested scaling activities.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScalingActivitiesResult withActivities(java.util.Collection<Activity> activities) {
@@ -112,7 +112,7 @@ public class DescribeScalingActivitiesResult implements Serializable {
      * this in to subsequent calls to return additional results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Acts as a paging mechanism for large result sets. Set to a non-empty
      *         string if there are additional results waiting to be returned. Pass
@@ -128,7 +128,7 @@ public class DescribeScalingActivitiesResult implements Serializable {
      * this in to subsequent calls to return additional results.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken Acts as a paging mechanism for large result sets. Set to a non-empty
      *         string if there are additional results waiting to be returned. Pass
@@ -146,13 +146,13 @@ public class DescribeScalingActivitiesResult implements Serializable {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param nextToken Acts as a paging mechanism for large result sets. Set to a non-empty
      *         string if there are additional results waiting to be returned. Pass
      *         this in to subsequent calls to return additional results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeScalingActivitiesResult withNextToken(String nextToken) {

@@ -21,16 +21,19 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#listMetrics(ListMetricsRequest) ListMetrics operation}.
  * <p>
- * Returns a list of valid metrics stored for the AWS account owner. Returned metrics can be used with <code>GetMetricStatistics</code> to obtain
- * statistical data for a given metric.
+ * Returns a list of valid metrics stored for the AWS account owner.
+ * Returned metrics can be used with <code>GetMetricStatistics</code> to
+ * obtain statistical data for a given metric.
  * </p>
  * <p>
- * <b>NOTE:</b> Up to 500 results are returned for any one call. To retrieve further results, use returned NextToken values with subsequent ListMetrics
- * operations.
+ * <b>NOTE:</b> Up to 500 results are returned for any one call. To
+ * retrieve further results, use returned NextToken values with
+ * subsequent ListMetrics operations.
  * </p>
  * <p>
- * <b>NOTE:</b> If you create a metric with the PutMetricData action, allow up to fifteen minutes for the metric to appear in calls to the ListMetrics
- * action.
+ * <b>NOTE:</b> If you create a metric with the PutMetricData action,
+ * allow up to fifteen minutes for the metric to appear in calls to the
+ * ListMetrics action.
  * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#listMetrics(ListMetricsRequest)
@@ -105,7 +108,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param namespace The namespace to filter against.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListMetricsRequest withNamespace(String namespace) {
@@ -147,7 +150,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param metricName The name of the metric to filter against.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListMetricsRequest withMetricName(String metricName) {
@@ -199,7 +202,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param dimensions A list of dimensions to filter against.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListMetricsRequest withDimensions(DimensionFilter... dimensions) {
@@ -220,7 +223,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param dimensions A list of dimensions to filter against.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListMetricsRequest withDimensions(java.util.Collection<DimensionFilter> dimensions) {
@@ -266,7 +269,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest implements Seria
      * @param nextToken The token returned by a previous call to indicate that there is more
      *         data available.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListMetricsRequest withNextToken(String nextToken) {

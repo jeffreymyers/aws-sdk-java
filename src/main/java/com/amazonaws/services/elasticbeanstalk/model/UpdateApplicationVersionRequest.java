@@ -21,10 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#updateApplicationVersion(UpdateApplicationVersionRequest) UpdateApplicationVersion operation}.
  * <p>
- * Updates the specified application version to have the specified properties.
+ * Updates the specified application version to have the specified
+ * properties.
  * </p>
  * <p>
- * <b>NOTE:</b> If a property (for example, description) is not provided, the value remains unchanged. To clear properties, specify an empty string.
+ * <b>NOTE:</b> If a property (for example, description) is not provided,
+ * the value remains unchanged. To clear properties, specify an empty
+ * string.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#updateApplicationVersion(UpdateApplicationVersionRequest)
@@ -130,7 +133,7 @@ public class UpdateApplicationVersionRequest extends AmazonWebServiceRequest imp
      *         application is found with this name, <code>UpdateApplication</code>
      *         returns an <code>InvalidParameterValue</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateApplicationVersionRequest withApplicationName(String applicationName) {
@@ -184,7 +187,7 @@ public class UpdateApplicationVersionRequest extends AmazonWebServiceRequest imp
      *         found with this label, <code>UpdateApplication</code> returns an
      *         <code>InvalidParameterValue</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateApplicationVersionRequest withVersionLabel(String versionLabel) {
@@ -226,7 +229,7 @@ public class UpdateApplicationVersionRequest extends AmazonWebServiceRequest imp
      *
      * @param description A new description for this release.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateApplicationVersionRequest withDescription(String description) {

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The container for summary information that relates to the category of the Trusted Advisor check.
+ * The container for summary information that relates to the category of
+ * the Trusted Advisor check.
  * </p>
  */
 public class TrustedAdvisorCategorySpecificSummary implements Serializable {
@@ -60,7 +61,7 @@ public class TrustedAdvisorCategorySpecificSummary implements Serializable {
      * @param costOptimizing The summary information about cost savings for a Trusted Advisor check
      *         that is in the Cost Optimizing category.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public TrustedAdvisorCategorySpecificSummary withCostOptimizing(TrustedAdvisorCostOptimizingSummary costOptimizing) {

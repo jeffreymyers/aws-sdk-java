@@ -75,9 +75,7 @@ public class DescribeGatewayInformationResult implements Serializable {
     /**
      * The date at which an update to the gateway is available. This date is
      * in the time zone of the gateway. If the gateway is not available for
-     * an update this field is not returned in the response. <!-- Q: [eronh]
-     * This next sentence doesn't seem to agree with the preceding one, nor
-     * does it agree with the response example. -->
+     * an update this field is not returned in the response.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 25<br/>
@@ -130,7 +128,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayARN(String gatewayARN) {
@@ -172,7 +170,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      *
      * @param gatewayId The gateway ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayId(String gatewayId) {
@@ -220,7 +218,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      * @param gatewayTimezone One of the values that indicates the time zone configured for the
      *         gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayTimezone(String gatewayTimezone) {
@@ -262,7 +260,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      *
      * @param gatewayState One of the values that indicates the operating state of the gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayState(String gatewayState) {
@@ -311,7 +309,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      * @param gatewayNetworkInterfaces A <a>NetworkInterface</a> array that contains descriptions of the
      *         gateway network interfaces.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayNetworkInterfaces(NetworkInterface... gatewayNetworkInterfaces) {
@@ -331,7 +329,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      * @param gatewayNetworkInterfaces A <a>NetworkInterface</a> array that contains descriptions of the
      *         gateway network interfaces.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayNetworkInterfaces(java.util.Collection<NetworkInterface> gatewayNetworkInterfaces) {
@@ -380,7 +378,7 @@ public class DescribeGatewayInformationResult implements Serializable {
      *
      * @param gatewayType TBD
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withGatewayType(String gatewayType) {
@@ -391,18 +389,14 @@ public class DescribeGatewayInformationResult implements Serializable {
     /**
      * The date at which an update to the gateway is available. This date is
      * in the time zone of the gateway. If the gateway is not available for
-     * an update this field is not returned in the response. <!-- Q: [eronh]
-     * This next sentence doesn't seem to agree with the preceding one, nor
-     * does it agree with the response example. -->
+     * an update this field is not returned in the response.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 25<br/>
      *
      * @return The date at which an update to the gateway is available. This date is
      *         in the time zone of the gateway. If the gateway is not available for
-     *         an update this field is not returned in the response. <!-- Q: [eronh]
-     *         This next sentence doesn't seem to agree with the preceding one, nor
-     *         does it agree with the response example. -->
+     *         an update this field is not returned in the response.
      */
     public String getNextUpdateAvailabilityDate() {
         return nextUpdateAvailabilityDate;
@@ -411,18 +405,14 @@ public class DescribeGatewayInformationResult implements Serializable {
     /**
      * The date at which an update to the gateway is available. This date is
      * in the time zone of the gateway. If the gateway is not available for
-     * an update this field is not returned in the response. <!-- Q: [eronh]
-     * This next sentence doesn't seem to agree with the preceding one, nor
-     * does it agree with the response example. -->
+     * an update this field is not returned in the response.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 25<br/>
      *
      * @param nextUpdateAvailabilityDate The date at which an update to the gateway is available. This date is
      *         in the time zone of the gateway. If the gateway is not available for
-     *         an update this field is not returned in the response. <!-- Q: [eronh]
-     *         This next sentence doesn't seem to agree with the preceding one, nor
-     *         does it agree with the response example. -->
+     *         an update this field is not returned in the response.
      */
     public void setNextUpdateAvailabilityDate(String nextUpdateAvailabilityDate) {
         this.nextUpdateAvailabilityDate = nextUpdateAvailabilityDate;
@@ -431,9 +421,7 @@ public class DescribeGatewayInformationResult implements Serializable {
     /**
      * The date at which an update to the gateway is available. This date is
      * in the time zone of the gateway. If the gateway is not available for
-     * an update this field is not returned in the response. <!-- Q: [eronh]
-     * This next sentence doesn't seem to agree with the preceding one, nor
-     * does it agree with the response example. -->
+     * an update this field is not returned in the response.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -442,11 +430,9 @@ public class DescribeGatewayInformationResult implements Serializable {
      *
      * @param nextUpdateAvailabilityDate The date at which an update to the gateway is available. This date is
      *         in the time zone of the gateway. If the gateway is not available for
-     *         an update this field is not returned in the response. <!-- Q: [eronh]
-     *         This next sentence doesn't seem to agree with the preceding one, nor
-     *         does it agree with the response example. -->
+     *         an update this field is not returned in the response.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationResult withNextUpdateAvailabilityDate(String nextUpdateAvailabilityDate) {

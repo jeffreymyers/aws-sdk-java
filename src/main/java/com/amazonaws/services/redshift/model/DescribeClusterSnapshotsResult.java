@@ -24,10 +24,12 @@ import java.io.Serializable;
 public class DescribeClusterSnapshotsResult implements Serializable {
 
     /**
-     * A marker that indicates the first snapshot that a subsequent
-     * <a>DescribeClusterSnapshots</a> request will return. The response
-     * returns a marker only if there are more snapshots to list than the
-     * current response can return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      */
     private String marker;
 
@@ -37,49 +39,61 @@ public class DescribeClusterSnapshotsResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<Snapshot> snapshots;
 
     /**
-     * A marker that indicates the first snapshot that a subsequent
-     * <a>DescribeClusterSnapshots</a> request will return. The response
-     * returns a marker only if there are more snapshots to list than the
-     * current response can return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @return A marker that indicates the first snapshot that a subsequent
-     *         <a>DescribeClusterSnapshots</a> request will return. The response
-     *         returns a marker only if there are more snapshots to list than the
-     *         current response can return.
+     * @return A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * A marker that indicates the first snapshot that a subsequent
-     * <a>DescribeClusterSnapshots</a> request will return. The response
-     * returns a marker only if there are more snapshots to list than the
-     * current response can return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @param marker A marker that indicates the first snapshot that a subsequent
-     *         <a>DescribeClusterSnapshots</a> request will return. The response
-     *         returns a marker only if there are more snapshots to list than the
-     *         current response can return.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * A marker that indicates the first snapshot that a subsequent
-     * <a>DescribeClusterSnapshots</a> request will return. The response
-     * returns a marker only if there are more snapshots to list than the
-     * current response can return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker A marker that indicates the first snapshot that a subsequent
-     *         <a>DescribeClusterSnapshots</a> request will return. The response
-     *         returns a marker only if there are more snapshots to list than the
-     *         current response can return.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsResult withMarker(String marker) {
@@ -122,7 +136,7 @@ public class DescribeClusterSnapshotsResult implements Serializable {
      *
      * @param snapshots A list of <a>Snapshot</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsResult withSnapshots(Snapshot... snapshots) {
@@ -140,7 +154,7 @@ public class DescribeClusterSnapshotsResult implements Serializable {
      *
      * @param snapshots A list of <a>Snapshot</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterSnapshotsResult withSnapshots(java.util.Collection<Snapshot> snapshots) {

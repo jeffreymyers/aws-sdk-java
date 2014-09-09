@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Information about item collections, if any, that were affected by the operation. <i>ItemCollectionMetrics</i> is only returned if it was asked for in
- * the request. If the table does not have any local secondary indexes, this information is not returned in the response.
+ * Information about item collections, if any, that were affected by the
+ * operation. <i>ItemCollectionMetrics</i> is only returned if it was
+ * asked for in the request. If the table does not have any local
+ * secondary indexes, this information is not returned in the response.
  * </p>
  */
 public class ItemCollectionMetrics implements Serializable {
@@ -74,7 +76,7 @@ public class ItemCollectionMetrics implements Serializable {
      * @param itemCollectionKey The hash key value of the item collection. This is the same as the
      *         hash key of the item.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ItemCollectionMetrics withItemCollectionKey(java.util.Map<String,AttributeValue> itemCollectionKey) {
@@ -186,7 +188,7 @@ public class ItemCollectionMetrics implements Serializable {
      *         is subject to change over time; therefore, do not rely on the
      *         precision or accuracy of the estimate.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ItemCollectionMetrics withSizeEstimateRangeGB(Double... sizeEstimateRangeGB) {
@@ -218,7 +220,7 @@ public class ItemCollectionMetrics implements Serializable {
      *         is subject to change over time; therefore, do not rely on the
      *         precision or accuracy of the estimate.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ItemCollectionMetrics withSizeEstimateRangeGB(java.util.Collection<Double> sizeEstimateRangeGB) {

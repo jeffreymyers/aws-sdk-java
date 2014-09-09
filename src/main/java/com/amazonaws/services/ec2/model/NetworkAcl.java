@@ -17,48 +17,68 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Network Acl
+ * <p>
+ * Describes a network ACL.
+ * </p>
  */
 public class NetworkAcl implements Serializable {
 
+    /**
+     * The ID of the network ACL.
+     */
     private String networkAclId;
 
+    /**
+     * The ID of the VPC for the network ACL.
+     */
     private String vpcId;
 
+    /**
+     * Indicates whether this is the default network ACL for the VPC.
+     */
     private Boolean isDefault;
 
+    /**
+     * One or more entries (rules) in the network ACL.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<NetworkAclEntry> entries;
 
+    /**
+     * Any associations between the network ACL and one or more subnets
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<NetworkAclAssociation> associations;
 
+    /**
+     * Any tags assigned to the network ACL.
+     */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
     /**
-     * Returns the value of the NetworkAclId property for this object.
+     * The ID of the network ACL.
      *
-     * @return The value of the NetworkAclId property for this object.
+     * @return The ID of the network ACL.
      */
     public String getNetworkAclId() {
         return networkAclId;
     }
     
     /**
-     * Sets the value of the NetworkAclId property for this object.
+     * The ID of the network ACL.
      *
-     * @param networkAclId The new value for the NetworkAclId property for this object.
+     * @param networkAclId The ID of the network ACL.
      */
     public void setNetworkAclId(String networkAclId) {
         this.networkAclId = networkAclId;
     }
     
     /**
-     * Sets the value of the NetworkAclId property for this object.
+     * The ID of the network ACL.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param networkAclId The new value for the NetworkAclId property for this object.
+     * @param networkAclId The ID of the network ACL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withNetworkAclId(String networkAclId) {
@@ -67,31 +87,31 @@ public class NetworkAcl implements Serializable {
     }
 
     /**
-     * Returns the value of the VpcId property for this object.
+     * The ID of the VPC for the network ACL.
      *
-     * @return The value of the VpcId property for this object.
+     * @return The ID of the VPC for the network ACL.
      */
     public String getVpcId() {
         return vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC for the network ACL.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC for the network ACL.
      */
     public void setVpcId(String vpcId) {
         this.vpcId = vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC for the network ACL.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC for the network ACL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withVpcId(String vpcId) {
@@ -100,31 +120,31 @@ public class NetworkAcl implements Serializable {
     }
 
     /**
-     * Returns the value of the IsDefault property for this object.
+     * Indicates whether this is the default network ACL for the VPC.
      *
-     * @return The value of the IsDefault property for this object.
+     * @return Indicates whether this is the default network ACL for the VPC.
      */
     public Boolean isDefault() {
         return isDefault;
     }
     
     /**
-     * Sets the value of the IsDefault property for this object.
+     * Indicates whether this is the default network ACL for the VPC.
      *
-     * @param isDefault The new value for the IsDefault property for this object.
+     * @param isDefault Indicates whether this is the default network ACL for the VPC.
      */
     public void setIsDefault(Boolean isDefault) {
         this.isDefault = isDefault;
     }
     
     /**
-     * Sets the value of the IsDefault property for this object.
+     * Indicates whether this is the default network ACL for the VPC.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param isDefault The new value for the IsDefault property for this object.
+     * @param isDefault Indicates whether this is the default network ACL for the VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withIsDefault(Boolean isDefault) {
@@ -133,18 +153,18 @@ public class NetworkAcl implements Serializable {
     }
 
     /**
-     * Returns the value of the IsDefault property for this object.
+     * Indicates whether this is the default network ACL for the VPC.
      *
-     * @return The value of the IsDefault property for this object.
+     * @return Indicates whether this is the default network ACL for the VPC.
      */
     public Boolean getIsDefault() {
         return isDefault;
     }
 
     /**
-     * Returns the value of the Entries property for this object.
+     * One or more entries (rules) in the network ACL.
      *
-     * @return The value of the Entries property for this object.
+     * @return One or more entries (rules) in the network ACL.
      */
     public java.util.List<NetworkAclEntry> getEntries() {
         if (entries == null) {
@@ -155,9 +175,9 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Entries property for this object.
+     * One or more entries (rules) in the network ACL.
      *
-     * @param entries The new value for the Entries property for this object.
+     * @param entries One or more entries (rules) in the network ACL.
      */
     public void setEntries(java.util.Collection<NetworkAclEntry> entries) {
         if (entries == null) {
@@ -170,13 +190,13 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Entries property for this object.
+     * One or more entries (rules) in the network ACL.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param entries The new value for the Entries property for this object.
+     * @param entries One or more entries (rules) in the network ACL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withEntries(NetworkAclEntry... entries) {
@@ -188,13 +208,13 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Entries property for this object.
+     * One or more entries (rules) in the network ACL.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param entries The new value for the Entries property for this object.
+     * @param entries One or more entries (rules) in the network ACL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withEntries(java.util.Collection<NetworkAclEntry> entries) {
@@ -210,9 +230,9 @@ public class NetworkAcl implements Serializable {
     }
 
     /**
-     * Returns the value of the Associations property for this object.
+     * Any associations between the network ACL and one or more subnets
      *
-     * @return The value of the Associations property for this object.
+     * @return Any associations between the network ACL and one or more subnets
      */
     public java.util.List<NetworkAclAssociation> getAssociations() {
         if (associations == null) {
@@ -223,9 +243,9 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Associations property for this object.
+     * Any associations between the network ACL and one or more subnets
      *
-     * @param associations The new value for the Associations property for this object.
+     * @param associations Any associations between the network ACL and one or more subnets
      */
     public void setAssociations(java.util.Collection<NetworkAclAssociation> associations) {
         if (associations == null) {
@@ -238,13 +258,13 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Associations property for this object.
+     * Any associations between the network ACL and one or more subnets
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param associations The new value for the Associations property for this object.
+     * @param associations Any associations between the network ACL and one or more subnets
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withAssociations(NetworkAclAssociation... associations) {
@@ -256,13 +276,13 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Associations property for this object.
+     * Any associations between the network ACL and one or more subnets
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param associations The new value for the Associations property for this object.
+     * @param associations Any associations between the network ACL and one or more subnets
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withAssociations(java.util.Collection<NetworkAclAssociation> associations) {
@@ -278,9 +298,9 @@ public class NetworkAcl implements Serializable {
     }
 
     /**
-     * Returns the value of the Tags property for this object.
+     * Any tags assigned to the network ACL.
      *
-     * @return The value of the Tags property for this object.
+     * @return Any tags assigned to the network ACL.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -291,9 +311,9 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the network ACL.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the network ACL.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -306,13 +326,13 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the network ACL.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the network ACL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withTags(Tag... tags) {
@@ -324,13 +344,13 @@ public class NetworkAcl implements Serializable {
     }
     
     /**
-     * Sets the value of the Tags property for this object.
+     * Any tags assigned to the network ACL.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags The new value for the Tags property for this object.
+     * @param tags Any tags assigned to the network ACL.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public NetworkAcl withTags(java.util.Collection<Tag> tags) {

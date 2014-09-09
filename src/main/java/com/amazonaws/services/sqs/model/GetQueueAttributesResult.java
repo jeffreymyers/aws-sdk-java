@@ -17,7 +17,9 @@ package com.amazonaws.services.sqs.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * A list of returned queue attributes.
+ * </p>
  */
 public class GetQueueAttributesResult implements Serializable {
 
@@ -55,7 +57,7 @@ public class GetQueueAttributesResult implements Serializable {
      *
      * @param attributes A map of attributes to the respective values.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetQueueAttributesResult withAttributes(java.util.Map<String,String> attributes) {

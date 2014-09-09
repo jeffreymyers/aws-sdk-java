@@ -27,6 +27,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#updateStopwordOptions(UpdateStopwordOptionsRequest)
  */
+@Deprecated
 public class UpdateStopwordOptionsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

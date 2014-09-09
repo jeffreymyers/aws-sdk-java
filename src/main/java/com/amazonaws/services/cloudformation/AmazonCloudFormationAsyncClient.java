@@ -35,24 +35,31 @@ import com.amazonaws.services.cloudformation.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * AWS CloudFormation <p>
- * AWS CloudFormation enables you to create and manage AWS infrastructure deployments predictably and repeatedly. AWS CloudFormation helps you leverage
- * AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and Auto Scaling to build highly-reliable, highly scalable, cost effective applications without
- * worrying about creating and configuring the underlying the AWS infrastructure.
+ * AWS CloudFormation enables you to create and manage AWS infrastructure
+ * deployments predictably and repeatedly. AWS CloudFormation helps you
+ * leverage AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and
+ * Auto Scaling to build highly-reliable, highly scalable, cost effective
+ * applications without worrying about creating and configuring the
+ * underlying AWS infrastructure.
  * </p>
  * <p>
- * With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a
- * single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the
- * resources for you.
+ * With AWS CloudFormation, you declare all of your resources and
+ * dependencies in a template file. The template defines a collection of
+ * resources as a single unit called a stack. AWS CloudFormation creates
+ * and deletes all member resources of the stack together and manages all
+ * dependencies between the resources for you.
  * </p>
  * <p>
- * For more information about this product, go to the <a href="http://aws.amazon.com/cloudformation/"> CloudFormation Product Page </a> .
+ * For more information about this product, go to the
+ * <a href="http://aws.amazon.com/cloudformation/"> CloudFormation Product Page </a>
+ * .
  * </p>
  * <p>
- * Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the
- * product's technical documentation at <a href="http://aws.amazon.com/documentation/"> http://aws.amazon.com/documentation/ </a> .
- * </p>
- * <p>
- * <b>NOTE:</b>You must call the AWS CloudFormation API as a regular IAM user. AWS CloudFormation does not support calling the API with an IAM role
+ * Amazon CloudFormation makes use of other AWS products. If you need
+ * additional technical information about a specific AWS product, you can
+ * find the product's technical documentation at
+ * <a href="http://aws.amazon.com/documentation/"> http://aws.amazon.com/documentation/ </a>
+ * .
  * </p>
  */
 public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
@@ -62,6 +69,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -104,13 +113,13 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonCloudFormationAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonCloudFormation using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -122,7 +131,7 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      *                       when authenticating with AWS services.
      */
     public AmazonCloudFormationAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -176,7 +185,7 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonCloudFormation using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -189,7 +198,7 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      *            to authenticate requests with AWS services.
      */
     public AmazonCloudFormationAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -232,7 +241,7 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      */
     public AmazonCloudFormationAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -276,7 +285,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -309,8 +319,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<ValidateTemplateResult>() {
             public ValidateTemplateResult call() throws Exception {
                 return validateTemplate(validateTemplateRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -343,17 +353,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ValidateTemplateResult>() {
             public ValidateTemplateResult call() throws Exception {
-                ValidateTemplateResult result;
+              ValidateTemplateResult result;
                 try {
-                    result = validateTemplate(validateTemplateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(validateTemplateRequest, result);
-                   return result;
-            }
-        });
+                result = validateTemplate(validateTemplateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(validateTemplateRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -382,8 +392,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<DescribeStacksResult>() {
             public DescribeStacksResult call() throws Exception {
                 return describeStacks(describeStacksRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -417,17 +427,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeStacksResult>() {
             public DescribeStacksResult call() throws Exception {
-                DescribeStacksResult result;
+              DescribeStacksResult result;
                 try {
-                    result = describeStacks(describeStacksRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeStacksRequest, result);
-                   return result;
-            }
-        });
+                result = describeStacks(describeStacksRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeStacksRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -436,8 +446,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * template for running or deleted stacks.
      * </p>
      * <p>
-     * For deleted stacks, GetTemplate returns the template for up to 90 days
-     * after the stack has been deleted.
+     * For deleted stacks, GetTemplate returns the template for up to 90
+     * days after the stack has been deleted.
      * </p>
      * <p>
      * <b>NOTE:</b> If the template does not exist, a ValidationError is
@@ -464,8 +474,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<GetTemplateResult>() {
             public GetTemplateResult call() throws Exception {
                 return getTemplate(getTemplateRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -474,8 +484,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * template for running or deleted stacks.
      * </p>
      * <p>
-     * For deleted stacks, GetTemplate returns the template for up to 90 days
-     * after the stack has been deleted.
+     * For deleted stacks, GetTemplate returns the template for up to 90
+     * days after the stack has been deleted.
      * </p>
      * <p>
      * <b>NOTE:</b> If the template does not exist, a ValidationError is
@@ -507,17 +517,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetTemplateResult>() {
             public GetTemplateResult call() throws Exception {
-                GetTemplateResult result;
+              GetTemplateResult result;
                 try {
-                    result = getTemplate(getTemplateRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getTemplateRequest, result);
-                   return result;
-            }
-        });
+                result = getTemplate(getTemplateRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getTemplateRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -546,8 +556,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<GetStackPolicyResult>() {
             public GetStackPolicyResult call() throws Exception {
                 return getStackPolicy(getStackPolicyRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -581,17 +591,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetStackPolicyResult>() {
             public GetStackPolicyResult call() throws Exception {
-                GetStackPolicyResult result;
+              GetStackPolicyResult result;
                 try {
-                    result = getStackPolicy(getStackPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getStackPolicyRequest, result);
-                   return result;
-            }
-        });
+                result = getStackPolicy(getStackPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getStackPolicyRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -624,8 +634,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<ListStacksResult>() {
             public ListStacksResult call() throws Exception {
                 return listStacks(listStacksRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -663,28 +673,24 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListStacksResult>() {
             public ListStacksResult call() throws Exception {
-                ListStacksResult result;
+              ListStacksResult result;
                 try {
-                    result = listStacks(listStacksRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listStacksRequest, result);
-                   return result;
-            }
-        });
+                result = listStacks(listStacksRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listStacksRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Creates a stack as specified in the template. After the call completes
-     * successfully, the stack creation starts. You can check the status of
-     * the stack via the DescribeStacks API.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Currently, the limit for stacks is 20 stacks per account
-     * per region.
+     * Creates a stack as specified in the template. After the call
+     * completes successfully, the stack creation starts. You can check the
+     * status of the stack via the DescribeStacks API.
      * </p>
      *
      * @param createStackRequest Container for the necessary parameters to
@@ -707,19 +713,15 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<CreateStackResult>() {
             public CreateStackResult call() throws Exception {
                 return createStack(createStackRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Creates a stack as specified in the template. After the call completes
-     * successfully, the stack creation starts. You can check the status of
-     * the stack via the DescribeStacks API.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Currently, the limit for stacks is 20 stacks per account
-     * per region.
+     * Creates a stack as specified in the template. After the call
+     * completes successfully, the stack creation starts. You can check the
+     * status of the stack via the DescribeStacks API.
      * </p>
      *
      * @param createStackRequest Container for the necessary parameters to
@@ -747,17 +749,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateStackResult>() {
             public CreateStackResult call() throws Exception {
-                CreateStackResult result;
+              CreateStackResult result;
                 try {
-                    result = createStack(createStackRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createStackRequest, result);
-                   return result;
-            }
-        });
+                result = createStack(createStackRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createStackRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -786,8 +788,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
             public Void call() throws Exception {
                 setStackPolicy(setStackPolicyRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -820,16 +822,16 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    setStackPolicy(setStackPolicyRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(setStackPolicyRequest, null);
-                   return null;
-            }
-        });
+              try {
+                setStackPolicy(setStackPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setStackPolicyRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -861,8 +863,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<EstimateTemplateCostResult>() {
             public EstimateTemplateCostResult call() throws Exception {
                 return estimateTemplateCost(estimateTemplateCostRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -899,29 +901,30 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<EstimateTemplateCostResult>() {
             public EstimateTemplateCostResult call() throws Exception {
-                EstimateTemplateCostResult result;
+              EstimateTemplateCostResult result;
                 try {
-                    result = estimateTemplateCost(estimateTemplateCostRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(estimateTemplateCostRequest, result);
-                   return result;
-            }
-        });
+                result = estimateTemplateCost(estimateTemplateCostRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(estimateTemplateCostRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
      * Returns all stack related events for a specified stack. For more
-     * information about a stack's event history, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * information about a stack's event history, go to
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html"> Stacks </a>
+     * in the AWS CloudFormation User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Events are returned, even if the stack never existed or
-     * has been successfully deleted.
+     * <b>NOTE:</b>You can list events for stacks that have failed to create
+     * or have been deleted by specifying the unique stack identifier (stack
+     * ID).
      * </p>
      *
      * @param describeStackEventsRequest Container for the necessary
@@ -946,20 +949,21 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<DescribeStackEventsResult>() {
             public DescribeStackEventsResult call() throws Exception {
                 return describeStackEvents(describeStackEventsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
      * Returns all stack related events for a specified stack. For more
-     * information about a stack's event history, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * information about a stack's event history, go to
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html"> Stacks </a>
+     * in the AWS CloudFormation User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Events are returned, even if the stack never existed or
-     * has been successfully deleted.
+     * <b>NOTE:</b>You can list events for stacks that have failed to create
+     * or have been deleted by specifying the unique stack identifier (stack
+     * ID).
      * </p>
      *
      * @param describeStackEventsRequest Container for the necessary
@@ -989,17 +993,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeStackEventsResult>() {
             public DescribeStackEventsResult call() throws Exception {
-                DescribeStackEventsResult result;
+              DescribeStackEventsResult result;
                 try {
-                    result = describeStackEvents(describeStackEventsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeStackEventsRequest, result);
-                   return result;
-            }
-        });
+                result = describeStackEvents(describeStackEventsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeStackEventsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1008,8 +1012,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * stack.
      * </p>
      * <p>
-     * For deleted stacks, DescribeStackResource returns resource information
-     * for up to 90 days after the stack has been deleted.
+     * For deleted stacks, DescribeStackResource returns resource
+     * information for up to 90 days after the stack has been deleted.
      * </p>
      *
      * @param describeStackResourceRequest Container for the necessary
@@ -1034,8 +1038,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<DescribeStackResourceResult>() {
             public DescribeStackResourceResult call() throws Exception {
                 return describeStackResource(describeStackResourceRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1044,8 +1048,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * stack.
      * </p>
      * <p>
-     * For deleted stacks, DescribeStackResource returns resource information
-     * for up to 90 days after the stack has been deleted.
+     * For deleted stacks, DescribeStackResource returns resource
+     * information for up to 90 days after the stack has been deleted.
      * </p>
      *
      * @param describeStackResourceRequest Container for the necessary
@@ -1075,17 +1079,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeStackResourceResult>() {
             public DescribeStackResourceResult call() throws Exception {
-                DescribeStackResourceResult result;
+              DescribeStackResourceResult result;
                 try {
-                    result = describeStackResource(describeStackResourceRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeStackResourceRequest, result);
-                   return result;
-            }
-        });
+                result = describeStackResource(describeStackResourceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeStackResourceRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1120,8 +1124,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
             public Void call() throws Exception {
                 cancelUpdateStack(cancelUpdateStackRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1160,32 +1164,23 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    cancelUpdateStack(cancelUpdateStackRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(cancelUpdateStackRequest, null);
-                   return null;
-            }
-        });
+              try {
+                cancelUpdateStack(cancelUpdateStackRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(cancelUpdateStackRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * Updates a stack as specified in the template. After the call completes
-     * successfully, the stack update starts. You can check the status of the
-     * stack via the DescribeStacks action.
-     * </p>
-     * <p>
-     * </p>
-     * <p>
-     * <b>Note: </b> You cannot update <a
-     * com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">
-     * AWS::S3::Bucket </a> resources, for example, to add or modify tags.
-     * </p>
-     * <p>
+     * Updates a stack as specified in the template. After the call
+     * completes successfully, the stack update starts. You can check the
+     * status of the stack via the DescribeStacks action.
      * </p>
      * <p>
      * To get a copy of the template for an existing stack, you can use the
@@ -1198,9 +1193,9 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * </p>
      * <p>
      * For more information about creating an update template, updating a
-     * stack, and monitoring the progress of the update, see <a
-     * om/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html">
-     * Updating a Stack </a> .
+     * stack, and monitoring the progress of the update, see
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a>
+     * .
      * </p>
      *
      * @param updateStackRequest Container for the necessary parameters to
@@ -1223,24 +1218,15 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<UpdateStackResult>() {
             public UpdateStackResult call() throws Exception {
                 return updateStack(updateStackRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Updates a stack as specified in the template. After the call completes
-     * successfully, the stack update starts. You can check the status of the
-     * stack via the DescribeStacks action.
-     * </p>
-     * <p>
-     * </p>
-     * <p>
-     * <b>Note: </b> You cannot update <a
-     * com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">
-     * AWS::S3::Bucket </a> resources, for example, to add or modify tags.
-     * </p>
-     * <p>
+     * Updates a stack as specified in the template. After the call
+     * completes successfully, the stack update starts. You can check the
+     * status of the stack via the DescribeStacks action.
      * </p>
      * <p>
      * To get a copy of the template for an existing stack, you can use the
@@ -1253,9 +1239,9 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * </p>
      * <p>
      * For more information about creating an update template, updating a
-     * stack, and monitoring the progress of the update, see <a
-     * om/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html">
-     * Updating a Stack </a> .
+     * stack, and monitoring the progress of the update, see
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a>
+     * .
      * </p>
      *
      * @param updateStackRequest Container for the necessary parameters to
@@ -1283,17 +1269,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<UpdateStackResult>() {
             public UpdateStackResult call() throws Exception {
-                UpdateStackResult result;
+              UpdateStackResult result;
                 try {
-                    result = updateStack(updateStackRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(updateStackRequest, result);
-                   return result;
-            }
-        });
+                result = updateStack(updateStackRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateStackRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1320,9 +1306,9 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * specify <code>LogicalResourceId</code> to filter the returned result.
      * For more information about resources, the
      * <code>LogicalResourceId</code> and <code>PhysicalResourceId</code> ,
-     * go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * go to the
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide"> AWS CloudFormation User Guide </a>
+     * .
      * </p>
      * <p>
      * <b>NOTE:</b>A ValidationError is returned if you specify both
@@ -1351,8 +1337,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<DescribeStackResourcesResult>() {
             public DescribeStackResourcesResult call() throws Exception {
                 return describeStackResources(describeStackResourcesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1379,9 +1365,9 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
      * specify <code>LogicalResourceId</code> to filter the returned result.
      * For more information about resources, the
      * <code>LogicalResourceId</code> and <code>PhysicalResourceId</code> ,
-     * go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * go to the
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide"> AWS CloudFormation User Guide </a>
+     * .
      * </p>
      * <p>
      * <b>NOTE:</b>A ValidationError is returned if you specify both
@@ -1415,24 +1401,24 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeStackResourcesResult>() {
             public DescribeStackResourcesResult call() throws Exception {
-                DescribeStackResourcesResult result;
+              DescribeStackResourcesResult result;
                 try {
-                    result = describeStackResources(describeStackResourcesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeStackResourcesRequest, result);
-                   return result;
-            }
-        });
+                result = describeStackResources(describeStackResourcesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeStackResourcesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * Deletes a specified stack. Once the call completes successfully, stack
-     * deletion starts. Deleted stacks do not show up in the DescribeStacks
-     * API if the deletion has been completed successfully.
+     * Deletes a specified stack. Once the call completes successfully,
+     * stack deletion starts. Deleted stacks do not show up in the
+     * DescribeStacks API if the deletion has been completed successfully.
      * </p>
      *
      * @param deleteStackRequest Container for the necessary parameters to
@@ -1456,15 +1442,15 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
             public Void call() throws Exception {
                 deleteStack(deleteStackRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * Deletes a specified stack. Once the call completes successfully, stack
-     * deletion starts. Deleted stacks do not show up in the DescribeStacks
-     * API if the deletion has been completed successfully.
+     * Deletes a specified stack. Once the call completes successfully,
+     * stack deletion starts. Deleted stacks do not show up in the
+     * DescribeStacks API if the deletion has been completed successfully.
      * </p>
      *
      * @param deleteStackRequest Container for the necessary parameters to
@@ -1492,16 +1478,16 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteStack(deleteStackRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteStackRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteStack(deleteStackRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteStackRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
@@ -1535,8 +1521,8 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
         return executorService.submit(new Callable<ListStackResourcesResult>() {
             public ListStackResourcesResult call() throws Exception {
                 return listStackResources(listStackResourcesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1575,17 +1561,17 @@ public class AmazonCloudFormationAsyncClient extends AmazonCloudFormationClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListStackResourcesResult>() {
             public ListStackResourcesResult call() throws Exception {
-                ListStackResourcesResult result;
+              ListStackResourcesResult result;
                 try {
-                    result = listStackResources(listStackResourcesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listStackResourcesRequest, result);
-                   return result;
-            }
-        });
+                result = listStackResources(listStackResourcesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listStackResourcesRequest, result);
+                 return result;
+        }
+    });
     }
     
 }

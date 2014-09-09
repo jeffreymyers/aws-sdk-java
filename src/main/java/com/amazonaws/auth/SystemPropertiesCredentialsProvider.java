@@ -13,10 +13,12 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.auth;
+
 import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_SYSTEM_PROPERTY;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.util.StringUtils;
 
 /**
  * {@link AWSCredentialsProvider} implementation that provides credentials by
@@ -25,19 +27,27 @@ import com.amazonaws.AmazonClientException;
  */
 public class SystemPropertiesCredentialsProvider implements AWSCredentialsProvider {
 
+    @Override
     public AWSCredentials getCredentials() {
-        if (System.getProperty(ACCESS_KEY_SYSTEM_PROPERTY) != null &&
-            System.getProperty(SECRET_KEY_SYSTEM_PROPERTY) != null) {
-            return new BasicAWSCredentials(
-                    System.getProperty(ACCESS_KEY_SYSTEM_PROPERTY),
-                    System.getProperty(SECRET_KEY_SYSTEM_PROPERTY));
+        String accessKey =
+            StringUtils.trim(System.getProperty(ACCESS_KEY_SYSTEM_PROPERTY));
+
+        String secretKey =
+            StringUtils.trim(System.getProperty(SECRET_KEY_SYSTEM_PROPERTY));
+
+        if (StringUtils.isNullOrEmpty(accessKey)
+                || StringUtils.isNullOrEmpty(secretKey)) {
+
+            throw new AmazonClientException(
+                    "Unable to load AWS credentials from Java system "
+                    + "properties (" + ACCESS_KEY_SYSTEM_PROPERTY + " and "
+                    + SECRET_KEY_SYSTEM_PROPERTY + ")");
         }
 
-        throw new AmazonClientException(
-                "Unable to load AWS credentials from Java system properties " +
-                "(" + ACCESS_KEY_SYSTEM_PROPERTY + " and " + SECRET_KEY_SYSTEM_PROPERTY + ")");
+        return new BasicAWSCredentials(accessKey, secretKey);
     }
 
+    @Override
     public void refresh() {}
 
     @Override

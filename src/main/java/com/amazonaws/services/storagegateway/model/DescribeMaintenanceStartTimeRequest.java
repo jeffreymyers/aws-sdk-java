@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeMaintenanceStartTime(DescribeMaintenanceStartTimeRequest) DescribeMaintenanceStartTime operation}.
  * <p>
- * This operation returns your gateway's weekly maintenance start time including the day and time of the week. Note that values are in terms of the
- * gateway's time zone.
+ * This operation returns your gateway's weekly maintenance start time
+ * including the day and time of the week. Note that values are in terms
+ * of the gateway's time zone.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeMaintenanceStartTime(DescribeMaintenanceStartTimeRequest)
@@ -85,7 +86,7 @@ public class DescribeMaintenanceStartTimeRequest extends AmazonWebServiceRequest
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeMaintenanceStartTimeRequest withGatewayARN(String gatewayARN) {

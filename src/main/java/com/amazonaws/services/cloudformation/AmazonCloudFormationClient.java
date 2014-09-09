@@ -30,6 +30,7 @@ import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import static com.amazonaws.util.IOUtils.*;
 
 import com.amazonaws.services.cloudformation.model.*;
 import com.amazonaws.services.cloudformation.model.transform.*;
@@ -40,24 +41,31 @@ import com.amazonaws.services.cloudformation.model.transform.*;
  * completes.
  * <p>
  * AWS CloudFormation <p>
- * AWS CloudFormation enables you to create and manage AWS infrastructure deployments predictably and repeatedly. AWS CloudFormation helps you leverage
- * AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and Auto Scaling to build highly-reliable, highly scalable, cost effective applications without
- * worrying about creating and configuring the underlying the AWS infrastructure.
+ * AWS CloudFormation enables you to create and manage AWS infrastructure
+ * deployments predictably and repeatedly. AWS CloudFormation helps you
+ * leverage AWS products such as Amazon EC2, EBS, Amazon SNS, ELB, and
+ * Auto Scaling to build highly-reliable, highly scalable, cost effective
+ * applications without worrying about creating and configuring the
+ * underlying AWS infrastructure.
  * </p>
  * <p>
- * With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a
- * single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the
- * resources for you.
+ * With AWS CloudFormation, you declare all of your resources and
+ * dependencies in a template file. The template defines a collection of
+ * resources as a single unit called a stack. AWS CloudFormation creates
+ * and deletes all member resources of the stack together and manages all
+ * dependencies between the resources for you.
  * </p>
  * <p>
- * For more information about this product, go to the <a href="http://aws.amazon.com/cloudformation/"> CloudFormation Product Page </a> .
+ * For more information about this product, go to the
+ * <a href="http://aws.amazon.com/cloudformation/"> CloudFormation Product Page </a>
+ * .
  * </p>
  * <p>
- * Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the
- * product's technical documentation at <a href="http://aws.amazon.com/documentation/"> http://aws.amazon.com/documentation/ </a> .
- * </p>
- * <p>
- * <b>NOTE:</b>You must call the AWS CloudFormation API as a regular IAM user. AWS CloudFormation does not support calling the API with an IAM role
+ * Amazon CloudFormation makes use of other AWS products. If you need
+ * additional technical information about a specific AWS product, you can
+ * find the product's technical documentation at
+ * <a href="http://aws.amazon.com/documentation/"> http://aws.amazon.com/documentation/ </a>
+ * .
  * </p>
  */
 public class AmazonCloudFormationClient extends AmazonWebServiceClient implements AmazonCloudFormation {
@@ -218,8 +226,10 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
         exceptionUnmarshallers.add(new LimitExceededExceptionUnmarshaller());
         
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("cloudformation.us-east-1.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/cloudformation/request.handlers"));
@@ -251,16 +261,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public ValidateTemplateResult validateTemplate(ValidateTemplateRequest validateTemplateRequest) {
         ExecutionContext executionContext = createExecutionContext(validateTemplateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ValidateTemplateRequest> request = null;
         Response<ValidateTemplateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ValidateTemplateRequestMarshaller().marshall(validateTemplateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ValidateTemplateRequestMarshaller().marshall(validateTemplateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ValidateTemplateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -289,16 +307,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public DescribeStacksResult describeStacks(DescribeStacksRequest describeStacksRequest) {
         ExecutionContext executionContext = createExecutionContext(describeStacksRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeStacksRequest> request = null;
         Response<DescribeStacksResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeStacksRequestMarshaller().marshall(describeStacksRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeStacksRequestMarshaller().marshall(describeStacksRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeStacksResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -309,8 +335,8 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
      * template for running or deleted stacks.
      * </p>
      * <p>
-     * For deleted stacks, GetTemplate returns the template for up to 90 days
-     * after the stack has been deleted.
+     * For deleted stacks, GetTemplate returns the template for up to 90
+     * days after the stack has been deleted.
      * </p>
      * <p>
      * <b>NOTE:</b> If the template does not exist, a ValidationError is
@@ -335,16 +361,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public GetTemplateResult getTemplate(GetTemplateRequest getTemplateRequest) {
         ExecutionContext executionContext = createExecutionContext(getTemplateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetTemplateRequest> request = null;
         Response<GetTemplateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetTemplateRequestMarshaller().marshall(getTemplateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetTemplateRequestMarshaller().marshall(getTemplateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetTemplateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -373,16 +407,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public GetStackPolicyResult getStackPolicy(GetStackPolicyRequest getStackPolicyRequest) {
         ExecutionContext executionContext = createExecutionContext(getStackPolicyRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetStackPolicyRequest> request = null;
         Response<GetStackPolicyResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetStackPolicyRequestMarshaller().marshall(getStackPolicyRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetStackPolicyRequestMarshaller().marshall(getStackPolicyRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetStackPolicyResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -415,29 +457,33 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public ListStacksResult listStacks(ListStacksRequest listStacksRequest) {
         ExecutionContext executionContext = createExecutionContext(listStacksRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListStacksRequest> request = null;
         Response<ListStacksResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListStacksRequestMarshaller().marshall(listStacksRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListStacksRequestMarshaller().marshall(listStacksRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListStacksResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Creates a stack as specified in the template. After the call completes
-     * successfully, the stack creation starts. You can check the status of
-     * the stack via the DescribeStacks API.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Currently, the limit for stacks is 20 stacks per account
-     * per region.
+     * Creates a stack as specified in the template. After the call
+     * completes successfully, the stack creation starts. You can check the
+     * status of the stack via the DescribeStacks API.
      * </p>
      *
      * @param createStackRequest Container for the necessary parameters to
@@ -461,16 +507,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public CreateStackResult createStack(CreateStackRequest createStackRequest) {
         ExecutionContext executionContext = createExecutionContext(createStackRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateStackRequest> request = null;
         Response<CreateStackResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateStackRequestMarshaller().marshall(createStackRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateStackRequestMarshaller().marshall(createStackRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateStackResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -534,16 +588,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public EstimateTemplateCostResult estimateTemplateCost(EstimateTemplateCostRequest estimateTemplateCostRequest) {
         ExecutionContext executionContext = createExecutionContext(estimateTemplateCostRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<EstimateTemplateCostRequest> request = null;
         Response<EstimateTemplateCostResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new EstimateTemplateCostRequestMarshaller().marshall(estimateTemplateCostRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new EstimateTemplateCostRequestMarshaller().marshall(estimateTemplateCostRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new EstimateTemplateCostResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -551,13 +613,14 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     /**
      * <p>
      * Returns all stack related events for a specified stack. For more
-     * information about a stack's event history, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * information about a stack's event history, go to
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html"> Stacks </a>
+     * in the AWS CloudFormation User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Events are returned, even if the stack never existed or
-     * has been successfully deleted.
+     * <b>NOTE:</b>You can list events for stacks that have failed to create
+     * or have been deleted by specifying the unique stack identifier (stack
+     * ID).
      * </p>
      *
      * @param describeStackEventsRequest Container for the necessary
@@ -579,16 +642,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public DescribeStackEventsResult describeStackEvents(DescribeStackEventsRequest describeStackEventsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeStackEventsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeStackEventsRequest> request = null;
         Response<DescribeStackEventsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeStackEventsRequestMarshaller().marshall(describeStackEventsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeStackEventsRequestMarshaller().marshall(describeStackEventsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeStackEventsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -599,8 +670,8 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
      * stack.
      * </p>
      * <p>
-     * For deleted stacks, DescribeStackResource returns resource information
-     * for up to 90 days after the stack has been deleted.
+     * For deleted stacks, DescribeStackResource returns resource
+     * information for up to 90 days after the stack has been deleted.
      * </p>
      *
      * @param describeStackResourceRequest Container for the necessary
@@ -622,16 +693,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public DescribeStackResourceResult describeStackResource(DescribeStackResourceRequest describeStackResourceRequest) {
         ExecutionContext executionContext = createExecutionContext(describeStackResourceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeStackResourceRequest> request = null;
         Response<DescribeStackResourceResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeStackResourceRequestMarshaller().marshall(describeStackResourceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeStackResourceRequestMarshaller().marshall(describeStackResourceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeStackResourceResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -678,18 +757,9 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     
     /**
      * <p>
-     * Updates a stack as specified in the template. After the call completes
-     * successfully, the stack update starts. You can check the status of the
-     * stack via the DescribeStacks action.
-     * </p>
-     * <p>
-     * </p>
-     * <p>
-     * <b>Note: </b> You cannot update <a
-     * com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">
-     * AWS::S3::Bucket </a> resources, for example, to add or modify tags.
-     * </p>
-     * <p>
+     * Updates a stack as specified in the template. After the call
+     * completes successfully, the stack update starts. You can check the
+     * status of the stack via the DescribeStacks action.
      * </p>
      * <p>
      * To get a copy of the template for an existing stack, you can use the
@@ -702,9 +772,9 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
      * </p>
      * <p>
      * For more information about creating an update template, updating a
-     * stack, and monitoring the progress of the update, see <a
-     * om/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html">
-     * Updating a Stack </a> .
+     * stack, and monitoring the progress of the update, see
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a>
+     * .
      * </p>
      *
      * @param updateStackRequest Container for the necessary parameters to
@@ -726,16 +796,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public UpdateStackResult updateStack(UpdateStackRequest updateStackRequest) {
         ExecutionContext executionContext = createExecutionContext(updateStackRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateStackRequest> request = null;
         Response<UpdateStackResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateStackRequestMarshaller().marshall(updateStackRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateStackRequestMarshaller().marshall(updateStackRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateStackResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -764,9 +842,9 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
      * specify <code>LogicalResourceId</code> to filter the returned result.
      * For more information about resources, the
      * <code>LogicalResourceId</code> and <code>PhysicalResourceId</code> ,
-     * go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">
-     * AWS CloudFormation User Guide </a> .
+     * go to the
+     * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide"> AWS CloudFormation User Guide </a>
+     * .
      * </p>
      * <p>
      * <b>NOTE:</b>A ValidationError is returned if you specify both
@@ -792,25 +870,33 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public DescribeStackResourcesResult describeStackResources(DescribeStackResourcesRequest describeStackResourcesRequest) {
         ExecutionContext executionContext = createExecutionContext(describeStackResourcesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeStackResourcesRequest> request = null;
         Response<DescribeStackResourcesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeStackResourcesRequestMarshaller().marshall(describeStackResourcesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeStackResourcesRequestMarshaller().marshall(describeStackResourcesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeStackResourcesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Deletes a specified stack. Once the call completes successfully, stack
-     * deletion starts. Deleted stacks do not show up in the DescribeStacks
-     * API if the deletion has been completed successfully.
+     * Deletes a specified stack. Once the call completes successfully,
+     * stack deletion starts. Deleted stacks do not show up in the
+     * DescribeStacks API if the deletion has been completed successfully.
      * </p>
      *
      * @param deleteStackRequest Container for the necessary parameters to
@@ -869,16 +955,24 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
     public ListStackResourcesResult listStackResources(ListStackResourcesRequest listStackResourcesRequest) {
         ExecutionContext executionContext = createExecutionContext(listStackResourcesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListStackResourcesRequest> request = null;
         Response<ListStackResourcesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListStackResourcesRequestMarshaller().marshall(listStackResourcesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListStackResourcesRequestMarshaller().marshall(listStackResourcesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListStackResourcesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -990,7 +1084,6 @@ public class AmazonCloudFormationClient extends AmazonWebServiceClient implement
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);

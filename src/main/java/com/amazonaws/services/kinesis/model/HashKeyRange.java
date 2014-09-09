@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The range of possible hash key values for the shard, which is a set of ordered contiguous positive integers.
+ * The range of possible hash key values for the shard, which is a set of
+ * ordered contiguous positive integers.
  * </p>
  */
 public class HashKeyRange implements Serializable {
@@ -73,7 +74,7 @@ public class HashKeyRange implements Serializable {
      *
      * @param startingHashKey The starting hash key of the hash key range.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HashKeyRange withStartingHashKey(String startingHashKey) {
@@ -115,7 +116,7 @@ public class HashKeyRange implements Serializable {
      *
      * @param endingHashKey The ending hash key of the hash key range.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HashKeyRange withEndingHashKey(String endingHashKey) {

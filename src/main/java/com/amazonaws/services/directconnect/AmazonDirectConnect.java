@@ -21,24 +21,34 @@ import com.amazonaws.services.directconnect.model.*;
 /**
  * Interface for accessing AmazonDirectConnect.
  * <p>
- * AWS Direct Connect makes it easy to establish a dedicated network connection from your premises to Amazon Web Services (AWS). Using AWS Direct
- * Connect, you can establish private connectivity between AWS and your data center, office, or colocation environment, which in many cases can reduce
- * your network costs, increase bandwidth throughput, and provide a more consistent network experience than Internet-based connections.
+ * AWS Direct Connect makes it easy to establish a dedicated network
+ * connection from your premises to Amazon Web Services (AWS). Using AWS
+ * Direct Connect, you can establish private connectivity between AWS and
+ * your data center, office, or colocation environment, which in many
+ * cases can reduce your network costs, increase bandwidth throughput,
+ * and provide a more consistent network experience than Internet-based
+ * connections.
  * </p>
  * <p>
- * The AWS Direct Connect API Reference provides descriptions, syntax, and usage examples for each of the actions and data types for AWS Direct Connect.
- * Use the following links to get started using the <i>AWS Direct Connect API Reference</i> :
+ * The AWS Direct Connect API Reference provides descriptions, syntax,
+ * and usage examples for each of the actions and data types for AWS
+ * Direct Connect. Use the following links to get started using the
+ * <i>AWS Direct Connect API Reference</i> :
  * </p>
  * 
  * <ul>
- * <li> <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/API_Operations.html"> Actions </a> : An alphabetical list of all AWS
- * Direct Connect actions.</li>
- * <li> <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/API_Types.html"> Data Types </a> : An alphabetical list of all AWS Direct
- * Connect data types.</li>
- * <li> <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/CommonParameters.html"> Common Query Parameters </a> : Parameters that all
- * Query actions can use.</li>
- * <li> <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/CommonErrors.html"> Common Errors </a> : Client and server errors that all
- * actions can return.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/API_Operations.html"> Actions </a>
+ * : An alphabetical list of all AWS Direct Connect actions.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/API_Types.html"> Data Types </a>
+ * : An alphabetical list of all AWS Direct Connect data types.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/CommonParameters.html"> Common Query Parameters </a>
+ * : Parameters that all Query actions can use.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/directconnect/latest/APIReference/CommonErrors.html"> Common Errors </a>
+ * : Client and server errors that all actions can return.</li>
  * 
  * </ul>
  */
@@ -291,21 +301,22 @@ public interface AmazonDirectConnect {
 
     /**
      * <p>
-     * Displays all virtual interfaces for an AWS account. Virtual interfaces
-     * deleted fewer than 15 minutes before DescribeVirtualInterfaces is
-     * called are also returned. If a connection ID is included then only
-     * virtual interfaces associated with this connection will be returned.
-     * If a virtual interface ID is included then only a single virtual
-     * interface will be returned.
+     * Displays all virtual interfaces for an AWS account. Virtual
+     * interfaces deleted fewer than 15 minutes before
+     * DescribeVirtualInterfaces is called are also returned. If a
+     * connection ID is included then only virtual interfaces associated with
+     * this connection will be returned. If a virtual interface ID is
+     * included then only a single virtual interface will be returned.
      * </p>
      * <p>
      * A virtual interface (VLAN) transmits the traffic between the AWS
      * Direct Connect location and the customer.
      * </p>
      * <p>
-     * If a connection ID is provided, only virtual interfaces provisioned on
-     * the specified connection will be returned. If a virtual interface ID
-     * is provided, only this particular virtual interface will be returned.
+     * If a connection ID is provided, only virtual interfaces provisioned
+     * on the specified connection will be returned. If a virtual interface
+     * ID is provided, only this particular virtual interface will be
+     * returned.
      * </p>
      *
      * @param describeVirtualInterfacesRequest Container for the necessary
@@ -365,8 +376,8 @@ public interface AmazonDirectConnect {
      * Returns a list of interconnects owned by the AWS account.
      * </p>
      * <p>
-     * If an interconnect ID is provided, it will only return this particular
-     * interconnect.
+     * If an interconnect ID is provided, it will only return this
+     * particular interconnect.
      * </p>
      *
      * @param describeInterconnectsRequest Container for the necessary
@@ -398,9 +409,9 @@ public interface AmazonDirectConnect {
      * You can create one or more AWS Direct Connect private virtual
      * interfaces linking to a virtual private gateway. A virtual private
      * gateway can be managed via Amazon Virtual Private Cloud (VPC) console
-     * or the <a
-     * /AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html">
-     * EC2 CreateVpnGateway </a> action.
+     * or the
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html"> EC2 CreateVpnGateway </a>
+     * action.
      * </p>
      *
      * @param describeVirtualGatewaysRequest Container for the necessary
@@ -623,8 +634,8 @@ public interface AmazonDirectConnect {
      * Creates a hosted connection on an interconnect.
      * </p>
      * <p>
-     * Allocates a VLAN number and a specified amount of bandwidth for use by
-     * a hosted connection on the given interconnect.
+     * Allocates a VLAN number and a specified amount of bandwidth for use
+     * by a hosted connection on the given interconnect.
      * </p>
      *
      * @param allocateConnectionOnInterconnectRequest Container for the
@@ -735,21 +746,22 @@ public interface AmazonDirectConnect {
     
     /**
      * <p>
-     * Displays all virtual interfaces for an AWS account. Virtual interfaces
-     * deleted fewer than 15 minutes before DescribeVirtualInterfaces is
-     * called are also returned. If a connection ID is included then only
-     * virtual interfaces associated with this connection will be returned.
-     * If a virtual interface ID is included then only a single virtual
-     * interface will be returned.
+     * Displays all virtual interfaces for an AWS account. Virtual
+     * interfaces deleted fewer than 15 minutes before
+     * DescribeVirtualInterfaces is called are also returned. If a
+     * connection ID is included then only virtual interfaces associated with
+     * this connection will be returned. If a virtual interface ID is
+     * included then only a single virtual interface will be returned.
      * </p>
      * <p>
      * A virtual interface (VLAN) transmits the traffic between the AWS
      * Direct Connect location and the customer.
      * </p>
      * <p>
-     * If a connection ID is provided, only virtual interfaces provisioned on
-     * the specified connection will be returned. If a virtual interface ID
-     * is provided, only this particular virtual interface will be returned.
+     * If a connection ID is provided, only virtual interfaces provisioned
+     * on the specified connection will be returned. If a virtual interface
+     * ID is provided, only this particular virtual interface will be
+     * returned.
      * </p>
      * 
      * @return The response from the DescribeVirtualInterfaces service
@@ -773,8 +785,8 @@ public interface AmazonDirectConnect {
      * Returns a list of interconnects owned by the AWS account.
      * </p>
      * <p>
-     * If an interconnect ID is provided, it will only return this particular
-     * interconnect.
+     * If an interconnect ID is provided, it will only return this
+     * particular interconnect.
      * </p>
      * 
      * @return The response from the DescribeInterconnects service method, as
@@ -801,9 +813,9 @@ public interface AmazonDirectConnect {
      * You can create one or more AWS Direct Connect private virtual
      * interfaces linking to a virtual private gateway. A virtual private
      * gateway can be managed via Amazon Virtual Private Cloud (VPC) console
-     * or the <a
-     * /AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html">
-     * EC2 CreateVpnGateway </a> action.
+     * or the
+     * <a href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html"> EC2 CreateVpnGateway </a>
+     * action.
      * </p>
      * 
      * @return The response from the DescribeVirtualGateways service method,

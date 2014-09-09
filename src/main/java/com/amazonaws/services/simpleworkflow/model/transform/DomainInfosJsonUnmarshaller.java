@@ -37,7 +37,7 @@ public class DomainInfosJsonUnmarshaller implements Unmarshaller<DomainInfos, Js
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class DomainInfosJsonUnmarshaller implements Unmarshaller<DomainInfos, Js
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("domainInfos", targetDepth)) {
+                    context.nextToken();
                     domainInfos.setDomainInfos(new ListUnmarshaller<DomainInfo>(DomainInfoJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("nextPageToken", targetDepth)) {

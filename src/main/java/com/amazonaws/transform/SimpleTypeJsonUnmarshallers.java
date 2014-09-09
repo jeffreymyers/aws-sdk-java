@@ -13,31 +13,16 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.transform;
-
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.Date;
-import java.util.Locale;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.util.Base64;
 import com.amazonaws.util.DateUtils;
 
 public class SimpleTypeJsonUnmarshallers {
-
-    /** Shared DateUtils object for parsing and formatting dates */
-    private static DateUtils dateUtils = new DateUtils();
-
-    /** Shared logger */
-    private static Log log = LogFactory.getLog(SimpleTypeJsonUnmarshallers.class);
-
     /**
      * Unmarshaller for String values.
      */
@@ -46,9 +31,9 @@ public class SimpleTypeJsonUnmarshallers {
             return unmarshallerContext.readText();
         }
 
-        private static StringJsonUnmarshaller instance;
+        private static final StringJsonUnmarshaller instance = new StringJsonUnmarshaller();
+
         public static StringJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new StringJsonUnmarshaller();
             return instance;
         }
     }
@@ -62,9 +47,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (doubleString == null) ? null : Double.parseDouble(doubleString);
         }
 
-        private static DoubleJsonUnmarshaller instance;
+        private static final DoubleJsonUnmarshaller instance = new DoubleJsonUnmarshaller();
+
         public static DoubleJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new DoubleJsonUnmarshaller();
             return instance;
         }
     }
@@ -78,9 +63,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (intString == null) ? null : Integer.parseInt(intString);
         }
 
-        private static IntegerJsonUnmarshaller instance;
+        private static final IntegerJsonUnmarshaller instance = new IntegerJsonUnmarshaller();
+
         public static IntegerJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new IntegerJsonUnmarshaller();
             return instance;
         }
     }
@@ -91,9 +76,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (intString == null) ? null : new BigInteger(intString);
         }
 
-        private static BigIntegerJsonUnmarshaller instance;
+        private static final BigIntegerJsonUnmarshaller instance = new BigIntegerJsonUnmarshaller();
+
         public static BigIntegerJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new BigIntegerJsonUnmarshaller();
             return instance;
         }
     }
@@ -104,9 +89,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (s == null) ? null : new BigDecimal(s);
         }
 
-        private static BigDecimalJsonUnmarshaller instance;
+        private static final BigDecimalJsonUnmarshaller instance = new BigDecimalJsonUnmarshaller();
+
         public static BigDecimalJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new BigDecimalJsonUnmarshaller();
             return instance;
         }
     }
@@ -120,9 +105,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (booleanString == null) ? null : Boolean.parseBoolean(booleanString);
         }
 
-        private static BooleanJsonUnmarshaller instance;
+        private static final BooleanJsonUnmarshaller instance = new BooleanJsonUnmarshaller();
+
         public static BooleanJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new BooleanJsonUnmarshaller();
             return instance;
         }
     }
@@ -136,9 +121,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (floatString == null) ? null : Float.valueOf(floatString);
         }
 
-        private static FloatJsonUnmarshaller instance;
+        private static final FloatJsonUnmarshaller instance = new FloatJsonUnmarshaller();
+
         public static FloatJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new FloatJsonUnmarshaller();
             return instance;
         }
     }
@@ -152,9 +137,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (longString == null) ? null : Long.parseLong(longString);
         }
 
-        private static LongJsonUnmarshaller instance;
+        private static final LongJsonUnmarshaller instance = new LongJsonUnmarshaller();
+
         public static LongJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new LongJsonUnmarshaller();
             return instance;
         }
     }
@@ -168,9 +153,9 @@ public class SimpleTypeJsonUnmarshallers {
             return (byteString == null) ? null : Byte.valueOf(byteString);
         }
 
-        private static ByteJsonUnmarshaller instance;
+        private static final ByteJsonUnmarshaller instance = new ByteJsonUnmarshaller();
+
         public static ByteJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new ByteJsonUnmarshaller();
             return instance;
         }
     }
@@ -179,22 +164,15 @@ public class SimpleTypeJsonUnmarshallers {
      * Unmarshaller for Date values - JSON dates come in as epoch seconds.
      */
     public static class DateJsonUnmarshaller implements Unmarshaller<Date, JsonUnmarshallerContext> {
-        public Date unmarshall(JsonUnmarshallerContext unmarshallerContext) throws Exception {
-            String dateString = unmarshallerContext.readText();
-            if (dateString == null) return null;
-
-            try {
-            	Number number = DecimalFormat.getInstance(new Locale("en")).parse(dateString);
-            	return new Date(number.longValue() * 1000);
-            } catch (ParseException e) {
-                String errorMessage = "Unable to parse date '" + dateString + "':  " + e.getMessage();
-                throw new AmazonClientException(errorMessage, e);
-            }
+        public Date unmarshall(JsonUnmarshallerContext unmarshallerContext)
+                throws Exception {
+            return DateUtils.parseServiceSpecificDate(unmarshallerContext
+                    .readText());
         }
 
-        private static DateJsonUnmarshaller instance;
+        private static final DateJsonUnmarshaller instance = new DateJsonUnmarshaller();
+
         public static DateJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new DateJsonUnmarshaller();
             return instance;
         }
     }
@@ -205,22 +183,54 @@ public class SimpleTypeJsonUnmarshallers {
     public static class ByteBufferJsonUnmarshaller implements Unmarshaller<ByteBuffer, JsonUnmarshallerContext> {
         public ByteBuffer unmarshall(JsonUnmarshallerContext unmarshallerContext) throws Exception {
             String base64EncodedString = unmarshallerContext.readText();
-            if (base64EncodedString == null) return null;
+            byte[] decodedBytes = Base64.decode(base64EncodedString);
+            return ByteBuffer.wrap(decodedBytes);
 
-            try {
-                byte[] base64EncodedBytes = base64EncodedString.getBytes("UTF-8");
-                byte[] decodedBytes = Base64.decodeBase64(base64EncodedBytes);
-                return ByteBuffer.wrap(decodedBytes);
-            } catch (UnsupportedEncodingException e) {
-                throw new AmazonClientException("Unable to unmarshall XML data into a ByteBuffer", e);
-            }
         }
 
-        private static ByteBufferJsonUnmarshaller instance;
+        private static final ByteBufferJsonUnmarshaller instance = new ByteBufferJsonUnmarshaller();
+
         public static ByteBufferJsonUnmarshaller getInstance() {
-            if (instance == null) instance = new ByteBufferJsonUnmarshaller();
             return instance;
         }
     }
 
+    /**
+     * Unmarshaller for Character values.
+     */
+    public static class CharacterJsonUnmarshaller implements Unmarshaller<Character, JsonUnmarshallerContext> {
+        public Character unmarshall(JsonUnmarshallerContext unmarshallerContext) throws Exception {
+            String charString = unmarshallerContext.readText();
+
+            if (charString == null) return null;
+
+            charString = charString.trim();
+            if (charString.isEmpty() || charString.length() > 1)
+                throw new AmazonClientException("'" + charString
+                        + "' cannot be converted to Character");
+            return Character.valueOf(charString.charAt(0));
+        }
+
+        private static final CharacterJsonUnmarshaller instance = new CharacterJsonUnmarshaller();
+
+        public static CharacterJsonUnmarshaller getInstance() {
+            return instance;
+        }
+    }
+
+    /**
+     * Unmarshaller for Short values.
+     */
+    public static class ShortJsonUnmarshaller implements Unmarshaller<Short, JsonUnmarshallerContext> {
+        public Short unmarshall(JsonUnmarshallerContext unmarshallerContext) throws Exception {
+            String shortString = unmarshallerContext.readText();
+            return (shortString == null) ? null : Short.valueOf(shortString);
+        }
+
+        private static final ShortJsonUnmarshaller instance = new ShortJsonUnmarshaller();
+
+        public static ShortJsonUnmarshaller getInstance() {
+            return instance;
+        }
+    }
 }

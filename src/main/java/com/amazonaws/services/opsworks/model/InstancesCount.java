@@ -34,6 +34,11 @@ public class InstancesCount implements Serializable {
     private Integer connectionLost;
 
     /**
+     * The number of instances with <code>online</code> status.
+     */
+    private Integer online;
+
+    /**
      * The number of instances with <code>pending</code> status.
      */
     private Integer pending;
@@ -74,6 +79,11 @@ public class InstancesCount implements Serializable {
     private Integer stopped;
 
     /**
+     * The number of instances with <code>stopping</code> status.
+     */
+    private Integer stopping;
+
+    /**
      * The number of instances with <code>terminated</code> status.
      */
     private Integer terminated;
@@ -108,7 +118,7 @@ public class InstancesCount implements Serializable {
      *
      * @param booting The number of instances with <code>booting</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withBooting(Integer booting) {
@@ -141,11 +151,44 @@ public class InstancesCount implements Serializable {
      *
      * @param connectionLost The number of instances with <code>connection_lost</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withConnectionLost(Integer connectionLost) {
         this.connectionLost = connectionLost;
+        return this;
+    }
+
+    /**
+     * The number of instances with <code>online</code> status.
+     *
+     * @return The number of instances with <code>online</code> status.
+     */
+    public Integer getOnline() {
+        return online;
+    }
+    
+    /**
+     * The number of instances with <code>online</code> status.
+     *
+     * @param online The number of instances with <code>online</code> status.
+     */
+    public void setOnline(Integer online) {
+        this.online = online;
+    }
+    
+    /**
+     * The number of instances with <code>online</code> status.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param online The number of instances with <code>online</code> status.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public InstancesCount withOnline(Integer online) {
+        this.online = online;
         return this;
     }
 
@@ -174,7 +217,7 @@ public class InstancesCount implements Serializable {
      *
      * @param pending The number of instances with <code>pending</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withPending(Integer pending) {
@@ -207,7 +250,7 @@ public class InstancesCount implements Serializable {
      *
      * @param rebooting The number of instances with <code>rebooting</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withRebooting(Integer rebooting) {
@@ -240,7 +283,7 @@ public class InstancesCount implements Serializable {
      *
      * @param requested The number of instances with <code>requested</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withRequested(Integer requested) {
@@ -273,7 +316,7 @@ public class InstancesCount implements Serializable {
      *
      * @param runningSetup The number of instances with <code>running_setup</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withRunningSetup(Integer runningSetup) {
@@ -306,7 +349,7 @@ public class InstancesCount implements Serializable {
      *
      * @param setupFailed The number of instances with <code>setup_failed</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withSetupFailed(Integer setupFailed) {
@@ -339,7 +382,7 @@ public class InstancesCount implements Serializable {
      *
      * @param shuttingDown The number of instances with <code>shutting_down</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withShuttingDown(Integer shuttingDown) {
@@ -372,7 +415,7 @@ public class InstancesCount implements Serializable {
      *
      * @param startFailed The number of instances with <code>start_failed</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withStartFailed(Integer startFailed) {
@@ -405,11 +448,44 @@ public class InstancesCount implements Serializable {
      *
      * @param stopped The number of instances with <code>stopped</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withStopped(Integer stopped) {
         this.stopped = stopped;
+        return this;
+    }
+
+    /**
+     * The number of instances with <code>stopping</code> status.
+     *
+     * @return The number of instances with <code>stopping</code> status.
+     */
+    public Integer getStopping() {
+        return stopping;
+    }
+    
+    /**
+     * The number of instances with <code>stopping</code> status.
+     *
+     * @param stopping The number of instances with <code>stopping</code> status.
+     */
+    public void setStopping(Integer stopping) {
+        this.stopping = stopping;
+    }
+    
+    /**
+     * The number of instances with <code>stopping</code> status.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param stopping The number of instances with <code>stopping</code> status.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public InstancesCount withStopping(Integer stopping) {
+        this.stopping = stopping;
         return this;
     }
 
@@ -438,7 +514,7 @@ public class InstancesCount implements Serializable {
      *
      * @param terminated The number of instances with <code>terminated</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withTerminated(Integer terminated) {
@@ -471,7 +547,7 @@ public class InstancesCount implements Serializable {
      *
      * @param terminating The number of instances with <code>terminating</code> status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstancesCount withTerminating(Integer terminating) {
@@ -493,6 +569,7 @@ public class InstancesCount implements Serializable {
         sb.append("{");
         if (getBooting() != null) sb.append("Booting: " + getBooting() + ",");
         if (getConnectionLost() != null) sb.append("ConnectionLost: " + getConnectionLost() + ",");
+        if (getOnline() != null) sb.append("Online: " + getOnline() + ",");
         if (getPending() != null) sb.append("Pending: " + getPending() + ",");
         if (getRebooting() != null) sb.append("Rebooting: " + getRebooting() + ",");
         if (getRequested() != null) sb.append("Requested: " + getRequested() + ",");
@@ -501,6 +578,7 @@ public class InstancesCount implements Serializable {
         if (getShuttingDown() != null) sb.append("ShuttingDown: " + getShuttingDown() + ",");
         if (getStartFailed() != null) sb.append("StartFailed: " + getStartFailed() + ",");
         if (getStopped() != null) sb.append("Stopped: " + getStopped() + ",");
+        if (getStopping() != null) sb.append("Stopping: " + getStopping() + ",");
         if (getTerminated() != null) sb.append("Terminated: " + getTerminated() + ",");
         if (getTerminating() != null) sb.append("Terminating: " + getTerminating() );
         sb.append("}");
@@ -514,6 +592,7 @@ public class InstancesCount implements Serializable {
         
         hashCode = prime * hashCode + ((getBooting() == null) ? 0 : getBooting().hashCode()); 
         hashCode = prime * hashCode + ((getConnectionLost() == null) ? 0 : getConnectionLost().hashCode()); 
+        hashCode = prime * hashCode + ((getOnline() == null) ? 0 : getOnline().hashCode()); 
         hashCode = prime * hashCode + ((getPending() == null) ? 0 : getPending().hashCode()); 
         hashCode = prime * hashCode + ((getRebooting() == null) ? 0 : getRebooting().hashCode()); 
         hashCode = prime * hashCode + ((getRequested() == null) ? 0 : getRequested().hashCode()); 
@@ -522,6 +601,7 @@ public class InstancesCount implements Serializable {
         hashCode = prime * hashCode + ((getShuttingDown() == null) ? 0 : getShuttingDown().hashCode()); 
         hashCode = prime * hashCode + ((getStartFailed() == null) ? 0 : getStartFailed().hashCode()); 
         hashCode = prime * hashCode + ((getStopped() == null) ? 0 : getStopped().hashCode()); 
+        hashCode = prime * hashCode + ((getStopping() == null) ? 0 : getStopping().hashCode()); 
         hashCode = prime * hashCode + ((getTerminated() == null) ? 0 : getTerminated().hashCode()); 
         hashCode = prime * hashCode + ((getTerminating() == null) ? 0 : getTerminating().hashCode()); 
         return hashCode;
@@ -539,6 +619,8 @@ public class InstancesCount implements Serializable {
         if (other.getBooting() != null && other.getBooting().equals(this.getBooting()) == false) return false; 
         if (other.getConnectionLost() == null ^ this.getConnectionLost() == null) return false;
         if (other.getConnectionLost() != null && other.getConnectionLost().equals(this.getConnectionLost()) == false) return false; 
+        if (other.getOnline() == null ^ this.getOnline() == null) return false;
+        if (other.getOnline() != null && other.getOnline().equals(this.getOnline()) == false) return false; 
         if (other.getPending() == null ^ this.getPending() == null) return false;
         if (other.getPending() != null && other.getPending().equals(this.getPending()) == false) return false; 
         if (other.getRebooting() == null ^ this.getRebooting() == null) return false;
@@ -555,6 +637,8 @@ public class InstancesCount implements Serializable {
         if (other.getStartFailed() != null && other.getStartFailed().equals(this.getStartFailed()) == false) return false; 
         if (other.getStopped() == null ^ this.getStopped() == null) return false;
         if (other.getStopped() != null && other.getStopped().equals(this.getStopped()) == false) return false; 
+        if (other.getStopping() == null ^ this.getStopping() == null) return false;
+        if (other.getStopping() != null && other.getStopping().equals(this.getStopping()) == false) return false; 
         if (other.getTerminated() == null ^ this.getTerminated() == null) return false;
         if (other.getTerminated() != null && other.getTerminated().equals(this.getTerminated()) == false) return false; 
         if (other.getTerminating() == null ^ this.getTerminating() == null) return false;

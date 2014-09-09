@@ -18,8 +18,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents an operation to perform - either <i>DeleteItem</i> or <i>PutItem</i> . You can only specify one of these operations, not both, in a single
- * <i>WriteRequest</i> . If you do need to perform both of these operations, you will need to specify two separate <i>WriteRequest</i> objects.
+ * Represents an operation to perform - either <i>DeleteItem</i> or
+ * <i>PutItem</i> . You can only specify one of these operations, not
+ * both, in a single <i>WriteRequest</i> . If you do need to perform both
+ * of these operations, you will need to specify two separate
+ * <i>WriteRequest</i> objects.
  * </p>
  */
 public class WriteRequest implements Serializable {
@@ -88,7 +91,7 @@ public class WriteRequest implements Serializable {
      *
      * @param putRequest A request to perform a <i>PutItem</i> operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WriteRequest withPutRequest(PutRequest putRequest) {
@@ -121,7 +124,7 @@ public class WriteRequest implements Serializable {
      *
      * @param deleteRequest A request to perform a <i>DeleteItem</i> operation.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WriteRequest withDeleteRequest(DeleteRequest deleteRequest) {

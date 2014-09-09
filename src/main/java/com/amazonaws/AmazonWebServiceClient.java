@@ -25,6 +25,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.amazonaws.auth.RegionAwareSigner;
 import com.amazonaws.auth.Signer;
 import com.amazonaws.auth.SignerFactory;
 import com.amazonaws.handlers.RequestHandler;
@@ -48,15 +49,27 @@ import com.amazonaws.util.Classes;
  * SDK Java clients (ex: setting the client endpoint).
  */
 public abstract class AmazonWebServiceClient {
-
     private static final String AMAZON = "Amazon";
     private static final String AWS = "AWS";
+    public static final boolean LOGGING_AWS_REQUEST_METRIC = true;
 
     private static final Log log =
         LogFactory.getLog(AmazonWebServiceClient.class);
 
-    /** The service endpoint to which this client will send requests. */
-    protected URI endpoint;
+    /**
+     * The service endpoint to which this client will send requests.
+     * <p>
+     * Subclass should only read but not assign to this field, at least not
+     * without synchronization on the enclosing object for thread-safety
+     * reason.
+     */
+    protected volatile URI endpoint;
+
+    /**
+     * Used to explicitly override the internal signer region computed by the
+     * default implementation. This field is typically null.
+     */
+    private volatile String signerRegionOverride;
 
     /** The client configuration */
     protected ClientConfiguration clientConfiguration;
@@ -66,12 +79,12 @@ public abstract class AmazonWebServiceClient {
 
     /** Optional request handlers for additional request processing. */
     protected final List<RequestHandler2> requestHandler2s;
-    
+
     /** Optional offset (in seconds) to use when signing requests */
     protected int timeOffset;
 
     /** AWS signer for authenticating requests. */
-    private Signer signer;
+    private volatile Signer signer;
 
     /**
      * The cached service abbreviation for this service, used for identifying
@@ -93,7 +106,7 @@ public abstract class AmazonWebServiceClient {
     /**
      * Constructs a new AmazonWebServiceClient object using the specified
      * configuration and request metric collector.
-     * 
+     *
      * @param clientConfiguration
      *            The client configuration for this client.
      * @param requestMetricCollector
@@ -106,7 +119,13 @@ public abstract class AmazonWebServiceClient {
         client = new AmazonHttpClient(clientConfiguration, requestMetricCollector);
         requestHandler2s = new CopyOnWriteArrayList<RequestHandler2>();
     }
-    
+
+    /**
+     * Returns the signer.
+     * <p>
+     * Note, however, the signer configured for S3 is incomplete at this stage
+     * as the information on the S3 bucket and key is not yet known.
+     */
     protected Signer getSigner() { return signer; }
 
     /**
@@ -124,10 +143,10 @@ public abstract class AmazonWebServiceClient {
      * {@link ClientConfiguration} will be used, which by default is HTTPS.
      * <p>
      * For more information on using AWS regions with the AWS SDK for Java, and
-     * a complete list of all available endpoints for all AWS services, see: 
+     * a complete list of all available endpoints for all AWS services, see:
      * <a href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
      * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
-     * 
+     *
      * @param endpoint
      *            The endpoint (ex: "ec2.amazonaws.com") or a full URL,
      *            including the protocol (ex: "https://ec2.amazonaws.com") of
@@ -137,12 +156,16 @@ public abstract class AmazonWebServiceClient {
      *             If any problems are detected with the specified endpoint.
      */
     public void setEndpoint(String endpoint) throws IllegalArgumentException {
-        URI uri = configEndpoint(endpoint);
-        configSigner(uri);
+        URI uri = toURI(endpoint);
+        Signer signer = computeSignerByURI(uri, signerRegionOverride, false);
+        synchronized(this)  {
+            this.endpoint = uri;
+            this.signer = signer;
+        }
     }
 
-    /** Sets and returns the endpoint as a URI. */
-    private URI configEndpoint(String endpoint) throws IllegalArgumentException {
+    /** Returns the endpoint as a URI. */
+    private URI toURI(String endpoint) throws IllegalArgumentException {
         /*
          * If the endpoint doesn't explicitly specify a protocol to use, then
          * we'll defer to the default protocol specified in the client
@@ -153,69 +176,154 @@ public abstract class AmazonWebServiceClient {
         }
 
         try {
-            return this.endpoint = new URI(endpoint);
+            return new URI(endpoint);
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
     /**
-     * Overrides the default endpoint for this client ("http://dynamodb.us-east-1.amazonaws.com/") and explicitly provides
-     * an AWS region ID and AWS service name to use when the client calculates a signature
-     * for requests.  In almost all cases, this region ID and service name
-     * are automatically determined from the endpoint, and callers should use the simpler
-     * one-argument form of setEndpoint instead of this method.
+     * An internal method that is not expected to be normally
+     * called except for AWS internal development purposes.
      * <p>
-     * <b>This method is not threadsafe. Endpoints should be configured when the
-     * client is created and before any service requests are made. Changing it
-     * afterwards creates inevitable race conditions for any service requests in
-     * transit.</b>
+     * Overrides the default endpoint for this client
+     * ("http://dynamodb.us-east-1.amazonaws.com/") and explicitly provides an
+     * AWS region ID and AWS service name to use when the client calculates a
+     * signature for requests. In almost all cases, this region ID and service
+     * name are automatically determined from the endpoint, and callers should
+     * use the simpler one-argument form of setEndpoint instead of this method.
      * <p>
-     * Callers can pass in just the endpoint (ex: "dynamodb.us-east-1.amazonaws.com/") or a full
-     * URL, including the protocol (ex: "http://dynamodb.us-east-1.amazonaws.com/"). If the
+     * Callers can pass in just the endpoint (ex:
+     * "dynamodb.us-east-1.amazonaws.com/") or a full URL, including the
+     * protocol (ex: "http://dynamodb.us-east-1.amazonaws.com/"). If the
      * protocol is not specified here, the default protocol from this client's
      * {@link ClientConfiguration} will be used, which by default is HTTPS.
      * <p>
      * For more information on using AWS regions with the AWS SDK for Java, and
-     * a complete list of all available endpoints for all AWS services, see:
-     * <a href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
-     * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
+     * a complete list of all available endpoints for all AWS services, see: <a
+     * href=
+     * "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912"
+     * > http://developer.amazonwebservices.com/connect/entry.jspa?externalID=
+     * 3912</a>
      *
      * @param endpoint
-     *            The endpoint (ex: "dynamodb.us-east-1.amazonaws.com/") or a full URL,
-     *            including the protocol (ex: "http://dynamodb.us-east-1.amazonaws.com/") of
-     *            the region specific AWS endpoint this client will communicate
-     *            with.
+     *            The endpoint (ex: "dynamodb.us-east-1.amazonaws.com/") or a
+     *            full URL, including the protocol (ex:
+     *            "http://dynamodb.us-east-1.amazonaws.com/") of the region
+     *            specific AWS endpoint this client will communicate with.
      * @param serviceName
-     *            The name of the AWS service to use when signing requests.
+     *            This parameter is ignored.
      * @param regionId
-     *            The ID of the region in which this service resides.
+     *            The ID of the region in which this service resides AND the
+     *            overriding region for signing purposes.
      *
      * @throws IllegalArgumentException
      *             If any problems are detected with the specified endpoint.
-     * @see AmazonDynamoDB#setRegion(Region)
+     * @deprecated
      */
+    @Deprecated
     public void setEndpoint(String endpoint, String serviceName, String regionId) {
-        configEndpoint(endpoint);
-        configSigner(serviceName, regionId);
+        URI uri = toURI(endpoint);
+        Signer signer = computeSignerByServiceRegion(serviceName, regionId,
+                regionId, true);
+        synchronized(this)  {
+            this.signer = signer;
+            this.endpoint = uri;
+            this.signerRegionOverride = regionId;
+        }
     }
 
     /**
-     * Configures the signer by the given URI.
+     * @deprecated this method is now a no-op, as overriding the signer from
+     *             sublcass is no longer supported.
      */
-    protected void configSigner(URI uri) {
+    @Deprecated protected void configSigner(URI uri) {}
+    /**
+     * @deprecated this method is now a no-op, as overriding the signer from
+     *             sublcass is no longer supported.
+     */
+    @Deprecated protected void configSigner(String serviceName, String regionId) {}
+
+    /**
+     * Returns the signer based on the given URI and the current AWS client
+     * configuration. Currently only the SQS client can have different region on
+     * a per request basis. For other AWS clients, the region remains the same
+     * on a per AWS client level.
+     * <p>
+     * Note, however, the signer returned for S3 is incomplete at this stage as
+     * the information on the S3 bucket and key is not yet known.
+     */
+    public Signer getSignerByURI(URI uri) {
+        return computeSignerByURI(uri, signerRegionOverride, true);
+    }
+
+    /**
+     * Returns the signer for the given uri and the current client
+     * configuration.
+     * <p>
+     * Note, however, the signer returned for S3 is incomplete at this stage as
+     * the information on the S3 bucket and key is not yet known.
+     *
+     * @param signerRegionOverride
+     *            the overriding signer region; or null if there is none.
+     * @param isRegionIdAsSignerParam
+     *            true if the "regionId" is used to configure the signer if
+     *            applicable; false if this method is called for the purpose of
+     *            purely setting the communication end point of this AWS client,
+     *            and therefore the "regionId" parameter will not be used
+     *            directly for configuring the signer.
+     */
+    private Signer computeSignerByURI(URI uri, String signerRegionOverride,
+            boolean isRegionIdAsSignerParam) {
+        if (uri == null) {
+            throw new IllegalArgumentException(
+                    "Endpoint is not set. Use setEndpoint to set an endpoint before performing any request.");
+        }
         String service = getServiceNameIntern();
-        String region =
-            AwsHostNameUtils.parseRegionName(uri.getHost(), service);
-
-        signer = SignerFactory.getSigner(service, region);
+        String region = AwsHostNameUtils.parseRegionName(uri.getHost(), service);
+        return computeSignerByServiceRegion(
+                service, region, signerRegionOverride, isRegionIdAsSignerParam);
     }
 
     /**
-     * Configures the signer by the given service and region.
+     * Returns the signer for the given service name, region id, and the current
+     * client configuration.
+     * <p>
+     * Note, however, the signer returned for S3 is incomplete at this stage as
+     * the information on the S3 bucket and key is not yet known.
+     *
+     * @param regionId
+     *            the region for sending AWS requests
+     * @param signerRegionOverride
+     *            the overriding signer region; or null if there is none.
+     * @param isRegionIdAsSignerParam
+     *            true if the "regionId" is used to configure the signer if
+     *            applicable; false if this method is called for the purpose of
+     *            purely setting the communication end point of this AWS client,
+     *            and therefore the "regionId" parameter will not be used
+     *            directly for configuring the signer.
      */
-    protected void configSigner(String serviceName, String regionId) {
-        signer = SignerFactory.getSigner(serviceName, regionId);
+    private Signer computeSignerByServiceRegion(
+            String serviceName, String regionId,
+            String signerRegionOverride,
+            boolean isRegionIdAsSignerParam) {
+        String signerType = clientConfiguration.getSignerOverride();
+        Signer signer = signerType == null
+             ? SignerFactory.getSigner(serviceName, regionId)
+             : SignerFactory.getSignerByTypeAndService(signerType, serviceName)
+             ;
+         if (signer instanceof RegionAwareSigner) {
+             // Overrides the default region computed
+             RegionAwareSigner regionAwareSigner = (RegionAwareSigner)signer;
+            // (signerRegionOverride != null) means that it is likely to be AWS
+            // internal dev work, as "signerRegionOverride" is typically null
+             // when used in the external release
+             if (signerRegionOverride != null)
+                 regionAwareSigner.setRegionName(signerRegionOverride);
+             else if (regionId != null && isRegionIdAsSignerParam)
+                 regionAwareSigner.setRegionName(regionId);
+         }
+         return signer;
     }
 
     /**
@@ -231,7 +339,7 @@ public abstract class AmazonWebServiceClient {
      * By default, all service endpoints in all regions use the https protocol.
      * To use http instead, specify it in the {@link ClientConfiguration}
      * supplied at construction.
-     * 
+     *
      * @param region
      *            The region this client will communicate with. See
      *            {@link Region#getRegion(com.amazonaws.regions.Regions)} for
@@ -276,7 +384,13 @@ public abstract class AmazonWebServiceClient {
 
         }
 
-        setEndpoint(serviceEndpoint, serviceName, region.getName());
+        URI uri = toURI(serviceEndpoint);
+        Signer signer = computeSignerByServiceRegion(serviceName,
+                region.getName(), signerRegionOverride, false);
+        synchronized(this)  {
+            this.endpoint = uri;
+            this.signer = signer;
+        }
     }
 
     /**
@@ -340,7 +454,7 @@ public abstract class AmazonWebServiceClient {
 
     /**
      * @deprecated by {@link #addRequestHandler(RequestHandler2)}.
-     * 
+     *
      * Appends a request handler to the list of registered handlers that are run
      * as part of a request's lifecycle.
      *
@@ -350,7 +464,7 @@ public abstract class AmazonWebServiceClient {
      */
     @Deprecated
     public void addRequestHandler(RequestHandler requestHandler) {
-    	requestHandler2s.add(RequestHandler2.adapt(requestHandler));
+        requestHandler2s.add(RequestHandler2.adapt(requestHandler));
     }
 
     /**
@@ -381,9 +495,9 @@ public abstract class AmazonWebServiceClient {
         requestHandler2s.remove(requestHandler2);
     }
 
-    protected final ExecutionContext createExecutionContext(AmazonWebServiceRequest req) {
+    protected ExecutionContext createExecutionContext(AmazonWebServiceRequest req) {
         boolean isMetricsEnabled = isRequestMetricsEnabled(req) || isProfilingEnabled();
-        return new ExecutionContext(requestHandler2s, isMetricsEnabled);
+        return new ExecutionContext(requestHandler2s, isMetricsEnabled, this);
     }
 
     protected final ExecutionContext createExecutionContext(Request<?> req) {
@@ -392,7 +506,7 @@ public abstract class AmazonWebServiceClient {
 
     /**
      * @deprecated by {@link #createExecutionContext(AmazonWebServiceRequest)}.
-     * 
+     *
      *             This method exists only for backward compatiblity reason, so
      *             that clients compiled against the older version of this class
      *             won't get {@link NoSuchMethodError} at runtime. However,
@@ -404,19 +518,19 @@ public abstract class AmazonWebServiceClient {
     @Deprecated
     protected final ExecutionContext createExecutionContext() {
         boolean isMetricsEnabled = isRMCEnabledAtClientOrSdkLevel() || isProfilingEnabled();
-        return new ExecutionContext(requestHandler2s, isMetricsEnabled);
+        return new ExecutionContext(requestHandler2s, isMetricsEnabled, this);
     }
 
     /* Check the profiling system property and return true if set */
-    private static boolean isProfilingEnabled() {
+    protected static boolean isProfilingEnabled() {
         return System.getProperty(PROFILING_SYSTEM_PROPERTY) != null;
     }
-    
+
     /**
      * Returns true if request metric collection is applicable to the given
      * request; false otherwise.
      */
-    private boolean isRequestMetricsEnabled(AmazonWebServiceRequest req) {
+    protected final boolean isRequestMetricsEnabled(AmazonWebServiceRequest req) {
         RequestMetricCollector c = req.getRequestMetricCollector(); // request level collector
         if (c != null && c.isEnabled()) {
             return true;
@@ -432,7 +546,7 @@ public abstract class AmazonWebServiceClient {
         RequestMetricCollector c = requestMetricCollector();
         return c != null && c.isEnabled();
     }
-    
+
     /**
      * Sets the optional value for time offset for this client.  This
      * value will be applied to all requests processed through this client.
@@ -445,7 +559,7 @@ public abstract class AmazonWebServiceClient {
     public void setTimeOffset(int timeOffset) {
         this.timeOffset = timeOffset;
     }
-    
+
     /**
      * Sets the optional value for time offset for this client.  This
      * value will be applied to all requests processed through this client.
@@ -454,14 +568,14 @@ public abstract class AmazonWebServiceClient {
      *
      * @param timeOffset
      *            The optional value for time offset (in seconds) for this client.
-     * 
+     *
      * @return the updated web service client
      */
     public AmazonWebServiceClient withTimeOffset(int timeOffset) {
         setTimeOffset(timeOffset);
         return this;
     }
-    
+
     /**
      * Returns the optional value for time offset for this client.  This
      * value will be applied to all requests processed through this client.
@@ -506,19 +620,35 @@ public abstract class AmazonWebServiceClient {
     }
 
     /**
+     * Convenient method to end the client execution without logging the
+     * awsRequestMetrics.
+     */
+    protected final void endClientExecution(
+            AWSRequestMetrics awsRequestMetrics, Request<?> request,
+            Response<?> response) {
+        this.endClientExecution(awsRequestMetrics, request, response,
+                !LOGGING_AWS_REQUEST_METRIC);
+    }
+
+    /**
      * Common routine to end a client AWS request/response execution and collect
      * the request metrics.  Caller of this routine is responsible for starting
      * the event for {@link Field#ClientExecuteTime} and call this method
-     * in a try-finally block. 
+     * in a try-finally block.
+     *
+     * @param loggingAwsRequestMetrics true to log the awsRequestMetrics; false otherwise.
      */
-    protected final void endClientExecution(AWSRequestMetrics awsRequestMetrics,
-            Request<?> request, Response<?> response) {
+    protected final void endClientExecution(
+            AWSRequestMetrics awsRequestMetrics, Request<?> request,
+            Response<?> response, boolean loggingAwsRequestMetrics) {
         if (request != null) {
             awsRequestMetrics.endEvent(Field.ClientExecuteTime);
             awsRequestMetrics.getTimingInfo().endTiming();
             RequestMetricCollector c = findRequestMetricCollector(request);
             c.collectMetrics(request, response);
         }
+        if (loggingAwsRequestMetrics)
+            awsRequestMetrics.log();
     }
 
     /**
@@ -552,6 +682,15 @@ public abstract class AmazonWebServiceClient {
             }
         }
         return serviceName;
+    }
+
+    /**
+     * An internal method used to explicitly override the service name
+     * computed by the default implementation. This method is not expected to be
+     * normally called except for AWS internal development purposes.
+     */
+    public final void setServiceNameIntern(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     /**
@@ -598,5 +737,27 @@ public abstract class AmazonWebServiceClient {
         }
         String serviceName = httpClientName.substring(i + len, j);
         return serviceName.toLowerCase();
+    }
+
+    /**
+     * Returns the signer region override.
+     *
+     * @see #setSignerRegionOverride(String).
+     */
+    public final String getSignerRegionOverride() {
+        return signerRegionOverride;
+    }
+
+    /**
+     * An internal method used to explicitly override the internal signer region
+     * computed by the default implementation. This method is not expected to be
+     * normally called except for AWS internal development purposes.
+     */
+    public final void setSignerRegionOverride(String signerRegionOverride) {
+        Signer signer = computeSignerByURI(endpoint, signerRegionOverride, true);
+        synchronized(this)  {
+            this.signer = signer;
+            this.signerRegionOverride = signerRegionOverride;
+        }
     }
 }

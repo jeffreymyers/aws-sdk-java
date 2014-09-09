@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This data type is used as a response element in the following actions:
+ * This data type is used as a response element in the following
+ * actions:
  * </p>
  * 
  * <ul>
@@ -72,7 +73,7 @@ public class DBSecurityGroupMembership implements Serializable {
      *
      * @param dBSecurityGroupName The name of the DB security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DBSecurityGroupMembership withDBSecurityGroupName(String dBSecurityGroupName) {
@@ -105,7 +106,7 @@ public class DBSecurityGroupMembership implements Serializable {
      *
      * @param status The status of the DB security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DBSecurityGroupMembership withStatus(String status) {

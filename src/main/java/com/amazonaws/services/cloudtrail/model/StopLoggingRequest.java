@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudtrail.AWSCloudTrail#stopLogging(StopLoggingRequest) StopLogging operation}.
  * <p>
- * Suspends the recording of AWS API calls and log file delivery for the specified trail. Under most circumstances, there is no need to use this action.
- * You can update a trail without stopping it first. This action is the only way to stop recording.
+ * Suspends the recording of AWS API calls and log file delivery for the
+ * specified trail. Under most circumstances, there is no need to use
+ * this action. You can update a trail without stopping it first. This
+ * action is the only way to stop recording.
  * </p>
  *
  * @see com.amazonaws.services.cloudtrail.AWSCloudTrail#stopLogging(StopLoggingRequest)
@@ -66,7 +68,7 @@ public class StopLoggingRequest extends AmazonWebServiceRequest implements Seria
      * @param name Communicates to CloudTrail the name of the <a>Trail</a> for which to
      *         stop logging AWS API calls.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StopLoggingRequest withName(String name) {

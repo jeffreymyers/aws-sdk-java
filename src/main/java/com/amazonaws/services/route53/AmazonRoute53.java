@@ -83,6 +83,230 @@ public interface AmazonRoute53 {
     
     /**
      * <p>
+     * To retrieve the delegation set for a hosted zone, send a
+     * <code>GET</code> request to the <code>2013-04-01/hostedzone/hosted
+     * zone ID </code> resource. The delegation set is the four Route 53 name
+     * servers that were assigned to the hosted zone when you created it.
+     * </p>
+     *
+     * @param getHostedZoneRequest Container for the necessary parameters to
+     *           execute the GetHostedZone service method on AmazonRoute53.
+     * 
+     * @return The response from the GetHostedZone service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws NoSuchHostedZoneException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetHostedZoneResult getHostedZone(GetHostedZoneRequest getHostedZoneRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * This action returns the current status of a change batch request. The
+     * status is one of the following values:
+     * </p>
+     * <p>
+     * - <code>PENDING</code> indicates that the changes in this request
+     * have not replicated to all Route 53 DNS servers. This is the initial
+     * status of all change batch requests.
+     * </p>
+     * <p>
+     * - <code>INSYNC</code> indicates that the changes have replicated to
+     * all Amazon Route 53 DNS servers.
+     * </p>
+     *
+     * @param getChangeRequest Container for the necessary parameters to
+     *           execute the GetChange service method on AmazonRoute53.
+     * 
+     * @return The response from the GetChange service method, as returned by
+     *         AmazonRoute53.
+     * 
+     * @throws NoSuchChangeException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetChangeResult getChange(GetChangeRequest getChangeRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * To retrieve a list of your hosted zones, send a <code>GET</code>
+     * request to the <code>2013-04-01/hostedzone</code> resource. The
+     * response to this request includes a <code>HostedZones</code> element
+     * with zero, one, or multiple <code>HostedZone</code> child elements. By
+     * default, the list of hosted zones is displayed on a single page. You
+     * can control the length of the page that is displayed by using the
+     * <code>MaxItems</code> parameter. You can use the <code>Marker</code>
+     * parameter to control the hosted zone that the list begins with.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Amazon Route 53 returns a maximum of 100 items. If you
+     * set MaxItems to a value greater than 100, Amazon Route 53 returns only
+     * the first 100.
+     * </p>
+     *
+     * @param listHostedZonesRequest Container for the necessary parameters
+     *           to execute the ListHostedZones service method on AmazonRoute53.
+     * 
+     * @return The response from the ListHostedZones service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListHostedZonesResult listHostedZones(ListHostedZonesRequest listHostedZonesRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * This action updates an existing health check.
+     * </p>
+     * <p>
+     * To update a health check, send a <code>POST</code> request to the
+     * <code>2013-05-27/healthcheck/health check ID </code> resource. The
+     * request body must include an XML document with an
+     * <code>UpdateHealthCheckRequest</code> element. The response returns an
+     * <code>UpdateHealthCheckResponse</code> element, which contains
+     * metadata about the health check.
+     * </p>
+     *
+     * @param updateHealthCheckRequest Container for the necessary parameters
+     *           to execute the UpdateHealthCheck service method on AmazonRoute53.
+     * 
+     * @return The response from the UpdateHealthCheck service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws HealthCheckVersionMismatchException
+     * @throws NoSuchHealthCheckException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public UpdateHealthCheckResult updateHealthCheck(UpdateHealthCheckRequest updateHealthCheckRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * To retrieve a single geo location, send a <code>GET</code> request to
+     * the <code>2013-04-01/geolocation</code> resource with one of these
+     * options: continentcode | countrycode | countrycode and
+     * subdivisioncode.
+     * </p>
+     *
+     * @param getGeoLocationRequest Container for the necessary parameters to
+     *           execute the GetGeoLocation service method on AmazonRoute53.
+     * 
+     * @return The response from the GetGeoLocation service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws NoSuchGeoLocationException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetGeoLocationResult getGeoLocation(GetGeoLocationRequest getGeoLocationRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param listTagsForResourcesRequest Container for the necessary
+     *           parameters to execute the ListTagsForResources service method on
+     *           AmazonRoute53.
+     * 
+     * @return The response from the ListTagsForResources service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws PriorRequestNotCompleteException
+     * @throws NoSuchHealthCheckException
+     * @throws ThrottlingException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListTagsForResourcesResult listTagsForResources(ListTagsForResourcesRequest listTagsForResourcesRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * This action deletes a health check. To delete a health check, send a
+     * <code>DELETE</code> request to the <code>2013-04-01/healthcheck/health
+     * check ID </code> resource.
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> You can delete a health check only if there are no
+     * resource record sets associated with this health check. If resource
+     * record sets are associated with this health check, you must
+     * disassociate them before you can delete your health check. If you try
+     * to delete a health check that is associated with resource record sets,
+     * Route 53 will deny your request with a HealthCheckInUse error. For
+     * information about disassociating the records from your health check,
+     * see ChangeResourceRecordSets.
+     * </p>
+     *
+     * @param deleteHealthCheckRequest Container for the necessary parameters
+     *           to execute the DeleteHealthCheck service method on AmazonRoute53.
+     * 
+     * @return The response from the DeleteHealthCheck service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws NoSuchHealthCheckException
+     * @throws HealthCheckInUseException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DeleteHealthCheckResult deleteHealthCheck(DeleteHealthCheckRequest deleteHealthCheckRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * Imagine all the resource record sets in a zone listed out in front of
      * you. Imagine them sorted lexicographically first by DNS name (with the
      * labels reversed, like "com.amazon.www" for example), and secondarily,
@@ -108,24 +332,24 @@ public interface AmazonRoute53 {
      * specifying the record set's name and type, and setting MaxItems = 1
      * </p>
      * <p>
-     * To retrieve all the records in a HostedZone, first pause any processes
-     * making calls to ChangeResourceRecordSets. Initially call
+     * To retrieve all the records in a HostedZone, first pause any
+     * processes making calls to ChangeResourceRecordSets. Initially call
      * ListResourceRecordSets without a Name and Type to get the first page
      * of record sets. For subsequent calls, set Name and Type to the
      * NextName and NextType values returned by the previous response.
      * </p>
      * <p>
-     * In the presence of concurrent ChangeResourceRecordSets calls, there is
-     * no consistency of results across calls to ListResourceRecordSets. The
-     * only way to get a consistent multi-page snapshot of all RRSETs in a
-     * zone is to stop making changes while pagination is in progress.
+     * In the presence of concurrent ChangeResourceRecordSets calls, there
+     * is no consistency of results across calls to ListResourceRecordSets.
+     * The only way to get a consistent multi-page snapshot of all RRSETs in
+     * a zone is to stop making changes while pagination is in progress.
      * </p>
      * <p>
-     * However, the results from ListResourceRecordSets are consistent within
-     * a page. If MakeChange calls are taking place concurrently, the result
-     * of each one will either be completely visible in your results or not
-     * at all. You will not see partial changes, or changes that do not
-     * ultimately succeed. (This follows from the fact that MakeChange is
+     * However, the results from ListResourceRecordSets are consistent
+     * within a page. If MakeChange calls are taking place concurrently, the
+     * result of each one will either be completely visible in your results
+     * or not at all. You will not see partial changes, or changes that do
+     * not ultimately succeed. (This follows from the fact that MakeChange is
      * atomic)
      * </p>
      * <p>
@@ -143,8 +367,8 @@ public interface AmazonRoute53 {
      * @return The response from the ListResourceRecordSets service method,
      *         as returned by AmazonRoute53.
      * 
-     * @throws InvalidInputException
      * @throws NoSuchHostedZoneException
+     * @throws InvalidInputException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -159,19 +383,264 @@ public interface AmazonRoute53 {
 
     /**
      * <p>
+     * To retrieve the health check, send a <code>GET</code> request to the
+     * <code>2013-04-01/healthcheck/health check ID </code> resource.
+     * </p>
+     *
+     * @param getHealthCheckRequest Container for the necessary parameters to
+     *           execute the GetHealthCheck service method on AmazonRoute53.
+     * 
+     * @return The response from the GetHealthCheck service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws NoSuchHealthCheckException
+     * @throws IncompatibleVersionException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetHealthCheckResult getHealthCheck(GetHealthCheckRequest getHealthCheckRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * This action deletes a hosted zone. To delete a hosted zone, send a
+     * <code>DELETE</code> request to the <code>2013-04-01/hostedzone/hosted
+     * zone ID </code> resource.
+     * </p>
+     * <p>
+     * For more information about deleting a hosted zone, see
+     * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html"> Deleting a Hosted Zone </a>
+     * in the <i>Amazon Route 53 Developer Guide</i> .
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> You can delete a hosted zone only if there are no
+     * resource record sets other than the default SOA record and NS resource
+     * record sets. If your hosted zone contains other resource record sets,
+     * you must delete them before you can delete your hosted zone. If you
+     * try to delete a hosted zone that contains other resource record sets,
+     * Route 53 will deny your request with a HostedZoneNotEmpty error. For
+     * information about deleting records from your hosted zone, see
+     * ChangeResourceRecordSets.
+     * </p>
+     *
+     * @param deleteHostedZoneRequest Container for the necessary parameters
+     *           to execute the DeleteHostedZone service method on AmazonRoute53.
+     * 
+     * @return The response from the DeleteHostedZone service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws PriorRequestNotCompleteException
+     * @throws HostedZoneNotEmptyException
+     * @throws NoSuchHostedZoneException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DeleteHostedZoneResult deleteHostedZone(DeleteHostedZoneRequest deleteHostedZoneRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * To retrieve a list of the IP ranges used by Amazon Route 53 health
+     * checkers to check the health of your resources, send a
+     * <code>GET</code> request to the
+     * <code>2013-04-01/checkeripranges</code> resource. You can use these IP
+     * addresses to configure router and firewall rules to allow health
+     * checkers to check the health of your resources.
+     * </p>
+     *
+     * @param getCheckerIpRangesRequest Container for the necessary
+     *           parameters to execute the GetCheckerIpRanges service method on
+     *           AmazonRoute53.
+     * 
+     * @return The response from the GetCheckerIpRanges service method, as
+     *         returned by AmazonRoute53.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetCheckerIpRangesResult getCheckerIpRanges(GetCheckerIpRangesRequest getCheckerIpRangesRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * This action creates a new hosted zone.
+     * </p>
+     * <p>
+     * To create a new hosted zone, send a <code>POST</code> request to the
+     * <code>2013-04-01/hostedzone</code> resource. The request body must
+     * include an XML document with a <code>CreateHostedZoneRequest</code>
+     * element. The response returns the
+     * <code>CreateHostedZoneResponse</code> element that contains metadata
+     * about the hosted zone.
+     * </p>
+     * <p>
+     * Route 53 automatically creates a default SOA record and four NS
+     * records for the zone. The NS records in the hosted zone are the name
+     * servers you give your registrar to delegate your domain to. For more
+     * information about SOA and NS records, see
+     * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html"> NS and SOA Records that Route 53 Creates for a Hosted Zone </a>
+     * in the <i>Amazon Route 53 Developer Guide</i> .
+     * </p>
+     * <p>
+     * When you create a zone, its initial status is <code>PENDING</code> .
+     * This means that it is not yet available on all DNS servers. The status
+     * of the zone changes to <code>INSYNC</code> when the NS and SOA records
+     * are available on all Route 53 DNS servers.
+     * </p>
+     *
+     * @param createHostedZoneRequest Container for the necessary parameters
+     *           to execute the CreateHostedZone service method on AmazonRoute53.
+     * 
+     * @return The response from the CreateHostedZone service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws TooManyHostedZonesException
+     * @throws DelegationSetNotAvailableException
+     * @throws InvalidDomainNameException
+     * @throws InvalidInputException
+     * @throws HostedZoneAlreadyExistsException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateHostedZoneResult createHostedZone(CreateHostedZoneRequest createHostedZoneRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param listTagsForResourceRequest Container for the necessary
+     *           parameters to execute the ListTagsForResource service method on
+     *           AmazonRoute53.
+     * 
+     * @return The response from the ListTagsForResource service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws PriorRequestNotCompleteException
+     * @throws NoSuchHealthCheckException
+     * @throws ThrottlingException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * To retrieve a list of your health checks, send a <code>GET</code>
+     * request to the <code>2013-04-01/healthcheck</code> resource. The
+     * response to this request includes a <code>HealthChecks</code> element
+     * with zero, one, or multiple <code>HealthCheck</code> child elements.
+     * By default, the list of health checks is displayed on a single page.
+     * You can control the length of the page that is displayed by using the
+     * <code>MaxItems</code> parameter. You can use the <code>Marker</code>
+     * parameter to control the health check that the list begins with.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Amazon Route 53 returns a maximum of 100 items. If you
+     * set MaxItems to a value greater than 100, Amazon Route 53 returns only
+     * the first 100.
+     * </p>
+     *
+     * @param listHealthChecksRequest Container for the necessary parameters
+     *           to execute the ListHealthChecks service method on AmazonRoute53.
+     * 
+     * @return The response from the ListHealthChecks service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws IncompatibleVersionException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListHealthChecksResult listHealthChecks(ListHealthChecksRequest listHealthChecksRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * This action creates a new health check.
+     * </p>
+     * <p>
+     * To create a new health check, send a <code>POST</code> request to the
+     * <code>2013-04-01/healthcheck</code> resource. The request body must
+     * include an XML document with a <code>CreateHealthCheckRequest</code>
+     * element. The response returns the
+     * <code>CreateHealthCheckResponse</code> element that contains metadata
+     * about the health check.
+     * </p>
+     *
+     * @param createHealthCheckRequest Container for the necessary parameters
+     *           to execute the CreateHealthCheck service method on AmazonRoute53.
+     * 
+     * @return The response from the CreateHealthCheck service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws HealthCheckAlreadyExistsException
+     * @throws InvalidInputException
+     * @throws TooManyHealthChecksException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateHealthCheckResult createHealthCheck(CreateHealthCheckRequest createHealthCheckRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * Use this action to create or change your authoritative DNS
      * information. To use this action, send a <code>POST</code> request to
-     * the <code>2012-12-12/hostedzone/hosted Zone ID/rrset</code> resource.
+     * the <code>2013-04-01/hostedzone/hosted Zone ID/rrset</code> resource.
      * The request body must include an XML document with a
      * <code>ChangeResourceRecordSetsRequest</code> element.
      * </p>
      * <p>
      * Changes are a list of change items and are considered transactional.
      * For more information on transactional changes, also known as change
-     * batches, see <a
-     * zon.com/Route53/latest/DeveloperGuide/RRSchanges.html#RRSchanges_API">
-     * Creating, Changing, and Deleting Resource Record Sets Using the Route
-     * 53 API </a> in the <i>Amazon Route 53 Developer Guide</i> .
+     * batches, see
+     * <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/RRSchanges.html#RRSchanges_API"> Creating, Changing, and Deleting Resource Record Sets Using the Route 53 API </a>
+     * in the <i>Amazon Route 53 Developer Guide</i> .
      * </p>
      * <p>
      * <b>IMPORTANT:</b>Due to the nature of transactional changes, you
@@ -210,11 +679,11 @@ public interface AmazonRoute53 {
      * @return The response from the ChangeResourceRecordSets service method,
      *         as returned by AmazonRoute53.
      * 
-     * @throws InvalidInputException
-     * @throws NoSuchHostedZoneException
-     * @throws InvalidChangeBatchException
-     * @throws NoSuchHealthCheckException
      * @throws PriorRequestNotCompleteException
+     * @throws NoSuchHealthCheckException
+     * @throws NoSuchHostedZoneException
+     * @throws InvalidInputException
+     * @throws InvalidChangeBatchException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -229,318 +698,30 @@ public interface AmazonRoute53 {
 
     /**
      * <p>
-     * This action creates a new hosted zone.
+     * To retrieve a list of supported geo locations, send a
+     * <code>GET</code> request to the <code>2013-04-01/geolocations</code>
+     * resource. The response to this request includes a
+     * <code>GeoLocationDetailsList</code> element with zero, one, or
+     * multiple <code>GeoLocationDetails</code> child elements. The list is
+     * sorted by country code, and then subdivision code, followed by
+     * continents at the end of the list.
      * </p>
      * <p>
-     * To create a new hosted zone, send a <code>POST</code> request to the
-     * <code>2012-12-12/hostedzone</code> resource. The request body must
-     * include an XML document with a <code>CreateHostedZoneRequest</code>
-     * element. The response returns the
-     * <code>CreateHostedZoneResponse</code> element that contains metadata
-     * about the hosted zone.
-     * </p>
-     * <p>
-     * Route 53 automatically creates a default SOA record and four NS
-     * records for the zone. The NS records in the hosted zone are the name
-     * servers you give your registrar to delegate your domain to. For more
-     * information about SOA and NS records, see <a
-     * docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html">
-     * NS and SOA Records that Route 53 Creates for a Hosted Zone </a> in
-     * the <i>Amazon Route 53 Developer Guide</i> .
-     * </p>
-     * <p>
-     * When you create a zone, its initial status is <code>PENDING</code> .
-     * This means that it is not yet available on all DNS servers. The status
-     * of the zone changes to <code>INSYNC</code> when the NS and SOA records
-     * are available on all Route 53 DNS servers.
-     * </p>
-     *
-     * @param createHostedZoneRequest Container for the necessary parameters
-     *           to execute the CreateHostedZone service method on AmazonRoute53.
-     * 
-     * @return The response from the CreateHostedZone service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws HostedZoneAlreadyExistsException
-     * @throws InvalidInputException
-     * @throws InvalidDomainNameException
-     * @throws TooManyHostedZonesException
-     * @throws DelegationSetNotAvailableException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public CreateHostedZoneResult createHostedZone(CreateHostedZoneRequest createHostedZoneRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * To retrieve the health check, send a <code>GET</code> request to the
-     * <code>2012-12-12/healthcheck/health check ID </code> resource.
-     * </p>
-     *
-     * @param getHealthCheckRequest Container for the necessary parameters to
-     *           execute the GetHealthCheck service method on AmazonRoute53.
-     * 
-     * @return The response from the GetHealthCheck service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws InvalidInputException
-     * @throws NoSuchHealthCheckException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public GetHealthCheckResult getHealthCheck(GetHealthCheckRequest getHealthCheckRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * This action creates a new health check.
-     * </p>
-     * <p>
-     * To create a new health check, send a <code>POST</code> request to the
-     * <code>2012-12-12/healthcheck</code> resource. The request body must
-     * include an XML document with a <code>CreateHealthCheckRequest</code>
-     * element. The response returns the
-     * <code>CreateHealthCheckResponse</code> element that contains metadata
-     * about the health check.
-     * </p>
-     *
-     * @param createHealthCheckRequest Container for the necessary parameters
-     *           to execute the CreateHealthCheck service method on AmazonRoute53.
-     * 
-     * @return The response from the CreateHealthCheck service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws InvalidInputException
-     * @throws HealthCheckAlreadyExistsException
-     * @throws TooManyHealthChecksException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public CreateHealthCheckResult createHealthCheck(CreateHealthCheckRequest createHealthCheckRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * This action returns the current status of a change batch request. The
-     * status is one of the following values:
-     * </p>
-     * <p>
-     * - <code>PENDING</code> indicates that the changes in this request have
-     * not replicated to all Route 53 DNS servers. This is the initial status
-     * of all change batch requests.
-     * </p>
-     * <p>
-     * - <code>INSYNC</code> indicates that the changes have replicated to
-     * all Amazon Route 53 DNS servers.
-     * </p>
-     *
-     * @param getChangeRequest Container for the necessary parameters to
-     *           execute the GetChange service method on AmazonRoute53.
-     * 
-     * @return The response from the GetChange service method, as returned by
-     *         AmazonRoute53.
-     * 
-     * @throws NoSuchChangeException
-     * @throws InvalidInputException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public GetChangeResult getChange(GetChangeRequest getChangeRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * This action deletes a health check. To delete a health check, send a
-     * <code>DELETE</code> request to the <code>2012-12-12/healthcheck/health
-     * check ID </code> resource.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> You can delete a health check only if there are no
-     * resource record sets associated with this health check. If resource
-     * record sets are associated with this health check, you must
-     * disassociate them before you can delete your health check. If you try
-     * to delete a health check that is associated with resource record sets,
-     * Route 53 will deny your request with a HealthCheckInUse error. For
-     * information about disassociating the records from your health check,
-     * see ChangeResourceRecordSets.
-     * </p>
-     *
-     * @param deleteHealthCheckRequest Container for the necessary parameters
-     *           to execute the DeleteHealthCheck service method on AmazonRoute53.
-     * 
-     * @return The response from the DeleteHealthCheck service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws InvalidInputException
-     * @throws HealthCheckInUseException
-     * @throws NoSuchHealthCheckException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DeleteHealthCheckResult deleteHealthCheck(DeleteHealthCheckRequest deleteHealthCheckRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * To retrieve the delegation set for a hosted zone, send a
-     * <code>GET</code> request to the <code>2012-12-12/hostedzone/hosted
-     * zone ID </code> resource. The delegation set is the four Route 53 name
-     * servers that were assigned to the hosted zone when you created it.
-     * </p>
-     *
-     * @param getHostedZoneRequest Container for the necessary parameters to
-     *           execute the GetHostedZone service method on AmazonRoute53.
-     * 
-     * @return The response from the GetHostedZone service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws InvalidInputException
-     * @throws NoSuchHostedZoneException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public GetHostedZoneResult getHostedZone(GetHostedZoneRequest getHostedZoneRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * To retrieve a list of your hosted zones, send a <code>GET</code>
-     * request to the <code>2012-12-12/hostedzone</code> resource. The
-     * response to this request includes a <code>HostedZones</code> element
-     * with zero, one, or multiple <code>HostedZone</code> child elements. By
-     * default, the list of hosted zones is displayed on a single page. You
-     * can control the length of the page that is displayed by using the
-     * <code>MaxItems</code> parameter. You can use the <code>Marker</code>
-     * parameter to control the hosted zone that the list begins with.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Amazon Route 53 returns a maximum of 100 items. If you
-     * set MaxItems to a value greater than 100, Amazon Route 53 returns only
-     * the first 100.
-     * </p>
-     *
-     * @param listHostedZonesRequest Container for the necessary parameters
-     *           to execute the ListHostedZones service method on AmazonRoute53.
-     * 
-     * @return The response from the ListHostedZones service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws InvalidInputException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public ListHostedZonesResult listHostedZones(ListHostedZonesRequest listHostedZonesRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * This action deletes a hosted zone. To delete a hosted zone, send a
-     * <code>DELETE</code> request to the <code>2012-12-12/hostedzone/hosted
-     * zone ID </code> resource.
-     * </p>
-     * <p>
-     * For more information about deleting a hosted zone, see <a
-     * s.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html">
-     * Deleting a Hosted Zone </a> in the <i>Amazon Route 53 Developer
-     * Guide</i> .
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> You can delete a hosted zone only if there are no
-     * resource record sets other than the default SOA record and NS resource
-     * record sets. If your hosted zone contains other resource record sets,
-     * you must delete them before you can delete your hosted zone. If you
-     * try to delete a hosted zone that contains other resource record sets,
-     * Route 53 will deny your request with a HostedZoneNotEmpty error. For
-     * information about deleting records from your hosted zone, see
-     * ChangeResourceRecordSets.
-     * </p>
-     *
-     * @param deleteHostedZoneRequest Container for the necessary parameters
-     *           to execute the DeleteHostedZone service method on AmazonRoute53.
-     * 
-     * @return The response from the DeleteHostedZone service method, as
-     *         returned by AmazonRoute53.
-     * 
-     * @throws HostedZoneNotEmptyException
-     * @throws InvalidInputException
-     * @throws NoSuchHostedZoneException
-     * @throws PriorRequestNotCompleteException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonRoute53 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DeleteHostedZoneResult deleteHostedZone(DeleteHostedZoneRequest deleteHostedZoneRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * To retrieve a list of your health checks, send a <code>GET</code>
-     * request to the <code>2012-12-12/healthcheck</code> resource. The
-     * response to this request includes a <code>HealthChecks</code> element
-     * with zero, one, or multiple <code>HealthCheck</code> child elements.
-     * By default, the list of health checks is displayed on a single page.
+     * By default, the list of geo locations is displayed on a single page.
      * You can control the length of the page that is displayed by using the
-     * <code>MaxItems</code> parameter. You can use the <code>Marker</code>
-     * parameter to control the health check that the list begins with.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Amazon Route 53 returns a maximum of 100 items. If you
-     * set MaxItems to a value greater than 100, Amazon Route 53 returns only
-     * the first 100.
+     * <code>MaxItems</code> parameter. If the list is truncated,
+     * <code>IsTruncated</code> will be set to <i>true</i> and a combination
+     * of <code>NextContinentCode, NextCountryCode,
+     * NextSubdivisionCode</code> will be populated. You can pass these as
+     * parameters to <code>StartContinentCode, StartCountryCode,
+     * StartSubdivisionCode</code> to control the geo location that the list
+     * begins with.
      * </p>
      *
-     * @param listHealthChecksRequest Container for the necessary parameters
-     *           to execute the ListHealthChecks service method on AmazonRoute53.
+     * @param listGeoLocationsRequest Container for the necessary parameters
+     *           to execute the ListGeoLocations service method on AmazonRoute53.
      * 
-     * @return The response from the ListHealthChecks service method, as
+     * @return The response from the ListGeoLocations service method, as
      *         returned by AmazonRoute53.
      * 
      * @throws InvalidInputException
@@ -553,13 +734,64 @@ public interface AmazonRoute53 {
      *             If an error response is returned by AmazonRoute53 indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public ListHealthChecksResult listHealthChecks(ListHealthChecksRequest listHealthChecksRequest) 
+    public ListGeoLocationsResult listGeoLocations(ListGeoLocationsRequest listGeoLocationsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * To retrieve a count of all your health checks, send a
+     * <code>GET</code> request to the
+     * <code>2013-04-01/healthcheckcount</code> resource.
+     * </p>
+     *
+     * @param getHealthCheckCountRequest Container for the necessary
+     *           parameters to execute the GetHealthCheckCount service method on
+     *           AmazonRoute53.
+     * 
+     * @return The response from the GetHealthCheckCount service method, as
+     *         returned by AmazonRoute53.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetHealthCheckCountResult getHealthCheckCount(GetHealthCheckCountRequest getHealthCheckCountRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param changeTagsForResourceRequest Container for the necessary
+     *           parameters to execute the ChangeTagsForResource service method on
+     *           AmazonRoute53.
+     * 
+     * @return The response from the ChangeTagsForResource service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws PriorRequestNotCompleteException
+     * @throws NoSuchHealthCheckException
+     * @throws ThrottlingException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ChangeTagsForResourceResult changeTagsForResource(ChangeTagsForResourceRequest changeTagsForResourceRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
      * <p>
      * To retrieve a list of your hosted zones, send a <code>GET</code>
-     * request to the <code>2012-12-12/hostedzone</code> resource. The
+     * request to the <code>2013-04-01/hostedzone</code> resource. The
      * response to this request includes a <code>HostedZones</code> element
      * with zero, one, or multiple <code>HostedZone</code> child elements. By
      * default, the list of hosted zones is displayed on a single page. You
@@ -590,8 +822,56 @@ public interface AmazonRoute53 {
     
     /**
      * <p>
+     * To retrieve a single geo location, send a <code>GET</code> request to
+     * the <code>2013-04-01/geolocation</code> resource with one of these
+     * options: continentcode | countrycode | countrycode and
+     * subdivisioncode.
+     * </p>
+     * 
+     * @return The response from the GetGeoLocation service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws NoSuchGeoLocationException
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetGeoLocationResult getGeoLocation() throws AmazonServiceException, AmazonClientException;
+    
+    /**
+     * <p>
+     * To retrieve a list of the IP ranges used by Amazon Route 53 health
+     * checkers to check the health of your resources, send a
+     * <code>GET</code> request to the
+     * <code>2013-04-01/checkeripranges</code> resource. You can use these IP
+     * addresses to configure router and firewall rules to allow health
+     * checkers to check the health of your resources.
+     * </p>
+     * 
+     * @return The response from the GetCheckerIpRanges service method, as
+     *         returned by AmazonRoute53.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetCheckerIpRangesResult getCheckerIpRanges() throws AmazonServiceException, AmazonClientException;
+    
+    /**
+     * <p>
      * To retrieve a list of your health checks, send a <code>GET</code>
-     * request to the <code>2012-12-12/healthcheck</code> resource. The
+     * request to the <code>2013-04-01/healthcheck</code> resource. The
      * response to this request includes a <code>HealthChecks</code> element
      * with zero, one, or multiple <code>HealthCheck</code> child elements.
      * By default, the list of health checks is displayed on a single page.
@@ -608,6 +888,7 @@ public interface AmazonRoute53 {
      * @return The response from the ListHealthChecks service method, as
      *         returned by AmazonRoute53.
      * 
+     * @throws IncompatibleVersionException
      * @throws InvalidInputException
      *
      * @throws AmazonClientException
@@ -619,6 +900,64 @@ public interface AmazonRoute53 {
      *             either a problem with the data in the request, or a server side issue.
      */
     public ListHealthChecksResult listHealthChecks() throws AmazonServiceException, AmazonClientException;
+    
+    /**
+     * <p>
+     * To retrieve a list of supported geo locations, send a
+     * <code>GET</code> request to the <code>2013-04-01/geolocations</code>
+     * resource. The response to this request includes a
+     * <code>GeoLocationDetailsList</code> element with zero, one, or
+     * multiple <code>GeoLocationDetails</code> child elements. The list is
+     * sorted by country code, and then subdivision code, followed by
+     * continents at the end of the list.
+     * </p>
+     * <p>
+     * By default, the list of geo locations is displayed on a single page.
+     * You can control the length of the page that is displayed by using the
+     * <code>MaxItems</code> parameter. If the list is truncated,
+     * <code>IsTruncated</code> will be set to <i>true</i> and a combination
+     * of <code>NextContinentCode, NextCountryCode,
+     * NextSubdivisionCode</code> will be populated. You can pass these as
+     * parameters to <code>StartContinentCode, StartCountryCode,
+     * StartSubdivisionCode</code> to control the geo location that the list
+     * begins with.
+     * </p>
+     * 
+     * @return The response from the ListGeoLocations service method, as
+     *         returned by AmazonRoute53.
+     * 
+     * @throws InvalidInputException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListGeoLocationsResult listGeoLocations() throws AmazonServiceException, AmazonClientException;
+    
+    /**
+     * <p>
+     * To retrieve a count of all your health checks, send a
+     * <code>GET</code> request to the
+     * <code>2013-04-01/healthcheckcount</code> resource.
+     * </p>
+     * 
+     * @return The response from the GetHealthCheckCount service method, as
+     *         returned by AmazonRoute53.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonRoute53 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetHealthCheckCountResult getHealthCheckCount() throws AmazonServiceException, AmazonClientException;
     
     /**
      * Shuts down this client object, releasing any resources that might be held

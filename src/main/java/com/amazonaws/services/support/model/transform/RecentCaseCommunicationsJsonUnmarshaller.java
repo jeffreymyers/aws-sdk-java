@@ -37,7 +37,7 @@ public class RecentCaseCommunicationsJsonUnmarshaller implements Unmarshaller<Re
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class RecentCaseCommunicationsJsonUnmarshaller implements Unmarshaller<Re
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("communications", targetDepth)) {
+                    context.nextToken();
                     recentCaseCommunications.setCommunications(new ListUnmarshaller<Communication>(CommunicationJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("nextToken", targetDepth)) {

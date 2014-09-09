@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudtrail.AWSCloudTrail#describeTrails(DescribeTrailsRequest) DescribeTrails operation}.
  * <p>
- * Retrieves the settings for some or all trails associated with an account. Returns a list of Trail structures in JSON format.
+ * Retrieves the settings for some or all trails associated with an
+ * account. Returns a list of Trail structures in JSON format.
  * </p>
  *
  * @see com.amazonaws.services.cloudtrail.AWSCloudTrail#describeTrails(DescribeTrailsRequest)
@@ -68,7 +69,7 @@ public class DescribeTrailsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param trailNameList The list of <a>Trail</a> object names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTrailsRequest withTrailNameList(String... trailNameList) {
@@ -86,7 +87,7 @@ public class DescribeTrailsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param trailNameList The list of <a>Trail</a> object names.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTrailsRequest withTrailNameList(java.util.Collection<String> trailNameList) {

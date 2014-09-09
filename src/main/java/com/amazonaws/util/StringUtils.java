@@ -17,17 +17,19 @@ package com.amazonaws.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.Date;
-
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * Utilities for converting objects to strings.
  */
 public class StringUtils {
 
-    /** Shared date utils for converting dates to strings */
-    private static final DateUtils dateUtils = new DateUtils();
+    private static final String DEFAULT_ENCODING = "UTF-8";
+
+    public static final String COMMA_SEPARATOR = ",";
+
+    public static final Charset UTF8 = Charset.forName(DEFAULT_ENCODING);
 
     public static Integer toInteger(StringBuilder value) {
         return Integer.parseInt(value.toString());
@@ -58,20 +60,20 @@ public class StringUtils {
     }
 
     public static String fromBigInteger(BigInteger value) {
-    	return value.toString();
+        return value.toString();
     }
 
     public static String fromBigDecimal(BigDecimal value) {
-    	return value.toString();
+        return value.toString();
     }
 
 
     public static BigInteger toBigInteger(String s) {
-    	return new BigInteger(s);
+        return new BigInteger(s);
     }
 
     public static BigDecimal toBigDecimal(String s) {
-    	return new BigDecimal(s);
+        return new BigDecimal(s);
     }
 
     public static String fromFloat(Float value) {
@@ -88,7 +90,7 @@ public class StringUtils {
      * @return An ISO 8601 timestamp string created from the specified date.
      */
     public static String fromDate(Date value) {
-        return dateUtils.formatIso8601Date(value);
+        return DateUtils.formatISO8601Date(value);
     }
 
     /**
@@ -125,15 +127,11 @@ public class StringUtils {
      * @return The base64 encoded contents of the specified byte buffer.
      */
     public static String fromByteBuffer(ByteBuffer byteBuffer) {
-        byte[] encodedBytes = null;
-        if (byteBuffer.hasArray()) {
-            encodedBytes = Base64.encodeBase64(byteBuffer.array());
-        } else {
-            byte[] binaryData = new byte[byteBuffer.limit()];
-            byteBuffer.get(binaryData);
-            encodedBytes = Base64.encodeBase64(binaryData);
-        }
-        return new String(encodedBytes);
+        if (byteBuffer.hasArray())
+            return Base64.encodeAsString(byteBuffer.array());
+        byte[] binaryData = new byte[byteBuffer.limit()];
+        byteBuffer.get(binaryData);
+        return Base64.encodeAsString(binaryData);
     }
 
     public static String replace( String originalString, String partToMatch, String replacement ) {
@@ -163,5 +161,26 @@ public class StringUtils {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * A null-safe trim method. If the input string is null, returns null;
+     * otherwise returns a trimmed version of the input.
+     */
+    public static String trim(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value.trim();
+    }
+
+    /**
+     * @return true if the given value is either null or the empty string
+     */
+    public static boolean isNullOrEmpty(String value) {
+        if (value == null) {
+            return true;
+        }
+        return value.isEmpty();
     }
 }

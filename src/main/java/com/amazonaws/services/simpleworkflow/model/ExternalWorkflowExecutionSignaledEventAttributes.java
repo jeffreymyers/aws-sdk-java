@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>ExternalWorkflowExecutionSignaled</code> event.
+ * Provides details of the
+ * <code>ExternalWorkflowExecutionSignaled</code> event.
  * </p>
  */
 public class ExternalWorkflowExecutionSignaledEventAttributes implements Serializable {
@@ -62,7 +63,7 @@ public class ExternalWorkflowExecutionSignaledEventAttributes implements Seriali
      *
      * @param workflowExecution The external workflow execution that the signal was delivered to.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ExternalWorkflowExecutionSignaledEventAttributes withWorkflowExecution(WorkflowExecution workflowExecution) {
@@ -119,7 +120,7 @@ public class ExternalWorkflowExecutionSignaledEventAttributes implements Seriali
      *         signal. This information can be useful for diagnosing problems by
      *         tracing back the chain of events leading up to this event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ExternalWorkflowExecutionSignaledEventAttributes withInitiatedEventId(Long initiatedEventId) {

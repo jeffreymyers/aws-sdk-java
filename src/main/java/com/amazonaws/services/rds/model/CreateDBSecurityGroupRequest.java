@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#createDBSecurityGroup(CreateDBSecurityGroupRequest) CreateDBSecurityGroup operation}.
  * <p>
- * Creates a new DB security group. DB security groups control access to a DB instance.
+ * Creates a new DB security group. DB security groups control access to
+ * a DB instance.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#createDBSecurityGroup(CreateDBSecurityGroupRequest)
@@ -128,7 +129,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      *         <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
      *         <p>Example: <code>mysecuritygroup</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSecurityGroupRequest withDBSecurityGroupName(String dBSecurityGroupName) {
@@ -161,7 +162,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      *
      * @param dBSecurityGroupDescription The description for the DB security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSecurityGroupRequest withDBSecurityGroupDescription(String dBSecurityGroupDescription) {
@@ -204,7 +205,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSecurityGroupRequest withTags(Tag... tags) {
@@ -222,7 +223,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateDBSecurityGroupRequest withTags(java.util.Collection<Tag> tags) {

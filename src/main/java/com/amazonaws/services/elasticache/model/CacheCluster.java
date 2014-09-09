@@ -72,12 +72,13 @@ public class CacheCluster implements Serializable {
 
     /**
      * The name of the Availability Zone in which the cache cluster is
-     * located.
+     * located or "Multiple" if the cache nodes are located in different
+     * Availability Zones.
      */
     private String preferredAvailabilityZone;
 
     /**
-     * The date and time the cache cluster was created.
+     * The date and time when the cache cluster was created.
      */
     private java.util.Date cacheClusterCreateTime;
 
@@ -141,6 +142,23 @@ public class CacheCluster implements Serializable {
     private String replicationGroupId;
 
     /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     */
+    private Integer snapshotRetentionLimit;
+
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster. <p>Example:
+     * <code>05:00-09:00</code>
+     */
+    private String snapshotWindow;
+
+    /**
      * The user-supplied identifier of the cache cluster. This is a unique
      * key that identifies a cache cluster.
      *
@@ -171,7 +189,7 @@ public class CacheCluster implements Serializable {
      * @param cacheClusterId The user-supplied identifier of the cache cluster. This is a unique
      *         key that identifies a cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheClusterId(String cacheClusterId) {
@@ -210,7 +228,7 @@ public class CacheCluster implements Serializable {
      * @param configurationEndpoint Represents the information required for client programs to connect to
      *         a cache node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withConfigurationEndpoint(Endpoint configurationEndpoint) {
@@ -249,7 +267,7 @@ public class CacheCluster implements Serializable {
      * @param clientDownloadLandingPage The URL of the web page where you can download the latest ElastiCache
      *         client library.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withClientDownloadLandingPage(String clientDownloadLandingPage) {
@@ -288,7 +306,7 @@ public class CacheCluster implements Serializable {
      * @param cacheNodeType The name of the compute and memory capacity node type for the cache
      *         cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheNodeType(String cacheNodeType) {
@@ -327,7 +345,7 @@ public class CacheCluster implements Serializable {
      * @param engine The name of the cache engine (<i>memcached</i> or <i>redis</i>) to be
      *         used for this cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withEngine(String engine) {
@@ -366,7 +384,7 @@ public class CacheCluster implements Serializable {
      * @param engineVersion The version of the cache engine version that is used in this cache
      *         cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withEngineVersion(String engineVersion) {
@@ -405,7 +423,7 @@ public class CacheCluster implements Serializable {
      * @param cacheClusterStatus The current state of this cache cluster - <i>creating</i>,
      *         <i>available</i>, etc.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheClusterStatus(String cacheClusterStatus) {
@@ -438,7 +456,7 @@ public class CacheCluster implements Serializable {
      *
      * @param numCacheNodes The number of cache nodes in the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withNumCacheNodes(Integer numCacheNodes) {
@@ -448,10 +466,12 @@ public class CacheCluster implements Serializable {
 
     /**
      * The name of the Availability Zone in which the cache cluster is
-     * located.
+     * located or "Multiple" if the cache nodes are located in different
+     * Availability Zones.
      *
      * @return The name of the Availability Zone in which the cache cluster is
-     *         located.
+     *         located or "Multiple" if the cache nodes are located in different
+     *         Availability Zones.
      */
     public String getPreferredAvailabilityZone() {
         return preferredAvailabilityZone;
@@ -459,10 +479,12 @@ public class CacheCluster implements Serializable {
     
     /**
      * The name of the Availability Zone in which the cache cluster is
-     * located.
+     * located or "Multiple" if the cache nodes are located in different
+     * Availability Zones.
      *
      * @param preferredAvailabilityZone The name of the Availability Zone in which the cache cluster is
-     *         located.
+     *         located or "Multiple" if the cache nodes are located in different
+     *         Availability Zones.
      */
     public void setPreferredAvailabilityZone(String preferredAvailabilityZone) {
         this.preferredAvailabilityZone = preferredAvailabilityZone;
@@ -470,14 +492,16 @@ public class CacheCluster implements Serializable {
     
     /**
      * The name of the Availability Zone in which the cache cluster is
-     * located.
+     * located or "Multiple" if the cache nodes are located in different
+     * Availability Zones.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param preferredAvailabilityZone The name of the Availability Zone in which the cache cluster is
-     *         located.
+     *         located or "Multiple" if the cache nodes are located in different
+     *         Availability Zones.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withPreferredAvailabilityZone(String preferredAvailabilityZone) {
@@ -486,31 +510,31 @@ public class CacheCluster implements Serializable {
     }
 
     /**
-     * The date and time the cache cluster was created.
+     * The date and time when the cache cluster was created.
      *
-     * @return The date and time the cache cluster was created.
+     * @return The date and time when the cache cluster was created.
      */
     public java.util.Date getCacheClusterCreateTime() {
         return cacheClusterCreateTime;
     }
     
     /**
-     * The date and time the cache cluster was created.
+     * The date and time when the cache cluster was created.
      *
-     * @param cacheClusterCreateTime The date and time the cache cluster was created.
+     * @param cacheClusterCreateTime The date and time when the cache cluster was created.
      */
     public void setCacheClusterCreateTime(java.util.Date cacheClusterCreateTime) {
         this.cacheClusterCreateTime = cacheClusterCreateTime;
     }
     
     /**
-     * The date and time the cache cluster was created.
+     * The date and time when the cache cluster was created.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param cacheClusterCreateTime The date and time the cache cluster was created.
+     * @param cacheClusterCreateTime The date and time when the cache cluster was created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheClusterCreateTime(java.util.Date cacheClusterCreateTime) {
@@ -549,7 +573,7 @@ public class CacheCluster implements Serializable {
      * @param preferredMaintenanceWindow The time range (in UTC) during which weekly system maintenance can
      *         occur.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -588,7 +612,7 @@ public class CacheCluster implements Serializable {
      * @param pendingModifiedValues A group of settings that will be applied to the cache cluster in the
      *         future, or that are currently being applied.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withPendingModifiedValues(PendingModifiedValues pendingModifiedValues) {
@@ -633,7 +657,7 @@ public class CacheCluster implements Serializable {
      *         used for publishing ElastiCache events to subscribers using Amazon
      *         Simple Notification Service (SNS).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withNotificationConfiguration(NotificationConfiguration notificationConfiguration) {
@@ -682,7 +706,7 @@ public class CacheCluster implements Serializable {
      * @param cacheSecurityGroups A list of cache security group elements, composed of name and status
      *         sub-elements.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheSecurityGroups(CacheSecurityGroupMembership... cacheSecurityGroups) {
@@ -702,7 +726,7 @@ public class CacheCluster implements Serializable {
      * @param cacheSecurityGroups A list of cache security group elements, composed of name and status
      *         sub-elements.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheSecurityGroups(java.util.Collection<CacheSecurityGroupMembership> cacheSecurityGroups) {
@@ -742,7 +766,7 @@ public class CacheCluster implements Serializable {
      *
      * @param cacheParameterGroup The status of the cache parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheParameterGroup(CacheParameterGroupStatus cacheParameterGroup) {
@@ -775,7 +799,7 @@ public class CacheCluster implements Serializable {
      *
      * @param cacheSubnetGroupName The name of the cache subnet group associated with the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheSubnetGroupName(String cacheSubnetGroupName) {
@@ -818,7 +842,7 @@ public class CacheCluster implements Serializable {
      *
      * @param cacheNodes A list of cache nodes that are members of the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheNodes(CacheNode... cacheNodes) {
@@ -836,7 +860,7 @@ public class CacheCluster implements Serializable {
      *
      * @param cacheNodes A list of cache nodes that are members of the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withCacheNodes(java.util.Collection<CacheNode> cacheNodes) {
@@ -888,7 +912,7 @@ public class CacheCluster implements Serializable {
      *         automatically; if <code>false</code>, then automatic minor version
      *         patches are disabled.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -944,7 +968,7 @@ public class CacheCluster implements Serializable {
      *
      * @param securityGroups A list of VPC Security Groups associated with the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withSecurityGroups(SecurityGroupMembership... securityGroups) {
@@ -962,7 +986,7 @@ public class CacheCluster implements Serializable {
      *
      * @param securityGroups A list of VPC Security Groups associated with the cache cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withSecurityGroups(java.util.Collection<SecurityGroupMembership> securityGroups) {
@@ -1014,11 +1038,119 @@ public class CacheCluster implements Serializable {
      *         field is empty, the cache cluster is not associated with any
      *         replication group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheCluster withReplicationGroupId(String replicationGroupId) {
         this.replicationGroupId = replicationGroupId;
+        return this;
+    }
+
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     *
+     * @return The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     */
+    public Integer getSnapshotRetentionLimit() {
+        return snapshotRetentionLimit;
+    }
+    
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     *
+     * @param snapshotRetentionLimit The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     */
+    public void setSnapshotRetentionLimit(Integer snapshotRetentionLimit) {
+        this.snapshotRetentionLimit = snapshotRetentionLimit;
+    }
+    
+    /**
+     * The number of days for which ElastiCache will retain automatic cache
+     * cluster snapshots before deleting them. For example, if you set
+     * <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     * today will be retained for 5 days before being deleted.
+     * <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     * to zero (0), backups are turned off.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshotRetentionLimit The number of days for which ElastiCache will retain automatic cache
+     *         cluster snapshots before deleting them. For example, if you set
+     *         <i>SnapshotRetentionLimit</i> to 5, then a snapshot that was taken
+     *         today will be retained for 5 days before being deleted.
+     *         <p><b>Important</b><br/>If the value of SnapshotRetentionLimit is set
+     *         to zero (0), backups are turned off.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CacheCluster withSnapshotRetentionLimit(Integer snapshotRetentionLimit) {
+        this.snapshotRetentionLimit = snapshotRetentionLimit;
+        return this;
+    }
+
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster. <p>Example:
+     * <code>05:00-09:00</code>
+     *
+     * @return The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of your cache cluster. <p>Example:
+     *         <code>05:00-09:00</code>
+     */
+    public String getSnapshotWindow() {
+        return snapshotWindow;
+    }
+    
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster. <p>Example:
+     * <code>05:00-09:00</code>
+     *
+     * @param snapshotWindow The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of your cache cluster. <p>Example:
+     *         <code>05:00-09:00</code>
+     */
+    public void setSnapshotWindow(String snapshotWindow) {
+        this.snapshotWindow = snapshotWindow;
+    }
+    
+    /**
+     * The daily time range (in UTC) during which ElastiCache will begin
+     * taking a daily snapshot of your cache cluster. <p>Example:
+     * <code>05:00-09:00</code>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param snapshotWindow The daily time range (in UTC) during which ElastiCache will begin
+     *         taking a daily snapshot of your cache cluster. <p>Example:
+     *         <code>05:00-09:00</code>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CacheCluster withSnapshotWindow(String snapshotWindow) {
+        this.snapshotWindow = snapshotWindow;
         return this;
     }
 
@@ -1053,7 +1185,9 @@ public class CacheCluster implements Serializable {
         if (getCacheNodes() != null) sb.append("CacheNodes: " + getCacheNodes() + ",");
         if (isAutoMinorVersionUpgrade() != null) sb.append("AutoMinorVersionUpgrade: " + isAutoMinorVersionUpgrade() + ",");
         if (getSecurityGroups() != null) sb.append("SecurityGroups: " + getSecurityGroups() + ",");
-        if (getReplicationGroupId() != null) sb.append("ReplicationGroupId: " + getReplicationGroupId() );
+        if (getReplicationGroupId() != null) sb.append("ReplicationGroupId: " + getReplicationGroupId() + ",");
+        if (getSnapshotRetentionLimit() != null) sb.append("SnapshotRetentionLimit: " + getSnapshotRetentionLimit() + ",");
+        if (getSnapshotWindow() != null) sb.append("SnapshotWindow: " + getSnapshotWindow() );
         sb.append("}");
         return sb.toString();
     }
@@ -1083,6 +1217,8 @@ public class CacheCluster implements Serializable {
         hashCode = prime * hashCode + ((isAutoMinorVersionUpgrade() == null) ? 0 : isAutoMinorVersionUpgrade().hashCode()); 
         hashCode = prime * hashCode + ((getSecurityGroups() == null) ? 0 : getSecurityGroups().hashCode()); 
         hashCode = prime * hashCode + ((getReplicationGroupId() == null) ? 0 : getReplicationGroupId().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshotRetentionLimit() == null) ? 0 : getSnapshotRetentionLimit().hashCode()); 
+        hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode()); 
         return hashCode;
     }
     
@@ -1134,6 +1270,10 @@ public class CacheCluster implements Serializable {
         if (other.getSecurityGroups() != null && other.getSecurityGroups().equals(this.getSecurityGroups()) == false) return false; 
         if (other.getReplicationGroupId() == null ^ this.getReplicationGroupId() == null) return false;
         if (other.getReplicationGroupId() != null && other.getReplicationGroupId().equals(this.getReplicationGroupId()) == false) return false; 
+        if (other.getSnapshotRetentionLimit() == null ^ this.getSnapshotRetentionLimit() == null) return false;
+        if (other.getSnapshotRetentionLimit() != null && other.getSnapshotRetentionLimit().equals(this.getSnapshotRetentionLimit()) == false) return false; 
+        if (other.getSnapshotWindow() == null ^ this.getSnapshotWindow() == null) return false;
+        if (other.getSnapshotWindow() != null && other.getSnapshotWindow().equals(this.getSnapshotWindow()) == false) return false; 
         return true;
     }
     

@@ -18,9 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A specification identifying an individual configuration option along with its current value. For a list of possible option values, go to <a
- * href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html"> Option Values </a> in the <i>AWS Elastic Beanstalk Developer
- * Guide</i> .
+ * A specification identifying an individual configuration option along
+ * with its current value. For a list of possible option values, go to
+ * <a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html"> Option Values </a>
+ * in the <i>AWS Elastic Beanstalk Developer Guide</i> .
  * 
  * </p>
  */
@@ -88,7 +89,7 @@ public class ConfigurationOptionSetting implements Serializable {
      *
      * @param namespace A unique namespace identifying the option's associated AWS resource.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConfigurationOptionSetting withNamespace(String namespace) {
@@ -121,7 +122,7 @@ public class ConfigurationOptionSetting implements Serializable {
      *
      * @param optionName The name of the configuration option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConfigurationOptionSetting withOptionName(String optionName) {
@@ -154,7 +155,7 @@ public class ConfigurationOptionSetting implements Serializable {
      *
      * @param value The current value for the configuration option.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ConfigurationOptionSetting withValue(String value) {

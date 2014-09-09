@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.s3.internal.crypto;
 
+import static com.amazonaws.util.LengthCheckInputStream.EXCLUDE_SKIPPED_BYTES;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -33,8 +35,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.Headers;
 import com.amazonaws.services.s3.internal.InputSubstream;
@@ -50,9 +50,12 @@ import com.amazonaws.services.s3.model.InitiateMultipartUploadRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectId;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.StaticEncryptionMaterialsProvider;
 import com.amazonaws.services.s3.model.UploadPartRequest;
+import com.amazonaws.util.Base64;
+import com.amazonaws.util.LengthCheckInputStream;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 
@@ -61,9 +64,9 @@ import com.amazonaws.util.json.JSONObject;
  * requests for encryption before they are stored in S3 and to decrypt objects that are retrieved from S3.
  */
 public class EncryptionUtils {
-
     /** Suffix appended to the end of instruction file names */
-    private static final String INSTRUCTION_SUFFIX = ".instruction";
+    @Deprecated
+    static final String INSTRUCTION_SUFFIX = ".instruction";
 
     /**
      * Returns an updated request where the metadata contains encryption information and the input stream contains
@@ -79,7 +82,7 @@ public class EncryptionUtils {
      *      The updated request where the metadata is set up for encryption and input stream contains
      *      the encrypted contents.
      *
-     * @deprecated use generateInstruction, encryptRequestUsingInstruction, and updateMetadataWithEncryptionInfo instead
+     * @deprecated no longer used and will be removed in the future
      */
     @Deprecated
     public static PutObjectRequest encryptRequestUsingMetadata(PutObjectRequest request, EncryptionMaterials materials, Provider cryptoProvider) {
@@ -107,7 +110,7 @@ public class EncryptionUtils {
      * @return
      *      The updated object where the object content input stream contains the decrypted contents.
      *
-     * @deprecated use buildInstructionFromObjectMetadata and decryptObjectUsingInstruction instead.
+     * @deprecated no longer used and will be removed in the future
      */
     @Deprecated
     public static S3Object decryptObjectUsingMetadata(S3Object object, EncryptionMaterials materials, Provider cryptoProvider) {
@@ -127,23 +130,47 @@ public class EncryptionUtils {
      *      The crypto provider whose encryption implementation will be used to encrypt and decrypt data.
      * @return
      *      The instruction that will be used to encrypt an object.
+     * @deprecated no longer used and will be removed in the future
      */
     @Deprecated
     public static EncryptionInstruction generateInstruction(EncryptionMaterials materials, Provider cryptoProvider) {
       return generateInstruction(new StaticEncryptionMaterialsProvider(materials), cryptoProvider);
     }
 
-    public static EncryptionInstruction generateInstruction(EncryptionMaterialsProvider materialsProvider, Provider cryptoProvider) {
-        // Generate a one-time use symmetric key and initialize a cipher to encrypt object data
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
+    public static EncryptionInstruction generateInstruction(EncryptionMaterialsProvider materialsProvider,
+            Provider cryptoProvider) {
+        return buildInstruction(materialsProvider.getEncryptionMaterials(), cryptoProvider);
+    }
+
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
+    public static EncryptionInstruction generateInstruction(EncryptionMaterialsProvider materialsProvider,
+            Map<String, String> materialsDescription, Provider cryptoProvider) {
+        return buildInstruction(materialsProvider.getEncryptionMaterials(materialsDescription), cryptoProvider);
+    }
+
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
+    public static EncryptionInstruction buildInstruction(EncryptionMaterials materials, Provider cryptoProvider) {
+        // Generate a one-time use symmetric key and initialize a cipher to
+        // encrypt object data
         SecretKey envelopeSymmetricKey = generateOneTimeUseSymmetricKey();
         CipherFactory cipherFactory = new CipherFactory(envelopeSymmetricKey, Cipher.ENCRYPT_MODE, null, cryptoProvider);
 
         // Encrypt the envelope symmetric key
-        EncryptionMaterials materials = materialsProvider.getEncryptionMaterials();
         byte[] encryptedEnvelopeSymmetricKey = getEncryptedSymmetricKey(envelopeSymmetricKey, materials, cryptoProvider);
 
         // Return a new instruction with the appropriate fields.
-        return new EncryptionInstruction(materials.getMaterialsDescription(), encryptedEnvelopeSymmetricKey, envelopeSymmetricKey, cipherFactory);
+        return new EncryptionInstruction(materials.getMaterialsDescription(), encryptedEnvelopeSymmetricKey,
+                envelopeSymmetricKey, cipherFactory);
     }
 
     /**
@@ -158,6 +185,7 @@ public class EncryptionUtils {
      *      preferred provider from Security.getProviders().
      * @return
      *      A non-null instruction object containing encryption information
+     * @deprecated no longer used and will be removed in the future
      */
     @Deprecated
     public static EncryptionInstruction buildInstructionFromInstructionFile(S3Object instructionFile, EncryptionMaterials materials, Provider cryptoProvider) {
@@ -176,21 +204,23 @@ public class EncryptionUtils {
      *      preferred provider from Security.getProviders().
      * @return
      *      A non-null instruction object containing encryption information
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static EncryptionInstruction buildInstructionFromInstructionFile(S3Object instructionFile, EncryptionMaterialsProvider materialsProvider, Provider cryptoProvider) {
         JSONObject instructionJSON = parseJSONInstruction(instructionFile);
         try {
             // Get fields from instruction object
-            byte[] encryptedSymmetricKeyBytes = instructionJSON.getString(Headers.CRYPTO_KEY).getBytes();
-            byte[] initVectorBytes = instructionJSON.getString(Headers.CRYPTO_IV).getBytes();
-            String materialsDescriptionString = instructionJSON.getString(Headers.MATERIALS_DESCRIPTION);
+            String encryptedSymmetricKeyB64 = instructionJSON.getString(Headers.CRYPTO_KEY);
+            String ivB64 = instructionJSON.getString(Headers.CRYPTO_IV);
+            String materialsDescriptionString = instructionJSON.tryGetString(Headers.MATERIALS_DESCRIPTION);
             Map<String, String> materialsDescription = convertJSONToMap(materialsDescriptionString);
 
             // Decode from Base 64 to standard binary bytes
-            encryptedSymmetricKeyBytes = Base64.decodeBase64(encryptedSymmetricKeyBytes);
-            initVectorBytes = Base64.decodeBase64(initVectorBytes);
+            byte[] encryptedSymmetricKey = Base64.decode(encryptedSymmetricKeyB64);
+            byte[] iv = Base64.decode(ivB64);
 
-            if (encryptedSymmetricKeyBytes == null || initVectorBytes == null || materialsDescription == null) {
+            if (encryptedSymmetricKey == null || iv == null) {
                 // If necessary encryption info was not found in the instruction file, throw an exception.
                 throw new AmazonClientException(
                         String.format("Necessary encryption info not found in the instruction file '%s' in bucket '%s'",
@@ -208,10 +238,10 @@ public class EncryptionUtils {
             }
 
             // Decrypt the symmetric key and create the symmetric cipher
-            SecretKey symmetricKey = getDecryptedSymmetricKey(encryptedSymmetricKeyBytes, materials, cryptoProvider);
-            CipherFactory cipherFactory = new CipherFactory(symmetricKey, Cipher.DECRYPT_MODE, initVectorBytes, cryptoProvider);
+            SecretKey symmetricKey = getDecryptedSymmetricKey(encryptedSymmetricKey, materials, cryptoProvider);
+            CipherFactory cipherFactory = new CipherFactory(symmetricKey, Cipher.DECRYPT_MODE, iv, cryptoProvider);
 
-            return new EncryptionInstruction(materialsDescription, encryptedSymmetricKeyBytes, symmetricKey, cipherFactory);
+            return new EncryptionInstruction(materialsDescription, encryptedSymmetricKey, symmetricKey, cipherFactory);
         } catch (JSONException e) {
             throw new AmazonClientException("Unable to parse retrieved instruction file : " + e.getMessage());
         }
@@ -233,6 +263,7 @@ public class EncryptionUtils {
      * @throws AmazonClientException
      *      if encryption information is missing in the metadata, or the encryption
      *      materials used to encrypt the object are not available via the materials Accessor
+     * @deprecated no longer used and will be removed in the future
      */
     @Deprecated
     public static EncryptionInstruction buildInstructionFromObjectMetadata(S3Object object, EncryptionMaterials materials, Provider cryptoProvider) {
@@ -255,7 +286,9 @@ public class EncryptionUtils {
      * @throws AmazonClientException
      *      if encryption information is missing in the metadata, or the encryption
      *      materials used to encrypt the object are not available via the materials Accessor
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static EncryptionInstruction buildInstructionFromObjectMetadata(S3Object object, EncryptionMaterialsProvider materialsProvider, Provider cryptoProvider) {
         ObjectMetadata metadata = object.getObjectMetadata();
 
@@ -265,7 +298,7 @@ public class EncryptionUtils {
         String materialsDescriptionString = getStringFromMetadata(Headers.MATERIALS_DESCRIPTION, metadata);
         Map<String, String> materialsDescription = convertJSONToMap(materialsDescriptionString);
 
-        if (encryptedSymmetricKeyBytes == null || initVectorBytes == null || materialsDescription == null) {
+        if (encryptedSymmetricKeyBytes == null || initVectorBytes == null) {
             // If necessary encryption info was not found in the instruction file, throw an exception.
             throw new AmazonClientException(
                     String.format("Necessary encryption info not found in the headers of file '%s' in bucket '%s'",
@@ -299,7 +332,9 @@ public class EncryptionUtils {
      *      The instruction that will be used to encrypt the object data.
      * @return
      *      The updated request where the input stream contains the encrypted contents.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static PutObjectRequest encryptRequestUsingInstruction(PutObjectRequest request, EncryptionInstruction instruction) {
         // Create a new metadata object if there is no metadata already.
         ObjectMetadata metadata = request.getMetadata();
@@ -316,18 +351,22 @@ public class EncryptionUtils {
         metadata.setContentMD5(null);
         
         // Record the original, unencrypted content-length so it can be accessed later
-        long originalContentLength = getUnencryptedContentLength(request, metadata);
-        if (originalContentLength >= 0) metadata.addUserMetadata(
-                Headers.UNENCRYPTED_CONTENT_LENGTH, Long.toString(originalContentLength));
+        final long plaintextLength = getUnencryptedContentLength(request, metadata);
+        if (plaintextLength >= 0) {
+            metadata.addUserMetadata(Headers.UNENCRYPTED_CONTENT_LENGTH,
+                Long.toString(plaintextLength));
+        }
 
         // Put the calculated length of the encrypted contents in the metadata
         long cryptoContentLength = calculateCryptoContentLength(instruction.getSymmetricCipher(), request, metadata);
-        if (cryptoContentLength >= 0) metadata.setContentLength(cryptoContentLength);
+        if (cryptoContentLength >= 0) {
+            metadata.setContentLength(cryptoContentLength);
+        }
 
         request.setMetadata(metadata);
 
         // Create encrypted input stream
-        request.setInputStream(getEncryptedInputStream(request, instruction.getCipherFactory()));
+        request.setInputStream(getEncryptedInputStream(request, instruction.getCipherFactory(), plaintextLength));
 
         // Treat all encryption requests as input stream upload requests, not as file upload requests.
         request.setFile(null);
@@ -344,7 +383,9 @@ public class EncryptionUtils {
      *      The instruction that will be used to decrypt the object data.
      * @return
      *      The updated object where the object content input stream contains the decrypted contents.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static S3Object decryptObjectUsingInstruction(S3Object object, EncryptionInstruction instruction) {
         S3ObjectInputStream objectContent = object.getObjectContent();
 
@@ -362,7 +403,9 @@ public class EncryptionUtils {
      *      The instruction object to be stored in S3.
      * @return
      *      A put request to store the specified instruction object in S3.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static PutObjectRequest createInstructionPutRequest(PutObjectRequest request, EncryptionInstruction instruction) {
         JSONObject instructionJSON = convertInstructionToJSONObject(instruction);
         byte[] instructionBytes = instructionJSON.toString().getBytes();
@@ -384,6 +427,10 @@ public class EncryptionUtils {
         return request;
     }
 
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
     public static PutObjectRequest createInstructionPutRequest(String bucketName, String key, EncryptionInstruction instruction) {
         JSONObject instructionJSON = convertInstructionToJSONObject(instruction);
         byte[] instructionBytes = instructionJSON.toString().getBytes();
@@ -397,15 +444,35 @@ public class EncryptionUtils {
     }
 
     /**
-     * Creates a get request to retrieve an instruction file from S3.
+     * Creates a get object request for an instruction file using
+     * the default instruction file suffix.
      *
-     * @param request
-     *      The get request for the original object to be retrieved from S3.
+     * @param id
+     *      an S3 object id (not the instruction file id)
      * @return
      *      A get request to retrieve an instruction file from S3.
+     * @deprecated no longer used and will be removed in the future
      */
-    public static GetObjectRequest createInstructionGetRequest(GetObjectRequest request) {
-        return new GetObjectRequest(request.getBucketName(), request.getKey() + INSTRUCTION_SUFFIX, request.getVersionId());
+    @Deprecated
+    public static GetObjectRequest createInstructionGetRequest(S3ObjectId id) {
+        return createInstructionGetRequest(id, null);
+    }
+
+    /**
+     * Creates and return a get object request for an instruction file.
+     * 
+     * @param s3objectId
+     *      an S3 object id (not the instruction file id)
+     * @param instFileSuffix
+     *            suffix of the specific instruction file to be used, or null if
+     *            the default instruction file is to be used.
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
+    public static GetObjectRequest createInstructionGetRequest(
+            S3ObjectId s3objectId, String instFileSuffix) {
+        return new GetObjectRequest(
+                s3objectId.instructionFileId(instFileSuffix));
     }
 
     /**
@@ -415,7 +482,9 @@ public class EncryptionUtils {
      *      The delete request for the original object to be deleted from S3.
      * @return
      *      A delete request to delete an instruction file in S3.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static DeleteObjectRequest createInstructionDeleteObjectRequest(DeleteObjectRequest request) {
         return new DeleteObjectRequest(request.getBucketName(), request.getKey() + INSTRUCTION_SUFFIX);
     }
@@ -429,15 +498,14 @@ public class EncryptionUtils {
      * @return
      *      True if the specified S3Object contains encryption info in its
      *      metadata, false otherwise.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static boolean isEncryptionInfoInMetadata(S3Object retrievedObject) {
         Map<String, String> metadata = retrievedObject.getObjectMetadata().getUserMetadata();
-        if (metadata == null) {
-            return false;
-        }
-        return (metadata.containsKey(Headers.CRYPTO_IV) &&
-                metadata.containsKey(Headers.CRYPTO_KEY) &&
-                metadata.containsKey(Headers.MATERIALS_DESCRIPTION));
+        return metadata != null
+            && metadata.containsKey(Headers.CRYPTO_IV)
+            && metadata.containsKey(Headers.CRYPTO_KEY);
     }
 
     /**
@@ -449,7 +517,9 @@ public class EncryptionUtils {
      * @return
      *      True if the specified S3Object is an instruction file containing
      *      encryption info, false otherwise.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static boolean isEncryptionInfoInInstructionFile(S3Object instructionFile) {
         if (instructionFile == null) {
             return false;
@@ -474,7 +544,9 @@ public class EncryptionUtils {
      * @return
      *      A two-element array of longs corresponding to the start and finish of the cipher blocks to
      *      be retrieved.  If the range is invalid, then return null.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static long[] getAdjustedCryptoRange(long[] range) {
         // If range is invalid, then return null.
         if (range == null || range[0] > range[1]) {
@@ -501,7 +573,9 @@ public class EncryptionUtils {
      * @return
      *      The S3Object with adjusted object contents containing only the range desired by the user.
      *      If the range specified is invalid, then the S3Object is returned without any modifications.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static S3Object adjustOutputToDesiredRange(S3Object object, long[] range) {
         if (range == null || range[0] > range[1]) {
             // Make no modifications if range is invalid.
@@ -536,7 +610,9 @@ public class EncryptionUtils {
      * Creates a symmetric cipher in the specified mode from the given symmetric key and IV.  The given
      * crypto provider will provide the encryption implementation.  If the crypto provider is null, then
      * the default JCE crypto provider will be used.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static Cipher createSymmetricCipher(SecretKey symmetricCryptoKey, int encryptMode, Provider cryptoProvider, byte[] initVector) {
         try {
             Cipher cipher;
@@ -561,7 +637,9 @@ public class EncryptionUtils {
     /**
      * Encrypts a symmetric key using the provided encryption materials and returns
      * it in raw byte array form.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static byte[] getEncryptedSymmetricKey(SecretKey toBeEncrypted, EncryptionMaterials materials, Provider cryptoProvider) {
         Key keyToDoEncryption;
         if (materials.getKeyPair() != null) {
@@ -589,7 +667,9 @@ public class EncryptionUtils {
     /**
      * Decrypts an encrypted symmetric key using the provided encryption materials and returns
      * it as a SecretKey object.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static SecretKey getDecryptedSymmetricKey(byte[] encryptedSymmetricKeyBytes, EncryptionMaterials materials, Provider cryptoProvider) {
         Key keyToDoDecryption;
         if (materials.getKeyPair() != null) {
@@ -614,19 +694,40 @@ public class EncryptionUtils {
         }
     }
 
-    private static InputStream getEncryptedInputStream(PutObjectRequest request, CipherFactory cipherFactory) {
+    /**
+     * @param plaintextLength
+     *            the expected total number of bytes of the plaintext; or -1 if
+     *            not available.
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
+    private static InputStream getEncryptedInputStream(
+            PutObjectRequest request, CipherFactory cipherFactory,
+            long plaintextLength) {
         try {
-            InputStream originalInputStream = request.getInputStream();
+            InputStream is = request.getInputStream();
             if (request.getFile() != null) {
-                originalInputStream = new RepeatableFileInputStream(request.getFile());
+                // Historically file takes precedence over the original input
+                // stream
+                is = new RepeatableFileInputStream(request.getFile());
             }
-            return new RepeatableCipherInputStream(originalInputStream, cipherFactory);
+            if (plaintextLength > -1) {
+                // This ensures the plain-text read from the underlying data
+                // stream has the same length as the expected total
+                is = new LengthCheckInputStream(is, plaintextLength,
+                        EXCLUDE_SKIPPED_BYTES);
+            }
+            return new RepeatableCipherInputStream(is, cipherFactory);
         } catch (Exception e) {
             throw new AmazonClientException("Unable to create cipher input stream: " + e.getMessage(), e);
         }
     }
 
-    public static InputStream getEncryptedInputStream(UploadPartRequest request, CipherFactory cipherFactory) {
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
+    public static ByteRangeCapturingInputStream getEncryptedInputStream(UploadPartRequest request, CipherFactory cipherFactory) {
         try {
             InputStream originalInputStream = request.getInputStream();
             if (request.getFile() != null) {
@@ -654,22 +755,25 @@ public class EncryptionUtils {
      * the metadata, returns null.
      *
      * Note: The bytes are transported in Base64-encoding, so they are decoded before they are returned.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static byte[] getCryptoBytesFromMetadata(String headerName, ObjectMetadata metadata) throws NullPointerException {
         Map<String, String> userMetadata = metadata.getUserMetadata();
         if (userMetadata == null || !userMetadata.containsKey(headerName)) {
             return null;
         } else {
-            byte[] valueBytes = userMetadata.get(headerName).getBytes();
             // Convert Base64 bytes to binary data.
-            return Base64.decodeBase64(valueBytes);
+            return Base64.decode(userMetadata.get(headerName));
         }
     }
 
     /**
      * Retrieves the String value of the given header from the metadata.  Returns null if the field is not
      * found in the metadata.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static String getStringFromMetadata(String headerName, ObjectMetadata metadata) throws NullPointerException {
         Map<String, String> userMetadata = metadata.getUserMetadata();
         if (userMetadata == null || !userMetadata.containsKey(headerName)) {
@@ -681,7 +785,9 @@ public class EncryptionUtils {
 
     /**
      * Converts the JSON encoded materials description to a Map<String, String>
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     @SuppressWarnings("unchecked") // Suppresses Iterator<String> type warning
     private static Map<String, String> convertJSONToMap(String descriptionJSONString) {
         if (descriptionJSONString == null) {
@@ -708,7 +814,9 @@ public class EncryptionUtils {
      *      Non-null PUT request encrypted using the given instruction
      * @param instruction
      *      Non-null instruction used to encrypt the data in this PUT request.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     public static void updateMetadataWithEncryptionInstruction(PutObjectRequest request, EncryptionInstruction instruction){
         byte[] keyBytesToStoreInMetadata = instruction.getEncryptedSymmetricKey();
         Cipher symmetricCipher = instruction.getSymmetricCipher();
@@ -726,23 +834,30 @@ public class EncryptionUtils {
         request.setMetadata( metadata );
     }
 
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
     private static void updateMetadata(ObjectMetadata metadata, byte[] keyBytesToStoreInMetadata, Cipher symmetricCipher, Map<String, String> materialsDescription) {
         // If we generated a symmetric key to encrypt the data, store it in the object metadata.
         if (keyBytesToStoreInMetadata != null) {
-            keyBytesToStoreInMetadata = Base64.encodeBase64(keyBytesToStoreInMetadata);
-            metadata.addUserMetadata(Headers.CRYPTO_KEY, new String(keyBytesToStoreInMetadata));
+            metadata.addUserMetadata(Headers.CRYPTO_KEY,
+                    Base64.encodeAsString(keyBytesToStoreInMetadata));
         }
 
         // Put the cipher initialization vector (IV) into the object metadata
-        byte[] initVectorBytes = symmetricCipher.getIV();
-        initVectorBytes = Base64.encodeBase64(initVectorBytes);
-        metadata.addUserMetadata(Headers.CRYPTO_IV, new String(initVectorBytes));
+        metadata.addUserMetadata(Headers.CRYPTO_IV,
+                Base64.encodeAsString(symmetricCipher.getIV()));
 
         // Put the materials description into the object metadata as JSON
         JSONObject descriptionJSON = new JSONObject(materialsDescription);
         metadata.addUserMetadata(Headers.MATERIALS_DESCRIPTION, descriptionJSON.toString());
     }
 
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
     public static ObjectMetadata updateMetadataWithEncryptionInfo(InitiateMultipartUploadRequest request, byte[] keyBytesToStoreInMetadata, Cipher symmetricCipher, Map<String, String> materialsDescription) {
         ObjectMetadata metadata = request.getObjectMetadata();
         if (metadata == null) metadata = new ObjectMetadata();
@@ -755,7 +870,9 @@ public class EncryptionUtils {
     /**
      * Retrieve the original materials corresponding to the specified materials description.
      * Returns null if unable to retrieve the original materials.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static EncryptionMaterials retrieveOriginalMaterials(Map<String, String> materialsDescription, EncryptionMaterialsAccessor accessor) {
         if (accessor == null)
             return null;
@@ -769,12 +886,11 @@ public class EncryptionUtils {
      * @return
      *      The size of the encrypted file in bytes, or -1 if no content length
      *      has been set yet.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static long calculateCryptoContentLength(Cipher symmetricCipher, PutObjectRequest request, ObjectMetadata metadata) {
         long plaintextLength = getUnencryptedContentLength(request, metadata);
-
-        // If we have a zero length object, return zero as the encrypted size
-        if (plaintextLength == 0) return 0;
 
         // If we don't know the unencrypted size, then report -1
         if (plaintextLength < 0) return -1;
@@ -784,6 +900,10 @@ public class EncryptionUtils {
         return plaintextLength + offset;
     }
 
+    /**
+     * @deprecated no longer used and will be removed in the future
+     */
+    @Deprecated
     public static long calculateCryptoContentLength(Cipher symmetricCipher, UploadPartRequest request) {
         long plaintextLength;
         if (request.getFile() != null) {
@@ -810,11 +930,14 @@ public class EncryptionUtils {
      *
      * @return The content length of the unencrypted data in the request, or -1
      *         if it isn't known.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static long getUnencryptedContentLength(PutObjectRequest request, ObjectMetadata metadata) {
         if (request.getFile() != null) {
             return request.getFile().length();
-        } else if (request.getInputStream() != null && metadata.getContentLength() > 0) {
+        } else if (request.getInputStream() != null
+                   && metadata.getRawMetadataValue(Headers.CONTENT_LENGTH) != null) {
             return metadata.getContentLength();
         }
 
@@ -823,20 +946,20 @@ public class EncryptionUtils {
 
     /**
      * Returns a JSONObject representation of the instruction object.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static JSONObject convertInstructionToJSONObject(EncryptionInstruction instruction) {
         JSONObject instructionJSON = new JSONObject();
         try {
-            JSONObject materialsDescriptionJSON = new JSONObject(instruction.getMaterialsDescription());
-            byte[] initVector = instruction.getSymmetricCipher().getIV();
-            initVector = Base64.encodeBase64(initVector);
-            byte[] encryptedKeyBytes = instruction.getEncryptedSymmetricKey();
-            encryptedKeyBytes = Base64.encodeBase64(encryptedKeyBytes);
-
-            instructionJSON.put(Headers.MATERIALS_DESCRIPTION, materialsDescriptionJSON.toString());
-            instructionJSON.put(Headers.CRYPTO_KEY, new String(encryptedKeyBytes));
-            instructionJSON.put(Headers.CRYPTO_IV, new String(initVector));
-
+            JSONObject materialsDescriptionJSON = new JSONObject(
+                    instruction.getMaterialsDescription());
+            instructionJSON.put(Headers.MATERIALS_DESCRIPTION,
+                    materialsDescriptionJSON.toString());
+            instructionJSON.put(Headers.CRYPTO_KEY, 
+                Base64.encodeAsString(instruction.getEncryptedSymmetricKey()));
+            byte[] iv = instruction.getSymmetricCipher().getIV();
+            instructionJSON.put(Headers.CRYPTO_IV, Base64.encodeAsString(iv));
         } catch (JSONException e) {} // Keys are never null, so JSONException will never be thrown.
         return instructionJSON;
     }
@@ -844,6 +967,7 @@ public class EncryptionUtils {
     /**
      * Parses instruction data retrieved from S3 and returns a JSONObject representing the instruction
      */
+    @Deprecated
     private static JSONObject parseJSONInstruction(S3Object instructionObject) {
         try {
             String instructionString = convertStreamToString(instructionObject.getObjectContent());
@@ -855,7 +979,9 @@ public class EncryptionUtils {
 
     /**
      * Converts the contents of an input stream to a String
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static String convertStreamToString(InputStream inputStream) throws IOException {
         if (inputStream == null) {
             return "";
@@ -878,7 +1004,9 @@ public class EncryptionUtils {
      * Takes the position of the leftmost desired byte of a user specified range and returns the
      * position of the start of the previous cipher block, or returns 0 if the leftmost byte is in
      * the first cipher block.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static long getCipherBlockLowerBound(long leftmostBytePosition) {
         long cipherBlockSize = JceEncryptionConstants.SYMMETRIC_CIPHER_BLOCK_SIZE;
         long offset = leftmostBytePosition % cipherBlockSize;
@@ -893,7 +1021,9 @@ public class EncryptionUtils {
     /**
      * Takes the position of the rightmost desired byte of a user specified range and returns the
      * position of the end of the following cipher block.
+     * @deprecated no longer used and will be removed in the future
      */
+    @Deprecated
     private static long getCipherBlockUpperBound(long rightmostBytePosition) {
         long cipherBlockSize = JceEncryptionConstants.SYMMETRIC_CIPHER_BLOCK_SIZE;
         long offset = cipherBlockSize - (rightmostBytePosition % cipherBlockSize);

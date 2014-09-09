@@ -22,6 +22,7 @@ import com.amazonaws.services.s3.internal.ServiceUtils;
 import com.amazonaws.services.s3.internal.XmlWriter;
 import com.amazonaws.services.s3.model.BucketCrossOriginConfiguration;
 import com.amazonaws.services.s3.model.BucketLifecycleConfiguration;
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration.NoncurrentVersionTransition;
 import com.amazonaws.services.s3.model.BucketLifecycleConfiguration.Rule;
 import com.amazonaws.services.s3.model.BucketLifecycleConfiguration.Transition;
 import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
@@ -34,6 +35,7 @@ import com.amazonaws.services.s3.model.CORSRule;
 import com.amazonaws.services.s3.model.CORSRule.AllowedMethods;
 import com.amazonaws.services.s3.model.RoutingRule;
 import com.amazonaws.services.s3.model.RedirectRule;
+import com.amazonaws.services.s3.model.RoutingRuleCondition;
 import com.amazonaws.services.s3.model.TagSet;
 
 /**
@@ -208,6 +210,13 @@ public class BucketConfigurationXmlFactory {
                <Expiration>
                    <Days>365</Days>
                </Expiration>
+               <NoncurrentVersionTransition>
+                   <NoncurrentDays>7</NoncurrentDays>
+                   <StorageClass>GLACIER</StorageClass>
+               </NoncurrentVersionTransition>
+               <NoncurrentVersionExpiration>
+                   <NoncurrentDays>14</NoncurrentDays>
+               </NoncurrentVersionExpiration>
            </Rule>
            <Rule>
                <ID>image-rule</ID>
@@ -296,10 +305,35 @@ public class BucketConfigurationXmlFactory {
             xml.end(); // </Transition>
         }
 
+        NoncurrentVersionTransition ncvTransition =
+            rule.getNoncurrentVersionTransition();
+        if (ncvTransition != null) {
+            xml.start("NoncurrentVersionTransition");
+            if (ncvTransition.getDays() != -1) {
+                xml.start("NoncurrentDays");
+                xml.value(Integer.toString(ncvTransition.getDays()));
+                xml.end();
+            }
+
+            xml.start("StorageClass");
+            xml.value(ncvTransition.getStorageClass().toString());
+            xml.end();  // </StorageClass>
+            xml.end();  // </NoncurrentVersionTransition>
+        }
+
         if (rule.getExpirationInDays() != -1) {
             xml.start("Expiration");
             xml.start("Days").value("" + rule.getExpirationInDays()).end();
             xml.end(); // </Expiration>
+        }
+
+        if (rule.getNoncurrentVersionExpirationInDays() != -1) {
+            xml.start("NoncurrentVersionExpiration");
+            xml.start("NoncurrentDays")
+                .value(Integer.toString(
+                    rule.getNoncurrentVersionExpirationInDays()))
+                .end();
+            xml.end(); // </NoncurrentVersionExpiration>
         }
 
         if (rule.getExpirationDate() != null) {
@@ -344,37 +378,43 @@ public class BucketConfigurationXmlFactory {
 
     private void writeRule(XmlWriter xml, RoutingRule rule) {
         xml.start("RoutingRule");
-        if (rule.getCondition() != null) {
+        RoutingRuleCondition condition = rule.getCondition();
+        if (condition != null) {
             xml.start("Condition");
             xml.start("KeyPrefixEquals");
-            if (rule.getCondition().getKeyPrefixEquals() != null) {
-                xml.value(rule.getCondition().getKeyPrefixEquals());
+            if (condition.getKeyPrefixEquals() != null) {
+                xml.value(condition.getKeyPrefixEquals());
             }
             xml.end(); // </KeyPrefixEquals">
 
-            if (rule.getCondition().getHttpErrorCodeReturnedEquals() != null) {
-                xml.start("HttpErrorCodeReturnedEquals ").value(rule.getCondition().getHttpErrorCodeReturnedEquals()).end();
+            if (condition.getHttpErrorCodeReturnedEquals() != null) {
+                xml.start("HttpErrorCodeReturnedEquals ").value(condition.getHttpErrorCodeReturnedEquals()).end();
             }
 
             xml.end(); // </Condition>
         }
 
         xml.start("Redirect");
-        if (rule.getRedirect() != null) {
-            if (rule.getRedirect().getprotocol() != null) {
-                xml.start("Protocol").value(rule.getRedirect().getprotocol()).end();
+        RedirectRule redirect = rule.getRedirect();
+        if (redirect != null) {
+            if (redirect.getprotocol() != null) {
+                xml.start("Protocol").value(redirect.getprotocol()).end();
             }
 
-            if (rule.getRedirect().getHostName() != null) {
-                xml.start("HostName").value(rule.getRedirect().getHostName()).end();
+            if (redirect.getHostName() != null) {
+                xml.start("HostName").value(redirect.getHostName()).end();
             }
 
-            if (rule.getRedirect().getReplaceKeyPrefixWith() != null) {
-                xml.start("ReplaceKeyPrefixWith").value(rule.getRedirect().getReplaceKeyPrefixWith()).end();
+            if (redirect.getReplaceKeyPrefixWith() != null) {
+                xml.start("ReplaceKeyPrefixWith").value(redirect.getReplaceKeyPrefixWith()).end();
             }
 
-            if (rule.getRedirect().getReplaceKeyWith() != null) {
-                xml.start("ReplaceKeyWith").value(rule.getRedirect().getReplaceKeyWith()).end();
+            if (redirect.getReplaceKeyWith() != null) {
+                xml.start("ReplaceKeyWith").value(redirect.getReplaceKeyWith()).end();
+            }
+
+            if (redirect.getHttpRedirectCode() != null) {
+                xml.start("HttpRedirectCode").value(redirect.getHttpRedirectCode()).end();
             }
         }
         xml.end(); // </Redirect>

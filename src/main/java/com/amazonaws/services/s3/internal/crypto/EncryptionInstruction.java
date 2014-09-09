@@ -21,15 +21,17 @@ import javax.crypto.SecretKey;
 
 
 /**
+ * @deprecated this class is no longer used and will be removed in the future
+ * <p>
  * Contains information used to encrypt and decrypt objects in S3.
  */
+@Deprecated
 public class EncryptionInstruction {
 
     private final Map<String, String> materialsDescription;
     private final byte[] encryptedSymmetricKey;
-    private final SecretKey symmetricKey;
     private final Cipher symmetricCipher;
-    private CipherFactory symmetricCipherFactory;
+    private final CipherFactory symmetricCipherFactory;
 
     /**
      * Construct a new EncryptionInstruction object with the provided fields.
@@ -46,14 +48,13 @@ public class EncryptionInstruction {
     public EncryptionInstruction(Map<String, String> materialsDescription, byte[] encryptedSymmetricKey, SecretKey symmetricKey, Cipher symmetricCipher) {
         this.materialsDescription = materialsDescription;
         this.encryptedSymmetricKey = encryptedSymmetricKey;
-        this.symmetricKey = symmetricKey;
         this.symmetricCipher = symmetricCipher;
+        this.symmetricCipherFactory = null;
     }
 
     public EncryptionInstruction(Map<String, String> materialsDescription, byte[] encryptedSymmetricKey, SecretKey symmetricKey, CipherFactory symmetricCipherFactory) {
         this.materialsDescription = materialsDescription;
         this.encryptedSymmetricKey = encryptedSymmetricKey;
-        this.symmetricKey = symmetricKey;
         this.symmetricCipherFactory = symmetricCipherFactory;
         this.symmetricCipher = symmetricCipherFactory.createCipher();
     }
@@ -79,15 +80,6 @@ public class EncryptionInstruction {
      */
     public byte[] getEncryptedSymmetricKey() {
         return this.encryptedSymmetricKey;
-    }
-
-    /**
-     * Returns the envelope symmetric key.
-     *
-     * @return the envelope symmetric key.
-     */
-    public SecretKey getSymmetricKey() {
-        return this.symmetricKey;
     }
 
     /**

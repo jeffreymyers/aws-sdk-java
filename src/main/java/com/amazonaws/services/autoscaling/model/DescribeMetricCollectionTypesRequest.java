@@ -21,7 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#describeMetricCollectionTypes(DescribeMetricCollectionTypesRequest) DescribeMetricCollectionTypes operation}.
  * <p>
- * Returns a list of metrics and a corresponding list of granularities for each metric.
+ * Returns a list of metrics and a corresponding list of granularities
+ * for each metric.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> The GroupStandbyInstances metric is not returned by
+ * default. You must explicitly request it when calling
+ * EnableMetricsCollection.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeMetricCollectionTypes(DescribeMetricCollectionTypesRequest)

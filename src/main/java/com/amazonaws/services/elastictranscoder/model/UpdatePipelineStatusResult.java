@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * When you update status for a pipeline, Elastic Transcoder returns the values that you specified in the request.
+ * When you update status for a pipeline, Elastic Transcoder returns the
+ * values that you specified in the request.
  * </p>
  */
 public class UpdatePipelineStatusResult implements Serializable {
@@ -60,7 +61,7 @@ public class UpdatePipelineStatusResult implements Serializable {
      * @param pipeline A section of the response body that provides information about the
      *         pipeline.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdatePipelineStatusResult withPipeline(Pipeline pipeline) {

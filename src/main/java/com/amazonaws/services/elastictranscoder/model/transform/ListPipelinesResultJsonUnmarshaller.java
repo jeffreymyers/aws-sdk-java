@@ -37,7 +37,7 @@ public class ListPipelinesResultJsonUnmarshaller implements Unmarshaller<ListPip
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class ListPipelinesResultJsonUnmarshaller implements Unmarshaller<ListPip
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Pipelines", targetDepth)) {
+                    context.nextToken();
                     listPipelinesResult.setPipelines(new ListUnmarshaller<Pipeline>(PipelineJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("NextPageToken", targetDepth)) {

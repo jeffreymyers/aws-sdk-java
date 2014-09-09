@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheParameterGroups(DescribeCacheParameterGroupsRequest) DescribeCacheParameterGroups operation}.
  * <p>
- * The <i>DescribeCacheParameterGroups</i> operation returns a list of cache parameter group descriptions. If a cache parameter group name is specified,
- * the list will contain only the descriptions for that group.
+ * The <i>DescribeCacheParameterGroups</i> operation returns a list of
+ * cache parameter group descriptions. If a cache parameter group name is
+ * specified, the list will contain only the descriptions for that group.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheParameterGroups(DescribeCacheParameterGroupsRequest)
@@ -93,7 +94,7 @@ public class DescribeCacheParameterGroupsRequest extends AmazonWebServiceRequest
      *
      * @param cacheParameterGroupName The name of a specific cache parameter group to return details for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheParameterGroupsRequest withCacheParameterGroupName(String cacheParameterGroupName) {
@@ -144,7 +145,7 @@ public class DescribeCacheParameterGroupsRequest extends AmazonWebServiceRequest
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheParameterGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -195,7 +196,7 @@ public class DescribeCacheParameterGroupsRequest extends AmazonWebServiceRequest
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheParameterGroupsRequest withMarker(String marker) {

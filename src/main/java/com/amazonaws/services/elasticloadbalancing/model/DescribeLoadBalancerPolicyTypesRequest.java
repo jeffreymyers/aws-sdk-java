@@ -21,9 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeLoadBalancerPolicyTypes(DescribeLoadBalancerPolicyTypesRequest) DescribeLoadBalancerPolicyTypes operation}.
  * <p>
- * Returns meta-information on the specified load balancer policies defined by the Elastic Load Balancing service. The policy types that are returned
- * from this action can be used in a CreateLoadBalancerPolicy action to instantiate specific policy configurations that will be applied to a load
- * balancer.
+ * Returns meta-information on the specified load balancer policies
+ * defined by the Elastic Load Balancing service. The policy types that
+ * are returned from this action can be used in a
+ * CreateLoadBalancerPolicy action to instantiate specific policy
+ * configurations that will be applied to a load balancer.
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeLoadBalancerPolicyTypes(DescribeLoadBalancerPolicyTypesRequest)
@@ -84,7 +86,7 @@ public class DescribeLoadBalancerPolicyTypesRequest extends AmazonWebServiceRequ
      *         returns the description of all the policy types defined by Elastic
      *         Load Balancing service.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBalancerPolicyTypesRequest withPolicyTypeNames(String... policyTypeNames) {
@@ -106,7 +108,7 @@ public class DescribeLoadBalancerPolicyTypesRequest extends AmazonWebServiceRequ
      *         returns the description of all the policy types defined by Elastic
      *         Load Balancing service.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoadBalancerPolicyTypesRequest withPolicyTypeNames(java.util.Collection<String> policyTypeNames) {

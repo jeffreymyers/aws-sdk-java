@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A code and name pair that represent a severity level that can be applied to a support case.
+ * A code and name pair that represent a severity level that can be
+ * applied to a support case.
  * </p>
  */
 public class SeverityLevel implements Serializable {
@@ -73,7 +74,7 @@ public class SeverityLevel implements Serializable {
      *         values correspond to response times returned to the caller in
      *         <code>SeverityLevel.name</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SeverityLevel withCode(String code) {
@@ -112,7 +113,7 @@ public class SeverityLevel implements Serializable {
      * @param name The name of the severity level that corresponds to the severity level
      *         code.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SeverityLevel withName(String name) {

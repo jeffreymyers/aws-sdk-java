@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#describeLoggingStatus(DescribeLoggingStatusRequest) DescribeLoggingStatus operation}.
  * <p>
- * Describes whether information, such as queries and connection attempts, is being logged for the specified Amazon Redshift cluster.
+ * Describes whether information, such as queries and connection
+ * attempts, is being logged for the specified Amazon Redshift cluster.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#describeLoggingStatus(DescribeLoggingStatusRequest)
@@ -65,7 +66,7 @@ public class DescribeLoggingStatusRequest extends AmazonWebServiceRequest implem
      * @param clusterIdentifier The identifier of the cluster to get the logging status from.
      *         <p>Example: <code>examplecluster</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeLoggingStatusRequest withClusterIdentifier(String clusterIdentifier) {

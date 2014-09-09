@@ -26,7 +26,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  *
  * @see com.amazonaws.services.cloudsearch.AmazonCloudSearch#indexDocuments(IndexDocumentsRequest)
+ * @deprecated Use {@link com.amazonaws.services.cloudsearchv2.model.IndexDocumentsRequest} instead.
  */
+@Deprecated
 public class IndexDocumentsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**

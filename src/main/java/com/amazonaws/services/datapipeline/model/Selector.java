@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A comparision that is used to determine whether a query should return this object.
+ * A comparision that is used to determine whether a query should return
+ * this object.
  * </p>
  */
 public class Selector implements Serializable {
@@ -31,7 +32,7 @@ public class Selector implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String fieldName;
 
@@ -49,7 +50,7 @@ public class Selector implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the field that the operator will be applied to. The field
      *         name is the "key" portion of the field definition in the pipeline
@@ -68,7 +69,7 @@ public class Selector implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param fieldName The name of the field that the operator will be applied to. The field
      *         name is the "key" portion of the field definition in the pipeline
@@ -89,14 +90,14 @@ public class Selector implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 1024<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param fieldName The name of the field that the operator will be applied to. The field
      *         name is the "key" portion of the field definition in the pipeline
      *         definition syntax that is used by the AWS Data Pipeline API. If the
      *         field is not set on the object, the condition fails.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Selector withFieldName(String fieldName) {
@@ -135,7 +136,7 @@ public class Selector implements Serializable {
      * @param operator Contains a logical operation for comparing the value of a field with a
      *         specified value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Selector withOperator(Operator operator) {

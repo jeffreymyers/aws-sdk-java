@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>StatisticSet</code> data type describes the <code>StatisticValues</code> component of MetricDatum, and represents a set of statistics that
- * describes a specific metric.
+ * The <code>StatisticSet</code> data type describes the
+ * <code>StatisticValues</code> component of MetricDatum, and represents
+ * a set of statistics that describes a specific metric.
  * </p>
  */
 public class StatisticSet implements Serializable {
@@ -69,7 +70,7 @@ public class StatisticSet implements Serializable {
      *
      * @param sampleCount The number of samples used for the statistic set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StatisticSet withSampleCount(Double sampleCount) {
@@ -102,7 +103,7 @@ public class StatisticSet implements Serializable {
      *
      * @param sum The sum of values for the sample set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StatisticSet withSum(Double sum) {
@@ -135,7 +136,7 @@ public class StatisticSet implements Serializable {
      *
      * @param minimum The minimum value of the sample set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StatisticSet withMinimum(Double minimum) {
@@ -168,7 +169,7 @@ public class StatisticSet implements Serializable {
      *
      * @param maximum The maximum value of the sample set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public StatisticSet withMaximum(Double maximum) {

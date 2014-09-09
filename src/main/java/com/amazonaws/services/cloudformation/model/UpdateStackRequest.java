@@ -21,26 +21,24 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudformation.AmazonCloudFormation#updateStack(UpdateStackRequest) UpdateStack operation}.
  * <p>
- * Updates a stack as specified in the template. After the call completes successfully, the stack update starts. You can check the status of the stack
- * via the DescribeStacks action.
+ * Updates a stack as specified in the template. After the call completes
+ * successfully, the stack update starts. You can check the status of the
+ * stack via the DescribeStacks action.
  * </p>
  * <p>
+ * To get a copy of the template for an existing stack, you can use the
+ * GetTemplate action.
  * </p>
  * <p>
- * <b>Note: </b> You cannot update <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html">
- * AWS::S3::Bucket </a> resources, for example, to add or modify tags.
+ * Tags that were associated with this stack during creation time will
+ * still be associated with the stack after an <code>UpdateStack</code>
+ * operation.
  * </p>
  * <p>
- * </p>
- * <p>
- * To get a copy of the template for an existing stack, you can use the GetTemplate action.
- * </p>
- * <p>
- * Tags that were associated with this stack during creation time will still be associated with the stack after an <code>UpdateStack</code> operation.
- * </p>
- * <p>
- * For more information about creating an update template, updating a stack, and monitoring the progress of the update, see <a
- * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a> .
+ * For more information about creating an update template, updating a
+ * stack, and monitoring the progress of the update, see
+ * <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html"> Updating a Stack </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.cloudformation.AmazonCloudFormation#updateStack(UpdateStackRequest)
@@ -55,12 +53,12 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     private String stackName;
 
     /**
-     * Structure containing the template body. (For more information, go to
-     * the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     * <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * Structure containing the template body with a minimum length of 1 byte
+     * and a maximum length of 51,200 bytes. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
@@ -70,11 +68,11 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of file containing the template body. The URL must point to a
      * template located in an S3 bucket in the same region as the stack. For
-     * more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>. <p>Conditional: You must pass
-     * <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
@@ -82,13 +80,18 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     private String templateURL;
 
     /**
-     * Structure containing the temporary overriding stack policy body. If
-     * you pass <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that associated with the stack will be used.
+     * Reuse the existing template that is associated with the stack that you
+     * are updating.
+     */
+    private Boolean usePreviousTemplate;
+
+    /**
+     * Structure containing the temporary overriding stack policy body. You
+     * can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
@@ -98,13 +101,12 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the temporary overriding stack policy.
      * The URL must point to a policy (max size: 16KB) located in an S3
-     * bucket in the same region as the stack. If you pass
-     * <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that is associated with the stack will be used.
+     * bucket in the same region as the stack. You can specify either the
+     * <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1350<br/>
@@ -135,14 +137,12 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> capabilities;
 
     /**
-     * Structure containing the updated stack policy body. If you pass
-     * <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     * <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     * policy during a stack update, specify an updated stack policy. For
-     * example, you can include an updated stack policy to protect a new
-     * resource created in the stack update. If you do not specify a stack
-     * policy, the current policy that is associated with the stack is
-     * unchanged.
+     * Structure containing a new stack policy body. You can specify either
+     * the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
@@ -152,18 +152,26 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the updated stack policy. The URL must
      * point to a policy (max size: 16KB) located in an S3 bucket in the same
-     * region as the stack. If you pass <code>StackPolicyBody</code> and
-     * <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     * used. <p>If you want to update a stack policy during a stack update,
-     * specify an updated stack policy. For example, you can include an
-     * updated stack policy to protect a new resource created in the stack
-     * update. If you do not specify a stack policy, the current policy that
-     * is associated with the stack is unchanged.
+     * region as the stack. You can specify either the
+     * <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1350<br/>
      */
     private String stackPolicyURL;
+
+    /**
+     * Update the ARNs for the Amazon SNS topics that are associated with the
+     * stack.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     */
+    private com.amazonaws.internal.ListWithAutoConstructFlag<String> notificationARNs;
 
     /**
      * The name or stack ID of the stack to update. <note> Must contain only
@@ -202,7 +210,7 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         alphanumeric characters (case sensitive) and start with an alpha
      *         character. Maximum length of the name is 255 characters. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withStackName(String stackName) {
@@ -211,70 +219,70 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     }
 
     /**
-     * Structure containing the template body. (For more information, go to
-     * the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     * <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * Structure containing the template body with a minimum length of 1 byte
+     * and a maximum length of 51,200 bytes. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @return Structure containing the template body. (For more information, go to
-     *         the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     *         <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     *         passed, only <code>TemplateBody</code> is used.
+     * @return Structure containing the template body with a minimum length of 1 byte
+     *         and a maximum length of 51,200 bytes. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     *         Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     *         must specify either the <code>TemplateBody</code> or the
+     *         <code>TemplateURL</code> parameter, but not both.
      */
     public String getTemplateBody() {
         return templateBody;
     }
     
     /**
-     * Structure containing the template body. (For more information, go to
-     * the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     * <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * Structure containing the template body with a minimum length of 1 byte
+     * and a maximum length of 51,200 bytes. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @param templateBody Structure containing the template body. (For more information, go to
-     *         the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     *         <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     *         passed, only <code>TemplateBody</code> is used.
+     * @param templateBody Structure containing the template body with a minimum length of 1 byte
+     *         and a maximum length of 51,200 bytes. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     *         Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     *         must specify either the <code>TemplateBody</code> or the
+     *         <code>TemplateURL</code> parameter, but not both.
      */
     public void setTemplateBody(String templateBody) {
         this.templateBody = templateBody;
     }
     
     /**
-     * Structure containing the template body. (For more information, go to
-     * the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     * <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * Structure containing the template body with a minimum length of 1 byte
+     * and a maximum length of 51,200 bytes. (For more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @param templateBody Structure containing the template body. (For more information, go to
-     *         the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>.) <p>Conditional: You must pass
-     *         <code>TemplateBody</code> or <code>TemplateURL</code>. If both are
-     *         passed, only <code>TemplateBody</code> is used.
+     * @param templateBody Structure containing the template body with a minimum length of 1 byte
+     *         and a maximum length of 51,200 bytes. (For more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     *         Anatomy</a> in the AWS CloudFormation User Guide.) <p>Conditional: You
+     *         must specify either the <code>TemplateBody</code> or the
+     *         <code>TemplateURL</code> parameter, but not both.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withTemplateBody(String templateBody) {
@@ -285,22 +293,22 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of file containing the template body. The URL must point to a
      * template located in an S3 bucket in the same region as the stack. For
-     * more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>. <p>Conditional: You must pass
-     * <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      *
      * @return Location of file containing the template body. The URL must point to a
      *         template located in an S3 bucket in the same region as the stack. For
-     *         more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>. <p>Conditional: You must pass
-     *         <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     *         passed, only <code>TemplateBody</code> is used.
+     *         more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     *         Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     *         must specify either the <code>TemplateBody</code> or the
+     *         <code>TemplateURL</code> parameter, but not both.
      */
     public String getTemplateURL() {
         return templateURL;
@@ -309,22 +317,22 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of file containing the template body. The URL must point to a
      * template located in an S3 bucket in the same region as the stack. For
-     * more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>. <p>Conditional: You must pass
-     * <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      *
      * @param templateURL Location of file containing the template body. The URL must point to a
      *         template located in an S3 bucket in the same region as the stack. For
-     *         more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>. <p>Conditional: You must pass
-     *         <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     *         passed, only <code>TemplateBody</code> is used.
+     *         more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     *         Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     *         must specify either the <code>TemplateBody</code> or the
+     *         <code>TemplateURL</code> parameter, but not both.
      */
     public void setTemplateURL(String templateURL) {
         this.templateURL = templateURL;
@@ -333,11 +341,11 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of file containing the template body. The URL must point to a
      * template located in an S3 bucket in the same region as the stack. For
-     * more information, go to the <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     * CloudFormation User Guide</a>. <p>Conditional: You must pass
-     * <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     * passed, only <code>TemplateBody</code> is used.
+     * more information, go to <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     * Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     * must specify either the <code>TemplateBody</code> or the
+     * <code>TemplateURL</code> parameter, but not both.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -346,13 +354,13 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param templateURL Location of file containing the template body. The URL must point to a
      *         template located in an S3 bucket in the same region as the stack. For
-     *         more information, go to the <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide">AWS
-     *         CloudFormation User Guide</a>. <p>Conditional: You must pass
-     *         <code>TemplateURL</code> or <code>TemplateBody</code>. If both are
-     *         passed, only <code>TemplateBody</code> is used.
+     *         more information, go to <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
+     *         Anatomy</a> in the AWS CloudFormation User Guide. <p>Conditional: You
+     *         must specify either the <code>TemplateBody</code> or the
+     *         <code>TemplateURL</code> parameter, but not both.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withTemplateURL(String templateURL) {
@@ -361,76 +369,120 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     }
 
     /**
-     * Structure containing the temporary overriding stack policy body. If
-     * you pass <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that associated with the stack will be used.
+     * Reuse the existing template that is associated with the stack that you
+     * are updating.
+     *
+     * @return Reuse the existing template that is associated with the stack that you
+     *         are updating.
+     */
+    public Boolean isUsePreviousTemplate() {
+        return usePreviousTemplate;
+    }
+    
+    /**
+     * Reuse the existing template that is associated with the stack that you
+     * are updating.
+     *
+     * @param usePreviousTemplate Reuse the existing template that is associated with the stack that you
+     *         are updating.
+     */
+    public void setUsePreviousTemplate(Boolean usePreviousTemplate) {
+        this.usePreviousTemplate = usePreviousTemplate;
+    }
+    
+    /**
+     * Reuse the existing template that is associated with the stack that you
+     * are updating.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param usePreviousTemplate Reuse the existing template that is associated with the stack that you
+     *         are updating.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public UpdateStackRequest withUsePreviousTemplate(Boolean usePreviousTemplate) {
+        this.usePreviousTemplate = usePreviousTemplate;
+        return this;
+    }
+
+    /**
+     * Reuse the existing template that is associated with the stack that you
+     * are updating.
+     *
+     * @return Reuse the existing template that is associated with the stack that you
+     *         are updating.
+     */
+    public Boolean getUsePreviousTemplate() {
+        return usePreviousTemplate;
+    }
+
+    /**
+     * Structure containing the temporary overriding stack policy body. You
+     * can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
      *
-     * @return Structure containing the temporary overriding stack policy body. If
-     *         you pass <code>StackPolicyDuringUpdateBody</code> and
-     *         <code>StackPolicyDuringUpdateURL</code>, only
-     *         <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     *         update protected resources, specify a temporary overriding stack
-     *         policy during this update. If you do not specify a stack policy, the
-     *         current policy that associated with the stack will be used.
+     * @return Structure containing the temporary overriding stack policy body. You
+     *         can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     *         <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     *         you want to update protected resources, specify a temporary overriding
+     *         stack policy during this update. If you do not specify a stack policy,
+     *         the current policy that is associated with the stack will be used.
      */
     public String getStackPolicyDuringUpdateBody() {
         return stackPolicyDuringUpdateBody;
     }
     
     /**
-     * Structure containing the temporary overriding stack policy body. If
-     * you pass <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that associated with the stack will be used.
+     * Structure containing the temporary overriding stack policy body. You
+     * can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
      *
-     * @param stackPolicyDuringUpdateBody Structure containing the temporary overriding stack policy body. If
-     *         you pass <code>StackPolicyDuringUpdateBody</code> and
-     *         <code>StackPolicyDuringUpdateURL</code>, only
-     *         <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     *         update protected resources, specify a temporary overriding stack
-     *         policy during this update. If you do not specify a stack policy, the
-     *         current policy that associated with the stack will be used.
+     * @param stackPolicyDuringUpdateBody Structure containing the temporary overriding stack policy body. You
+     *         can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     *         <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     *         you want to update protected resources, specify a temporary overriding
+     *         stack policy during this update. If you do not specify a stack policy,
+     *         the current policy that is associated with the stack will be used.
      */
     public void setStackPolicyDuringUpdateBody(String stackPolicyDuringUpdateBody) {
         this.stackPolicyDuringUpdateBody = stackPolicyDuringUpdateBody;
     }
     
     /**
-     * Structure containing the temporary overriding stack policy body. If
-     * you pass <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that associated with the stack will be used.
+     * Structure containing the temporary overriding stack policy body. You
+     * can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
      *
-     * @param stackPolicyDuringUpdateBody Structure containing the temporary overriding stack policy body. If
-     *         you pass <code>StackPolicyDuringUpdateBody</code> and
-     *         <code>StackPolicyDuringUpdateURL</code>, only
-     *         <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     *         update protected resources, specify a temporary overriding stack
-     *         policy during this update. If you do not specify a stack policy, the
-     *         current policy that associated with the stack will be used.
+     * @param stackPolicyDuringUpdateBody Structure containing the temporary overriding stack policy body. You
+     *         can specify either the <code>StackPolicyDuringUpdateBody</code> or the
+     *         <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     *         you want to update protected resources, specify a temporary overriding
+     *         stack policy during this update. If you do not specify a stack policy,
+     *         the current policy that is associated with the stack will be used.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withStackPolicyDuringUpdateBody(String stackPolicyDuringUpdateBody) {
@@ -441,26 +493,24 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the temporary overriding stack policy.
      * The URL must point to a policy (max size: 16KB) located in an S3
-     * bucket in the same region as the stack. If you pass
-     * <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that is associated with the stack will be used.
+     * bucket in the same region as the stack. You can specify either the
+     * <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1350<br/>
      *
      * @return Location of a file containing the temporary overriding stack policy.
      *         The URL must point to a policy (max size: 16KB) located in an S3
-     *         bucket in the same region as the stack. If you pass
-     *         <code>StackPolicyDuringUpdateBody</code> and
-     *         <code>StackPolicyDuringUpdateURL</code>, only
-     *         <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     *         update protected resources, specify a temporary overriding stack
-     *         policy during this update. If you do not specify a stack policy, the
-     *         current policy that is associated with the stack will be used.
+     *         bucket in the same region as the stack. You can specify either the
+     *         <code>StackPolicyDuringUpdateBody</code> or the
+     *         <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     *         you want to update protected resources, specify a temporary overriding
+     *         stack policy during this update. If you do not specify a stack policy,
+     *         the current policy that is associated with the stack will be used.
      */
     public String getStackPolicyDuringUpdateURL() {
         return stackPolicyDuringUpdateURL;
@@ -469,26 +519,24 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the temporary overriding stack policy.
      * The URL must point to a policy (max size: 16KB) located in an S3
-     * bucket in the same region as the stack. If you pass
-     * <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that is associated with the stack will be used.
+     * bucket in the same region as the stack. You can specify either the
+     * <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1350<br/>
      *
      * @param stackPolicyDuringUpdateURL Location of a file containing the temporary overriding stack policy.
      *         The URL must point to a policy (max size: 16KB) located in an S3
-     *         bucket in the same region as the stack. If you pass
-     *         <code>StackPolicyDuringUpdateBody</code> and
-     *         <code>StackPolicyDuringUpdateURL</code>, only
-     *         <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     *         update protected resources, specify a temporary overriding stack
-     *         policy during this update. If you do not specify a stack policy, the
-     *         current policy that is associated with the stack will be used.
+     *         bucket in the same region as the stack. You can specify either the
+     *         <code>StackPolicyDuringUpdateBody</code> or the
+     *         <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     *         you want to update protected resources, specify a temporary overriding
+     *         stack policy during this update. If you do not specify a stack policy,
+     *         the current policy that is associated with the stack will be used.
      */
     public void setStackPolicyDuringUpdateURL(String stackPolicyDuringUpdateURL) {
         this.stackPolicyDuringUpdateURL = stackPolicyDuringUpdateURL;
@@ -497,13 +545,12 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the temporary overriding stack policy.
      * The URL must point to a policy (max size: 16KB) located in an S3
-     * bucket in the same region as the stack. If you pass
-     * <code>StackPolicyDuringUpdateBody</code> and
-     * <code>StackPolicyDuringUpdateURL</code>, only
-     * <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     * update protected resources, specify a temporary overriding stack
-     * policy during this update. If you do not specify a stack policy, the
-     * current policy that is associated with the stack will be used.
+     * bucket in the same region as the stack. You can specify either the
+     * <code>StackPolicyDuringUpdateBody</code> or the
+     * <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     * you want to update protected resources, specify a temporary overriding
+     * stack policy during this update. If you do not specify a stack policy,
+     * the current policy that is associated with the stack will be used.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -512,15 +559,14 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param stackPolicyDuringUpdateURL Location of a file containing the temporary overriding stack policy.
      *         The URL must point to a policy (max size: 16KB) located in an S3
-     *         bucket in the same region as the stack. If you pass
-     *         <code>StackPolicyDuringUpdateBody</code> and
-     *         <code>StackPolicyDuringUpdateURL</code>, only
-     *         <code>StackPolicyDuringUpdateBody</code> is used. <p>If you want to
-     *         update protected resources, specify a temporary overriding stack
-     *         policy during this update. If you do not specify a stack policy, the
-     *         current policy that is associated with the stack will be used.
+     *         bucket in the same region as the stack. You can specify either the
+     *         <code>StackPolicyDuringUpdateBody</code> or the
+     *         <code>StackPolicyDuringUpdateURL</code> parameter, but not both. <p>If
+     *         you want to update protected resources, specify a temporary overriding
+     *         stack policy during this update. If you do not specify a stack policy,
+     *         the current policy that is associated with the stack will be used.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withStackPolicyDuringUpdateURL(String stackPolicyDuringUpdateURL) {
@@ -569,7 +615,7 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * @param parameters A list of <code>Parameter</code> structures that specify input
      *         parameters for the stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withParameters(Parameter... parameters) {
@@ -589,7 +635,7 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * @param parameters A list of <code>Parameter</code> structures that specify input
      *         parameters for the stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withParameters(java.util.Collection<Parameter> parameters) {
@@ -711,7 +757,7 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         and <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html">AWS::IAM::UserToGroupAddition</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withCapabilities(String... capabilities) {
@@ -753,7 +799,7 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         and <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html">AWS::IAM::UserToGroupAddition</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withCapabilities(java.util.Collection<String> capabilities) {
@@ -799,7 +845,7 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         and <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html">AWS::IAM::UserToGroupAddition</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withCapabilities(Capability... capabilities) {
@@ -816,82 +862,70 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     }
 
     /**
-     * Structure containing the updated stack policy body. If you pass
-     * <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     * <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     * policy during a stack update, specify an updated stack policy. For
-     * example, you can include an updated stack policy to protect a new
-     * resource created in the stack update. If you do not specify a stack
-     * policy, the current policy that is associated with the stack is
-     * unchanged.
+     * Structure containing a new stack policy body. You can specify either
+     * the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
      *
-     * @return Structure containing the updated stack policy body. If you pass
-     *         <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     *         <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     *         policy during a stack update, specify an updated stack policy. For
-     *         example, you can include an updated stack policy to protect a new
-     *         resource created in the stack update. If you do not specify a stack
-     *         policy, the current policy that is associated with the stack is
-     *         unchanged.
+     * @return Structure containing a new stack policy body. You can specify either
+     *         the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     *         parameter, but not both. <p>You might update the stack policy, for
+     *         example, in order to protect a new resource that you created during a
+     *         stack update. If you do not specify a stack policy, the current policy
+     *         that is associated with the stack is unchanged.
      */
     public String getStackPolicyBody() {
         return stackPolicyBody;
     }
     
     /**
-     * Structure containing the updated stack policy body. If you pass
-     * <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     * <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     * policy during a stack update, specify an updated stack policy. For
-     * example, you can include an updated stack policy to protect a new
-     * resource created in the stack update. If you do not specify a stack
-     * policy, the current policy that is associated with the stack is
-     * unchanged.
+     * Structure containing a new stack policy body. You can specify either
+     * the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
      *
-     * @param stackPolicyBody Structure containing the updated stack policy body. If you pass
-     *         <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     *         <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     *         policy during a stack update, specify an updated stack policy. For
-     *         example, you can include an updated stack policy to protect a new
-     *         resource created in the stack update. If you do not specify a stack
-     *         policy, the current policy that is associated with the stack is
-     *         unchanged.
+     * @param stackPolicyBody Structure containing a new stack policy body. You can specify either
+     *         the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     *         parameter, but not both. <p>You might update the stack policy, for
+     *         example, in order to protect a new resource that you created during a
+     *         stack update. If you do not specify a stack policy, the current policy
+     *         that is associated with the stack is unchanged.
      */
     public void setStackPolicyBody(String stackPolicyBody) {
         this.stackPolicyBody = stackPolicyBody;
     }
     
     /**
-     * Structure containing the updated stack policy body. If you pass
-     * <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     * <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     * policy during a stack update, specify an updated stack policy. For
-     * example, you can include an updated stack policy to protect a new
-     * resource created in the stack update. If you do not specify a stack
-     * policy, the current policy that is associated with the stack is
-     * unchanged.
+     * Structure containing a new stack policy body. You can specify either
+     * the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
      *
-     * @param stackPolicyBody Structure containing the updated stack policy body. If you pass
-     *         <code>StackPolicyBody</code> and <code>StackPolicyURL</code>, only
-     *         <code>StackPolicyBody</code> is used. <p>If you want to update a stack
-     *         policy during a stack update, specify an updated stack policy. For
-     *         example, you can include an updated stack policy to protect a new
-     *         resource created in the stack update. If you do not specify a stack
-     *         policy, the current policy that is associated with the stack is
-     *         unchanged.
+     * @param stackPolicyBody Structure containing a new stack policy body. You can specify either
+     *         the <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     *         parameter, but not both. <p>You might update the stack policy, for
+     *         example, in order to protect a new resource that you created during a
+     *         stack update. If you do not specify a stack policy, the current policy
+     *         that is associated with the stack is unchanged.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withStackPolicyBody(String stackPolicyBody) {
@@ -902,26 +936,24 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the updated stack policy. The URL must
      * point to a policy (max size: 16KB) located in an S3 bucket in the same
-     * region as the stack. If you pass <code>StackPolicyBody</code> and
-     * <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     * used. <p>If you want to update a stack policy during a stack update,
-     * specify an updated stack policy. For example, you can include an
-     * updated stack policy to protect a new resource created in the stack
-     * update. If you do not specify a stack policy, the current policy that
-     * is associated with the stack is unchanged.
+     * region as the stack. You can specify either the
+     * <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1350<br/>
      *
      * @return Location of a file containing the updated stack policy. The URL must
      *         point to a policy (max size: 16KB) located in an S3 bucket in the same
-     *         region as the stack. If you pass <code>StackPolicyBody</code> and
-     *         <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     *         used. <p>If you want to update a stack policy during a stack update,
-     *         specify an updated stack policy. For example, you can include an
-     *         updated stack policy to protect a new resource created in the stack
-     *         update. If you do not specify a stack policy, the current policy that
-     *         is associated with the stack is unchanged.
+     *         region as the stack. You can specify either the
+     *         <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     *         parameter, but not both. <p>You might update the stack policy, for
+     *         example, in order to protect a new resource that you created during a
+     *         stack update. If you do not specify a stack policy, the current policy
+     *         that is associated with the stack is unchanged.
      */
     public String getStackPolicyURL() {
         return stackPolicyURL;
@@ -930,26 +962,24 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the updated stack policy. The URL must
      * point to a policy (max size: 16KB) located in an S3 bucket in the same
-     * region as the stack. If you pass <code>StackPolicyBody</code> and
-     * <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     * used. <p>If you want to update a stack policy during a stack update,
-     * specify an updated stack policy. For example, you can include an
-     * updated stack policy to protect a new resource created in the stack
-     * update. If you do not specify a stack policy, the current policy that
-     * is associated with the stack is unchanged.
+     * region as the stack. You can specify either the
+     * <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1350<br/>
      *
      * @param stackPolicyURL Location of a file containing the updated stack policy. The URL must
      *         point to a policy (max size: 16KB) located in an S3 bucket in the same
-     *         region as the stack. If you pass <code>StackPolicyBody</code> and
-     *         <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     *         used. <p>If you want to update a stack policy during a stack update,
-     *         specify an updated stack policy. For example, you can include an
-     *         updated stack policy to protect a new resource created in the stack
-     *         update. If you do not specify a stack policy, the current policy that
-     *         is associated with the stack is unchanged.
+     *         region as the stack. You can specify either the
+     *         <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     *         parameter, but not both. <p>You might update the stack policy, for
+     *         example, in order to protect a new resource that you created during a
+     *         stack update. If you do not specify a stack policy, the current policy
+     *         that is associated with the stack is unchanged.
      */
     public void setStackPolicyURL(String stackPolicyURL) {
         this.stackPolicyURL = stackPolicyURL;
@@ -958,13 +988,12 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Location of a file containing the updated stack policy. The URL must
      * point to a policy (max size: 16KB) located in an S3 bucket in the same
-     * region as the stack. If you pass <code>StackPolicyBody</code> and
-     * <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     * used. <p>If you want to update a stack policy during a stack update,
-     * specify an updated stack policy. For example, you can include an
-     * updated stack policy to protect a new resource created in the stack
-     * update. If you do not specify a stack policy, the current policy that
-     * is associated with the stack is unchanged.
+     * region as the stack. You can specify either the
+     * <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     * parameter, but not both. <p>You might update the stack policy, for
+     * example, in order to protect a new resource that you created during a
+     * stack update. If you do not specify a stack policy, the current policy
+     * that is associated with the stack is unchanged.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -973,19 +1002,106 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param stackPolicyURL Location of a file containing the updated stack policy. The URL must
      *         point to a policy (max size: 16KB) located in an S3 bucket in the same
-     *         region as the stack. If you pass <code>StackPolicyBody</code> and
-     *         <code>StackPolicyURL</code>, only <code>StackPolicyBody</code> is
-     *         used. <p>If you want to update a stack policy during a stack update,
-     *         specify an updated stack policy. For example, you can include an
-     *         updated stack policy to protect a new resource created in the stack
-     *         update. If you do not specify a stack policy, the current policy that
-     *         is associated with the stack is unchanged.
+     *         region as the stack. You can specify either the
+     *         <code>StackPolicyBody</code> or the <code>StackPolicyURL</code>
+     *         parameter, but not both. <p>You might update the stack policy, for
+     *         example, in order to protect a new resource that you created during a
+     *         stack update. If you do not specify a stack policy, the current policy
+     *         that is associated with the stack is unchanged.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateStackRequest withStackPolicyURL(String stackPolicyURL) {
         this.stackPolicyURL = stackPolicyURL;
+        return this;
+    }
+
+    /**
+     * Update the ARNs for the Amazon SNS topics that are associated with the
+     * stack.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     *
+     * @return Update the ARNs for the Amazon SNS topics that are associated with the
+     *         stack.
+     */
+    public java.util.List<String> getNotificationARNs() {
+        if (notificationARNs == null) {
+              notificationARNs = new com.amazonaws.internal.ListWithAutoConstructFlag<String>();
+              notificationARNs.setAutoConstruct(true);
+        }
+        return notificationARNs;
+    }
+    
+    /**
+     * Update the ARNs for the Amazon SNS topics that are associated with the
+     * stack.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     *
+     * @param notificationARNs Update the ARNs for the Amazon SNS topics that are associated with the
+     *         stack.
+     */
+    public void setNotificationARNs(java.util.Collection<String> notificationARNs) {
+        if (notificationARNs == null) {
+            this.notificationARNs = null;
+            return;
+        }
+        com.amazonaws.internal.ListWithAutoConstructFlag<String> notificationARNsCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(notificationARNs.size());
+        notificationARNsCopy.addAll(notificationARNs);
+        this.notificationARNs = notificationARNsCopy;
+    }
+    
+    /**
+     * Update the ARNs for the Amazon SNS topics that are associated with the
+     * stack.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     *
+     * @param notificationARNs Update the ARNs for the Amazon SNS topics that are associated with the
+     *         stack.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public UpdateStackRequest withNotificationARNs(String... notificationARNs) {
+        if (getNotificationARNs() == null) setNotificationARNs(new java.util.ArrayList<String>(notificationARNs.length));
+        for (String value : notificationARNs) {
+            getNotificationARNs().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * Update the ARNs for the Amazon SNS topics that are associated with the
+     * stack.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     *
+     * @param notificationARNs Update the ARNs for the Amazon SNS topics that are associated with the
+     *         stack.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public UpdateStackRequest withNotificationARNs(java.util.Collection<String> notificationARNs) {
+        if (notificationARNs == null) {
+            this.notificationARNs = null;
+        } else {
+            com.amazonaws.internal.ListWithAutoConstructFlag<String> notificationARNsCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(notificationARNs.size());
+            notificationARNsCopy.addAll(notificationARNs);
+            this.notificationARNs = notificationARNsCopy;
+        }
+
         return this;
     }
 
@@ -1004,12 +1120,14 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
         if (getStackName() != null) sb.append("StackName: " + getStackName() + ",");
         if (getTemplateBody() != null) sb.append("TemplateBody: " + getTemplateBody() + ",");
         if (getTemplateURL() != null) sb.append("TemplateURL: " + getTemplateURL() + ",");
+        if (isUsePreviousTemplate() != null) sb.append("UsePreviousTemplate: " + isUsePreviousTemplate() + ",");
         if (getStackPolicyDuringUpdateBody() != null) sb.append("StackPolicyDuringUpdateBody: " + getStackPolicyDuringUpdateBody() + ",");
         if (getStackPolicyDuringUpdateURL() != null) sb.append("StackPolicyDuringUpdateURL: " + getStackPolicyDuringUpdateURL() + ",");
         if (getParameters() != null) sb.append("Parameters: " + getParameters() + ",");
         if (getCapabilities() != null) sb.append("Capabilities: " + getCapabilities() + ",");
         if (getStackPolicyBody() != null) sb.append("StackPolicyBody: " + getStackPolicyBody() + ",");
-        if (getStackPolicyURL() != null) sb.append("StackPolicyURL: " + getStackPolicyURL() );
+        if (getStackPolicyURL() != null) sb.append("StackPolicyURL: " + getStackPolicyURL() + ",");
+        if (getNotificationARNs() != null) sb.append("NotificationARNs: " + getNotificationARNs() );
         sb.append("}");
         return sb.toString();
     }
@@ -1022,12 +1140,14 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
         hashCode = prime * hashCode + ((getStackName() == null) ? 0 : getStackName().hashCode()); 
         hashCode = prime * hashCode + ((getTemplateBody() == null) ? 0 : getTemplateBody().hashCode()); 
         hashCode = prime * hashCode + ((getTemplateURL() == null) ? 0 : getTemplateURL().hashCode()); 
+        hashCode = prime * hashCode + ((isUsePreviousTemplate() == null) ? 0 : isUsePreviousTemplate().hashCode()); 
         hashCode = prime * hashCode + ((getStackPolicyDuringUpdateBody() == null) ? 0 : getStackPolicyDuringUpdateBody().hashCode()); 
         hashCode = prime * hashCode + ((getStackPolicyDuringUpdateURL() == null) ? 0 : getStackPolicyDuringUpdateURL().hashCode()); 
         hashCode = prime * hashCode + ((getParameters() == null) ? 0 : getParameters().hashCode()); 
         hashCode = prime * hashCode + ((getCapabilities() == null) ? 0 : getCapabilities().hashCode()); 
         hashCode = prime * hashCode + ((getStackPolicyBody() == null) ? 0 : getStackPolicyBody().hashCode()); 
         hashCode = prime * hashCode + ((getStackPolicyURL() == null) ? 0 : getStackPolicyURL().hashCode()); 
+        hashCode = prime * hashCode + ((getNotificationARNs() == null) ? 0 : getNotificationARNs().hashCode()); 
         return hashCode;
     }
     
@@ -1045,6 +1165,8 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
         if (other.getTemplateBody() != null && other.getTemplateBody().equals(this.getTemplateBody()) == false) return false; 
         if (other.getTemplateURL() == null ^ this.getTemplateURL() == null) return false;
         if (other.getTemplateURL() != null && other.getTemplateURL().equals(this.getTemplateURL()) == false) return false; 
+        if (other.isUsePreviousTemplate() == null ^ this.isUsePreviousTemplate() == null) return false;
+        if (other.isUsePreviousTemplate() != null && other.isUsePreviousTemplate().equals(this.isUsePreviousTemplate()) == false) return false; 
         if (other.getStackPolicyDuringUpdateBody() == null ^ this.getStackPolicyDuringUpdateBody() == null) return false;
         if (other.getStackPolicyDuringUpdateBody() != null && other.getStackPolicyDuringUpdateBody().equals(this.getStackPolicyDuringUpdateBody()) == false) return false; 
         if (other.getStackPolicyDuringUpdateURL() == null ^ this.getStackPolicyDuringUpdateURL() == null) return false;
@@ -1057,6 +1179,8 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
         if (other.getStackPolicyBody() != null && other.getStackPolicyBody().equals(this.getStackPolicyBody()) == false) return false; 
         if (other.getStackPolicyURL() == null ^ this.getStackPolicyURL() == null) return false;
         if (other.getStackPolicyURL() != null && other.getStackPolicyURL().equals(this.getStackPolicyURL()) == false) return false; 
+        if (other.getNotificationARNs() == null ^ this.getNotificationARNs() == null) return false;
+        if (other.getNotificationARNs() != null && other.getNotificationARNs().equals(this.getNotificationARNs()) == false) return false; 
         return true;
     }
     

@@ -24,12 +24,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Requests a description of a specified set of deployments.
  * </p>
  * <p>
- * <b>NOTE:</b>You must specify at least one of the parameters.
+ * <b>NOTE:</b> You must specify at least one of the parameters.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeDeployments(DescribeDeploymentsRequest)
@@ -95,7 +98,7 @@ public class DescribeDeploymentsRequest extends AmazonWebServiceRequest implemen
      *         <code>DescribeDeployments</code> returns a description of the commands
      *         associated with the specified stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDeploymentsRequest withStackId(String stackId) {
@@ -140,7 +143,7 @@ public class DescribeDeploymentsRequest extends AmazonWebServiceRequest implemen
      *         <code>DescribeDeployments</code> returns a description of the commands
      *         associated with the specified app.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDeploymentsRequest withAppId(String appId) {
@@ -201,7 +204,7 @@ public class DescribeDeploymentsRequest extends AmazonWebServiceRequest implemen
      *         the specified deployments. Otherwise, it returns a description of
      *         every deployment.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDeploymentsRequest withDeploymentIds(String... deploymentIds) {
@@ -225,7 +228,7 @@ public class DescribeDeploymentsRequest extends AmazonWebServiceRequest implemen
      *         the specified deployments. Otherwise, it returns a description of
      *         every deployment.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDeploymentsRequest withDeploymentIds(java.util.Collection<String> deploymentIds) {

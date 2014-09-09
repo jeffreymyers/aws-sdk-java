@@ -14,13 +14,18 @@
  */
 package com.amazonaws.services.elastictranscoder.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+import static com.amazonaws.util.StringUtils.COMMA_SEPARATOR;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
@@ -38,37 +43,56 @@ import com.amazonaws.util.json.*;
  */
 public class CreateJobRequestMarshaller implements Marshaller<Request<CreateJobRequest>, CreateJobRequest> {
 
-    public Request<CreateJobRequest> marshall(CreateJobRequest createJobRequest) {
-    if (createJobRequest == null) {
-        throw new AmazonClientException("Invalid argument passed to marshall(...)");
-    }
+    private static final String RESOURCE_PATH_TEMPLATE;
+    private static final Map<String, String> STATIC_QUERY_PARAMS;
+    private static final Map<String, String> DYNAMIC_QUERY_PARAMS;
+    static {
+        String path = "2012-09-25/jobs";
+        Map<String, String> staticMap = new HashMap<String, String>();
+        Map<String, String> dynamicMap = new HashMap<String, String>();
 
-        Request<CreateJobRequest> request = new DefaultRequest<CreateJobRequest>(createJobRequest, "AmazonElasticTranscoder");
-        String target = "EtsCustomerService.CreateJob";
-        request.addHeader("X-Amz-Target", target);
-        request.addHeader("Content-Type", "application/x-amz-json-1.0");
-
-        request.setHttpMethod(HttpMethodName.POST);
-
-        String uriResourcePath = "2012-09-25/jobs"; 
-
-        uriResourcePath = uriResourcePath.replaceAll("//", "/");
-
-        if (uriResourcePath.contains("?")) {
-            String queryString = uriResourcePath.substring(uriResourcePath.indexOf("?") + 1);
-            uriResourcePath    = uriResourcePath.substring(0, uriResourcePath.indexOf("?"));
+        int index = path.indexOf("?");
+        if (index != -1) {
+            String queryString = path.substring(index + 1);
+            path = path.substring(0, index);
 
             for (String s : queryString.split("[;&]")) {
-                String[] nameValuePair = s.split("=");
-                if (nameValuePair.length == 2) {
-                    request.addParameter(nameValuePair[0], nameValuePair[1]);
-                } else {
-                    request.addParameter(s, null);
+                index = s.indexOf("=");
+                if (index != -1) {
+                    String name = s.substring(0, index);
+                    String value = s.substring(index + 1);
+
+                    if (value.startsWith("{") && value.endsWith("}")) {
+                        dynamicMap.put(value.substring(1, value.length() - 1), name);
+                    } else {
+                        staticMap.put(name, value);
+                    }
                 }
             }
         }
 
-        request.setResourcePath(uriResourcePath);
+        RESOURCE_PATH_TEMPLATE = path;
+        STATIC_QUERY_PARAMS = Collections.unmodifiableMap(staticMap);
+        DYNAMIC_QUERY_PARAMS = Collections.unmodifiableMap(dynamicMap);
+    }
+
+    public Request<CreateJobRequest> marshall(CreateJobRequest createJobRequest) {
+        if (createJobRequest == null) {
+            throw new AmazonClientException("Invalid argument passed to marshall(...)");
+        }
+
+        Request<CreateJobRequest> request = new DefaultRequest<CreateJobRequest>(createJobRequest, "AmazonElasticTranscoder");
+        String target = "EtsCustomerService.CreateJob";
+        request.addHeader("X-Amz-Target", target);
+
+        request.setHttpMethod(HttpMethodName.POST);
+        String uriResourcePath = RESOURCE_PATH_TEMPLATE;
+
+        request.setResourcePath(uriResourcePath.replaceAll("//", "/"));
+
+        for (Map.Entry<String, String> entry : STATIC_QUERY_PARAMS.entrySet()) {
+            request.addParameter(entry.getKey(), entry.getValue());
+        }
 
         try {
           StringWriter stringWriter = new StringWriter();
@@ -220,6 +244,65 @@ public class CreateJobRequestMarshaller implements Marshaller<Request<CreateJobR
                     }
                     jsonWriter.endArray();
                 }
+                Captions captions = output.getCaptions();
+                if (captions != null) {
+
+                    jsonWriter.key("Captions");
+                    jsonWriter.object();
+
+                    if (captions.getMergePolicy() != null) {
+                        jsonWriter.key("MergePolicy").value(captions.getMergePolicy());
+                    }
+
+                    com.amazonaws.internal.ListWithAutoConstructFlag<CaptionSource> captionSourcesList = (com.amazonaws.internal.ListWithAutoConstructFlag<CaptionSource>)(captions.getCaptionSources());
+                    if (captionSourcesList != null && !(captionSourcesList.isAutoConstruct() && captionSourcesList.isEmpty())) {
+
+                        jsonWriter.key("CaptionSources");
+                        jsonWriter.array();
+
+                        for (CaptionSource captionSourcesListValue : captionSourcesList) {
+                            if (captionSourcesListValue != null) {
+                                jsonWriter.object();
+                                if (captionSourcesListValue.getKey() != null) {
+                                    jsonWriter.key("Key").value(captionSourcesListValue.getKey());
+                                }
+                                if (captionSourcesListValue.getLanguage() != null) {
+                                    jsonWriter.key("Language").value(captionSourcesListValue.getLanguage());
+                                }
+                                if (captionSourcesListValue.getTimeOffset() != null) {
+                                    jsonWriter.key("TimeOffset").value(captionSourcesListValue.getTimeOffset());
+                                }
+                                if (captionSourcesListValue.getLabel() != null) {
+                                    jsonWriter.key("Label").value(captionSourcesListValue.getLabel());
+                                }
+                                jsonWriter.endObject();
+                            }
+                        }
+                        jsonWriter.endArray();
+                    }
+
+                    com.amazonaws.internal.ListWithAutoConstructFlag<CaptionFormat> captionFormatsList = (com.amazonaws.internal.ListWithAutoConstructFlag<CaptionFormat>)(captions.getCaptionFormats());
+                    if (captionFormatsList != null && !(captionFormatsList.isAutoConstruct() && captionFormatsList.isEmpty())) {
+
+                        jsonWriter.key("CaptionFormats");
+                        jsonWriter.array();
+
+                        for (CaptionFormat captionFormatsListValue : captionFormatsList) {
+                            if (captionFormatsListValue != null) {
+                                jsonWriter.object();
+                                if (captionFormatsListValue.getFormat() != null) {
+                                    jsonWriter.key("Format").value(captionFormatsListValue.getFormat());
+                                }
+                                if (captionFormatsListValue.getPattern() != null) {
+                                    jsonWriter.key("Pattern").value(captionFormatsListValue.getPattern());
+                                }
+                                jsonWriter.endObject();
+                            }
+                        }
+                        jsonWriter.endArray();
+                    }
+                    jsonWriter.endObject();
+                }
                 jsonWriter.endObject();
             }
 
@@ -341,6 +424,65 @@ public class CreateJobRequestMarshaller implements Marshaller<Request<CreateJobR
                             }
                             jsonWriter.endArray();
                         }
+                        Captions captions = outputsListValue.getCaptions();
+                        if (captions != null) {
+
+                            jsonWriter.key("Captions");
+                            jsonWriter.object();
+
+                            if (captions.getMergePolicy() != null) {
+                                jsonWriter.key("MergePolicy").value(captions.getMergePolicy());
+                            }
+
+                            com.amazonaws.internal.ListWithAutoConstructFlag<CaptionSource> captionSourcesList = (com.amazonaws.internal.ListWithAutoConstructFlag<CaptionSource>)(captions.getCaptionSources());
+                            if (captionSourcesList != null && !(captionSourcesList.isAutoConstruct() && captionSourcesList.isEmpty())) {
+
+                                jsonWriter.key("CaptionSources");
+                                jsonWriter.array();
+
+                                for (CaptionSource captionSourcesListValue : captionSourcesList) {
+                                    if (captionSourcesListValue != null) {
+                                        jsonWriter.object();
+                                        if (captionSourcesListValue.getKey() != null) {
+                                            jsonWriter.key("Key").value(captionSourcesListValue.getKey());
+                                        }
+                                        if (captionSourcesListValue.getLanguage() != null) {
+                                            jsonWriter.key("Language").value(captionSourcesListValue.getLanguage());
+                                        }
+                                        if (captionSourcesListValue.getTimeOffset() != null) {
+                                            jsonWriter.key("TimeOffset").value(captionSourcesListValue.getTimeOffset());
+                                        }
+                                        if (captionSourcesListValue.getLabel() != null) {
+                                            jsonWriter.key("Label").value(captionSourcesListValue.getLabel());
+                                        }
+                                        jsonWriter.endObject();
+                                    }
+                                }
+                                jsonWriter.endArray();
+                            }
+
+                            com.amazonaws.internal.ListWithAutoConstructFlag<CaptionFormat> captionFormatsList = (com.amazonaws.internal.ListWithAutoConstructFlag<CaptionFormat>)(captions.getCaptionFormats());
+                            if (captionFormatsList != null && !(captionFormatsList.isAutoConstruct() && captionFormatsList.isEmpty())) {
+
+                                jsonWriter.key("CaptionFormats");
+                                jsonWriter.array();
+
+                                for (CaptionFormat captionFormatsListValue : captionFormatsList) {
+                                    if (captionFormatsListValue != null) {
+                                        jsonWriter.object();
+                                        if (captionFormatsListValue.getFormat() != null) {
+                                            jsonWriter.key("Format").value(captionFormatsListValue.getFormat());
+                                        }
+                                        if (captionFormatsListValue.getPattern() != null) {
+                                            jsonWriter.key("Pattern").value(captionFormatsListValue.getPattern());
+                                        }
+                                        jsonWriter.endObject();
+                                    }
+                                }
+                                jsonWriter.endArray();
+                            }
+                            jsonWriter.endObject();
+                        }
                         jsonWriter.endObject();
                     }
                 }
@@ -388,9 +530,10 @@ public class CreateJobRequestMarshaller implements Marshaller<Request<CreateJobR
           jsonWriter.endObject();
 
           String snippet = stringWriter.toString();
-          byte[] content = snippet.getBytes("UTF-8");
+          byte[] content = snippet.getBytes(UTF8);
           request.setContent(new StringInputStream(snippet));
           request.addHeader("Content-Length", Integer.toString(content.length));
+          request.addHeader("Content-Type", "application/x-amz-json-1.0");
         } catch(Throwable t) {
           throw new AmazonClientException("Unable to marshall request to JSON: " + t.getMessage(), t);
         }

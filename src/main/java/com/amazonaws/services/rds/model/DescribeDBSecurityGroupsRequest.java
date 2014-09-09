@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#describeDBSecurityGroups(DescribeDBSecurityGroupsRequest) DescribeDBSecurityGroups operation}.
  * <p>
- * Returns a list of <code>DBSecurityGroup</code> descriptions. If a <code>DBSecurityGroupName</code> is specified, the list will contain only the
- * descriptions of the specified DB security group.
+ * Returns a list of <code>DBSecurityGroup</code> descriptions. If a
+ * <code>DBSecurityGroupName</code> is specified, the list will contain
+ * only the descriptions of the specified DB security group.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeDBSecurityGroups(DescribeDBSecurityGroupsRequest)
@@ -87,7 +88,7 @@ public class DescribeDBSecurityGroupsRequest extends AmazonWebServiceRequest imp
      *
      * @param dBSecurityGroupName The name of the DB security group to return details for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsRequest withDBSecurityGroupName(String dBSecurityGroupName) {
@@ -130,7 +131,7 @@ public class DescribeDBSecurityGroupsRequest extends AmazonWebServiceRequest imp
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsRequest withFilters(Filter... filters) {
@@ -148,7 +149,7 @@ public class DescribeDBSecurityGroupsRequest extends AmazonWebServiceRequest imp
      *
      * @param filters This parameter is not currently supported.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsRequest withFilters(java.util.Collection<Filter> filters) {
@@ -212,7 +213,7 @@ public class DescribeDBSecurityGroupsRequest extends AmazonWebServiceRequest imp
      *         the remaining results may be retrieved. <p>Default: 100
      *         <p>Constraints: minimum 20, maximum 100
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -263,7 +264,7 @@ public class DescribeDBSecurityGroupsRequest extends AmazonWebServiceRequest imp
      *         response includes only records beyond the marker, up to the value
      *         specified by <code>MaxRecords</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBSecurityGroupsRequest withMarker(String marker) {

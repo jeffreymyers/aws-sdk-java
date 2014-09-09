@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that contain information about the specified hosted zone.
+ * A complex type that contain information about the specified hosted
+ * zone.
  * </p>
  */
 public class HostedZone implements Serializable {
@@ -129,7 +130,7 @@ public class HostedZone implements Serializable {
      *
      * @param id The ID of the specified hosted zone.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HostedZone withId(String id) {
@@ -219,7 +220,7 @@ public class HostedZone implements Serializable {
      *         the set of <code>NameServers</code> elements returned in
      *         <code>DelegationSet</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HostedZone withName(String name) {
@@ -261,7 +262,7 @@ public class HostedZone implements Serializable {
      *
      * @param callerReference A unique string that identifies the request to create the hosted zone.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HostedZone withCallerReference(String callerReference) {
@@ -294,7 +295,7 @@ public class HostedZone implements Serializable {
      *
      * @param config A complex type that contains the <code>Comment</code> element.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HostedZone withConfig(HostedZoneConfig config) {
@@ -327,7 +328,7 @@ public class HostedZone implements Serializable {
      *
      * @param resourceRecordSetCount Total number of resource record sets in the hosted zone.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HostedZone withResourceRecordSetCount(Long resourceRecordSetCount) {

@@ -30,6 +30,7 @@ import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import static com.amazonaws.util.IOUtils.*;
 
 import com.amazonaws.services.identitymanagement.model.*;
 import com.amazonaws.services.identitymanagement.model.transform.*;
@@ -40,44 +41,87 @@ import com.amazonaws.services.identitymanagement.model.transform.*;
  * completes.
  * <p>
  * AWS Identity and Access Management <p>
- * AWS Identity and Access Management (IAM) is a web service that you can use to manage users and user permissions under your AWS account. This guide
- * provides descriptions of the IAM API. For general information about IAM, see <a href="http://aws.amazon.com/iam/"> AWS Identity and Access Management
- * (IAM) </a> . For the user guide for IAM, see <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/"> Using IAM </a> .
+ * AWS Identity and Access Management (IAM) is a web service that you can
+ * use to manage users and user permissions under your AWS account. This
+ * guide provides descriptions of the IAM API. For general information
+ * about IAM, see
+ * <a href="http://aws.amazon.com/iam/"> AWS Identity and Access Management (IAM) </a> . For the user guide for IAM, see <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/"> Using IAM </a>
+ * .
  * </p>
  * <p>
- * <b>NOTE:</b> AWS provides SDKs that consist of libraries and sample code for various programming languages and platforms (Java, Ruby, .NET, iOS,
- * Android, etc.). The SDKs provide a convenient way to create programmatic access to IAM and AWS. For example, the SDKs take care of tasks such as
- * cryptographically signing requests (see below), managing errors, and retrying requests automatically. For information about the AWS SDKs, including
- * how to download and install them, see the Tools for Amazon Web Services page.
+ * <b>NOTE:</b>AWS provides SDKs that consist of libraries and sample
+ * code for various programming languages and platforms (Java, Ruby,
+ * .NET, iOS, Android, etc.). The SDKs provide a convenient way to create
+ * programmatic access to IAM and AWS. For example, the SDKs take care of
+ * tasks such as cryptographically signing requests (see below), managing
+ * errors, and retrying requests automatically. For information about the
+ * AWS SDKs, including how to download and install them, see the Tools
+ * for Amazon Web Services page.
  * </p>
  * <p>
- * Using the IAM Query API, you make direct calls to the IAM web service. IAM supports GET and POST requests for all actions. That is, the API does not
- * require you to use GET for some actions and POST for others. However, GET requests are subject to the limitation size of a URL; although this limit is
- * browser dependent, a typical limit is 2048 bytes. Therefore, for operations that require larger sizes, you must use a POST request.
+ * Using the IAM Query API, you make direct calls to the IAM web
+ * service. IAM supports GET and POST requests for all actions. That is,
+ * the API does not require you to use GET for some actions and POST for
+ * others. However, GET requests are subject to the limitation size of a
+ * URL. Therefore, for operations that require larger sizes, use a POST
+ * request.
  * </p>
  * <p>
- * <b>Signing Requests</b> Requests must be signed using an access key ID and a secret access key. We strongly recommend that you do not use your AWS
- * account access key ID and secret access key for everyday work with IAM. You can use the access key ID and secret access key for an IAM user or you can
- * use the AWS Security Token Service to generate temporary security credentials and use those to sign requests.
+ * <b>Signing Requests</b>
  * </p>
  * <p>
- * To sign requests, we recommend that you use <a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 </a>
- * . If you have an existing application that uses Signature Version 2, you do not have to update it to use Signature Version 4. However, some operations
- * now require Signature Version 4. The documentation for operations that require version 4 indicate this requirement.
+ * Requests must be signed using an access key ID and a secret access
+ * key. We strongly recommend that you do not use your AWS account access
+ * key ID and secret access key for everyday work with IAM. You can use
+ * the access key ID and secret access key for an IAM user or you can use
+ * the AWS Security Token Service to generate temporary security
+ * credentials and use those to sign requests.
  * </p>
  * <p>
- * <b>Additional Resources</b> For more information, see the following:
+ * To sign requests, we recommend that you use
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 </a>
+ * . If you have an existing application that uses Signature Version 2,
+ * you do not have to update it to use Signature Version 4. However, some
+ * operations now require Signature Version 4. The documentation for
+ * operations that require version 4 indicate this requirement.
+ * </p>
+ * <p>
+ * <b>Recording API requests</b>
+ * </p>
+ * <p>
+ * IAM supports AWS CloudTrail, which is a service that records AWS
+ * calls for your AWS account and delivers log files to an Amazon S3
+ * bucket. By using information collected by CloudTrail, you can
+ * determine what requests were successfully made to IAM, who made the
+ * request, when it was made, and so on. To learn more about CloudTrail,
+ * including how to turn it on and find your log files, see the
+ * <a href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/whatisawscloudtrail.html"> AWS CloudTrail User Guide </a>
+ * .
+ * </p>
+ * <p>
+ * <b>Additional Resources</b>
+ * </p>
+ * <p>
+ * For more information, see the following:
  * </p>
  * 
  * <ul>
- * <li> <a href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html"> AWS Security Credentials </a> . This topic provides
- * general information about the types of credentials used for accessing AWS.</li>
- * <li> <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html"> IAM Best Practices </a> . This topic presents a list of
- * suggestions for using the IAM service to help secure your AWS resources.</li>
- * <li> <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a> . This guide describes how to create and use
- * temporary security credentials.</li>
- * <li> <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a> . This set of topics walk
- * you through the process of signing a request using an access key ID and secret access key.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html"> AWS Security Credentials </a>
+ * . This topic provides general information about the types of
+ * credentials used for accessing AWS.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html"> IAM Best Practices </a>
+ * . This topic presents a list of suggestions for using the IAM service
+ * to help secure your AWS resources.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a>
+ * . This guide describes how to create and use temporary security
+ * credentials.</li>
+ * <li>
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a>
+ * . This set of topics walk you through the process of signing a
+ * request using an access key ID and secret access key.</li>
  * 
  * </ul>
  */
@@ -235,6 +279,7 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
 
     private void init() {
         exceptionUnmarshallers.add(new DuplicateCertificateExceptionUnmarshaller());
+        exceptionUnmarshallers.add(new CredentialReportNotReadyExceptionUnmarshaller());
         exceptionUnmarshallers.add(new InvalidUserTypeExceptionUnmarshaller());
         exceptionUnmarshallers.add(new EntityAlreadyExistsExceptionUnmarshaller());
         exceptionUnmarshallers.add(new KeyPairMismatchExceptionUnmarshaller());
@@ -247,11 +292,15 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
         exceptionUnmarshallers.add(new MalformedPolicyDocumentExceptionUnmarshaller());
         exceptionUnmarshallers.add(new LimitExceededExceptionUnmarshaller());
         exceptionUnmarshallers.add(new PasswordPolicyViolationExceptionUnmarshaller());
+        exceptionUnmarshallers.add(new CredentialReportNotPresentExceptionUnmarshaller());
         exceptionUnmarshallers.add(new NoSuchEntityExceptionUnmarshaller());
+        exceptionUnmarshallers.add(new CredentialReportExpiredExceptionUnmarshaller());
         
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("iam.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/identitymanagement/request.handlers"));
@@ -262,10 +311,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Deletes the specified AWS account alias. For information about using
-     * an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param deleteAccountAliasRequest Container for the necessary
@@ -326,16 +374,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListGroupsResult listGroups(ListGroupsRequest listGroupsRequest) {
         ExecutionContext executionContext = createExecutionContext(listGroupsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListGroupsRequest> request = null;
         Response<ListGroupsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListGroupsRequestMarshaller().marshall(listGroupsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListGroupsRequestMarshaller().marshall(listGroupsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListGroupsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -388,8 +444,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Deletes a virtual MFA device.
      * </p>
      * <p>
-     * <b>NOTE:</b>You must deactivate a user's virtual MFA device before you
-     * can delete it. For information about deactivating MFA devices, see
+     * <b>NOTE:</b>You must deactivate a user's virtual MFA device before
+     * you can delete it. For information about deactivating MFA devices, see
      * DeactivateMFADevice.
      * </p>
      *
@@ -464,25 +520,23 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * user. For information about policies, refer to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * user. For information about policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of policies you can
-     * associate with a user, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * associate with a user, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutUserPolicy. For information about
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutUserPolicy. For information about
      * setting up signatures and authorization through the API, go to Signing
      * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * about using the Query API with IAM, go to Making Query Requests in the
+     * Using IAM guide.
      * </p>
      *
      * @param putUserPolicyRequest Container for the necessary parameters to
@@ -545,16 +599,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListServerCertificatesResult listServerCertificates(ListServerCertificatesRequest listServerCertificatesRequest) {
         ExecutionContext executionContext = createExecutionContext(listServerCertificatesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListServerCertificatesRequest> request = null;
         Response<ListServerCertificatesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListServerCertificatesRequestMarshaller().marshall(listServerCertificatesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListServerCertificatesRequestMarshaller().marshall(listServerCertificatesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListServerCertificatesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -586,16 +648,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListSAMLProvidersResult listSAMLProviders(ListSAMLProvidersRequest listSAMLProvidersRequest) {
         ExecutionContext executionContext = createExecutionContext(listSAMLProvidersRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListSAMLProvidersRequest> request = null;
         Response<ListSAMLProvidersResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListSAMLProvidersRequestMarshaller().marshall(listSAMLProvidersRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListSAMLProvidersRequestMarshaller().marshall(listSAMLProvidersRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListSAMLProvidersResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -604,9 +674,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Retrieves the specified policy document for the specified user. The
      * returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getUserPolicyRequest Container for the necessary parameters to
@@ -628,16 +698,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetUserPolicyResult getUserPolicy(GetUserPolicyRequest getUserPolicyRequest) {
         ExecutionContext executionContext = createExecutionContext(getUserPolicyRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetUserPolicyRequest> request = null;
         Response<GetUserPolicyResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetUserPolicyRequestMarshaller().marshall(getUserPolicyRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetUserPolicyRequestMarshaller().marshall(getUserPolicyRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetUserPolicyResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -647,9 +725,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Updates the name and/or the path of the specified server certificate.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * server certificate's path or name. For more information, see Managing
-     * Server Certificates in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a server certificate's path or name. For more information, see
+     * Managing Server Certificates in the Using IAM guide.
      * </p>
      * <p>
      * <b>NOTE:</b>To change a server certificate name the requester must
@@ -697,9 +775,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Updates the name and/or the path of the specified user.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * user's path or name. For more information, see Renaming Users and
-     * Groups in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a user's path or name. For more information, see Renaming Users and
+     * Groups in the Using IAM guide.
      * </p>
      * <p>
      * <b>NOTE:</b>To change a user name the requester must have appropriate
@@ -744,25 +822,23 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * role. For information about policies, go to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * role. For information about policies, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the policies you can associate with a
-     * role, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * role, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutRolePolicy. For information about
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutRolePolicy. For information about
      * setting up signatures and authorization through the API, go to Signing
      * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * about using the Query API with IAM, go to Making Query Requests in the
+     * Using IAM guide.
      * </p>
      *
      * @param putRolePolicyRequest Container for the necessary parameters to
@@ -798,9 +874,10 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
-     * Changes the status of the specified signing certificate from active to
-     * disabled, or vice versa. This action can be used to disable a user's
-     * signing certificate as part of a certificate rotation work flow.
+     * Changes the status of the specified signing certificate from active
+     * to disabled, or vice versa. This action can be used to disable a
+     * user's signing certificate as part of a certificate rotation work
+     * flow.
      * </p>
      * <p>
      * If the <code>UserName</code> field is not specified, the UserName is
@@ -810,10 +887,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * AWS account has no associated users.
      * </p>
      * <p>
-     * For information about rotating certificates, see <a
-     * .amazon.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in <i>Using AWS Identity and
-     * Access Management</i> .
+     * For information about rotating certificates, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateSigningCertificateRequest Container for the necessary
@@ -912,16 +988,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListUsersResult listUsers(ListUsersRequest listUsersRequest) {
         ExecutionContext executionContext = createExecutionContext(listUsersRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListUsersRequest> request = null;
         Response<ListUsersResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListUsersRequestMarshaller().marshall(listUsersRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListUsersRequestMarshaller().marshall(listUsersRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListUsersResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -931,17 +1015,17 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Updates the name and/or the path of the specified group.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> You should understand the implications of changing a
-     * group's path or name. For more information, see Renaming Users and
-     * Groups in Using AWS Identity and Access Management.
+     * <b>IMPORTANT:</b> You should understand the implications of changing
+     * a group's path or name. For more information, see Renaming Users and
+     * Groups in the Using IAM guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>To change a group name the requester must have appropriate
-     * permissions on both the source object and the target object. For
-     * example, to change Managers to MGRs, the entity making the request
-     * must have permission on Managers and MGRs, or must have permission on
-     * all (*). For more information about permissions, see Permissions and
-     * Policies.
+     * <b>NOTE:</b>To change a group name the requester must have
+     * appropriate permissions on both the source object and the target
+     * object. For example, to change Managers to MGRs, the entity making the
+     * request must have permission on Managers and MGRs, or must have
+     * permission on all (*). For more information about permissions, see
+     * Permissions and Policies.
      * </p>
      *
      * @param updateGroupRequest Container for the necessary parameters to
@@ -981,10 +1065,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * </p>
      * <p>
      * For information about limitations on the number of users you can
-     * create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createUserRequest Container for the necessary parameters to
@@ -1008,16 +1091,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateUserResult createUser(CreateUserRequest createUserRequest) {
         ExecutionContext executionContext = createExecutionContext(createUserRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateUserRequest> request = null;
         Response<CreateUserResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateUserRequestMarshaller().marshall(createUserRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateUserRequestMarshaller().marshall(createUserRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateUserResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1042,6 +1133,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * 
      * 
      * @throws InvalidInputException
+     * @throws NoSuchEntityException
+     * @throws LimitExceededException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1063,6 +1156,58 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
             invoke(request, null, executionContext);
         } finally {
             endClientExecution(awsRequestMetrics, request, null);
+        }
+    }
+    
+    /**
+     * <p>
+     * Retrieves a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param getCredentialReportRequest Container for the necessary
+     *           parameters to execute the GetCredentialReport service method on
+     *           AmazonIdentityManagement.
+     * 
+     * @return The response from the GetCredentialReport service method, as
+     *         returned by AmazonIdentityManagement.
+     * 
+     * @throws CredentialReportNotPresentException
+     * @throws CredentialReportNotReadyException
+     * @throws CredentialReportExpiredException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetCredentialReportResult getCredentialReport(GetCredentialReportRequest getCredentialReportRequest) {
+        ExecutionContext executionContext = createExecutionContext(getCredentialReportRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCredentialReportRequest> request = null;
+        Response<GetCredentialReportResult> response = null;
+        
+        try {
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCredentialReportRequestMarshaller().marshall(getCredentialReportRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+            response = invoke(request, new GetCredentialReportResultStaxUnmarshaller(), executionContext);
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
@@ -1118,6 +1263,7 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * 
      * 
      * @throws NoSuchEntityException
+     * @throws LimitExceededException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -1169,16 +1315,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetLoginProfileResult getLoginProfile(GetLoginProfileRequest getLoginProfileRequest) {
         ExecutionContext executionContext = createExecutionContext(getLoginProfileRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetLoginProfileRequest> request = null;
         Response<GetLoginProfileResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetLoginProfileRequestMarshaller().marshall(getLoginProfileRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetLoginProfileRequestMarshaller().marshall(getLoginProfileRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetLoginProfileResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1213,16 +1367,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public UpdateSAMLProviderResult updateSAMLProvider(UpdateSAMLProviderRequest updateSAMLProviderRequest) {
         ExecutionContext executionContext = createExecutionContext(updateSAMLProviderRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateSAMLProviderRequest> request = null;
         Response<UpdateSAMLProviderResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateSAMLProviderRequestMarshaller().marshall(updateSAMLProviderRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateSAMLProviderRequestMarshaller().marshall(updateSAMLProviderRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateSAMLProviderResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1235,10 +1397,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * </p>
      * <p>
      * For information about the number of server certificates you can
-     * upload, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * upload, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>NOTE:</b>Because the body of the public key certificate, private
@@ -1247,7 +1408,7 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * about setting up signatures and authorization through the API, go to
      * Signing AWS API Requests in the AWS General Reference. For general
      * information about using the Query API with IAM, go to Making Query
-     * Requests in Using IAM.
+     * Requests in the Using IAM guide.
      * </p>
      *
      * @param uploadServerCertificateRequest Container for the necessary
@@ -1273,16 +1434,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public UploadServerCertificateResult uploadServerCertificate(UploadServerCertificateRequest uploadServerCertificateRequest) {
         ExecutionContext executionContext = createExecutionContext(uploadServerCertificateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UploadServerCertificateRequest> request = null;
         Response<UploadServerCertificateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UploadServerCertificateRequestMarshaller().marshall(uploadServerCertificateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UploadServerCertificateRequestMarshaller().marshall(uploadServerCertificateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UploadServerCertificateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1292,10 +1461,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Creates a new group.
      * </p>
      * <p>
-     * For information about the number of groups you can create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about the number of groups you can create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createGroupRequest Container for the necessary parameters to
@@ -1319,16 +1487,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateGroupResult createGroup(CreateGroupRequest createGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(createGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateGroupRequest> request = null;
         Response<CreateGroupResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateGroupRequestMarshaller().marshall(createGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateGroupRequestMarshaller().marshall(createGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateGroupResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1336,10 +1512,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * This action creates an alias for your AWS account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createAccountAliasRequest Container for the necessary
@@ -1450,6 +1625,56 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
+     * Generates a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param generateCredentialReportRequest Container for the necessary
+     *           parameters to execute the GenerateCredentialReport service method on
+     *           AmazonIdentityManagement.
+     * 
+     * @return The response from the GenerateCredentialReport service method,
+     *         as returned by AmazonIdentityManagement.
+     * 
+     * @throws LimitExceededException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GenerateCredentialReportResult generateCredentialReport(GenerateCredentialReportRequest generateCredentialReportRequest) {
+        ExecutionContext executionContext = createExecutionContext(generateCredentialReportRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GenerateCredentialReportRequest> request = null;
+        Response<GenerateCredentialReportResult> response = null;
+        
+        try {
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GenerateCredentialReportRequestMarshaller().marshall(generateCredentialReportRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+            response = invoke(request, new GenerateCredentialReportResultStaxUnmarshaller(), executionContext);
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+    
+    /**
+     * <p>
      * Removes the specified user from the specified group.
      * </p>
      *
@@ -1487,9 +1712,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Deletes the specified role. The role must not have any policies
-     * attached. For more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * attached. For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
@@ -1592,11 +1817,10 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * associated users.
      * </p>
      * <p>
-     * For information about limits on the number of keys you can create, see
-     * <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limits on the number of keys you can create,
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>To ensure the security of your AWS account, the
@@ -1627,16 +1851,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateAccessKeyResult createAccessKey(CreateAccessKeyRequest createAccessKeyRequest) {
         ExecutionContext executionContext = createExecutionContext(createAccessKeyRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateAccessKeyRequest> request = null;
         Response<CreateAccessKeyResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateAccessKeyRequestMarshaller().marshall(createAccessKeyRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAccessKeyRequestMarshaller().marshall(createAccessKeyRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateAccessKeyResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1670,16 +1902,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetUserResult getUser(GetUserRequest getUserRequest) {
         ExecutionContext executionContext = createExecutionContext(getUserRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetUserRequest> request = null;
         Response<GetUserResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetUserRequestMarshaller().marshall(getUserRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetUserRequestMarshaller().marshall(getUserRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetUserResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1752,16 +1992,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListMFADevicesResult listMFADevices(ListMFADevicesRequest listMFADevicesRequest) {
         ExecutionContext executionContext = createExecutionContext(listMFADevicesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListMFADevicesRequest> request = null;
         Response<ListMFADevicesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListMFADevicesRequestMarshaller().marshall(listMFADevicesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListMFADevicesRequestMarshaller().marshall(listMFADevicesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListMFADevicesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1769,25 +2017,19 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Creates a new virtual MFA device for the AWS account. After creating
-     * the virtual MFA, use <a
-     * docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html">
-     * EnableMFADevice </a> to attach the MFA device to an IAM user. For
-     * more information about creating and working with virtual MFA devices,
-     * go to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?Using_VirtualMFA.html">
-     * Using a Virtual MFA Device </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * the virtual MFA, use
+     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_EnableMFADevice.html"> EnableMFADevice </a> to attach the MFA device to an IAM user. For more information about creating and working with virtual MFA devices, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of MFA devices you can
-     * create, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * create, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>The seed information contained in the QR code and the
-     * Base32 string should be treated like any other secret access
+     * <b>IMPORTANT:</b>The seed information contained in the QR code and
+     * the Base32 string should be treated like any other secret access
      * information, such as your AWS access keys or your passwords. After you
      * provision your virtual device, you should ensure that the information
      * is destroyed following secure procedures.
@@ -1814,16 +2056,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateVirtualMFADeviceResult createVirtualMFADevice(CreateVirtualMFADeviceRequest createVirtualMFADeviceRequest) {
         ExecutionContext executionContext = createExecutionContext(createVirtualMFADeviceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateVirtualMFADeviceRequest> request = null;
         Response<CreateVirtualMFADeviceResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateVirtualMFADeviceRequestMarshaller().marshall(createVirtualMFADeviceRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateVirtualMFADeviceRequestMarshaller().marshall(createVirtualMFADeviceRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateVirtualMFADeviceResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1832,9 +2082,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Lists the instance profiles that have the specified path prefix. If
      * there are none, the action returns an empty list. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -1860,16 +2110,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListInstanceProfilesResult listInstanceProfiles(ListInstanceProfilesRequest listInstanceProfilesRequest) {
         ExecutionContext executionContext = createExecutionContext(listInstanceProfilesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListInstanceProfilesRequest> request = null;
         Response<ListInstanceProfilesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListInstanceProfilesRequestMarshaller().marshall(listInstanceProfilesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListInstanceProfilesRequestMarshaller().marshall(listInstanceProfilesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListInstanceProfilesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1888,10 +2146,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * AWS account has no associated users.
      * </p>
      * <p>
-     * For information about rotating keys, see <a
-     * .amazon.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in <i>Using AWS Identity and
-     * Access Management</i> .
+     * For information about rotating keys, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
+     * in the <i>Using IAM </i> guide.
      * </p>
      *
      * @param updateAccessKeyRequest Container for the necessary parameters
@@ -1986,27 +2243,34 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetGroupResult getGroup(GetGroupRequest getGroupRequest) {
         ExecutionContext executionContext = createExecutionContext(getGroupRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetGroupRequest> request = null;
         Response<GetGroupResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetGroupRequestMarshaller().marshall(getGroupRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetGroupRequestMarshaller().marshall(getGroupRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetGroupResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Lists the account aliases associated with the account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * Lists the account aliases associated with the account. For
+     * information about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -2032,16 +2296,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListAccountAliasesResult listAccountAliases(ListAccountAliasesRequest listAccountAliasesRequest) {
         ExecutionContext executionContext = createExecutionContext(listAccountAliasesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListAccountAliasesRequest> request = null;
         Response<ListAccountAliasesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListAccountAliasesRequestMarshaller().marshall(listAccountAliasesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAccountAliasesRequestMarshaller().marshall(listAccountAliasesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListAccountAliasesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2086,17 +2358,16 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Retrieves information about the specified role, including the role's
-     * path, GUID, ARN, and the policy granting permission to EC2 to assume
-     * the role. For more information about ARNs, go to ARNs. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * path, GUID, ARN, and the policy granting permission to assume the
+     * role. For more information about ARNs, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a> . For more information about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getRoleRequest Container for the necessary parameters to
@@ -2118,24 +2389,32 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetRoleResult getRole(GetRoleRequest getRoleRequest) {
         ExecutionContext executionContext = createExecutionContext(getRoleRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetRoleRequest> request = null;
         Response<GetRoleResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetRoleRequestMarshaller().marshall(getRoleRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRoleRequestMarshaller().marshall(getRoleRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetRoleResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Lists the names of the policies associated with the specified role. If
-     * there are none, the action returns an empty list.
+     * Lists the names of the policies associated with the specified role.
+     * If there are none, the action returns an empty list.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -2162,24 +2441,33 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListRolePoliciesResult listRolePolicies(ListRolePoliciesRequest listRolePoliciesRequest) {
         ExecutionContext executionContext = createExecutionContext(listRolePoliciesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListRolePoliciesRequest> request = null;
         Response<ListRolePoliciesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListRolePoliciesRequestMarshaller().marshall(listRolePoliciesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRolePoliciesRequestMarshaller().marshall(listRolePoliciesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListRolePoliciesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Returns information about the signing certificates associated with the
-     * specified user. If there are none, the action returns an empty list.
+     * Returns information about the signing certificates associated with
+     * the specified user. If there are none, the action returns an empty
+     * list.
      * </p>
      * <p>
      * Although each user is limited to a small number of signing
@@ -2214,16 +2502,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListSigningCertificatesResult listSigningCertificates(ListSigningCertificatesRequest listSigningCertificatesRequest) {
         ExecutionContext executionContext = createExecutionContext(listSigningCertificatesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListSigningCertificatesRequest> request = null;
         Response<ListSigningCertificatesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListSigningCertificatesRequestMarshaller().marshall(listSigningCertificatesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListSigningCertificatesRequestMarshaller().marshall(listSigningCertificatesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListSigningCertificatesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2249,7 +2545,7 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * For information about setting up signatures and authorization through
      * the API, go to Signing AWS API Requests in the AWS General Reference.
      * For general information about using the Query API with IAM, go to
-     * Making Query Requests in Using IAM.
+     * Making Query Requests in the Using IAMguide.
      * </p>
      *
      * @param uploadSigningCertificateRequest Container for the necessary
@@ -2277,16 +2573,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public UploadSigningCertificateResult uploadSigningCertificate(UploadSigningCertificateRequest uploadSigningCertificateRequest) {
         ExecutionContext executionContext = createExecutionContext(uploadSigningCertificateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UploadSigningCertificateRequest> request = null;
         Response<UploadSigningCertificateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UploadSigningCertificateRequestMarshaller().marshall(uploadSigningCertificateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UploadSigningCertificateRequestMarshaller().marshall(uploadSigningCertificateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UploadSigningCertificateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2303,9 +2607,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * will break any applications running on the instance.
      * </p>
      * <p>
-     * For more information about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * For more information about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param deleteInstanceProfileRequest Container for the necessary
@@ -2342,6 +2646,64 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
+     * Creates a new role for your AWS account. For more information about
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     * <p>
+     * The example policy grants permission to an EC2 instance to assume the
+     * role. The policy is URL-encoded according to RFC 3986. For more
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
+     * </p>
+     *
+     * @param createRoleRequest Container for the necessary parameters to
+     *           execute the CreateRole service method on AmazonIdentityManagement.
+     * 
+     * @return The response from the CreateRole service method, as returned
+     *         by AmazonIdentityManagement.
+     * 
+     * @throws MalformedPolicyDocumentException
+     * @throws LimitExceededException
+     * @throws EntityAlreadyExistsException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateRoleResult createRole(CreateRoleRequest createRoleRequest) {
+        ExecutionContext executionContext = createExecutionContext(createRoleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRoleRequest> request = null;
+        Response<CreateRoleResult> response = null;
+        
+        try {
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRoleRequestMarshaller().marshall(createRoleRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+            response = invoke(request, new CreateRoleResultStaxUnmarshaller(), executionContext);
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+    
+    /**
+     * <p>
      * Returns the SAML provider metadocument that was uploaded when the
      * provider was created or updated.
      * </p>
@@ -2370,70 +2732,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetSAMLProviderResult getSAMLProvider(GetSAMLProviderRequest getSAMLProviderRequest) {
         ExecutionContext executionContext = createExecutionContext(getSAMLProviderRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetSAMLProviderRequest> request = null;
         Response<GetSAMLProviderResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetSAMLProviderRequestMarshaller().marshall(getSAMLProviderRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetSAMLProviderRequestMarshaller().marshall(getSAMLProviderRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetSAMLProviderResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
-        }
-    }
-    
-    /**
-     * <p>
-     * Creates a new role for your AWS account. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For information about limitations on role
-     * names and the number of roles you can create, go to <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
-     * </p>
-     * <p>
-     * The policy grants permission to an EC2 instance to assume the role.
-     * The policy is URL-encoded according to RFC 3986. For more information
-     * about RFC 3986, go to <a href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> . Currently, only EC2
-     * instances can assume roles.
-     * </p>
-     *
-     * @param createRoleRequest Container for the necessary parameters to
-     *           execute the CreateRole service method on AmazonIdentityManagement.
-     * 
-     * @return The response from the CreateRole service method, as returned
-     *         by AmazonIdentityManagement.
-     * 
-     * @throws MalformedPolicyDocumentException
-     * @throws LimitExceededException
-     * @throws EntityAlreadyExistsException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public CreateRoleResult createRole(CreateRoleRequest createRoleRequest) {
-        ExecutionContext executionContext = createExecutionContext(createRoleRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        Request<CreateRoleRequest> request = null;
-        Response<CreateRoleResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        try {
-            request = new CreateRoleRequestMarshaller().marshall(createRoleRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
-            response = invoke(request, new CreateRoleResultStaxUnmarshaller(), executionContext);
-            return response.getAwsResponse();
-        } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2527,15 +2843,16 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Changes the password of the IAM user calling
      * <code>ChangePassword</code> . The root account password is not
      * affected by this action. For information about modifying passwords,
-     * see <a
-     * //docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html">
-     * Managing Passwords </a> .
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param changePasswordRequest Container for the necessary parameters to
      *           execute the ChangePassword service method on AmazonIdentityManagement.
      * 
      * 
+     * @throws PasswordPolicyViolationException
      * @throws EntityTemporarilyUnmodifiableException
      * @throws NoSuchEntityException
      * @throws LimitExceededException
@@ -2589,16 +2906,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetServerCertificateResult getServerCertificate(GetServerCertificateRequest getServerCertificateRequest) {
         ExecutionContext executionContext = createExecutionContext(getServerCertificateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetServerCertificateRequest> request = null;
         Response<GetServerCertificateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetServerCertificateRequestMarshaller().marshall(getServerCertificateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetServerCertificateRequestMarshaller().marshall(getServerCertificateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetServerCertificateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2606,25 +2931,23 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Adds (or updates) a policy document associated with the specified
-     * group. For information about policies, refer to <a
-     * aws.amazon.com/IAM/latest/UserGuide/index.html?PoliciesOverview.html">
-     * Overview of Policies </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * group. For information about policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html"> Overview of Policies </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * For information about limits on the number of policies you can
-     * associate with a group, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * associate with a group, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>NOTE:</b>Because policy documents can be large, you should use POST
-     * rather than GET when calling PutGroupPolicy. For information about
-     * setting up signatures and authorization through the API, go to Signing
-     * AWS API Requests in the AWS General Reference. For general information
-     * about using the Query API with IAM, go to Making Query Requests in
-     * Using IAM.
+     * <b>NOTE:</b>Because policy documents can be large, you should use
+     * POST rather than GET when calling PutGroupPolicy. For information
+     * about setting up signatures and authorization through the API, go to
+     * Signing AWS API Requests in the AWS General Reference. For general
+     * information about using the Query API with IAM, go to Making Query
+     * Requests in the Using IAM guide.
      * </p>
      *
      * @param putGroupPolicyRequest Container for the necessary parameters to
@@ -2704,8 +3027,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
-     * Lists the names of the policies associated with the specified user. If
-     * there are none, the action returns an empty list.
+     * Lists the names of the policies associated with the specified user.
+     * If there are none, the action returns an empty list.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -2732,16 +3055,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListUserPoliciesResult listUserPolicies(ListUserPoliciesRequest listUserPoliciesRequest) {
         ExecutionContext executionContext = createExecutionContext(listUserPoliciesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListUserPoliciesRequest> request = null;
         Response<ListUserPoliciesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListUserPoliciesRequestMarshaller().marshall(listUserPoliciesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListUserPoliciesRequestMarshaller().marshall(listUserPoliciesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListUserPoliciesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2752,8 +3083,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * specified user. If there are none, the action returns an empty list.
      * </p>
      * <p>
-     * Although each user is limited to a small number of keys, you can still
-     * paginate the results using the <code>MaxItems</code> and
+     * Although each user is limited to a small number of keys, you can
+     * still paginate the results using the <code>MaxItems</code> and
      * <code>Marker</code> parameters.
      * </p>
      * <p>
@@ -2787,16 +3118,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListAccessKeysResult listAccessKeys(ListAccessKeysRequest listAccessKeysRequest) {
         ExecutionContext executionContext = createExecutionContext(listAccessKeysRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListAccessKeysRequest> request = null;
         Response<ListAccessKeysResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListAccessKeysRequestMarshaller().marshall(listAccessKeysRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAccessKeysRequestMarshaller().marshall(listAccessKeysRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListAccessKeysResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2830,16 +3169,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListGroupsForUserResult listGroupsForUser(ListGroupsForUserRequest listGroupsForUserRequest) {
         ExecutionContext executionContext = createExecutionContext(listGroupsForUserRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListGroupsForUserRequest> request = null;
         Response<ListGroupsForUserResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListGroupsForUserRequestMarshaller().marshall(listGroupsForUserRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListGroupsForUserRequestMarshaller().marshall(listGroupsForUserRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListGroupsForUserResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2847,12 +3194,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Adds the specified role to the specified instance profile. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For more information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param addRoleToInstanceProfileRequest Container for the necessary
@@ -2891,9 +3235,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Retrieves the specified policy document for the specified group. The
      * returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getGroupPolicyRequest Container for the necessary parameters to
@@ -2915,16 +3259,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetGroupPolicyResult getGroupPolicy(GetGroupPolicyRequest getGroupPolicyRequest) {
         ExecutionContext executionContext = createExecutionContext(getGroupPolicyRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetGroupPolicyRequest> request = null;
         Response<GetGroupPolicyResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetGroupPolicyRequestMarshaller().marshall(getGroupPolicyRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetGroupPolicyRequestMarshaller().marshall(getGroupPolicyRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetGroupPolicyResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2932,15 +3284,15 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Retrieves the specified policy document for the specified role. For
-     * more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param getRolePolicyRequest Container for the necessary parameters to
@@ -2962,16 +3314,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetRolePolicyResult getRolePolicy(GetRolePolicyRequest getRolePolicyRequest) {
         ExecutionContext executionContext = createExecutionContext(getRolePolicyRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetRolePolicyRequest> request = null;
         Response<GetRolePolicyResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetRolePolicyRequestMarshaller().marshall(getRolePolicyRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRolePolicyRequestMarshaller().marshall(getRolePolicyRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetRolePolicyResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -2980,9 +3340,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Lists the instance profiles that have the specified associated role.
      * If there are none, the action returns an empty list. For more
-     * information about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * information about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3009,16 +3369,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListInstanceProfilesForRoleResult listInstanceProfilesForRole(ListInstanceProfilesForRoleRequest listInstanceProfilesForRoleRequest) {
         ExecutionContext executionContext = createExecutionContext(listInstanceProfilesForRoleRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListInstanceProfilesForRoleRequest> request = null;
         Response<ListInstanceProfilesForRoleResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListInstanceProfilesForRoleRequestMarshaller().marshall(listInstanceProfilesForRoleRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListInstanceProfilesForRoleRequestMarshaller().marshall(listInstanceProfilesForRoleRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListInstanceProfilesForRoleResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3028,8 +3396,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Lists the virtual MFA devices under the AWS account by assignment
      * status. If you do not specify an assignment status, the action returns
      * a list of all virtual MFA devices. Assignment status can be
-     * <code>Assigned</code> ,
-     * <code>Unassigned</code> , or <code>Any</code> .
+     * <code>Assigned</code> , <code>Unassigned</code> , or <code>Any</code>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3055,16 +3423,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListVirtualMFADevicesResult listVirtualMFADevices(ListVirtualMFADevicesRequest listVirtualMFADevicesRequest) {
         ExecutionContext executionContext = createExecutionContext(listVirtualMFADevicesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListVirtualMFADevicesRequest> request = null;
         Response<ListVirtualMFADevicesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListVirtualMFADevicesRequestMarshaller().marshall(listVirtualMFADevicesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListVirtualMFADevicesRequestMarshaller().marshall(listVirtualMFADevicesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListVirtualMFADevicesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3108,16 +3484,15 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Creates a new instance profile. For information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * For information about the number of instance profiles you can create,
-     * see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createInstanceProfileRequest Container for the necessary
@@ -3141,16 +3516,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateInstanceProfileResult createInstanceProfile(CreateInstanceProfileRequest createInstanceProfileRequest) {
         ExecutionContext executionContext = createExecutionContext(createInstanceProfileRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateInstanceProfileRequest> request = null;
         Response<CreateInstanceProfileResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateInstanceProfileRequestMarshaller().marshall(createInstanceProfileRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateInstanceProfileRequestMarshaller().marshall(createInstanceProfileRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateInstanceProfileResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3185,27 +3568,35 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListGroupPoliciesResult listGroupPolicies(ListGroupPoliciesRequest listGroupPoliciesRequest) {
         ExecutionContext executionContext = createExecutionContext(listGroupPoliciesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListGroupPoliciesRequest> request = null;
         Response<ListGroupPoliciesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListGroupPoliciesRequestMarshaller().marshall(listGroupPoliciesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListGroupPoliciesRequestMarshaller().marshall(listGroupPoliciesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListGroupPoliciesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Creates a password for the specified user, giving the user the ability
-     * to access AWS services through the AWS Management Console. For more
-     * information about managing passwords, see <a
-     * amazon.com/IAM/latest/UserGuide/index.html?Using_ManagingLogins.html">
-     * Managing Passwords </a> in <i>Using IAM</i> .
+     * Creates a password for the specified user, giving the user the
+     * ability to access AWS services through the AWS Management Console. For
+     * more information about managing passwords, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param createLoginProfileRequest Container for the necessary
@@ -3231,16 +3622,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateLoginProfileResult createLoginProfile(CreateLoginProfileRequest createLoginProfileRequest) {
         ExecutionContext executionContext = createExecutionContext(createLoginProfileRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateLoginProfileRequest> request = null;
         Response<CreateLoginProfileResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateLoginProfileRequestMarshaller().marshall(createLoginProfileRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateLoginProfileRequestMarshaller().marshall(createLoginProfileRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateLoginProfileResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3257,12 +3656,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * instance.
      * </p>
      * <p>
-     * For more information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> . For more information about instance
-     * profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For more information about instance profiles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      *
      * @param removeRoleFromInstanceProfileRequest Container for the
@@ -3299,9 +3695,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Updates the password policy settings for the account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateAccountPasswordPolicyRequest Container for the necessary
@@ -3339,10 +3735,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Updates the policy that grants an entity permission to assume a role.
-     * Currently, only an Amazon EC2 instance can assume a role. For more
-     * information about roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      *
      * @param updateAssumeRolePolicyRequest Container for the necessary
@@ -3381,12 +3776,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Retrieves information about the specified instance profile, including
      * the instance profile's path, GUID, ARN, and role. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> . For more information about ARNs, go to
-     * <a
-     * zon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs">
-     * ARNs </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a> . For more information about ARNs, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a>
+     * .
      * </p>
      *
      * @param getInstanceProfileRequest Container for the necessary
@@ -3409,16 +3801,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetInstanceProfileResult getInstanceProfile(GetInstanceProfileRequest getInstanceProfileRequest) {
         ExecutionContext executionContext = createExecutionContext(getInstanceProfileRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetInstanceProfileRequest> request = null;
         Response<GetInstanceProfileResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetInstanceProfileRequestMarshaller().marshall(getInstanceProfileRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetInstanceProfileRequestMarshaller().marshall(getInstanceProfileRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetInstanceProfileResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3427,9 +3827,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Lists the roles that have the specified path prefix. If there are
      * none, the action returns an empty list. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3437,9 +3837,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      *
      * @param listRolesRequest Container for the necessary parameters to
@@ -3460,30 +3860,37 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public ListRolesResult listRoles(ListRolesRequest listRolesRequest) {
         ExecutionContext executionContext = createExecutionContext(listRolesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListRolesRequest> request = null;
         Response<ListRolesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListRolesRequestMarshaller().marshall(listRolesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRolesRequestMarshaller().marshall(listRolesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListRolesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
     
     /**
      * <p>
-     * Retrieves account level information about account entity usage and IAM
-     * quotas.
+     * Retrieves account level information about account entity usage and
+     * IAM quotas.
      * </p>
      * <p>
-     * For information about limitations on IAM entities, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limitations on IAM entities, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param getAccountSummaryRequest Container for the necessary parameters
@@ -3505,16 +3912,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetAccountSummaryResult getAccountSummary(GetAccountSummaryRequest getAccountSummaryRequest) {
         ExecutionContext executionContext = createExecutionContext(getAccountSummaryRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetAccountSummaryRequest> request = null;
         Response<GetAccountSummaryResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetAccountSummaryRequestMarshaller().marshall(getAccountSummaryRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAccountSummaryRequestMarshaller().marshall(getAccountSummaryRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetAccountSummaryResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3525,8 +3940,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * supports SAML 2.0.
      * </p>
      * <p>
-     * The SAML provider that you create with this operation can be used as a
-     * principal in a role's trust policy to establish a trust relationship
+     * The SAML provider that you create with this operation can be used as
+     * a principal in a role's trust policy to establish a trust relationship
      * between AWS and a SAML identity provider. You can create an IAM role
      * that supports Web-based single sign-on (SSO) to the AWS Management
      * Console or one that supports API access to AWS.
@@ -3543,12 +3958,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      * <p>
-     * For more information, see <a
-     * -alpha.integ.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html">
-     * Giving Console Access Using SAML </a> and <a
-     * ws-docs-alpha.integ.amazon.com/STS/latest/UsingSTS/CreatingSAML.html">
-     * Creating Temporary Security Credentials for SAML Federation </a> in
-     * the <i>Using Temporary Credentials</i> guide.
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html"> Giving Console Access Using SAML </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html"> Creating Temporary Security Credentials for SAML Federation </a>
+     * in the <i>Using Temporary Credentials</i> guide.
      * </p>
      *
      * @param createSAMLProviderRequest Container for the necessary
@@ -3573,16 +3985,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public CreateSAMLProviderResult createSAMLProvider(CreateSAMLProviderRequest createSAMLProviderRequest) {
         ExecutionContext executionContext = createExecutionContext(createSAMLProviderRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateSAMLProviderRequest> request = null;
         Response<CreateSAMLProviderResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateSAMLProviderRequestMarshaller().marshall(createSAMLProviderRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateSAMLProviderRequestMarshaller().marshall(createSAMLProviderRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateSAMLProviderResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3590,9 +4010,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Retrieves the password policy for the AWS account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * .
      * </p>
      *
      * @param getAccountPasswordPolicyRequest Container for the necessary
@@ -3615,16 +4035,24 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     public GetAccountPasswordPolicyResult getAccountPasswordPolicy(GetAccountPasswordPolicyRequest getAccountPasswordPolicyRequest) {
         ExecutionContext executionContext = createExecutionContext(getAccountPasswordPolicyRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetAccountPasswordPolicyRequest> request = null;
         Response<GetAccountPasswordPolicyResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new GetAccountPasswordPolicyRequestMarshaller().marshall(getAccountPasswordPolicyRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAccountPasswordPolicyRequestMarshaller().marshall(getAccountPasswordPolicyRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new GetAccountPasswordPolicyResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -3732,11 +4160,39 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
+     * Retrieves a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     * 
+     * @return The response from the GetCredentialReport service method, as
+     *         returned by AmazonIdentityManagement.
+     * 
+     * @throws CredentialReportNotPresentException
+     * @throws CredentialReportNotReadyException
+     * @throws CredentialReportExpiredException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetCredentialReportResult getCredentialReport() throws AmazonServiceException, AmazonClientException {
+        return getCredentialReport(new GetCredentialReportRequest());
+    }
+    
+    /**
+     * <p>
      * Deletes the password policy for the AWS account.
      * </p>
      * 
      * 
      * @throws NoSuchEntityException
+     * @throws LimitExceededException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -3748,6 +4204,31 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      */
     public void deleteAccountPasswordPolicy() throws AmazonServiceException, AmazonClientException {
         deleteAccountPasswordPolicy(new DeleteAccountPasswordPolicyRequest());
+    }
+    
+    /**
+     * <p>
+     * Generates a credential report for the AWS account. For more
+     * information about the credential report, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     * 
+     * @return The response from the GenerateCredentialReport service method,
+     *         as returned by AmazonIdentityManagement.
+     * 
+     * @throws LimitExceededException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GenerateCredentialReportResult generateCredentialReport() throws AmazonServiceException, AmazonClientException {
+        return generateCredentialReport(new GenerateCredentialReportRequest());
     }
     
     /**
@@ -3764,11 +4245,10 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * associated users.
      * </p>
      * <p>
-     * For information about limits on the number of keys you can create, see
-     * <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limits on the number of keys you can create,
+     * see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>To ensure the security of your AWS account, the
@@ -3856,9 +4336,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Lists the instance profiles that have the specified path prefix. If
      * there are none, the action returns an empty list. For more information
-     * about instance profiles, go to <a
-     * /docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html">
-     * About Instance Profiles </a> .
+     * about instance profiles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html"> About Instance Profiles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3883,11 +4363,10 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
-     * Lists the account aliases associated with the account. For information
-     * about using an AWS account alias, see <a
-     * f="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html">
-     * Using an Alias for Your AWS Account ID </a> in <i>Using AWS Identity
-     * and Access Management</i> .
+     * Lists the account aliases associated with the account. For
+     * information about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3912,8 +4391,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
-     * Returns information about the signing certificates associated with the
-     * specified user. If there are none, the action returns an empty list.
+     * Returns information about the signing certificates associated with
+     * the specified user. If there are none, the action returns an empty
+     * list.
      * </p>
      * <p>
      * Although each user is limited to a small number of signing
@@ -3951,8 +4431,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * specified user. If there are none, the action returns an empty list.
      * </p>
      * <p>
-     * Although each user is limited to a small number of keys, you can still
-     * paginate the results using the <code>MaxItems</code> and
+     * Although each user is limited to a small number of keys, you can
+     * still paginate the results using the <code>MaxItems</code> and
      * <code>Marker</code> parameters.
      * </p>
      * <p>
@@ -3989,8 +4469,8 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * Lists the virtual MFA devices under the AWS account by assignment
      * status. If you do not specify an assignment status, the action returns
      * a list of all virtual MFA devices. Assignment status can be
-     * <code>Assigned</code> ,
-     * <code>Unassigned</code> , or <code>Any</code> .
+     * <code>Assigned</code> , <code>Unassigned</code> , or <code>Any</code>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -4017,9 +4497,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * <p>
      * Lists the roles that have the specified path prefix. If there are
      * none, the action returns an empty list. For more information about
-     * roles, go to <a
-     * ttp://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html">
-     * Working with Roles </a> .
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
+     * .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -4027,9 +4507,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
      * </p>
      * <p>
      * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">
-     * http://www.faqs.org/rfcs/rfc3986.html </a> .
+     * information about RFC 3986, go to
+     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
+     * .
      * </p>
      * 
      * @return The response from the ListRoles service method, as returned by
@@ -4050,14 +4530,13 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
-     * Retrieves account level information about account entity usage and IAM
-     * quotas.
+     * Retrieves account level information about account entity usage and
+     * IAM quotas.
      * </p>
      * <p>
-     * For information about limitations on IAM entities, see <a
-     * mazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html">
-     * Limitations on IAM Entities </a> in <i>Using AWS Identity and Access
-     * Management</i> .
+     * For information about limitations on IAM entities, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>Using IAM</i> guide.
      * </p>
      * 
      * @return The response from the GetAccountSummary service method, as
@@ -4079,9 +4558,9 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
     /**
      * <p>
      * Retrieves the password policy for the AWS account. For more
-     * information about using a password policy, go to <a
-     * .amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html">
-     * Managing an IAM Password Policy </a> .
+     * information about using a password policy, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
+     * .
      * </p>
      * 
      * @return The response from the GetAccountPasswordPolicy service method,
@@ -4137,7 +4616,6 @@ public class AmazonIdentityManagementClient extends AmazonWebServiceClient imple
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);

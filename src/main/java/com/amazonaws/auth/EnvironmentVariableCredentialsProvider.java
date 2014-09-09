@@ -13,12 +13,15 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.auth;
+
 import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.ALTERNATE_ACCESS_KEY_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.ALTERNATE_SECRET_KEY_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_ENV_VAR;
+import static com.amazonaws.SDKGlobalConfiguration.AWS_SESSION_TOKEN_ENV_VAR;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.util.StringUtils;
 
 /**
  * {@link AWSCredentialsProvider} implementation that provides credentials
@@ -26,7 +29,7 @@ import com.amazonaws.AmazonClientException;
  * <code>AWS_SECRET_KEY</code> (or <code>AWS_SECRET_ACCESS_KEY</code>) environment variables.
  */
 public class EnvironmentVariableCredentialsProvider implements AWSCredentialsProvider {
-
+    @Override
     public AWSCredentials getCredentials() {
         String accessKey = System.getenv(ACCESS_KEY_ENV_VAR);
         if (accessKey == null) {
@@ -38,16 +41,27 @@ public class EnvironmentVariableCredentialsProvider implements AWSCredentialsPro
             secretKey = System.getenv(ALTERNATE_SECRET_KEY_ENV_VAR);
         }
 
-        if (accessKey != null && secretKey != null) {
-            return new BasicAWSCredentials(accessKey, secretKey);
+        accessKey = StringUtils.trim(accessKey);
+        secretKey = StringUtils.trim(secretKey);
+        String sessionToken =
+            StringUtils.trim(System.getenv(AWS_SESSION_TOKEN_ENV_VAR));
+
+        if (StringUtils.isNullOrEmpty(accessKey)
+                || StringUtils.isNullOrEmpty(secretKey)) {
+
+            throw new AmazonClientException(
+                    "Unable to load AWS credentials from environment variables " +
+                    "(" + ACCESS_KEY_ENV_VAR + " (or " + ALTERNATE_ACCESS_KEY_ENV_VAR + ") and " +
+                    SECRET_KEY_ENV_VAR + " (or " + ALTERNATE_SECRET_KEY_ENV_VAR + "))");
         }
 
-        throw new AmazonClientException(
-                "Unable to load AWS credentials from environment variables " +
-                "(" + ACCESS_KEY_ENV_VAR + " (or " + ALTERNATE_ACCESS_KEY_ENV_VAR + ") and " +
-                SECRET_KEY_ENV_VAR + " (or " + ALTERNATE_SECRET_KEY_ENV_VAR + "))");
+        return sessionToken == null ?
+                new BasicAWSCredentials(accessKey, secretKey)
+                :
+                new BasicSessionCredentials(accessKey, secretKey, sessionToken);
     }
 
+    @Override
     public void refresh() {}
 
     @Override

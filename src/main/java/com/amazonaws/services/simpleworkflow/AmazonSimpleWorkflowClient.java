@@ -29,6 +29,7 @@ import com.amazonaws.internal.*;
 import com.amazonaws.metrics.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
+import static com.amazonaws.util.IOUtils.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.util.json.*;
 
@@ -41,12 +42,15 @@ import com.amazonaws.services.simpleworkflow.model.transform.*;
  * completes.
  * <p>
  * Amazon Simple Workflow Service <p>
- * The Amazon Simple Workflow Service API Reference is intended for programmers who need detailed information about the Amazon SWF actions and data
- * types.
+ * The Amazon Simple Workflow Service API Reference is intended for
+ * programmers who need detailed information about the Amazon SWF actions
+ * and data types.
  * </p>
  * <p>
- * For an broader overview of the Amazon SWF programming model, please go to the <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/">
- * Amazon SWF Developer Guide </a> .
+ * For an broader overview of the Amazon SWF programming model, please
+ * go to the
+ * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/"> Amazon SWF Developer Guide </a>
+ * .
  * </p>
  * <p>
  * This section provides an overview of Amazon SWF actions.
@@ -55,7 +59,8 @@ import com.amazonaws.services.simpleworkflow.model.transform.*;
  * <b>Action Categories</b>
  * </p>
  * <p>
- * The Amazon SWF actions can be grouped into the following major categories.
+ * The Amazon SWF actions can be grouped into the following major
+ * categories.
  * </p>
  * 
  * <ul>
@@ -112,8 +117,10 @@ import com.amazonaws.services.simpleworkflow.model.transform.*;
  * 
  * </ul>
  * <p>
- * Activity workers use the PollForActivityTask to get new activity tasks. After a worker receives an activity task from Amazon SWF, it performs the task
- * and responds using RespondActivityTaskCompleted if successful or RespondActivityTaskFailed if unsuccessful.
+ * Activity workers use the PollForActivityTask to get new activity
+ * tasks. After a worker receives an activity task from Amazon SWF, it
+ * performs the task and responds using RespondActivityTaskCompleted if
+ * successful or RespondActivityTaskFailed if unsuccessful.
  * </p>
  * <p>
  * <b>Actions related to Deciders</b>
@@ -134,8 +141,11 @@ import com.amazonaws.services.simpleworkflow.model.transform.*;
  * 
  * </ul>
  * <p>
- * Deciders use PollForDecisionTask to get decision tasks. After a decider receives a decision task from Amazon SWF, it examines its workflow execution
- * history and decides what to do next. It calls RespondDecisionTaskCompletedto complete the decision task and provide zero or more next decisions.
+ * Deciders use PollForDecisionTask to get decision tasks. After a
+ * decider receives a decision task from Amazon SWF, it examines its
+ * workflow execution history and decides what to do next. It calls
+ * RespondDecisionTaskCompletedto complete the decision task and provide
+ * zero or more next decisions.
  * </p>
  * <p>
  * <b>Actions related to Workflow Executions</b>
@@ -167,8 +177,9 @@ import com.amazonaws.services.simpleworkflow.model.transform.*;
  * <b>Actions related to Administration</b>
  * </p>
  * <p>
- * Although you can perform administrative tasks from the Amazon SWF console, you can use the actions in this section to automate functions or build your
- * own administrative tools.
+ * Although you can perform administrative tasks from the Amazon SWF
+ * console, you can use the actions in this section to automate functions
+ * or build your own administrative tools.
  * </p>
  * <p>
  * <b>Activity Management</b>
@@ -234,8 +245,9 @@ import com.amazonaws.services.simpleworkflow.model.transform.*;
  * <b>Visibility Actions</b>
  * </p>
  * <p>
- * Although you can perform visibility actions from the Amazon SWF console, you can use the actions in this section to build your own console or
- * administrative tools.
+ * Although you can perform visibility actions from the Amazon SWF
+ * console, you can use the actions in this section to build your own
+ * console or administrative tools.
  * </p>
  * 
  * <ul>
@@ -343,7 +355,7 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
     /**
      * List of exception unmarshallers for all AmazonSimpleWorkflow exceptions.
      */
-    protected List<Unmarshaller<AmazonServiceException, JSONObject>> exceptionUnmarshallers;
+    protected List<JsonErrorUnmarshaller> jsonErrorUnmarshallers;
 
     /**
      * Constructs a new client to invoke service methods on
@@ -420,7 +432,7 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      *                       (ex: proxy settings, retry counts, etc.).
      */
     public AmazonSimpleWorkflowClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
-        super(clientConfiguration);
+        super(adjustClientConfiguration(clientConfiguration));
         
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
         
@@ -483,7 +495,7 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
     public AmazonSimpleWorkflowClient(AWSCredentialsProvider awsCredentialsProvider,
             ClientConfiguration clientConfiguration,
             RequestMetricCollector requestMetricCollector) {
-        super(clientConfiguration, requestMetricCollector);
+        super(adjustClientConfiguration(clientConfiguration), requestMetricCollector);
         
         this.awsCredentialsProvider = awsCredentialsProvider;
         
@@ -491,36 +503,42 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
     }
 
     private void init() {
-        exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, JSONObject>>();
-        exceptionUnmarshallers.add(new LimitExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new DomainAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new DomainDeprecatedExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new DefaultUndefinedExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new OperationNotPermittedExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new UnknownResourceExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new WorkflowExecutionAlreadyStartedExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TypeDeprecatedExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TypeAlreadyExistsExceptionUnmarshaller());
+        jsonErrorUnmarshallers = new ArrayList<JsonErrorUnmarshaller>();
+        jsonErrorUnmarshallers.add(new LimitExceededExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new DomainAlreadyExistsExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new DomainDeprecatedExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new DefaultUndefinedExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new OperationNotPermittedExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new UnknownResourceExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new WorkflowExecutionAlreadyStartedExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new TypeDeprecatedExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new TypeAlreadyExistsExceptionUnmarshaller());
         
-        exceptionUnmarshallers.add(new JsonErrorUnmarshaller());
+        jsonErrorUnmarshallers.add(new JsonErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("swf.us-east-1.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/simpleworkflow/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain(
                 "/com/amazonaws/services/simpleworkflow/request.handler2s"));
+    }
 
-        clientConfiguration = new ClientConfiguration(clientConfiguration);
-        if (clientConfiguration.getMaxConnections() == ClientConfiguration.DEFAULT_MAX_CONNECTIONS) {
+    private static ClientConfiguration adjustClientConfiguration(ClientConfiguration orig) {
+        ClientConfiguration config = orig;
+        
+        config = new ClientConfiguration(orig);
+        if (config.getMaxConnections() == ClientConfiguration.DEFAULT_MAX_CONNECTIONS) {
             log.debug("Overriding default max connection value to: " + 1000);
-            clientConfiguration.setMaxConnections(1000);
+            config.setMaxConnections(1000);
         }
-        if (clientConfiguration.getSocketTimeout() == ClientConfiguration.DEFAULT_SOCKET_TIMEOUT) {
+        if (config.getSocketTimeout() == ClientConfiguration.DEFAULT_SOCKET_TIMEOUT) {
             log.debug("Overriding default socket timeout value to: " + 90000);
-            clientConfiguration.setSocketTimeout(90000);
+            config.setSocketTimeout(90000);
         }
-        setConfiguration(clientConfiguration);
+        return config;
     }
 
     /**
@@ -539,8 +557,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -565,9 +583,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param deprecateWorkflowTypeRequest Container for the necessary
@@ -620,8 +638,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -638,9 +656,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param deprecateDomainRequest Container for the necessary parameters
@@ -685,17 +703,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * RegisterDomain action.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> If the type already exists, then a TypeAlreadyExists
-     * fault is returned. You cannot change the configuration settings of a
-     * workflow type once it is registered and it must be registered as a new
-     * version.
+     * <b>IMPORTANT:</b> If the type already exists, then a
+     * TypeAlreadyExists fault is returned. You cannot change the
+     * configuration settings of a workflow type once it is registered and it
+     * must be registered as a new version.
      * </p>
      * <p>
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -722,9 +740,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param registerWorkflowTypeRequest Container for the necessary
@@ -771,8 +789,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -789,9 +807,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param listWorkflowTypesRequest Container for the necessary parameters
@@ -818,7 +836,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListWorkflowTypesRequest> request = null;
         Response<WorkflowTypeInfos> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListWorkflowTypesRequestMarshaller().marshall(listWorkflowTypesRequest);
@@ -827,13 +847,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowTypeInfos, JsonUnmarshallerContext> unmarshaller = new WorkflowTypeInfosJsonUnmarshaller();
-            JsonResponseHandler<WorkflowTypeInfos> responseHandler = new JsonResponseHandler<WorkflowTypeInfos>(unmarshaller);
+            Unmarshaller<WorkflowTypeInfos, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowTypeInfosJsonUnmarshaller();
+            JsonResponseHandler<WorkflowTypeInfos> responseHandler =
+                new JsonResponseHandler<WorkflowTypeInfos>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -849,8 +873,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -887,9 +911,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param startWorkflowExecutionRequest Container for the necessary
@@ -920,7 +944,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<StartWorkflowExecutionRequest> request = null;
         Response<Run> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new StartWorkflowExecutionRequestMarshaller().marshall(startWorkflowExecutionRequest);
@@ -929,13 +955,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<Run, JsonUnmarshallerContext> unmarshaller = new RunJsonUnmarshaller();
-            JsonResponseHandler<Run> responseHandler = new JsonResponseHandler<Run>(unmarshaller);
+            Unmarshaller<Run, JsonUnmarshallerContext> unmarshaller =
+                new RunJsonUnmarshaller();
+            JsonResponseHandler<Run> responseHandler =
+                new JsonResponseHandler<Run>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -960,8 +990,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -978,9 +1008,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param signalWorkflowExecutionRequest Container for the necessary
@@ -1029,8 +1059,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1049,9 +1079,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param listDomainsRequest Container for the necessary parameters to
@@ -1076,7 +1106,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListDomainsRequest> request = null;
         Response<DomainInfos> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListDomainsRequestMarshaller().marshall(listDomainsRequest);
@@ -1085,13 +1117,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<DomainInfos, JsonUnmarshallerContext> unmarshaller = new DomainInfosJsonUnmarshaller();
-            JsonResponseHandler<DomainInfos> responseHandler = new JsonResponseHandler<DomainInfos>(unmarshaller);
+            Unmarshaller<DomainInfos, JsonUnmarshallerContext> unmarshaller =
+                new DomainInfosJsonUnmarshaller();
+            JsonResponseHandler<DomainInfos> responseHandler =
+                new JsonResponseHandler<DomainInfos>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -1111,16 +1147,16 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * the domain.
      * </p>
      * <p>
-     * <b>NOTE:</b> Because this action allows the workflow to properly clean
-     * up and gracefully close, it should be used instead of
+     * <b>NOTE:</b> Because this action allows the workflow to properly
+     * clean up and gracefully close, it should be used instead of
      * TerminateWorkflowExecution when possible.
      * </p>
      * <p>
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1137,9 +1173,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param requestCancelWorkflowExecutionRequest Container for the
@@ -1184,8 +1220,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1210,9 +1246,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param describeWorkflowTypeRequest Container for the necessary
@@ -1239,7 +1275,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeWorkflowTypeRequest> request = null;
         Response<WorkflowTypeDetail> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeWorkflowTypeRequestMarshaller().marshall(describeWorkflowTypeRequest);
@@ -1248,22 +1286,26 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowTypeDetail, JsonUnmarshallerContext> unmarshaller = new WorkflowTypeDetailJsonUnmarshaller();
-            JsonResponseHandler<WorkflowTypeDetail> responseHandler = new JsonResponseHandler<WorkflowTypeDetail>(unmarshaller);
+            Unmarshaller<WorkflowTypeDetail, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowTypeDetailJsonUnmarshaller();
+            JsonResponseHandler<WorkflowTypeDetail> responseHandler =
+                new JsonResponseHandler<WorkflowTypeDetail>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
     /**
      * <p>
-     * Deprecates the specified <i>activity type</i> .
-     * After an activity type has been deprecated, you cannot create
-     * new tasks of that activity type. Tasks of this type that were
-     * scheduled before the type was deprecated will continue to run.
+     * Deprecates the specified <i>activity type</i> . After an activity
+     * type has been deprecated, you cannot create new tasks of that activity
+     * type. Tasks of this type that were scheduled before the type was
+     * deprecated will continue to run.
      * </p>
      * <p>
      * <b>NOTE:</b> This operation is eventually consistent. The results are
@@ -1273,8 +1315,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1299,9 +1341,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param deprecateActivityTypeRequest Container for the necessary
@@ -1350,8 +1392,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1378,9 +1420,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param countClosedWorkflowExecutionsRequest Container for the
@@ -1407,7 +1449,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CountClosedWorkflowExecutionsRequest> request = null;
         Response<WorkflowExecutionCount> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CountClosedWorkflowExecutionsRequestMarshaller().marshall(countClosedWorkflowExecutionsRequest);
@@ -1416,13 +1460,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowExecutionCount, JsonUnmarshallerContext> unmarshaller = new WorkflowExecutionCountJsonUnmarshaller();
-            JsonResponseHandler<WorkflowExecutionCount> responseHandler = new JsonResponseHandler<WorkflowExecutionCount>(unmarshaller);
+            Unmarshaller<WorkflowExecutionCount, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowExecutionCountJsonUnmarshaller();
+            JsonResponseHandler<WorkflowExecutionCount> responseHandler =
+                new JsonResponseHandler<WorkflowExecutionCount>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -1437,8 +1485,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1456,9 +1504,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param countPendingActivityTasksRequest Container for the necessary
@@ -1485,7 +1533,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CountPendingActivityTasksRequest> request = null;
         Response<PendingTaskCount> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CountPendingActivityTasksRequestMarshaller().marshall(countPendingActivityTasksRequest);
@@ -1494,13 +1544,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<PendingTaskCount, JsonUnmarshallerContext> unmarshaller = new PendingTaskCountJsonUnmarshaller();
-            JsonResponseHandler<PendingTaskCount> responseHandler = new JsonResponseHandler<PendingTaskCount>(unmarshaller);
+            Unmarshaller<PendingTaskCount, JsonUnmarshallerContext> unmarshaller =
+                new PendingTaskCountJsonUnmarshaller();
+            JsonResponseHandler<PendingTaskCount> responseHandler =
+                new JsonResponseHandler<PendingTaskCount>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -1525,16 +1579,16 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * is closed. Therefore a task is reported as open while a worker is
      * processing it. A task is closed after it has been specified in a call
      * to RespondActivityTaskCompleted, RespondActivityTaskCanceled,
-     * RespondActivityTaskFailed, or the task has <a
-     * zonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types">
-     * timed out </a> .
+     * RespondActivityTaskFailed, or the task has
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types"> timed out </a>
+     * .
      * </p>
      * <p>
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1551,9 +1605,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param respondActivityTaskCanceledRequest Container for the necessary
@@ -1610,9 +1664,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * for the list of decisions in the <code>decisions</code> parameter in
      * the same way as for the regular API. This approach maintains a uniform
      * conceptual model and helps keep policies readable. For more
-     * information, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * information, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param respondDecisionTaskCompletedRequest Container for the necessary
@@ -1666,16 +1720,16 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * is closed. Therefore a task is reported as open while a worker is
      * processing it. A task is closed after it has been specified in a call
      * to RespondActivityTaskCompleted, RespondActivityTaskCanceled,
-     * RespondActivityTaskFailed, or the task has <a
-     * zonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types">
-     * timed out </a> .
+     * RespondActivityTaskFailed, or the task has
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types"> timed out </a>
+     * .
      * </p>
      * <p>
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1692,9 +1746,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param respondActivityTaskCompletedRequest Container for the necessary
@@ -1732,15 +1786,14 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
     /**
      * <p>
      * Used by workers to get an ActivityTask from the specified activity
-     * <code>taskList</code> .
-     * This initiates a long poll, where the service holds the HTTP
-     * connection open and responds as soon as a task becomes available. The
-     * maximum time the service holds on to the request before responding is
-     * 60 seconds. If no task is available within 60 seconds, the poll will
-     * return an empty result. An empty result, in this context, means that
-     * an ActivityTask is returned, but that the value of taskToken is an
-     * empty string. If a task is returned, the worker should use its type to
-     * identify and process it correctly.
+     * <code>taskList</code> . This initiates a long poll, where the service
+     * holds the HTTP connection open and responds as soon as a task becomes
+     * available. The maximum time the service holds on to the request before
+     * responding is 60 seconds. If no task is available within 60 seconds,
+     * the poll will return an empty result. An empty result, in this
+     * context, means that an ActivityTask is returned, but that the value of
+     * taskToken is an empty string. If a task is returned, the worker should
+     * use its type to identify and process it correctly.
      * </p>
      * <p>
      * <b>IMPORTANT:</b> Workers should set their client side socket timeout
@@ -1751,8 +1804,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1770,9 +1823,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param pollForActivityTaskRequest Container for the necessary
@@ -1800,7 +1853,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<PollForActivityTaskRequest> request = null;
         Response<ActivityTask> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new PollForActivityTaskRequestMarshaller().marshall(pollForActivityTaskRequest);
@@ -1809,13 +1864,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<ActivityTask, JsonUnmarshallerContext> unmarshaller = new ActivityTaskJsonUnmarshaller();
-            JsonResponseHandler<ActivityTask> responseHandler = new JsonResponseHandler<ActivityTask>(unmarshaller);
+            Unmarshaller<ActivityTask, JsonUnmarshallerContext> unmarshaller =
+                new ActivityTaskJsonUnmarshaller();
+            JsonResponseHandler<ActivityTask> responseHandler =
+                new JsonResponseHandler<ActivityTask>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -1832,8 +1891,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1860,9 +1919,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param countOpenWorkflowExecutionsRequest Container for the necessary
@@ -1889,7 +1948,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CountOpenWorkflowExecutionsRequest> request = null;
         Response<WorkflowExecutionCount> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CountOpenWorkflowExecutionsRequestMarshaller().marshall(countOpenWorkflowExecutionsRequest);
@@ -1898,13 +1959,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowExecutionCount, JsonUnmarshallerContext> unmarshaller = new WorkflowExecutionCountJsonUnmarshaller();
-            JsonResponseHandler<WorkflowExecutionCount> responseHandler = new JsonResponseHandler<WorkflowExecutionCount>(unmarshaller);
+            Unmarshaller<WorkflowExecutionCount, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowExecutionCountJsonUnmarshaller();
+            JsonResponseHandler<WorkflowExecutionCount> responseHandler =
+                new JsonResponseHandler<WorkflowExecutionCount>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -1918,8 +1983,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -1944,9 +2009,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param describeActivityTypeRequest Container for the necessary
@@ -1973,7 +2038,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeActivityTypeRequest> request = null;
         Response<ActivityTypeDetail> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeActivityTypeRequestMarshaller().marshall(describeActivityTypeRequest);
@@ -1982,13 +2049,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<ActivityTypeDetail, JsonUnmarshallerContext> unmarshaller = new ActivityTypeDetailJsonUnmarshaller();
-            JsonResponseHandler<ActivityTypeDetail> responseHandler = new JsonResponseHandler<ActivityTypeDetail>(unmarshaller);
+            Unmarshaller<ActivityTypeDetail, JsonUnmarshallerContext> unmarshaller =
+                new ActivityTypeDetailJsonUnmarshaller();
+            JsonResponseHandler<ActivityTypeDetail> responseHandler =
+                new JsonResponseHandler<ActivityTypeDetail>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2007,8 +2078,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2035,9 +2106,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param listOpenWorkflowExecutionsRequest Container for the necessary
@@ -2064,7 +2135,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListOpenWorkflowExecutionsRequest> request = null;
         Response<WorkflowExecutionInfos> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListOpenWorkflowExecutionsRequestMarshaller().marshall(listOpenWorkflowExecutionsRequest);
@@ -2073,13 +2146,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowExecutionInfos, JsonUnmarshallerContext> unmarshaller = new WorkflowExecutionInfosJsonUnmarshaller();
-            JsonResponseHandler<WorkflowExecutionInfos> responseHandler = new JsonResponseHandler<WorkflowExecutionInfos>(unmarshaller);
+            Unmarshaller<WorkflowExecutionInfos, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowExecutionInfosJsonUnmarshaller();
+            JsonResponseHandler<WorkflowExecutionInfos> responseHandler =
+                new JsonResponseHandler<WorkflowExecutionInfos>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2098,8 +2175,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2116,9 +2193,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param getWorkflowExecutionHistoryRequest Container for the necessary
@@ -2145,7 +2222,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<GetWorkflowExecutionHistoryRequest> request = null;
         Response<History> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetWorkflowExecutionHistoryRequestMarshaller().marshall(getWorkflowExecutionHistoryRequest);
@@ -2154,13 +2233,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<History, JsonUnmarshallerContext> unmarshaller = new HistoryJsonUnmarshaller();
-            JsonResponseHandler<History> responseHandler = new JsonResponseHandler<History>(unmarshaller);
+            Unmarshaller<History, JsonUnmarshallerContext> unmarshaller =
+                new HistoryJsonUnmarshaller();
+            JsonResponseHandler<History> responseHandler =
+                new JsonResponseHandler<History>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2172,8 +2255,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2191,11 +2274,12 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      * <p>
+     * 
      * </p>
      *
      * @param registerDomainRequest Container for the necessary parameters to
@@ -2245,8 +2329,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2273,9 +2357,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param registerActivityTypeRequest Container for the necessary
@@ -2327,8 +2411,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2355,9 +2439,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param listClosedWorkflowExecutionsRequest Container for the necessary
@@ -2384,7 +2468,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListClosedWorkflowExecutionsRequest> request = null;
         Response<WorkflowExecutionInfos> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListClosedWorkflowExecutionsRequestMarshaller().marshall(listClosedWorkflowExecutionsRequest);
@@ -2393,13 +2479,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowExecutionInfos, JsonUnmarshallerContext> unmarshaller = new WorkflowExecutionInfosJsonUnmarshaller();
-            JsonResponseHandler<WorkflowExecutionInfos> responseHandler = new JsonResponseHandler<WorkflowExecutionInfos>(unmarshaller);
+            Unmarshaller<WorkflowExecutionInfos, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowExecutionInfosJsonUnmarshaller();
+            JsonResponseHandler<WorkflowExecutionInfos> responseHandler =
+                new JsonResponseHandler<WorkflowExecutionInfos>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2414,7 +2504,6 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * the activity task. If a cancellation is being attempted for the
      * specified task, then the boolean <code>cancelRequested</code> flag
      * returned by the service is set to <code>true</code> .
-     * 
      * </p>
      * <p>
      * This action resets the <code>taskHeartbeatTimeout</code> clock. The
@@ -2449,8 +2538,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2467,9 +2556,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param recordActivityTaskHeartbeatRequest Container for the necessary
@@ -2496,7 +2585,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RecordActivityTaskHeartbeatRequest> request = null;
         Response<ActivityTaskStatus> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new RecordActivityTaskHeartbeatRequestMarshaller().marshall(recordActivityTaskHeartbeatRequest);
@@ -2505,25 +2596,28 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<ActivityTaskStatus, JsonUnmarshallerContext> unmarshaller = new ActivityTaskStatusJsonUnmarshaller();
-            JsonResponseHandler<ActivityTaskStatus> responseHandler = new JsonResponseHandler<ActivityTaskStatus>(unmarshaller);
+            Unmarshaller<ActivityTaskStatus, JsonUnmarshallerContext> unmarshaller =
+                new ActivityTaskStatusJsonUnmarshaller();
+            JsonResponseHandler<ActivityTaskStatus> responseHandler =
+                new JsonResponseHandler<ActivityTaskStatus>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
     /**
      * <p>
      * Used by deciders to get a DecisionTask from the specified decision
-     * <code>taskList</code> .
-     * A decision task may be returned for any open workflow execution
-     * that is using the specified task list. The task includes a paginated
-     * view of the history of the workflow execution. The decider should use
-     * the workflow type and the history to determine how to properly handle
-     * the task.
+     * <code>taskList</code> . A decision task may be returned for any open
+     * workflow execution that is using the specified task list. The task
+     * includes a paginated view of the history of the workflow execution.
+     * The decider should use the workflow type and the history to determine
+     * how to properly handle the task.
      * </p>
      * <p>
      * This action initiates a long poll, where the service holds the HTTP
@@ -2534,8 +2628,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * that the value of taskToken is an empty string.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> Deciders should set their client side socket timeout
-     * to at least 70 seconds (10 seconds higher than the timeout).
+     * <b>IMPORTANT:</b> Deciders should set their client side socket
+     * timeout to at least 70 seconds (10 seconds higher than the timeout).
      * </p>
      * <p>
      * <b>IMPORTANT:</b> Because the number of workflow history events for a
@@ -2550,8 +2644,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2569,9 +2663,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param pollForDecisionTaskRequest Container for the necessary
@@ -2599,7 +2693,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<PollForDecisionTaskRequest> request = null;
         Response<DecisionTask> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new PollForDecisionTaskRequestMarshaller().marshall(pollForDecisionTaskRequest);
@@ -2608,13 +2704,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<DecisionTask, JsonUnmarshallerContext> unmarshaller = new DecisionTaskJsonUnmarshaller();
-            JsonResponseHandler<DecisionTask> responseHandler = new JsonResponseHandler<DecisionTask>(unmarshaller);
+            Unmarshaller<DecisionTask, JsonUnmarshallerContext> unmarshaller =
+                new DecisionTaskJsonUnmarshaller();
+            JsonResponseHandler<DecisionTask> responseHandler =
+                new JsonResponseHandler<DecisionTask>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2631,8 +2731,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2649,9 +2749,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param listActivityTypesRequest Container for the necessary parameters
@@ -2678,7 +2778,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListActivityTypesRequest> request = null;
         Response<ActivityTypeInfos> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListActivityTypesRequestMarshaller().marshall(listActivityTypesRequest);
@@ -2687,13 +2789,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<ActivityTypeInfos, JsonUnmarshallerContext> unmarshaller = new ActivityTypeInfosJsonUnmarshaller();
-            JsonResponseHandler<ActivityTypeInfos> responseHandler = new JsonResponseHandler<ActivityTypeInfos>(unmarshaller);
+            Unmarshaller<ActivityTypeInfos, JsonUnmarshallerContext> unmarshaller =
+                new ActivityTypeInfosJsonUnmarshaller();
+            JsonResponseHandler<ActivityTypeInfos> responseHandler =
+                new JsonResponseHandler<ActivityTypeInfos>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2706,8 +2812,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2724,9 +2830,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param describeDomainRequest Container for the necessary parameters to
@@ -2752,7 +2858,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeDomainRequest> request = null;
         Response<DomainDetail> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeDomainRequestMarshaller().marshall(describeDomainRequest);
@@ -2761,13 +2869,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<DomainDetail, JsonUnmarshallerContext> unmarshaller = new DomainDetailJsonUnmarshaller();
-            JsonResponseHandler<DomainDetail> responseHandler = new JsonResponseHandler<DomainDetail>(unmarshaller);
+            Unmarshaller<DomainDetail, JsonUnmarshallerContext> unmarshaller =
+                new DomainDetailJsonUnmarshaller();
+            JsonResponseHandler<DomainDetail> responseHandler =
+                new JsonResponseHandler<DomainDetail>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2784,16 +2896,16 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * is closed. Therefore a task is reported as open while a worker is
      * processing it. A task is closed after it has been specified in a call
      * to RespondActivityTaskCompleted, RespondActivityTaskCanceled,
-     * RespondActivityTaskFailed, or the task has <a
-     * zonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types">
-     * timed out </a> .
+     * RespondActivityTaskFailed, or the task has
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types"> timed out </a>
+     * .
      * </p>
      * <p>
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2810,9 +2922,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param respondActivityTaskFailedRequest Container for the necessary
@@ -2858,8 +2970,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2877,9 +2989,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param countPendingDecisionTasksRequest Container for the necessary
@@ -2906,7 +3018,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CountPendingDecisionTasksRequest> request = null;
         Response<PendingTaskCount> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CountPendingDecisionTasksRequestMarshaller().marshall(countPendingDecisionTasksRequest);
@@ -2915,13 +3029,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<PendingTaskCount, JsonUnmarshallerContext> unmarshaller = new PendingTaskCountJsonUnmarshaller();
-            JsonResponseHandler<PendingTaskCount> responseHandler = new JsonResponseHandler<PendingTaskCount>(unmarshaller);
+            Unmarshaller<PendingTaskCount, JsonUnmarshallerContext> unmarshaller =
+                new PendingTaskCountJsonUnmarshaller();
+            JsonResponseHandler<PendingTaskCount> responseHandler =
+                new JsonResponseHandler<PendingTaskCount>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -2951,8 +3069,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -2969,9 +3087,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param terminateWorkflowExecutionRequest Container for the necessary
@@ -3019,8 +3137,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * <b>Access Control</b>
      * </p>
      * <p>
-     * You can use IAM policies to control this action's access to Amazon SWF
-     * resources as follows:
+     * You can use IAM policies to control this action's access to Amazon
+     * SWF resources as follows:
      * </p>
      * 
      * <ul>
@@ -3037,9 +3155,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
      * action, or the parameter values fall outside the specified
      * constraints, the action fails by throwing
      * <code>OperationNotPermitted</code> . For details and example IAM
-     * policies, see <a
-     * docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">
-     * Using IAM to Manage Access to Amazon SWF Workflows </a> .
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html"> Using IAM to Manage Access to Amazon SWF Workflows </a>
+     * .
      * </p>
      *
      * @param describeWorkflowExecutionRequest Container for the necessary
@@ -3066,7 +3184,9 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeWorkflowExecutionRequest> request = null;
         Response<WorkflowExecutionDetail> response = null;
+        
         try {
+            
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeWorkflowExecutionRequestMarshaller().marshall(describeWorkflowExecutionRequest);
@@ -3075,13 +3195,17 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
-            Unmarshaller<WorkflowExecutionDetail, JsonUnmarshallerContext> unmarshaller = new WorkflowExecutionDetailJsonUnmarshaller();
-            JsonResponseHandler<WorkflowExecutionDetail> responseHandler = new JsonResponseHandler<WorkflowExecutionDetail>(unmarshaller);
+            Unmarshaller<WorkflowExecutionDetail, JsonUnmarshallerContext> unmarshaller =
+                new WorkflowExecutionDetailJsonUnmarshaller();
+            JsonResponseHandler<WorkflowExecutionDetail> responseHandler =
+                new JsonResponseHandler<WorkflowExecutionDetail>(unmarshaller);
             
             response = invoke(request, responseHandler, executionContext);
+            
             return response.getAwsResponse();
         } finally {
-            endClientExecution(awsRequestMetrics, request, response);
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
         }
     }
 
@@ -3135,13 +3259,10 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
-
-        JsonErrorResponseHandler errorResponseHandler = new JsonErrorResponseHandler(exceptionUnmarshallers);
+        JsonErrorResponseHandler errorResponseHandler = new JsonErrorResponseHandler(jsonErrorUnmarshallers);
         Response<X> result = client.execute(request, responseHandler,
                 errorResponseHandler, executionContext);
-        awsRequestMetrics.log();
         return result;
     }
 }

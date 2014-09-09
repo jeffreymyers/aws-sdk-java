@@ -27,6 +27,7 @@ public interface Headers {
     public static final String CONTENT_DISPOSITION = "Content-Disposition";
     public static final String CONTENT_ENCODING = "Content-Encoding";
     public static final String CONTENT_LENGTH = "Content-Length";
+    public static final String CONTENT_RANGE = "Content-Range";
     public static final String CONTENT_MD5 = "Content-MD5";
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String DATE = "Date";
@@ -74,6 +75,24 @@ public interface Headers {
     /** Header for optional server-side encryption algorithm */
     public static final String SERVER_SIDE_ENCRYPTION = "x-amz-server-side-encryption";
 
+    /** Header for the encryption algorithm used when encrypting the object with customer-provided keys */
+    public static final String SERVER_SIDE_ENCRYPTION_CUSTOMER_ALGORITHM = "x-amz-server-side-encryption-customer-algorithm";
+
+    /** Header for the customer-provided key for server-side encryption */
+    public static final String SERVER_SIDE_ENCRYPTION_CUSTOMER_KEY = "x-amz-server-side-encryption-customer-key";
+
+    /** Header for the MD5 digest of the customer-provided key for server-side encryption */
+    public static final String SERVER_SIDE_ENCRYPTION_CUSTOMER_KEY_MD5 = "x-amz-server-side-encryption-customer-key-MD5";
+
+    /** Header for the encryption algorithm used when encrypting the object with customer-provided keys */
+    public static final String COPY_SOURCE_SERVER_SIDE_ENCRYPTION_CUSTOMER_ALGORITHM = "x-amz-copy-source-server-side-encryption-customer-algorithm";
+
+    /** Header for the customer-provided key for server-side encryption */
+    public static final String COPY_SOURCE_SERVER_SIDE_ENCRYPTION_CUSTOMER_KEY = "x-amz-copy-source-server-side-encryption-customer-key";
+
+    /** Header for the MD5 digest of the customer-provided key for server-side encryption */
+    public static final String COPY_SOURCE_SERVER_SIDE_ENCRYPTION_CUSTOMER_KEY_MD5 = "x-amz-copy-source-server-side-encryption-customer-key-MD5";
+
     /** Header for optional object expiration */
     public static final String EXPIRATION = "x-amz-expiration";
 
@@ -110,8 +129,20 @@ public interface Headers {
     /** ETag non-matching constraint header for the get object request */
     public static final String GET_OBJECT_IF_NONE_MATCH = "If-None-Match";
 
-    /** Encrypted symmetric key header that is used in the envelope encryption mechanism */
+    /**
+     * Encrypted symmetric key header that is used in the Encryption Only (EO) envelope
+     * encryption mechanism.
+     */
     public static final String CRYPTO_KEY = "x-amz-key";
+
+    /**
+     * Encrypted symmetric key header that is used in the Authenticated
+     * Encryption (AE) cryptographic module. Older versions of S3 encryption
+     * client with encryption-only capability would not be able to recognize
+     * this AE key, and therefore will be prevented from mistakenly decrypting
+     * ciphertext in AE format.
+     */
+    public static final String CRYPTO_KEY_V2 = "x-amz-key-v2";
 
     /** Initialization vector (IV) header that is used in the symmetric and envelope encryption mechanisms */
     public static final String CRYPTO_IV = "x-amz-iv";
@@ -134,4 +165,28 @@ public interface Headers {
     /** Header for the optional restore information of an object */
     public static String RESTORE = "x-amz-restore";
 
+    /**
+     * Key wrapping algorithm such as "AESWrap" and "RSA/ECB/OAEPWithSHA-256AndMGF1Padding".
+     */
+    public static final String CRYPTO_KEYWRAP_ALGORITHM = "x-amz-wrap-alg";
+    /**
+     * Content encryption algorithm, such as "AES/GCM/NoPadding".
+     */
+    public static final String CRYPTO_CEK_ALGORITHM = "x-amz-cek-alg";
+    /**
+     * Tag length applicable to authenticated encrypt/decryption.
+     */
+    public static final String CRYPTO_TAG_LENGTH = "x-amz-tag-len";
+
+    /**
+     * Headers in request indicating that the requester must be charged for data
+     * transfer.
+     */
+    public static final String REQUESTER_PAYS_HEADER = "x-amz-request-payer";
+
+    /**
+     * Header in the response indicating that the requester has been charged for
+     * the request.
+     */
+    public static final String REQUESTER_CHARGED_HEADER = "x-amz-request-charged";
 }

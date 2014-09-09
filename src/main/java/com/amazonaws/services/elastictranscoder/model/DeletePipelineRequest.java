@@ -24,8 +24,10 @@ import com.amazonaws.AmazonWebServiceRequest;
  * The DeletePipeline operation removes a pipeline.
  * </p>
  * <p>
- * You can only delete a pipeline that has never been used or that is not currently in use (doesn't contain any active jobs). If the pipeline is
- * currently in use, <code>DeletePipeline</code> returns an error.
+ * You can only delete a pipeline that has never been used or that is
+ * not currently in use (doesn't contain any active jobs). If the
+ * pipeline is currently in use, <code>DeletePipeline</code> returns an
+ * error.
  * </p>
  *
  * @see com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder#deletePipeline(DeletePipelineRequest)
@@ -74,7 +76,7 @@ public class DeletePipelineRequest extends AmazonWebServiceRequest implements Se
      *
      * @param id The identifier of the pipeline that you want to delete.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeletePipelineRequest withId(String id) {

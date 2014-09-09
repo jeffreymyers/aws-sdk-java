@@ -21,21 +21,33 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#createEventSubscription(CreateEventSubscriptionRequest) CreateEventSubscription operation}.
  * <p>
- * Creates an Amazon Redshift event notification subscription. This action requires an ARN (Amazon Resource Name) of an Amazon SNS topic created by
- * either the Amazon Redshift console, the Amazon SNS console, or the Amazon SNS API. To obtain an ARN with Amazon SNS, you must create a topic in Amazon
- * SNS and subscribe to the topic. The ARN is displayed in the SNS console.
+ * Creates an Amazon Redshift event notification subscription. This
+ * action requires an ARN (Amazon Resource Name) of an Amazon SNS topic
+ * created by either the Amazon Redshift console, the Amazon SNS console,
+ * or the Amazon SNS API. To obtain an ARN with Amazon SNS, you must
+ * create a topic in Amazon SNS and subscribe to the topic. The ARN is
+ * displayed in the SNS console.
  * </p>
  * <p>
- * You can specify the source type, and lists of Amazon Redshift source IDs, event categories, and event severities. Notifications will be sent for all
- * events you want that match those criteria. For example, you can specify source type = cluster, source ID = my-cluster-1 and mycluster2, event
- * categories = Availability, Backup, and severity = ERROR. The subsription will only send notifications for those ERROR events in the Availability and
- * Backup categores for the specified clusters.
+ * You can specify the source type, and lists of Amazon Redshift source
+ * IDs, event categories, and event severities. Notifications will be
+ * sent for all events you want that match those criteria. For example,
+ * you can specify source type = cluster, source ID = my-cluster-1 and
+ * mycluster2, event categories = Availability, Backup, and severity =
+ * ERROR. The subscription will only send notifications for those ERROR
+ * events in the Availability and Backup categories for the specified
+ * clusters.
  * </p>
  * <p>
- * If you specify both the source type and source IDs, such as source type = cluster and source identifier = my-cluster-1, notifiactions will be sent
- * for all the cluster events for my-cluster-1. If you specify a source type but do not specify a source identifier, you will receive notice of the
- * events for the objects of that type in your AWS account. If you do not specify either the SourceType nor the SourceIdentifier, you will be notified of
- * events generated from all Amazon Redshift sources belonging to your AWS account. You must specify a source type if you specify a source ID.
+ * If you specify both the source type and source IDs, such as source
+ * type = cluster and source identifier = my-cluster-1, notifications
+ * will be sent for all the cluster events for my-cluster-1. If you
+ * specify a source type but do not specify a source identifier, you will
+ * receive notice of the events for the objects of that type in your AWS
+ * account. If you do not specify either the SourceType nor the
+ * SourceIdentifier, you will be notified of events generated from all
+ * Amazon Redshift sources belonging to your AWS account. You must
+ * specify a source type if you specify a source ID.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#createEventSubscription(CreateEventSubscriptionRequest)
@@ -148,7 +160,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         be a letter.</li> <li>Cannot end with a hyphen or contain two
      *         consecutive hyphens.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSubscriptionName(String subscriptionName) {
@@ -193,7 +205,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         transmit the event notifications. The ARN is created by Amazon SNS
      *         when you create a topic and subscribe to it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSnsTopicArn(String snsTopicArn) {
@@ -262,7 +274,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         values: cluster, cluster-parameter-group, cluster-security-group, and
      *         cluster-snapshot.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSourceType(String sourceType) {
@@ -335,7 +347,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         returned for all objects within the source type specified. <p>Example:
      *         my-cluster-1, my-cluster-2 <p>Example: my-snapshot-20131010
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSourceIds(String... sourceIds) {
@@ -363,7 +375,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         returned for all objects within the source type specified. <p>Example:
      *         my-cluster-1, my-cluster-2 <p>Example: my-snapshot-20131010
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSourceIds(java.util.Collection<String> sourceIds) {
@@ -425,7 +437,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         event notification subscription. <p>Values: Configuration, Management,
      *         Monitoring, Security
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withEventCategories(String... eventCategories) {
@@ -447,7 +459,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         event notification subscription. <p>Values: Configuration, Management,
      *         Monitoring, Security
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withEventCategories(java.util.Collection<String> eventCategories) {
@@ -493,7 +505,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      * @param severity Specifies the Amazon Redshift event severity to be published by the
      *         event notification subscription. <p>Values: ERROR, INFO
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSeverity(String severity) {
@@ -538,7 +550,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         subscription, set to <code>false</code> to create the subscription but
      *         not active it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withEnabled(Boolean enabled) {

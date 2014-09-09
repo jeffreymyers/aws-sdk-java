@@ -23,16 +23,33 @@ import com.amazonaws.services.ec2.model.transform.RegisterImageRequestMarshaller
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#registerImage(RegisterImageRequest) RegisterImage operation}.
  * <p>
- * The RegisterImage operation registers an AMI with Amazon EC2. Images must be registered before they can be launched. For more information, see
- * RunInstances.
+ * Registers an AMI. When you're creating an AMI, this is the final step
+ * you must complete before you can launch an instance from the AMI. For
+ * more information about creating AMIs, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html"> Creating Your Own AMIs </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  * <p>
- * Each AMI is associated with an unique ID which is provided by the Amazon EC2 service through the RegisterImage operation. During registration, Amazon
- * EC2 retrieves the specified image manifest from Amazon S3 and verifies that the image is owned by the user registering the image.
+ * <b>NOTE:</b> For Amazon EBS-backed instances, CreateImage creates and
+ * registers the AMI in a single request, so you don't have to register
+ * the AMI yourself.
  * </p>
  * <p>
- * The image manifest is retrieved once and stored within the Amazon EC2. Any modifications to an image in Amazon S3 invalidates this registration. If
- * you make changes to an image, deregister the previous image and register the new image. For more information, see DeregisterImage.
+ * You can also use <code>RegisterImage</code> to create an Amazon
+ * EBS-backed AMI from a snapshot of a root device volume. For more
+ * information, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_LaunchingInstanceFromSnapshot.html"> Launching an Instance from a Snapshot </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+ * </p>
+ * <p>
+ * If needed, you can deregister an AMI at any time. Any modifications
+ * you make to an AMI backed by an instance store volume invalidates its
+ * registration. If you make changes to an image, deregister the previous
+ * image and register the new image.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> You can't register an image where a secondary (non-root)
+ * snapshot has AWS Marketplace product codes.
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#registerImage(RegisterImageRequest)
@@ -45,21 +62,21 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     private String imageLocation;
 
     /**
-     * The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     * alphanumeric characters, parenthesis (<code>()</code>), commas
-     * (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     * or underscores(<code>_</code>)
+     * A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     * parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     * (_)
      */
     private String name;
 
     /**
-     * The description describing the new AMI.
+     * A description for your AMI.
      */
     private String description;
 
     /**
-     * The architecture of the image. <p> Valid Values: <code>i386</code>,
-     * <code>x86_64</code>
+     * The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     * <code>i386</code>. For instance store-backed AMIs, the architecture
+     * specified in the manifest file.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
@@ -67,32 +84,38 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     private String architecture;
 
     /**
-     * The optional ID of a specific kernel to register with the new AMI.
+     * The ID of the kernel.
      */
     private String kernelId;
 
     /**
-     * The optional ID of a specific ramdisk to register with the new AMI.
-     * <p> Some kernels require additional drivers at launch. Check the
-     * kernel requirements for information on whether you need to specify a
-     * RAM disk.
+     * The ID of the RAM disk.
      */
     private String ramdiskId;
 
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code>, or
+     * <code>xvda</code>).
      */
     private String rootDeviceName;
 
     /**
-     * The block device mappings for the new AMI, which specify how different
-     * block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     * on instances launched from the new image.
+     * One or more block device mapping entries.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<BlockDeviceMapping> blockDeviceMappings;
 
+    /**
+     * The type of virtualization. <p>Default: <code>paravirtual</code>
+     */
     private String virtualizationType;
 
+    /**
+     * Set to <code>simple</code> to enable enhanced networking for the AMI
+     * and any instances that you launch from the AMI. <p>There is no way to
+     * disable enhanced networking at this time. <p>This option is supported
+     * only for HVM AMIs. Specifying this option with a PV AMI can make
+     * instances launched from the AMI unreachable.
+     */
     private String sriovNetSupport;
 
     /**
@@ -138,7 +161,7 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param imageLocation The full path to your AMI manifest in Amazon S3 storage.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withImageLocation(String imageLocation) {
@@ -147,49 +170,43 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     * alphanumeric characters, parenthesis (<code>()</code>), commas
-     * (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     * or underscores(<code>_</code>)
+     * A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     * parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     * (_)
      *
-     * @return The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     *         alphanumeric characters, parenthesis (<code>()</code>), commas
-     *         (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     *         or underscores(<code>_</code>)
+     * @return A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     *         parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     *         (_)
      */
     public String getName() {
         return name;
     }
     
     /**
-     * The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     * alphanumeric characters, parenthesis (<code>()</code>), commas
-     * (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     * or underscores(<code>_</code>)
+     * A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     * parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     * (_)
      *
-     * @param name The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     *         alphanumeric characters, parenthesis (<code>()</code>), commas
-     *         (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     *         or underscores(<code>_</code>)
+     * @param name A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     *         parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     *         (_)
      */
     public void setName(String name) {
         this.name = name;
     }
     
     /**
-     * The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     * alphanumeric characters, parenthesis (<code>()</code>), commas
-     * (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     * or underscores(<code>_</code>)
+     * A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     * parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     * (_)
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param name The name to give the new Amazon Machine Image. <p> Constraints: 3-128
-     *         alphanumeric characters, parenthesis (<code>()</code>), commas
-     *         (<code>,</code>), slashes (<code>/</code>), dashes (<code>-</code>),
-     *         or underscores(<code>_</code>)
+     * @param name A name for your AMI. <p>Constraints: 3-128 alphanumeric characters,
+     *         parenthesis (()), commas (,), slashes (/), dashes (-), or underscores
+     *         (_)
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withName(String name) {
@@ -198,31 +215,31 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The description describing the new AMI.
+     * A description for your AMI.
      *
-     * @return The description describing the new AMI.
+     * @return A description for your AMI.
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     * The description describing the new AMI.
+     * A description for your AMI.
      *
-     * @param description The description describing the new AMI.
+     * @param description A description for your AMI.
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     * The description describing the new AMI.
+     * A description for your AMI.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param description The description describing the new AMI.
+     * @param description A description for your AMI.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withDescription(String description) {
@@ -231,14 +248,16 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The architecture of the image. <p> Valid Values: <code>i386</code>,
-     * <code>x86_64</code>
+     * The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     * <code>i386</code>. For instance store-backed AMIs, the architecture
+     * specified in the manifest file.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @return The architecture of the image. <p> Valid Values: <code>i386</code>,
-     *         <code>x86_64</code>
+     * @return The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     *         <code>i386</code>. For instance store-backed AMIs, the architecture
+     *         specified in the manifest file.
      *
      * @see ArchitectureValues
      */
@@ -247,14 +266,16 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * The architecture of the image. <p> Valid Values: <code>i386</code>,
-     * <code>x86_64</code>
+     * The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     * <code>i386</code>. For instance store-backed AMIs, the architecture
+     * specified in the manifest file.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of the image. <p> Valid Values: <code>i386</code>,
-     *         <code>x86_64</code>
+     * @param architecture The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     *         <code>i386</code>. For instance store-backed AMIs, the architecture
+     *         specified in the manifest file.
      *
      * @see ArchitectureValues
      */
@@ -263,18 +284,20 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * The architecture of the image. <p> Valid Values: <code>i386</code>,
-     * <code>x86_64</code>
+     * The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     * <code>i386</code>. For instance store-backed AMIs, the architecture
+     * specified in the manifest file.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of the image. <p> Valid Values: <code>i386</code>,
-     *         <code>x86_64</code>
+     * @param architecture The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     *         <code>i386</code>. For instance store-backed AMIs, the architecture
+     *         specified in the manifest file.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ArchitectureValues
@@ -285,14 +308,16 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The architecture of the image. <p> Valid Values: <code>i386</code>,
-     * <code>x86_64</code>
+     * The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     * <code>i386</code>. For instance store-backed AMIs, the architecture
+     * specified in the manifest file.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of the image. <p> Valid Values: <code>i386</code>,
-     *         <code>x86_64</code>
+     * @param architecture The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     *         <code>i386</code>. For instance store-backed AMIs, the architecture
+     *         specified in the manifest file.
      *
      * @see ArchitectureValues
      */
@@ -301,18 +326,20 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * The architecture of the image. <p> Valid Values: <code>i386</code>,
-     * <code>x86_64</code>
+     * The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     * <code>i386</code>. For instance store-backed AMIs, the architecture
+     * specified in the manifest file.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>i386, x86_64
      *
-     * @param architecture The architecture of the image. <p> Valid Values: <code>i386</code>,
-     *         <code>x86_64</code>
+     * @param architecture The architecture of the AMI. <p>Default: For Amazon EBS-backed AMIs,
+     *         <code>i386</code>. For instance store-backed AMIs, the architecture
+     *         specified in the manifest file.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ArchitectureValues
@@ -323,31 +350,31 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The optional ID of a specific kernel to register with the new AMI.
+     * The ID of the kernel.
      *
-     * @return The optional ID of a specific kernel to register with the new AMI.
+     * @return The ID of the kernel.
      */
     public String getKernelId() {
         return kernelId;
     }
     
     /**
-     * The optional ID of a specific kernel to register with the new AMI.
+     * The ID of the kernel.
      *
-     * @param kernelId The optional ID of a specific kernel to register with the new AMI.
+     * @param kernelId The ID of the kernel.
      */
     public void setKernelId(String kernelId) {
         this.kernelId = kernelId;
     }
     
     /**
-     * The optional ID of a specific kernel to register with the new AMI.
+     * The ID of the kernel.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param kernelId The optional ID of a specific kernel to register with the new AMI.
+     * @param kernelId The ID of the kernel.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withKernelId(String kernelId) {
@@ -356,49 +383,31 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The optional ID of a specific ramdisk to register with the new AMI.
-     * <p> Some kernels require additional drivers at launch. Check the
-     * kernel requirements for information on whether you need to specify a
-     * RAM disk.
+     * The ID of the RAM disk.
      *
-     * @return The optional ID of a specific ramdisk to register with the new AMI.
-     *         <p> Some kernels require additional drivers at launch. Check the
-     *         kernel requirements for information on whether you need to specify a
-     *         RAM disk.
+     * @return The ID of the RAM disk.
      */
     public String getRamdiskId() {
         return ramdiskId;
     }
     
     /**
-     * The optional ID of a specific ramdisk to register with the new AMI.
-     * <p> Some kernels require additional drivers at launch. Check the
-     * kernel requirements for information on whether you need to specify a
-     * RAM disk.
+     * The ID of the RAM disk.
      *
-     * @param ramdiskId The optional ID of a specific ramdisk to register with the new AMI.
-     *         <p> Some kernels require additional drivers at launch. Check the
-     *         kernel requirements for information on whether you need to specify a
-     *         RAM disk.
+     * @param ramdiskId The ID of the RAM disk.
      */
     public void setRamdiskId(String ramdiskId) {
         this.ramdiskId = ramdiskId;
     }
     
     /**
-     * The optional ID of a specific ramdisk to register with the new AMI.
-     * <p> Some kernels require additional drivers at launch. Check the
-     * kernel requirements for information on whether you need to specify a
-     * RAM disk.
+     * The ID of the RAM disk.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param ramdiskId The optional ID of a specific ramdisk to register with the new AMI.
-     *         <p> Some kernels require additional drivers at launch. Check the
-     *         kernel requirements for information on whether you need to specify a
-     *         RAM disk.
+     * @param ramdiskId The ID of the RAM disk.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withRamdiskId(String ramdiskId) {
@@ -407,31 +416,37 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code>, or
+     * <code>xvda</code>).
      *
-     * @return The root device name (e.g., <code>/dev/sda1</code>).
+     * @return The name of the root device (for example, <code>/dev/sda1</code>, or
+     *         <code>xvda</code>).
      */
     public String getRootDeviceName() {
         return rootDeviceName;
     }
     
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code>, or
+     * <code>xvda</code>).
      *
-     * @param rootDeviceName The root device name (e.g., <code>/dev/sda1</code>).
+     * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code>, or
+     *         <code>xvda</code>).
      */
     public void setRootDeviceName(String rootDeviceName) {
         this.rootDeviceName = rootDeviceName;
     }
     
     /**
-     * The root device name (e.g., <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code>, or
+     * <code>xvda</code>).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param rootDeviceName The root device name (e.g., <code>/dev/sda1</code>).
+     * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code>, or
+     *         <code>xvda</code>).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withRootDeviceName(String rootDeviceName) {
@@ -440,13 +455,9 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * The block device mappings for the new AMI, which specify how different
-     * block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     * on instances launched from the new image.
+     * One or more block device mapping entries.
      *
-     * @return The block device mappings for the new AMI, which specify how different
-     *         block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     *         on instances launched from the new image.
+     * @return One or more block device mapping entries.
      */
     public java.util.List<BlockDeviceMapping> getBlockDeviceMappings() {
         if (blockDeviceMappings == null) {
@@ -457,13 +468,9 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * The block device mappings for the new AMI, which specify how different
-     * block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     * on instances launched from the new image.
+     * One or more block device mapping entries.
      *
-     * @param blockDeviceMappings The block device mappings for the new AMI, which specify how different
-     *         block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     *         on instances launched from the new image.
+     * @param blockDeviceMappings One or more block device mapping entries.
      */
     public void setBlockDeviceMappings(java.util.Collection<BlockDeviceMapping> blockDeviceMappings) {
         if (blockDeviceMappings == null) {
@@ -476,17 +483,13 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * The block device mappings for the new AMI, which specify how different
-     * block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     * on instances launched from the new image.
+     * One or more block device mapping entries.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param blockDeviceMappings The block device mappings for the new AMI, which specify how different
-     *         block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     *         on instances launched from the new image.
+     * @param blockDeviceMappings One or more block device mapping entries.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withBlockDeviceMappings(BlockDeviceMapping... blockDeviceMappings) {
@@ -498,17 +501,13 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
     
     /**
-     * The block device mappings for the new AMI, which specify how different
-     * block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     * on instances launched from the new image.
+     * One or more block device mapping entries.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param blockDeviceMappings The block device mappings for the new AMI, which specify how different
-     *         block devices (ex: EBS volumes and ephemeral drives) will be exposed
-     *         on instances launched from the new image.
+     * @param blockDeviceMappings One or more block device mapping entries.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withBlockDeviceMappings(java.util.Collection<BlockDeviceMapping> blockDeviceMappings) {
@@ -524,31 +523,31 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * Returns the value of the VirtualizationType property for this object.
+     * The type of virtualization. <p>Default: <code>paravirtual</code>
      *
-     * @return The value of the VirtualizationType property for this object.
+     * @return The type of virtualization. <p>Default: <code>paravirtual</code>
      */
     public String getVirtualizationType() {
         return virtualizationType;
     }
     
     /**
-     * Sets the value of the VirtualizationType property for this object.
+     * The type of virtualization. <p>Default: <code>paravirtual</code>
      *
-     * @param virtualizationType The new value for the VirtualizationType property for this object.
+     * @param virtualizationType The type of virtualization. <p>Default: <code>paravirtual</code>
      */
     public void setVirtualizationType(String virtualizationType) {
         this.virtualizationType = virtualizationType;
     }
     
     /**
-     * Sets the value of the VirtualizationType property for this object.
+     * The type of virtualization. <p>Default: <code>paravirtual</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param virtualizationType The new value for the VirtualizationType property for this object.
+     * @param virtualizationType The type of virtualization. <p>Default: <code>paravirtual</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withVirtualizationType(String virtualizationType) {
@@ -557,31 +556,55 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * Returns the value of the SriovNetSupport property for this object.
+     * Set to <code>simple</code> to enable enhanced networking for the AMI
+     * and any instances that you launch from the AMI. <p>There is no way to
+     * disable enhanced networking at this time. <p>This option is supported
+     * only for HVM AMIs. Specifying this option with a PV AMI can make
+     * instances launched from the AMI unreachable.
      *
-     * @return The value of the SriovNetSupport property for this object.
+     * @return Set to <code>simple</code> to enable enhanced networking for the AMI
+     *         and any instances that you launch from the AMI. <p>There is no way to
+     *         disable enhanced networking at this time. <p>This option is supported
+     *         only for HVM AMIs. Specifying this option with a PV AMI can make
+     *         instances launched from the AMI unreachable.
      */
     public String getSriovNetSupport() {
         return sriovNetSupport;
     }
     
     /**
-     * Sets the value of the SriovNetSupport property for this object.
+     * Set to <code>simple</code> to enable enhanced networking for the AMI
+     * and any instances that you launch from the AMI. <p>There is no way to
+     * disable enhanced networking at this time. <p>This option is supported
+     * only for HVM AMIs. Specifying this option with a PV AMI can make
+     * instances launched from the AMI unreachable.
      *
-     * @param sriovNetSupport The new value for the SriovNetSupport property for this object.
+     * @param sriovNetSupport Set to <code>simple</code> to enable enhanced networking for the AMI
+     *         and any instances that you launch from the AMI. <p>There is no way to
+     *         disable enhanced networking at this time. <p>This option is supported
+     *         only for HVM AMIs. Specifying this option with a PV AMI can make
+     *         instances launched from the AMI unreachable.
      */
     public void setSriovNetSupport(String sriovNetSupport) {
         this.sriovNetSupport = sriovNetSupport;
     }
     
     /**
-     * Sets the value of the SriovNetSupport property for this object.
+     * Set to <code>simple</code> to enable enhanced networking for the AMI
+     * and any instances that you launch from the AMI. <p>There is no way to
+     * disable enhanced networking at this time. <p>This option is supported
+     * only for HVM AMIs. Specifying this option with a PV AMI can make
+     * instances launched from the AMI unreachable.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sriovNetSupport The new value for the SriovNetSupport property for this object.
+     * @param sriovNetSupport Set to <code>simple</code> to enable enhanced networking for the AMI
+     *         and any instances that you launch from the AMI. <p>There is no way to
+     *         disable enhanced networking at this time. <p>This option is supported
+     *         only for HVM AMIs. Specifying this option with a PV AMI can make
+     *         instances launched from the AMI unreachable.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RegisterImageRequest withSriovNetSupport(String sriovNetSupport) {

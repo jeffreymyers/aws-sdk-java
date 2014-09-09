@@ -17,38 +17,50 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * Vpn Connection Options
+ * <p>
+ * Describes VPN connection options.
+ * </p>
  */
 public class VpnConnectionOptions implements Serializable {
 
+    /**
+     * Indicates whether the VPN connection uses static routes only. Static
+     * routes must be used for devices that don't support BGP.
+     */
     private Boolean staticRoutesOnly;
 
     /**
-     * Returns the value of the StaticRoutesOnly property for this object.
+     * Indicates whether the VPN connection uses static routes only. Static
+     * routes must be used for devices that don't support BGP.
      *
-     * @return The value of the StaticRoutesOnly property for this object.
+     * @return Indicates whether the VPN connection uses static routes only. Static
+     *         routes must be used for devices that don't support BGP.
      */
     public Boolean isStaticRoutesOnly() {
         return staticRoutesOnly;
     }
     
     /**
-     * Sets the value of the StaticRoutesOnly property for this object.
+     * Indicates whether the VPN connection uses static routes only. Static
+     * routes must be used for devices that don't support BGP.
      *
-     * @param staticRoutesOnly The new value for the StaticRoutesOnly property for this object.
+     * @param staticRoutesOnly Indicates whether the VPN connection uses static routes only. Static
+     *         routes must be used for devices that don't support BGP.
      */
     public void setStaticRoutesOnly(Boolean staticRoutesOnly) {
         this.staticRoutesOnly = staticRoutesOnly;
     }
     
     /**
-     * Sets the value of the StaticRoutesOnly property for this object.
+     * Indicates whether the VPN connection uses static routes only. Static
+     * routes must be used for devices that don't support BGP.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param staticRoutesOnly The new value for the StaticRoutesOnly property for this object.
+     * @param staticRoutesOnly Indicates whether the VPN connection uses static routes only. Static
+     *         routes must be used for devices that don't support BGP.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VpnConnectionOptions withStaticRoutesOnly(Boolean staticRoutesOnly) {
@@ -57,9 +69,11 @@ public class VpnConnectionOptions implements Serializable {
     }
 
     /**
-     * Returns the value of the StaticRoutesOnly property for this object.
+     * Indicates whether the VPN connection uses static routes only. Static
+     * routes must be used for devices that don't support BGP.
      *
-     * @return The value of the StaticRoutesOnly property for this object.
+     * @return Indicates whether the VPN connection uses static routes only. Static
+     *         routes must be used for devices that don't support BGP.
      */
     public Boolean getStaticRoutesOnly() {
         return staticRoutesOnly;

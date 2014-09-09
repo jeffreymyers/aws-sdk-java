@@ -21,8 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#describeEventCategories(DescribeEventCategoriesRequest) DescribeEventCategories operation}.
  * <p>
- * Displays a list of event categories for all event source types, or for a specified source type. For a list of the event categories and source types,
- * go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-event-notifications.html"> Amazon Redshift Event Notifications </a> .
+ * Displays a list of event categories for all event source types, or for
+ * a specified source type. For a list of the event categories and source
+ * types, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-event-notifications.html"> Amazon Redshift Event Notifications </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#describeEventCategories(DescribeEventCategoriesRequest)
@@ -73,7 +76,7 @@ public class DescribeEventCategoriesRequest extends AmazonWebServiceRequest impl
      *         described event categories apply. <p> Valid values: cluster, snapshot,
      *         parameter group, and security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventCategoriesRequest withSourceType(String sourceType) {

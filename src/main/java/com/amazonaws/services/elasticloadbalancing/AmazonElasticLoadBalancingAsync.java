@@ -26,38 +26,47 @@ import com.amazonaws.services.elasticloadbalancing.model.*;
  * Each asynchronous method will return a Java Future object, and users are also allowed
  * to provide a callback handler.
  * Elastic Load Balancing <p>
- * Elastic Load Balancing is a cost-effective and easy to use web service to help you improve the availability and scalability of your application
- * running on Amazon Elastic Cloud Compute (Amazon EC2). It makes it easy for you to distribute application loads between two or more EC2 instances.
- * Elastic Load Balancing supports the growth in traffic of your application by enabling availability through redundancy.
+ * Elastic Load Balancing is a way to automatically distribute incoming
+ * web traffic across applications that run on multiple Amazon Elastic
+ * Compute Cloud (Amazon EC2) instances.
  * </p>
  * <p>
- * This guide provides detailed information about Elastic Load Balancing actions, data types, and parameters that can be used for sending a query
- * request. Query requests are HTTP or HTTPS requests that use the HTTP verb GET or POST and a query parameter named Action or Operation. Action is used
- * throughout this documentation, although Operation is supported for backward compatibility with other AWS Query APIs.
+ * You can create, access, and manage Elastic Load Balancing using the
+ * AWS Management Console or the Elastic Load Balancing API. For more
+ * information about Elastic Load Balancing interfaces, see
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/SvcIntro_Interfaces.html"> Accessing Elastic Load Balancing </a>
+ * .
  * </p>
  * <p>
- * For detailed information on constructing a query request using the actions, data types, and parameters mentioned in this guide, go to <a
- * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/using-query-api.html"> Using the Query API </a> in the <i>Elastic Load
- * Balancing Developer Guide</i> .
+ * This reference guide contains documentation for the Query API and the
+ * AWS command line interface commands, to manage Elastic Load Balancing.
  * </p>
  * <p>
- * For detailed information about Elastic Load Balancing features and their associated actions, go to <a
- * href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenarios.html"> Using Elastic Load Balancing </a> in the <i>Elastic
- * Load Balancing Developer Guide</i> .
+ * For detailed information about Elastic Load Balancing features and
+ * their associated actions or commands, go to
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenarios.html"> Managing Load Balancers </a>
+ * in the <i>Elastic Load Balancing Developer Guide</i> .
  * </p>
  * <p>
- * This reference guide is based on the current WSDL, which is available at: <a
- * href="http://elasticloadbalancing.amazonaws.com/doc/2012-06-01/ElasticLoadBalancing.wsdl"> </a>
+ * This reference guide is based on the current WSDL, which is available
+ * at:
+ * <a href="http://ec2-downloads.s3.amazonaws.com/ElasticLoadBalancing.wsdl"> </a>
+ * .
  * </p>
  * <p>
  * <b>Endpoints</b>
  * </p>
  * <p>
- * The examples in this guide assume that your load balancers are created in the US East (Northern Virginia) region and use us-east-1 as the endpoint.
+ * The examples in this guide assume that your load balancers are created
+ * in the US East (Northern Virginia) region and use us-east-1 as the
+ * endpoint.
  * </p>
  * <p>
- * You can create your load balancers in other AWS regions. For information about regions and endpoints supported by Elastic Load Balancing, see <a
- * href="http://docs.aws.amazon.com/general/latest/gr/index.html?rande.html"> Regions and Endpoints </a> in the Amazon Web Services General Reference.
+ * You can create your load balancers in other AWS regions. For
+ * information about regions and endpoints supported by Elastic Load
+ * Balancing, see
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/index.html?rande.html"> Regions and Endpoints </a>
+ * in the Amazon Web Services General Reference.
  * </p>
  */
 public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalancing {
@@ -130,10 +139,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * state of your back-end instances.
      * </p>
      * <p>
-     * For more information, see <a
-     * ing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#healthcheck">
-     * Health Check </a> in the <i>Elastic Load Balancing Developer
-     * Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#healthcheck"> Health Check </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param configureHealthCheckRequest Container for the necessary
@@ -162,10 +170,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * state of your back-end instances.
      * </p>
      * <p>
-     * For more information, see <a
-     * ing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#healthcheck">
-     * Health Check </a> in the <i>Elastic Load Balancing Developer
-     * Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#healthcheck"> Health Check </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param configureHealthCheckRequest Container for the necessary
@@ -266,8 +273,110 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
 
     /**
      * <p>
+     * Adds one or more tags for the specified load balancer. Each load
+     * balancer can have a maximum of 10 tags. Each tag consists of a key and
+     * an optional value.
+     * </p>
+     * <p>
+     * Tag keys must be unique for each load balancer. If a tag with the
+     * same key is already associated with the load balancer, this action
+     * will update the value of the key.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#tagging-elb"> Tagging </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
+     * </p>
+     *
+     * @param addTagsRequest Container for the necessary parameters to
+     *           execute the AddTags operation on AmazonElasticLoadBalancing.
+     * 
+     * @return A Java Future object containing the response from the AddTags
+     *         service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<AddTagsResult> addTagsAsync(AddTagsRequest addTagsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Adds one or more tags for the specified load balancer. Each load
+     * balancer can have a maximum of 10 tags. Each tag consists of a key and
+     * an optional value.
+     * </p>
+     * <p>
+     * Tag keys must be unique for each load balancer. If a tag with the
+     * same key is already associated with the load balancer, this action
+     * will update the value of the key.
+     * </p>
+     * <p>
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#tagging-elb"> Tagging </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
+     * </p>
+     *
+     * @param addTagsRequest Container for the necessary parameters to
+     *           execute the AddTags operation on AmazonElasticLoadBalancing.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the AddTags
+     *         service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<AddTagsResult> addTagsAsync(AddTagsRequest addTagsRequest,
+            AsyncHandler<AddTagsRequest, AddTagsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * Modifies the attributes of a specified load balancer.
      * </p>
+     * <p>
+     * You can modify the load balancer attributes, such as
+     * <code>AccessLogs</code> , <code>ConnectionDraining</code> , and
+     * <code>CrossZoneLoadBalancing</code> by either enabling or disabling
+     * them. Or, you can modify the load balancer attribute
+     * <code>ConnectionSettings</code> by specifying an idle connection
+     * timeout value for your load balancer.
+     * </p>
+     * <p>
+     * For more information, see the following:
+     * </p>
+     * 
+     * <ul>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#request-routing"> Cross-Zone Load Balancing </a>
+     * </li>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain"> Connection Draining </a>
+     * </li>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/access-log-collection.html"> Access Logs </a>
+     * </li>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#idle-timeout"> Idle Connection Timeout </a>
+     * </li>
+     * 
+     * </ul>
      *
      * @param modifyLoadBalancerAttributesRequest Container for the necessary
      *           parameters to execute the ModifyLoadBalancerAttributes operation on
@@ -293,6 +402,33 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * <p>
      * Modifies the attributes of a specified load balancer.
      * </p>
+     * <p>
+     * You can modify the load balancer attributes, such as
+     * <code>AccessLogs</code> , <code>ConnectionDraining</code> , and
+     * <code>CrossZoneLoadBalancing</code> by either enabling or disabling
+     * them. Or, you can modify the load balancer attribute
+     * <code>ConnectionSettings</code> by specifying an idle connection
+     * timeout value for your load balancer.
+     * </p>
+     * <p>
+     * For more information, see the following:
+     * </p>
+     * 
+     * <ul>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#request-routing"> Cross-Zone Load Balancing </a>
+     * </li>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain"> Connection Draining </a>
+     * </li>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/access-log-collection.html"> Access Logs </a>
+     * </li>
+     * <li>
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#idle-timeout"> Idle Connection Timeout </a>
+     * </li>
+     * 
+     * </ul>
      *
      * @param modifyLoadBalancerAttributesRequest Container for the necessary
      *           parameters to execute the ModifyLoadBalancerAttributes operation on
@@ -327,10 +463,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * match the properties of the existing listener.
      * </p>
      * <p>
-     * For more information, see <a
-     * .com/ElasticLoadBalancing/latest/DeveloperGuide/us-add-listener.html">
-     * Add a Listener to Your Load Balancer </a> in the <i>Elastic Load
-     * Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/us-add-listener.html"> Add a Listener to Your Load Balancer </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param createLoadBalancerListenersRequest Container for the necessary
@@ -361,10 +496,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * match the properties of the existing listener.
      * </p>
      * <p>
-     * For more information, see <a
-     * .com/ElasticLoadBalancing/latest/DeveloperGuide/us-add-listener.html">
-     * Add a Listener to Your Load Balancer </a> in the <i>Elastic Load
-     * Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/us-add-listener.html"> Add a Listener to Your Load Balancer </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param createLoadBalancerListenersRequest Container for the necessary
@@ -472,10 +606,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * common web browsers.
      * </p>
      * <p>
-     * For more information, see <a
-     * eloperGuide/US_StickySessions.html#US_EnableStickySessionsAppCookies">
-     * Enabling Application-Controlled Session Stickiness </a> in the
-     * <i>Elastic Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_StickySessions.html#US_EnableStickySessionsAppCookies"> Enabling Application-Controlled Session Stickiness </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param createAppCookieStickinessPolicyRequest Container for the
@@ -523,10 +656,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * common web browsers.
      * </p>
      * <p>
-     * For more information, see <a
-     * eloperGuide/US_StickySessions.html#US_EnableStickySessionsAppCookies">
-     * Enabling Application-Controlled Session Stickiness </a> in the
-     * <i>Elastic Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_StickySessions.html#US_EnableStickySessionsAppCookies"> Enabling Application-Controlled Session Stickiness </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param createAppCookieStickinessPolicyRequest Container for the
@@ -561,10 +693,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * IDs will override any currently applied security groups.
      * </p>
      * <p>
-     * For more information, see <a
-     * on.com/ElasticLoadBalancing/latest/DeveloperGuide/USVPC_ApplySG.html">
-     * Manage Security Groups in Amazon VPC </a> in the <i>Elastic Load
-     * Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/USVPC_ApplySG.html"> Manage Security Groups in Amazon VPC </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param applySecurityGroupsToLoadBalancerRequest Container for the
@@ -594,10 +725,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * IDs will override any currently applied security groups.
      * </p>
      * <p>
-     * For more information, see <a
-     * on.com/ElasticLoadBalancing/latest/DeveloperGuide/USVPC_ApplySG.html">
-     * Manage Security Groups in Amazon VPC </a> in the <i>Elastic Load
-     * Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/USVPC_ApplySG.html"> Manage Security Groups in Amazon VPC </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param applySecurityGroupsToLoadBalancerRequest Container for the
@@ -767,10 +897,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * load balancer does nothing.
      * </p>
      * <p>
-     * For more information, see <a
-     * com/ElasticLoadBalancing/latest/DeveloperGuide/US_ShrinkLBApp04.html">
-     * Disable an Availability Zone from a Load-Balanced Application </a> in
-     * the <i>Elastic Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_ShrinkLBApp04.html"> Disable an Availability Zone from a Load-Balanced Application </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param disableAvailabilityZonesForLoadBalancerRequest Container for
@@ -810,10 +939,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * load balancer does nothing.
      * </p>
      * <p>
-     * For more information, see <a
-     * com/ElasticLoadBalancing/latest/DeveloperGuide/US_ShrinkLBApp04.html">
-     * Disable an Availability Zone from a Load-Balanced Application </a> in
-     * the <i>Elastic Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_ShrinkLBApp04.html"> Disable an Availability Zone from a Load-Balanced Application </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param disableAvailabilityZonesForLoadBalancerRequest Container for
@@ -968,6 +1096,59 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
 
     /**
      * <p>
+     * Describes the tags associated with one or more load balancers.
+     * </p>
+     *
+     * @param describeTagsRequest Container for the necessary parameters to
+     *           execute the DescribeTags operation on AmazonElasticLoadBalancing.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeTags service method, as returned by
+     *         AmazonElasticLoadBalancing.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest describeTagsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Describes the tags associated with one or more load balancers.
+     * </p>
+     *
+     * @param describeTagsRequest Container for the necessary parameters to
+     *           execute the DescribeTags operation on AmazonElasticLoadBalancing.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeTags service method, as returned by
+     *         AmazonElasticLoadBalancing.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest describeTagsRequest,
+            AsyncHandler<DescribeTagsRequest, DescribeTagsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * Creates a new policy that contains the necessary attributes depending
      * on the policy type. Policies are settings that are saved for your load
      * balancer and that can be applied to the front-end listener, or the
@@ -1029,6 +1210,57 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
 
     /**
      * <p>
+     * Removes one or more tags from the specified load balancer.
+     * </p>
+     *
+     * @param removeTagsRequest Container for the necessary parameters to
+     *           execute the RemoveTags operation on AmazonElasticLoadBalancing.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RemoveTags service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest removeTagsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Removes one or more tags from the specified load balancer.
+     * </p>
+     *
+     * @param removeTagsRequest Container for the necessary parameters to
+     *           execute the RemoveTags operation on AmazonElasticLoadBalancing.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RemoveTags service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest removeTagsRequest,
+            AsyncHandler<RemoveTagsRequest, RemoveTagsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * Adds one or more EC2 Availability Zones to the load balancer.
      * </p>
      * <p>
@@ -1036,15 +1268,14 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * registered Availability Zones that contain instances.
      * </p>
      * <p>
-     * <b>NOTE:</b> The new EC2 Availability Zones to be added must be in the
-     * same EC2 Region as the Availability Zones for which the load balancer
-     * was created.
+     * <b>NOTE:</b> The new EC2 Availability Zones to be added must be in
+     * the same EC2 Region as the Availability Zones for which the load
+     * balancer was created.
      * </p>
      * <p>
-     * For more information, see <a
-     * ticLoadBalancing/latest/DeveloperGuide/US_AddLBAvailabilityZone.html">
-     * Expand a Load Balanced Application to an Additional Availability Zone
-     * </a> in the <i>Elastic Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_AddLBAvailabilityZone.html"> Expand a Load Balanced Application to an Additional Availability Zone </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param enableAvailabilityZonesForLoadBalancerRequest Container for the
@@ -1077,15 +1308,14 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * registered Availability Zones that contain instances.
      * </p>
      * <p>
-     * <b>NOTE:</b> The new EC2 Availability Zones to be added must be in the
-     * same EC2 Region as the Availability Zones for which the load balancer
-     * was created.
+     * <b>NOTE:</b> The new EC2 Availability Zones to be added must be in
+     * the same EC2 Region as the Availability Zones for which the load
+     * balancer was created.
      * </p>
      * <p>
-     * For more information, see <a
-     * ticLoadBalancing/latest/DeveloperGuide/US_AddLBAvailabilityZone.html">
-     * Expand a Load Balanced Application to an Additional Availability Zone
-     * </a> in the <i>Elastic Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_AddLBAvailabilityZone.html"> Expand a Load Balanced Application to an Additional Availability Zone </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param enableAvailabilityZonesForLoadBalancerRequest Container for the
@@ -1215,19 +1445,19 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * 
      * <ul>
      * <li> <i>us-east-1.elb.amazonaws.com</i> (for the Northern Virginia
-     * Region) </li>
+     * region) </li>
      * <li> <i>us-west-1.elb.amazonaws.com</i> (for the Northern California
-     * Region) </li>
+     * region) </li>
      * 
      * </ul>
      * <p>
      * For information about the AWS regions supported by Elastic Load
-     * Balancing, see <a
-     * ="http://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region">
-     * Regions and Endpoints </a> .
+     * Balancing, see
+     * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region"> Regions and Endpoints </a>
+     * .
      * </p>
      * <p>
-     * You can create up to 10 load balancers per region per account.
+     * You can create up to 20 load balancers per region per account.
      * </p>
      * <p>
      * Elastic Load Balancing supports load balancing your Amazon EC2
@@ -1237,16 +1467,16 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * <ul>
      * <li> <i>EC2-Classic</i> <p>
      * For information on creating and managing your load balancers in
-     * EC2-Classic, see <a
-     * /ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForEC2.html">
-     * Deploy Elastic Load Balancing in Amazon EC2-Classic </a> .
+     * EC2-Classic, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForEC2.html"> Deploy Elastic Load Balancing in Amazon EC2-Classic </a>
+     * .
      * </p>
      * </li>
      * <li> <i>EC2-VPC</i> <p>
      * For information on creating and managing your load balancers in
-     * EC2-VPC, see <a
-     * /ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html">
-     * Deploy Elastic Load Balancing in Amazon VPC </a> .
+     * EC2-VPC, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html"> Deploy Elastic Load Balancing in Amazon VPC </a>
+     * .
      * </p>
      * </li>
      * 
@@ -1286,19 +1516,19 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * 
      * <ul>
      * <li> <i>us-east-1.elb.amazonaws.com</i> (for the Northern Virginia
-     * Region) </li>
+     * region) </li>
      * <li> <i>us-west-1.elb.amazonaws.com</i> (for the Northern California
-     * Region) </li>
+     * region) </li>
      * 
      * </ul>
      * <p>
      * For information about the AWS regions supported by Elastic Load
-     * Balancing, see <a
-     * ="http://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region">
-     * Regions and Endpoints </a> .
+     * Balancing, see
+     * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region"> Regions and Endpoints </a>
+     * .
      * </p>
      * <p>
-     * You can create up to 10 load balancers per region per account.
+     * You can create up to 20 load balancers per region per account.
      * </p>
      * <p>
      * Elastic Load Balancing supports load balancing your Amazon EC2
@@ -1308,16 +1538,16 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * <ul>
      * <li> <i>EC2-Classic</i> <p>
      * For information on creating and managing your load balancers in
-     * EC2-Classic, see <a
-     * /ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForEC2.html">
-     * Deploy Elastic Load Balancing in Amazon EC2-Classic </a> .
+     * EC2-Classic, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForEC2.html"> Deploy Elastic Load Balancing in Amazon EC2-Classic </a>
+     * .
      * </p>
      * </li>
      * <li> <i>EC2-VPC</i> <p>
      * For information on creating and managing your load balancers in
-     * EC2-VPC, see <a
-     * /ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html">
-     * Deploy Elastic Load Balancing in Amazon VPC </a> .
+     * EC2-VPC, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html"> Deploy Elastic Load Balancing in Amazon VPC </a>
+     * .
      * </p>
      * </li>
      * 
@@ -1447,10 +1677,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * as those used to create the load balancer must be provided.
      * </p>
      * <p>
-     * For more information, see <a
-     * asticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html">
-     * De-register and Register Amazon EC2 Instances </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html"> De-register and Register Amazon EC2 Instances </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      * <p>
      * You can use DescribeLoadBalancers to verify if the instance is
@@ -1488,10 +1717,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * as those used to create the load balancer must be provided.
      * </p>
      * <p>
-     * For more information, see <a
-     * asticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html">
-     * De-register and Register Amazon EC2 Instances </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html"> De-register and Register Amazon EC2 Instances </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      * <p>
      * You can use DescribeLoadBalancers to verify if the instance is
@@ -1531,10 +1759,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * that was used on the same load balancer and port.
      * </p>
      * <p>
-     * For more information on updating your SSL certificate, see <a
-     * cLoadBalancing/latest/DeveloperGuide/US_UpdatingLoadBalancerSSL.html">
-     * Updating an SSL Certificate for a Load Balancer </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
+     * For more information on updating your SSL certificate, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_UpdatingLoadBalancerSSL.html"> Updating an SSL Certificate for a Load Balancer </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param setLoadBalancerListenerSSLCertificateRequest Container for the
@@ -1565,10 +1792,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * that was used on the same load balancer and port.
      * </p>
      * <p>
-     * For more information on updating your SSL certificate, see <a
-     * cLoadBalancing/latest/DeveloperGuide/US_UpdatingLoadBalancerSSL.html">
-     * Updating an SSL Certificate for a Load Balancer </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
+     * For more information on updating your SSL certificate, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_UpdatingLoadBalancerSSL.html"> Updating an SSL Certificate for a Load Balancer </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param setLoadBalancerListenerSSLCertificateRequest Container for the
@@ -1677,10 +1903,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * policy configuration.
      * </p>
      * <p>
-     * For more information, see <a
-     * veloperGuide/US_StickySessions.html#US_EnableStickySessionsLBCookies">
-     * Enabling Duration-Based Session Stickiness </a> in the <i>Elastic Load
-     * Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_StickySessions.html#US_EnableStickySessionsLBCookies"> Enabling Duration-Based Session Stickiness </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param createLBCookieStickinessPolicyRequest Container for the
@@ -1726,10 +1951,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * policy configuration.
      * </p>
      * <p>
-     * For more information, see <a
-     * veloperGuide/US_StickySessions.html#US_EnableStickySessionsLBCookies">
-     * Enabling Duration-Based Session Stickiness </a> in the <i>Elastic Load
-     * Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_StickySessions.html#US_EnableStickySessionsLBCookies"> Enabling Duration-Based Session Stickiness </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param createLBCookieStickinessPolicyRequest Container for the
@@ -1764,11 +1988,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * </p>
      * <p>
      * The load balancers evenly distribute requests across all of the
-     * registered subnets. For more information, see <a
-     * /ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html">
-     * Deploy Elastic Load Balancing in Amazon VPC </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
-     * 
+     * registered subnets. For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html"> Deploy Elastic Load Balancing in Amazon VPC </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param attachLoadBalancerToSubnetsRequest Container for the necessary
@@ -1798,11 +2020,9 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * </p>
      * <p>
      * The load balancers evenly distribute requests across all of the
-     * registered subnets. For more information, see <a
-     * /ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html">
-     * Deploy Elastic Load Balancing in Amazon VPC </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
-     * 
+     * registered subnets. For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/UserScenariosForVPC.html"> Deploy Elastic Load Balancing in Amazon VPC </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      *
      * @param attachLoadBalancerToSubnetsRequest Container for the necessary
@@ -1852,15 +2072,14 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * from load balancer, use DeregisterInstancesFromLoadBalancer action.
      * </p>
      * <p>
-     * For more information, see <a
-     * asticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html">
-     * De-register and Register Amazon EC2 Instances </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html"> De-register and Register Amazon EC2 Instances </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      * <p>
-     * <b>NOTE:</b> In order for this call to be successful, you must provide
-     * the same account credentials as those that were used to create the
-     * load balancer.
+     * <b>NOTE:</b> In order for this call to be successful, you must
+     * provide the same account credentials as those that were used to create
+     * the load balancer.
      * </p>
      * <p>
      * <b>NOTE:</b> Completion of this API does not guarantee that operation
@@ -1914,15 +2133,14 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * from load balancer, use DeregisterInstancesFromLoadBalancer action.
      * </p>
      * <p>
-     * For more information, see <a
-     * asticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html">
-     * De-register and Register Amazon EC2 Instances </a> in the <i>Elastic
-     * Load Balancing Developer Guide</i> .
+     * For more information, see
+     * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_DeReg_Reg_Instances.html"> De-register and Register Amazon EC2 Instances </a>
+     * in the <i>Elastic Load Balancing Developer Guide</i> .
      * </p>
      * <p>
-     * <b>NOTE:</b> In order for this call to be successful, you must provide
-     * the same account credentials as those that were used to create the
-     * load balancer.
+     * <b>NOTE:</b> In order for this call to be successful, you must
+     * provide the same account credentials as those that were used to create
+     * the load balancer.
      * </p>
      * <p>
      * <b>NOTE:</b> Completion of this API does not guarantee that operation

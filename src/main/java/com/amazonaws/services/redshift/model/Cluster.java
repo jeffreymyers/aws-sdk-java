@@ -36,7 +36,8 @@ public class Cluster implements Serializable {
     /**
      * The current state of this cluster. Possible values include
      * <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     * <code>rebooting</code>, and <code>resizing</code>.
+     * <code>rebooting</code>, <code>renaming</code>, and
+     * <code>resizing</code>.
      */
     private String clusterStatus;
 
@@ -151,7 +152,7 @@ public class Cluster implements Serializable {
     private Boolean publiclyAccessible;
 
     /**
-     * If <code>true</code>, data in cluster is encrypted at rest.
+     * If <code>true</code>, data in the cluster is encrypted at rest.
      */
     private Boolean encrypted;
 
@@ -190,6 +191,11 @@ public class Cluster implements Serializable {
     private ElasticIpStatus elasticIpStatus;
 
     /**
+     * The specific revision number of the database in the cluster.
+     */
+    private String clusterRevisionNumber;
+
+    /**
      * The unique identifier of the cluster.
      *
      * @return The unique identifier of the cluster.
@@ -214,7 +220,7 @@ public class Cluster implements Serializable {
      *
      * @param clusterIdentifier The unique identifier of the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterIdentifier(String clusterIdentifier) {
@@ -247,7 +253,7 @@ public class Cluster implements Serializable {
      *
      * @param nodeType The node type for the nodes in the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withNodeType(String nodeType) {
@@ -258,11 +264,13 @@ public class Cluster implements Serializable {
     /**
      * The current state of this cluster. Possible values include
      * <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     * <code>rebooting</code>, and <code>resizing</code>.
+     * <code>rebooting</code>, <code>renaming</code>, and
+     * <code>resizing</code>.
      *
      * @return The current state of this cluster. Possible values include
      *         <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     *         <code>rebooting</code>, and <code>resizing</code>.
+     *         <code>rebooting</code>, <code>renaming</code>, and
+     *         <code>resizing</code>.
      */
     public String getClusterStatus() {
         return clusterStatus;
@@ -271,11 +279,13 @@ public class Cluster implements Serializable {
     /**
      * The current state of this cluster. Possible values include
      * <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     * <code>rebooting</code>, and <code>resizing</code>.
+     * <code>rebooting</code>, <code>renaming</code>, and
+     * <code>resizing</code>.
      *
      * @param clusterStatus The current state of this cluster. Possible values include
      *         <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     *         <code>rebooting</code>, and <code>resizing</code>.
+     *         <code>rebooting</code>, <code>renaming</code>, and
+     *         <code>resizing</code>.
      */
     public void setClusterStatus(String clusterStatus) {
         this.clusterStatus = clusterStatus;
@@ -284,15 +294,17 @@ public class Cluster implements Serializable {
     /**
      * The current state of this cluster. Possible values include
      * <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     * <code>rebooting</code>, and <code>resizing</code>.
+     * <code>rebooting</code>, <code>renaming</code>, and
+     * <code>resizing</code>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param clusterStatus The current state of this cluster. Possible values include
      *         <code>available</code>, <code>creating</code>, <code>deleting</code>,
-     *         <code>rebooting</code>, and <code>resizing</code>.
+     *         <code>rebooting</code>, <code>renaming</code>, and
+     *         <code>resizing</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterStatus(String clusterStatus) {
@@ -325,7 +337,7 @@ public class Cluster implements Serializable {
      *
      * @param modifyStatus The status of a modify operation, if any, initiated for the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withModifyStatus(String modifyStatus) {
@@ -364,7 +376,7 @@ public class Cluster implements Serializable {
      * @param masterUsername The master user name for the cluster. This name is used to connect to
      *         the database that is specified in <b>DBName</b>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withMasterUsername(String masterUsername) {
@@ -415,7 +427,7 @@ public class Cluster implements Serializable {
      *         initial database was not specified, a database named "dev" was created
      *         by default.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withDBName(String dBName) {
@@ -448,7 +460,7 @@ public class Cluster implements Serializable {
      *
      * @param endpoint The connection endpoint.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withEndpoint(Endpoint endpoint) {
@@ -481,7 +493,7 @@ public class Cluster implements Serializable {
      *
      * @param clusterCreateTime The date and time that the cluster was created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterCreateTime(java.util.Date clusterCreateTime) {
@@ -514,7 +526,7 @@ public class Cluster implements Serializable {
      *
      * @param automatedSnapshotRetentionPeriod The number of days that automatic cluster snapshots are retained.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withAutomatedSnapshotRetentionPeriod(Integer automatedSnapshotRetentionPeriod) {
@@ -593,7 +605,7 @@ public class Cluster implements Serializable {
      *         Clusters that are created in a VPC use VPC security groups, which are
      *         listed by the <b>VpcSecurityGroups</b> parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterSecurityGroups(ClusterSecurityGroupMembership... clusterSecurityGroups) {
@@ -623,7 +635,7 @@ public class Cluster implements Serializable {
      *         Clusters that are created in a VPC use VPC security groups, which are
      *         listed by the <b>VpcSecurityGroups</b> parameter.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterSecurityGroups(java.util.Collection<ClusterSecurityGroupMembership> clusterSecurityGroups) {
@@ -685,7 +697,7 @@ public class Cluster implements Serializable {
      *         associated with the cluster. This parameter is returned only if the
      *         cluster is in a VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withVpcSecurityGroups(VpcSecurityGroupMembership... vpcSecurityGroups) {
@@ -707,7 +719,7 @@ public class Cluster implements Serializable {
      *         associated with the cluster. This parameter is returned only if the
      *         cluster is in a VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withVpcSecurityGroups(java.util.Collection<VpcSecurityGroupMembership> vpcSecurityGroups) {
@@ -763,7 +775,7 @@ public class Cluster implements Serializable {
      * @param clusterParameterGroups The list of cluster parameter groups that are associated with this
      *         cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterParameterGroups(ClusterParameterGroupStatus... clusterParameterGroups) {
@@ -783,7 +795,7 @@ public class Cluster implements Serializable {
      * @param clusterParameterGroups The list of cluster parameter groups that are associated with this
      *         cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterParameterGroups(java.util.Collection<ClusterParameterGroupStatus> clusterParameterGroups) {
@@ -829,7 +841,7 @@ public class Cluster implements Serializable {
      * @param clusterSubnetGroupName The name of the subnet group that is associated with the cluster. This
      *         parameter is valid only when the cluster is in a VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterSubnetGroupName(String clusterSubnetGroupName) {
@@ -868,7 +880,7 @@ public class Cluster implements Serializable {
      * @param vpcId The identifier of the VPC the cluster is in, if the cluster is in a
      *         VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withVpcId(String vpcId) {
@@ -901,7 +913,7 @@ public class Cluster implements Serializable {
      *
      * @param availabilityZone The name of the Availability Zone in which the cluster is located.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withAvailabilityZone(String availabilityZone) {
@@ -940,7 +952,7 @@ public class Cluster implements Serializable {
      * @param preferredMaintenanceWindow The weekly time range (in UTC) during which system maintenance can
      *         occur.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -979,7 +991,7 @@ public class Cluster implements Serializable {
      * @param pendingModifiedValues If present, changes to the cluster are pending. Specific pending
      *         changes are identified by subelements.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withPendingModifiedValues(PendingModifiedValues pendingModifiedValues) {
@@ -1018,7 +1030,7 @@ public class Cluster implements Serializable {
      * @param clusterVersion The version ID of the Amazon Redshift engine that is running on the
      *         cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterVersion(String clusterVersion) {
@@ -1057,7 +1069,7 @@ public class Cluster implements Serializable {
      * @param allowVersionUpgrade If <code>true</code>, version upgrades will be applied automatically
      *         to the cluster during the maintenance window.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withAllowVersionUpgrade(Boolean allowVersionUpgrade) {
@@ -1101,7 +1113,7 @@ public class Cluster implements Serializable {
      *
      * @param numberOfNodes The number of compute nodes in the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withNumberOfNodes(Integer numberOfNodes) {
@@ -1140,7 +1152,7 @@ public class Cluster implements Serializable {
      * @param publiclyAccessible If <code>true</code>, the cluster can be accessed from a public
      *         network.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withPubliclyAccessible(Boolean publiclyAccessible) {
@@ -1160,31 +1172,31 @@ public class Cluster implements Serializable {
     }
 
     /**
-     * If <code>true</code>, data in cluster is encrypted at rest.
+     * If <code>true</code>, data in the cluster is encrypted at rest.
      *
-     * @return If <code>true</code>, data in cluster is encrypted at rest.
+     * @return If <code>true</code>, data in the cluster is encrypted at rest.
      */
     public Boolean isEncrypted() {
         return encrypted;
     }
     
     /**
-     * If <code>true</code>, data in cluster is encrypted at rest.
+     * If <code>true</code>, data in the cluster is encrypted at rest.
      *
-     * @param encrypted If <code>true</code>, data in cluster is encrypted at rest.
+     * @param encrypted If <code>true</code>, data in the cluster is encrypted at rest.
      */
     public void setEncrypted(Boolean encrypted) {
         this.encrypted = encrypted;
     }
     
     /**
-     * If <code>true</code>, data in cluster is encrypted at rest.
+     * If <code>true</code>, data in the cluster is encrypted at rest.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param encrypted If <code>true</code>, data in cluster is encrypted at rest.
+     * @param encrypted If <code>true</code>, data in the cluster is encrypted at rest.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withEncrypted(Boolean encrypted) {
@@ -1193,9 +1205,9 @@ public class Cluster implements Serializable {
     }
 
     /**
-     * If <code>true</code>, data in cluster is encrypted at rest.
+     * If <code>true</code>, data in the cluster is encrypted at rest.
      *
-     * @return If <code>true</code>, data in cluster is encrypted at rest.
+     * @return If <code>true</code>, data in the cluster is encrypted at rest.
      */
     public Boolean getEncrypted() {
         return encrypted;
@@ -1232,7 +1244,7 @@ public class Cluster implements Serializable {
      * @param restoreStatus Describes the status of a cluster restore action. Returns null if the
      *         cluster was not created by restoring a snapshot.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withRestoreStatus(RestoreStatus restoreStatus) {
@@ -1277,7 +1289,7 @@ public class Cluster implements Serializable {
      *         HSM settings changes specified in a modify cluster command. <p>Values:
      *         active, applying
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withHsmStatus(HsmStatus hsmStatus) {
@@ -1316,7 +1328,7 @@ public class Cluster implements Serializable {
      * @param clusterSnapshotCopyStatus Returns the destination region and retention period that are
      *         configured for cross-region snapshot copy.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterSnapshotCopyStatus(ClusterSnapshotCopyStatus clusterSnapshotCopyStatus) {
@@ -1349,7 +1361,7 @@ public class Cluster implements Serializable {
      *
      * @param clusterPublicKey The public key for the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterPublicKey(String clusterPublicKey) {
@@ -1392,7 +1404,7 @@ public class Cluster implements Serializable {
      *
      * @param clusterNodes The nodes in a cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterNodes(ClusterNode... clusterNodes) {
@@ -1410,7 +1422,7 @@ public class Cluster implements Serializable {
      *
      * @param clusterNodes The nodes in a cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withClusterNodes(java.util.Collection<ClusterNode> clusterNodes) {
@@ -1450,11 +1462,44 @@ public class Cluster implements Serializable {
      *
      * @param elasticIpStatus Describes the status of the elastic IP (EIP) address.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withElasticIpStatus(ElasticIpStatus elasticIpStatus) {
         this.elasticIpStatus = elasticIpStatus;
+        return this;
+    }
+
+    /**
+     * The specific revision number of the database in the cluster.
+     *
+     * @return The specific revision number of the database in the cluster.
+     */
+    public String getClusterRevisionNumber() {
+        return clusterRevisionNumber;
+    }
+    
+    /**
+     * The specific revision number of the database in the cluster.
+     *
+     * @param clusterRevisionNumber The specific revision number of the database in the cluster.
+     */
+    public void setClusterRevisionNumber(String clusterRevisionNumber) {
+        this.clusterRevisionNumber = clusterRevisionNumber;
+    }
+    
+    /**
+     * The specific revision number of the database in the cluster.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param clusterRevisionNumber The specific revision number of the database in the cluster.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Cluster withClusterRevisionNumber(String clusterRevisionNumber) {
+        this.clusterRevisionNumber = clusterRevisionNumber;
         return this;
     }
 
@@ -1497,7 +1542,8 @@ public class Cluster implements Serializable {
         if (getClusterSnapshotCopyStatus() != null) sb.append("ClusterSnapshotCopyStatus: " + getClusterSnapshotCopyStatus() + ",");
         if (getClusterPublicKey() != null) sb.append("ClusterPublicKey: " + getClusterPublicKey() + ",");
         if (getClusterNodes() != null) sb.append("ClusterNodes: " + getClusterNodes() + ",");
-        if (getElasticIpStatus() != null) sb.append("ElasticIpStatus: " + getElasticIpStatus() );
+        if (getElasticIpStatus() != null) sb.append("ElasticIpStatus: " + getElasticIpStatus() + ",");
+        if (getClusterRevisionNumber() != null) sb.append("ClusterRevisionNumber: " + getClusterRevisionNumber() );
         sb.append("}");
         return sb.toString();
     }
@@ -1535,6 +1581,7 @@ public class Cluster implements Serializable {
         hashCode = prime * hashCode + ((getClusterPublicKey() == null) ? 0 : getClusterPublicKey().hashCode()); 
         hashCode = prime * hashCode + ((getClusterNodes() == null) ? 0 : getClusterNodes().hashCode()); 
         hashCode = prime * hashCode + ((getElasticIpStatus() == null) ? 0 : getElasticIpStatus().hashCode()); 
+        hashCode = prime * hashCode + ((getClusterRevisionNumber() == null) ? 0 : getClusterRevisionNumber().hashCode()); 
         return hashCode;
     }
     
@@ -1602,6 +1649,8 @@ public class Cluster implements Serializable {
         if (other.getClusterNodes() != null && other.getClusterNodes().equals(this.getClusterNodes()) == false) return false; 
         if (other.getElasticIpStatus() == null ^ this.getElasticIpStatus() == null) return false;
         if (other.getElasticIpStatus() != null && other.getElasticIpStatus().equals(this.getElasticIpStatus()) == false) return false; 
+        if (other.getClusterRevisionNumber() == null ^ this.getClusterRevisionNumber() == null) return false;
+        if (other.getClusterRevisionNumber() != null && other.getClusterRevisionNumber().equals(this.getClusterRevisionNumber()) == false) return false; 
         return true;
     }
     

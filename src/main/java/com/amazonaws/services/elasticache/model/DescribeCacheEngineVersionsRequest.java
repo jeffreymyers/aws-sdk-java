@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheEngineVersions(DescribeCacheEngineVersionsRequest) DescribeCacheEngineVersions operation}.
  * <p>
- * The <i>DescribeCacheEngineVersions</i> operation returns a list of the available cache engines and their versions.
+ * The <i>DescribeCacheEngineVersions</i> operation returns a list of the
+ * available cache engines and their versions.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheEngineVersions(DescribeCacheEngineVersionsRequest)
@@ -101,7 +102,7 @@ public class DescribeCacheEngineVersionsRequest extends AmazonWebServiceRequest 
      * @param engine The cache engine to return. Valid values: <code>memcached</code> |
      *         <code>redis</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheEngineVersionsRequest withEngine(String engine) {
@@ -134,7 +135,7 @@ public class DescribeCacheEngineVersionsRequest extends AmazonWebServiceRequest 
      *
      * @param engineVersion The cache engine version to return. <p>Example: <code>1.4.14</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheEngineVersionsRequest withEngineVersion(String engineVersion) {
@@ -185,7 +186,7 @@ public class DescribeCacheEngineVersionsRequest extends AmazonWebServiceRequest 
      *         characters</li> <li>First character must be a letter</li> <li>Cannot
      *         end with a hyphen or contain two consecutive hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheEngineVersionsRequest withCacheParameterGroupFamily(String cacheParameterGroupFamily) {
@@ -236,7 +237,7 @@ public class DescribeCacheEngineVersionsRequest extends AmazonWebServiceRequest 
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheEngineVersionsRequest withMaxRecords(Integer maxRecords) {
@@ -287,7 +288,7 @@ public class DescribeCacheEngineVersionsRequest extends AmazonWebServiceRequest 
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheEngineVersionsRequest withMarker(String marker) {
@@ -332,7 +333,7 @@ public class DescribeCacheEngineVersionsRequest extends AmazonWebServiceRequest 
      *         specified engine or engine and major version combination is to be
      *         returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheEngineVersionsRequest withDefaultOnly(Boolean defaultOnly) {

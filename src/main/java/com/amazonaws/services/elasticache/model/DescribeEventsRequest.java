@@ -21,11 +21,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeEvents(DescribeEventsRequest) DescribeEvents operation}.
  * <p>
- * The <i>DescribeEvents</i> operation returns events related to cache clusters, cache security groups, and cache parameter groups. You can obtain events
- * specific to a particular cache cluster, cache security group, or cache parameter group by providing the name as a parameter.
+ * The <i>DescribeEvents</i> operation returns events related to cache
+ * clusters, cache security groups, and cache parameter groups. You can
+ * obtain events specific to a particular cache cluster, cache security
+ * group, or cache parameter group by providing the name as a parameter.
  * </p>
  * <p>
- * By default, only the events occurring within the last hour are returned; however, you can retrieve up to 14 days' worth of events if necessary.
+ * By default, only the events occurring within the last hour are
+ * returned; however, you can retrieve up to 14 days' worth of events if
+ * necessary.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeEvents(DescribeEventsRequest)
@@ -119,7 +123,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param sourceIdentifier The identifier of the event source for which events will be returned.
      *         If not specified, then all sources are included in the response.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withSourceIdentifier(String sourceIdentifier) {
@@ -183,7 +187,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         <code>cache-parameter-group</code> | <code>cache-security-group</code>
      *         | <code>cache-subnet-group</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -229,7 +233,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         <code>cache-parameter-group</code> | <code>cache-security-group</code>
      *         | <code>cache-subnet-group</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see SourceType
@@ -270,7 +274,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param startTime The beginning of the time interval to retrieve events for, specified
      *         in ISO 8601 format.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withStartTime(java.util.Date startTime) {
@@ -309,7 +313,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param endTime The end of the time interval for which to retrieve events, specified
      *         in ISO 8601 format.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEndTime(java.util.Date endTime) {
@@ -342,7 +346,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *
      * @param duration The number of minutes' worth of events to retrieve.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withDuration(Integer duration) {
@@ -393,7 +397,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMaxRecords(Integer maxRecords) {
@@ -444,7 +448,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMarker(String marker) {

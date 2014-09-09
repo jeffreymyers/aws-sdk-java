@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the output of a <i>DescribeReservedCacheNodesOfferings</i> operation.
+ * Represents the output of a <i>DescribeReservedCacheNodesOfferings</i>
+ * operation.
  * </p>
  */
 public class DescribeReservedCacheNodesOfferingsResult implements Serializable {
@@ -59,7 +60,7 @@ public class DescribeReservedCacheNodesOfferingsResult implements Serializable {
      *
      * @param marker Provides an identifier to allow retrieval of paginated results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedCacheNodesOfferingsResult withMarker(String marker) {
@@ -108,7 +109,7 @@ public class DescribeReservedCacheNodesOfferingsResult implements Serializable {
      * @param reservedCacheNodesOfferings A list of reserved cache node offerings. Each element in the list
      *         contains detailed information about one offering.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedCacheNodesOfferingsResult withReservedCacheNodesOfferings(ReservedCacheNodesOffering... reservedCacheNodesOfferings) {
@@ -128,7 +129,7 @@ public class DescribeReservedCacheNodesOfferingsResult implements Serializable {
      * @param reservedCacheNodesOfferings A list of reserved cache node offerings. Each element in the list
      *         contains detailed information about one offering.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedCacheNodesOfferingsResult withReservedCacheNodesOfferings(java.util.Collection<ReservedCacheNodesOffering> reservedCacheNodesOfferings) {

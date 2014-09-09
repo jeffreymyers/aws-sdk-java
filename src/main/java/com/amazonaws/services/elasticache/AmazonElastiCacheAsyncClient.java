@@ -35,16 +35,21 @@ import com.amazonaws.services.elasticache.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * Amazon ElastiCache <p>
- * Amazon ElastiCache is a web service that makes it easier to set up, operate, and scale a distributed cache in the cloud.
+ * Amazon ElastiCache is a web service that makes it easier to set up,
+ * operate, and scale a distributed cache in the cloud.
  * </p>
  * <p>
- * With ElastiCache, customers gain all of the benefits of a high-performance, in-memory cache with far less of the administrative burden of launching
- * and managing a distributed cache. The service makes set-up, scaling, and cluster failure handling much simpler than in a self-managed cache
- * deployment.
+ * With ElastiCache, customers gain all of the benefits of a
+ * high-performance, in-memory cache with far less of the administrative
+ * burden of launching and managing a distributed cache. The service
+ * makes set-up, scaling, and cluster failure handling much simpler than
+ * in a self-managed cache deployment.
  * </p>
  * <p>
- * In addition, through integration with Amazon CloudWatch, customers get enhanced visibility into the key performance statistics associated with their
- * cache and can receive alarms if a part of their cache runs hot.
+ * In addition, through integration with Amazon CloudWatch, customers get
+ * enhanced visibility into the key performance statistics associated
+ * with their cache and can receive alarms if a part of their cache runs
+ * hot.
  * </p>
  */
 public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
@@ -54,6 +59,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -96,13 +103,13 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonElastiCacheAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonElastiCache using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -114,7 +121,7 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *                       when authenticating with AWS services.
      */
     public AmazonElastiCacheAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -168,7 +175,7 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonElastiCache using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -181,7 +188,7 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *            to authenticate requests with AWS services.
      */
     public AmazonElastiCacheAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -224,7 +231,7 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      */
     public AmazonElastiCacheAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -268,7 +275,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -278,98 +286,17 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
             
     /**
      * <p>
-     * The <i>DescribeReservedCacheNodesOfferings</i> operation lists
-     * available reserved cache node offerings.
+     * The <i>DescribeReservedCacheNodes</i> operation returns information
+     * about reserved cache nodes for this account, or about a specified
+     * reserved cache node.
      * </p>
      *
-     * @param describeReservedCacheNodesOfferingsRequest Container for the
-     *           necessary parameters to execute the
-     *           DescribeReservedCacheNodesOfferings operation on AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeReservedCacheNodesOfferings service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeReservedCacheNodesOfferingsResult> describeReservedCacheNodesOfferingsAsync(final DescribeReservedCacheNodesOfferingsRequest describeReservedCacheNodesOfferingsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeReservedCacheNodesOfferingsResult>() {
-            public DescribeReservedCacheNodesOfferingsResult call() throws Exception {
-                return describeReservedCacheNodesOfferings(describeReservedCacheNodesOfferingsRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DescribeReservedCacheNodesOfferings</i> operation lists
-     * available reserved cache node offerings.
-     * </p>
-     *
-     * @param describeReservedCacheNodesOfferingsRequest Container for the
-     *           necessary parameters to execute the
-     *           DescribeReservedCacheNodesOfferings operation on AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeReservedCacheNodesOfferings service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeReservedCacheNodesOfferingsResult> describeReservedCacheNodesOfferingsAsync(
-            final DescribeReservedCacheNodesOfferingsRequest describeReservedCacheNodesOfferingsRequest,
-            final AsyncHandler<DescribeReservedCacheNodesOfferingsRequest, DescribeReservedCacheNodesOfferingsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeReservedCacheNodesOfferingsResult>() {
-            public DescribeReservedCacheNodesOfferingsResult call() throws Exception {
-                DescribeReservedCacheNodesOfferingsResult result;
-                try {
-                    result = describeReservedCacheNodesOfferings(describeReservedCacheNodesOfferingsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedCacheNodesOfferingsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DeleteReplicationGroup</i> operation deletes an existing
-     * replication group. <i>DeleteReplicationGroup</i> deletes the primary
-     * cache cluster and all of the read replicas in the replication group.
-     * When you receive a successful response from this operation, Amazon
-     * ElastiCache immediately begins deleting the entire replication group;
-     * you cannot cancel or revert this operation.
-     * </p>
-     *
-     * @param deleteReplicationGroupRequest Container for the necessary
-     *           parameters to execute the DeleteReplicationGroup operation on
+     * @param describeReservedCacheNodesRequest Container for the necessary
+     *           parameters to execute the DescribeReservedCacheNodes operation on
      *           AmazonElastiCache.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteReplicationGroup service method, as returned by
+     *         DescribeReservedCacheNodes service method, as returned by
      *         AmazonElastiCache.
      * 
      *
@@ -381,27 +308,24 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<ReplicationGroup> deleteReplicationGroupAsync(final DeleteReplicationGroupRequest deleteReplicationGroupRequest) 
+    public Future<DescribeReservedCacheNodesResult> describeReservedCacheNodesAsync(final DescribeReservedCacheNodesRequest describeReservedCacheNodesRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ReplicationGroup>() {
-            public ReplicationGroup call() throws Exception {
-                return deleteReplicationGroup(deleteReplicationGroupRequest);
-            }
-        });
+        return executorService.submit(new Callable<DescribeReservedCacheNodesResult>() {
+            public DescribeReservedCacheNodesResult call() throws Exception {
+                return describeReservedCacheNodes(describeReservedCacheNodesRequest);
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>DeleteReplicationGroup</i> operation deletes an existing
-     * replication group. <i>DeleteReplicationGroup</i> deletes the primary
-     * cache cluster and all of the read replicas in the replication group.
-     * When you receive a successful response from this operation, Amazon
-     * ElastiCache immediately begins deleting the entire replication group;
-     * you cannot cancel or revert this operation.
+     * The <i>DescribeReservedCacheNodes</i> operation returns information
+     * about reserved cache nodes for this account, or about a specified
+     * reserved cache node.
      * </p>
      *
-     * @param deleteReplicationGroupRequest Container for the necessary
-     *           parameters to execute the DeleteReplicationGroup operation on
+     * @param describeReservedCacheNodesRequest Container for the necessary
+     *           parameters to execute the DescribeReservedCacheNodes operation on
      *           AmazonElastiCache.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -409,7 +333,7 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteReplicationGroup service method, as returned by
+     *         DescribeReservedCacheNodes service method, as returned by
      *         AmazonElastiCache.
      * 
      *
@@ -421,183 +345,23 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<ReplicationGroup> deleteReplicationGroupAsync(
-            final DeleteReplicationGroupRequest deleteReplicationGroupRequest,
-            final AsyncHandler<DeleteReplicationGroupRequest, ReplicationGroup> asyncHandler)
+    public Future<DescribeReservedCacheNodesResult> describeReservedCacheNodesAsync(
+            final DescribeReservedCacheNodesRequest describeReservedCacheNodesRequest,
+            final AsyncHandler<DescribeReservedCacheNodesRequest, DescribeReservedCacheNodesResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ReplicationGroup>() {
-            public ReplicationGroup call() throws Exception {
-                ReplicationGroup result;
+        return executorService.submit(new Callable<DescribeReservedCacheNodesResult>() {
+            public DescribeReservedCacheNodesResult call() throws Exception {
+              DescribeReservedCacheNodesResult result;
                 try {
-                    result = deleteReplicationGroup(deleteReplicationGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteReplicationGroupRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>ModifyCacheCluster</i> operation modifies the settings for a
-     * cache cluster. You can use this operation to change one or more
-     * cluster configuration parameters by specifying the parameters and the
-     * new values.
-     * </p>
-     *
-     * @param modifyCacheClusterRequest Container for the necessary
-     *           parameters to execute the ModifyCacheCluster operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyCacheCluster service method, as returned by AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheCluster> modifyCacheClusterAsync(final ModifyCacheClusterRequest modifyCacheClusterRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheCluster>() {
-            public CacheCluster call() throws Exception {
-                return modifyCacheCluster(modifyCacheClusterRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>ModifyCacheCluster</i> operation modifies the settings for a
-     * cache cluster. You can use this operation to change one or more
-     * cluster configuration parameters by specifying the parameters and the
-     * new values.
-     * </p>
-     *
-     * @param modifyCacheClusterRequest Container for the necessary
-     *           parameters to execute the ModifyCacheCluster operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyCacheCluster service method, as returned by AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheCluster> modifyCacheClusterAsync(
-            final ModifyCacheClusterRequest modifyCacheClusterRequest,
-            final AsyncHandler<ModifyCacheClusterRequest, CacheCluster> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheCluster>() {
-            public CacheCluster call() throws Exception {
-                CacheCluster result;
-                try {
-                    result = modifyCacheCluster(modifyCacheClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyCacheClusterRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>RevokeCacheSecurityGroupIngress</i> operation revokes ingress
-     * from a cache security group. Use this operation to disallow access
-     * from an Amazon EC2 security group that had been previously authorized.
-     * </p>
-     *
-     * @param revokeCacheSecurityGroupIngressRequest Container for the
-     *           necessary parameters to execute the RevokeCacheSecurityGroupIngress
-     *           operation on AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RevokeCacheSecurityGroupIngress service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheSecurityGroup> revokeCacheSecurityGroupIngressAsync(final RevokeCacheSecurityGroupIngressRequest revokeCacheSecurityGroupIngressRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSecurityGroup>() {
-            public CacheSecurityGroup call() throws Exception {
-                return revokeCacheSecurityGroupIngress(revokeCacheSecurityGroupIngressRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>RevokeCacheSecurityGroupIngress</i> operation revokes ingress
-     * from a cache security group. Use this operation to disallow access
-     * from an Amazon EC2 security group that had been previously authorized.
-     * </p>
-     *
-     * @param revokeCacheSecurityGroupIngressRequest Container for the
-     *           necessary parameters to execute the RevokeCacheSecurityGroupIngress
-     *           operation on AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RevokeCacheSecurityGroupIngress service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheSecurityGroup> revokeCacheSecurityGroupIngressAsync(
-            final RevokeCacheSecurityGroupIngressRequest revokeCacheSecurityGroupIngressRequest,
-            final AsyncHandler<RevokeCacheSecurityGroupIngressRequest, CacheSecurityGroup> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSecurityGroup>() {
-            public CacheSecurityGroup call() throws Exception {
-                CacheSecurityGroup result;
-                try {
-                    result = revokeCacheSecurityGroupIngress(revokeCacheSecurityGroupIngressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(revokeCacheSecurityGroupIngressRequest, result);
-                   return result;
-            }
-        });
+                result = describeReservedCacheNodes(describeReservedCacheNodesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedCacheNodesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -630,8 +394,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<DescribeReplicationGroupsResult>() {
             public DescribeReplicationGroupsResult call() throws Exception {
                 return describeReplicationGroups(describeReplicationGroupsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -669,17 +433,679 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeReplicationGroupsResult>() {
             public DescribeReplicationGroupsResult call() throws Exception {
-                DescribeReplicationGroupsResult result;
+              DescribeReplicationGroupsResult result;
                 try {
-                    result = describeReplicationGroups(describeReplicationGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReplicationGroupsRequest, result);
-                   return result;
-            }
-        });
+                result = describeReplicationGroups(describeReplicationGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReplicationGroupsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DescribeCacheSecurityGroups</i> operation returns a list of
+     * cache security group descriptions. If a cache security group name is
+     * specified, the list will contain only the description of that group.
+     * </p>
+     *
+     * @param describeCacheSecurityGroupsRequest Container for the necessary
+     *           parameters to execute the DescribeCacheSecurityGroups operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheSecurityGroups service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheSecurityGroupsResult> describeCacheSecurityGroupsAsync(final DescribeCacheSecurityGroupsRequest describeCacheSecurityGroupsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheSecurityGroupsResult>() {
+            public DescribeCacheSecurityGroupsResult call() throws Exception {
+                return describeCacheSecurityGroups(describeCacheSecurityGroupsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DescribeCacheSecurityGroups</i> operation returns a list of
+     * cache security group descriptions. If a cache security group name is
+     * specified, the list will contain only the description of that group.
+     * </p>
+     *
+     * @param describeCacheSecurityGroupsRequest Container for the necessary
+     *           parameters to execute the DescribeCacheSecurityGroups operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheSecurityGroups service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheSecurityGroupsResult> describeCacheSecurityGroupsAsync(
+            final DescribeCacheSecurityGroupsRequest describeCacheSecurityGroupsRequest,
+            final AsyncHandler<DescribeCacheSecurityGroupsRequest, DescribeCacheSecurityGroupsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheSecurityGroupsResult>() {
+            public DescribeCacheSecurityGroupsResult call() throws Exception {
+              DescribeCacheSecurityGroupsResult result;
+                try {
+                result = describeCacheSecurityGroups(describeCacheSecurityGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCacheSecurityGroupsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DeleteCacheSecurityGroup</i> operation deletes a cache
+     * security group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>You cannot delete a cache security group if it is
+     * associated with any cache clusters.
+     * </p>
+     *
+     * @param deleteCacheSecurityGroupRequest Container for the necessary
+     *           parameters to execute the DeleteCacheSecurityGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheSecurityGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCacheSecurityGroupAsync(final DeleteCacheSecurityGroupRequest deleteCacheSecurityGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteCacheSecurityGroup(deleteCacheSecurityGroupRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DeleteCacheSecurityGroup</i> operation deletes a cache
+     * security group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>You cannot delete a cache security group if it is
+     * associated with any cache clusters.
+     * </p>
+     *
+     * @param deleteCacheSecurityGroupRequest Container for the necessary
+     *           parameters to execute the DeleteCacheSecurityGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheSecurityGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCacheSecurityGroupAsync(
+            final DeleteCacheSecurityGroupRequest deleteCacheSecurityGroupRequest,
+            final AsyncHandler<DeleteCacheSecurityGroupRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteCacheSecurityGroup(deleteCacheSecurityGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteCacheSecurityGroupRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>CopySnapshot</i> operation makes a copy of an existing
+     * snapshot.
+     * </p>
+     *
+     * @param copySnapshotRequest Container for the necessary parameters to
+     *           execute the CopySnapshot operation on AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CopySnapshot service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Snapshot> copySnapshotAsync(final CopySnapshotRequest copySnapshotRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Snapshot>() {
+            public Snapshot call() throws Exception {
+                return copySnapshot(copySnapshotRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>CopySnapshot</i> operation makes a copy of an existing
+     * snapshot.
+     * </p>
+     *
+     * @param copySnapshotRequest Container for the necessary parameters to
+     *           execute the CopySnapshot operation on AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CopySnapshot service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Snapshot> copySnapshotAsync(
+            final CopySnapshotRequest copySnapshotRequest,
+            final AsyncHandler<CopySnapshotRequest, Snapshot> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Snapshot>() {
+            public Snapshot call() throws Exception {
+              Snapshot result;
+                try {
+                result = copySnapshot(copySnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(copySnapshotRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DeleteCacheParameterGroup</i> operation deletes the specified
+     * cache parameter group. You cannot delete a cache parameter group if it
+     * is associated with any cache clusters.
+     * </p>
+     *
+     * @param deleteCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the DeleteCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCacheParameterGroupAsync(final DeleteCacheParameterGroupRequest deleteCacheParameterGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteCacheParameterGroup(deleteCacheParameterGroupRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DeleteCacheParameterGroup</i> operation deletes the specified
+     * cache parameter group. You cannot delete a cache parameter group if it
+     * is associated with any cache clusters.
+     * </p>
+     *
+     * @param deleteCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the DeleteCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCacheParameterGroupAsync(
+            final DeleteCacheParameterGroupRequest deleteCacheParameterGroupRequest,
+            final AsyncHandler<DeleteCacheParameterGroupRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteCacheParameterGroup(deleteCacheParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteCacheParameterGroupRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>ResetCacheParameterGroup</i> operation modifies the parameters
+     * of a cache parameter group to the engine or system default value. You
+     * can reset specific parameters by submitting a list of parameter names.
+     * To reset the entire cache parameter group, specify the
+     * <i>ResetAllParameters</i> and <i>CacheParameterGroupName</i>
+     * parameters.
+     * </p>
+     *
+     * @param resetCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the ResetCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ResetCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ResetCacheParameterGroupResult> resetCacheParameterGroupAsync(final ResetCacheParameterGroupRequest resetCacheParameterGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ResetCacheParameterGroupResult>() {
+            public ResetCacheParameterGroupResult call() throws Exception {
+                return resetCacheParameterGroup(resetCacheParameterGroupRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>ResetCacheParameterGroup</i> operation modifies the parameters
+     * of a cache parameter group to the engine or system default value. You
+     * can reset specific parameters by submitting a list of parameter names.
+     * To reset the entire cache parameter group, specify the
+     * <i>ResetAllParameters</i> and <i>CacheParameterGroupName</i>
+     * parameters.
+     * </p>
+     *
+     * @param resetCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the ResetCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ResetCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ResetCacheParameterGroupResult> resetCacheParameterGroupAsync(
+            final ResetCacheParameterGroupRequest resetCacheParameterGroupRequest,
+            final AsyncHandler<ResetCacheParameterGroupRequest, ResetCacheParameterGroupResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ResetCacheParameterGroupResult>() {
+            public ResetCacheParameterGroupResult call() throws Exception {
+              ResetCacheParameterGroupResult result;
+                try {
+                result = resetCacheParameterGroup(resetCacheParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resetCacheParameterGroupRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>CreateCacheSecurityGroup</i> operation creates a new cache
+     * security group. Use a cache security group to control access to one or
+     * more cache clusters.
+     * </p>
+     * <p>
+     * Cache security groups are only used when you are creating a cluster
+     * outside of an Amazon Virtual Private Cloud (VPC). If you are creating
+     * a cluster inside of a VPC, use a cache subnet group instead. For more
+     * information, see <i>CreateCacheSubnetGroup</i> .
+     * </p>
+     *
+     * @param createCacheSecurityGroupRequest Container for the necessary
+     *           parameters to execute the CreateCacheSecurityGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCacheSecurityGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheSecurityGroup> createCacheSecurityGroupAsync(final CreateCacheSecurityGroupRequest createCacheSecurityGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheSecurityGroup>() {
+            public CacheSecurityGroup call() throws Exception {
+                return createCacheSecurityGroup(createCacheSecurityGroupRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>CreateCacheSecurityGroup</i> operation creates a new cache
+     * security group. Use a cache security group to control access to one or
+     * more cache clusters.
+     * </p>
+     * <p>
+     * Cache security groups are only used when you are creating a cluster
+     * outside of an Amazon Virtual Private Cloud (VPC). If you are creating
+     * a cluster inside of a VPC, use a cache subnet group instead. For more
+     * information, see <i>CreateCacheSubnetGroup</i> .
+     * </p>
+     *
+     * @param createCacheSecurityGroupRequest Container for the necessary
+     *           parameters to execute the CreateCacheSecurityGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCacheSecurityGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheSecurityGroup> createCacheSecurityGroupAsync(
+            final CreateCacheSecurityGroupRequest createCacheSecurityGroupRequest,
+            final AsyncHandler<CreateCacheSecurityGroupRequest, CacheSecurityGroup> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheSecurityGroup>() {
+            public CacheSecurityGroup call() throws Exception {
+              CacheSecurityGroup result;
+                try {
+                result = createCacheSecurityGroup(createCacheSecurityGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createCacheSecurityGroupRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DescribeCacheSubnetGroups</i> operation returns a list of
+     * cache subnet group descriptions. If a subnet group name is specified,
+     * the list will contain only the description of that group.
+     * </p>
+     *
+     * @param describeCacheSubnetGroupsRequest Container for the necessary
+     *           parameters to execute the DescribeCacheSubnetGroups operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheSubnetGroups service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheSubnetGroupsResult> describeCacheSubnetGroupsAsync(final DescribeCacheSubnetGroupsRequest describeCacheSubnetGroupsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheSubnetGroupsResult>() {
+            public DescribeCacheSubnetGroupsResult call() throws Exception {
+                return describeCacheSubnetGroups(describeCacheSubnetGroupsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DescribeCacheSubnetGroups</i> operation returns a list of
+     * cache subnet group descriptions. If a subnet group name is specified,
+     * the list will contain only the description of that group.
+     * </p>
+     *
+     * @param describeCacheSubnetGroupsRequest Container for the necessary
+     *           parameters to execute the DescribeCacheSubnetGroups operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheSubnetGroups service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheSubnetGroupsResult> describeCacheSubnetGroupsAsync(
+            final DescribeCacheSubnetGroupsRequest describeCacheSubnetGroupsRequest,
+            final AsyncHandler<DescribeCacheSubnetGroupsRequest, DescribeCacheSubnetGroupsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheSubnetGroupsResult>() {
+            public DescribeCacheSubnetGroupsResult call() throws Exception {
+              DescribeCacheSubnetGroupsResult result;
+                try {
+                result = describeCacheSubnetGroups(describeCacheSubnetGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCacheSubnetGroupsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DeleteCacheCluster</i> operation deletes a previously
+     * provisioned cache cluster. <i>DeleteCacheCluster</i> deletes all
+     * associated cache nodes, node endpoints and the cache cluster itself.
+     * When you receive a successful response from this operation, Amazon
+     * ElastiCache immediately begins deleting the cache cluster; you cannot
+     * cancel or revert this operation.
+     * </p>
+     *
+     * @param deleteCacheClusterRequest Container for the necessary
+     *           parameters to execute the DeleteCacheCluster operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheCluster service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheCluster> deleteCacheClusterAsync(final DeleteCacheClusterRequest deleteCacheClusterRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheCluster>() {
+            public CacheCluster call() throws Exception {
+                return deleteCacheCluster(deleteCacheClusterRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DeleteCacheCluster</i> operation deletes a previously
+     * provisioned cache cluster. <i>DeleteCacheCluster</i> deletes all
+     * associated cache nodes, node endpoints and the cache cluster itself.
+     * When you receive a successful response from this operation, Amazon
+     * ElastiCache immediately begins deleting the cache cluster; you cannot
+     * cancel or revert this operation.
+     * </p>
+     *
+     * @param deleteCacheClusterRequest Container for the necessary
+     *           parameters to execute the DeleteCacheCluster operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheCluster service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheCluster> deleteCacheClusterAsync(
+            final DeleteCacheClusterRequest deleteCacheClusterRequest,
+            final AsyncHandler<DeleteCacheClusterRequest, CacheCluster> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheCluster>() {
+            public CacheCluster call() throws Exception {
+              CacheCluster result;
+                try {
+                result = deleteCacheCluster(deleteCacheClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteCacheClusterRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -710,8 +1136,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<CacheCluster>() {
             public CacheCluster call() throws Exception {
                 return createCacheCluster(createCacheClusterRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -747,17 +1173,599 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CacheCluster>() {
             public CacheCluster call() throws Exception {
-                CacheCluster result;
+              CacheCluster result;
                 try {
-                    result = createCacheCluster(createCacheClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createCacheClusterRequest, result);
-                   return result;
-            }
-        });
+                result = createCacheCluster(createCacheClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createCacheClusterRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DescribeCacheParameters</i> operation returns the detailed
+     * parameter list for a particular cache parameter group.
+     * </p>
+     *
+     * @param describeCacheParametersRequest Container for the necessary
+     *           parameters to execute the DescribeCacheParameters operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheParameters service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheParametersResult> describeCacheParametersAsync(final DescribeCacheParametersRequest describeCacheParametersRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheParametersResult>() {
+            public DescribeCacheParametersResult call() throws Exception {
+                return describeCacheParameters(describeCacheParametersRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DescribeCacheParameters</i> operation returns the detailed
+     * parameter list for a particular cache parameter group.
+     * </p>
+     *
+     * @param describeCacheParametersRequest Container for the necessary
+     *           parameters to execute the DescribeCacheParameters operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheParameters service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheParametersResult> describeCacheParametersAsync(
+            final DescribeCacheParametersRequest describeCacheParametersRequest,
+            final AsyncHandler<DescribeCacheParametersRequest, DescribeCacheParametersResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheParametersResult>() {
+            public DescribeCacheParametersResult call() throws Exception {
+              DescribeCacheParametersResult result;
+                try {
+                result = describeCacheParameters(describeCacheParametersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCacheParametersRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>RebootCacheCluster</i> operation reboots some, or all, of the
+     * cache nodes within a provisioned cache cluster. This API will apply
+     * any modified cache parameter groups to the cache cluster. The reboot
+     * action takes place as soon as possible, and results in a momentary
+     * outage to the cache cluster. During the reboot, the cache cluster
+     * status is set to REBOOTING.
+     * </p>
+     * <p>
+     * The reboot causes the contents of the cache (for each cache node
+     * being rebooted) to be lost.
+     * </p>
+     * <p>
+     * When the reboot is complete, a cache cluster event is created.
+     * </p>
+     *
+     * @param rebootCacheClusterRequest Container for the necessary
+     *           parameters to execute the RebootCacheCluster operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RebootCacheCluster service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheCluster> rebootCacheClusterAsync(final RebootCacheClusterRequest rebootCacheClusterRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheCluster>() {
+            public CacheCluster call() throws Exception {
+                return rebootCacheCluster(rebootCacheClusterRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>RebootCacheCluster</i> operation reboots some, or all, of the
+     * cache nodes within a provisioned cache cluster. This API will apply
+     * any modified cache parameter groups to the cache cluster. The reboot
+     * action takes place as soon as possible, and results in a momentary
+     * outage to the cache cluster. During the reboot, the cache cluster
+     * status is set to REBOOTING.
+     * </p>
+     * <p>
+     * The reboot causes the contents of the cache (for each cache node
+     * being rebooted) to be lost.
+     * </p>
+     * <p>
+     * When the reboot is complete, a cache cluster event is created.
+     * </p>
+     *
+     * @param rebootCacheClusterRequest Container for the necessary
+     *           parameters to execute the RebootCacheCluster operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RebootCacheCluster service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheCluster> rebootCacheClusterAsync(
+            final RebootCacheClusterRequest rebootCacheClusterRequest,
+            final AsyncHandler<RebootCacheClusterRequest, CacheCluster> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheCluster>() {
+            public CacheCluster call() throws Exception {
+              CacheCluster result;
+                try {
+                result = rebootCacheCluster(rebootCacheClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(rebootCacheClusterRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>ModifyReplicationGroup</i> operation modifies the settings for
+     * a replication group.
+     * </p>
+     *
+     * @param modifyReplicationGroupRequest Container for the necessary
+     *           parameters to execute the ModifyReplicationGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyReplicationGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ReplicationGroup> modifyReplicationGroupAsync(final ModifyReplicationGroupRequest modifyReplicationGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ReplicationGroup>() {
+            public ReplicationGroup call() throws Exception {
+                return modifyReplicationGroup(modifyReplicationGroupRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>ModifyReplicationGroup</i> operation modifies the settings for
+     * a replication group.
+     * </p>
+     *
+     * @param modifyReplicationGroupRequest Container for the necessary
+     *           parameters to execute the ModifyReplicationGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyReplicationGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ReplicationGroup> modifyReplicationGroupAsync(
+            final ModifyReplicationGroupRequest modifyReplicationGroupRequest,
+            final AsyncHandler<ModifyReplicationGroupRequest, ReplicationGroup> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ReplicationGroup>() {
+            public ReplicationGroup call() throws Exception {
+              ReplicationGroup result;
+                try {
+                result = modifyReplicationGroup(modifyReplicationGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyReplicationGroupRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>ModifyCacheParameterGroup</i> operation modifies the
+     * parameters of a cache parameter group. You can modify up to 20
+     * parameters in a single request by submitting a list parameter name and
+     * value pairs.
+     * </p>
+     *
+     * @param modifyCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the ModifyCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ModifyCacheParameterGroupResult> modifyCacheParameterGroupAsync(final ModifyCacheParameterGroupRequest modifyCacheParameterGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ModifyCacheParameterGroupResult>() {
+            public ModifyCacheParameterGroupResult call() throws Exception {
+                return modifyCacheParameterGroup(modifyCacheParameterGroupRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>ModifyCacheParameterGroup</i> operation modifies the
+     * parameters of a cache parameter group. You can modify up to 20
+     * parameters in a single request by submitting a list parameter name and
+     * value pairs.
+     * </p>
+     *
+     * @param modifyCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the ModifyCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ModifyCacheParameterGroupResult> modifyCacheParameterGroupAsync(
+            final ModifyCacheParameterGroupRequest modifyCacheParameterGroupRequest,
+            final AsyncHandler<ModifyCacheParameterGroupRequest, ModifyCacheParameterGroupResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ModifyCacheParameterGroupResult>() {
+            public ModifyCacheParameterGroupResult call() throws Exception {
+              ModifyCacheParameterGroupResult result;
+                try {
+                result = modifyCacheParameterGroup(modifyCacheParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyCacheParameterGroupRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>ModifyCacheCluster</i> operation modifies the settings for a
+     * cache cluster. You can use this operation to change one or more
+     * cluster configuration parameters by specifying the parameters and the
+     * new values.
+     * </p>
+     *
+     * @param modifyCacheClusterRequest Container for the necessary
+     *           parameters to execute the ModifyCacheCluster operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyCacheCluster service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheCluster> modifyCacheClusterAsync(final ModifyCacheClusterRequest modifyCacheClusterRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheCluster>() {
+            public CacheCluster call() throws Exception {
+                return modifyCacheCluster(modifyCacheClusterRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>ModifyCacheCluster</i> operation modifies the settings for a
+     * cache cluster. You can use this operation to change one or more
+     * cluster configuration parameters by specifying the parameters and the
+     * new values.
+     * </p>
+     *
+     * @param modifyCacheClusterRequest Container for the necessary
+     *           parameters to execute the ModifyCacheCluster operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyCacheCluster service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheCluster> modifyCacheClusterAsync(
+            final ModifyCacheClusterRequest modifyCacheClusterRequest,
+            final AsyncHandler<ModifyCacheClusterRequest, CacheCluster> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheCluster>() {
+            public CacheCluster call() throws Exception {
+              CacheCluster result;
+                try {
+                result = modifyCacheCluster(modifyCacheClusterRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyCacheClusterRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>CreateCacheSubnetGroup</i> operation creates a new cache
+     * subnet group.
+     * </p>
+     * <p>
+     * Use this parameter only when you are creating a cluster in an Amazon
+     * Virtual Private Cloud (VPC).
+     * </p>
+     *
+     * @param createCacheSubnetGroupRequest Container for the necessary
+     *           parameters to execute the CreateCacheSubnetGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCacheSubnetGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheSubnetGroup> createCacheSubnetGroupAsync(final CreateCacheSubnetGroupRequest createCacheSubnetGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheSubnetGroup>() {
+            public CacheSubnetGroup call() throws Exception {
+                return createCacheSubnetGroup(createCacheSubnetGroupRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>CreateCacheSubnetGroup</i> operation creates a new cache
+     * subnet group.
+     * </p>
+     * <p>
+     * Use this parameter only when you are creating a cluster in an Amazon
+     * Virtual Private Cloud (VPC).
+     * </p>
+     *
+     * @param createCacheSubnetGroupRequest Container for the necessary
+     *           parameters to execute the CreateCacheSubnetGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCacheSubnetGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheSubnetGroup> createCacheSubnetGroupAsync(
+            final CreateCacheSubnetGroupRequest createCacheSubnetGroupRequest,
+            final AsyncHandler<CreateCacheSubnetGroupRequest, CacheSubnetGroup> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheSubnetGroup>() {
+            public CacheSubnetGroup call() throws Exception {
+              CacheSubnetGroup result;
+                try {
+                result = createCacheSubnetGroup(createCacheSubnetGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createCacheSubnetGroupRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DescribeCacheParameterGroups</i> operation returns a list of
+     * cache parameter group descriptions. If a cache parameter group name is
+     * specified, the list will contain only the descriptions for that group.
+     * </p>
+     *
+     * @param describeCacheParameterGroupsRequest Container for the necessary
+     *           parameters to execute the DescribeCacheParameterGroups operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheParameterGroups service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheParameterGroupsResult> describeCacheParameterGroupsAsync(final DescribeCacheParameterGroupsRequest describeCacheParameterGroupsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheParameterGroupsResult>() {
+            public DescribeCacheParameterGroupsResult call() throws Exception {
+                return describeCacheParameterGroups(describeCacheParameterGroupsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DescribeCacheParameterGroups</i> operation returns a list of
+     * cache parameter group descriptions. If a cache parameter group name is
+     * specified, the list will contain only the descriptions for that group.
+     * </p>
+     *
+     * @param describeCacheParameterGroupsRequest Container for the necessary
+     *           parameters to execute the DescribeCacheParameterGroups operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeCacheParameterGroups service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeCacheParameterGroupsResult> describeCacheParameterGroupsAsync(
+            final DescribeCacheParameterGroupsRequest describeCacheParameterGroupsRequest,
+            final AsyncHandler<DescribeCacheParameterGroupsRequest, DescribeCacheParameterGroupsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeCacheParameterGroupsResult>() {
+            public DescribeCacheParameterGroupsResult call() throws Exception {
+              DescribeCacheParameterGroupsResult result;
+                try {
+                result = describeCacheParameterGroups(describeCacheParameterGroupsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCacheParameterGroupsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -797,8 +1805,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<ReplicationGroup>() {
             public ReplicationGroup call() throws Exception {
                 return createReplicationGroup(createReplicationGroupRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -843,35 +1851,32 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ReplicationGroup>() {
             public ReplicationGroup call() throws Exception {
-                ReplicationGroup result;
+              ReplicationGroup result;
                 try {
-                    result = createReplicationGroup(createReplicationGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createReplicationGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createReplicationGroup(createReplicationGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createReplicationGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <i>DeleteCacheCluster</i> operation deletes a previously
-     * provisioned cache cluster. <i>DeleteCacheCluster</i> deletes all
-     * associated cache nodes, node endpoints and the cache cluster itself.
-     * When you receive a successful response from this operation, Amazon
-     * ElastiCache immediately begins deleting the cache cluster; you cannot
-     * cancel or revert this operation.
+     * The <i>ModifyCacheSubnetGroup</i> operation modifies an existing
+     * cache subnet group.
      * </p>
      *
-     * @param deleteCacheClusterRequest Container for the necessary
-     *           parameters to execute the DeleteCacheCluster operation on
+     * @param modifyCacheSubnetGroupRequest Container for the necessary
+     *           parameters to execute the ModifyCacheSubnetGroup operation on
      *           AmazonElastiCache.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteCacheCluster service method, as returned by AmazonElastiCache.
+     *         ModifyCacheSubnetGroup service method, as returned by
+     *         AmazonElastiCache.
      * 
      *
      * @throws AmazonClientException
@@ -882,27 +1887,23 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CacheCluster> deleteCacheClusterAsync(final DeleteCacheClusterRequest deleteCacheClusterRequest) 
+    public Future<CacheSubnetGroup> modifyCacheSubnetGroupAsync(final ModifyCacheSubnetGroupRequest modifyCacheSubnetGroupRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheCluster>() {
-            public CacheCluster call() throws Exception {
-                return deleteCacheCluster(deleteCacheClusterRequest);
-            }
-        });
+        return executorService.submit(new Callable<CacheSubnetGroup>() {
+            public CacheSubnetGroup call() throws Exception {
+                return modifyCacheSubnetGroup(modifyCacheSubnetGroupRequest);
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>DeleteCacheCluster</i> operation deletes a previously
-     * provisioned cache cluster. <i>DeleteCacheCluster</i> deletes all
-     * associated cache nodes, node endpoints and the cache cluster itself.
-     * When you receive a successful response from this operation, Amazon
-     * ElastiCache immediately begins deleting the cache cluster; you cannot
-     * cancel or revert this operation.
+     * The <i>ModifyCacheSubnetGroup</i> operation modifies an existing
+     * cache subnet group.
      * </p>
      *
-     * @param deleteCacheClusterRequest Container for the necessary
-     *           parameters to execute the DeleteCacheCluster operation on
+     * @param modifyCacheSubnetGroupRequest Container for the necessary
+     *           parameters to execute the ModifyCacheSubnetGroup operation on
      *           AmazonElastiCache.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -910,7 +1911,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteCacheCluster service method, as returned by AmazonElastiCache.
+     *         ModifyCacheSubnetGroup service method, as returned by
+     *         AmazonElastiCache.
      * 
      *
      * @throws AmazonClientException
@@ -921,181 +1923,23 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CacheCluster> deleteCacheClusterAsync(
-            final DeleteCacheClusterRequest deleteCacheClusterRequest,
-            final AsyncHandler<DeleteCacheClusterRequest, CacheCluster> asyncHandler)
+    public Future<CacheSubnetGroup> modifyCacheSubnetGroupAsync(
+            final ModifyCacheSubnetGroupRequest modifyCacheSubnetGroupRequest,
+            final AsyncHandler<ModifyCacheSubnetGroupRequest, CacheSubnetGroup> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheCluster>() {
-            public CacheCluster call() throws Exception {
-                CacheCluster result;
+        return executorService.submit(new Callable<CacheSubnetGroup>() {
+            public CacheSubnetGroup call() throws Exception {
+              CacheSubnetGroup result;
                 try {
-                    result = deleteCacheCluster(deleteCacheClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteCacheClusterRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DescribeCacheSecurityGroups</i> operation returns a list of
-     * cache security group descriptions. If a cache security group name is
-     * specified, the list will contain only the description of that group.
-     * </p>
-     *
-     * @param describeCacheSecurityGroupsRequest Container for the necessary
-     *           parameters to execute the DescribeCacheSecurityGroups operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeCacheSecurityGroups service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeCacheSecurityGroupsResult> describeCacheSecurityGroupsAsync(final DescribeCacheSecurityGroupsRequest describeCacheSecurityGroupsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheSecurityGroupsResult>() {
-            public DescribeCacheSecurityGroupsResult call() throws Exception {
-                return describeCacheSecurityGroups(describeCacheSecurityGroupsRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DescribeCacheSecurityGroups</i> operation returns a list of
-     * cache security group descriptions. If a cache security group name is
-     * specified, the list will contain only the description of that group.
-     * </p>
-     *
-     * @param describeCacheSecurityGroupsRequest Container for the necessary
-     *           parameters to execute the DescribeCacheSecurityGroups operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeCacheSecurityGroups service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeCacheSecurityGroupsResult> describeCacheSecurityGroupsAsync(
-            final DescribeCacheSecurityGroupsRequest describeCacheSecurityGroupsRequest,
-            final AsyncHandler<DescribeCacheSecurityGroupsRequest, DescribeCacheSecurityGroupsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheSecurityGroupsResult>() {
-            public DescribeCacheSecurityGroupsResult call() throws Exception {
-                DescribeCacheSecurityGroupsResult result;
-                try {
-                    result = describeCacheSecurityGroups(describeCacheSecurityGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCacheSecurityGroupsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>ModifyReplicationGroup</i> operation modifies the settings for
-     * a replication group.
-     * </p>
-     *
-     * @param modifyReplicationGroupRequest Container for the necessary
-     *           parameters to execute the ModifyReplicationGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyReplicationGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ReplicationGroup> modifyReplicationGroupAsync(final ModifyReplicationGroupRequest modifyReplicationGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ReplicationGroup>() {
-            public ReplicationGroup call() throws Exception {
-                return modifyReplicationGroup(modifyReplicationGroupRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>ModifyReplicationGroup</i> operation modifies the settings for
-     * a replication group.
-     * </p>
-     *
-     * @param modifyReplicationGroupRequest Container for the necessary
-     *           parameters to execute the ModifyReplicationGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyReplicationGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ReplicationGroup> modifyReplicationGroupAsync(
-            final ModifyReplicationGroupRequest modifyReplicationGroupRequest,
-            final AsyncHandler<ModifyReplicationGroupRequest, ReplicationGroup> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ReplicationGroup>() {
-            public ReplicationGroup call() throws Exception {
-                ReplicationGroup result;
-                try {
-                    result = modifyReplicationGroup(modifyReplicationGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyReplicationGroupRequest, result);
-                   return result;
-            }
-        });
+                result = modifyCacheSubnetGroup(modifyCacheSubnetGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(modifyCacheSubnetGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1154,8 +1998,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<DescribeCacheClustersResult>() {
             public DescribeCacheClustersResult call() throws Exception {
                 return describeCacheClusters(describeCacheClustersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1219,33 +2063,30 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeCacheClustersResult>() {
             public DescribeCacheClustersResult call() throws Exception {
-                DescribeCacheClustersResult result;
+              DescribeCacheClustersResult result;
                 try {
-                    result = describeCacheClusters(describeCacheClustersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCacheClustersRequest, result);
-                   return result;
-            }
-        });
+                result = describeCacheClusters(describeCacheClustersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCacheClustersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <i>CreateCacheParameterGroup</i> operation creates a new cache
-     * parameter group. A cache parameter group is a collection of parameters
-     * that you apply to all of the nodes in a cache cluster.
+     * The <i>CreateSnapshot</i> operation creates a copy of an entire cache
+     * cluster at a specific moment in time.
      * </p>
      *
-     * @param createCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the CreateCacheParameterGroup operation on
-     *           AmazonElastiCache.
+     * @param createSnapshotRequest Container for the necessary parameters to
+     *           execute the CreateSnapshot operation on AmazonElastiCache.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
+     *         CreateSnapshot service method, as returned by AmazonElastiCache.
      * 
      *
      * @throws AmazonClientException
@@ -1256,33 +2097,30 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CacheParameterGroup> createCacheParameterGroupAsync(final CreateCacheParameterGroupRequest createCacheParameterGroupRequest) 
+    public Future<Snapshot> createSnapshotAsync(final CreateSnapshotRequest createSnapshotRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheParameterGroup>() {
-            public CacheParameterGroup call() throws Exception {
-                return createCacheParameterGroup(createCacheParameterGroupRequest);
-            }
-        });
+        return executorService.submit(new Callable<Snapshot>() {
+            public Snapshot call() throws Exception {
+                return createSnapshot(createSnapshotRequest);
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>CreateCacheParameterGroup</i> operation creates a new cache
-     * parameter group. A cache parameter group is a collection of parameters
-     * that you apply to all of the nodes in a cache cluster.
+     * The <i>CreateSnapshot</i> operation creates a copy of an entire cache
+     * cluster at a specific moment in time.
      * </p>
      *
-     * @param createCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the CreateCacheParameterGroup operation on
-     *           AmazonElastiCache.
+     * @param createSnapshotRequest Container for the necessary parameters to
+     *           execute the CreateSnapshot operation on AmazonElastiCache.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
+     *         CreateSnapshot service method, as returned by AmazonElastiCache.
      * 
      *
      * @throws AmazonClientException
@@ -1293,39 +2131,38 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CacheParameterGroup> createCacheParameterGroupAsync(
-            final CreateCacheParameterGroupRequest createCacheParameterGroupRequest,
-            final AsyncHandler<CreateCacheParameterGroupRequest, CacheParameterGroup> asyncHandler)
+    public Future<Snapshot> createSnapshotAsync(
+            final CreateSnapshotRequest createSnapshotRequest,
+            final AsyncHandler<CreateSnapshotRequest, Snapshot> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheParameterGroup>() {
-            public CacheParameterGroup call() throws Exception {
-                CacheParameterGroup result;
+        return executorService.submit(new Callable<Snapshot>() {
+            public Snapshot call() throws Exception {
+              Snapshot result;
                 try {
-                    result = createCacheParameterGroup(createCacheParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createCacheParameterGroupRequest, result);
-                   return result;
-            }
-        });
+                result = createSnapshot(createSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <i>DescribeCacheParameterGroups</i> operation returns a list of
-     * cache parameter group descriptions. If a cache parameter group name is
-     * specified, the list will contain only the descriptions for that group.
+     * The <i>DeleteSnapshot</i> operation deletes an existing snapshot.
+     * When you receive a successful response from this operation,
+     * ElastiCache immediately begins deleting the snapshot; you cannot
+     * cancel or revert this operation.
      * </p>
      *
-     * @param describeCacheParameterGroupsRequest Container for the necessary
-     *           parameters to execute the DescribeCacheParameterGroups operation on
-     *           AmazonElastiCache.
+     * @param deleteSnapshotRequest Container for the necessary parameters to
+     *           execute the DeleteSnapshot operation on AmazonElastiCache.
      * 
      * @return A Java Future object containing the response from the
-     *         DescribeCacheParameterGroups service method, as returned by
-     *         AmazonElastiCache.
+     *         DeleteSnapshot service method, as returned by AmazonElastiCache.
      * 
      *
      * @throws AmazonClientException
@@ -1336,33 +2173,32 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeCacheParameterGroupsResult> describeCacheParameterGroupsAsync(final DescribeCacheParameterGroupsRequest describeCacheParameterGroupsRequest) 
+    public Future<Snapshot> deleteSnapshotAsync(final DeleteSnapshotRequest deleteSnapshotRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheParameterGroupsResult>() {
-            public DescribeCacheParameterGroupsResult call() throws Exception {
-                return describeCacheParameterGroups(describeCacheParameterGroupsRequest);
-            }
-        });
+        return executorService.submit(new Callable<Snapshot>() {
+            public Snapshot call() throws Exception {
+                return deleteSnapshot(deleteSnapshotRequest);
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>DescribeCacheParameterGroups</i> operation returns a list of
-     * cache parameter group descriptions. If a cache parameter group name is
-     * specified, the list will contain only the descriptions for that group.
+     * The <i>DeleteSnapshot</i> operation deletes an existing snapshot.
+     * When you receive a successful response from this operation,
+     * ElastiCache immediately begins deleting the snapshot; you cannot
+     * cancel or revert this operation.
      * </p>
      *
-     * @param describeCacheParameterGroupsRequest Container for the necessary
-     *           parameters to execute the DescribeCacheParameterGroups operation on
-     *           AmazonElastiCache.
+     * @param deleteSnapshotRequest Container for the necessary parameters to
+     *           execute the DeleteSnapshot operation on AmazonElastiCache.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         DescribeCacheParameterGroups service method, as returned by
-     *         AmazonElastiCache.
+     *         DeleteSnapshot service method, as returned by AmazonElastiCache.
      * 
      *
      * @throws AmazonClientException
@@ -1373,505 +2209,23 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<DescribeCacheParameterGroupsResult> describeCacheParameterGroupsAsync(
-            final DescribeCacheParameterGroupsRequest describeCacheParameterGroupsRequest,
-            final AsyncHandler<DescribeCacheParameterGroupsRequest, DescribeCacheParameterGroupsResult> asyncHandler)
+    public Future<Snapshot> deleteSnapshotAsync(
+            final DeleteSnapshotRequest deleteSnapshotRequest,
+            final AsyncHandler<DeleteSnapshotRequest, Snapshot> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheParameterGroupsResult>() {
-            public DescribeCacheParameterGroupsResult call() throws Exception {
-                DescribeCacheParameterGroupsResult result;
+        return executorService.submit(new Callable<Snapshot>() {
+            public Snapshot call() throws Exception {
+              Snapshot result;
                 try {
-                    result = describeCacheParameterGroups(describeCacheParameterGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCacheParameterGroupsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DescribeCacheSubnetGroups</i> operation returns a list of cache
-     * subnet group descriptions. If a subnet group name is specified, the
-     * list will contain only the description of that group.
-     * </p>
-     *
-     * @param describeCacheSubnetGroupsRequest Container for the necessary
-     *           parameters to execute the DescribeCacheSubnetGroups operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeCacheSubnetGroups service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeCacheSubnetGroupsResult> describeCacheSubnetGroupsAsync(final DescribeCacheSubnetGroupsRequest describeCacheSubnetGroupsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheSubnetGroupsResult>() {
-            public DescribeCacheSubnetGroupsResult call() throws Exception {
-                return describeCacheSubnetGroups(describeCacheSubnetGroupsRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DescribeCacheSubnetGroups</i> operation returns a list of cache
-     * subnet group descriptions. If a subnet group name is specified, the
-     * list will contain only the description of that group.
-     * </p>
-     *
-     * @param describeCacheSubnetGroupsRequest Container for the necessary
-     *           parameters to execute the DescribeCacheSubnetGroups operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeCacheSubnetGroups service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeCacheSubnetGroupsResult> describeCacheSubnetGroupsAsync(
-            final DescribeCacheSubnetGroupsRequest describeCacheSubnetGroupsRequest,
-            final AsyncHandler<DescribeCacheSubnetGroupsRequest, DescribeCacheSubnetGroupsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheSubnetGroupsResult>() {
-            public DescribeCacheSubnetGroupsResult call() throws Exception {
-                DescribeCacheSubnetGroupsResult result;
-                try {
-                    result = describeCacheSubnetGroups(describeCacheSubnetGroupsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCacheSubnetGroupsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>ModifyCacheSubnetGroup</i> operation modifies an existing cache
-     * subnet group.
-     * </p>
-     *
-     * @param modifyCacheSubnetGroupRequest Container for the necessary
-     *           parameters to execute the ModifyCacheSubnetGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyCacheSubnetGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheSubnetGroup> modifyCacheSubnetGroupAsync(final ModifyCacheSubnetGroupRequest modifyCacheSubnetGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSubnetGroup>() {
-            public CacheSubnetGroup call() throws Exception {
-                return modifyCacheSubnetGroup(modifyCacheSubnetGroupRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>ModifyCacheSubnetGroup</i> operation modifies an existing cache
-     * subnet group.
-     * </p>
-     *
-     * @param modifyCacheSubnetGroupRequest Container for the necessary
-     *           parameters to execute the ModifyCacheSubnetGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyCacheSubnetGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheSubnetGroup> modifyCacheSubnetGroupAsync(
-            final ModifyCacheSubnetGroupRequest modifyCacheSubnetGroupRequest,
-            final AsyncHandler<ModifyCacheSubnetGroupRequest, CacheSubnetGroup> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSubnetGroup>() {
-            public CacheSubnetGroup call() throws Exception {
-                CacheSubnetGroup result;
-                try {
-                    result = modifyCacheSubnetGroup(modifyCacheSubnetGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyCacheSubnetGroupRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DeleteCacheParameterGroup</i> operation deletes the specified
-     * cache parameter group. You cannot delete a cache parameter group if it
-     * is associated with any cache clusters.
-     * </p>
-     *
-     * @param deleteCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the DeleteCacheParameterGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCacheParameterGroupAsync(final DeleteCacheParameterGroupRequest deleteCacheParameterGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteCacheParameterGroup(deleteCacheParameterGroupRequest);
-                return null;
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DeleteCacheParameterGroup</i> operation deletes the specified
-     * cache parameter group. You cannot delete a cache parameter group if it
-     * is associated with any cache clusters.
-     * </p>
-     *
-     * @param deleteCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the DeleteCacheParameterGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCacheParameterGroupAsync(
-            final DeleteCacheParameterGroupRequest deleteCacheParameterGroupRequest,
-            final AsyncHandler<DeleteCacheParameterGroupRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                try {
-                    deleteCacheParameterGroup(deleteCacheParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteCacheParameterGroupRequest, null);
-                   return null;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DescribeCacheParameters</i> operation returns the detailed
-     * parameter list for a particular cache parameter group.
-     * </p>
-     *
-     * @param describeCacheParametersRequest Container for the necessary
-     *           parameters to execute the DescribeCacheParameters operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeCacheParameters service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeCacheParametersResult> describeCacheParametersAsync(final DescribeCacheParametersRequest describeCacheParametersRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheParametersResult>() {
-            public DescribeCacheParametersResult call() throws Exception {
-                return describeCacheParameters(describeCacheParametersRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DescribeCacheParameters</i> operation returns the detailed
-     * parameter list for a particular cache parameter group.
-     * </p>
-     *
-     * @param describeCacheParametersRequest Container for the necessary
-     *           parameters to execute the DescribeCacheParameters operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeCacheParameters service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeCacheParametersResult> describeCacheParametersAsync(
-            final DescribeCacheParametersRequest describeCacheParametersRequest,
-            final AsyncHandler<DescribeCacheParametersRequest, DescribeCacheParametersResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeCacheParametersResult>() {
-            public DescribeCacheParametersResult call() throws Exception {
-                DescribeCacheParametersResult result;
-                try {
-                    result = describeCacheParameters(describeCacheParametersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCacheParametersRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DescribeReservedCacheNodes</i> operation returns information
-     * about reserved cache nodes for this account, or about a specified
-     * reserved cache node.
-     * </p>
-     *
-     * @param describeReservedCacheNodesRequest Container for the necessary
-     *           parameters to execute the DescribeReservedCacheNodes operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeReservedCacheNodes service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeReservedCacheNodesResult> describeReservedCacheNodesAsync(final DescribeReservedCacheNodesRequest describeReservedCacheNodesRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeReservedCacheNodesResult>() {
-            public DescribeReservedCacheNodesResult call() throws Exception {
-                return describeReservedCacheNodes(describeReservedCacheNodesRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DescribeReservedCacheNodes</i> operation returns information
-     * about reserved cache nodes for this account, or about a specified
-     * reserved cache node.
-     * </p>
-     *
-     * @param describeReservedCacheNodesRequest Container for the necessary
-     *           parameters to execute the DescribeReservedCacheNodes operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeReservedCacheNodes service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeReservedCacheNodesResult> describeReservedCacheNodesAsync(
-            final DescribeReservedCacheNodesRequest describeReservedCacheNodesRequest,
-            final AsyncHandler<DescribeReservedCacheNodesRequest, DescribeReservedCacheNodesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeReservedCacheNodesResult>() {
-            public DescribeReservedCacheNodesResult call() throws Exception {
-                DescribeReservedCacheNodesResult result;
-                try {
-                    result = describeReservedCacheNodes(describeReservedCacheNodesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeReservedCacheNodesRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DeleteCacheSubnetGroup</i> operation deletes a cache subnet
-     * group.
-     * </p>
-     * <p>
-     * <b>NOTE:</b>You cannot delete a cache subnet group if it is associated
-     * with any cache clusters.
-     * </p>
-     *
-     * @param deleteCacheSubnetGroupRequest Container for the necessary
-     *           parameters to execute the DeleteCacheSubnetGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCacheSubnetGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCacheSubnetGroupAsync(final DeleteCacheSubnetGroupRequest deleteCacheSubnetGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteCacheSubnetGroup(deleteCacheSubnetGroupRequest);
-                return null;
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DeleteCacheSubnetGroup</i> operation deletes a cache subnet
-     * group.
-     * </p>
-     * <p>
-     * <b>NOTE:</b>You cannot delete a cache subnet group if it is associated
-     * with any cache clusters.
-     * </p>
-     *
-     * @param deleteCacheSubnetGroupRequest Container for the necessary
-     *           parameters to execute the DeleteCacheSubnetGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCacheSubnetGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCacheSubnetGroupAsync(
-            final DeleteCacheSubnetGroupRequest deleteCacheSubnetGroupRequest,
-            final AsyncHandler<DeleteCacheSubnetGroupRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                try {
-                    deleteCacheSubnetGroup(deleteCacheSubnetGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteCacheSubnetGroupRequest, null);
-                   return null;
-            }
-        });
+                result = deleteSnapshot(deleteSnapshotRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSnapshotRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -1907,8 +2261,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<DescribeEventsResult>() {
             public DescribeEventsResult call() throws Exception {
                 return describeEvents(describeEventsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -1949,103 +2303,17 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeEventsResult>() {
             public DescribeEventsResult call() throws Exception {
-                DescribeEventsResult result;
+              DescribeEventsResult result;
                 try {
-                    result = describeEvents(describeEventsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeEventsRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DeleteCacheSecurityGroup</i> operation deletes a cache security
-     * group.
-     * </p>
-     * <p>
-     * <b>NOTE:</b>You cannot delete a cache security group if it is
-     * associated with any cache clusters.
-     * </p>
-     *
-     * @param deleteCacheSecurityGroupRequest Container for the necessary
-     *           parameters to execute the DeleteCacheSecurityGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCacheSecurityGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCacheSecurityGroupAsync(final DeleteCacheSecurityGroupRequest deleteCacheSecurityGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteCacheSecurityGroup(deleteCacheSecurityGroupRequest);
-                return null;
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>DeleteCacheSecurityGroup</i> operation deletes a cache security
-     * group.
-     * </p>
-     * <p>
-     * <b>NOTE:</b>You cannot delete a cache security group if it is
-     * associated with any cache clusters.
-     * </p>
-     *
-     * @param deleteCacheSecurityGroupRequest Container for the necessary
-     *           parameters to execute the DeleteCacheSecurityGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCacheSecurityGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCacheSecurityGroupAsync(
-            final DeleteCacheSecurityGroupRequest deleteCacheSecurityGroupRequest,
-            final AsyncHandler<DeleteCacheSecurityGroupRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                try {
-                    deleteCacheSecurityGroup(deleteCacheSecurityGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteCacheSecurityGroupRequest, null);
-                   return null;
-            }
-        });
+                result = describeEvents(describeEventsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeEventsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2077,8 +2345,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<EngineDefaults>() {
             public EngineDefaults call() throws Exception {
                 return describeEngineDefaultParameters(describeEngineDefaultParametersRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2115,29 +2383,29 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<EngineDefaults>() {
             public EngineDefaults call() throws Exception {
-                EngineDefaults result;
+              EngineDefaults result;
                 try {
-                    result = describeEngineDefaultParameters(describeEngineDefaultParametersRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeEngineDefaultParametersRequest, result);
-                   return result;
-            }
-        });
+                result = describeEngineDefaultParameters(describeEngineDefaultParametersRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeEngineDefaultParametersRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <i>AuthorizeCacheSecurityGroupIngress</i> operation allows network
-     * ingress to a cache security group. Applications using ElastiCache must
-     * be running on Amazon EC2, and Amazon EC2 security groups are used as
-     * the authorization mechanism.
+     * The <i>AuthorizeCacheSecurityGroupIngress</i> operation allows
+     * network ingress to a cache security group. Applications using
+     * ElastiCache must be running on Amazon EC2, and Amazon EC2 security
+     * groups are used as the authorization mechanism.
      * </p>
      * <p>
-     * <b>NOTE:</b> You cannot authorize ingress from an Amazon EC2 security
-     * group in one Region to an ElastiCache cluster in another Region.
+     * <b>NOTE:</b>You cannot authorize ingress from an Amazon EC2 security
+     * group in one region to an ElastiCache cluster in another region.
      * </p>
      *
      * @param authorizeCacheSecurityGroupIngressRequest Container for the
@@ -2162,20 +2430,20 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<CacheSecurityGroup>() {
             public CacheSecurityGroup call() throws Exception {
                 return authorizeCacheSecurityGroupIngress(authorizeCacheSecurityGroupIngressRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>AuthorizeCacheSecurityGroupIngress</i> operation allows network
-     * ingress to a cache security group. Applications using ElastiCache must
-     * be running on Amazon EC2, and Amazon EC2 security groups are used as
-     * the authorization mechanism.
+     * The <i>AuthorizeCacheSecurityGroupIngress</i> operation allows
+     * network ingress to a cache security group. Applications using
+     * ElastiCache must be running on Amazon EC2, and Amazon EC2 security
+     * groups are used as the authorization mechanism.
      * </p>
      * <p>
-     * <b>NOTE:</b> You cannot authorize ingress from an Amazon EC2 security
-     * group in one Region to an ElastiCache cluster in another Region.
+     * <b>NOTE:</b>You cannot authorize ingress from an Amazon EC2 security
+     * group in one region to an ElastiCache cluster in another region.
      * </p>
      *
      * @param authorizeCacheSecurityGroupIngressRequest Container for the
@@ -2205,109 +2473,23 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CacheSecurityGroup>() {
             public CacheSecurityGroup call() throws Exception {
-                CacheSecurityGroup result;
+              CacheSecurityGroup result;
                 try {
-                    result = authorizeCacheSecurityGroupIngress(authorizeCacheSecurityGroupIngressRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(authorizeCacheSecurityGroupIngressRequest, result);
-                   return result;
-            }
-        });
+                result = authorizeCacheSecurityGroupIngress(authorizeCacheSecurityGroupIngressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(authorizeCacheSecurityGroupIngressRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <i>CreateCacheSubnetGroup</i> operation creates a new cache subnet
-     * group.
-     * </p>
-     * <p>
-     * Use this parameter only when you are creating a cluster in an Amazon
-     * Virtual Private Cloud (VPC).
-     * </p>
-     *
-     * @param createCacheSubnetGroupRequest Container for the necessary
-     *           parameters to execute the CreateCacheSubnetGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateCacheSubnetGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheSubnetGroup> createCacheSubnetGroupAsync(final CreateCacheSubnetGroupRequest createCacheSubnetGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSubnetGroup>() {
-            public CacheSubnetGroup call() throws Exception {
-                return createCacheSubnetGroup(createCacheSubnetGroupRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>CreateCacheSubnetGroup</i> operation creates a new cache subnet
-     * group.
-     * </p>
-     * <p>
-     * Use this parameter only when you are creating a cluster in an Amazon
-     * Virtual Private Cloud (VPC).
-     * </p>
-     *
-     * @param createCacheSubnetGroupRequest Container for the necessary
-     *           parameters to execute the CreateCacheSubnetGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateCacheSubnetGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheSubnetGroup> createCacheSubnetGroupAsync(
-            final CreateCacheSubnetGroupRequest createCacheSubnetGroupRequest,
-            final AsyncHandler<CreateCacheSubnetGroupRequest, CacheSubnetGroup> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSubnetGroup>() {
-            public CacheSubnetGroup call() throws Exception {
-                CacheSubnetGroup result;
-                try {
-                    result = createCacheSubnetGroup(createCacheSubnetGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createCacheSubnetGroupRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>DescribeCacheEngineVersions</i> operation returns a list of the
-     * available cache engines and their versions.
+     * The <i>DescribeCacheEngineVersions</i> operation returns a list of
+     * the available cache engines and their versions.
      * </p>
      *
      * @param describeCacheEngineVersionsRequest Container for the necessary
@@ -2332,14 +2514,14 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<DescribeCacheEngineVersionsResult>() {
             public DescribeCacheEngineVersionsResult call() throws Exception {
                 return describeCacheEngineVersions(describeCacheEngineVersionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>DescribeCacheEngineVersions</i> operation returns a list of the
-     * available cache engines and their versions.
+     * The <i>DescribeCacheEngineVersions</i> operation returns a list of
+     * the available cache engines and their versions.
      * </p>
      *
      * @param describeCacheEngineVersionsRequest Container for the necessary
@@ -2369,38 +2551,39 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<DescribeCacheEngineVersionsResult>() {
             public DescribeCacheEngineVersionsResult call() throws Exception {
-                DescribeCacheEngineVersionsResult result;
+              DescribeCacheEngineVersionsResult result;
                 try {
-                    result = describeCacheEngineVersions(describeCacheEngineVersionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(describeCacheEngineVersionsRequest, result);
-                   return result;
-            }
-        });
+                result = describeCacheEngineVersions(describeCacheEngineVersionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeCacheEngineVersionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <i>CreateCacheSecurityGroup</i> operation creates a new cache
-     * security group. Use a cache security group to control access to one or
-     * more cache clusters.
+     * The <i>DeleteReplicationGroup</i> operation deletes an existing
+     * replication group. By default, this operation deletes the entire
+     * replication group, including the primary cache cluster and all of the
+     * read replicas. You can optionally delete only the read replicas, while
+     * retaining the primary cache cluster.
      * </p>
      * <p>
-     * Cache security groups are only used when you are creating a cluster
-     * outside of an Amazon Virtual Private Cloud (VPC). If you are creating
-     * a cluster inside of a VPC, use a cache subnet group instead. For more
-     * information, see <i>CreateCacheSubnetGroup</i> .
+     * When you receive a successful response from this operation, Amazon
+     * ElastiCache immediately begins deleting the selected resources; you
+     * cannot cancel or revert this operation.
      * </p>
      *
-     * @param createCacheSecurityGroupRequest Container for the necessary
-     *           parameters to execute the CreateCacheSecurityGroup operation on
+     * @param deleteReplicationGroupRequest Container for the necessary
+     *           parameters to execute the DeleteReplicationGroup operation on
      *           AmazonElastiCache.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateCacheSecurityGroup service method, as returned by
+     *         DeleteReplicationGroup service method, as returned by
      *         AmazonElastiCache.
      * 
      *
@@ -2412,30 +2595,31 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CacheSecurityGroup> createCacheSecurityGroupAsync(final CreateCacheSecurityGroupRequest createCacheSecurityGroupRequest) 
+    public Future<ReplicationGroup> deleteReplicationGroupAsync(final DeleteReplicationGroupRequest deleteReplicationGroupRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheSecurityGroup>() {
-            public CacheSecurityGroup call() throws Exception {
-                return createCacheSecurityGroup(createCacheSecurityGroupRequest);
-            }
-        });
+        return executorService.submit(new Callable<ReplicationGroup>() {
+            public ReplicationGroup call() throws Exception {
+                return deleteReplicationGroup(deleteReplicationGroupRequest);
+        }
+    });
     }
 
     /**
      * <p>
-     * The <i>CreateCacheSecurityGroup</i> operation creates a new cache
-     * security group. Use a cache security group to control access to one or
-     * more cache clusters.
+     * The <i>DeleteReplicationGroup</i> operation deletes an existing
+     * replication group. By default, this operation deletes the entire
+     * replication group, including the primary cache cluster and all of the
+     * read replicas. You can optionally delete only the read replicas, while
+     * retaining the primary cache cluster.
      * </p>
      * <p>
-     * Cache security groups are only used when you are creating a cluster
-     * outside of an Amazon Virtual Private Cloud (VPC). If you are creating
-     * a cluster inside of a VPC, use a cache subnet group instead. For more
-     * information, see <i>CreateCacheSubnetGroup</i> .
+     * When you receive a successful response from this operation, Amazon
+     * ElastiCache immediately begins deleting the selected resources; you
+     * cannot cancel or revert this operation.
      * </p>
      *
-     * @param createCacheSecurityGroupRequest Container for the necessary
-     *           parameters to execute the CreateCacheSecurityGroup operation on
+     * @param deleteReplicationGroupRequest Container for the necessary
+     *           parameters to execute the DeleteReplicationGroup operation on
      *           AmazonElastiCache.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -2443,7 +2627,7 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateCacheSecurityGroup service method, as returned by
+     *         DeleteReplicationGroup service method, as returned by
      *         AmazonElastiCache.
      * 
      *
@@ -2455,23 +2639,425 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
      *             If an error response is returned by AmazonElastiCache indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CacheSecurityGroup> createCacheSecurityGroupAsync(
-            final CreateCacheSecurityGroupRequest createCacheSecurityGroupRequest,
-            final AsyncHandler<CreateCacheSecurityGroupRequest, CacheSecurityGroup> asyncHandler)
+    public Future<ReplicationGroup> deleteReplicationGroupAsync(
+            final DeleteReplicationGroupRequest deleteReplicationGroupRequest,
+            final AsyncHandler<DeleteReplicationGroupRequest, ReplicationGroup> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ReplicationGroup>() {
+            public ReplicationGroup call() throws Exception {
+              ReplicationGroup result;
+                try {
+                result = deleteReplicationGroup(deleteReplicationGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteReplicationGroupRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DescribeSnapshots</i> operation returns information about
+     * cache cluster snapshots. By default, <i>DescribeSnapshots</i> lists
+     * all of your snapshots; it can optionally describe a single snapshot,
+     * or just the snapshots associated with a particular cache cluster.
+     * </p>
+     *
+     * @param describeSnapshotsRequest Container for the necessary parameters
+     *           to execute the DescribeSnapshots operation on AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeSnapshots service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeSnapshotsResult> describeSnapshotsAsync(final DescribeSnapshotsRequest describeSnapshotsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeSnapshotsResult>() {
+            public DescribeSnapshotsResult call() throws Exception {
+                return describeSnapshots(describeSnapshotsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DescribeSnapshots</i> operation returns information about
+     * cache cluster snapshots. By default, <i>DescribeSnapshots</i> lists
+     * all of your snapshots; it can optionally describe a single snapshot,
+     * or just the snapshots associated with a particular cache cluster.
+     * </p>
+     *
+     * @param describeSnapshotsRequest Container for the necessary parameters
+     *           to execute the DescribeSnapshots operation on AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeSnapshots service method, as returned by AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeSnapshotsResult> describeSnapshotsAsync(
+            final DescribeSnapshotsRequest describeSnapshotsRequest,
+            final AsyncHandler<DescribeSnapshotsRequest, DescribeSnapshotsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeSnapshotsResult>() {
+            public DescribeSnapshotsResult call() throws Exception {
+              DescribeSnapshotsResult result;
+                try {
+                result = describeSnapshots(describeSnapshotsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeSnapshotsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>RevokeCacheSecurityGroupIngress</i> operation revokes ingress
+     * from a cache security group. Use this operation to disallow access
+     * from an Amazon EC2 security group that had been previously authorized.
+     * </p>
+     *
+     * @param revokeCacheSecurityGroupIngressRequest Container for the
+     *           necessary parameters to execute the RevokeCacheSecurityGroupIngress
+     *           operation on AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RevokeCacheSecurityGroupIngress service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheSecurityGroup> revokeCacheSecurityGroupIngressAsync(final RevokeCacheSecurityGroupIngressRequest revokeCacheSecurityGroupIngressRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheSecurityGroup>() {
+            public CacheSecurityGroup call() throws Exception {
+                return revokeCacheSecurityGroupIngress(revokeCacheSecurityGroupIngressRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>RevokeCacheSecurityGroupIngress</i> operation revokes ingress
+     * from a cache security group. Use this operation to disallow access
+     * from an Amazon EC2 security group that had been previously authorized.
+     * </p>
+     *
+     * @param revokeCacheSecurityGroupIngressRequest Container for the
+     *           necessary parameters to execute the RevokeCacheSecurityGroupIngress
+     *           operation on AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         RevokeCacheSecurityGroupIngress service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheSecurityGroup> revokeCacheSecurityGroupIngressAsync(
+            final RevokeCacheSecurityGroupIngressRequest revokeCacheSecurityGroupIngressRequest,
+            final AsyncHandler<RevokeCacheSecurityGroupIngressRequest, CacheSecurityGroup> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CacheSecurityGroup>() {
             public CacheSecurityGroup call() throws Exception {
-                CacheSecurityGroup result;
+              CacheSecurityGroup result;
                 try {
-                    result = createCacheSecurityGroup(createCacheSecurityGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createCacheSecurityGroupRequest, result);
-                   return result;
-            }
-        });
+                result = revokeCacheSecurityGroupIngress(revokeCacheSecurityGroupIngressRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(revokeCacheSecurityGroupIngressRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DescribeReservedCacheNodesOfferings</i> operation lists
+     * available reserved cache node offerings.
+     * </p>
+     *
+     * @param describeReservedCacheNodesOfferingsRequest Container for the
+     *           necessary parameters to execute the
+     *           DescribeReservedCacheNodesOfferings operation on AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeReservedCacheNodesOfferings service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeReservedCacheNodesOfferingsResult> describeReservedCacheNodesOfferingsAsync(final DescribeReservedCacheNodesOfferingsRequest describeReservedCacheNodesOfferingsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeReservedCacheNodesOfferingsResult>() {
+            public DescribeReservedCacheNodesOfferingsResult call() throws Exception {
+                return describeReservedCacheNodesOfferings(describeReservedCacheNodesOfferingsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DescribeReservedCacheNodesOfferings</i> operation lists
+     * available reserved cache node offerings.
+     * </p>
+     *
+     * @param describeReservedCacheNodesOfferingsRequest Container for the
+     *           necessary parameters to execute the
+     *           DescribeReservedCacheNodesOfferings operation on AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeReservedCacheNodesOfferings service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeReservedCacheNodesOfferingsResult> describeReservedCacheNodesOfferingsAsync(
+            final DescribeReservedCacheNodesOfferingsRequest describeReservedCacheNodesOfferingsRequest,
+            final AsyncHandler<DescribeReservedCacheNodesOfferingsRequest, DescribeReservedCacheNodesOfferingsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeReservedCacheNodesOfferingsResult>() {
+            public DescribeReservedCacheNodesOfferingsResult call() throws Exception {
+              DescribeReservedCacheNodesOfferingsResult result;
+                try {
+                result = describeReservedCacheNodesOfferings(describeReservedCacheNodesOfferingsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeReservedCacheNodesOfferingsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>DeleteCacheSubnetGroup</i> operation deletes a cache subnet
+     * group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>You cannot delete a cache subnet group if it is
+     * associated with any cache clusters.
+     * </p>
+     *
+     * @param deleteCacheSubnetGroupRequest Container for the necessary
+     *           parameters to execute the DeleteCacheSubnetGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheSubnetGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCacheSubnetGroupAsync(final DeleteCacheSubnetGroupRequest deleteCacheSubnetGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteCacheSubnetGroup(deleteCacheSubnetGroupRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>DeleteCacheSubnetGroup</i> operation deletes a cache subnet
+     * group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>You cannot delete a cache subnet group if it is
+     * associated with any cache clusters.
+     * </p>
+     *
+     * @param deleteCacheSubnetGroupRequest Container for the necessary
+     *           parameters to execute the DeleteCacheSubnetGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCacheSubnetGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCacheSubnetGroupAsync(
+            final DeleteCacheSubnetGroupRequest deleteCacheSubnetGroupRequest,
+            final AsyncHandler<DeleteCacheSubnetGroupRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteCacheSubnetGroup(deleteCacheSubnetGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteCacheSubnetGroupRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * The <i>CreateCacheParameterGroup</i> operation creates a new cache
+     * parameter group. A cache parameter group is a collection of parameters
+     * that you apply to all of the nodes in a cache cluster.
+     * </p>
+     *
+     * @param createCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the CreateCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheParameterGroup> createCacheParameterGroupAsync(final CreateCacheParameterGroupRequest createCacheParameterGroupRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheParameterGroup>() {
+            public CacheParameterGroup call() throws Exception {
+                return createCacheParameterGroup(createCacheParameterGroupRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * The <i>CreateCacheParameterGroup</i> operation creates a new cache
+     * parameter group. A cache parameter group is a collection of parameters
+     * that you apply to all of the nodes in a cache cluster.
+     * </p>
+     *
+     * @param createCacheParameterGroupRequest Container for the necessary
+     *           parameters to execute the CreateCacheParameterGroup operation on
+     *           AmazonElastiCache.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCacheParameterGroup service method, as returned by
+     *         AmazonElastiCache.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElastiCache indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CacheParameterGroup> createCacheParameterGroupAsync(
+            final CreateCacheParameterGroupRequest createCacheParameterGroupRequest,
+            final AsyncHandler<CreateCacheParameterGroupRequest, CacheParameterGroup> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CacheParameterGroup>() {
+            public CacheParameterGroup call() throws Exception {
+              CacheParameterGroup result;
+                try {
+                result = createCacheParameterGroup(createCacheParameterGroupRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createCacheParameterGroupRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
@@ -2502,8 +3088,8 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
         return executorService.submit(new Callable<ReservedCacheNode>() {
             public ReservedCacheNode call() throws Exception {
                 return purchaseReservedCacheNodesOffering(purchaseReservedCacheNodesOfferingRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
@@ -2539,281 +3125,17 @@ public class AmazonElastiCacheAsyncClient extends AmazonElastiCacheClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ReservedCacheNode>() {
             public ReservedCacheNode call() throws Exception {
-                ReservedCacheNode result;
+              ReservedCacheNode result;
                 try {
-                    result = purchaseReservedCacheNodesOffering(purchaseReservedCacheNodesOfferingRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(purchaseReservedCacheNodesOfferingRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>ResetCacheParameterGroup</i> operation modifies the parameters
-     * of a cache parameter group to the engine or system default value. You
-     * can reset specific parameters by submitting a list of parameter names.
-     * To reset the entire cache parameter group, specify the
-     * <i>ResetAllParameters</i> and <i>CacheParameterGroupName</i>
-     * parameters.
-     * </p>
-     *
-     * @param resetCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the ResetCacheParameterGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ResetCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ResetCacheParameterGroupResult> resetCacheParameterGroupAsync(final ResetCacheParameterGroupRequest resetCacheParameterGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ResetCacheParameterGroupResult>() {
-            public ResetCacheParameterGroupResult call() throws Exception {
-                return resetCacheParameterGroup(resetCacheParameterGroupRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>ResetCacheParameterGroup</i> operation modifies the parameters
-     * of a cache parameter group to the engine or system default value. You
-     * can reset specific parameters by submitting a list of parameter names.
-     * To reset the entire cache parameter group, specify the
-     * <i>ResetAllParameters</i> and <i>CacheParameterGroupName</i>
-     * parameters.
-     * </p>
-     *
-     * @param resetCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the ResetCacheParameterGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ResetCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ResetCacheParameterGroupResult> resetCacheParameterGroupAsync(
-            final ResetCacheParameterGroupRequest resetCacheParameterGroupRequest,
-            final AsyncHandler<ResetCacheParameterGroupRequest, ResetCacheParameterGroupResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ResetCacheParameterGroupResult>() {
-            public ResetCacheParameterGroupResult call() throws Exception {
-                ResetCacheParameterGroupResult result;
-                try {
-                    result = resetCacheParameterGroup(resetCacheParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(resetCacheParameterGroupRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>ModifyCacheParameterGroup</i> operation modifies the parameters
-     * of a cache parameter group. You can modify up to 20 parameters in a
-     * single request by submitting a list parameter name and value pairs.
-     * </p>
-     *
-     * @param modifyCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the ModifyCacheParameterGroup operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ModifyCacheParameterGroupResult> modifyCacheParameterGroupAsync(final ModifyCacheParameterGroupRequest modifyCacheParameterGroupRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ModifyCacheParameterGroupResult>() {
-            public ModifyCacheParameterGroupResult call() throws Exception {
-                return modifyCacheParameterGroup(modifyCacheParameterGroupRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>ModifyCacheParameterGroup</i> operation modifies the parameters
-     * of a cache parameter group. You can modify up to 20 parameters in a
-     * single request by submitting a list parameter name and value pairs.
-     * </p>
-     *
-     * @param modifyCacheParameterGroupRequest Container for the necessary
-     *           parameters to execute the ModifyCacheParameterGroup operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ModifyCacheParameterGroup service method, as returned by
-     *         AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ModifyCacheParameterGroupResult> modifyCacheParameterGroupAsync(
-            final ModifyCacheParameterGroupRequest modifyCacheParameterGroupRequest,
-            final AsyncHandler<ModifyCacheParameterGroupRequest, ModifyCacheParameterGroupResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ModifyCacheParameterGroupResult>() {
-            public ModifyCacheParameterGroupResult call() throws Exception {
-                ModifyCacheParameterGroupResult result;
-                try {
-                    result = modifyCacheParameterGroup(modifyCacheParameterGroupRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(modifyCacheParameterGroupRequest, result);
-                   return result;
-            }
-        });
-    }
-    
-    /**
-     * <p>
-     * The <i>RebootCacheCluster</i> operation reboots some, or all, of the
-     * cache cluster nodes within a provisioned cache cluster. This API will
-     * apply any modified cache parameter groups to the cache cluster. The
-     * reboot action takes place as soon as possible, and results in a
-     * momentary outage to the cache cluster. During the reboot, the cache
-     * cluster status is set to REBOOTING.
-     * </p>
-     * <p>
-     * The reboot causes the contents of the cache (for each cache cluster
-     * node being rebooted) to be lost.
-     * </p>
-     * <p>
-     * When the reboot is complete, a cache cluster event is created.
-     * </p>
-     *
-     * @param rebootCacheClusterRequest Container for the necessary
-     *           parameters to execute the RebootCacheCluster operation on
-     *           AmazonElastiCache.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RebootCacheCluster service method, as returned by AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheCluster> rebootCacheClusterAsync(final RebootCacheClusterRequest rebootCacheClusterRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheCluster>() {
-            public CacheCluster call() throws Exception {
-                return rebootCacheCluster(rebootCacheClusterRequest);
-            }
-        });
-    }
-
-    /**
-     * <p>
-     * The <i>RebootCacheCluster</i> operation reboots some, or all, of the
-     * cache cluster nodes within a provisioned cache cluster. This API will
-     * apply any modified cache parameter groups to the cache cluster. The
-     * reboot action takes place as soon as possible, and results in a
-     * momentary outage to the cache cluster. During the reboot, the cache
-     * cluster status is set to REBOOTING.
-     * </p>
-     * <p>
-     * The reboot causes the contents of the cache (for each cache cluster
-     * node being rebooted) to be lost.
-     * </p>
-     * <p>
-     * When the reboot is complete, a cache cluster event is created.
-     * </p>
-     *
-     * @param rebootCacheClusterRequest Container for the necessary
-     *           parameters to execute the RebootCacheCluster operation on
-     *           AmazonElastiCache.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RebootCacheCluster service method, as returned by AmazonElastiCache.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElastiCache indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CacheCluster> rebootCacheClusterAsync(
-            final RebootCacheClusterRequest rebootCacheClusterRequest,
-            final AsyncHandler<RebootCacheClusterRequest, CacheCluster> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CacheCluster>() {
-            public CacheCluster call() throws Exception {
-                CacheCluster result;
-                try {
-                    result = rebootCacheCluster(rebootCacheClusterRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(rebootCacheClusterRequest, result);
-                   return result;
-            }
-        });
+                result = purchaseReservedCacheNodesOffering(purchaseReservedCacheNodesOfferingRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(purchaseReservedCacheNodesOfferingRequest, result);
+                 return result;
+        }
+    });
     }
     
 }

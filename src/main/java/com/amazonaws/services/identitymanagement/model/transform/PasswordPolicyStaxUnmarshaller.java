@@ -75,6 +75,14 @@ public class PasswordPolicyStaxUnmarshaller implements Unmarshaller<PasswordPoli
                     passwordPolicy.setMaxPasswordAge(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("PasswordReusePrevention", targetDepth)) {
+                    passwordPolicy.setPasswordReusePrevention(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("HardExpiry", targetDepth)) {
+                    passwordPolicy.setHardExpiry(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return passwordPolicy;

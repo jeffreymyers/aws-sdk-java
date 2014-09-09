@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Paginated representation of a workflow history for a workflow execution. This is the up to date, complete and authoritative record of the events
- * related to all tasks and events in the life of the workflow execution.
+ * Paginated representation of a workflow history for a workflow
+ * execution. This is the up to date, complete and authoritative record
+ * of the events related to all tasks and events in the life of the
+ * workflow execution.
  * </p>
  */
 public class History implements Serializable {
@@ -74,7 +76,7 @@ public class History implements Serializable {
      *
      * @param events The list of history events.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public History withEvents(HistoryEvent... events) {
@@ -92,7 +94,7 @@ public class History implements Serializable {
      *
      * @param events The list of history events.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public History withEvents(java.util.Collection<HistoryEvent> events) {
@@ -153,7 +155,7 @@ public class History implements Serializable {
      *         one page and the next page can be retrieved by repeating the request
      *         with this token and all other arguments unchanged.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public History withNextPageToken(String nextPageToken) {

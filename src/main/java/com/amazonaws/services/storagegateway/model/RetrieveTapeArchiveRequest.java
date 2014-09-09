@@ -21,12 +21,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#retrieveTapeArchive(RetrieveTapeArchiveRequest) RetrieveTapeArchive operation}.
  * <p>
- * Retrieves an archived virtual tape from the Virtual Tape Shelf (VTS) to a Gateway-Virtual Tape Library. Virtual tapes archived in the Virtual Tape
- * Shelf (VTS) are not associated with any gateway. However after a tape is retrieved, it is associated with a gateway though it also listed in VTS.
+ * Retrieves an archived virtual tape from the Virtual Tape Shelf (VTS)
+ * to a Gateway-Virtual Tape Library. Virtual tapes archived in the
+ * Virtual Tape Shelf (VTS) are not associated with any gateway. However
+ * after a tape is retrieved, it is associated with a gateway though it
+ * also listed in VTS.
  * </p>
  * <p>
- * Once a tape is successfully retrieved to a gateway, it cannot be retrieved again to another gateway. You must archive the tape again before you can
- * retrieve it to another gateway.
+ * Once a tape is successfully retrieved to a gateway, it cannot be
+ * retrieved again to another gateway. You must archive the tape again
+ * before you can retrieve it to another gateway.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#retrieveTapeArchive(RetrieveTapeArchiveRequest)
@@ -94,7 +98,7 @@ public class RetrieveTapeArchiveRequest extends AmazonWebServiceRequest implemen
      * @param tapeARN The Amazon Resource Name (ARN) of the virtual tape you want to
      *         retrieve from the Virtual Tape Shelf (VTS).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RetrieveTapeArchiveRequest withTapeARN(String tapeARN) {
@@ -160,7 +164,7 @@ public class RetrieveTapeArchiveRequest extends AmazonWebServiceRequest implemen
      *         virtual tapes to only one gateway and the gateway must be a
      *         Gateway-Virtual Tape Library.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RetrieveTapeArchiveRequest withGatewayARN(String gatewayARN) {

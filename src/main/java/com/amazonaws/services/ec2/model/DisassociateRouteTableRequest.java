@@ -26,9 +26,11 @@ import com.amazonaws.services.ec2.model.transform.DisassociateRouteTableRequestM
  * Disassociates a subnet from a route table.
  * </p>
  * <p>
- * After you perform this action, the subnet no longer uses the routes in the route table. Instead it uses the routes in the VPC's main route table. For
- * more information about route tables, go to <a href="http://docs.amazonwebservices.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables
- * </a> in the Amazon Virtual Private Cloud User Guide.
+ * After you perform this action, the subnet no longer uses the routes in
+ * the route table. Instead, it uses the routes in the VPC's main route
+ * table. For more information about route tables, see
+ * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
+ * in the <i>Amazon Virtual Private Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#disassociateRouteTable(DisassociateRouteTableRequest)
@@ -72,7 +74,7 @@ public class DisassociateRouteTableRequest extends AmazonWebServiceRequest imple
      * @param associationId The association ID representing the current association between the
      *         route table and subnet.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DisassociateRouteTableRequest withAssociationId(String associationId) {

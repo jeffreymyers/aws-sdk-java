@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A JSON-formatted name/value pair that represents the category name and category code of the problem, selected from the DescribeServices response for
- * each AWS service.
+ * A JSON-formatted name/value pair that represents the category name and
+ * category code of the problem, selected from the DescribeServices
+ * response for each AWS service.
  * </p>
  */
 public class Category implements Serializable {
@@ -59,7 +60,7 @@ public class Category implements Serializable {
      *
      * @param code The category code for the support case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Category withCode(String code) {
@@ -92,7 +93,7 @@ public class Category implements Serializable {
      *
      * @param name The category name for the support case.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Category withName(String name) {

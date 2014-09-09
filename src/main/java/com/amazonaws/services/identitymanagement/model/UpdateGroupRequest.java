@@ -24,13 +24,17 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Updates the name and/or the path of the specified group.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> You should understand the implications of changing a group's path or name. For more information, see Renaming Users and Groups in
- * Using AWS Identity and Access Management.
+ * <b>IMPORTANT:</b> You should understand the implications of changing a
+ * group's path or name. For more information, see Renaming Users and
+ * Groups in the Using IAM guide.
  * </p>
  * <p>
- * <b>NOTE:</b>To change a group name the requester must have appropriate permissions on both the source object and the target object. For example, to
- * change Managers to MGRs, the entity making the request must have permission on Managers and MGRs, or must have permission on all (*). For more
- * information about permissions, see Permissions and Policies.
+ * <b>NOTE:</b>To change a group name the requester must have appropriate
+ * permissions on both the source object and the target object. For
+ * example, to change Managers to MGRs, the entity making the request
+ * must have permission on Managers and MGRs, or must have permission on
+ * all (*). For more information about permissions, see Permissions and
+ * Policies.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#updateGroup(UpdateGroupRequest)
@@ -53,7 +57,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      */
     private String newPath;
 
@@ -128,7 +132,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * @param groupName Name of the group to update. If you're changing the name of the group,
      *         this is the original name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateGroupRequest withGroupName(String groupName) {
@@ -142,7 +146,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @return New path for the group. Only include this if changing the group's
      *         path.
@@ -157,7 +161,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param newPath New path for the group. Only include this if changing the group's
      *         path.
@@ -174,12 +178,12 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param newPath New path for the group. Only include this if changing the group's
      *         path.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateGroupRequest withNewPath(String newPath) {
@@ -230,7 +234,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * @param newGroupName New name for the group. Only include this if changing the group's
      *         name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateGroupRequest withNewGroupName(String newGroupName) {

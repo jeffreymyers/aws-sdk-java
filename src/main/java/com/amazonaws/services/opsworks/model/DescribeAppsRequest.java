@@ -24,12 +24,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Requests a description of a specified set of apps.
  * </p>
  * <p>
- * <b>NOTE:</b>You must specify at least one of the parameters.
+ * <b>NOTE:</b> You must specify at least one of the parameters.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeApps(DescribeAppsRequest)
@@ -80,7 +83,7 @@ public class DescribeAppsRequest extends AmazonWebServiceRequest implements Seri
      * @param stackId The app stack ID. If you use this parameter, <code>DescribeApps</code>
      *         returns a description of the apps in the specified stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAppsRequest withStackId(String stackId) {
@@ -135,7 +138,7 @@ public class DescribeAppsRequest extends AmazonWebServiceRequest implements Seri
      *         parameter, <code>DescribeApps</code> returns a description of the
      *         specified apps. Otherwise, it returns a description of every app.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAppsRequest withAppIds(String... appIds) {
@@ -157,7 +160,7 @@ public class DescribeAppsRequest extends AmazonWebServiceRequest implements Seri
      *         parameter, <code>DescribeApps</code> returns a description of the
      *         specified apps. Otherwise, it returns a description of every app.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeAppsRequest withAppIds(java.util.Collection<String> appIds) {

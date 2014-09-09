@@ -37,7 +37,7 @@ public class KeysAndAttributesJsonUnmarshaller implements Unmarshaller<KeysAndAt
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,9 +46,11 @@ public class KeysAndAttributesJsonUnmarshaller implements Unmarshaller<KeysAndAt
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Keys", targetDepth)) {
+                    context.nextToken();
                     keysAndAttributes.setKeys(new ListUnmarshaller<java.util.Map<String,AttributeValue>>(new MapUnmarshaller<String,AttributeValue>(StringJsonUnmarshaller.getInstance(), AttributeValueJsonUnmarshaller.getInstance())).unmarshall(context));
                 }
                 if (context.testExpression("AttributesToGet", targetDepth)) {
+                    context.nextToken();
                     keysAndAttributes.setAttributesToGet(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("ConsistentRead", targetDepth)) {

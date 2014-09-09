@@ -37,7 +37,7 @@ public class DescribeTapeArchivesResultJsonUnmarshaller implements Unmarshaller<
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class DescribeTapeArchivesResultJsonUnmarshaller implements Unmarshaller<
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("TapeArchives", targetDepth)) {
+                    context.nextToken();
                     describeTapeArchivesResult.setTapeArchives(new ListUnmarshaller<TapeArchive>(TapeArchiveJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("Marker", targetDepth)) {

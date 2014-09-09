@@ -21,38 +21,57 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.dynamodbv2.AmazonDynamoDB#batchGetItem(BatchGetItemRequest) BatchGetItem operation}.
  * <p>
- * The <i>BatchGetItem</i> operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
+ * The <i>BatchGetItem</i> operation returns the attributes of one or
+ * more items from one or more tables. You identify requested items by
+ * primary key.
  * </p>
  * <p>
- * A single operation can retrieve up to 1 MB of data, which can comprise as many as 100 items. <i>BatchGetItem</i> will return a partial result if the
- * response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. If a partial result is
- * returned, the operation returns a value for <i>UnprocessedKeys</i> . You can use this value to retry the operation starting with the next item to get.
+ * A single operation can retrieve up to 1 MB of data, which can contain
+ * as many as 100 items. <i>BatchGetItem</i> will return a partial result
+ * if the response size limit is exceeded, the table's provisioned
+ * throughput is exceeded, or an internal processing failure occurs. If a
+ * partial result is returned, the operation returns a value for
+ * <i>UnprocessedKeys</i> . You can use this value to retry the operation
+ * starting with the next item to get.
  * </p>
  * <p>
- * For example, if you ask to retrieve 100 items, but each individual item is 50 KB in size, the system returns 20 items (1 MB) and an appropriate
- * <i>UnprocessedKeys</i> value so you can get the next page of results. If desired, your application can include its own logic to assemble the pages of
- * results into one dataset.
+ * For example, if you ask to retrieve 100 items, but each individual
+ * item is 50 KB in size, the system returns 20 items (1 MB) and an
+ * appropriate <i>UnprocessedKeys</i> value so you can get the next page
+ * of results. If desired, your application can include its own logic to
+ * assemble the pages of results into one dataset.
  * </p>
  * <p>
- * If no items can be processed because of insufficient provisioned throughput on each of the tables involved in the request, <i>BatchGetItem</i> throws
- * <i>ProvisionedThroughputExceededException</i> .
+ * If <i>none</i> of the items can be processed due to insufficient
+ * provisioned throughput on all of the tables in the request, then
+ * <i>BatchGetItem</i> will throw a
+ * <i>ProvisionedThroughputExceededException</i> . If <i>at least one</i>
+ * of the items is successfully processed, then <i>BatchGetItem</i>
+ * completes successfully, while returning the keys of the unread items
+ * in <i>UnprocessedKeys</i> .
  * </p>
  * <p>
- * By default, <i>BatchGetItem</i> performs eventually consistent reads on every table in the request. If you want strongly consistent reads instead, you
- * can set <i>ConsistentRead</i> to <code>true</code> for any or all tables.
+ * By default, <i>BatchGetItem</i> performs eventually consistent reads
+ * on every table in the request. If you want strongly consistent reads
+ * instead, you can set <i>ConsistentRead</i> to <code>true</code> for
+ * any or all tables.
  * </p>
  * <p>
- * In order to minimize response latency, <i>BatchGetItem</i> fetches items in parallel.
+ * In order to minimize response latency, <i>BatchGetItem</i> retrieves
+ * items in parallel.
  * </p>
  * <p>
- * When designing your application, keep in mind that Amazon DynamoDB does not return attributes in any particular order. To help parse the response by
- * item, include the primary key values for the items in your request in the <i>AttributesToGet</i> parameter.
+ * When designing your application, keep in mind that DynamoDB does not
+ * return attributes in any particular order. To help parse the response
+ * by item, include the primary key values for the items in your request
+ * in the <i>AttributesToGet</i> parameter.
  * </p>
  * <p>
- * If a requested item does not exist, it is not returned in the result. Requests for nonexistent items consume the minimum read capacity units according
- * to the type of read. For more information, see <a
- * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithDDTables.html#CapacityUnitCalculations"> Capacity Units Calculations
- * </a> in the Amazon DynamoDB Developer Guide.
+ * If a requested item does not exist, it is not returned in the result.
+ * Requests for nonexistent items consume the minimum read capacity units
+ * according to the type of read. For more information, see
+ * <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations"> Capacity Units Calculations </a>
+ * in the Amazon DynamoDB Developer Guide.
  * </p>
  *
  * @see com.amazonaws.services.dynamodbv2.AmazonDynamoDB#batchGetItem(BatchGetItemRequest)
@@ -66,11 +85,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * following: <ul> <li> <p><i>Keys</i> - An array of primary key
      * attribute values that define specific items in the table. </li> <li>
      * <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     * from the table or index. By default, all attributes are returned. If a
+     * from the table. By default, all attributes are returned. If a
      * specified attribute is not found, it does not appear in the result.
-     * </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     * consistent read is used; if <code>false</code> (the default), an
-     * eventually consistent read is used. </li> </ul>
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
+     * <code>true</code>, a strongly consistent read is used; if
+     * <code>false</code> (the default), an eventually consistent read is
+     * used. </li> </ul>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 100<br/>
@@ -80,7 +103,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -106,9 +129,12 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * consists of the following: <ul> <li> <p><i>Keys</i> - An array of
      * primary key attribute values that define specific items in the table.
      * </li> <li> <p><i>AttributesToGet</i> - One or more attributes to be
-     * retrieved from the table or index. By default, all attributes are
-     * returned. If a specified attribute is not found, it does not appear in
-     * the result. </li> <li> <p><i>ConsistentRead</i> - If
+     * retrieved from the table. By default, all attributes are returned. If
+     * a specified attribute is not found, it does not appear in the result.
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
      * <code>true</code>, a strongly consistent read is used; if
      * <code>false</code> (the default), an eventually consistent read is
      * used. </li> </ul>
@@ -128,15 +154,18 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * consists of the following: <ul> <li> <p><i>Keys</i> - An array of
      * primary key attribute values that define specific items in the table.
      * </li> <li> <p><i>AttributesToGet</i> - One or more attributes to be
-     * retrieved from the table or index. By default, all attributes are
-     * returned. If a specified attribute is not found, it does not appear in
-     * the result. </li> <li> <p><i>ConsistentRead</i> - If
+     * retrieved from the table. By default, all attributes are returned. If
+     * a specified attribute is not found, it does not appear in the result.
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
      * <code>true</code>, a strongly consistent read is used; if
      * <code>false</code> (the default), an eventually consistent read is
      * used. </li> </ul>
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the
      * response includes <i>ConsumedCapacity</i> data for tables and indexes.
-     * If set to <code>INDEXES</code>, the repsonse includes
+     * If set to <code>INDEXES</code>, the response includes
      * <i>ConsumedCapacity</i> for indexes. If set to <code>NONE</code> (the
      * default), <i>ConsumedCapacity</i> is not included in the response.
      */
@@ -156,15 +185,18 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * consists of the following: <ul> <li> <p><i>Keys</i> - An array of
      * primary key attribute values that define specific items in the table.
      * </li> <li> <p><i>AttributesToGet</i> - One or more attributes to be
-     * retrieved from the table or index. By default, all attributes are
-     * returned. If a specified attribute is not found, it does not appear in
-     * the result. </li> <li> <p><i>ConsistentRead</i> - If
+     * retrieved from the table. By default, all attributes are returned. If
+     * a specified attribute is not found, it does not appear in the result.
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
      * <code>true</code>, a strongly consistent read is used; if
      * <code>false</code> (the default), an eventually consistent read is
      * used. </li> </ul>
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the
      * response includes <i>ConsumedCapacity</i> data for tables and indexes.
-     * If set to <code>INDEXES</code>, the repsonse includes
+     * If set to <code>INDEXES</code>, the response includes
      * <i>ConsumedCapacity</i> for indexes. If set to <code>NONE</code> (the
      * default), <i>ConsumedCapacity</i> is not included in the response.
      */
@@ -180,11 +212,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * following: <ul> <li> <p><i>Keys</i> - An array of primary key
      * attribute values that define specific items in the table. </li> <li>
      * <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     * from the table or index. By default, all attributes are returned. If a
+     * from the table. By default, all attributes are returned. If a
      * specified attribute is not found, it does not appear in the result.
-     * </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     * consistent read is used; if <code>false</code> (the default), an
-     * eventually consistent read is used. </li> </ul>
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
+     * <code>true</code>, a strongly consistent read is used; if
+     * <code>false</code> (the default), an eventually consistent read is
+     * used. </li> </ul>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 100<br/>
@@ -195,11 +231,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *         following: <ul> <li> <p><i>Keys</i> - An array of primary key
      *         attribute values that define specific items in the table. </li> <li>
      *         <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     *         from the table or index. By default, all attributes are returned. If a
+     *         from the table. By default, all attributes are returned. If a
      *         specified attribute is not found, it does not appear in the result.
-     *         </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     *         consistent read is used; if <code>false</code> (the default), an
-     *         eventually consistent read is used. </li> </ul>
+     *         <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     *         throughput consumption. DynamoDB determines capacity units consumed
+     *         based on item size, not on the amount of data that is returned to an
+     *         application. </li> <li> <p><i>ConsistentRead</i> - If
+     *         <code>true</code>, a strongly consistent read is used; if
+     *         <code>false</code> (the default), an eventually consistent read is
+     *         used. </li> </ul>
      */
     public java.util.Map<String,KeysAndAttributes> getRequestItems() {
         
@@ -213,11 +253,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * following: <ul> <li> <p><i>Keys</i> - An array of primary key
      * attribute values that define specific items in the table. </li> <li>
      * <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     * from the table or index. By default, all attributes are returned. If a
+     * from the table. By default, all attributes are returned. If a
      * specified attribute is not found, it does not appear in the result.
-     * </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     * consistent read is used; if <code>false</code> (the default), an
-     * eventually consistent read is used. </li> </ul>
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
+     * <code>true</code>, a strongly consistent read is used; if
+     * <code>false</code> (the default), an eventually consistent read is
+     * used. </li> </ul>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 100<br/>
@@ -228,11 +272,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *         following: <ul> <li> <p><i>Keys</i> - An array of primary key
      *         attribute values that define specific items in the table. </li> <li>
      *         <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     *         from the table or index. By default, all attributes are returned. If a
+     *         from the table. By default, all attributes are returned. If a
      *         specified attribute is not found, it does not appear in the result.
-     *         </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     *         consistent read is used; if <code>false</code> (the default), an
-     *         eventually consistent read is used. </li> </ul>
+     *         <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     *         throughput consumption. DynamoDB determines capacity units consumed
+     *         based on item size, not on the amount of data that is returned to an
+     *         application. </li> <li> <p><i>ConsistentRead</i> - If
+     *         <code>true</code>, a strongly consistent read is used; if
+     *         <code>false</code> (the default), an eventually consistent read is
+     *         used. </li> </ul>
      */
     public void setRequestItems(java.util.Map<String,KeysAndAttributes> requestItems) {
         this.requestItems = requestItems;
@@ -245,11 +293,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * following: <ul> <li> <p><i>Keys</i> - An array of primary key
      * attribute values that define specific items in the table. </li> <li>
      * <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     * from the table or index. By default, all attributes are returned. If a
+     * from the table. By default, all attributes are returned. If a
      * specified attribute is not found, it does not appear in the result.
-     * </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     * consistent read is used; if <code>false</code> (the default), an
-     * eventually consistent read is used. </li> </ul>
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
+     * <code>true</code>, a strongly consistent read is used; if
+     * <code>false</code> (the default), an eventually consistent read is
+     * used. </li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -262,13 +314,17 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *         following: <ul> <li> <p><i>Keys</i> - An array of primary key
      *         attribute values that define specific items in the table. </li> <li>
      *         <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     *         from the table or index. By default, all attributes are returned. If a
+     *         from the table. By default, all attributes are returned. If a
      *         specified attribute is not found, it does not appear in the result.
-     *         </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     *         consistent read is used; if <code>false</code> (the default), an
-     *         eventually consistent read is used. </li> </ul>
+     *         <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     *         throughput consumption. DynamoDB determines capacity units consumed
+     *         based on item size, not on the amount of data that is returned to an
+     *         application. </li> <li> <p><i>ConsistentRead</i> - If
+     *         <code>true</code>, a strongly consistent read is used; if
+     *         <code>false</code> (the default), an eventually consistent read is
+     *         used. </li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public BatchGetItemRequest withRequestItems(java.util.Map<String,KeysAndAttributes> requestItems) {
@@ -283,11 +339,15 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      * following: <ul> <li> <p><i>Keys</i> - An array of primary key
      * attribute values that define specific items in the table. </li> <li>
      * <p><i>AttributesToGet</i> - One or more attributes to be retrieved
-     * from the table or index. By default, all attributes are returned. If a
+     * from the table. By default, all attributes are returned. If a
      * specified attribute is not found, it does not appear in the result.
-     * </li> <li> <p><i>ConsistentRead</i> - If <code>true</code>, a strongly
-     * consistent read is used; if <code>false</code> (the default), an
-     * eventually consistent read is used. </li> </ul>
+     * <p>Note that <i>AttributesToGet</i> has no effect on provisioned
+     * throughput consumption. DynamoDB determines capacity units consumed
+     * based on item size, not on the amount of data that is returned to an
+     * application. </li> <li> <p><i>ConsistentRead</i> - If
+     * <code>true</code>, a strongly consistent read is used; if
+     * <code>false</code> (the default), an eventually consistent read is
+     * used. </li> </ul>
      * <p>
      * The method adds a new key-value pair into RequestItems parameter, and
      * returns a reference to this object so that method calls can be chained
@@ -322,7 +382,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -331,7 +391,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *
      * @return If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
@@ -344,7 +404,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -353,7 +413,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
@@ -366,7 +426,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -377,11 +437,11 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ReturnConsumedCapacity
@@ -394,7 +454,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -403,7 +463,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
@@ -416,7 +476,7 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
     /**
      * If set to <code>TOTAL</code>, the response includes
      * <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     * <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     * <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      * for indexes. If set to <code>NONE</code> (the default),
      * <i>ConsumedCapacity</i> is not included in the response.
      * <p>
@@ -427,11 +487,11 @@ public class BatchGetItemRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param returnConsumedCapacity If set to <code>TOTAL</code>, the response includes
      *         <i>ConsumedCapacity</i> data for tables and indexes. If set to
-     *         <code>INDEXES</code>, the repsonse includes <i>ConsumedCapacity</i>
+     *         <code>INDEXES</code>, the response includes <i>ConsumedCapacity</i>
      *         for indexes. If set to <code>NONE</code> (the default),
      *         <i>ConsumedCapacity</i> is not included in the response.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ReturnConsumedCapacity

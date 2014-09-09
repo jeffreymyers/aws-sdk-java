@@ -21,15 +21,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.support.AWSSupport#describeCases(DescribeCasesRequest) DescribeCases operation}.
  * <p>
- * Returns a list of cases that you specify by passing one or more case IDs. In addition, you can filter the cases by date by setting values for the
- * <code>AfterTime</code> and <code>BeforeTime</code> request parameters.
+ * Returns a list of cases that you specify by passing one or more case
+ * IDs. In addition, you can filter the cases by date by setting values
+ * for the <code>AfterTime</code> and <code>BeforeTime</code> request
+ * parameters.
  * </p>
  * <p>
  * The response returns the following in JSON format:
  * </p>
  * <ol> <li>One or more CaseDetails data types. </li>
- * <li>One or more <code>NextToken</code> values, which specify where to paginate the returned records represented by the <code>CaseDetails</code>
- * objects.</li>
+ * <li>One or more <code>NextToken</code> values, which specify where to
+ * paginate the returned records represented by the
+ * <code>CaseDetails</code> objects.</li>
  * </ol>
  *
  * @see com.amazonaws.services.support.AWSSupport#describeCases(DescribeCasesRequest)
@@ -89,6 +92,8 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      */
     private String language;
 
+    private Boolean includeCommunications;
+
     /**
      * A list of ID numbers of the support cases you want returned. The
      * maximum number of cases is 100.
@@ -139,7 +144,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      * @param caseIdList A list of ID numbers of the support cases you want returned. The
      *         maximum number of cases is 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withCaseIdList(String... caseIdList) {
@@ -162,7 +167,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      * @param caseIdList A list of ID numbers of the support cases you want returned. The
      *         maximum number of cases is 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withCaseIdList(java.util.Collection<String> caseIdList) {
@@ -202,7 +207,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param displayId The ID displayed for a case in the AWS Support Center user interface.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withDisplayId(String displayId) {
@@ -241,7 +246,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      * @param afterTime The start date for a filtered date search on support case
      *         communications.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withAfterTime(String afterTime) {
@@ -280,7 +285,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      * @param beforeTime The end date for a filtered date search on support case
      *         communications.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withBeforeTime(String beforeTime) {
@@ -319,7 +324,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      * @param includeResolvedCases Specifies whether resolved support cases should be included in the
      *         <a>DescribeCases</a> results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withIncludeResolvedCases(Boolean includeResolvedCases) {
@@ -363,7 +368,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param nextToken A resumption point for pagination.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withNextToken(String nextToken) {
@@ -405,7 +410,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param maxResults The maximum number of results to return before paginating.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withMaxResults(Integer maxResults) {
@@ -456,12 +461,56 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
      *         Language parameters must be passed explicitly for operations that take
      *         them.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCasesRequest withLanguage(String language) {
         this.language = language;
         return this;
+    }
+
+    /**
+     * Returns the value of the IncludeCommunications property for this
+     * object.
+     *
+     * @return The value of the IncludeCommunications property for this object.
+     */
+    public Boolean isIncludeCommunications() {
+        return includeCommunications;
+    }
+    
+    /**
+     * Sets the value of the IncludeCommunications property for this object.
+     *
+     * @param includeCommunications The new value for the IncludeCommunications property for this object.
+     */
+    public void setIncludeCommunications(Boolean includeCommunications) {
+        this.includeCommunications = includeCommunications;
+    }
+    
+    /**
+     * Sets the value of the IncludeCommunications property for this object.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param includeCommunications The new value for the IncludeCommunications property for this object.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DescribeCasesRequest withIncludeCommunications(Boolean includeCommunications) {
+        this.includeCommunications = includeCommunications;
+        return this;
+    }
+
+    /**
+     * Returns the value of the IncludeCommunications property for this
+     * object.
+     *
+     * @return The value of the IncludeCommunications property for this object.
+     */
+    public Boolean getIncludeCommunications() {
+        return includeCommunications;
     }
 
     /**
@@ -483,7 +532,8 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
         if (isIncludeResolvedCases() != null) sb.append("IncludeResolvedCases: " + isIncludeResolvedCases() + ",");
         if (getNextToken() != null) sb.append("NextToken: " + getNextToken() + ",");
         if (getMaxResults() != null) sb.append("MaxResults: " + getMaxResults() + ",");
-        if (getLanguage() != null) sb.append("Language: " + getLanguage() );
+        if (getLanguage() != null) sb.append("Language: " + getLanguage() + ",");
+        if (isIncludeCommunications() != null) sb.append("IncludeCommunications: " + isIncludeCommunications() );
         sb.append("}");
         return sb.toString();
     }
@@ -501,6 +551,7 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode()); 
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode()); 
         hashCode = prime * hashCode + ((getLanguage() == null) ? 0 : getLanguage().hashCode()); 
+        hashCode = prime * hashCode + ((isIncludeCommunications() == null) ? 0 : isIncludeCommunications().hashCode()); 
         return hashCode;
     }
     
@@ -528,6 +579,8 @@ public class DescribeCasesRequest extends AmazonWebServiceRequest implements Ser
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false) return false; 
         if (other.getLanguage() == null ^ this.getLanguage() == null) return false;
         if (other.getLanguage() != null && other.getLanguage().equals(this.getLanguage()) == false) return false; 
+        if (other.isIncludeCommunications() == null ^ this.isIncludeCommunications() == null) return false;
+        if (other.isIncludeCommunications() != null && other.isIncludeCommunications().equals(this.isIncludeCommunications()) == false) return false; 
         return true;
     }
     

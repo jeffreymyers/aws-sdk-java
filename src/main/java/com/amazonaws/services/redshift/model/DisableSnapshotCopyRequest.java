@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#disableSnapshotCopy(DisableSnapshotCopyRequest) DisableSnapshotCopy operation}.
  * <p>
- * Disables the automatic copying of snapshots from one region to another region for a specified cluster.
+ * Disables the automatic copying of snapshots from one region to another
+ * region for a specified cluster.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#disableSnapshotCopy(DisableSnapshotCopyRequest)
@@ -79,7 +80,7 @@ public class DisableSnapshotCopyRequest extends AmazonWebServiceRequest implemen
      *         the valid name of an existing cluster that has cross-region snapshot
      *         copy enabled.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DisableSnapshotCopyRequest withClusterIdentifier(String clusterIdentifier) {

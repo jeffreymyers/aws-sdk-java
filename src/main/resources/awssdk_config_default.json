@@ -2,7 +2,7 @@
   "defaultSigner" : {
     "signerType" : "AWS4SignerType"
   },
-  // "regionSigners" configuration takes precedence over 
+  // "regionSigners" configuration takes precedence over
   // the "serviceSigners" configuration,
   // but not the "serviceRegionSigners" configuration
   "serviceSigners" : [ {
@@ -89,5 +89,21 @@
     "config" : {
       "serviceName" : "sts"
     }
-  } ]
+  }, {
+    "key" : "AmazonCognitoIdentityClient",
+    "config" : {
+      "serviceName" : "cognito-identity"
+    }
+  }, {
+    "key" : "AmazonCognitoSyncClient",
+    "config" : {
+      "serviceName" : "cognito-sync"
+    }
+  }, {
+    "key": "AmazonCloudSearchDomainClient",
+    "config" : {
+      "serviceName": "cloudsearch"
+    }
+  } ],
+  "userAgentTemplate": "aws-sdk-{platform}/{version} {os.name}/{os.version} {java.vm.name}/{java.vm.version}/{java.version}{language.and.region}"
 }

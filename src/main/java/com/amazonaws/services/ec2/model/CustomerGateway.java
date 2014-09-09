@@ -18,71 +18,69 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The CustomerGateway data type.
+ * Describes a customer gateway.
  * </p>
  */
 public class CustomerGateway implements Serializable {
 
     /**
-     * Specifies the ID of the customer gateway.
+     * The ID of the customer gateway.
      */
     private String customerGatewayId;
 
     /**
-     * Describes the current state of the customer gateway. Valid values are
-     * <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     * and <code>deleted</code>.
+     * The current state of the customer gateway.
      */
     private String state;
 
     /**
-     * Specifies the type of VPN connection the customer gateway supports.
+     * The type of VPN connection the customer gateway supports.
      */
     private String type;
 
     /**
-     * Contains the Internet-routable IP address of the customer gateway's
-     * outside interface.
+     * The Internet-routable IP address of the customer gateway's outside
+     * interface.
      */
     private String ipAddress;
 
     /**
-     * Specifies the customer gateway's Border Gateway Protocol (BGP)
-     * Autonomous System Number (ASN).
+     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     * Number (ASN).
      */
     private String bgpAsn;
 
     /**
-     * A list of tags for the CustomerGateway.
+     * Any tags assigned to the customer gateway.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
     /**
-     * Specifies the ID of the customer gateway.
+     * The ID of the customer gateway.
      *
-     * @return Specifies the ID of the customer gateway.
+     * @return The ID of the customer gateway.
      */
     public String getCustomerGatewayId() {
         return customerGatewayId;
     }
     
     /**
-     * Specifies the ID of the customer gateway.
+     * The ID of the customer gateway.
      *
-     * @param customerGatewayId Specifies the ID of the customer gateway.
+     * @param customerGatewayId The ID of the customer gateway.
      */
     public void setCustomerGatewayId(String customerGatewayId) {
         this.customerGatewayId = customerGatewayId;
     }
     
     /**
-     * Specifies the ID of the customer gateway.
+     * The ID of the customer gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param customerGatewayId Specifies the ID of the customer gateway.
+     * @param customerGatewayId The ID of the customer gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withCustomerGatewayId(String customerGatewayId) {
@@ -91,43 +89,31 @@ public class CustomerGateway implements Serializable {
     }
 
     /**
-     * Describes the current state of the customer gateway. Valid values are
-     * <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     * and <code>deleted</code>.
+     * The current state of the customer gateway.
      *
-     * @return Describes the current state of the customer gateway. Valid values are
-     *         <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     *         and <code>deleted</code>.
+     * @return The current state of the customer gateway.
      */
     public String getState() {
         return state;
     }
     
     /**
-     * Describes the current state of the customer gateway. Valid values are
-     * <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     * and <code>deleted</code>.
+     * The current state of the customer gateway.
      *
-     * @param state Describes the current state of the customer gateway. Valid values are
-     *         <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     *         and <code>deleted</code>.
+     * @param state The current state of the customer gateway.
      */
     public void setState(String state) {
         this.state = state;
     }
     
     /**
-     * Describes the current state of the customer gateway. Valid values are
-     * <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     * and <code>deleted</code>.
+     * The current state of the customer gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param state Describes the current state of the customer gateway. Valid values are
-     *         <code>pending</code>, <code>available</code>, <code>deleting</code>,
-     *         and <code>deleted</code>.
+     * @param state The current state of the customer gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withState(String state) {
@@ -136,31 +122,31 @@ public class CustomerGateway implements Serializable {
     }
 
     /**
-     * Specifies the type of VPN connection the customer gateway supports.
+     * The type of VPN connection the customer gateway supports.
      *
-     * @return Specifies the type of VPN connection the customer gateway supports.
+     * @return The type of VPN connection the customer gateway supports.
      */
     public String getType() {
         return type;
     }
     
     /**
-     * Specifies the type of VPN connection the customer gateway supports.
+     * The type of VPN connection the customer gateway supports.
      *
-     * @param type Specifies the type of VPN connection the customer gateway supports.
+     * @param type The type of VPN connection the customer gateway supports.
      */
     public void setType(String type) {
         this.type = type;
     }
     
     /**
-     * Specifies the type of VPN connection the customer gateway supports.
+     * The type of VPN connection the customer gateway supports.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param type Specifies the type of VPN connection the customer gateway supports.
+     * @param type The type of VPN connection the customer gateway supports.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withType(String type) {
@@ -169,37 +155,37 @@ public class CustomerGateway implements Serializable {
     }
 
     /**
-     * Contains the Internet-routable IP address of the customer gateway's
-     * outside interface.
+     * The Internet-routable IP address of the customer gateway's outside
+     * interface.
      *
-     * @return Contains the Internet-routable IP address of the customer gateway's
-     *         outside interface.
+     * @return The Internet-routable IP address of the customer gateway's outside
+     *         interface.
      */
     public String getIpAddress() {
         return ipAddress;
     }
     
     /**
-     * Contains the Internet-routable IP address of the customer gateway's
-     * outside interface.
+     * The Internet-routable IP address of the customer gateway's outside
+     * interface.
      *
-     * @param ipAddress Contains the Internet-routable IP address of the customer gateway's
-     *         outside interface.
+     * @param ipAddress The Internet-routable IP address of the customer gateway's outside
+     *         interface.
      */
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
     
     /**
-     * Contains the Internet-routable IP address of the customer gateway's
-     * outside interface.
+     * The Internet-routable IP address of the customer gateway's outside
+     * interface.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param ipAddress Contains the Internet-routable IP address of the customer gateway's
-     *         outside interface.
+     * @param ipAddress The Internet-routable IP address of the customer gateway's outside
+     *         interface.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withIpAddress(String ipAddress) {
@@ -208,37 +194,37 @@ public class CustomerGateway implements Serializable {
     }
 
     /**
-     * Specifies the customer gateway's Border Gateway Protocol (BGP)
-     * Autonomous System Number (ASN).
+     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     * Number (ASN).
      *
-     * @return Specifies the customer gateway's Border Gateway Protocol (BGP)
-     *         Autonomous System Number (ASN).
+     * @return The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     *         Number (ASN).
      */
     public String getBgpAsn() {
         return bgpAsn;
     }
     
     /**
-     * Specifies the customer gateway's Border Gateway Protocol (BGP)
-     * Autonomous System Number (ASN).
+     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     * Number (ASN).
      *
-     * @param bgpAsn Specifies the customer gateway's Border Gateway Protocol (BGP)
-     *         Autonomous System Number (ASN).
+     * @param bgpAsn The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     *         Number (ASN).
      */
     public void setBgpAsn(String bgpAsn) {
         this.bgpAsn = bgpAsn;
     }
     
     /**
-     * Specifies the customer gateway's Border Gateway Protocol (BGP)
-     * Autonomous System Number (ASN).
+     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     * Number (ASN).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param bgpAsn Specifies the customer gateway's Border Gateway Protocol (BGP)
-     *         Autonomous System Number (ASN).
+     * @param bgpAsn The customer gateway's Border Gateway Protocol (BGP) Autonomous System
+     *         Number (ASN).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withBgpAsn(String bgpAsn) {
@@ -247,9 +233,9 @@ public class CustomerGateway implements Serializable {
     }
 
     /**
-     * A list of tags for the CustomerGateway.
+     * Any tags assigned to the customer gateway.
      *
-     * @return A list of tags for the CustomerGateway.
+     * @return Any tags assigned to the customer gateway.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -260,9 +246,9 @@ public class CustomerGateway implements Serializable {
     }
     
     /**
-     * A list of tags for the CustomerGateway.
+     * Any tags assigned to the customer gateway.
      *
-     * @param tags A list of tags for the CustomerGateway.
+     * @param tags Any tags assigned to the customer gateway.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -275,13 +261,13 @@ public class CustomerGateway implements Serializable {
     }
     
     /**
-     * A list of tags for the CustomerGateway.
+     * Any tags assigned to the customer gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags A list of tags for the CustomerGateway.
+     * @param tags Any tags assigned to the customer gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withTags(Tag... tags) {
@@ -293,13 +279,13 @@ public class CustomerGateway implements Serializable {
     }
     
     /**
-     * A list of tags for the CustomerGateway.
+     * Any tags assigned to the customer gateway.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags A list of tags for the CustomerGateway.
+     * @param tags Any tags assigned to the customer gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CustomerGateway withTags(java.util.Collection<Tag> tags) {

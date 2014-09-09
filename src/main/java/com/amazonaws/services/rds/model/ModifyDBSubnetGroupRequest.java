@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#modifyDBSubnetGroup(ModifyDBSubnetGroupRequest) ModifyDBSubnetGroup operation}.
  * <p>
- * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the region.
+ * Modifies an existing DB subnet group. DB subnet groups must contain
+ * at least one subnet in at least two AZs in the region.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#modifyDBSubnetGroup(ModifyDBSubnetGroupRequest)
@@ -89,7 +90,7 @@ public class ModifyDBSubnetGroupRequest extends AmazonWebServiceRequest implemen
      *         characters or hyphens. Must not be "Default". <p>Example:
      *         <code>mySubnetgroup</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBSubnetGroupRequest withDBSubnetGroupName(String dBSubnetGroupName) {
@@ -122,7 +123,7 @@ public class ModifyDBSubnetGroupRequest extends AmazonWebServiceRequest implemen
      *
      * @param dBSubnetGroupDescription The description for the DB subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBSubnetGroupRequest withDBSubnetGroupDescription(String dBSubnetGroupDescription) {
@@ -165,7 +166,7 @@ public class ModifyDBSubnetGroupRequest extends AmazonWebServiceRequest implemen
      *
      * @param subnetIds The EC2 subnet IDs for the DB subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBSubnetGroupRequest withSubnetIds(String... subnetIds) {
@@ -183,7 +184,7 @@ public class ModifyDBSubnetGroupRequest extends AmazonWebServiceRequest implemen
      *
      * @param subnetIds The EC2 subnet IDs for the DB subnet group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyDBSubnetGroupRequest withSubnetIds(java.util.Collection<String> subnetIds) {

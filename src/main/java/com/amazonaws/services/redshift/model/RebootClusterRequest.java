@@ -21,11 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#rebootCluster(RebootClusterRequest) RebootCluster operation}.
  * <p>
- * Reboots a cluster. This action is taken as soon as possible. It results in a momentary outage to the cluster, during which the cluster status is set
- * to <code>rebooting</code> . A cluster event is created when the reboot is completed. Any pending cluster modifications (see ModifyCluster) are applied
- * at this reboot. For more information about managing clusters, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a> in the <i>Amazon Redshift Management
- * Guide</i>
+ * Reboots a cluster. This action is taken as soon as possible. It
+ * results in a momentary outage to the cluster, during which the cluster
+ * status is set to <code>rebooting</code> . A cluster event is created
+ * when the reboot is completed. Any pending cluster modifications (see
+ * ModifyCluster) are applied at this reboot. For more information about
+ * managing clusters, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html"> Amazon Redshift Clusters </a>
+ * in the <i>Amazon Redshift Management Guide</i>
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#rebootCluster(RebootClusterRequest)
@@ -62,7 +65,7 @@ public class RebootClusterRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param clusterIdentifier The cluster identifier.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RebootClusterRequest withClusterIdentifier(String clusterIdentifier) {

@@ -37,7 +37,7 @@ public class ActivityTypeInfosJsonUnmarshaller implements Unmarshaller<ActivityT
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class ActivityTypeInfosJsonUnmarshaller implements Unmarshaller<ActivityT
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("typeInfos", targetDepth)) {
+                    context.nextToken();
                     activityTypeInfos.setTypeInfos(new ListUnmarshaller<ActivityTypeInfo>(ActivityTypeInfoJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("nextPageToken", targetDepth)) {

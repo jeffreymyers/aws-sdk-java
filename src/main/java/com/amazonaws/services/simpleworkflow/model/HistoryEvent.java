@@ -18,62 +18,111 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Event within a workflow execution. A history event can be one of these types:
+ * Event within a workflow execution. A history event can be one of
+ * these types:
  * </p>
  * 
  * <ul>
- * <li> <b>WorkflowExecutionStarted</b> : The workflow execution was started. </li>
- * <li> <b>WorkflowExecutionCompleted</b> : The workflow execution was closed due to successful completion. </li>
- * <li> <b>WorkflowExecutionFailed</b> : The workflow execution closed due to a failure. </li>
- * <li> <b>WorkflowExecutionTimedOut</b> : The workflow execution was closed because a time out was exceeded. </li>
- * <li> <b>WorkflowExecutionCanceled</b> : The workflow execution was successfully canceled and closed. </li>
- * <li> <b>WorkflowExecutionTerminated</b> : The workflow execution was terminated. </li>
- * <li> <b>WorkflowExecutionContinuedAsNew</b> : The workflow execution was closed and a new execution of the same type was created with the same
- * workflowId. </li>
- * <li> <b>WorkflowExecutionCancelRequested</b> : A request to cancel this workflow execution was made. </li>
- * <li> <b>DecisionTaskScheduled</b> : A decision task was scheduled for the workflow execution. </li>
- * <li> <b>DecisionTaskStarted</b> : The decision task was dispatched to a decider. </li>
- * <li> <b>DecisionTaskCompleted</b> : The decider successfully completed a decision task by calling RespondDecisionTaskCompleted. </li>
- * <li> <b>DecisionTaskTimedOut</b> : The decision task timed out. </li>
- * <li> <b>ActivityTaskScheduled</b> : An activity task was scheduled for execution. </li>
- * <li> <b>ScheduleActivityTaskFailed</b> : Failed to process ScheduleActivityTask decision. This happens when the decision is not configured properly,
- * for example the activity type specified is not registered. </li>
- * <li> <b>ActivityTaskStarted</b> : The scheduled activity task was dispatched to a worker. </li>
- * <li> <b>ActivityTaskCompleted</b> : An activity worker successfully completed an activity task by calling RespondActivityTaskCompleted. </li>
- * <li> <b>ActivityTaskFailed</b> : An activity worker failed an activity task by calling RespondActivityTaskFailed. </li>
- * <li> <b>ActivityTaskTimedOut</b> : The activity task timed out. </li>
- * <li> <b>ActivityTaskCanceled</b> : The activity task was successfully canceled. </li>
- * <li> <b>ActivityTaskCancelRequested</b> : A <code>RequestCancelActivityTask</code> decision was received by the system. </li>
- * <li> <b>RequestCancelActivityTaskFailed</b> : Failed to process RequestCancelActivityTask decision. This happens when the decision is not configured
- * properly. </li>
- * <li> <b>WorkflowExecutionSignaled</b> : An external signal was received for the workflow execution. </li>
- * <li> <b>MarkerRecorded</b> : A marker was recorded in the workflow history as the result of a <code>RecordMarker</code> decision. </li>
- * <li> <b>TimerStarted</b> : A timer was started for the workflow execution due to a <code>StartTimer</code> decision. </li>
- * <li> <b>StartTimerFailed</b> : Failed to process StartTimer decision. This happens when the decision is not configured properly, for example a timer
- * already exists with the specified timer Id. </li>
- * <li> <b>TimerFired</b> : A timer, previously started for this workflow execution, fired. </li>
- * <li> <b>TimerCanceled</b> : A timer, previously started for this workflow execution, was successfully canceled. </li>
- * <li> <b>CancelTimerFailed</b> : Failed to process CancelTimer decision. This happens when the decision is not configured properly, for example no
- * timer exists with the specified timer Id. </li>
- * <li> <b>StartChildWorkflowExecutionInitiated</b> : A request was made to start a child workflow execution. </li>
- * <li> <b>StartChildWorkflowExecutionFailed</b> : Failed to process StartChildWorkflowExecution decision. This happens when the decision is not
- * configured properly, for example the workflow type specified is not registered. </li>
- * <li> <b>ChildWorkflowExecutionStarted</b> : A child workflow execution was successfully started. </li>
- * <li> <b>ChildWorkflowExecutionCompleted</b> : A child workflow execution, started by this workflow execution, completed successfully and was closed.
+ * <li> <b>WorkflowExecutionStarted</b> : The workflow execution was
+ * started. </li>
+ * <li> <b>WorkflowExecutionCompleted</b> : The workflow execution was
+ * closed due to successful completion. </li>
+ * <li> <b>WorkflowExecutionFailed</b> : The workflow execution closed
+ * due to a failure. </li>
+ * <li> <b>WorkflowExecutionTimedOut</b> : The workflow execution was
+ * closed because a time out was exceeded. </li>
+ * <li> <b>WorkflowExecutionCanceled</b> : The workflow execution was
+ * successfully canceled and closed. </li>
+ * <li> <b>WorkflowExecutionTerminated</b> : The workflow execution was
+ * terminated. </li>
+ * <li> <b>WorkflowExecutionContinuedAsNew</b> : The workflow execution
+ * was closed and a new execution of the same type was created with the
+ * same workflowId. </li>
+ * <li> <b>WorkflowExecutionCancelRequested</b> : A request to cancel
+ * this workflow execution was made. </li>
+ * <li> <b>DecisionTaskScheduled</b> : A decision task was scheduled for
+ * the workflow execution. </li>
+ * <li> <b>DecisionTaskStarted</b> : The decision task was dispatched to
+ * a decider. </li>
+ * <li> <b>DecisionTaskCompleted</b> : The decider successfully
+ * completed a decision task by calling RespondDecisionTaskCompleted.
  * </li>
- * <li> <b>ChildWorkflowExecutionFailed</b> : A child workflow execution, started by this workflow execution, failed to complete successfully and was
+ * <li> <b>DecisionTaskTimedOut</b> : The decision task timed out. </li>
+ * <li> <b>ActivityTaskScheduled</b> : An activity task was scheduled
+ * for execution. </li>
+ * <li> <b>ScheduleActivityTaskFailed</b> : Failed to process
+ * ScheduleActivityTask decision. This happens when the decision is not
+ * configured properly, for example the activity type specified is not
+ * registered. </li>
+ * <li> <b>ActivityTaskStarted</b> : The scheduled activity task was
+ * dispatched to a worker. </li>
+ * <li> <b>ActivityTaskCompleted</b> : An activity worker successfully
+ * completed an activity task by calling RespondActivityTaskCompleted.
+ * </li>
+ * <li> <b>ActivityTaskFailed</b> : An activity worker failed an
+ * activity task by calling RespondActivityTaskFailed. </li>
+ * <li> <b>ActivityTaskTimedOut</b> : The activity task timed out. </li>
+ * <li> <b>ActivityTaskCanceled</b> : The activity task was successfully
+ * canceled. </li>
+ * <li> <b>ActivityTaskCancelRequested</b> : A
+ * <code>RequestCancelActivityTask</code> decision was received by the
+ * system. </li>
+ * <li> <b>RequestCancelActivityTaskFailed</b> : Failed to process
+ * RequestCancelActivityTask decision. This happens when the decision is
+ * not configured properly. </li>
+ * <li> <b>WorkflowExecutionSignaled</b> : An external signal was
+ * received for the workflow execution. </li>
+ * <li> <b>MarkerRecorded</b> : A marker was recorded in the workflow
+ * history as the result of a <code>RecordMarker</code> decision. </li>
+ * <li> <b>TimerStarted</b> : A timer was started for the workflow
+ * execution due to a <code>StartTimer</code> decision. </li>
+ * <li> <b>StartTimerFailed</b> : Failed to process StartTimer decision.
+ * This happens when the decision is not configured properly, for example
+ * a timer already exists with the specified timer Id. </li>
+ * <li> <b>TimerFired</b> : A timer, previously started for this
+ * workflow execution, fired. </li>
+ * <li> <b>TimerCanceled</b> : A timer, previously started for this
+ * workflow execution, was successfully canceled. </li>
+ * <li> <b>CancelTimerFailed</b> : Failed to process CancelTimer
+ * decision. This happens when the decision is not configured properly,
+ * for example no timer exists with the specified timer Id. </li>
+ * <li> <b>StartChildWorkflowExecutionInitiated</b> : A request was made
+ * to start a child workflow execution. </li>
+ * <li> <b>StartChildWorkflowExecutionFailed</b> : Failed to process
+ * StartChildWorkflowExecution decision. This happens when the decision
+ * is not configured properly, for example the workflow type specified is
+ * not registered. </li>
+ * <li> <b>ChildWorkflowExecutionStarted</b> : A child workflow
+ * execution was successfully started. </li>
+ * <li> <b>ChildWorkflowExecutionCompleted</b> : A child workflow
+ * execution, started by this workflow execution, completed successfully
+ * and was closed. </li>
+ * <li> <b>ChildWorkflowExecutionFailed</b> : A child workflow
+ * execution, started by this workflow execution, failed to complete
+ * successfully and was closed. </li>
+ * <li> <b>ChildWorkflowExecutionTimedOut</b> : A child workflow
+ * execution, started by this workflow execution, timed out and was
  * closed. </li>
- * <li> <b>ChildWorkflowExecutionTimedOut</b> : A child workflow execution, started by this workflow execution, timed out and was closed. </li>
- * <li> <b>ChildWorkflowExecutionCanceled</b> : A child workflow execution, started by this workflow execution, was canceled and closed. </li>
- * <li> <b>ChildWorkflowExecutionTerminated</b> : A child workflow execution, started by this workflow execution, was terminated. </li>
- * <li> <b>SignalExternalWorkflowExecutionInitiated</b> : A request to signal an external workflow was made. </li>
- * <li> <b>ExternalWorkflowExecutionSignaled</b> : A signal, requested by this workflow execution, was successfully delivered to the target external
- * workflow execution. </li>
- * <li> <b>SignalExternalWorkflowExecutionFailed</b> : The request to signal an external workflow execution failed. </li>
- * <li> <b>RequestCancelExternalWorkflowExecutionInitiated</b> : A request was made to request the cancellation of an external workflow execution. </li>
- * <li> <b>ExternalWorkflowExecutionCancelRequested</b> : Request to cancel an external workflow execution was successfully delivered to the target
+ * <li> <b>ChildWorkflowExecutionCanceled</b> : A child workflow
+ * execution, started by this workflow execution, was canceled and
+ * closed. </li>
+ * <li> <b>ChildWorkflowExecutionTerminated</b> : A child workflow
+ * execution, started by this workflow execution, was terminated. </li>
+ * <li> <b>SignalExternalWorkflowExecutionInitiated</b> : A request to
+ * signal an external workflow was made. </li>
+ * <li> <b>ExternalWorkflowExecutionSignaled</b> : A signal, requested
+ * by this workflow execution, was successfully delivered to the target
+ * external workflow execution. </li>
+ * <li> <b>SignalExternalWorkflowExecutionFailed</b> : The request to
+ * signal an external workflow execution failed. </li>
+ * <li> <b>RequestCancelExternalWorkflowExecutionInitiated</b> : A
+ * request was made to request the cancellation of an external workflow
  * execution. </li>
- * <li> <b>RequestCancelExternalWorkflowExecutionFailed</b> : Request to cancel an external workflow execution failed. </li>
+ * <li> <b>ExternalWorkflowExecutionCancelRequested</b> : Request to
+ * cancel an external workflow execution was successfully delivered to
+ * the target execution. </li>
+ * <li> <b>RequestCancelExternalWorkflowExecutionFailed</b> : Request to
+ * cancel an external workflow execution failed. </li>
  * 
  * </ul>
  */
@@ -459,7 +508,7 @@ public class HistoryEvent implements Serializable {
      *
      * @param eventTimestamp The date and time when the event occurred.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withEventTimestamp(java.util.Date eventTimestamp) {
@@ -505,7 +554,7 @@ public class HistoryEvent implements Serializable {
      *
      * @param eventType The type of the history event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EventType
@@ -539,7 +588,7 @@ public class HistoryEvent implements Serializable {
      *
      * @param eventType The type of the history event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EventType
@@ -580,7 +629,7 @@ public class HistoryEvent implements Serializable {
      * @param eventId The system generated id of the event. This id uniquely identifies the
      *         event with in the workflow execution history.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withEventId(Long eventId) {
@@ -625,7 +674,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionStartedEventAttributes(WorkflowExecutionStartedEventAttributes workflowExecutionStartedEventAttributes) {
@@ -670,7 +719,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionCompletedEventAttributes(WorkflowExecutionCompletedEventAttributes workflowExecutionCompletedEventAttributes) {
@@ -715,7 +764,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withCompleteWorkflowExecutionFailedEventAttributes(CompleteWorkflowExecutionFailedEventAttributes completeWorkflowExecutionFailedEventAttributes) {
@@ -760,7 +809,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionFailedEventAttributes(WorkflowExecutionFailedEventAttributes workflowExecutionFailedEventAttributes) {
@@ -805,7 +854,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withFailWorkflowExecutionFailedEventAttributes(FailWorkflowExecutionFailedEventAttributes failWorkflowExecutionFailedEventAttributes) {
@@ -850,7 +899,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionTimedOutEventAttributes(WorkflowExecutionTimedOutEventAttributes workflowExecutionTimedOutEventAttributes) {
@@ -895,7 +944,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionCanceledEventAttributes(WorkflowExecutionCanceledEventAttributes workflowExecutionCanceledEventAttributes) {
@@ -940,7 +989,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withCancelWorkflowExecutionFailedEventAttributes(CancelWorkflowExecutionFailedEventAttributes cancelWorkflowExecutionFailedEventAttributes) {
@@ -985,7 +1034,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionContinuedAsNewEventAttributes(WorkflowExecutionContinuedAsNewEventAttributes workflowExecutionContinuedAsNewEventAttributes) {
@@ -1036,7 +1085,7 @@ public class HistoryEvent implements Serializable {
      *         set and provides detailed information about the event. It is not set
      *         for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withContinueAsNewWorkflowExecutionFailedEventAttributes(ContinueAsNewWorkflowExecutionFailedEventAttributes continueAsNewWorkflowExecutionFailedEventAttributes) {
@@ -1081,7 +1130,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionTerminatedEventAttributes(WorkflowExecutionTerminatedEventAttributes workflowExecutionTerminatedEventAttributes) {
@@ -1126,7 +1175,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionCancelRequestedEventAttributes(WorkflowExecutionCancelRequestedEventAttributes workflowExecutionCancelRequestedEventAttributes) {
@@ -1171,7 +1220,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withDecisionTaskScheduledEventAttributes(DecisionTaskScheduledEventAttributes decisionTaskScheduledEventAttributes) {
@@ -1216,7 +1265,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withDecisionTaskStartedEventAttributes(DecisionTaskStartedEventAttributes decisionTaskStartedEventAttributes) {
@@ -1261,7 +1310,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withDecisionTaskCompletedEventAttributes(DecisionTaskCompletedEventAttributes decisionTaskCompletedEventAttributes) {
@@ -1306,7 +1355,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withDecisionTaskTimedOutEventAttributes(DecisionTaskTimedOutEventAttributes decisionTaskTimedOutEventAttributes) {
@@ -1351,7 +1400,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskScheduledEventAttributes(ActivityTaskScheduledEventAttributes activityTaskScheduledEventAttributes) {
@@ -1396,7 +1445,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskStartedEventAttributes(ActivityTaskStartedEventAttributes activityTaskStartedEventAttributes) {
@@ -1441,7 +1490,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskCompletedEventAttributes(ActivityTaskCompletedEventAttributes activityTaskCompletedEventAttributes) {
@@ -1486,7 +1535,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskFailedEventAttributes(ActivityTaskFailedEventAttributes activityTaskFailedEventAttributes) {
@@ -1531,7 +1580,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskTimedOutEventAttributes(ActivityTaskTimedOutEventAttributes activityTaskTimedOutEventAttributes) {
@@ -1576,7 +1625,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskCanceledEventAttributes(ActivityTaskCanceledEventAttributes activityTaskCanceledEventAttributes) {
@@ -1621,7 +1670,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withActivityTaskCancelRequestedEventAttributes(ActivityTaskCancelRequestedEventAttributes activityTaskCancelRequestedEventAttributes) {
@@ -1666,7 +1715,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withWorkflowExecutionSignaledEventAttributes(WorkflowExecutionSignaledEventAttributes workflowExecutionSignaledEventAttributes) {
@@ -1711,7 +1760,7 @@ public class HistoryEvent implements Serializable {
      *         is set and provides detailed information about the event. It is not
      *         set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withMarkerRecordedEventAttributes(MarkerRecordedEventAttributes markerRecordedEventAttributes) {
@@ -1756,7 +1805,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withRecordMarkerFailedEventAttributes(RecordMarkerFailedEventAttributes recordMarkerFailedEventAttributes) {
@@ -1801,7 +1850,7 @@ public class HistoryEvent implements Serializable {
      *         set and provides detailed information about the event. It is not set
      *         for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withTimerStartedEventAttributes(TimerStartedEventAttributes timerStartedEventAttributes) {
@@ -1846,7 +1895,7 @@ public class HistoryEvent implements Serializable {
      *         set and provides detailed information about the event. It is not set
      *         for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withTimerFiredEventAttributes(TimerFiredEventAttributes timerFiredEventAttributes) {
@@ -1891,7 +1940,7 @@ public class HistoryEvent implements Serializable {
      *         set and provides detailed information about the event. It is not set
      *         for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withTimerCanceledEventAttributes(TimerCanceledEventAttributes timerCanceledEventAttributes) {
@@ -1942,7 +1991,7 @@ public class HistoryEvent implements Serializable {
      *         set and provides detailed information about the event. It is not set
      *         for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withStartChildWorkflowExecutionInitiatedEventAttributes(StartChildWorkflowExecutionInitiatedEventAttributes startChildWorkflowExecutionInitiatedEventAttributes) {
@@ -1987,7 +2036,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withChildWorkflowExecutionStartedEventAttributes(ChildWorkflowExecutionStartedEventAttributes childWorkflowExecutionStartedEventAttributes) {
@@ -2032,7 +2081,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withChildWorkflowExecutionCompletedEventAttributes(ChildWorkflowExecutionCompletedEventAttributes childWorkflowExecutionCompletedEventAttributes) {
@@ -2077,7 +2126,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withChildWorkflowExecutionFailedEventAttributes(ChildWorkflowExecutionFailedEventAttributes childWorkflowExecutionFailedEventAttributes) {
@@ -2122,7 +2171,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withChildWorkflowExecutionTimedOutEventAttributes(ChildWorkflowExecutionTimedOutEventAttributes childWorkflowExecutionTimedOutEventAttributes) {
@@ -2167,7 +2216,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withChildWorkflowExecutionCanceledEventAttributes(ChildWorkflowExecutionCanceledEventAttributes childWorkflowExecutionCanceledEventAttributes) {
@@ -2212,7 +2261,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withChildWorkflowExecutionTerminatedEventAttributes(ChildWorkflowExecutionTerminatedEventAttributes childWorkflowExecutionTerminatedEventAttributes) {
@@ -2263,7 +2312,7 @@ public class HistoryEvent implements Serializable {
      *         is set and provides detailed information about the event. It is not
      *         set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withSignalExternalWorkflowExecutionInitiatedEventAttributes(SignalExternalWorkflowExecutionInitiatedEventAttributes signalExternalWorkflowExecutionInitiatedEventAttributes) {
@@ -2308,7 +2357,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withExternalWorkflowExecutionSignaledEventAttributes(ExternalWorkflowExecutionSignaledEventAttributes externalWorkflowExecutionSignaledEventAttributes) {
@@ -2359,7 +2408,7 @@ public class HistoryEvent implements Serializable {
      *         set and provides detailed information about the event. It is not set
      *         for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withSignalExternalWorkflowExecutionFailedEventAttributes(SignalExternalWorkflowExecutionFailedEventAttributes signalExternalWorkflowExecutionFailedEventAttributes) {
@@ -2410,7 +2459,7 @@ public class HistoryEvent implements Serializable {
      *         is set and provides detailed information about the event. It is not
      *         set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withExternalWorkflowExecutionCancelRequestedEventAttributes(ExternalWorkflowExecutionCancelRequestedEventAttributes externalWorkflowExecutionCancelRequestedEventAttributes) {
@@ -2461,7 +2510,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withRequestCancelExternalWorkflowExecutionInitiatedEventAttributes(RequestCancelExternalWorkflowExecutionInitiatedEventAttributes requestCancelExternalWorkflowExecutionInitiatedEventAttributes) {
@@ -2512,7 +2561,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withRequestCancelExternalWorkflowExecutionFailedEventAttributes(RequestCancelExternalWorkflowExecutionFailedEventAttributes requestCancelExternalWorkflowExecutionFailedEventAttributes) {
@@ -2557,7 +2606,7 @@ public class HistoryEvent implements Serializable {
      *         this member is set and provides detailed information about the event.
      *         It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withScheduleActivityTaskFailedEventAttributes(ScheduleActivityTaskFailedEventAttributes scheduleActivityTaskFailedEventAttributes) {
@@ -2602,7 +2651,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withRequestCancelActivityTaskFailedEventAttributes(RequestCancelActivityTaskFailedEventAttributes requestCancelActivityTaskFailedEventAttributes) {
@@ -2647,7 +2696,7 @@ public class HistoryEvent implements Serializable {
      *         is set and provides detailed information about the event. It is not
      *         set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withStartTimerFailedEventAttributes(StartTimerFailedEventAttributes startTimerFailedEventAttributes) {
@@ -2692,7 +2741,7 @@ public class HistoryEvent implements Serializable {
      *         member is set and provides detailed information about the event. It is
      *         not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withCancelTimerFailedEventAttributes(CancelTimerFailedEventAttributes cancelTimerFailedEventAttributes) {
@@ -2737,7 +2786,7 @@ public class HistoryEvent implements Serializable {
      *         then this member is set and provides detailed information about the
      *         event. It is not set for other event types.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HistoryEvent withStartChildWorkflowExecutionFailedEventAttributes(StartChildWorkflowExecutionFailedEventAttributes startChildWorkflowExecutionFailedEventAttributes) {

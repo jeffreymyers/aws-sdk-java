@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents a cache cluster's status within a particular cache security group.
+ * Represents a cache cluster's status within a particular cache security
+ * group.
  * </p>
  */
 public class CacheSecurityGroupMembership implements Serializable {
@@ -66,7 +67,7 @@ public class CacheSecurityGroupMembership implements Serializable {
      *
      * @param cacheSecurityGroupName The name of the cache security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheSecurityGroupMembership withCacheSecurityGroupName(String cacheSecurityGroupName) {
@@ -111,7 +112,7 @@ public class CacheSecurityGroupMembership implements Serializable {
      *         when a cache security group is modified, or when the cache security
      *         groups assigned to a cache cluster are modified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CacheSecurityGroupMembership withStatus(String status) {

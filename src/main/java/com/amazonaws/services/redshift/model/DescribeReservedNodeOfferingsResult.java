@@ -24,9 +24,12 @@ import java.io.Serializable;
 public class DescribeReservedNodeOfferingsResult implements Serializable {
 
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     * reserved node offering that the request will return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      */
     private String marker;
 
@@ -36,43 +39,61 @@ public class DescribeReservedNodeOfferingsResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<ReservedNodeOffering> reservedNodeOfferings;
 
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     * reserved node offering that the request will return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @return An optional marker returned by a previous
-     *         <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     *         reserved node offering that the request will return.
+     * @return A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     * reserved node offering that the request will return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @param marker An optional marker returned by a previous
-     *         <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     *         reserved node offering that the request will return.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * An optional marker returned by a previous
-     * <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     * reserved node offering that the request will return.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker An optional marker returned by a previous
-     *         <a>DescribeReservedNodeOfferings</a> request to indicate the first
-     *         reserved node offering that the request will return.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedNodeOfferingsResult withMarker(String marker) {
@@ -115,7 +136,7 @@ public class DescribeReservedNodeOfferingsResult implements Serializable {
      *
      * @param reservedNodeOfferings A list of reserved node offerings.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedNodeOfferingsResult withReservedNodeOfferings(ReservedNodeOffering... reservedNodeOfferings) {
@@ -133,7 +154,7 @@ public class DescribeReservedNodeOfferingsResult implements Serializable {
      *
      * @param reservedNodeOfferings A list of reserved node offerings.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedNodeOfferingsResult withReservedNodeOfferings(java.util.Collection<ReservedNodeOffering> reservedNodeOfferings) {

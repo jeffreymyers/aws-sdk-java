@@ -24,9 +24,12 @@ import java.io.Serializable;
 public class DescribeClusterParameterGroupsResult implements Serializable {
 
     /**
-     * A marker at which to continue listing cluster parameter groups in a
-     * new request. The response returns a marker if there are more parameter
-     * groups to list than returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      */
     private String marker;
 
@@ -37,43 +40,61 @@ public class DescribeClusterParameterGroupsResult implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<ClusterParameterGroup> parameterGroups;
 
     /**
-     * A marker at which to continue listing cluster parameter groups in a
-     * new request. The response returns a marker if there are more parameter
-     * groups to list than returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @return A marker at which to continue listing cluster parameter groups in a
-     *         new request. The response returns a marker if there are more parameter
-     *         groups to list than returned in the response.
+     * @return A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * A marker at which to continue listing cluster parameter groups in a
-     * new request. The response returns a marker if there are more parameter
-     * groups to list than returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      *
-     * @param marker A marker at which to continue listing cluster parameter groups in a
-     *         new request. The response returns a marker if there are more parameter
-     *         groups to list than returned in the response.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * A marker at which to continue listing cluster parameter groups in a
-     * new request. The response returns a marker if there are more parameter
-     * groups to list than returned in the response.
+     * A value that indicates the starting point for the next set of response
+     * records in a subsequent request. If a value is returned in a response,
+     * you can retrieve the next set of records by providing this returned
+     * marker value in the <code>Marker</code> parameter and retrying the
+     * command. If the <code>Marker</code> field is empty, all response
+     * records have been retrieved for the request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param marker A marker at which to continue listing cluster parameter groups in a
-     *         new request. The response returns a marker if there are more parameter
-     *         groups to list than returned in the response.
+     * @param marker A value that indicates the starting point for the next set of response
+     *         records in a subsequent request. If a value is returned in a response,
+     *         you can retrieve the next set of records by providing this returned
+     *         marker value in the <code>Marker</code> parameter and retrying the
+     *         command. If the <code>Marker</code> field is empty, all response
+     *         records have been retrieved for the request.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParameterGroupsResult withMarker(String marker) {
@@ -122,7 +143,7 @@ public class DescribeClusterParameterGroupsResult implements Serializable {
      * @param parameterGroups A list of <a>ClusterParameterGroup</a> instances. Each instance
      *         describes one cluster parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParameterGroupsResult withParameterGroups(ClusterParameterGroup... parameterGroups) {
@@ -142,7 +163,7 @@ public class DescribeClusterParameterGroupsResult implements Serializable {
      * @param parameterGroups A list of <a>ClusterParameterGroup</a> instances. Each instance
      *         describes one cluster parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeClusterParameterGroupsResult withParameterGroups(java.util.Collection<ClusterParameterGroup> parameterGroups) {

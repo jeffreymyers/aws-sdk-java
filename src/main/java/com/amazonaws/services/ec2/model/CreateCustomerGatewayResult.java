@@ -17,9 +17,7 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * <p>
  * 
- * </p>
  */
 public class CreateCustomerGatewayResult implements Serializable {
 
@@ -53,7 +51,7 @@ public class CreateCustomerGatewayResult implements Serializable {
      *
      * @param customerGateway Information about the customer gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateCustomerGatewayResult withCustomerGateway(CustomerGateway customerGateway) {

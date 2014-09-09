@@ -24,12 +24,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Requests a description of a set of instances.
  * </p>
  * <p>
- * <b>NOTE:</b>You must specify at least one of the parameters.
+ * <b>NOTE:</b> You must specify at least one of the parameters.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Show, Deploy, or Manage permissions level for the stack, or an attached
- * policy that explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Show, Deploy, or Manage permissions level for the stack, or an
+ * attached policy that explicitly grants permissions. For more
+ * information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describeInstances(DescribeInstancesRequest)
@@ -94,7 +97,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         returns descriptions of the instances associated with the specified
      *         stack.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeInstancesRequest withStackId(String stackId) {
@@ -139,7 +142,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         returns descriptions of the instances associated with the specified
      *         layer.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeInstancesRequest withLayerId(String layerId) {
@@ -194,7 +197,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>DescribeInstances</code> returns a description of the specified
      *         instances. Otherwise, it returns a description of every instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeInstancesRequest withInstanceIds(String... instanceIds) {
@@ -216,7 +219,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>DescribeInstances</code> returns a description of the specified
      *         instances. Otherwise, it returns a description of every instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeInstancesRequest withInstanceIds(java.util.Collection<String> instanceIds) {

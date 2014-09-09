@@ -14,13 +14,18 @@
  */
 package com.amazonaws.services.opsworks.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+import static com.amazonaws.util.StringUtils.COMMA_SEPARATOR;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
@@ -39,37 +44,17 @@ import com.amazonaws.util.json.*;
 public class CreateLayerRequestMarshaller implements Marshaller<Request<CreateLayerRequest>, CreateLayerRequest> {
 
     public Request<CreateLayerRequest> marshall(CreateLayerRequest createLayerRequest) {
-    if (createLayerRequest == null) {
-        throw new AmazonClientException("Invalid argument passed to marshall(...)");
-    }
+        if (createLayerRequest == null) {
+            throw new AmazonClientException("Invalid argument passed to marshall(...)");
+        }
 
         Request<CreateLayerRequest> request = new DefaultRequest<CreateLayerRequest>(createLayerRequest, "AWSOpsWorks");
         String target = "OpsWorks_20130218.CreateLayer";
         request.addHeader("X-Amz-Target", target);
-        request.addHeader("Content-Type", "application/x-amz-json-1.1");
 
         request.setHttpMethod(HttpMethodName.POST);
-
-        String uriResourcePath = ""; 
-
-        uriResourcePath = uriResourcePath.replaceAll("//", "/");
-
-        if (uriResourcePath.contains("?")) {
-            String queryString = uriResourcePath.substring(uriResourcePath.indexOf("?") + 1);
-            uriResourcePath    = uriResourcePath.substring(0, uriResourcePath.indexOf("?"));
-
-            for (String s : queryString.split("[;&]")) {
-                String[] nameValuePair = s.split("=");
-                if (nameValuePair.length == 2) {
-                    request.addParameter(nameValuePair[0], nameValuePair[1]);
-                } else {
-                    request.addParameter(s, null);
-                }
-            }
-        }
-
-        request.setResourcePath(uriResourcePath);
-
+        request.setResourcePath("");
+        
         try {
           StringWriter stringWriter = new StringWriter();
           JSONWriter jsonWriter = new JSONWriter(stringWriter);
@@ -152,6 +137,12 @@ public class CreateLayerRequestMarshaller implements Marshaller<Request<CreateLa
                         }
                         if (volumeConfigurationsListValue.getSize() != null) {
                             jsonWriter.key("Size").value(volumeConfigurationsListValue.getSize());
+                        }
+                        if (volumeConfigurationsListValue.getVolumeType() != null) {
+                            jsonWriter.key("VolumeType").value(volumeConfigurationsListValue.getVolumeType());
+                        }
+                        if (volumeConfigurationsListValue.getIops() != null) {
+                            jsonWriter.key("Iops").value(volumeConfigurationsListValue.getIops());
                         }
                         jsonWriter.endObject();
                     }
@@ -247,13 +238,17 @@ public class CreateLayerRequestMarshaller implements Marshaller<Request<CreateLa
             if (createLayerRequest.isInstallUpdatesOnBoot() != null) {
                 jsonWriter.key("InstallUpdatesOnBoot").value(createLayerRequest.isInstallUpdatesOnBoot());
             }
+            if (createLayerRequest.isUseEbsOptimizedInstances() != null) {
+                jsonWriter.key("UseEbsOptimizedInstances").value(createLayerRequest.isUseEbsOptimizedInstances());
+            }
 
           jsonWriter.endObject();
 
           String snippet = stringWriter.toString();
-          byte[] content = snippet.getBytes("UTF-8");
+          byte[] content = snippet.getBytes(UTF8);
           request.setContent(new StringInputStream(snippet));
           request.addHeader("Content-Length", Integer.toString(content.length));
+          request.addHeader("Content-Type", "application/x-amz-json-1.1");
         } catch(Throwable t) {
           throw new AmazonClientException("Unable to marshall request to JSON: " + t.getMessage(), t);
         }

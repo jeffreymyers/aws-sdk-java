@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class GetCloudFrontOriginAccessIdentityConfigRequestMarshaller implements
         Request<GetCloudFrontOriginAccessIdentityConfigRequest> request = new DefaultRequest<GetCloudFrontOriginAccessIdentityConfigRequest>(getCloudFrontOriginAccessIdentityConfigRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "2013-11-11/origin-access-identity/cloudfront/{Id}/config"; 
+        String uriResourcePath = "2014-05-31/origin-access-identity/cloudfront/{Id}/config"; 
         uriResourcePath = uriResourcePath.replace("{Id}", getString(getCloudFrontOriginAccessIdentityConfigRequest.getId())); 
 
         if (uriResourcePath.contains("?")) {

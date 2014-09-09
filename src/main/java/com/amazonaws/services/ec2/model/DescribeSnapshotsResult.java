@@ -17,21 +17,19 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * <p>
- * The result of describing EBS snapshots.
- * </p>
+ * 
  */
 public class DescribeSnapshotsResult implements Serializable {
 
     /**
-     * The list of described EBS snapshots.
+     * 
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Snapshot> snapshots;
 
     /**
-     * The list of described EBS snapshots.
+     * 
      *
-     * @return The list of described EBS snapshots.
+     * @return 
      */
     public java.util.List<Snapshot> getSnapshots() {
         if (snapshots == null) {
@@ -42,9 +40,9 @@ public class DescribeSnapshotsResult implements Serializable {
     }
     
     /**
-     * The list of described EBS snapshots.
+     * 
      *
-     * @param snapshots The list of described EBS snapshots.
+     * @param snapshots 
      */
     public void setSnapshots(java.util.Collection<Snapshot> snapshots) {
         if (snapshots == null) {
@@ -57,13 +55,13 @@ public class DescribeSnapshotsResult implements Serializable {
     }
     
     /**
-     * The list of described EBS snapshots.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param snapshots The list of described EBS snapshots.
+     * @param snapshots 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSnapshotsResult withSnapshots(Snapshot... snapshots) {
@@ -75,13 +73,13 @@ public class DescribeSnapshotsResult implements Serializable {
     }
     
     /**
-     * The list of described EBS snapshots.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param snapshots The list of described EBS snapshots.
+     * @param snapshots 
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeSnapshotsResult withSnapshots(java.util.Collection<Snapshot> snapshots) {

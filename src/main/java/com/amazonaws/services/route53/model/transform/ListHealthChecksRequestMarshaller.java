@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.route53.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class ListHealthChecksRequestMarshaller implements Marshaller<Request<Lis
         Request<ListHealthChecksRequest> request = new DefaultRequest<ListHealthChecksRequest>(listHealthChecksRequest, "AmazonRoute53");
         request.setHttpMethod(HttpMethodName.GET);
 
-        String uriResourcePath = "/2012-12-12/healthcheck?marker={Marker}&maxitems={MaxItems}"; 
+        String uriResourcePath = "/2013-04-01/healthcheck?marker={Marker}&maxitems={MaxItems}"; 
         uriResourcePath = uriResourcePath.replace("{Marker}", getString(listHealthChecksRequest.getMarker())); 
         uriResourcePath = uriResourcePath.replace("{MaxItems}", getString(listHealthChecksRequest.getMaxItems())); 
 

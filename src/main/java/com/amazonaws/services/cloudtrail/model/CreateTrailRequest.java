@@ -24,17 +24,22 @@ import com.amazonaws.AmazonWebServiceRequest;
  * From the command line, use create-subscription.
  * </p>
  * <p>
- * Creates a trail that specifies the settings for delivery of log data to an Amazon S3 bucket. The request includes a Trail structure that specifies the
- * following:
+ * Creates a trail that specifies the settings for delivery of log data
+ * to an Amazon S3 bucket. The request includes a Trail structure that
+ * specifies the following:
  * </p>
  * 
  * <ul>
  * <li>Trail name.</li>
- * <li>The name of an existing Amazon S3 bucket to which CloudTrail delivers your log files.</li>
- * <li>The name of the Amazon S3 key prefix that precedes each log file.</li>
- * <li>The name of an existing Amazon SNS topic that notifies you that a new file is available in your bucket.</li>
- * <li>Whether the log file should include AWS API calls from global services. Currently, the only global AWS API calls included in CloudTrail log files
- * are from IAM and AWS STS.</li>
+ * <li>The name of an existing Amazon S3 bucket to which CloudTrail
+ * delivers your log files.</li>
+ * <li>The name of the Amazon S3 key prefix that precedes each log
+ * file.</li>
+ * <li>The name of an existing Amazon SNS topic that notifies you that a
+ * new file is available in your bucket.</li>
+ * <li>Whether the log file should include AWS API calls from global
+ * services. Currently, the only global AWS API calls included in
+ * CloudTrail log files are from IAM and AWS STS.</li>
  * 
  * </ul>
  *
@@ -83,7 +88,7 @@ public class CreateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param name The new value for the Name property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailRequest withName(String name) {
@@ -116,7 +121,7 @@ public class CreateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param s3BucketName The new value for the S3BucketName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailRequest withS3BucketName(String s3BucketName) {
@@ -149,7 +154,7 @@ public class CreateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param s3KeyPrefix The new value for the S3KeyPrefix property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailRequest withS3KeyPrefix(String s3KeyPrefix) {
@@ -182,7 +187,7 @@ public class CreateTrailRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param snsTopicName The new value for the SnsTopicName property for this object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailRequest withSnsTopicName(String snsTopicName) {
@@ -220,7 +225,7 @@ public class CreateTrailRequest extends AmazonWebServiceRequest implements Seria
      * @param includeGlobalServiceEvents The new value for the IncludeGlobalServiceEvents property for this
      *         object.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailRequest withIncludeGlobalServiceEvents(Boolean includeGlobalServiceEvents) {
@@ -269,7 +274,7 @@ public class CreateTrailRequest extends AmazonWebServiceRequest implements Seria
      * @param trail Contains the <a>Trail</a> structure that specifies the settings for
      *         each trail.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateTrailRequest withTrail(Trail trail) {

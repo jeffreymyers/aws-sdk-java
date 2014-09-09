@@ -21,23 +21,36 @@ import com.amazonaws.services.rds.model.*;
 /**
  * Interface for accessing AmazonRDS.
  * Amazon Relational Database Service <p>
- * Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the
- * cloud. It provides cost-efficient, resizable capacity for an industry-standard relational database and manages common database administration tasks,
- * freeing up developers to focus on what makes their applications and businesses unique.
+ * Amazon Relational Database Service (Amazon RDS) is a web service that
+ * makes it easier to set up, operate, and scale a relational database in
+ * the cloud. It provides cost-efficient, resizable capacity for an
+ * industry-standard relational database and manages common database
+ * administration tasks, freeing up developers to focus on what makes
+ * their applications and businesses unique.
  * </p>
  * <p>
- * Amazon RDS gives you access to the capabilities of a familiar MySQL or Oracle database server. This means the code, applications, and tools you
- * already use today with your existing MySQL or Oracle databases work with Amazon RDS without modification. Amazon RDS automatically backs up your
- * database and maintains the database software that powers your DB instance. Amazon RDS is flexible: you can scale your database instance's compute
- * resources and storage capacity to meet your application's demand. As with all Amazon Web Services, there are no up-front investments, and you pay only
- * for the resources you use.
+ * Amazon RDS gives you access to the capabilities of a familiar MySQL
+ * or Oracle database server. This means the code, applications, and
+ * tools you already use today with your existing MySQL or Oracle
+ * databases work with Amazon RDS without modification. Amazon RDS
+ * automatically backs up your database and maintains the database
+ * software that powers your DB instance. Amazon RDS is flexible: you can
+ * scale your database instance's compute resources and storage capacity
+ * to meet your application's demand. As with all Amazon Web Services,
+ * there are no up-front investments, and you pay only for the resources
+ * you use.
  * </p>
  * <p>
- * This is an interface reference for Amazon RDS. It contains documentation for a programming or command line interface you can use to manage Amazon
- * RDS. Note that Amazon RDS is asynchronous, which means that some interfaces may require techniques such as polling or callback functions to determine
- * when a command has been applied. In this reference, the parameter descriptions indicate whether a command is applied immediately, on the next instance
- * reboot, or during the maintenance window. For a summary of the Amazon RDS interfaces, go to <a
- * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces"> Available RDS Interfaces </a> .
+ * This is an interface reference for Amazon RDS. It contains
+ * documentation for a programming or command line interface you can use
+ * to manage Amazon RDS. Note that Amazon RDS is asynchronous, which
+ * means that some interfaces may require techniques such as polling or
+ * callback functions to determine when a command has been applied. In
+ * this reference, the parameter descriptions indicate whether a command
+ * is applied immediately, on the next instance reboot, or during the
+ * maintenance window. For a summary of the Amazon RDS interfaces, go to
+ * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces"> Available RDS Interfaces </a>
+ * .
  * </p>
  */
 public interface AmazonRDS {
@@ -436,9 +449,9 @@ public interface AmazonRDS {
      * specified DBSubnetGroup.
      * </p>
      * <p>
-     * For an overview of CIDR ranges, go to the <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Wikipedia Tutorial </a> .
+     * For an overview of CIDR ranges, go to the
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+     * .
      * </p>
      *
      * @param describeDBSubnetGroupsRequest Container for the necessary
@@ -466,9 +479,9 @@ public interface AmazonRDS {
      * Removes metadata tags from an Amazon RDS resource.
      * </p>
      * <p>
-     * For an overview on tagging an Amazon RDS resource, see <a
-     * docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">
-     * Tagging Amazon RDS Resources </a> .
+     * For an overview on tagging an Amazon RDS resource, see
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+     * .
      * </p>
      *
      * @param removeTagsFromResourceRequest Container for the necessary
@@ -613,9 +626,9 @@ public interface AmazonRDS {
      * Amazon RDS.
      * </p>
      * <p>
-     * For an overview on tagging Amazon RDS resources, see <a
-     * docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">
-     * Tagging Amazon RDS Resources </a> .
+     * For an overview on tagging Amazon RDS resources, see
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+     * .
      * </p>
      *
      * @param addTagsToResourceRequest Container for the necessary parameters
@@ -641,9 +654,9 @@ public interface AmazonRDS {
      * Lists all tags on an Amazon RDS resource.
      * </p>
      * <p>
-     * For an overview on tagging an Amazon RDS resource, see <a
-     * docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">
-     * Tagging Amazon RDS Resources </a> .
+     * For an overview on tagging an Amazon RDS resource, see
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html"> Tagging Amazon RDS Resources </a>
+     * .
      * </p>
      *
      * @param listTagsForResourceRequest Container for the necessary
@@ -1071,9 +1084,9 @@ public interface AmazonRDS {
      * RDS DB instance in another.
      * </p>
      * <p>
-     * For an overview of CIDR ranges, go to the <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Wikipedia Tutorial </a> .
+     * For an overview of CIDR ranges, go to the
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+     * .
      * </p>
      *
      * @param authorizeDBSecurityGroupIngressRequest Container for the
@@ -1130,8 +1143,7 @@ public interface AmazonRDS {
      * <p>
      * Modifies the parameters of a DB parameter group. To modify more than
      * one parameter, submit a list of the following:
-     * <code>ParameterName</code> ,
-     * <code>ParameterValue</code> , and
+     * <code>ParameterName</code> , <code>ParameterValue</code> , and
      * <code>ApplyMethod</code> . A maximum of 20 parameters can be modified
      * in a single request.
      * </p>
@@ -1168,9 +1180,9 @@ public interface AmazonRDS {
      * <p>
      * Displays a list of categories for all event source types, or, if
      * specified, for a specified source type. You can see a list of the
-     * event categories and source types in the <a
-     * tp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">
-     * Events </a> topic in the Amazon RDS User Guide.
+     * event categories and source types in the
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+     * topic in the Amazon RDS User Guide.
      * </p>
      *
      * @param describeEventCategoriesRequest Container for the necessary
@@ -1283,8 +1295,8 @@ public interface AmazonRDS {
 
     /**
      * <p>
-     * Creates an RDS event notification subscription. This action requires a
-     * topic ARN (Amazon Resource Name) created by either the RDS console,
+     * Creates an RDS event notification subscription. This action requires
+     * a topic ARN (Amazon Resource Name) created by either the RDS console,
      * the SNS console, or the SNS API. To obtain an ARN with SNS, you must
      * create a topic in Amazon SNS and subscribe to the topic. The ARN is
      * displayed in the SNS console.
@@ -1298,14 +1310,14 @@ public interface AmazonRDS {
      * EventCategories = Availability, Backup.
      * </p>
      * <p>
-     * If you specify both the SourceType and SourceIds, such as SourceType =
-     * db-instance and SourceIdentifier = myDBInstance1, you will be notified
-     * of all the db-instance events for the specified source. If you specify
-     * a SourceType but do not specify a SourceIdentifier, you will receive
-     * notice of the events for that source type for all your RDS sources. If
-     * you do not specify either the SourceType nor the SourceIdentifier, you
-     * will be notified of events generated from all RDS sources belonging to
-     * your customer account.
+     * If you specify both the SourceType and SourceIds, such as SourceType
+     * = db-instance and SourceIdentifier = myDBInstance1, you will be
+     * notified of all the db-instance events for the specified source. If
+     * you specify a SourceType but do not specify a SourceIdentifier, you
+     * will receive notice of the events for that source type for all your
+     * RDS sources. If you do not specify either the SourceType nor the
+     * SourceIdentifier, you will be notified of events generated from all
+     * RDS sources belonging to your customer account.
      * </p>
      *
      * @param createEventSubscriptionRequest Container for the necessary
@@ -1570,9 +1582,9 @@ public interface AmazonRDS {
      * </p>
      * <p>
      * You can see a list of the event categories for a given SourceType in
-     * the <a
-     * tp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">
-     * Events </a> topic in the Amazon RDS User Guide or by using the
+     * the
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+     * topic in the Amazon RDS User Guide or by using the
      * <b>DescribeEventCategories</b> action.
      * </p>
      *
@@ -1646,8 +1658,8 @@ public interface AmazonRDS {
      * Deletes a DB subnet group.
      * </p>
      * <p>
-     * <b>NOTE:</b>The specified database subnet group must not be associated
-     * with any DB instances.
+     * <b>NOTE:</b>The specified database subnet group must not be
+     * associated with any DB instances.
      * </p>
      *
      * @param deleteDBSubnetGroupRequest Container for the necessary
@@ -1796,9 +1808,9 @@ public interface AmazonRDS {
      * specified DBSubnetGroup.
      * </p>
      * <p>
-     * For an overview of CIDR ranges, go to the <a
-     * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">
-     * Wikipedia Tutorial </a> .
+     * For an overview of CIDR ranges, go to the
+     * <a href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing"> Wikipedia Tutorial </a>
+     * .
      * </p>
      * 
      * @return The response from the DescribeDBSubnetGroups service method,
@@ -1883,9 +1895,9 @@ public interface AmazonRDS {
      * <p>
      * Displays a list of categories for all event source types, or, if
      * specified, for a specified source type. You can see a list of the
-     * event categories and source types in the <a
-     * tp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">
-     * Events </a> topic in the Amazon RDS User Guide.
+     * event categories and source types in the
+     * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
+     * topic in the Amazon RDS User Guide.
      * </p>
      * 
      * @return The response from the DescribeEventCategories service method,

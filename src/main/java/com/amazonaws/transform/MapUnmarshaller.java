@@ -38,11 +38,10 @@ public class MapUnmarshaller<K, V> implements Unmarshaller<Map<K, V>, JsonUnmars
         Map<K, V> map = new HashMap<K, V>();
         int originalDepth = context.getCurrentDepth();
 
-        JsonToken firstToken = context.peek();
-        if (firstToken == JsonToken.VALUE_NULL) {
+        if (context.getCurrentToken() == JsonToken.VALUE_NULL) {
             return null;
         }
-        
+
         while (true) {
             JsonToken token = context.nextToken();
             if (token == null) return map;

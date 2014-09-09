@@ -22,42 +22,54 @@ import com.amazonaws.services.ec2.model.transform.DescribeVpcAttributeRequestMar
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describeVpcAttribute(DescribeVpcAttributeRequest) DescribeVpcAttribute operation}.
- * 
+ * <p>
+ * Describes the specified attribute of the specified VPC. You can
+ * specify only one attribute at a time.
+ * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeVpcAttribute(DescribeVpcAttributeRequest)
  */
 public class DescribeVpcAttributeRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<DescribeVpcAttributeRequest> {
 
+    /**
+     * The ID of the VPC.
+     */
     private String vpcId;
 
+    /**
+     * The VPC attribute.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>enableDnsSupport, enableDnsHostnames
+     */
     private String attribute;
 
     /**
-     * Returns the value of the VpcId property for this object.
+     * The ID of the VPC.
      *
-     * @return The value of the VpcId property for this object.
+     * @return The ID of the VPC.
      */
     public String getVpcId() {
         return vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC.
      */
     public void setVpcId(String vpcId) {
         this.vpcId = vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeVpcAttributeRequest withVpcId(String vpcId) {
@@ -66,12 +78,12 @@ public class DescribeVpcAttributeRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
-     * Returns the value of the Attribute property for this object.
+     * The VPC attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>enableDnsSupport, enableDnsHostnames
      *
-     * @return The value of the Attribute property for this object.
+     * @return The VPC attribute.
      *
      * @see VpcAttributeName
      */
@@ -80,12 +92,12 @@ public class DescribeVpcAttributeRequest extends AmazonWebServiceRequest impleme
     }
     
     /**
-     * Sets the value of the Attribute property for this object.
+     * The VPC attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>enableDnsSupport, enableDnsHostnames
      *
-     * @param attribute The new value for the Attribute property for this object.
+     * @param attribute The VPC attribute.
      *
      * @see VpcAttributeName
      */
@@ -94,16 +106,16 @@ public class DescribeVpcAttributeRequest extends AmazonWebServiceRequest impleme
     }
     
     /**
-     * Sets the value of the Attribute property for this object.
+     * The VPC attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>enableDnsSupport, enableDnsHostnames
      *
-     * @param attribute The new value for the Attribute property for this object.
+     * @param attribute The VPC attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VpcAttributeName
@@ -114,12 +126,12 @@ public class DescribeVpcAttributeRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
-     * Sets the value of the Attribute property for this object.
+     * The VPC attribute.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>enableDnsSupport, enableDnsHostnames
      *
-     * @param attribute The new value for the Attribute property for this object.
+     * @param attribute The VPC attribute.
      *
      * @see VpcAttributeName
      */
@@ -128,16 +140,16 @@ public class DescribeVpcAttributeRequest extends AmazonWebServiceRequest impleme
     }
     
     /**
-     * Sets the value of the Attribute property for this object.
+     * The VPC attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>enableDnsSupport, enableDnsHostnames
      *
-     * @param attribute The new value for the Attribute property for this object.
+     * @param attribute The VPC attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VpcAttributeName

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides details of the <code>ChildWorkflowExecutionStarted</code> event.
+ * Provides details of the <code>ChildWorkflowExecutionStarted</code>
+ * event.
  * </p>
  */
 public class ChildWorkflowExecutionStartedEventAttributes implements Serializable {
@@ -67,7 +68,7 @@ public class ChildWorkflowExecutionStartedEventAttributes implements Serializabl
      *
      * @param workflowExecution The child workflow execution that was started.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChildWorkflowExecutionStartedEventAttributes withWorkflowExecution(WorkflowExecution workflowExecution) {
@@ -100,7 +101,7 @@ public class ChildWorkflowExecutionStartedEventAttributes implements Serializabl
      *
      * @param workflowType The type of the child workflow execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChildWorkflowExecutionStartedEventAttributes withWorkflowType(WorkflowType workflowType) {
@@ -157,7 +158,7 @@ public class ChildWorkflowExecutionStartedEventAttributes implements Serializabl
      *         information can be useful for diagnosing problems by tracing back the
      *         chain of events leading up to this event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ChildWorkflowExecutionStartedEventAttributes withInitiatedEventId(Long initiatedEventId) {

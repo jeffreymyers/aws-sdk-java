@@ -23,7 +23,27 @@ import com.amazonaws.services.ec2.model.transform.CreateVolumeRequestMarshaller;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#createVolume(CreateVolumeRequest) CreateVolume operation}.
  * <p>
- * Initializes an empty volume of a given size.
+ * Creates an Amazon EBS volume that can be attached to an instance in
+ * the same Availability Zone. The volume is created in the specified
+ * region.
+ * </p>
+ * <p>
+ * You can create a new empty volume or restore a volume from an Amazon
+ * EBS snapshot. Any AWS Marketplace product codes from the snapshot are
+ * propagated to the volume.
+ * </p>
+ * <p>
+ * You can create encrypted volumes with the <code>Encrypted</code>
+ * parameter. Encrypted volumes may only be attached to instances that
+ * support Amazon EBS encryption. Volumes that are created from encrypted
+ * snapshots are also automatically encrypted. For more information, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+ * </p>
+ * <p>
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"> Creating or Restoring an Amazon EBS Volume </a>
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#createVolume(CreateVolumeRequest)
@@ -31,24 +51,48 @@ import com.amazonaws.services.ec2.model.transform.CreateVolumeRequestMarshaller;
 public class CreateVolumeRequest extends AmazonWebServiceRequest implements Serializable, DryRunSupportedRequest<CreateVolumeRequest> {
 
     /**
-     * The size of the volume, in gigabytes. Required if you are not creating
-     * a volume from a snapshot.
+     * The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      */
     private Integer size;
 
     /**
-     * The ID of the snapshot from which to create the new volume.
+     * The snapshot from which to create the volume.
      */
     private String snapshotId;
 
     /**
-     * The Availability Zone in which to create the new volume.
+     * The Availability Zone in which to create the volume. Use
+     * <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     * are currently available to you.
      */
     private String availabilityZone;
 
+    /**
+     * The volume type. This can be <code>gp2</code> for General Purpose
+     * (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>standard, io1, gp2
+     */
     private String volumeType;
 
+    /**
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. This parameter is not used with Magnetic or General Purpose
+     * (SSD) volumes, but is required when the volume type is
+     * <code>io1</code>.
+     */
     private Integer iops;
+
+    /**
+     * Specifies whether the volume should be encrypted.
+     */
+    private Boolean encrypted;
 
     /**
      * Default constructor for a new CreateVolumeRequest object.  Callers should use the
@@ -61,10 +105,13 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param size The size of the volume, in gigabytes. Required if you are
-     * not creating a volume from a snapshot.
+     * @param size The size of the volume, in GiBs. <p>Constraints: If the
+     * volume type is <code>io1</code>, the minimum size of the volume is 10
+     * GiB. <p>Default: If you're creating the volume from a snapshot and
+     * don't specify a volume size, the default is the snapshot size.
      * @param availabilityZone The Availability Zone in which to create the
-     * new volume.
+     * volume. Use <a>DescribeAvailabilityZones</a> to list the Availability
+     * Zones that are currently available to you.
      */
     public CreateVolumeRequest(Integer size, String availabilityZone) {
         setSize(size);
@@ -76,10 +123,10 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param snapshotId The ID of the snapshot from which to create the new
-     * volume.
+     * @param snapshotId The snapshot from which to create the volume.
      * @param availabilityZone The Availability Zone in which to create the
-     * new volume.
+     * volume. Use <a>DescribeAvailabilityZones</a> to list the Availability
+     * Zones that are currently available to you.
      */
     public CreateVolumeRequest(String snapshotId, String availabilityZone) {
         setSnapshotId(snapshotId);
@@ -87,37 +134,49 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * The size of the volume, in gigabytes. Required if you are not creating
-     * a volume from a snapshot.
+     * The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      *
-     * @return The size of the volume, in gigabytes. Required if you are not creating
-     *         a volume from a snapshot.
+     * @return The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     *         <code>io1</code>, the minimum size of the volume is 10 GiB.
+     *         <p>Default: If you're creating the volume from a snapshot and don't
+     *         specify a volume size, the default is the snapshot size.
      */
     public Integer getSize() {
         return size;
     }
     
     /**
-     * The size of the volume, in gigabytes. Required if you are not creating
-     * a volume from a snapshot.
+     * The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      *
-     * @param size The size of the volume, in gigabytes. Required if you are not creating
-     *         a volume from a snapshot.
+     * @param size The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     *         <code>io1</code>, the minimum size of the volume is 10 GiB.
+     *         <p>Default: If you're creating the volume from a snapshot and don't
+     *         specify a volume size, the default is the snapshot size.
      */
     public void setSize(Integer size) {
         this.size = size;
     }
     
     /**
-     * The size of the volume, in gigabytes. Required if you are not creating
-     * a volume from a snapshot.
+     * The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     * <code>io1</code>, the minimum size of the volume is 10 GiB.
+     * <p>Default: If you're creating the volume from a snapshot and don't
+     * specify a volume size, the default is the snapshot size.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param size The size of the volume, in gigabytes. Required if you are not creating
-     *         a volume from a snapshot.
+     * @param size The size of the volume, in GiBs. <p>Constraints: If the volume type is
+     *         <code>io1</code>, the minimum size of the volume is 10 GiB.
+     *         <p>Default: If you're creating the volume from a snapshot and don't
+     *         specify a volume size, the default is the snapshot size.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateVolumeRequest withSize(Integer size) {
@@ -126,31 +185,31 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * The ID of the snapshot from which to create the new volume.
+     * The snapshot from which to create the volume.
      *
-     * @return The ID of the snapshot from which to create the new volume.
+     * @return The snapshot from which to create the volume.
      */
     public String getSnapshotId() {
         return snapshotId;
     }
     
     /**
-     * The ID of the snapshot from which to create the new volume.
+     * The snapshot from which to create the volume.
      *
-     * @param snapshotId The ID of the snapshot from which to create the new volume.
+     * @param snapshotId The snapshot from which to create the volume.
      */
     public void setSnapshotId(String snapshotId) {
         this.snapshotId = snapshotId;
     }
     
     /**
-     * The ID of the snapshot from which to create the new volume.
+     * The snapshot from which to create the volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param snapshotId The ID of the snapshot from which to create the new volume.
+     * @param snapshotId The snapshot from which to create the volume.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateVolumeRequest withSnapshotId(String snapshotId) {
@@ -159,31 +218,43 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * The Availability Zone in which to create the new volume.
+     * The Availability Zone in which to create the volume. Use
+     * <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     * are currently available to you.
      *
-     * @return The Availability Zone in which to create the new volume.
+     * @return The Availability Zone in which to create the volume. Use
+     *         <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     *         are currently available to you.
      */
     public String getAvailabilityZone() {
         return availabilityZone;
     }
     
     /**
-     * The Availability Zone in which to create the new volume.
+     * The Availability Zone in which to create the volume. Use
+     * <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     * are currently available to you.
      *
-     * @param availabilityZone The Availability Zone in which to create the new volume.
+     * @param availabilityZone The Availability Zone in which to create the volume. Use
+     *         <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     *         are currently available to you.
      */
     public void setAvailabilityZone(String availabilityZone) {
         this.availabilityZone = availabilityZone;
     }
     
     /**
-     * The Availability Zone in which to create the new volume.
+     * The Availability Zone in which to create the volume. Use
+     * <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     * are currently available to you.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param availabilityZone The Availability Zone in which to create the new volume.
+     * @param availabilityZone The Availability Zone in which to create the volume. Use
+     *         <a>DescribeAvailabilityZones</a> to list the Availability Zones that
+     *         are currently available to you.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateVolumeRequest withAvailabilityZone(String availabilityZone) {
@@ -192,12 +263,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * Returns the value of the VolumeType property for this object.
+     * The volume type. This can be <code>gp2</code> for General Purpose
+     * (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @return The value of the VolumeType property for this object.
+     * @return The volume type. This can be <code>gp2</code> for General Purpose
+     *         (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
      * @see VolumeType
      */
@@ -206,12 +283,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
     
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. This can be <code>gp2</code> for General Purpose
+     * (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. This can be <code>gp2</code> for General Purpose
+     *         (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
      * @see VolumeType
      */
@@ -220,16 +303,22 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
     
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. This can be <code>gp2</code> for General Purpose
+     * (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. This can be <code>gp2</code> for General Purpose
+     *         (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VolumeType
@@ -240,12 +329,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. This can be <code>gp2</code> for General Purpose
+     * (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. This can be <code>gp2</code> for General Purpose
+     *         (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
      * @see VolumeType
      */
@@ -254,16 +349,22 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
     
     /**
-     * Sets the value of the VolumeType property for this object.
+     * The volume type. This can be <code>gp2</code> for General Purpose
+     * (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     * <code>standard</code> for Magnetic volumes. <p>Default:
+     * <code>standard</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>standard, io1
+     * <b>Allowed Values: </b>standard, io1, gp2
      *
-     * @param volumeType The new value for the VolumeType property for this object.
+     * @param volumeType The volume type. This can be <code>gp2</code> for General Purpose
+     *         (SSD) volumes, <code>io1</code> for Provisioned IOPS (SSD) volumes, or
+     *         <code>standard</code> for Magnetic volumes. <p>Default:
+     *         <code>standard</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see VolumeType
@@ -274,36 +375,96 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * Returns the value of the Iops property for this object.
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. This parameter is not used with Magnetic or General Purpose
+     * (SSD) volumes, but is required when the volume type is
+     * <code>io1</code>.
      *
-     * @return The value of the Iops property for this object.
+     * @return The number of I/O operations per second (IOPS) that the volume
+     *         supports. This parameter is not used with Magnetic or General Purpose
+     *         (SSD) volumes, but is required when the volume type is
+     *         <code>io1</code>.
      */
     public Integer getIops() {
         return iops;
     }
     
     /**
-     * Sets the value of the Iops property for this object.
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. This parameter is not used with Magnetic or General Purpose
+     * (SSD) volumes, but is required when the volume type is
+     * <code>io1</code>.
      *
-     * @param iops The new value for the Iops property for this object.
+     * @param iops The number of I/O operations per second (IOPS) that the volume
+     *         supports. This parameter is not used with Magnetic or General Purpose
+     *         (SSD) volumes, but is required when the volume type is
+     *         <code>io1</code>.
      */
     public void setIops(Integer iops) {
         this.iops = iops;
     }
     
     /**
-     * Sets the value of the Iops property for this object.
+     * The number of I/O operations per second (IOPS) that the volume
+     * supports. This parameter is not used with Magnetic or General Purpose
+     * (SSD) volumes, but is required when the volume type is
+     * <code>io1</code>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param iops The new value for the Iops property for this object.
+     * @param iops The number of I/O operations per second (IOPS) that the volume
+     *         supports. This parameter is not used with Magnetic or General Purpose
+     *         (SSD) volumes, but is required when the volume type is
+     *         <code>io1</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateVolumeRequest withIops(Integer iops) {
         this.iops = iops;
         return this;
+    }
+
+    /**
+     * Specifies whether the volume should be encrypted.
+     *
+     * @return Specifies whether the volume should be encrypted.
+     */
+    public Boolean isEncrypted() {
+        return encrypted;
+    }
+    
+    /**
+     * Specifies whether the volume should be encrypted.
+     *
+     * @param encrypted Specifies whether the volume should be encrypted.
+     */
+    public void setEncrypted(Boolean encrypted) {
+        this.encrypted = encrypted;
+    }
+    
+    /**
+     * Specifies whether the volume should be encrypted.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param encrypted Specifies whether the volume should be encrypted.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CreateVolumeRequest withEncrypted(Boolean encrypted) {
+        this.encrypted = encrypted;
+        return this;
+    }
+
+    /**
+     * Specifies whether the volume should be encrypted.
+     *
+     * @return Specifies whether the volume should be encrypted.
+     */
+    public Boolean getEncrypted() {
+        return encrypted;
     }
 
     /**
@@ -334,7 +495,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
         if (getSnapshotId() != null) sb.append("SnapshotId: " + getSnapshotId() + ",");
         if (getAvailabilityZone() != null) sb.append("AvailabilityZone: " + getAvailabilityZone() + ",");
         if (getVolumeType() != null) sb.append("VolumeType: " + getVolumeType() + ",");
-        if (getIops() != null) sb.append("Iops: " + getIops() );
+        if (getIops() != null) sb.append("Iops: " + getIops() + ",");
+        if (isEncrypted() != null) sb.append("Encrypted: " + isEncrypted() );
         sb.append("}");
         return sb.toString();
     }
@@ -349,6 +511,7 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode()); 
         hashCode = prime * hashCode + ((getVolumeType() == null) ? 0 : getVolumeType().hashCode()); 
         hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode()); 
+        hashCode = prime * hashCode + ((isEncrypted() == null) ? 0 : isEncrypted().hashCode()); 
         return hashCode;
     }
     
@@ -370,6 +533,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
         if (other.getVolumeType() != null && other.getVolumeType().equals(this.getVolumeType()) == false) return false; 
         if (other.getIops() == null ^ this.getIops() == null) return false;
         if (other.getIops() != null && other.getIops().equals(this.getIops()) == false) return false; 
+        if (other.isEncrypted() == null ^ this.isEncrypted() == null) return false;
+        if (other.isEncrypted() != null && other.isEncrypted().equals(this.isEncrypted()) == false) return false; 
         return true;
     }
     

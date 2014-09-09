@@ -30,6 +30,7 @@ import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import static com.amazonaws.util.IOUtils.*;
 
 import com.amazonaws.services.elasticbeanstalk.model.*;
 import com.amazonaws.services.elasticbeanstalk.model.transform.*;
@@ -40,25 +41,28 @@ import com.amazonaws.services.elasticbeanstalk.model.transform.*;
  * completes.
  * <p>
  * AWS Elastic Beanstalk <p>
- * This is the AWS Elastic Beanstalk API Reference. This guide provides detailed information about AWS Elastic Beanstalk actions, data types,
+ * This is the AWS Elastic Beanstalk API Reference. This guide provides
+ * detailed information about AWS Elastic Beanstalk actions, data types,
  * parameters, and errors.
  * </p>
  * <p>
- * AWS Elastic Beanstalk is a tool that makes it easy for you to create, deploy, and manage scalable, fault-tolerant applications running on Amazon Web
- * Services cloud resources.
+ * AWS Elastic Beanstalk is a tool that makes it easy for you to create,
+ * deploy, and manage scalable, fault-tolerant applications running on
+ * Amazon Web Services cloud resources.
  * </p>
  * <p>
- * For more information about this product, go to the <a href="http://aws.amazon.com/elasticbeanstalk/"> AWS Elastic Beanstalk </a> details page. The
- * location of the latest AWS Elastic Beanstalk WSDL is <a href="http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl">
- * http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl </a> .
+ * For more information about this product, go to the
+ * <a href="http://aws.amazon.com/elasticbeanstalk/"> AWS Elastic Beanstalk </a> details page. The location of the latest AWS Elastic Beanstalk WSDL is <a href="http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl"> http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl </a>
+ * .
  * </p>
  * <p>
  * <b>Endpoints</b>
  * </p>
  * <p>
- * For a list of region-specific endpoints that AWS Elastic Beanstalk supports, go to <a
- * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region"> Regions and Endpoints </a> in the <i>Amazon Web Services
- * Glossary</i> .
+ * For a list of region-specific endpoints that AWS Elastic Beanstalk
+ * supports, go to
+ * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region"> Regions and Endpoints </a>
+ * in the <i>Amazon Web Services Glossary</i> .
  * </p>
  */
 public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements AWSElasticBeanstalk {
@@ -217,8 +221,8 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
         exceptionUnmarshallers.add(new TooManyEnvironmentsExceptionUnmarshaller());
         exceptionUnmarshallers.add(new S3SubscriptionRequiredExceptionUnmarshaller());
         exceptionUnmarshallers.add(new TooManyApplicationVersionsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyApplicationsExceptionUnmarshaller());
         exceptionUnmarshallers.add(new OperationInProgressExceptionUnmarshaller());
+        exceptionUnmarshallers.add(new TooManyApplicationsExceptionUnmarshaller());
         exceptionUnmarshallers.add(new InsufficientPrivilegesExceptionUnmarshaller());
         exceptionUnmarshallers.add(new SourceBundleDeletionExceptionUnmarshaller());
         exceptionUnmarshallers.add(new S3LocationNotInServiceRegionExceptionUnmarshaller());
@@ -226,8 +230,10 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
         exceptionUnmarshallers.add(new TooManyBucketsExceptionUnmarshaller());
         
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
+        
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("elasticbeanstalk.us-east-1.amazonaws.com");
+        
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/elasticbeanstalk/request.handlers"));
@@ -259,16 +265,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public CheckDNSAvailabilityResult checkDNSAvailability(CheckDNSAvailabilityRequest checkDNSAvailabilityRequest) {
         ExecutionContext executionContext = createExecutionContext(checkDNSAvailabilityRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CheckDNSAvailabilityRequest> request = null;
         Response<CheckDNSAvailabilityResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CheckDNSAvailabilityRequestMarshaller().marshall(checkDNSAvailabilityRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CheckDNSAvailabilityRequestMarshaller().marshall(checkDNSAvailabilityRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CheckDNSAvailabilityResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -301,16 +315,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeConfigurationOptionsResult describeConfigurationOptions(DescribeConfigurationOptionsRequest describeConfigurationOptionsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeConfigurationOptionsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeConfigurationOptionsRequest> request = null;
         Response<DescribeConfigurationOptionsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeConfigurationOptionsRequestMarshaller().marshall(describeConfigurationOptionsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConfigurationOptionsRequestMarshaller().marshall(describeConfigurationOptionsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeConfigurationOptionsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -383,16 +405,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public CreateEnvironmentResult createEnvironment(CreateEnvironmentRequest createEnvironmentRequest) {
         ExecutionContext executionContext = createExecutionContext(createEnvironmentRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateEnvironmentRequest> request = null;
         Response<CreateEnvironmentResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateEnvironmentRequestMarshaller().marshall(createEnvironmentRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateEnvironmentRequestMarshaller().marshall(createEnvironmentRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateEnvironmentResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -427,16 +457,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public CreateStorageLocationResult createStorageLocation(CreateStorageLocationRequest createStorageLocationRequest) {
         ExecutionContext executionContext = createExecutionContext(createStorageLocationRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateStorageLocationRequest> request = null;
         Response<CreateStorageLocationResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateStorageLocationRequestMarshaller().marshall(createStorageLocationRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateStorageLocationRequestMarshaller().marshall(createStorageLocationRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateStorageLocationResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -525,16 +563,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public CreateApplicationVersionResult createApplicationVersion(CreateApplicationVersionRequest createApplicationVersionRequest) {
         ExecutionContext executionContext = createExecutionContext(createApplicationVersionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateApplicationVersionRequest> request = null;
         Response<CreateApplicationVersionResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateApplicationVersionRequestMarshaller().marshall(createApplicationVersionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateApplicationVersionRequestMarshaller().marshall(createApplicationVersionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateApplicationVersionResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -605,16 +651,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeApplicationVersionsResult describeApplicationVersions(DescribeApplicationVersionsRequest describeApplicationVersionsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeApplicationVersionsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeApplicationVersionsRequest> request = null;
         Response<DescribeApplicationVersionsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeApplicationVersionsRequestMarshaller().marshall(describeApplicationVersionsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicationVersionsRequestMarshaller().marshall(describeApplicationVersionsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeApplicationVersionsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -666,9 +720,9 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
      * properties.
      * </p>
      * <p>
-     * <b>NOTE:</b> If a property (for example, description) is not provided,
-     * the value remains unchanged. To clear properties, specify an empty
-     * string.
+     * <b>NOTE:</b> If a property (for example, description) is not
+     * provided, the value remains unchanged. To clear properties, specify an
+     * empty string.
      * </p>
      *
      * @param updateApplicationVersionRequest Container for the necessary
@@ -690,16 +744,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public UpdateApplicationVersionResult updateApplicationVersion(UpdateApplicationVersionRequest updateApplicationVersionRequest) {
         ExecutionContext executionContext = createExecutionContext(updateApplicationVersionRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateApplicationVersionRequest> request = null;
         Response<UpdateApplicationVersionResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateApplicationVersionRequestMarshaller().marshall(updateApplicationVersionRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateApplicationVersionRequestMarshaller().marshall(updateApplicationVersionRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateApplicationVersionResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -730,16 +792,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest) {
         ExecutionContext executionContext = createExecutionContext(createApplicationRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateApplicationRequest> request = null;
         Response<CreateApplicationResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateApplicationRequestMarshaller().marshall(createApplicationRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateApplicationRequestMarshaller().marshall(createApplicationRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateApplicationResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -817,16 +887,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public UpdateConfigurationTemplateResult updateConfigurationTemplate(UpdateConfigurationTemplateRequest updateConfigurationTemplateRequest) {
         ExecutionContext executionContext = createExecutionContext(updateConfigurationTemplateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateConfigurationTemplateRequest> request = null;
         Response<UpdateConfigurationTemplateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateConfigurationTemplateRequestMarshaller().marshall(updateConfigurationTemplateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateConfigurationTemplateRequestMarshaller().marshall(updateConfigurationTemplateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateConfigurationTemplateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -864,16 +942,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public RetrieveEnvironmentInfoResult retrieveEnvironmentInfo(RetrieveEnvironmentInfoRequest retrieveEnvironmentInfoRequest) {
         ExecutionContext executionContext = createExecutionContext(retrieveEnvironmentInfoRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<RetrieveEnvironmentInfoRequest> request = null;
         Response<RetrieveEnvironmentInfoResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new RetrieveEnvironmentInfoRequestMarshaller().marshall(retrieveEnvironmentInfoRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RetrieveEnvironmentInfoRequestMarshaller().marshall(retrieveEnvironmentInfoRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new RetrieveEnvironmentInfoResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -902,16 +988,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public ListAvailableSolutionStacksResult listAvailableSolutionStacks(ListAvailableSolutionStacksRequest listAvailableSolutionStacksRequest) {
         ExecutionContext executionContext = createExecutionContext(listAvailableSolutionStacksRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ListAvailableSolutionStacksRequest> request = null;
         Response<ListAvailableSolutionStacksResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ListAvailableSolutionStacksRequestMarshaller().marshall(listAvailableSolutionStacksRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAvailableSolutionStacksRequestMarshaller().marshall(listAvailableSolutionStacksRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ListAvailableSolutionStacksResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -921,9 +1015,9 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
      * Updates the specified application to have the specified properties.
      * </p>
      * <p>
-     * <b>NOTE:</b> If a property (for example, description) is not provided,
-     * the value remains unchanged. To clear these properties, specify an
-     * empty string.
+     * <b>NOTE:</b> If a property (for example, description) is not
+     * provided, the value remains unchanged. To clear these properties,
+     * specify an empty string.
      * </p>
      *
      * @param updateApplicationRequest Container for the necessary parameters
@@ -945,16 +1039,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public UpdateApplicationResult updateApplication(UpdateApplicationRequest updateApplicationRequest) {
         ExecutionContext executionContext = createExecutionContext(updateApplicationRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateApplicationRequest> request = null;
         Response<UpdateApplicationResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateApplicationRequestMarshaller().marshall(updateApplicationRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateApplicationRequestMarshaller().marshall(updateApplicationRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateApplicationResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -983,16 +1085,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeEnvironmentsResult describeEnvironments(DescribeEnvironmentsRequest describeEnvironmentsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEnvironmentsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEnvironmentsRequest> request = null;
         Response<DescribeEnvironmentsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEnvironmentsRequestMarshaller().marshall(describeEnvironmentsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEnvironmentsRequestMarshaller().marshall(describeEnvironmentsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeEnvironmentsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1022,16 +1132,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeEnvironmentResourcesResult describeEnvironmentResources(DescribeEnvironmentResourcesRequest describeEnvironmentResourcesRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEnvironmentResourcesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEnvironmentResourcesRequest> request = null;
         Response<DescribeEnvironmentResourcesResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEnvironmentResourcesRequestMarshaller().marshall(describeEnvironmentResourcesRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEnvironmentResourcesRequestMarshaller().marshall(describeEnvironmentResourcesRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeEnvironmentResourcesResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1061,16 +1179,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public TerminateEnvironmentResult terminateEnvironment(TerminateEnvironmentRequest terminateEnvironmentRequest) {
         ExecutionContext executionContext = createExecutionContext(terminateEnvironmentRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<TerminateEnvironmentRequest> request = null;
         Response<TerminateEnvironmentResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new TerminateEnvironmentRequestMarshaller().marshall(terminateEnvironmentRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TerminateEnvironmentRequestMarshaller().marshall(terminateEnvironmentRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new TerminateEnvironmentResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1106,16 +1232,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public ValidateConfigurationSettingsResult validateConfigurationSettings(ValidateConfigurationSettingsRequest validateConfigurationSettingsRequest) {
         ExecutionContext executionContext = createExecutionContext(validateConfigurationSettingsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<ValidateConfigurationSettingsRequest> request = null;
         Response<ValidateConfigurationSettingsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new ValidateConfigurationSettingsRequestMarshaller().marshall(validateConfigurationSettingsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ValidateConfigurationSettingsRequestMarshaller().marshall(validateConfigurationSettingsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new ValidateConfigurationSettingsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1237,16 +1371,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public UpdateEnvironmentResult updateEnvironment(UpdateEnvironmentRequest updateEnvironmentRequest) {
         ExecutionContext executionContext = createExecutionContext(updateEnvironmentRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<UpdateEnvironmentRequest> request = null;
         Response<UpdateEnvironmentResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new UpdateEnvironmentRequestMarshaller().marshall(updateEnvironmentRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateEnvironmentRequestMarshaller().marshall(updateEnvironmentRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new UpdateEnvironmentResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1289,16 +1431,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public CreateConfigurationTemplateResult createConfigurationTemplate(CreateConfigurationTemplateRequest createConfigurationTemplateRequest) {
         ExecutionContext executionContext = createExecutionContext(createConfigurationTemplateRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<CreateConfigurationTemplateRequest> request = null;
         Response<CreateConfigurationTemplateResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new CreateConfigurationTemplateRequestMarshaller().marshall(createConfigurationTemplateRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateConfigurationTemplateRequestMarshaller().marshall(createConfigurationTemplateRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new CreateConfigurationTemplateResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1344,16 +1494,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeConfigurationSettingsResult describeConfigurationSettings(DescribeConfigurationSettingsRequest describeConfigurationSettingsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeConfigurationSettingsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeConfigurationSettingsRequest> request = null;
         Response<DescribeConfigurationSettingsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeConfigurationSettingsRequestMarshaller().marshall(describeConfigurationSettingsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConfigurationSettingsRequestMarshaller().marshall(describeConfigurationSettingsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeConfigurationSettingsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1382,16 +1540,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeApplicationsResult describeApplications(DescribeApplicationsRequest describeApplicationsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeApplicationsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeApplicationsRequest> request = null;
         Response<DescribeApplicationsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeApplicationsRequestMarshaller().marshall(describeApplicationsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicationsRequestMarshaller().marshall(describeApplicationsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeApplicationsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1439,8 +1605,8 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
      * weeks.
      * </p>
      * <p>
-     * <b>NOTE:</b> This action returns the most recent 1,000 events from the
-     * specified NextToken.
+     * <b>NOTE:</b> This action returns the most recent 1,000 events from
+     * the specified NextToken.
      * </p>
      *
      * @param describeEventsRequest Container for the necessary parameters to
@@ -1461,16 +1627,24 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
     public DescribeEventsResult describeEvents(DescribeEventsRequest describeEventsRequest) {
         ExecutionContext executionContext = createExecutionContext(describeEventsRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
         Request<DescribeEventsRequest> request = null;
         Response<DescribeEventsResult> response = null;
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        
         try {
-            request = new DescribeEventsRequestMarshaller().marshall(describeEventsRequest);
-            // Binds the request metrics to the current request.
-            request.setAWSRequestMetrics(awsRequestMetrics);
+            
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEventsRequestMarshaller().marshall(describeEventsRequest);
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                  awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
             response = invoke(request, new DescribeEventsResultStaxUnmarshaller(), executionContext);
             return response.getAwsResponse();
         } finally {
+            
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
@@ -1611,8 +1785,8 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
      * weeks.
      * </p>
      * <p>
-     * <b>NOTE:</b> This action returns the most recent 1,000 events from the
-     * specified NextToken.
+     * <b>NOTE:</b> This action returns the most recent 1,000 events from
+     * the specified NextToken.
      * </p>
      * 
      * @return The response from the DescribeEvents service method, as
@@ -1667,7 +1841,6 @@ public class AWSElasticBeanstalkClient extends AmazonWebServiceClient implements
             credentials = originalRequest.getRequestCredentials();
         }
 
-        executionContext.setSigner(getSigner());
         executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);

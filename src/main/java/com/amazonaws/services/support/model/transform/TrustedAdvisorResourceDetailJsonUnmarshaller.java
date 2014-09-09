@@ -37,7 +37,7 @@ public class TrustedAdvisorResourceDetailJsonUnmarshaller implements Unmarshalle
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -62,6 +62,7 @@ public class TrustedAdvisorResourceDetailJsonUnmarshaller implements Unmarshalle
                     trustedAdvisorResourceDetail.setIsSuppressed(BooleanJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("metadata", targetDepth)) {
+                    context.nextToken();
                     trustedAdvisorResourceDetail.setMetadata(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

@@ -40,7 +40,7 @@ public class Cluster implements Serializable {
 
     /**
      * Provides information about the EC2 instances in a cluster grouped by
-     * category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     * category. For example, key name, subnet ID, IAM instance profile, and
      * so on.
      */
     private Ec2InstanceAttributes ec2InstanceAttributes;
@@ -52,16 +52,14 @@ public class Cluster implements Serializable {
     private String logUri;
 
     /**
-     * The AMI version requested for this cluster.<!-- For more information,
-     * see <a>JobFlowDetail$AmiVersion</a>.-->
+     * The AMI version requested for this cluster.
      */
     private String requestedAmiVersion;
 
     /**
      * The AMI version running on this cluster. This differs from the
      * requested version only if the requested version is a meta version,
-     * such as "latest". <!--For more information, see
-     * <a>JobFlowDetail$AmiVersion</a>.-->
+     * such as "latest".
      */
     private String runningAmiVersion;
 
@@ -100,6 +98,12 @@ public class Cluster implements Serializable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
     /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     */
+    private String serviceRole;
+
+    /**
      * The unique identifier for the cluster.
      *
      * @return The unique identifier for the cluster.
@@ -124,7 +128,7 @@ public class Cluster implements Serializable {
      *
      * @param id The unique identifier for the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withId(String id) {
@@ -157,7 +161,7 @@ public class Cluster implements Serializable {
      *
      * @param name The name of the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withName(String name) {
@@ -190,7 +194,7 @@ public class Cluster implements Serializable {
      *
      * @param status The current status details about the cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withStatus(ClusterStatus status) {
@@ -200,11 +204,11 @@ public class Cluster implements Serializable {
 
     /**
      * Provides information about the EC2 instances in a cluster grouped by
-     * category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     * category. For example, key name, subnet ID, IAM instance profile, and
      * so on.
      *
      * @return Provides information about the EC2 instances in a cluster grouped by
-     *         category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     *         category. For example, key name, subnet ID, IAM instance profile, and
      *         so on.
      */
     public Ec2InstanceAttributes getEc2InstanceAttributes() {
@@ -213,11 +217,11 @@ public class Cluster implements Serializable {
     
     /**
      * Provides information about the EC2 instances in a cluster grouped by
-     * category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     * category. For example, key name, subnet ID, IAM instance profile, and
      * so on.
      *
      * @param ec2InstanceAttributes Provides information about the EC2 instances in a cluster grouped by
-     *         category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     *         category. For example, key name, subnet ID, IAM instance profile, and
      *         so on.
      */
     public void setEc2InstanceAttributes(Ec2InstanceAttributes ec2InstanceAttributes) {
@@ -226,16 +230,16 @@ public class Cluster implements Serializable {
     
     /**
      * Provides information about the EC2 instances in a cluster grouped by
-     * category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     * category. For example, key name, subnet ID, IAM instance profile, and
      * so on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param ec2InstanceAttributes Provides information about the EC2 instances in a cluster grouped by
-     *         category. For example, EC2 Key Name, Subnet Id, Instance Profile, and
+     *         category. For example, key name, subnet ID, IAM instance profile, and
      *         so on.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withEc2InstanceAttributes(Ec2InstanceAttributes ec2InstanceAttributes) {
@@ -274,7 +278,7 @@ public class Cluster implements Serializable {
      * @param logUri The path to the Amazon S3 location where logs for this cluster are
      *         stored.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withLogUri(String logUri) {
@@ -283,37 +287,31 @@ public class Cluster implements Serializable {
     }
 
     /**
-     * The AMI version requested for this cluster.<!-- For more information,
-     * see <a>JobFlowDetail$AmiVersion</a>.-->
+     * The AMI version requested for this cluster.
      *
-     * @return The AMI version requested for this cluster.<!-- For more information,
-     *         see <a>JobFlowDetail$AmiVersion</a>.-->
+     * @return The AMI version requested for this cluster.
      */
     public String getRequestedAmiVersion() {
         return requestedAmiVersion;
     }
     
     /**
-     * The AMI version requested for this cluster.<!-- For more information,
-     * see <a>JobFlowDetail$AmiVersion</a>.-->
+     * The AMI version requested for this cluster.
      *
-     * @param requestedAmiVersion The AMI version requested for this cluster.<!-- For more information,
-     *         see <a>JobFlowDetail$AmiVersion</a>.-->
+     * @param requestedAmiVersion The AMI version requested for this cluster.
      */
     public void setRequestedAmiVersion(String requestedAmiVersion) {
         this.requestedAmiVersion = requestedAmiVersion;
     }
     
     /**
-     * The AMI version requested for this cluster.<!-- For more information,
-     * see <a>JobFlowDetail$AmiVersion</a>.-->
+     * The AMI version requested for this cluster.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param requestedAmiVersion The AMI version requested for this cluster.<!-- For more information,
-     *         see <a>JobFlowDetail$AmiVersion</a>.-->
+     * @param requestedAmiVersion The AMI version requested for this cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withRequestedAmiVersion(String requestedAmiVersion) {
@@ -324,13 +322,11 @@ public class Cluster implements Serializable {
     /**
      * The AMI version running on this cluster. This differs from the
      * requested version only if the requested version is a meta version,
-     * such as "latest". <!--For more information, see
-     * <a>JobFlowDetail$AmiVersion</a>.-->
+     * such as "latest".
      *
      * @return The AMI version running on this cluster. This differs from the
      *         requested version only if the requested version is a meta version,
-     *         such as "latest". <!--For more information, see
-     *         <a>JobFlowDetail$AmiVersion</a>.-->
+     *         such as "latest".
      */
     public String getRunningAmiVersion() {
         return runningAmiVersion;
@@ -339,13 +335,11 @@ public class Cluster implements Serializable {
     /**
      * The AMI version running on this cluster. This differs from the
      * requested version only if the requested version is a meta version,
-     * such as "latest". <!--For more information, see
-     * <a>JobFlowDetail$AmiVersion</a>.-->
+     * such as "latest".
      *
      * @param runningAmiVersion The AMI version running on this cluster. This differs from the
      *         requested version only if the requested version is a meta version,
-     *         such as "latest". <!--For more information, see
-     *         <a>JobFlowDetail$AmiVersion</a>.-->
+     *         such as "latest".
      */
     public void setRunningAmiVersion(String runningAmiVersion) {
         this.runningAmiVersion = runningAmiVersion;
@@ -354,17 +348,15 @@ public class Cluster implements Serializable {
     /**
      * The AMI version running on this cluster. This differs from the
      * requested version only if the requested version is a meta version,
-     * such as "latest". <!--For more information, see
-     * <a>JobFlowDetail$AmiVersion</a>.-->
+     * such as "latest".
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param runningAmiVersion The AMI version running on this cluster. This differs from the
      *         requested version only if the requested version is a meta version,
-     *         such as "latest". <!--For more information, see
-     *         <a>JobFlowDetail$AmiVersion</a>.-->
+     *         such as "latest".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withRunningAmiVersion(String runningAmiVersion) {
@@ -403,7 +395,7 @@ public class Cluster implements Serializable {
      * @param autoTerminate Specifies whether the cluster should terminate after completing all
      *         steps.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withAutoTerminate(Boolean autoTerminate) {
@@ -459,7 +451,7 @@ public class Cluster implements Serializable {
      *         instances from being terminated by an API call or user intervention,
      *         or in the event of a cluster error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withTerminationProtected(Boolean terminationProtected) {
@@ -541,7 +533,7 @@ public class Cluster implements Serializable {
      *         cluster can view and manage it. This value can be changed using the
      *         <a>SetVisibleToAllUsers</a> action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withVisibleToAllUsers(Boolean visibleToAllUsers) {
@@ -605,7 +597,7 @@ public class Cluster implements Serializable {
      *
      * @param applications The applications installed on this cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withApplications(Application... applications) {
@@ -623,7 +615,7 @@ public class Cluster implements Serializable {
      *
      * @param applications The applications installed on this cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withApplications(java.util.Collection<Application> applications) {
@@ -673,7 +665,7 @@ public class Cluster implements Serializable {
      *
      * @param tags A list of tags associated with a cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withTags(Tag... tags) {
@@ -691,7 +683,7 @@ public class Cluster implements Serializable {
      *
      * @param tags A list of tags associated with a cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Cluster withTags(java.util.Collection<Tag> tags) {
@@ -703,6 +695,45 @@ public class Cluster implements Serializable {
             this.tags = tagsCopy;
         }
 
+        return this;
+    }
+
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     *
+     * @return The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     */
+    public String getServiceRole() {
+        return serviceRole;
+    }
+    
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     *
+     * @param serviceRole The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     */
+    public void setServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
+    }
+    
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param serviceRole The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Cluster withServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
         return this;
     }
 
@@ -729,7 +760,8 @@ public class Cluster implements Serializable {
         if (isTerminationProtected() != null) sb.append("TerminationProtected: " + isTerminationProtected() + ",");
         if (isVisibleToAllUsers() != null) sb.append("VisibleToAllUsers: " + isVisibleToAllUsers() + ",");
         if (getApplications() != null) sb.append("Applications: " + getApplications() + ",");
-        if (getTags() != null) sb.append("Tags: " + getTags() );
+        if (getTags() != null) sb.append("Tags: " + getTags() + ",");
+        if (getServiceRole() != null) sb.append("ServiceRole: " + getServiceRole() );
         sb.append("}");
         return sb.toString();
     }
@@ -751,6 +783,7 @@ public class Cluster implements Serializable {
         hashCode = prime * hashCode + ((isVisibleToAllUsers() == null) ? 0 : isVisibleToAllUsers().hashCode()); 
         hashCode = prime * hashCode + ((getApplications() == null) ? 0 : getApplications().hashCode()); 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
+        hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode()); 
         return hashCode;
     }
     
@@ -786,6 +819,8 @@ public class Cluster implements Serializable {
         if (other.getApplications() != null && other.getApplications().equals(this.getApplications()) == false) return false; 
         if (other.getTags() == null ^ this.getTags() == null) return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false) return false; 
+        if (other.getServiceRole() == null ^ this.getServiceRole() == null) return false;
+        if (other.getServiceRole() != null && other.getServiceRole().equals(this.getServiceRole()) == false) return false; 
         return true;
     }
     

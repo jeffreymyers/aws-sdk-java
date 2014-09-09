@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A response message that contains the default search field for a search domain.
  * </p>
  */
+@Deprecated
 public class DescribeDefaultSearchFieldResult implements Serializable {
 
     /**

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the specific price and frequency of a recurring charges for a reserved cache node, or for a reserved cache node offering.
+ * Contains the specific price and frequency of a recurring charges for a
+ * reserved cache node, or for a reserved cache node offering.
  * </p>
  */
 public class RecurringCharge implements Serializable {
@@ -58,7 +59,7 @@ public class RecurringCharge implements Serializable {
      *
      * @param recurringChargeAmount The monetary amount of the recurring charge.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RecurringCharge withRecurringChargeAmount(Double recurringChargeAmount) {
@@ -91,7 +92,7 @@ public class RecurringCharge implements Serializable {
      *
      * @param recurringChargeFrequency The frequency of the recurring charge.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RecurringCharge withRecurringChargeFrequency(String recurringChargeFrequency) {

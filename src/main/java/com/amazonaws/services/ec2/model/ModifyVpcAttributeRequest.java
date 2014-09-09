@@ -20,50 +20,65 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#modifyVpcAttribute(ModifyVpcAttributeRequest) ModifyVpcAttribute operation}.
- * 
+ * <p>
+ * Modifies the specified attribute of the specified VPC.
+ * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#modifyVpcAttribute(ModifyVpcAttributeRequest)
  */
 public class ModifyVpcAttributeRequest extends AmazonWebServiceRequest implements Serializable {
 
+    /**
+     * The ID of the VPC.
+     */
     private String vpcId;
 
     /**
-     * Boolean value
+     * Indicates whether the DNS resolution is supported for the VPC. If this
+     * attribute is <code>false</code>, the Amazon provided DNS service in
+     * the VPC that resolves public DNS hostnames to IP addresses is not
+     * enabled. If this attribute is <code>true</code>, queries to the Amazon
+     * provided DNS server at the 169.254.169.253 IP address, or the reserved
+     * IP address at the base of the VPC network range "plus two" will
+     * succeed.
      */
     private Boolean enableDnsSupport;
 
     /**
-     * Boolean value
+     * Indicates whether the instances launched in the VPC get DNS hostnames.
+     * If this attribute is <code>true</code>, instances in the VPC get DNS
+     * hostnames; otherwise, they do not. <p>You can only set
+     * <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     * the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      */
     private Boolean enableDnsHostnames;
 
     /**
-     * Returns the value of the VpcId property for this object.
+     * The ID of the VPC.
      *
-     * @return The value of the VpcId property for this object.
+     * @return The ID of the VPC.
      */
     public String getVpcId() {
         return vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC.
      */
     public void setVpcId(String vpcId) {
         this.vpcId = vpcId;
     }
     
     /**
-     * Sets the value of the VpcId property for this object.
+     * The ID of the VPC.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param vpcId The new value for the VpcId property for this object.
+     * @param vpcId The ID of the VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyVpcAttributeRequest withVpcId(String vpcId) {
@@ -72,31 +87,67 @@ public class ModifyVpcAttributeRequest extends AmazonWebServiceRequest implement
     }
 
     /**
-     * Boolean value
+     * Indicates whether the DNS resolution is supported for the VPC. If this
+     * attribute is <code>false</code>, the Amazon provided DNS service in
+     * the VPC that resolves public DNS hostnames to IP addresses is not
+     * enabled. If this attribute is <code>true</code>, queries to the Amazon
+     * provided DNS server at the 169.254.169.253 IP address, or the reserved
+     * IP address at the base of the VPC network range "plus two" will
+     * succeed.
      *
-     * @return Boolean value
+     * @return Indicates whether the DNS resolution is supported for the VPC. If this
+     *         attribute is <code>false</code>, the Amazon provided DNS service in
+     *         the VPC that resolves public DNS hostnames to IP addresses is not
+     *         enabled. If this attribute is <code>true</code>, queries to the Amazon
+     *         provided DNS server at the 169.254.169.253 IP address, or the reserved
+     *         IP address at the base of the VPC network range "plus two" will
+     *         succeed.
      */
     public Boolean isEnableDnsSupport() {
         return enableDnsSupport;
     }
     
     /**
-     * Boolean value
+     * Indicates whether the DNS resolution is supported for the VPC. If this
+     * attribute is <code>false</code>, the Amazon provided DNS service in
+     * the VPC that resolves public DNS hostnames to IP addresses is not
+     * enabled. If this attribute is <code>true</code>, queries to the Amazon
+     * provided DNS server at the 169.254.169.253 IP address, or the reserved
+     * IP address at the base of the VPC network range "plus two" will
+     * succeed.
      *
-     * @param enableDnsSupport Boolean value
+     * @param enableDnsSupport Indicates whether the DNS resolution is supported for the VPC. If this
+     *         attribute is <code>false</code>, the Amazon provided DNS service in
+     *         the VPC that resolves public DNS hostnames to IP addresses is not
+     *         enabled. If this attribute is <code>true</code>, queries to the Amazon
+     *         provided DNS server at the 169.254.169.253 IP address, or the reserved
+     *         IP address at the base of the VPC network range "plus two" will
+     *         succeed.
      */
     public void setEnableDnsSupport(Boolean enableDnsSupport) {
         this.enableDnsSupport = enableDnsSupport;
     }
     
     /**
-     * Boolean value
+     * Indicates whether the DNS resolution is supported for the VPC. If this
+     * attribute is <code>false</code>, the Amazon provided DNS service in
+     * the VPC that resolves public DNS hostnames to IP addresses is not
+     * enabled. If this attribute is <code>true</code>, queries to the Amazon
+     * provided DNS server at the 169.254.169.253 IP address, or the reserved
+     * IP address at the base of the VPC network range "plus two" will
+     * succeed.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param enableDnsSupport Boolean value
+     * @param enableDnsSupport Indicates whether the DNS resolution is supported for the VPC. If this
+     *         attribute is <code>false</code>, the Amazon provided DNS service in
+     *         the VPC that resolves public DNS hostnames to IP addresses is not
+     *         enabled. If this attribute is <code>true</code>, queries to the Amazon
+     *         provided DNS server at the 169.254.169.253 IP address, or the reserved
+     *         IP address at the base of the VPC network range "plus two" will
+     *         succeed.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyVpcAttributeRequest withEnableDnsSupport(Boolean enableDnsSupport) {
@@ -105,40 +156,76 @@ public class ModifyVpcAttributeRequest extends AmazonWebServiceRequest implement
     }
 
     /**
-     * Boolean value
+     * Indicates whether the DNS resolution is supported for the VPC. If this
+     * attribute is <code>false</code>, the Amazon provided DNS service in
+     * the VPC that resolves public DNS hostnames to IP addresses is not
+     * enabled. If this attribute is <code>true</code>, queries to the Amazon
+     * provided DNS server at the 169.254.169.253 IP address, or the reserved
+     * IP address at the base of the VPC network range "plus two" will
+     * succeed.
      *
-     * @return Boolean value
+     * @return Indicates whether the DNS resolution is supported for the VPC. If this
+     *         attribute is <code>false</code>, the Amazon provided DNS service in
+     *         the VPC that resolves public DNS hostnames to IP addresses is not
+     *         enabled. If this attribute is <code>true</code>, queries to the Amazon
+     *         provided DNS server at the 169.254.169.253 IP address, or the reserved
+     *         IP address at the base of the VPC network range "plus two" will
+     *         succeed.
      */
     public Boolean getEnableDnsSupport() {
         return enableDnsSupport;
     }
 
     /**
-     * Boolean value
+     * Indicates whether the instances launched in the VPC get DNS hostnames.
+     * If this attribute is <code>true</code>, instances in the VPC get DNS
+     * hostnames; otherwise, they do not. <p>You can only set
+     * <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     * the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      *
-     * @return Boolean value
+     * @return Indicates whether the instances launched in the VPC get DNS hostnames.
+     *         If this attribute is <code>true</code>, instances in the VPC get DNS
+     *         hostnames; otherwise, they do not. <p>You can only set
+     *         <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     *         the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      */
     public Boolean isEnableDnsHostnames() {
         return enableDnsHostnames;
     }
     
     /**
-     * Boolean value
+     * Indicates whether the instances launched in the VPC get DNS hostnames.
+     * If this attribute is <code>true</code>, instances in the VPC get DNS
+     * hostnames; otherwise, they do not. <p>You can only set
+     * <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     * the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      *
-     * @param enableDnsHostnames Boolean value
+     * @param enableDnsHostnames Indicates whether the instances launched in the VPC get DNS hostnames.
+     *         If this attribute is <code>true</code>, instances in the VPC get DNS
+     *         hostnames; otherwise, they do not. <p>You can only set
+     *         <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     *         the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      */
     public void setEnableDnsHostnames(Boolean enableDnsHostnames) {
         this.enableDnsHostnames = enableDnsHostnames;
     }
     
     /**
-     * Boolean value
+     * Indicates whether the instances launched in the VPC get DNS hostnames.
+     * If this attribute is <code>true</code>, instances in the VPC get DNS
+     * hostnames; otherwise, they do not. <p>You can only set
+     * <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     * the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param enableDnsHostnames Boolean value
+     * @param enableDnsHostnames Indicates whether the instances launched in the VPC get DNS hostnames.
+     *         If this attribute is <code>true</code>, instances in the VPC get DNS
+     *         hostnames; otherwise, they do not. <p>You can only set
+     *         <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     *         the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyVpcAttributeRequest withEnableDnsHostnames(Boolean enableDnsHostnames) {
@@ -147,9 +234,17 @@ public class ModifyVpcAttributeRequest extends AmazonWebServiceRequest implement
     }
 
     /**
-     * Boolean value
+     * Indicates whether the instances launched in the VPC get DNS hostnames.
+     * If this attribute is <code>true</code>, instances in the VPC get DNS
+     * hostnames; otherwise, they do not. <p>You can only set
+     * <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     * the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      *
-     * @return Boolean value
+     * @return Indicates whether the instances launched in the VPC get DNS hostnames.
+     *         If this attribute is <code>true</code>, instances in the VPC get DNS
+     *         hostnames; otherwise, they do not. <p>You can only set
+     *         <code>enableDnsHostnames</code> to <code>true</code> if you also set
+     *         the <code>EnableDnsSupport</code> attribute to <code>true</code>.
      */
     public Boolean getEnableDnsHostnames() {
         return enableDnsHostnames;

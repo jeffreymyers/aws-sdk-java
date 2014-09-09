@@ -25,7 +25,8 @@ import com.amazonaws.transform.*;
 import com.fasterxml.jackson.core.JsonToken;
 import static com.fasterxml.jackson.core.JsonToken.*;
 
-import com.amazonaws.util.ContentLengthValidationInputStream;
+import com.amazonaws.util.LengthCheckInputStream;
+import static com.amazonaws.util.LengthCheckInputStream.INCLUDE_SKIPPED_BYTES;
 
 /**
  * Get Job Output Result JSON Unmarshaller
@@ -36,19 +37,35 @@ public class GetJobOutputResultJsonUnmarshaller implements Unmarshaller<GetJobOu
         GetJobOutputResult getJobOutputResult = new GetJobOutputResult();
 
         if (context.isStartOfDocument()) {
-            if (context.getHeader("x-amz-sha256-tree-hash") != null)
-                getJobOutputResult.setChecksum(context.getHeader("x-amz-sha256-tree-hash"));
-            if (context.getHeader("Content-Range") != null)
-                getJobOutputResult.setContentRange(context.getHeader("Content-Range"));
-            if (context.getHeader("Accept-Ranges") != null)
-                getJobOutputResult.setAcceptRanges(context.getHeader("Accept-Ranges"));
-            if (context.getHeader("Content-Type") != null)
-                getJobOutputResult.setContentType(context.getHeader("Content-Type"));
-            if (context.getHeader("x-amz-archive-description") != null)
-                getJobOutputResult.setArchiveDescription(context.getHeader("x-amz-archive-description"));
+            if (context.getHeader("x-amz-sha256-tree-hash") != null) {
+                context.setCurrentHeader("x-amz-sha256-tree-hash");
+                getJobOutputResult.setChecksum(StringJsonUnmarshaller.getInstance().unmarshall(context));
+            }
+            
+            if (context.getHeader("Content-Range") != null) {
+                context.setCurrentHeader("Content-Range");
+                getJobOutputResult.setContentRange(StringJsonUnmarshaller.getInstance().unmarshall(context));
+            }
+            
+            if (context.getHeader("Accept-Ranges") != null) {
+                context.setCurrentHeader("Accept-Ranges");
+                getJobOutputResult.setAcceptRanges(StringJsonUnmarshaller.getInstance().unmarshall(context));
+            }
+            
+            if (context.getHeader("Content-Type") != null) {
+                context.setCurrentHeader("Content-Type");
+                getJobOutputResult.setContentType(StringJsonUnmarshaller.getInstance().unmarshall(context));
+            }
+            
+            if (context.getHeader("x-amz-archive-description") != null) {
+                context.setCurrentHeader("x-amz-archive-description");
+                getJobOutputResult.setArchiveDescription(StringJsonUnmarshaller.getInstance().unmarshall(context));
+            }
+            
         }
         
-        getJobOutputResult.setStatus(context.getHttpResponse().getStatusCode());getJobOutputResult.setBody(new ContentLengthValidationInputStream(context.getHttpResponse().getContent(),Long.parseLong(context.getHeader("Content-Length"))));
+        getJobOutputResult.setStatus(context.getHttpResponse().getStatusCode());
+        getJobOutputResult.setBody(new LengthCheckInputStream(context.getHttpResponse().getContent(), Long.parseLong(context.getHeader("Content-Length")), INCLUDE_SKIPPED_BYTES));
             
         return getJobOutputResult;
     }

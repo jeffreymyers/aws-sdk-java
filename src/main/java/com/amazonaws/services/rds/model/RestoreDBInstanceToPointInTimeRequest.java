@@ -21,9 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#restoreDBInstanceToPointInTime(RestoreDBInstanceToPointInTimeRequest) RestoreDBInstanceToPointInTime operation}.
  * <p>
- * Restores a DB instance to an arbitrary point-in-time. Users can restore to any point in time before the latestRestorableTime for up to
- * backupRetentionPeriod days. The target database is created from the source database with the same configuration as the original database except that
- * the DB instance is created with the default DB security group.
+ * Restores a DB instance to an arbitrary point-in-time. Users can
+ * restore to any point in time before the latestRestorableTime for up to
+ * backupRetentionPeriod days. The target database is created from the
+ * source database with the same configuration as the original database
+ * except that the DB instance is created with the default DB security
+ * group.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#restoreDBInstanceToPointInTime(RestoreDBInstanceToPointInTimeRequest)
@@ -154,13 +157,10 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
 
     /**
      * The name of the option group to be used for the restored DB instance.
-     * <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     * option for Microsoft SQL Server, cannot be removed from an option
-     * group while DB instances are associated with the option group. -->
-     * Permanent options, such as the TDE option for Oracle Advanced Security
-     * TDE, cannot be removed from an option group, and that option group
-     * cannot be removed from a DB instance once it is associated with a DB
-     * instance
+     * <p> Permanent options, such as the TDE option for Oracle Advanced
+     * Security TDE, cannot be removed from an option group, and that option
+     * group cannot be removed from a DB instance once it is associated with
+     * a DB instance
      */
     private String optionGroupName;
 
@@ -252,7 +252,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
      *         </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withSourceDBInstanceIdentifier(String sourceDBInstanceIdentifier) {
@@ -303,7 +303,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         hyphens</li> <li>First character must be a letter</li> <li>Cannot end
      *         with a hyphen or contain two consecutive hyphens</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withTargetDBInstanceIdentifier(String targetDBInstanceIdentifier) {
@@ -360,7 +360,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
      *         <code>2009-09-07T23:45:00Z</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withRestoreTime(java.util.Date restoreTime) {
@@ -411,7 +411,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         <code>false</code> <p>Constraints: Cannot be specified if RestoreTime
      *         parameter is provided.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withUseLatestRestorableTime(Boolean useLatestRestorableTime) {
@@ -477,7 +477,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge</code>
      *         <p>Default: The same DBInstanceClass as the original DB instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withDBInstanceClass(String dBInstanceClass) {
@@ -522,7 +522,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         <p>Constraints: Value must be <code>1150-65535</code> <p>Default: The
      *         same port as the original DB instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withPort(Integer port) {
@@ -579,7 +579,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         the MultiAZ parameter is set to true. <p>Example:
      *         <code>us-east-1a</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withAvailabilityZone(String availabilityZone) {
@@ -612,7 +612,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *
      * @param dBSubnetGroupName The DB subnet group name to use for the new instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withDBSubnetGroupName(String dBSubnetGroupName) {
@@ -657,7 +657,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         You cannot specify the AvailabilityZone parameter if the MultiAZ
      *         parameter is set to <code>true</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withMultiAZ(Boolean multiAZ) {
@@ -775,7 +775,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         as part of the request and the PubliclyAccessible value has not been
      *         set, the DB instance will be private.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withPubliclyAccessible(Boolean publiclyAccessible) {
@@ -847,7 +847,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * @param autoMinorVersionUpgrade Indicates that minor version upgrades will be applied automatically to
      *         the DB instance during the maintenance window.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -909,7 +909,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         <code>bring-your-own-license</code> |
      *         <code>general-public-license</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withLicenseModel(String licenseModel) {
@@ -948,7 +948,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * @param dBName The database name for the restored DB instance. <note> <p>This
      *         parameter is not used for the MySQL engine. </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withDBName(String dBName) {
@@ -993,7 +993,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         as source <p>Constraint: Must be compatible with the engine of the
      *         source <p>Example: <code>oracle-ee</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withEngine(String engine) {
@@ -1038,7 +1038,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         be initially allocated for the DB instance. <p> Constraints: Must be
      *         an integer greater than 1000.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withIops(Integer iops) {
@@ -1048,22 +1048,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
 
     /**
      * The name of the option group to be used for the restored DB instance.
-     * <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     * option for Microsoft SQL Server, cannot be removed from an option
-     * group while DB instances are associated with the option group. -->
-     * Permanent options, such as the TDE option for Oracle Advanced Security
-     * TDE, cannot be removed from an option group, and that option group
-     * cannot be removed from a DB instance once it is associated with a DB
-     * instance
+     * <p> Permanent options, such as the TDE option for Oracle Advanced
+     * Security TDE, cannot be removed from an option group, and that option
+     * group cannot be removed from a DB instance once it is associated with
+     * a DB instance
      *
      * @return The name of the option group to be used for the restored DB instance.
-     *         <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     *         option for Microsoft SQL Server, cannot be removed from an option
-     *         group while DB instances are associated with the option group. -->
-     *         Permanent options, such as the TDE option for Oracle Advanced Security
-     *         TDE, cannot be removed from an option group, and that option group
-     *         cannot be removed from a DB instance once it is associated with a DB
-     *         instance
+     *         <p> Permanent options, such as the TDE option for Oracle Advanced
+     *         Security TDE, cannot be removed from an option group, and that option
+     *         group cannot be removed from a DB instance once it is associated with
+     *         a DB instance
      */
     public String getOptionGroupName() {
         return optionGroupName;
@@ -1071,22 +1065,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * The name of the option group to be used for the restored DB instance.
-     * <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     * option for Microsoft SQL Server, cannot be removed from an option
-     * group while DB instances are associated with the option group. -->
-     * Permanent options, such as the TDE option for Oracle Advanced Security
-     * TDE, cannot be removed from an option group, and that option group
-     * cannot be removed from a DB instance once it is associated with a DB
-     * instance
+     * <p> Permanent options, such as the TDE option for Oracle Advanced
+     * Security TDE, cannot be removed from an option group, and that option
+     * group cannot be removed from a DB instance once it is associated with
+     * a DB instance
      *
      * @param optionGroupName The name of the option group to be used for the restored DB instance.
-     *         <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     *         option for Microsoft SQL Server, cannot be removed from an option
-     *         group while DB instances are associated with the option group. -->
-     *         Permanent options, such as the TDE option for Oracle Advanced Security
-     *         TDE, cannot be removed from an option group, and that option group
-     *         cannot be removed from a DB instance once it is associated with a DB
-     *         instance
+     *         <p> Permanent options, such as the TDE option for Oracle Advanced
+     *         Security TDE, cannot be removed from an option group, and that option
+     *         group cannot be removed from a DB instance once it is associated with
+     *         a DB instance
      */
     public void setOptionGroupName(String optionGroupName) {
         this.optionGroupName = optionGroupName;
@@ -1094,26 +1082,20 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * The name of the option group to be used for the restored DB instance.
-     * <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     * option for Microsoft SQL Server, cannot be removed from an option
-     * group while DB instances are associated with the option group. -->
-     * Permanent options, such as the TDE option for Oracle Advanced Security
-     * TDE, cannot be removed from an option group, and that option group
-     * cannot be removed from a DB instance once it is associated with a DB
-     * instance
+     * <p> Permanent options, such as the TDE option for Oracle Advanced
+     * Security TDE, cannot be removed from an option group, and that option
+     * group cannot be removed from a DB instance once it is associated with
+     * a DB instance
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param optionGroupName The name of the option group to be used for the restored DB instance.
-     *         <p> <!-- Note that persistent options, such as the TDE_SQLServer
-     *         option for Microsoft SQL Server, cannot be removed from an option
-     *         group while DB instances are associated with the option group. -->
-     *         Permanent options, such as the TDE option for Oracle Advanced Security
-     *         TDE, cannot be removed from an option group, and that option group
-     *         cannot be removed from a DB instance once it is associated with a DB
-     *         instance
+     *         <p> Permanent options, such as the TDE option for Oracle Advanced
+     *         Security TDE, cannot be removed from an option group, and that option
+     *         group cannot be removed from a DB instance once it is associated with
+     *         a DB instance
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withOptionGroupName(String optionGroupName) {
@@ -1156,7 +1138,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withTags(Tag... tags) {
@@ -1174,7 +1156,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestoreDBInstanceToPointInTimeRequest withTags(java.util.Collection<Tag> tags) {

@@ -41,22 +41,12 @@ import com.amazonaws.services.s3.internal.Constants;
  * @see GetObjectRequest#GetObjectRequest(String, String, String)
  * @see GetObjectMetadataRequest
  */
-public class GetObjectRequest extends AmazonWebServiceRequest {
-
-    /** The name of the bucket containing the object to retrieve */
-    private String bucketName;
-
-    /** The key under which the desired object is stored */
-    private String key;
-
+public class GetObjectRequest extends AmazonWebServiceRequest implements
+        SSECustomerKeyProvider {
     /**
-     * Optional version ID specifying which version of the object to download.
-     * If not specified, the most recent version will be downloaded.
-     * <p>
-     * For more information about enabling versioning for a bucket, see
-     * {@link AmazonS3#setBucketVersioningConfiguration(SetBucketVersioningConfigurationRequest)}.
+     * Builder of an S3 object identifier.  This member field is never null.
      */
-    private String versionId;
+    private S3ObjectIdBuilder s3ObjectIdBuilder = new S3ObjectIdBuilder();
 
     /** Optional member indicating the byte range of data to retrieve */
     private long[] range;
@@ -91,12 +81,17 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      */
     private ResponseHeaderOverrides responseHeaders;
 
+    /**
+     * If enabled, the requester is charged for downloading the data from
+     * Requester Pays Buckets.
+     */
+    private boolean isRequesterPays;
 
     /**
-     * The optional progress listener for receiving updates about object download
-     * status.
+     * The optional customer-provided server-side encryption key to use to
+     * decrypt this object.
      */
-    private ProgressListener generalProgressListener;
+    private SSECustomerKey sseCustomerKey;
 
 
     /**
@@ -109,6 +104,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      *            stored.
      *
      * @see GetObjectRequest#GetObjectRequest(String, String, String)
+     * @see GetObjectRequest#GetObjectRequest(String, String, boolean)
      */
     public GetObjectRequest(String bucketName, String key) {
         this(bucketName, key, null);
@@ -127,11 +123,41 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      *            object to download.
      *
      * @see GetObjectRequest#GetObjectRequest(String, String)
+     * @see GetObjectRequest#GetObjectRequest(String, String, boolean)
      */
     public GetObjectRequest(String bucketName, String key, String versionId) {
         setBucketName(bucketName);
         setKey(key);
         setVersionId(versionId);
+    }
+
+    public GetObjectRequest(S3ObjectId s3ObjectId) {
+        this.s3ObjectIdBuilder = new S3ObjectIdBuilder(s3ObjectId);
+    }
+
+    /**
+     * Constructs a new {@link GetObjectRequest} with all the required
+     * parameters.
+     *
+     * @param bucketName
+     *            The name of the bucket containing the desired object.
+     * @param key
+     *            The key in the specified bucket under which the object is
+     *            stored.
+     * @param isRequesterPays
+     *            If enabled, the requester is charged for downloading the data
+     *            from Requester Pays Buckets.
+     *
+     * @see GetObjectRequest#GetObjectRequest(String, String)
+     * @see GetObjectRequest#GetObjectRequest(String, String, String)
+     */
+    public GetObjectRequest(String bucketName, String key,
+            boolean isRequesterPays) {
+        this.s3ObjectIdBuilder
+            .withBucket(bucketName)
+            .withKey(key)
+            ;
+        this.isRequesterPays = isRequesterPays;
     }
 
     /**
@@ -143,7 +169,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @see GetObjectRequest#withBucketName(String)
      */
     public String getBucketName() {
-        return bucketName;
+        return s3ObjectIdBuilder.getBucket();
     }
 
     /**
@@ -156,7 +182,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @see GetObjectRequest#withBucketName(String)
      */
     public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
+        s3ObjectIdBuilder.setBucket(bucketName);
     }
 
     /**
@@ -187,7 +213,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @see GetObjectRequest#withKey(String)
      */
     public String getKey() {
-        return key;
+        return s3ObjectIdBuilder.getKey();
     }
 
     /**
@@ -200,7 +226,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @see GetObjectRequest#withKey(String)
      */
     public void setKey(String key) {
-        this.key = key;
+        s3ObjectIdBuilder.setKey(key);
     }
 
     /**
@@ -247,7 +273,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @see GetObjectRequest#withVersionId(String)
      */
     public String getVersionId() {
-        return versionId;
+        return s3ObjectIdBuilder.getVersionId();
     }
 
     /**
@@ -273,7 +299,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @see GetObjectRequest#withVersionId(String)
      */
     public void setVersionId(String versionId) {
-        this.versionId = versionId;
+        s3ObjectIdBuilder.setVersionId(versionId);
     }
 
     /**
@@ -332,11 +358,11 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      *         and the whole object is
      *         to be downloaded.
      *
-     * @see GetObjectMetadataRequest#setRange(long, long)
-     * @see GetObjectRequest#withRange(long, long)
+     * @see #setRange(long, long)
+     * @see #withRange(long, long)
      */
     public long[] getRange() {
-        return range;
+        return range == null ? null : range.clone();
     }
 
     /**
@@ -359,8 +385,8 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      * @param end
      *            The end of the inclusive byte range to download.
      *
-     * @see GetObjectMetadataRequest#getRange()
-     * @see GetObjectRequest#withRange(long, long)
+     * @see #getRange()
+     * @see #withRange(long, long)
      */
     public void setRange(long start, long end) {
         range = new long[] {start, end};
@@ -684,13 +710,13 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      *
      * @param progressListener
      *            The legacy progress listener that is used exclusively for Amazon S3 client.
-     *            
+     *
      * @deprecated use {@link #setGeneralProgressListener(ProgressListener)}
      *             instead.
      */
     @Deprecated
     public void setProgressListener(com.amazonaws.services.s3.model.ProgressListener progressListener) {
-        this.generalProgressListener = new LegacyS3ProgressListener(progressListener);
+        setGeneralProgressListener(new LegacyS3ProgressListener(progressListener));
     }
 
     /**
@@ -699,11 +725,12 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      *
      * @return the optional progress listener for receiving updates about object
      *          download status.
-     *         
+     *
      * @deprecated use {@link #getGeneralProgressListener()} instead.
      */
     @Deprecated
     public com.amazonaws.services.s3.model.ProgressListener getProgressListener() {
+        ProgressListener generalProgressListener = getGeneralProgressListener();
         if (generalProgressListener instanceof LegacyS3ProgressListener) {
             return ((LegacyS3ProgressListener)generalProgressListener).unwrap();
         } else {
@@ -720,7 +747,7 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
      *            The legacy progress listener that is used exclusively for Amazon S3 client.
      *
      * @return This updated GetObjectRequest object.
-     * 
+     *
      * @deprecated use {@link #withGeneralProgressListener(ProgressListener)}
      *             instead.
      */
@@ -731,39 +758,98 @@ public class GetObjectRequest extends AmazonWebServiceRequest {
     }
 
     /**
-     * Sets the optional progress listener for receiving updates about object
-     * download status.
+     * Returns true if the user has enabled Requester Pays option when
+     * downloading an object from Requester Pays Bucket; else false.
      *
-     * @param generalProgressListener
-     *            The new progress listener.
+     * <p>
+     * If a bucket is enabled for Requester Pays, then any attempt to read an
+     * object from it without Requester Pays enabled will result in a 403 error
+     * and the bucket owner will be charged for the request.
+     *
+     * <p>
+     * Enabling Requester Pays disables the ability to have anonymous access to
+     * this bucket
+     *
+     * @return true if the user has enabled Requester Pays option for
+     *         downloading an object from Requester Pays Bucket.
      */
-    public void setGeneralProgressListener(ProgressListener generalProgressListener) {
-        this.generalProgressListener = generalProgressListener;
+    public boolean isRequesterPays() {
+        return isRequesterPays;
     }
 
     /**
-     * Returns the optional progress listener for receiving updates about object
-     * download status.
+     * Used for downloading an Amazon S3 Object from a Requester Pays Bucket. If
+     * set the requester is charged for downloading the data from the bucket.
      *
-     * @return the optional progress listener for receiving updates about object
-     *          download status.
+     * <p>
+     * If a bucket is enabled for Requester Pays, then any attempt to read an
+     * object from it without Requester Pays enabled will result in a 403 error
+     * and the bucket owner will be charged for the request.
+     *
+     * <p>
+     * Enabling Requester Pays disables the ability to have anonymous access to
+     * this bucket
+     *
+     * @param isRequesterPays
+     *            Enable Requester Pays option for the operation.
      */
-    public ProgressListener getGeneralProgressListener() {
-        return generalProgressListener;
+    public void setRequesterPays(boolean isRequesterPays) {
+        this.isRequesterPays = isRequesterPays;
+    }
+
+    @Override
+    public SSECustomerKey getSSECustomerKey() {
+        return sseCustomerKey;
     }
 
     /**
-     * Sets the optional progress listener for receiving updates about object
-     * download status, and returns this updated object so that additional method
-     * calls can be chained together.
+     * Sets the optional customer-provided server-side encryption key to use to
+     * decrypt this object.
      *
-     * @param generalProgressListener
-     *            The new progress listener.
-     *
-     * @return This updated GetObjectRequest object.
+     * @param sseKey
+     *            The optional customer-provided server-side encryption key to
+     *            use to decrypt this object.
      */
-    public GetObjectRequest withGeneralProgressListener(ProgressListener progressListener) {
-        setGeneralProgressListener(progressListener);
+    public void setSSECustomerKey(SSECustomerKey sseKey) {
+        this.sseCustomerKey = sseKey;
+    }
+
+    /**
+     * Sets the optional customer-provided server-side encryption key to use to
+     * decrypt this object, and returns the updated GetObjectRequest so that
+     * additional method calls may be chained together.
+     *
+     * @param sseKey
+     *            The optional customer-provided server-side encryption key to
+     *            use to decrypt this object.
+     *
+     * @return The optional customer-provided server-side encryption key to use
+     *         to decrypt this object.
+     */
+    public GetObjectRequest withSSECustomerKey(SSECustomerKey sseKey) {
+        setSSECustomerKey(sseKey);
+        return this;
+    }
+
+    /**
+     * Returns an immutable S3 object id.
+     */
+    public S3ObjectId getS3ObjectId() {
+        return s3ObjectIdBuilder.build();
+    }
+
+    /**
+     * Sets the S3 object id for this request. 
+     */
+    public void setS3ObjectId(S3ObjectId s3ObjectId) {
+        this.s3ObjectIdBuilder = new S3ObjectIdBuilder(s3ObjectId);
+    }
+
+    /**
+     * Fluent API to set the S3 object id for this request. 
+     */
+    public GetObjectRequest withS3ObjectId(S3ObjectId s3ObjectId) {
+        setS3ObjectId(s3ObjectId);
         return this;
     }
 }

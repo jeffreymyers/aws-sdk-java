@@ -17,22 +17,25 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * <p>
- * </p>
+ * 
  */
 public class DescribeTagsResult implements Serializable {
 
     /**
-     * A list of the tags for the specified resources.
+     * A list of tags.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<TagDescription> tags;
 
+    /**
+     * The token to use when requesting the next set of items. If there are
+     * no additional items to return, the string is empty.
+     */
     private String nextToken;
 
     /**
-     * A list of the tags for the specified resources.
+     * A list of tags.
      *
-     * @return A list of the tags for the specified resources.
+     * @return A list of tags.
      */
     public java.util.List<TagDescription> getTags() {
         if (tags == null) {
@@ -43,9 +46,9 @@ public class DescribeTagsResult implements Serializable {
     }
     
     /**
-     * A list of the tags for the specified resources.
+     * A list of tags.
      *
-     * @param tags A list of the tags for the specified resources.
+     * @param tags A list of tags.
      */
     public void setTags(java.util.Collection<TagDescription> tags) {
         if (tags == null) {
@@ -58,13 +61,13 @@ public class DescribeTagsResult implements Serializable {
     }
     
     /**
-     * A list of the tags for the specified resources.
+     * A list of tags.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags A list of the tags for the specified resources.
+     * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTagsResult withTags(TagDescription... tags) {
@@ -76,13 +79,13 @@ public class DescribeTagsResult implements Serializable {
     }
     
     /**
-     * A list of the tags for the specified resources.
+     * A list of tags.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags A list of the tags for the specified resources.
+     * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTagsResult withTags(java.util.Collection<TagDescription> tags) {
@@ -98,31 +101,37 @@ public class DescribeTagsResult implements Serializable {
     }
 
     /**
-     * Returns the value of the NextToken property for this object.
+     * The token to use when requesting the next set of items. If there are
+     * no additional items to return, the string is empty.
      *
-     * @return The value of the NextToken property for this object.
+     * @return The token to use when requesting the next set of items. If there are
+     *         no additional items to return, the string is empty.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * The token to use when requesting the next set of items. If there are
+     * no additional items to return, the string is empty.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken The token to use when requesting the next set of items. If there are
+     *         no additional items to return, the string is empty.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * The token to use when requesting the next set of items. If there are
+     * no additional items to return, the string is empty.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken The token to use when requesting the next set of items. If there are
+     *         no additional items to return, the string is empty.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTagsResult withNextToken(String nextToken) {

@@ -37,7 +37,7 @@ public class ListStreamsResultJsonUnmarshaller implements Unmarshaller<ListStrea
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -46,6 +46,7 @@ public class ListStreamsResultJsonUnmarshaller implements Unmarshaller<ListStrea
 
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("StreamNames", targetDepth)) {
+                    context.nextToken();
                     listStreamsResult.setStreamNames(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("HasMoreStreams", targetDepth)) {

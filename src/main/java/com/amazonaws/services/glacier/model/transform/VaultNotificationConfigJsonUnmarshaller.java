@@ -37,7 +37,7 @@ public class VaultNotificationConfigJsonUnmarshaller implements Unmarshaller<Vau
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -50,6 +50,7 @@ public class VaultNotificationConfigJsonUnmarshaller implements Unmarshaller<Vau
                     vaultNotificationConfig.setSNSTopic(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Events", targetDepth)) {
+                    context.nextToken();
                     vaultNotificationConfig.setEvents(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

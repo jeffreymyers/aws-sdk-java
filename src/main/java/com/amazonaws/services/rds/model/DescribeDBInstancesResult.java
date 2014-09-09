@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeDBInstances action.
+ * Contains the result of a successful invocation of the
+ * DescribeDBInstances action.
  * </p>
  */
 public class DescribeDBInstancesResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeDBInstancesResult implements Serializable {
      *         parameter is specified, the response includes only records beyond the
      *         marker, up to the value specified by <code>MaxRecords</code> .
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeDBInstancesResult implements Serializable {
      *
      * @param dBInstances A list of <a>DBInstance</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesResult withDBInstances(DBInstance... dBInstances) {
@@ -133,7 +134,7 @@ public class DescribeDBInstancesResult implements Serializable {
      *
      * @param dBInstances A list of <a>DBInstance</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeDBInstancesResult withDBInstances(java.util.Collection<DBInstance> dBInstances) {

@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#createClusterSecurityGroup(CreateClusterSecurityGroupRequest) CreateClusterSecurityGroup operation}.
  * <p>
- * Creates a new Amazon Redshift security group. You use security groups to control access to non-VPC clusters.
+ * Creates a new Amazon Redshift security group. You use security groups
+ * to control access to non-VPC clusters.
  * </p>
  * <p>
- * For information about managing security groups, go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html">
- * Amazon Redshift Cluster Security Groups </a> in the <i>Amazon Redshift Management Guide</i> .
+ * For information about managing security groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html"> Amazon Redshift Cluster Security Groups </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * </p>
  *
@@ -103,7 +105,7 @@ public class CreateClusterSecurityGroupRequest extends AmazonWebServiceRequest i
      *         created by your AWS account.</li> </ul> <p>Example:
      *         <code>examplesecuritygroup</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterSecurityGroupRequest withClusterSecurityGroupName(String clusterSecurityGroupName) {
@@ -136,7 +138,7 @@ public class CreateClusterSecurityGroupRequest extends AmazonWebServiceRequest i
      *
      * @param description A description for the security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateClusterSecurityGroupRequest withDescription(String description) {

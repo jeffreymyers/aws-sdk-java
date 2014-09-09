@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A response message that contains the stemming options for a search domain.
  * </p>
  */
+@Deprecated
 public class DescribeStemmingOptionsResult implements Serializable {
 
     /**

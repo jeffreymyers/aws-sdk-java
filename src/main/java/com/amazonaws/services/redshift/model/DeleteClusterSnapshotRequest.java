@@ -21,12 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#deleteClusterSnapshot(DeleteClusterSnapshotRequest) DeleteClusterSnapshot operation}.
  * <p>
- * Deletes the specified manual snapshot. The snapshot must be in the "available" state, with no other users authorized to access the snapshot.
+ * Deletes the specified manual snapshot. The snapshot must be in the
+ * <code>available</code> state, with no other users authorized to access
+ * the snapshot.
  * </p>
  * <p>
- * Unlike automated snapshots, manual snapshots are retained even after you delete your cluster. Amazon Redshift does not delete your manual snapshots.
- * You must delete manual snapshot explicitly to avoid getting charged. If other accounts are authorized to access the snapshot, you must revoke all of
- * the authorizations before you can delete the snapshot.
+ * Unlike automated snapshots, manual snapshots are retained even after
+ * you delete your cluster. Amazon Redshift does not delete your manual
+ * snapshots. You must delete manual snapshot explicitly to avoid getting
+ * charged. If other accounts are authorized to access the snapshot, you
+ * must revoke all of the authorizations before you can delete the
+ * snapshot.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#deleteClusterSnapshot(DeleteClusterSnapshotRequest)
@@ -85,7 +90,7 @@ public class DeleteClusterSnapshotRequest extends AmazonWebServiceRequest implem
      *         <p>Constraints: Must be the name of an existing snapshot that is in
      *         the <code>available</code> state.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteClusterSnapshotRequest withSnapshotIdentifier(String snapshotIdentifier) {
@@ -136,7 +141,7 @@ public class DeleteClusterSnapshotRequest extends AmazonWebServiceRequest implem
      *         snapshot resource element that specifies anything other than * for the
      *         cluster name. <p>Constraints: Must be the name of valid cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteClusterSnapshotRequest withSnapshotClusterIdentifier(String snapshotClusterIdentifier) {

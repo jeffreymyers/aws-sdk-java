@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A response message that contains the rank expressions for a search domain.
  * </p>
  */
+@Deprecated
 public class DescribeRankExpressionsResult implements Serializable {
 
     /**

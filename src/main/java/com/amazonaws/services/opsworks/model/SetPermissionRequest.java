@@ -21,13 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.opsworks.AWSOpsWorks#setPermission(SetPermissionRequest) SetPermission operation}.
  * <p>
- * Specifies a stack's permissions. For more information, see <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingsecurity.html">
- * Security and Permissions </a> .
+ * Specifies a user's permissions. For more information, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingsecurity.html"> Security and Permissions </a>
+ * .
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that
- * explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Manage permissions level for the stack, or an attached policy
+ * that explicitly grants permissions. For more information on user
+ * permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#setPermission(SetPermissionRequest)
@@ -91,7 +95,7 @@ public class SetPermissionRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param stackId The stack ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetPermissionRequest withStackId(String stackId) {
@@ -124,7 +128,7 @@ public class SetPermissionRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param iamUserArn The user's IAM ARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetPermissionRequest withIamUserArn(String iamUserArn) {
@@ -157,7 +161,7 @@ public class SetPermissionRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param allowSsh The user is allowed to use SSH to communicate with the instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetPermissionRequest withAllowSsh(Boolean allowSsh) {
@@ -199,7 +203,7 @@ public class SetPermissionRequest extends AmazonWebServiceRequest implements Ser
      *
      * @param allowSudo The user is allowed to use <b>sudo</b> to elevate privileges.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetPermissionRequest withAllowSudo(Boolean allowSudo) {
@@ -283,7 +287,7 @@ public class SetPermissionRequest extends AmazonWebServiceRequest implements Ser
      *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html">Managing
      *         User Permissions</a>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetPermissionRequest withLevel(String level) {

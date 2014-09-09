@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents the output of a <i>DescribeReservedCacheNodes</i> operation.
+ * Represents the output of a <i>DescribeReservedCacheNodes</i>
+ * operation.
  * </p>
  */
 public class DescribeReservedCacheNodesResult implements Serializable {
@@ -59,7 +60,7 @@ public class DescribeReservedCacheNodesResult implements Serializable {
      *
      * @param marker Provides an identifier to allow retrieval of paginated results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedCacheNodesResult withMarker(String marker) {
@@ -108,7 +109,7 @@ public class DescribeReservedCacheNodesResult implements Serializable {
      * @param reservedCacheNodes A list of reserved cache nodes. Each element in the list contains
      *         detailed information about one node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedCacheNodesResult withReservedCacheNodes(ReservedCacheNode... reservedCacheNodes) {
@@ -128,7 +129,7 @@ public class DescribeReservedCacheNodesResult implements Serializable {
      * @param reservedCacheNodes A list of reserved cache nodes. Each element in the list contains
      *         detailed information about one node.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeReservedCacheNodesResult withReservedCacheNodes(java.util.Collection<ReservedCacheNode> reservedCacheNodes) {

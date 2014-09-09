@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The <code>PolicyAttributeTypeDescription</code> data type. This data type is used to describe values that are acceptable for the policy attribute.
+ * The <code>PolicyAttributeTypeDescription</code> data type. This data
+ * type is used to describe values that are acceptable for the policy
+ * attribute.
  * </p>
  */
 public class PolicyAttributeTypeDescription implements Serializable {
@@ -77,7 +79,7 @@ public class PolicyAttributeTypeDescription implements Serializable {
      *
      * @param attributeName The name of the attribute associated with the policy type.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttributeTypeDescription withAttributeName(String attributeName) {
@@ -110,7 +112,7 @@ public class PolicyAttributeTypeDescription implements Serializable {
      *
      * @param attributeType The type of attribute. For example, Boolean, Integer, etc.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttributeTypeDescription withAttributeType(String attributeType) {
@@ -143,7 +145,7 @@ public class PolicyAttributeTypeDescription implements Serializable {
      *
      * @param description A human-readable description of the attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttributeTypeDescription withDescription(String description) {
@@ -176,7 +178,7 @@ public class PolicyAttributeTypeDescription implements Serializable {
      *
      * @param defaultValue The default value of the attribute, if applicable.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttributeTypeDescription withDefaultValue(String defaultValue) {
@@ -233,7 +235,7 @@ public class PolicyAttributeTypeDescription implements Serializable {
      *         are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
      *         are allowed</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PolicyAttributeTypeDescription withCardinality(String cardinality) {

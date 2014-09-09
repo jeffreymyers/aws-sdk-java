@@ -37,7 +37,7 @@ public class StreamDescriptionJsonUnmarshaller implements Unmarshaller<StreamDes
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -58,6 +58,7 @@ public class StreamDescriptionJsonUnmarshaller implements Unmarshaller<StreamDes
                     streamDescription.setStreamStatus(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Shards", targetDepth)) {
+                    context.nextToken();
                     streamDescription.setShards(new ListUnmarshaller<Shard>(ShardJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("HasMoreShards", targetDepth)) {

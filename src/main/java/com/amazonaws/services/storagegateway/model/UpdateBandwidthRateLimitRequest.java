@@ -21,15 +21,20 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#updateBandwidthRateLimit(UpdateBandwidthRateLimitRequest) UpdateBandwidthRateLimit operation}.
  * <p>
- * This operation updates the bandwidth rate limits of a gateway. You can update both the upload and download bandwidth rate limit or specify only one of
- * the two. If you don't set a bandwidth rate limit, the existing rate limit remains.
+ * This operation updates the bandwidth rate limits of a gateway. You can
+ * update both the upload and download bandwidth rate limit or specify
+ * only one of the two. If you don't set a bandwidth rate limit, the
+ * existing rate limit remains.
  * </p>
  * <p>
- * By default, a gateway's bandwidth rate limits are not set. If you don't set any limit, the gateway does not have any limitations on its bandwidth
- * usage and could potentially use the maximum available bandwidth.
+ * By default, a gateway's bandwidth rate limits are not set. If you
+ * don't set any limit, the gateway does not have any limitations on its
+ * bandwidth usage and could potentially use the maximum available
+ * bandwidth.
  * </p>
  * <p>
- * To specify which gateway to update, use the Amazon Resource Name (ARN) of the gateway in your request.
+ * To specify which gateway to update, use the Amazon Resource Name (ARN)
+ * of the gateway in your request.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#updateBandwidthRateLimit(UpdateBandwidthRateLimitRequest)
@@ -108,7 +113,7 @@ public class UpdateBandwidthRateLimitRequest extends AmazonWebServiceRequest imp
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateBandwidthRateLimitRequest withGatewayARN(String gatewayARN) {
@@ -150,7 +155,7 @@ public class UpdateBandwidthRateLimitRequest extends AmazonWebServiceRequest imp
      *
      * @param averageUploadRateLimitInBitsPerSec The average upload bandwidth rate limit in bits per second.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateBandwidthRateLimitRequest withAverageUploadRateLimitInBitsPerSec(Long averageUploadRateLimitInBitsPerSec) {
@@ -192,7 +197,7 @@ public class UpdateBandwidthRateLimitRequest extends AmazonWebServiceRequest imp
      *
      * @param averageDownloadRateLimitInBitsPerSec The average download bandwidth rate limit in bits per second.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateBandwidthRateLimitRequest withAverageDownloadRateLimitInBitsPerSec(Long averageDownloadRateLimitInBitsPerSec) {

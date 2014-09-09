@@ -18,11 +18,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * You can create one or more AWS Direct Connect private virtual interfaces linking to your virtual private gateway.
+ * You can create one or more AWS Direct Connect private virtual
+ * interfaces linking to your virtual private gateway.
  * </p>
  * <p>
- * Virtual private gateways can be managed using the Amazon Virtual Private Cloud (Amazon VPC) console or the <a
- * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html"> Amazon EC2 CreateVpnGateway action </a> .
+ * Virtual private gateways can be managed using the Amazon Virtual
+ * Private Cloud (Amazon VPC) console or the
+ * <a href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html"> Amazon EC2 CreateVpnGateway action </a>
+ * .
  * </p>
  */
 public class VirtualGateway implements Serializable {
@@ -75,7 +78,7 @@ public class VirtualGateway implements Serializable {
      * @param virtualGatewayId The ID of the virtual private gateway to a VPC. This only applies to
      *         private virtual interfaces. <p>Example: vgw-123er56
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualGateway withVirtualGatewayId(String virtualGatewayId) {
@@ -144,7 +147,7 @@ public class VirtualGateway implements Serializable {
      *         state, a private virtual interface is unable to send traffic over this
      *         gateway.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public VirtualGateway withVirtualGatewayState(String virtualGatewayState) {

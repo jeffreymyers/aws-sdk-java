@@ -21,6 +21,7 @@ import java.util.Map;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
+import com.amazonaws.internal.ListWithAutoConstructFlag;
 import com.amazonaws.services.identitymanagement.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
@@ -45,6 +46,9 @@ public class UpdateLoginProfileRequestMarshaller implements Marshaller<Request<U
         }
         if (updateLoginProfileRequest.getPassword() != null) {
             request.addParameter("Password", StringUtils.fromString(updateLoginProfileRequest.getPassword()));
+        }
+        if (updateLoginProfileRequest.isPasswordResetRequired() != null) {
+            request.addParameter("PasswordResetRequired", StringUtils.fromBoolean(updateLoginProfileRequest.isPasswordResetRequired()));
         }
 
         return request;

@@ -28,7 +28,7 @@ public class InstanceGroupModifyConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String instanceGroupId;
 
@@ -69,7 +69,7 @@ public class InstanceGroupModifyConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return Unique ID of the instance group to expand or shrink.
      */
@@ -82,7 +82,7 @@ public class InstanceGroupModifyConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param instanceGroupId Unique ID of the instance group to expand or shrink.
      */
@@ -97,11 +97,11 @@ public class InstanceGroupModifyConfig implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param instanceGroupId Unique ID of the instance group to expand or shrink.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroupModifyConfig withInstanceGroupId(String instanceGroupId) {
@@ -134,7 +134,7 @@ public class InstanceGroupModifyConfig implements Serializable {
      *
      * @param instanceCount Target size for the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroupModifyConfig withInstanceCount(Integer instanceCount) {
@@ -189,7 +189,7 @@ public class InstanceGroupModifyConfig implements Serializable {
      *         terminate the instances, the instance group will not return to its
      *         original requested size.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroupModifyConfig withEC2InstanceIdsToTerminate(String... eC2InstanceIdsToTerminate) {
@@ -211,7 +211,7 @@ public class InstanceGroupModifyConfig implements Serializable {
      *         terminate the instances, the instance group will not return to its
      *         original requested size.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroupModifyConfig withEC2InstanceIdsToTerminate(java.util.Collection<String> eC2InstanceIdsToTerminate) {

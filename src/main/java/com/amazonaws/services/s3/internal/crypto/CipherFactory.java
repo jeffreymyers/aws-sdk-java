@@ -20,6 +20,8 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 
 /**
+ * @deprecated this class is no longer used and will be removed in the future
+ * <p>
  * Factory for creating Ciphers based on the crypto key and configuration
  * specified in the constructor.
  *
@@ -28,12 +30,12 @@ import javax.crypto.SecretKey;
  * <bold>exactly</bold> the same output as any other Cipher returned by this
  * instance of CipherFactory.
  */
+@Deprecated
 public class CipherFactory {
-    private SecretKey symmetricKey;
-    private int cipherMode;
+    private final SecretKey symmetricKey;
+    private final int cipherMode;
     private byte[] initVectorBytes;
-    private Provider cryptoProvider;
-
+    private final Provider cryptoProvider;
 
     /**
      * Creates a new CipherFactory that will produce ciphers using the specified
@@ -75,4 +77,15 @@ public class CipherFactory {
         return cipher;
     }
 
+    public Provider getCryptoProvider() {
+        return cryptoProvider;
+    }
+
+    public int getCipherMode() {
+        return cipherMode;
+    }
+
+    public byte[] getIV() {
+        return initVectorBytes == null ? null : initVectorBytes.clone();
+    }
 }

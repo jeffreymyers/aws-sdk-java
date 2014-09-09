@@ -18,9 +18,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This data type is used as a response element in the DescribeLoadBalancers action. For information about Elastic Load Balancing security groups, go to
- * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-security-features.html#using-elb-security-groups"> Using Security
- * Groups With Elastic Load Balancing </a> in the <i>Elastic Load Balancing Developer Guide</i> .
+ * This data type is used as a response element in the
+ * DescribeLoadBalancers action. For information about Elastic Load
+ * Balancing security groups, go to
+ * <a href="http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-security-features.html#using-elb-security-groups"> Using Security Groups With Elastic Load Balancing </a>
+ * in the <i>Elastic Load Balancing Developer Guide</i> .
  * 
  * </p>
  */
@@ -85,7 +87,7 @@ public class SourceSecurityGroup implements Serializable {
      *         <code>ec2-authorize</code> command in the Amazon EC2 command line
      *         tool.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SourceSecurityGroup withOwnerAlias(String ownerAlias) {
@@ -136,7 +138,7 @@ public class SourceSecurityGroup implements Serializable {
      *         <code>ec2-authorize</code> command in the Amazon EC2 command line
      *         tool.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SourceSecurityGroup withGroupName(String groupName) {

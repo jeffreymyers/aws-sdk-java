@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A named expression that can be evaluated at search time and used for ranking or thresholding in a search query.
  * </p>
  */
+@Deprecated
 public class NamedRankExpression implements Serializable {
 
     /**

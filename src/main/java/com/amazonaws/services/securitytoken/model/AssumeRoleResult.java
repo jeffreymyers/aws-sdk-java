@@ -18,14 +18,16 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful call to the AssumeRole action, including temporary AWS credentials that can be used to make AWS requests.
+ * Contains the result of a successful call to the AssumeRole action,
+ * including temporary AWS credentials that can be used to make AWS
+ * requests.
  * </p>
  */
 public class AssumeRoleResult implements Serializable {
 
     /**
      * The temporary security credentials, which include an access key ID, a
-     * secret access key, and a security token.
+     * secret access key, and a security (or session) token.
      */
     private Credentials credentials;
 
@@ -51,10 +53,10 @@ public class AssumeRoleResult implements Serializable {
 
     /**
      * The temporary security credentials, which include an access key ID, a
-     * secret access key, and a security token.
+     * secret access key, and a security (or session) token.
      *
      * @return The temporary security credentials, which include an access key ID, a
-     *         secret access key, and a security token.
+     *         secret access key, and a security (or session) token.
      */
     public Credentials getCredentials() {
         return credentials;
@@ -62,10 +64,10 @@ public class AssumeRoleResult implements Serializable {
     
     /**
      * The temporary security credentials, which include an access key ID, a
-     * secret access key, and a security token.
+     * secret access key, and a security (or session) token.
      *
      * @param credentials The temporary security credentials, which include an access key ID, a
-     *         secret access key, and a security token.
+     *         secret access key, and a security (or session) token.
      */
     public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
@@ -73,14 +75,14 @@ public class AssumeRoleResult implements Serializable {
     
     /**
      * The temporary security credentials, which include an access key ID, a
-     * secret access key, and a security token.
+     * secret access key, and a security (or session) token.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param credentials The temporary security credentials, which include an access key ID, a
-     *         secret access key, and a security token.
+     *         secret access key, and a security (or session) token.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleResult withCredentials(Credentials credentials) {
@@ -143,7 +145,7 @@ public class AssumeRoleResult implements Serializable {
      *         role ID. The ARN and ID include the <code>RoleSessionName</code> that
      *         you specified when you called <code>AssumeRole</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleResult withAssumedRoleUser(AssumedRoleUser assumedRoleUser) {
@@ -197,7 +199,7 @@ public class AssumeRoleResult implements Serializable {
      *         form. The service rejects any policy with a packed size greater than
      *         100 percent, which means the policy exceeded the allowed space.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AssumeRoleResult withPackedPolicySize(Integer packedPolicySize) {

@@ -21,12 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#revokeSnapshotAccess(RevokeSnapshotAccessRequest) RevokeSnapshotAccess operation}.
  * <p>
- * Removes the ability of the specified AWS customer account to restore the specified snapshot. If the account is currently restoring the snapshot, the
- * restore will run to completion.
+ * Removes the ability of the specified AWS customer account to restore
+ * the specified snapshot. If the account is currently restoring the
+ * snapshot, the restore will run to completion.
  * </p>
  * <p>
- * For more information about working with snapshots, go to <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html">
- * Amazon Redshift Snapshots </a> in the <i>Amazon Redshift Management Guide</i> .
+ * For more information about working with snapshots, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html"> Amazon Redshift Snapshots </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#revokeSnapshotAccess(RevokeSnapshotAccessRequest)
@@ -77,7 +79,7 @@ public class RevokeSnapshotAccessRequest extends AmazonWebServiceRequest impleme
      *
      * @param snapshotIdentifier The identifier of the snapshot that the account can no longer access.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeSnapshotAccessRequest withSnapshotIdentifier(String snapshotIdentifier) {
@@ -128,7 +130,7 @@ public class RevokeSnapshotAccessRequest extends AmazonWebServiceRequest impleme
      *         snapshot resource element that specifies anything other than * for the
      *         cluster name.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeSnapshotAccessRequest withSnapshotClusterIdentifier(String snapshotClusterIdentifier) {
@@ -167,7 +169,7 @@ public class RevokeSnapshotAccessRequest extends AmazonWebServiceRequest impleme
      * @param accountWithRestoreAccess The identifier of the AWS customer account that can no longer restore
      *         the specified snapshot.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RevokeSnapshotAccessRequest withAccountWithRestoreAccess(String accountWithRestoreAccess) {

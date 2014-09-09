@@ -25,21 +25,27 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  * 
  * <ul>
- * <li>If Easy DKIM signing is enabled for a domain name identity (e.g., <code>example.com</code> ), then Amazon SES will DKIM-sign all email sent by
- * addresses under that domain name (e.g., <code>user@example.com</code> ).</li>
- * <li>If Easy DKIM signing is enabled for an email address, then Amazon SES will DKIM-sign all email sent by that email address.</li>
+ * <li>If Easy DKIM signing is enabled for a domain name identity (e.g.,
+ * <code>example.com</code> ), then Amazon SES will DKIM-sign all email
+ * sent by addresses under that domain name (e.g.,
+ * <code>user@example.com</code> ).</li>
+ * <li>If Easy DKIM signing is enabled for an email address, then Amazon
+ * SES will DKIM-sign all email sent by that email address.</li>
  * 
  * </ul>
  * <p>
- * For email addresses (e.g., <code>user@example.com</code> ), you can only enable Easy DKIM signing if the corresponding domain (e.g.,
- * <code>example.com</code> ) has been set up for Easy DKIM using the AWS Console or the <code>VerifyDomainDkim</code> action.
+ * For email addresses (e.g., <code>user@example.com</code> ), you can
+ * only enable Easy DKIM signing if the corresponding domain (e.g.,
+ * <code>example.com</code> ) has been set up for Easy DKIM using the AWS
+ * Console or the <code>VerifyDomainDkim</code> action.
  * </p>
  * <p>
  * This action is throttled at one request per second.
  * </p>
  * <p>
- * For more information about Easy DKIM signing, go to the <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html"> Amazon SES
- * Developer Guide </a> .
+ * For more information about Easy DKIM signing, go to the
+ * <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html"> Amazon SES Developer Guide </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#setIdentityDkimEnabled(SetIdentityDkimEnabledRequest)
@@ -83,7 +89,7 @@ public class SetIdentityDkimEnabledRequest extends AmazonWebServiceRequest imple
      *
      * @param identity The identity for which DKIM signing should be enabled or disabled.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetIdentityDkimEnabledRequest withIdentity(String identity) {
@@ -128,7 +134,7 @@ public class SetIdentityDkimEnabledRequest extends AmazonWebServiceRequest imple
      *         <code>true</code> to enable DKIM signing for this identity;
      *         <code>false</code> to disable it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public SetIdentityDkimEnabledRequest withDkimEnabled(Boolean dkimEnabled) {

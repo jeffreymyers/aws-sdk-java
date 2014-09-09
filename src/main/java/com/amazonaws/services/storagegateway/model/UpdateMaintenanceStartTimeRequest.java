@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#updateMaintenanceStartTime(UpdateMaintenanceStartTimeRequest) UpdateMaintenanceStartTime operation}.
  * <p>
- * This operation updates a gateway's weekly maintenance start time information, including day and time of the week. The maintenance time is the time in
- * your gateway's time zone.
+ * This operation updates a gateway's weekly maintenance start time
+ * information, including day and time of the week. The maintenance time
+ * is the time in your gateway's time zone.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#updateMaintenanceStartTime(UpdateMaintenanceStartTimeRequest)
@@ -113,7 +114,7 @@ public class UpdateMaintenanceStartTimeRequest extends AmazonWebServiceRequest i
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateMaintenanceStartTimeRequest withGatewayARN(String gatewayARN) {
@@ -167,7 +168,7 @@ public class UpdateMaintenanceStartTimeRequest extends AmazonWebServiceRequest i
      *         <emphasis>hh</emphasis>, where <i>hh</i> is the hour (00 to 23). The
      *         hour of the day is in the time zone of the gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateMaintenanceStartTimeRequest withHourOfDay(Integer hourOfDay) {
@@ -221,7 +222,7 @@ public class UpdateMaintenanceStartTimeRequest extends AmazonWebServiceRequest i
      *         <i>mm</i>, where <i>mm</i> is the minute (00 to 59). The minute of the
      *         hour is in the time zone of the gateway.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateMaintenanceStartTimeRequest withMinuteOfHour(Integer minuteOfHour) {
@@ -263,7 +264,7 @@ public class UpdateMaintenanceStartTimeRequest extends AmazonWebServiceRequest i
      *
      * @param dayOfWeek The maintenance start time day of the week.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateMaintenanceStartTimeRequest withDayOfWeek(Integer dayOfWeek) {

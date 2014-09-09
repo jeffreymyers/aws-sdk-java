@@ -24,9 +24,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Updates a user's SSH public key.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have self-management enabled or an attached policy that explicitly grants
- * permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have self-management enabled or an attached policy that explicitly
+ * grants permissions. For more information on user permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#updateMyUserProfile(UpdateMyUserProfileRequest)
@@ -63,7 +65,7 @@ public class UpdateMyUserProfileRequest extends AmazonWebServiceRequest implemen
      *
      * @param sshPublicKey The user's SSH public key.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UpdateMyUserProfileRequest withSshPublicKey(String sshPublicKey) {

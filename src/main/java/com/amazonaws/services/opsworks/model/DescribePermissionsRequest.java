@@ -24,9 +24,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes the permissions for a specified stack.
  * </p>
  * <p>
- * <b>Required Permissions</b> : To use this action, an IAM user must have a Manage permissions level for the stack, or an attached policy that
- * explicitly grants permissions. For more information on user permissions, see <a
- * href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a> .
+ * <b>Required Permissions</b> : To use this action, an IAM user must
+ * have a Manage permissions level for the stack, or an attached policy
+ * that explicitly grants permissions. For more information on user
+ * permissions, see
+ * <a href="http://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html"> Managing User Permissions </a>
+ * .
  * </p>
  *
  * @see com.amazonaws.services.opsworks.AWSOpsWorks#describePermissions(DescribePermissionsRequest)
@@ -82,7 +85,7 @@ public class DescribePermissionsRequest extends AmazonWebServiceRequest implemen
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Using
      *         Identifiers</a>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePermissionsRequest withIamUserArn(String iamUserArn) {
@@ -115,7 +118,7 @@ public class DescribePermissionsRequest extends AmazonWebServiceRequest implemen
      *
      * @param stackId The stack ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribePermissionsRequest withStackId(String stackId) {

@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudtrail.AWSCloudTrail#getTrailStatus(GetTrailStatusRequest) GetTrailStatus operation}.
  * <p>
- * Returns a JSON-formatted list of information about the specified trail. Fields include information such as delivery errors, Amazon SNS and Amazon S3
- * errors, and times that logging started and stopped for each trail.
+ * Returns a JSON-formatted list of information about the specified
+ * trail. Fields include information such as delivery errors, Amazon SNS
+ * and Amazon S3 errors, and times that logging started and stopped for
+ * each trail.
  * </p>
  *
  * @see com.amazonaws.services.cloudtrail.AWSCloudTrail#getTrailStatus(GetTrailStatusRequest)
@@ -59,7 +61,7 @@ public class GetTrailStatusRequest extends AmazonWebServiceRequest implements Se
      *
      * @param name The name of the trail for which you are requesting the current status.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetTrailStatusRequest withName(String name) {

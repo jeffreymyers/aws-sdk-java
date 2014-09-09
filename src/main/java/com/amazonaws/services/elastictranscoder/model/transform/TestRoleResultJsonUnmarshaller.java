@@ -37,7 +37,7 @@ public class TestRoleResultJsonUnmarshaller implements Unmarshaller<TestRoleResu
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -50,6 +50,7 @@ public class TestRoleResultJsonUnmarshaller implements Unmarshaller<TestRoleResu
                     testRoleResult.setSuccess(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Messages", targetDepth)) {
+                    context.nextToken();
                     testRoleResult.setMessages(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

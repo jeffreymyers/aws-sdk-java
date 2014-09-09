@@ -21,20 +21,29 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#createEventSubscription(CreateEventSubscriptionRequest) CreateEventSubscription operation}.
  * <p>
- * Creates an RDS event notification subscription. This action requires a topic ARN (Amazon Resource Name) created by either the RDS console, the SNS
- * console, or the SNS API. To obtain an ARN with SNS, you must create a topic in Amazon SNS and subscribe to the topic. The ARN is displayed in the SNS
- * console.
+ * Creates an RDS event notification subscription. This action requires a
+ * topic ARN (Amazon Resource Name) created by either the RDS console,
+ * the SNS console, or the SNS API. To obtain an ARN with SNS, you must
+ * create a topic in Amazon SNS and subscribe to the topic. The ARN is
+ * displayed in the SNS console.
  * </p>
  * <p>
- * You can specify the type of source (SourceType) you want to be notified of, provide a list of RDS sources (SourceIds) that triggers the events, and
- * provide a list of event categories (EventCategories) for events you want to be notified of. For example, you can specify SourceType = db-instance,
- * SourceIds = mydbinstance1, mydbinstance2 and EventCategories = Availability, Backup.
+ * You can specify the type of source (SourceType) you want to be
+ * notified of, provide a list of RDS sources (SourceIds) that triggers
+ * the events, and provide a list of event categories (EventCategories)
+ * for events you want to be notified of. For example, you can specify
+ * SourceType = db-instance, SourceIds = mydbinstance1, mydbinstance2 and
+ * EventCategories = Availability, Backup.
  * </p>
  * <p>
- * If you specify both the SourceType and SourceIds, such as SourceType = db-instance and SourceIdentifier = myDBInstance1, you will be notified of all
- * the db-instance events for the specified source. If you specify a SourceType but do not specify a SourceIdentifier, you will receive notice of the
- * events for that source type for all your RDS sources. If you do not specify either the SourceType nor the SourceIdentifier, you will be notified of
- * events generated from all RDS sources belonging to your customer account.
+ * If you specify both the SourceType and SourceIds, such as SourceType =
+ * db-instance and SourceIdentifier = myDBInstance1, you will be notified
+ * of all the db-instance events for the specified source. If you specify
+ * a SourceType but do not specify a SourceIdentifier, you will receive
+ * notice of the events for that source type for all your RDS sources. If
+ * you do not specify either the SourceType nor the SourceIdentifier, you
+ * will be notified of events generated from all RDS sources belonging to
+ * your customer account.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#createEventSubscription(CreateEventSubscriptionRequest)
@@ -132,7 +141,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      * @param subscriptionName The name of the subscription. <p>Constraints: The name must be less
      *         than 255 characters.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSubscriptionName(String subscriptionName) {
@@ -177,7 +186,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         notification. The ARN is created by Amazon SNS when you create a topic
      *         and subscribe to it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSnsTopicArn(String snsTopicArn) {
@@ -234,7 +243,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         specified, all events are returned. <p>Valid values: db-instance |
      *         db-parameter-group | db-security-group | db-snapshot
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSourceType(String sourceType) {
@@ -307,7 +316,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         topic in the Amazon RDS User Guide or by using the
      *         <b>DescribeEventCategories</b> action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withEventCategories(String... eventCategories) {
@@ -335,7 +344,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         topic in the Amazon RDS User Guide or by using the
      *         <b>DescribeEventCategories</b> action.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withEventCategories(java.util.Collection<String> eventCategories) {
@@ -457,7 +466,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         source type is a DB snapshot, a <code>DBSnapshotIdentifier</code> must
      *         be supplied.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSourceIds(String... sourceIds) {
@@ -499,7 +508,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *         source type is a DB snapshot, a <code>DBSnapshotIdentifier</code> must
      *         be supplied.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withSourceIds(java.util.Collection<String> sourceIds) {
@@ -545,7 +554,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      * @param enabled A Boolean value; set to <b>true</b> to activate the subscription, set
      *         to <b>false</b> to create the subscription but not active it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withEnabled(Boolean enabled) {
@@ -599,7 +608,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withTags(Tag... tags) {
@@ -617,7 +626,7 @@ public class CreateEventSubscriptionRequest extends AmazonWebServiceRequest impl
      *
      * @param tags A list of tags.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CreateEventSubscriptionRequest withTags(java.util.Collection<Tag> tags) {

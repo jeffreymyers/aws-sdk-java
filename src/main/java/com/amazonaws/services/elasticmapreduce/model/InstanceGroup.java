@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This entity represents an instance group, which is a group of instances that have common purpose. For example, CORE instance group is used for HDFS.
+ * This entity represents an instance group, which is a group of
+ * instances that have common purpose. For example, CORE instance group
+ * is used for HDFS.
  * </p>
  */
 public class InstanceGroup implements Serializable {
@@ -61,7 +63,7 @@ public class InstanceGroup implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String instanceType;
 
@@ -105,7 +107,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param id The identifier of the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withId(String id) {
@@ -138,7 +140,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param name The name of the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withName(String name) {
@@ -190,7 +192,7 @@ public class InstanceGroup implements Serializable {
      * @param market The marketplace to provision instances for this group. Valid values
      *         are ON_DEMAND or SPOT.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see MarketType
@@ -228,7 +230,7 @@ public class InstanceGroup implements Serializable {
      * @param market The marketplace to provision instances for this group. Valid values
      *         are ON_DEMAND or SPOT.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see MarketType
@@ -276,7 +278,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param instanceGroupType The type of the instance group. Valid values are MASTER, CORE or TASK.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceGroupType
@@ -310,7 +312,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param instanceGroupType The type of the instance group. Valid values are MASTER, CORE or TASK.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see InstanceGroupType
@@ -351,7 +353,7 @@ public class InstanceGroup implements Serializable {
      * @param bidPrice The bid price for each EC2 instance in the instance group when
      *         launching nodes as Spot Instances, expressed in USD.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withBidPrice(String bidPrice) {
@@ -364,7 +366,7 @@ public class InstanceGroup implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The EC2 instance type for all instances in the instance group.
      */
@@ -377,7 +379,7 @@ public class InstanceGroup implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param instanceType The EC2 instance type for all instances in the instance group.
      */
@@ -392,11 +394,11 @@ public class InstanceGroup implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param instanceType The EC2 instance type for all instances in the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withInstanceType(String instanceType) {
@@ -429,7 +431,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param requestedInstanceCount The target number of instances for the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withRequestedInstanceCount(Integer requestedInstanceCount) {
@@ -462,7 +464,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param runningInstanceCount The number of instances currently running in this instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withRunningInstanceCount(Integer runningInstanceCount) {
@@ -495,7 +497,7 @@ public class InstanceGroup implements Serializable {
      *
      * @param status The current status of the instance group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public InstanceGroup withStatus(InstanceGroupStatus status) {

@@ -18,8 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the output from the ModifyClusterParameterGroup and ResetClusterParameterGroup actions and indicate the parameter group involved and the
- * status of the operation on the parameter group.
+ * Contains the output from the ModifyClusterParameterGroup and
+ * ResetClusterParameterGroup actions and indicate the parameter group
+ * involved and the status of the operation on the parameter group.
  * </p>
  */
 public class ModifyClusterParameterGroupResult implements Serializable {
@@ -61,7 +62,7 @@ public class ModifyClusterParameterGroupResult implements Serializable {
      *
      * @param parameterGroupName The name of the cluster parameter group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyClusterParameterGroupResult withParameterGroupName(String parameterGroupName) {
@@ -106,7 +107,7 @@ public class ModifyClusterParameterGroupResult implements Serializable {
      *         to a parameter group name-value pair, then the change could be pending
      *         a reboot of an associated cluster.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ModifyClusterParameterGroupResult withParameterGroupStatus(String parameterGroupStatus) {

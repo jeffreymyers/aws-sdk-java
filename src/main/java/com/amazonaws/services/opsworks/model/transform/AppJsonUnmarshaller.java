@@ -37,7 +37,7 @@ public class AppJsonUnmarshaller implements Unmarshaller<App, JsonUnmarshallerCo
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -65,6 +65,10 @@ public class AppJsonUnmarshaller implements Unmarshaller<App, JsonUnmarshallerCo
                     context.nextToken();
                     app.setDescription(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("DataSources", targetDepth)) {
+                    context.nextToken();
+                    app.setDataSources(new ListUnmarshaller<DataSource>(DataSourceJsonUnmarshaller.getInstance()).unmarshall(context));
+                }
                 if (context.testExpression("Type", targetDepth)) {
                     context.nextToken();
                     app.setType(StringJsonUnmarshaller.getInstance().unmarshall(context));
@@ -74,6 +78,7 @@ public class AppJsonUnmarshaller implements Unmarshaller<App, JsonUnmarshallerCo
                     app.setAppSource(SourceJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Domains", targetDepth)) {
+                    context.nextToken();
                     app.setDomains(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("EnableSsl", targetDepth)) {
@@ -85,6 +90,7 @@ public class AppJsonUnmarshaller implements Unmarshaller<App, JsonUnmarshallerCo
                     app.setSslConfiguration(SslConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Attributes", targetDepth)) {
+                    context.nextToken();
                     app.setAttributes(new MapUnmarshaller<String,String>(StringJsonUnmarshaller.getInstance(), StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("CreatedAt", targetDepth)) {

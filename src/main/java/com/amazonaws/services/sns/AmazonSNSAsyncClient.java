@@ -35,15 +35,22 @@ import com.amazonaws.services.sns.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * Amazon Simple Notification Service <p>
- * Amazon Simple Notification Service (Amazon SNS) is a web service that enables you to build distributed web-enabled applications. Applications can use
- * Amazon SNS to easily push real-time notification messages to interested subscribers over multiple delivery protocols. For more information about this
- * product see <a href="http://aws.amazon.com/sns/"> http://aws.amazon.com/sns </a> . For detailed information about Amazon SNS features and their
- * associated API calls, see the <a href="http://docs.aws.amazon.com/sns/latest/dg/"> Amazon SNS Developer Guide </a> .
+ * Amazon Simple Notification Service (Amazon SNS) is a web service that
+ * enables you to build distributed web-enabled applications.
+ * Applications can use Amazon SNS to easily push real-time notification
+ * messages to interested subscribers over multiple delivery protocols.
+ * For more information about this product see
+ * <a href="http://aws.amazon.com/sns/"> http://aws.amazon.com/sns </a> . For detailed information about Amazon SNS features and their associated API calls, see the <a href="http://docs.aws.amazon.com/sns/latest/dg/"> Amazon SNS Developer Guide </a>
+ * .
  * </p>
  * <p>
- * We also provide SDKs that enable you to access Amazon SNS from your preferred programming language. The SDKs contain functionality that automatically
- * takes care of tasks such as: cryptographically signing your service requests, retrying requests, and handling error responses. For a list of available
- * SDKs, go to <a href="http://aws.amazon.com/tools/"> Tools for Amazon Web Services </a> .
+ * We also provide SDKs that enable you to access Amazon SNS from your
+ * preferred programming language. The SDKs contain functionality that
+ * automatically takes care of tasks such as: cryptographically signing
+ * your service requests, retrying requests, and handling error
+ * responses. For a list of available SDKs, go to
+ * <a href="http://aws.amazon.com/tools/"> Tools for Amazon Web Services </a>
+ * .
  * </p>
  */
 public class AmazonSNSAsyncClient extends AmazonSNSClient
@@ -53,6 +60,8 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
+
+    private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
@@ -95,13 +104,13 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      * @see DefaultAWSCredentialsProviderChain
      */
     public AmazonSNSAsyncClient(ClientConfiguration clientConfiguration) {
-        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonSNS using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -113,7 +122,7 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      *                       when authenticating with AWS services.
      */
     public AmazonSNSAsyncClient(AWSCredentials awsCredentials) {
-        this(awsCredentials, Executors.newCachedThreadPool());
+        this(awsCredentials, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -167,7 +176,7 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonSNS using the specified AWS account credentials provider.
-     * Default client settings will be used, and a default cached thread pool will be
+     * Default client settings will be used, and a fixed size thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
@@ -180,7 +189,7 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      *            to authenticate requests with AWS services.
      */
     public AmazonSNSAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
-        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE));
     }
 
     /**
@@ -223,7 +232,7 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      */
     public AmazonSNSAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
                 ClientConfiguration clientConfiguration) {
-        this(awsCredentialsProvider, clientConfiguration, Executors.newCachedThreadPool());
+        this(awsCredentialsProvider, clientConfiguration, Executors.newFixedThreadPool(clientConfiguration.getMaxConnections()));
     }
 
     /**
@@ -267,7 +276,8 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      * Shuts down the client, releasing all managed resources. This includes
      * forcibly terminating all pending asynchronous service calls. Clients who
      * wish to give pending asynchronous service calls time to complete should
-     * call getExecutorService().shutdown() prior to calling this method.
+     * call getExecutorService().shutdown() followed by
+     * getExecutorService().awaitTermination() prior to calling this method.
      */
     @Override
     public void shutdown() {
@@ -277,12 +287,12 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             
     /**
      * <p>
-     * The <code>ConfirmSubscription</code> action verifies an endpoint
-     * owner's intent to receive messages by validating the token sent to the
-     * endpoint by an earlier <code>Subscribe</code> action. If the token is
-     * valid, the action creates a new subscription and returns its Amazon
-     * Resource Name (ARN). This call requires an AWS signature only when the
-     * <code>AuthenticateOnUnsubscribe</code> flag is set to "true".
+     * Verifies an endpoint owner's intent to receive messages by validating
+     * the token sent to the endpoint by an earlier <code>Subscribe</code>
+     * action. If the token is valid, the action creates a new subscription
+     * and returns its Amazon Resource Name (ARN). This call requires an AWS
+     * signature only when the <code>AuthenticateOnUnsubscribe</code> flag is
+     * set to "true".
      * </p>
      *
      * @param confirmSubscriptionRequest Container for the necessary
@@ -305,18 +315,18 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<ConfirmSubscriptionResult>() {
             public ConfirmSubscriptionResult call() throws Exception {
                 return confirmSubscription(confirmSubscriptionRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>ConfirmSubscription</code> action verifies an endpoint
-     * owner's intent to receive messages by validating the token sent to the
-     * endpoint by an earlier <code>Subscribe</code> action. If the token is
-     * valid, the action creates a new subscription and returns its Amazon
-     * Resource Name (ARN). This call requires an AWS signature only when the
-     * <code>AuthenticateOnUnsubscribe</code> flag is set to "true".
+     * Verifies an endpoint owner's intent to receive messages by validating
+     * the token sent to the endpoint by an earlier <code>Subscribe</code>
+     * action. If the token is valid, the action creates a new subscription
+     * and returns its Amazon Resource Name (ARN). This call requires an AWS
+     * signature only when the <code>AuthenticateOnUnsubscribe</code> flag is
+     * set to "true".
      * </p>
      *
      * @param confirmSubscriptionRequest Container for the necessary
@@ -344,39 +354,38 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ConfirmSubscriptionResult>() {
             public ConfirmSubscriptionResult call() throws Exception {
-                ConfirmSubscriptionResult result;
+              ConfirmSubscriptionResult result;
                 try {
-                    result = confirmSubscription(confirmSubscriptionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(confirmSubscriptionRequest, result);
-                   return result;
-            }
-        });
+                result = confirmSubscription(confirmSubscriptionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(confirmSubscriptionRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>CreatePlatformApplication</code> action creates a platform
-     * application object for one of the supported push notification
-     * services, such as APNS and GCM, to which devices and mobile apps may
-     * register. You must specify PlatformPrincipal and PlatformCredential
-     * attributes when using the <code>CreatePlatformApplication</code>
-     * action. The PlatformPrincipal is received from the notification
-     * service. For APNS/APNS_SANDBOX, PlatformPrincipal is "SSL
-     * certificate". For GCM, PlatformPrincipal is not applicable. For ADM,
-     * PlatformPrincipal is "client id". The PlatformCredential is also
-     * received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformCredential is "private key". For GCM, PlatformCredential is
-     * "API key". For ADM, PlatformCredential is "client secret". The
-     * PlatformApplicationArn that is returned when using
-     * <code>CreatePlatformApplication</code> is then used as an attribute
-     * for the <code>CreatePlatformEndpoint</code> action. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Creates a platform application object for one of the supported push
+     * notification services, such as APNS and GCM, to which devices and
+     * mobile apps may register. You must specify PlatformPrincipal and
+     * PlatformCredential attributes when using the
+     * <code>CreatePlatformApplication</code> action. The PlatformPrincipal
+     * is received from the notification service. For APNS/APNS_SANDBOX,
+     * PlatformPrincipal is "SSL certificate". For GCM, PlatformPrincipal is
+     * not applicable. For ADM, PlatformPrincipal is "client id". The
+     * PlatformCredential is also received from the notification service. For
+     * APNS/APNS_SANDBOX, PlatformCredential is "private key". For GCM,
+     * PlatformCredential is "API key". For ADM, PlatformCredential is
+     * "client secret". The PlatformApplicationArn that is returned when
+     * using <code>CreatePlatformApplication</code> is then used as an
+     * attribute for the <code>CreatePlatformEndpoint</code> action. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param createPlatformApplicationRequest Container for the necessary
@@ -400,30 +409,29 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<CreatePlatformApplicationResult>() {
             public CreatePlatformApplicationResult call() throws Exception {
                 return createPlatformApplication(createPlatformApplicationRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>CreatePlatformApplication</code> action creates a platform
-     * application object for one of the supported push notification
-     * services, such as APNS and GCM, to which devices and mobile apps may
-     * register. You must specify PlatformPrincipal and PlatformCredential
-     * attributes when using the <code>CreatePlatformApplication</code>
-     * action. The PlatformPrincipal is received from the notification
-     * service. For APNS/APNS_SANDBOX, PlatformPrincipal is "SSL
-     * certificate". For GCM, PlatformPrincipal is not applicable. For ADM,
-     * PlatformPrincipal is "client id". The PlatformCredential is also
-     * received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformCredential is "private key". For GCM, PlatformCredential is
-     * "API key". For ADM, PlatformCredential is "client secret". The
-     * PlatformApplicationArn that is returned when using
-     * <code>CreatePlatformApplication</code> is then used as an attribute
-     * for the <code>CreatePlatformEndpoint</code> action. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Creates a platform application object for one of the supported push
+     * notification services, such as APNS and GCM, to which devices and
+     * mobile apps may register. You must specify PlatformPrincipal and
+     * PlatformCredential attributes when using the
+     * <code>CreatePlatformApplication</code> action. The PlatformPrincipal
+     * is received from the notification service. For APNS/APNS_SANDBOX,
+     * PlatformPrincipal is "SSL certificate". For GCM, PlatformPrincipal is
+     * not applicable. For ADM, PlatformPrincipal is "client id". The
+     * PlatformCredential is also received from the notification service. For
+     * APNS/APNS_SANDBOX, PlatformCredential is "private key". For GCM,
+     * PlatformCredential is "API key". For ADM, PlatformCredential is
+     * "client secret". The PlatformApplicationArn that is returned when
+     * using <code>CreatePlatformApplication</code> is then used as an
+     * attribute for the <code>CreatePlatformEndpoint</code> action. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param createPlatformApplicationRequest Container for the necessary
@@ -452,24 +460,23 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreatePlatformApplicationResult>() {
             public CreatePlatformApplicationResult call() throws Exception {
-                CreatePlatformApplicationResult result;
+              CreatePlatformApplicationResult result;
                 try {
-                    result = createPlatformApplication(createPlatformApplicationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createPlatformApplicationRequest, result);
-                   return result;
-            }
-        });
+                result = createPlatformApplication(createPlatformApplicationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createPlatformApplicationRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>GetTopicAttributes</code> action returns all of the
-     * properties of a topic. Topic properties returned might differ based on
-     * the authorization of the user.
+     * Returns all of the properties of a topic. Topic properties returned
+     * might differ based on the authorization of the user.
      * </p>
      *
      * @param getTopicAttributesRequest Container for the necessary
@@ -492,15 +499,14 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<GetTopicAttributesResult>() {
             public GetTopicAttributesResult call() throws Exception {
                 return getTopicAttributes(getTopicAttributesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>GetTopicAttributes</code> action returns all of the
-     * properties of a topic. Topic properties returned might differ based on
-     * the authorization of the user.
+     * Returns all of the properties of a topic. Topic properties returned
+     * might differ based on the authorization of the user.
      * </p>
      *
      * @param getTopicAttributesRequest Container for the necessary
@@ -528,26 +534,26 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetTopicAttributesResult>() {
             public GetTopicAttributesResult call() throws Exception {
-                GetTopicAttributesResult result;
+              GetTopicAttributesResult result;
                 try {
-                    result = getTopicAttributes(getTopicAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getTopicAttributesRequest, result);
-                   return result;
-            }
-        });
+                result = getTopicAttributes(getTopicAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getTopicAttributesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>Subscribe</code> action prepares to subscribe an endpoint by
-     * sending the endpoint a confirmation message. To actually create a
-     * subscription, the endpoint owner must call the
-     * <code>ConfirmSubscription</code> action with the token from the
-     * confirmation message. Confirmation tokens are valid for three days.
+     * Prepares to subscribe an endpoint by sending the endpoint a
+     * confirmation message. To actually create a subscription, the endpoint
+     * owner must call the <code>ConfirmSubscription</code> action with the
+     * token from the confirmation message. Confirmation tokens are valid for
+     * three days.
      * </p>
      *
      * @param subscribeRequest Container for the necessary parameters to
@@ -570,17 +576,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<SubscribeResult>() {
             public SubscribeResult call() throws Exception {
                 return subscribe(subscribeRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>Subscribe</code> action prepares to subscribe an endpoint by
-     * sending the endpoint a confirmation message. To actually create a
-     * subscription, the endpoint owner must call the
-     * <code>ConfirmSubscription</code> action with the token from the
-     * confirmation message. Confirmation tokens are valid for three days.
+     * Prepares to subscribe an endpoint by sending the endpoint a
+     * confirmation message. To actually create a subscription, the endpoint
+     * owner must call the <code>ConfirmSubscription</code> action with the
+     * token from the confirmation message. Confirmation tokens are valid for
+     * three days.
      * </p>
      *
      * @param subscribeRequest Container for the necessary parameters to
@@ -608,25 +614,25 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<SubscribeResult>() {
             public SubscribeResult call() throws Exception {
-                SubscribeResult result;
+              SubscribeResult result;
                 try {
-                    result = subscribe(subscribeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(subscribeRequest, result);
-                   return result;
-            }
-        });
+                result = subscribe(subscribeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(subscribeRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>DeleteEndpoint</code> action, which is idempotent, deletes
-     * the endpoint from SNS. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Deletes the endpoint from Amazon SNS. This action is idempotent. For
+     * more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param deleteEndpointRequest Container for the necessary parameters to
@@ -650,16 +656,16 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 deleteEndpoint(deleteEndpointRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>DeleteEndpoint</code> action, which is idempotent, deletes
-     * the endpoint from SNS. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Deletes the endpoint from Amazon SNS. This action is idempotent. For
+     * more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param deleteEndpointRequest Container for the necessary parameters to
@@ -687,22 +693,21 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteEndpoint(deleteEndpointRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteEndpointRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteEndpoint(deleteEndpointRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteEndpointRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>SetTopicAttributes</code> action allows a topic owner to set
-     * an attribute of the topic to a new value.
+     * Allows a topic owner to set an attribute of the topic to a new value.
      * </p>
      *
      * @param setTopicAttributesRequest Container for the necessary
@@ -726,14 +731,13 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 setTopicAttributes(setTopicAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>SetTopicAttributes</code> action allows a topic owner to set
-     * an attribute of the topic to a new value.
+     * Allows a topic owner to set an attribute of the topic to a new value.
      * </p>
      *
      * @param setTopicAttributesRequest Container for the necessary
@@ -761,22 +765,21 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    setTopicAttributes(setTopicAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(setTopicAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                setTopicAttributes(setTopicAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setTopicAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>RemovePermission</code> action removes a statement from a
-     * topic's access control policy.
+     * Removes a statement from a topic's access control policy.
      * </p>
      *
      * @param removePermissionRequest Container for the necessary parameters
@@ -800,14 +803,13 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 removePermission(removePermissionRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>RemovePermission</code> action removes a statement from a
-     * topic's access control policy.
+     * Removes a statement from a topic's access control policy.
      * </p>
      *
      * @param removePermissionRequest Container for the necessary parameters
@@ -835,25 +837,25 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    removePermission(removePermissionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(removePermissionRequest, null);
-                   return null;
-            }
-        });
+              try {
+                removePermission(removePermissionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(removePermissionRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>GetEndpointAttributes</code> retrieves the endpoint
-     * attributes for a device on one of the supported push notification
-     * services, such as GCM and APNS. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Retrieves the endpoint attributes for a device on one of the
+     * supported push notification services, such as GCM and APNS. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param getEndpointAttributesRequest Container for the necessary
@@ -877,17 +879,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<GetEndpointAttributesResult>() {
             public GetEndpointAttributesResult call() throws Exception {
                 return getEndpointAttributes(getEndpointAttributesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>GetEndpointAttributes</code> retrieves the endpoint
-     * attributes for a device on one of the supported push notification
-     * services, such as GCM and APNS. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Retrieves the endpoint attributes for a device on one of the
+     * supported push notification services, such as GCM and APNS. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param getEndpointAttributesRequest Container for the necessary
@@ -916,25 +918,24 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetEndpointAttributesResult>() {
             public GetEndpointAttributesResult call() throws Exception {
-                GetEndpointAttributesResult result;
+              GetEndpointAttributesResult result;
                 try {
-                    result = getEndpointAttributes(getEndpointAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getEndpointAttributesRequest, result);
-                   return result;
-            }
-        });
+                result = getEndpointAttributes(getEndpointAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getEndpointAttributesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>ListSubscriptions</code> action returns a list of the
-     * requester's subscriptions. Each call returns a limited list of
-     * subscriptions, up to 100. If there are more subscriptions, a
-     * <code>NextToken</code> is also returned. Use the
+     * Returns a list of the requester's subscriptions. Each call returns a
+     * limited list of subscriptions, up to 100. If there are more
+     * subscriptions, a <code>NextToken</code> is also returned. Use the
      * <code>NextToken</code> parameter in a new
      * <code>ListSubscriptions</code> call to get further results.
      * </p>
@@ -959,16 +960,15 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<ListSubscriptionsResult>() {
             public ListSubscriptionsResult call() throws Exception {
                 return listSubscriptions(listSubscriptionsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>ListSubscriptions</code> action returns a list of the
-     * requester's subscriptions. Each call returns a limited list of
-     * subscriptions, up to 100. If there are more subscriptions, a
-     * <code>NextToken</code> is also returned. Use the
+     * Returns a list of the requester's subscriptions. Each call returns a
+     * limited list of subscriptions, up to 100. If there are more
+     * subscriptions, a <code>NextToken</code> is also returned. Use the
      * <code>NextToken</code> parameter in a new
      * <code>ListSubscriptions</code> call to get further results.
      * </p>
@@ -998,25 +998,25 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListSubscriptionsResult>() {
             public ListSubscriptionsResult call() throws Exception {
-                ListSubscriptionsResult result;
+              ListSubscriptionsResult result;
                 try {
-                    result = listSubscriptions(listSubscriptionsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listSubscriptionsRequest, result);
-                   return result;
-            }
-        });
+                result = listSubscriptions(listSubscriptionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listSubscriptionsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>CreatePlatformEndpoint</code> action creates an endpoint for
-     * a device and mobile app on one of the supported push notification
-     * services, such as GCM and APNS. <code>CreatePlatformEndpoint</code>
-     * requires the PlatformApplicationArn that is returned from
+     * Creates an endpoint for a device and mobile app on one of the
+     * supported push notification services, such as GCM and APNS.
+     * <code>CreatePlatformEndpoint</code> requires the
+     * PlatformApplicationArn that is returned from
      * <code>CreatePlatformApplication</code> . The EndpointArn that is
      * returned when using <code>CreatePlatformEndpoint</code> can then be
      * used by the <code>Publish</code> action to send a message to a mobile
@@ -1024,9 +1024,16 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      * topic. The <code>CreatePlatformEndpoint</code> action is idempotent,
      * so if the requester already owns an endpoint with the same device
      * token and attributes, that endpoint's ARN is returned without creating
-     * a new endpoint. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * a new endpoint. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
+     * </p>
+     * <p>
+     * When using <code>CreatePlatformEndpoint</code> with Baidu, two
+     * attributes must be provided: ChannelId and UserId. The token field
+     * must also contain the ChannelId. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePushBaiduEndpoint.html"> Creating an Amazon SNS Endpoint for Baidu </a>
+     * .
      * </p>
      *
      * @param createPlatformEndpointRequest Container for the necessary
@@ -1050,16 +1057,16 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<CreatePlatformEndpointResult>() {
             public CreatePlatformEndpointResult call() throws Exception {
                 return createPlatformEndpoint(createPlatformEndpointRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>CreatePlatformEndpoint</code> action creates an endpoint for
-     * a device and mobile app on one of the supported push notification
-     * services, such as GCM and APNS. <code>CreatePlatformEndpoint</code>
-     * requires the PlatformApplicationArn that is returned from
+     * Creates an endpoint for a device and mobile app on one of the
+     * supported push notification services, such as GCM and APNS.
+     * <code>CreatePlatformEndpoint</code> requires the
+     * PlatformApplicationArn that is returned from
      * <code>CreatePlatformApplication</code> . The EndpointArn that is
      * returned when using <code>CreatePlatformEndpoint</code> can then be
      * used by the <code>Publish</code> action to send a message to a mobile
@@ -1067,9 +1074,16 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
      * topic. The <code>CreatePlatformEndpoint</code> action is idempotent,
      * so if the requester already owns an endpoint with the same device
      * token and attributes, that endpoint's ARN is returned without creating
-     * a new endpoint. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * a new endpoint. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
+     * </p>
+     * <p>
+     * When using <code>CreatePlatformEndpoint</code> with Baidu, two
+     * attributes must be provided: ChannelId and UserId. The token field
+     * must also contain the ChannelId. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePushBaiduEndpoint.html"> Creating an Amazon SNS Endpoint for Baidu </a>
+     * .
      * </p>
      *
      * @param createPlatformEndpointRequest Container for the necessary
@@ -1098,23 +1112,23 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreatePlatformEndpointResult>() {
             public CreatePlatformEndpointResult call() throws Exception {
-                CreatePlatformEndpointResult result;
+              CreatePlatformEndpointResult result;
                 try {
-                    result = createPlatformEndpoint(createPlatformEndpointRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createPlatformEndpointRequest, result);
-                   return result;
-            }
-        });
+                result = createPlatformEndpoint(createPlatformEndpointRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createPlatformEndpointRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>SetSubscriptionAttributes</code> action allows a
-     * subscription owner to set an attribute of the topic to a new value.
+     * Allows a subscription owner to set an attribute of the topic to a new
+     * value.
      * </p>
      *
      * @param setSubscriptionAttributesRequest Container for the necessary
@@ -1139,14 +1153,14 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 setSubscriptionAttributes(setSubscriptionAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>SetSubscriptionAttributes</code> action allows a
-     * subscription owner to set an attribute of the topic to a new value.
+     * Allows a subscription owner to set an attribute of the topic to a new
+     * value.
      * </p>
      *
      * @param setSubscriptionAttributesRequest Container for the necessary
@@ -1175,26 +1189,26 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    setSubscriptionAttributes(setSubscriptionAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(setSubscriptionAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                setSubscriptionAttributes(setSubscriptionAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setSubscriptionAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>CreateTopic</code> action creates a topic to which
-     * notifications can be published. Users can create at most 3000 topics.
-     * For more information, see <a href="http://aws.amazon.com/sns/">
-     * http://aws.amazon.com/sns </a> . This action is idempotent, so if the
-     * requester already owns a topic with the specified name, that topic's
-     * ARN is returned without creating a new topic.
+     * Creates a topic to which notifications can be published. Users can
+     * create at most 3000 topics. For more information, see
+     * <a href="http://aws.amazon.com/sns/"> http://aws.amazon.com/sns </a>
+     * . This action is idempotent, so if the requester already owns a topic
+     * with the specified name, that topic's ARN is returned without creating
+     * a new topic.
      * </p>
      *
      * @param createTopicRequest Container for the necessary parameters to
@@ -1217,18 +1231,18 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<CreateTopicResult>() {
             public CreateTopicResult call() throws Exception {
                 return createTopic(createTopicRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>CreateTopic</code> action creates a topic to which
-     * notifications can be published. Users can create at most 3000 topics.
-     * For more information, see <a href="http://aws.amazon.com/sns/">
-     * http://aws.amazon.com/sns </a> . This action is idempotent, so if the
-     * requester already owns a topic with the specified name, that topic's
-     * ARN is returned without creating a new topic.
+     * Creates a topic to which notifications can be published. Users can
+     * create at most 3000 topics. For more information, see
+     * <a href="http://aws.amazon.com/sns/"> http://aws.amazon.com/sns </a>
+     * . This action is idempotent, so if the requester already owns a topic
+     * with the specified name, that topic's ARN is returned without creating
+     * a new topic.
      * </p>
      *
      * @param createTopicRequest Container for the necessary parameters to
@@ -1256,23 +1270,22 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<CreateTopicResult>() {
             public CreateTopicResult call() throws Exception {
-                CreateTopicResult result;
+              CreateTopicResult result;
                 try {
-                    result = createTopic(createTopicRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(createTopicRequest, result);
-                   return result;
-            }
-        });
+                result = createTopic(createTopicRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createTopicRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>GetSubscriptionAttribtues</code> action returns all of the
-     * properties of a subscription.
+     * Returns all of the properties of a subscription.
      * </p>
      *
      * @param getSubscriptionAttributesRequest Container for the necessary
@@ -1296,14 +1309,13 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<GetSubscriptionAttributesResult>() {
             public GetSubscriptionAttributesResult call() throws Exception {
                 return getSubscriptionAttributes(getSubscriptionAttributesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>GetSubscriptionAttribtues</code> action returns all of the
-     * properties of a subscription.
+     * Returns all of the properties of a subscription.
      * </p>
      *
      * @param getSubscriptionAttributesRequest Container for the necessary
@@ -1332,26 +1344,26 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetSubscriptionAttributesResult>() {
             public GetSubscriptionAttributesResult call() throws Exception {
-                GetSubscriptionAttributesResult result;
+              GetSubscriptionAttributesResult result;
                 try {
-                    result = getSubscriptionAttributes(getSubscriptionAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getSubscriptionAttributesRequest, result);
-                   return result;
-            }
-        });
+                result = getSubscriptionAttributes(getSubscriptionAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getSubscriptionAttributesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>ListTopics</code> action returns a list of the requester's
-     * topics. Each call returns a limited list of topics, up to 100. If
-     * there are more topics, a <code>NextToken</code> is also returned. Use
-     * the <code>NextToken</code> parameter in a new <code>ListTopics</code>
-     * call to get further results.
+     * Returns a list of the requester's topics. Each call returns a limited
+     * list of topics, up to 100. If there are more topics, a
+     * <code>NextToken</code> is also returned. Use the
+     * <code>NextToken</code> parameter in a new <code>ListTopics</code> call
+     * to get further results.
      * </p>
      *
      * @param listTopicsRequest Container for the necessary parameters to
@@ -1374,17 +1386,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<ListTopicsResult>() {
             public ListTopicsResult call() throws Exception {
                 return listTopics(listTopicsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>ListTopics</code> action returns a list of the requester's
-     * topics. Each call returns a limited list of topics, up to 100. If
-     * there are more topics, a <code>NextToken</code> is also returned. Use
-     * the <code>NextToken</code> parameter in a new <code>ListTopics</code>
-     * call to get further results.
+     * Returns a list of the requester's topics. Each call returns a limited
+     * list of topics, up to 100. If there are more topics, a
+     * <code>NextToken</code> is also returned. Use the
+     * <code>NextToken</code> parameter in a new <code>ListTopics</code> call
+     * to get further results.
      * </p>
      *
      * @param listTopicsRequest Container for the necessary parameters to
@@ -1412,26 +1424,25 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListTopicsResult>() {
             public ListTopicsResult call() throws Exception {
-                ListTopicsResult result;
+              ListTopicsResult result;
                 try {
-                    result = listTopics(listTopicsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listTopicsRequest, result);
-                   return result;
-            }
-        });
+                result = listTopics(listTopicsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listTopicsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>DeletePlatformApplication</code> action deletes a platform
-     * application object for one of the supported push notification
-     * services, such as APNS and GCM. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Deletes a platform application object for one of the supported push
+     * notification services, such as APNS and GCM. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param deletePlatformApplicationRequest Container for the necessary
@@ -1456,17 +1467,16 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 deletePlatformApplication(deletePlatformApplicationRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>DeletePlatformApplication</code> action deletes a platform
-     * application object for one of the supported push notification
-     * services, such as APNS and GCM. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Deletes a platform application object for one of the supported push
+     * notification services, such as APNS and GCM. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param deletePlatformApplicationRequest Container for the necessary
@@ -1495,31 +1505,31 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deletePlatformApplication(deletePlatformApplicationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deletePlatformApplicationRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deletePlatformApplication(deletePlatformApplicationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deletePlatformApplicationRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>ListPlatformApplications</code> action lists the platform
-     * application objects for the supported push notification services, such
-     * as APNS and GCM. The results for <code>ListPlatformApplications</code>
-     * are paginated and return a limited list of applications, up to 100. If
-     * additional records are available after the first page results, then a
-     * NextToken string will be returned. To receive the next page, you call
+     * Lists the platform application objects for the supported push
+     * notification services, such as APNS and GCM. The results for
+     * <code>ListPlatformApplications</code> are paginated and return a
+     * limited list of applications, up to 100. If additional records are
+     * available after the first page results, then a NextToken string will
+     * be returned. To receive the next page, you call
      * <code>ListPlatformApplications</code> using the NextToken string
      * received from the previous call. When there are no more records to
-     * return, NextToken will be null. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * return, NextToken will be null. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param listPlatformApplicationsRequest Container for the necessary
@@ -1543,23 +1553,23 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<ListPlatformApplicationsResult>() {
             public ListPlatformApplicationsResult call() throws Exception {
                 return listPlatformApplications(listPlatformApplicationsRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>ListPlatformApplications</code> action lists the platform
-     * application objects for the supported push notification services, such
-     * as APNS and GCM. The results for <code>ListPlatformApplications</code>
-     * are paginated and return a limited list of applications, up to 100. If
-     * additional records are available after the first page results, then a
-     * NextToken string will be returned. To receive the next page, you call
+     * Lists the platform application objects for the supported push
+     * notification services, such as APNS and GCM. The results for
+     * <code>ListPlatformApplications</code> are paginated and return a
+     * limited list of applications, up to 100. If additional records are
+     * available after the first page results, then a NextToken string will
+     * be returned. To receive the next page, you call
      * <code>ListPlatformApplications</code> using the NextToken string
      * received from the previous call. When there are no more records to
-     * return, NextToken will be null. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * return, NextToken will be null. For more information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param listPlatformApplicationsRequest Container for the necessary
@@ -1588,26 +1598,26 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListPlatformApplicationsResult>() {
             public ListPlatformApplicationsResult call() throws Exception {
-                ListPlatformApplicationsResult result;
+              ListPlatformApplicationsResult result;
                 try {
-                    result = listPlatformApplications(listPlatformApplicationsRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listPlatformApplicationsRequest, result);
-                   return result;
-            }
-        });
+                result = listPlatformApplications(listPlatformApplicationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listPlatformApplicationsRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>SetEndpointAttributes</code> action sets the attributes for
-     * an endpoint for a device on one of the supported push notification
-     * services, such as GCM and APNS. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Sets the attributes for an endpoint for a device on one of the
+     * supported push notification services, such as GCM and APNS. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param setEndpointAttributesRequest Container for the necessary
@@ -1632,17 +1642,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 setEndpointAttributes(setEndpointAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>SetEndpointAttributes</code> action sets the attributes for
-     * an endpoint for a device on one of the supported push notification
-     * services, such as GCM and APNS. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Sets the attributes for an endpoint for a device on one of the
+     * supported push notification services, such as GCM and APNS. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param setEndpointAttributesRequest Container for the necessary
@@ -1671,28 +1681,28 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    setEndpointAttributes(setEndpointAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(setEndpointAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                setEndpointAttributes(setEndpointAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setEndpointAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>Unsubscribe</code> action deletes a subscription. If the
-     * subscription requires authentication for deletion, only the owner of
-     * the subscription or the topic's owner can unsubscribe, and an AWS
-     * signature is required. If the <code>Unsubscribe</code> call does not
-     * require authentication and the requester is not the subscription
-     * owner, a final cancellation message is delivered to the endpoint, so
-     * that the endpoint owner can easily resubscribe to the topic if the
-     * <code>Unsubscribe</code> request was unintended.
+     * Deletes a subscription. If the subscription requires authentication
+     * for deletion, only the owner of the subscription or the topic's owner
+     * can unsubscribe, and an AWS signature is required. If the
+     * <code>Unsubscribe</code> call does not require authentication and the
+     * requester is not the subscription owner, a final cancellation message
+     * is delivered to the endpoint, so that the endpoint owner can easily
+     * resubscribe to the topic if the <code>Unsubscribe</code> request was
+     * unintended.
      * </p>
      *
      * @param unsubscribeRequest Container for the necessary parameters to
@@ -1716,20 +1726,20 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 unsubscribe(unsubscribeRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>Unsubscribe</code> action deletes a subscription. If the
-     * subscription requires authentication for deletion, only the owner of
-     * the subscription or the topic's owner can unsubscribe, and an AWS
-     * signature is required. If the <code>Unsubscribe</code> call does not
-     * require authentication and the requester is not the subscription
-     * owner, a final cancellation message is delivered to the endpoint, so
-     * that the endpoint owner can easily resubscribe to the topic if the
-     * <code>Unsubscribe</code> request was unintended.
+     * Deletes a subscription. If the subscription requires authentication
+     * for deletion, only the owner of the subscription or the topic's owner
+     * can unsubscribe, and an AWS signature is required. If the
+     * <code>Unsubscribe</code> call does not require authentication and the
+     * requester is not the subscription owner, a final cancellation message
+     * is delivered to the endpoint, so that the endpoint owner can easily
+     * resubscribe to the topic if the <code>Unsubscribe</code> request was
+     * unintended.
      * </p>
      *
      * @param unsubscribeRequest Container for the necessary parameters to
@@ -1757,25 +1767,24 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    unsubscribe(unsubscribeRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(unsubscribeRequest, null);
-                   return null;
-            }
-        });
+              try {
+                unsubscribe(unsubscribeRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(unsubscribeRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>DeleteTopic</code> action deletes a topic and all its
-     * subscriptions. Deleting a topic might prevent some messages previously
-     * sent to the topic from being delivered to subscribers. This action is
-     * idempotent, so deleting a topic that does not exist does not result in
-     * an error.
+     * Deletes a topic and all its subscriptions. Deleting a topic might
+     * prevent some messages previously sent to the topic from being
+     * delivered to subscribers. This action is idempotent, so deleting a
+     * topic that does not exist does not result in an error.
      * </p>
      *
      * @param deleteTopicRequest Container for the necessary parameters to
@@ -1799,17 +1808,16 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 deleteTopic(deleteTopicRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>DeleteTopic</code> action deletes a topic and all its
-     * subscriptions. Deleting a topic might prevent some messages previously
-     * sent to the topic from being delivered to subscribers. This action is
-     * idempotent, so deleting a topic that does not exist does not result in
-     * an error.
+     * Deletes a topic and all its subscriptions. Deleting a topic might
+     * prevent some messages previously sent to the topic from being
+     * delivered to subscribers. This action is idempotent, so deleting a
+     * topic that does not exist does not result in an error.
      * </p>
      *
      * @param deleteTopicRequest Container for the necessary parameters to
@@ -1837,25 +1845,25 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    deleteTopic(deleteTopicRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(deleteTopicRequest, null);
-                   return null;
-            }
-        });
+              try {
+                deleteTopic(deleteTopicRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteTopicRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>GetPlatformApplicationAttributes</code> action retrieves the
-     * attributes of the platform application object for the supported push
-     * notification services, such as APNS and GCM. For more information, see
-     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Retrieves the attributes of the platform application object for the
+     * supported push notification services, such as APNS and GCM. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param getPlatformApplicationAttributesRequest Container for the
@@ -1880,17 +1888,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<GetPlatformApplicationAttributesResult>() {
             public GetPlatformApplicationAttributesResult call() throws Exception {
                 return getPlatformApplicationAttributes(getPlatformApplicationAttributesRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>GetPlatformApplicationAttributes</code> action retrieves the
-     * attributes of the platform application object for the supported push
-     * notification services, such as APNS and GCM. For more information, see
-     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Retrieves the attributes of the platform application object for the
+     * supported push notification services, such as APNS and GCM. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param getPlatformApplicationAttributesRequest Container for the
@@ -1920,26 +1928,26 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<GetPlatformApplicationAttributesResult>() {
             public GetPlatformApplicationAttributesResult call() throws Exception {
-                GetPlatformApplicationAttributesResult result;
+              GetPlatformApplicationAttributesResult result;
                 try {
-                    result = getPlatformApplicationAttributes(getPlatformApplicationAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(getPlatformApplicationAttributesRequest, result);
-                   return result;
-            }
-        });
+                result = getPlatformApplicationAttributes(getPlatformApplicationAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getPlatformApplicationAttributesRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>SetPlatformApplicationAttributes</code> action sets the
-     * attributes of the platform application object for the supported push
-     * notification services, such as APNS and GCM. For more information, see
-     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Sets the attributes of the platform application object for the
+     * supported push notification services, such as APNS and GCM. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param setPlatformApplicationAttributesRequest Container for the
@@ -1965,17 +1973,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 setPlatformApplicationAttributes(setPlatformApplicationAttributesRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>SetPlatformApplicationAttributes</code> action sets the
-     * attributes of the platform application object for the supported push
-     * notification services, such as APNS and GCM. For more information, see
-     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * Sets the attributes of the platform application object for the
+     * supported push notification services, such as APNS and GCM. For more
+     * information, see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param setPlatformApplicationAttributesRequest Container for the
@@ -2005,23 +2013,22 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    setPlatformApplicationAttributes(setPlatformApplicationAttributesRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(setPlatformApplicationAttributesRequest, null);
-                   return null;
-            }
-        });
+              try {
+                setPlatformApplicationAttributes(setPlatformApplicationAttributesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setPlatformApplicationAttributesRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>AddPermission</code> action adds a statement to a topic's
-     * access control policy, granting access for the specified AWS accounts
-     * to the specified actions.
+     * Adds a statement to a topic's access control policy, granting access
+     * for the specified AWS accounts to the specified actions.
      * </p>
      *
      * @param addPermissionRequest Container for the necessary parameters to
@@ -2045,15 +2052,14 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
             public Void call() throws Exception {
                 addPermission(addPermissionRequest);
                 return null;
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>AddPermission</code> action adds a statement to a topic's
-     * access control policy, granting access for the specified AWS accounts
-     * to the specified actions.
+     * Adds a statement to a topic's access control policy, granting access
+     * for the specified AWS accounts to the specified actions.
      * </p>
      *
      * @param addPermissionRequest Container for the necessary parameters to
@@ -2081,33 +2087,32 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                try {
-                    addPermission(addPermissionRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(addPermissionRequest, null);
-                   return null;
-            }
-        });
+              try {
+                addPermission(addPermissionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(addPermissionRequest, null);
+                 return null;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>ListEndpointsByPlatformApplication</code> action lists the
-     * endpoints and endpoint attributes for devices in a supported push
-     * notification service, such as GCM and APNS. The results for
-     * <code>ListEndpointsByPlatformApplication</code> are paginated and
+     * Lists the endpoints and endpoint attributes for devices in a
+     * supported push notification service, such as GCM and APNS. The results
+     * for <code>ListEndpointsByPlatformApplication</code> are paginated and
      * return a limited list of endpoints, up to 100. If additional records
      * are available after the first page results, then a NextToken string
      * will be returned. To receive the next page, you call
      * <code>ListEndpointsByPlatformApplication</code> again using the
      * NextToken string received from the previous call. When there are no
      * more records to return, NextToken will be null. For more information,
-     * see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param listEndpointsByPlatformApplicationRequest Container for the
@@ -2132,25 +2137,24 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<ListEndpointsByPlatformApplicationResult>() {
             public ListEndpointsByPlatformApplicationResult call() throws Exception {
                 return listEndpointsByPlatformApplication(listEndpointsByPlatformApplicationRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>ListEndpointsByPlatformApplication</code> action lists the
-     * endpoints and endpoint attributes for devices in a supported push
-     * notification service, such as GCM and APNS. The results for
-     * <code>ListEndpointsByPlatformApplication</code> are paginated and
+     * Lists the endpoints and endpoint attributes for devices in a
+     * supported push notification service, such as GCM and APNS. The results
+     * for <code>ListEndpointsByPlatformApplication</code> are paginated and
      * return a limited list of endpoints, up to 100. If additional records
      * are available after the first page results, then a NextToken string
      * will be returned. To receive the next page, you call
      * <code>ListEndpointsByPlatformApplication</code> again using the
      * NextToken string received from the previous call. When there are no
      * more records to return, NextToken will be null. For more information,
-     * see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">
-     * Using Amazon SNS Mobile Push Notifications </a> .
+     * see
+     * <a href="http://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html"> Using Amazon SNS Mobile Push Notifications </a>
+     * .
      * </p>
      *
      * @param listEndpointsByPlatformApplicationRequest Container for the
@@ -2180,25 +2184,24 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListEndpointsByPlatformApplicationResult>() {
             public ListEndpointsByPlatformApplicationResult call() throws Exception {
-                ListEndpointsByPlatformApplicationResult result;
+              ListEndpointsByPlatformApplicationResult result;
                 try {
-                    result = listEndpointsByPlatformApplication(listEndpointsByPlatformApplicationRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listEndpointsByPlatformApplicationRequest, result);
-                   return result;
-            }
-        });
+                result = listEndpointsByPlatformApplication(listEndpointsByPlatformApplicationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listEndpointsByPlatformApplicationRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>ListSubscriptionsByTopic</code> action returns a list of the
-     * subscriptions to a specific topic. Each call returns a limited list of
-     * subscriptions, up to 100. If there are more subscriptions, a
-     * <code>NextToken</code> is also returned. Use the
+     * Returns a list of the subscriptions to a specific topic. Each call
+     * returns a limited list of subscriptions, up to 100. If there are more
+     * subscriptions, a <code>NextToken</code> is also returned. Use the
      * <code>NextToken</code> parameter in a new
      * <code>ListSubscriptionsByTopic</code> call to get further results.
      * </p>
@@ -2224,16 +2227,15 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<ListSubscriptionsByTopicResult>() {
             public ListSubscriptionsByTopicResult call() throws Exception {
                 return listSubscriptionsByTopic(listSubscriptionsByTopicRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>ListSubscriptionsByTopic</code> action returns a list of the
-     * subscriptions to a specific topic. Each call returns a limited list of
-     * subscriptions, up to 100. If there are more subscriptions, a
-     * <code>NextToken</code> is also returned. Use the
+     * Returns a list of the subscriptions to a specific topic. Each call
+     * returns a limited list of subscriptions, up to 100. If there are more
+     * subscriptions, a <code>NextToken</code> is also returned. Use the
      * <code>NextToken</code> parameter in a new
      * <code>ListSubscriptionsByTopic</code> call to get further results.
      * </p>
@@ -2264,27 +2266,26 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<ListSubscriptionsByTopicResult>() {
             public ListSubscriptionsByTopicResult call() throws Exception {
-                ListSubscriptionsByTopicResult result;
+              ListSubscriptionsByTopicResult result;
                 try {
-                    result = listSubscriptionsByTopic(listSubscriptionsByTopicRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(listSubscriptionsByTopicRequest, result);
-                   return result;
-            }
-        });
+                result = listSubscriptionsByTopic(listSubscriptionsByTopicRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listSubscriptionsByTopicRequest, result);
+                 return result;
+        }
+    });
     }
     
     /**
      * <p>
-     * The <code>Publish</code> action sends a message to all of a topic's
-     * subscribed endpoints. When a <code>messageId</code> is returned, the
-     * message has been saved and Amazon SNS will attempt to deliver it to
-     * the topic's subscribers shortly. The format of the outgoing message to
-     * each subscribed endpoint depends on the notification protocol
-     * selected.
+     * Sends a message to all of a topic's subscribed endpoints. When a
+     * <code>messageId</code> is returned, the message has been saved and
+     * Amazon SNS will attempt to deliver it to the topic's subscribers
+     * shortly. The format of the outgoing message to each subscribed
+     * endpoint depends on the notification protocol selected.
      * </p>
      * <p>
      * To use the <code>Publish</code> action for sending a message to a
@@ -2315,18 +2316,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
         return executorService.submit(new Callable<PublishResult>() {
             public PublishResult call() throws Exception {
                 return publish(publishRequest);
-            }
-        });
+        }
+    });
     }
 
     /**
      * <p>
-     * The <code>Publish</code> action sends a message to all of a topic's
-     * subscribed endpoints. When a <code>messageId</code> is returned, the
-     * message has been saved and Amazon SNS will attempt to deliver it to
-     * the topic's subscribers shortly. The format of the outgoing message to
-     * each subscribed endpoint depends on the notification protocol
-     * selected.
+     * Sends a message to all of a topic's subscribed endpoints. When a
+     * <code>messageId</code> is returned, the message has been saved and
+     * Amazon SNS will attempt to deliver it to the topic's subscribers
+     * shortly. The format of the outgoing message to each subscribed
+     * endpoint depends on the notification protocol selected.
      * </p>
      * <p>
      * To use the <code>Publish</code> action for sending a message to a
@@ -2362,17 +2362,17 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<PublishResult>() {
             public PublishResult call() throws Exception {
-                PublishResult result;
+              PublishResult result;
                 try {
-                    result = publish(publishRequest);
-                } catch (Exception ex) {
-                    asyncHandler.onError(ex);
-                    throw ex;
-                }
-                asyncHandler.onSuccess(publishRequest, result);
-                   return result;
-            }
-        });
+                result = publish(publishRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(publishRequest, result);
+                 return result;
+        }
+    });
     }
     
 }

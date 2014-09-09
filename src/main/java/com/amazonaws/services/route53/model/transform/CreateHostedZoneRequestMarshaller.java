@@ -14,6 +14,8 @@
  */
 package com.amazonaws.services.route53.model.transform;
 
+import static com.amazonaws.util.StringUtils.UTF8;
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class CreateHostedZoneRequestMarshaller implements Marshaller<Request<Cre
         Request<CreateHostedZoneRequest> request = new DefaultRequest<CreateHostedZoneRequest>(createHostedZoneRequest, "AmazonRoute53");
         request.setHttpMethod(HttpMethodName.POST);
 
-        String uriResourcePath = "/2012-12-12/hostedzone"; 
+        String uriResourcePath = "/2013-04-01/hostedzone"; 
 
         if (uriResourcePath.contains("?")) {
             String queryString = uriResourcePath.substring(uriResourcePath.indexOf("?") + 1);
@@ -62,7 +64,7 @@ public class CreateHostedZoneRequestMarshaller implements Marshaller<Request<Cre
         request.setResourcePath(uriResourcePath);
 
             StringWriter stringWriter = new StringWriter();
-            XMLWriter xmlWriter = new XMLWriter(stringWriter, "https://route53.amazonaws.com/doc/2012-12-12/");
+            XMLWriter xmlWriter = new XMLWriter(stringWriter, "https://route53.amazonaws.com/doc/2013-04-01/");
 
             xmlWriter.startElement("CreateHostedZoneRequest");
                     if (createHostedZoneRequest.getName() != null) {
@@ -86,7 +88,7 @@ public class CreateHostedZoneRequestMarshaller implements Marshaller<Request<Cre
 
             try {
                 request.setContent(new StringInputStream(stringWriter.getBuffer().toString()));
-                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes("UTF-8").length));
+                request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes(UTF8).length));
                 request.addHeader("Content-Type", "application/xml");
             } catch (UnsupportedEncodingException e) {
                 throw new AmazonClientException("Unable to marshall request to XML", e);

@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A complex type that contains an optional comment about your hosted zone. If you don't want to specify a comment, you can omit the
- * <code>HostedZoneConfig</code> and <code>Comment</code> elements from the XML document.
+ * A complex type that contains an optional comment about your hosted
+ * zone. If you don't want to specify a comment, you can omit the
+ * <code>HostedZoneConfig</code> and <code>Comment</code> elements from
+ * the XML document.
  * </p>
  */
 public class HostedZoneConfig implements Serializable {
@@ -86,7 +88,7 @@ public class HostedZoneConfig implements Serializable {
      *         specify a comment, you can omit the <code>HostedZoneConfig</code> and
      *         <code>Comment</code> elements from the XML document.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HostedZoneConfig withComment(String comment) {

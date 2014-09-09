@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides ownership and status information for an Amazon EC2 security group.
+ * Provides ownership and status information for an Amazon EC2 security
+ * group.
  * </p>
  */
 public class EC2SecurityGroup implements Serializable {
@@ -69,7 +70,7 @@ public class EC2SecurityGroup implements Serializable {
      *
      * @param status The status of the Amazon EC2 security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EC2SecurityGroup withStatus(String status) {
@@ -102,7 +103,7 @@ public class EC2SecurityGroup implements Serializable {
      *
      * @param eC2SecurityGroupName The name of the Amazon EC2 security group.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EC2SecurityGroup withEC2SecurityGroupName(String eC2SecurityGroupName) {
@@ -135,7 +136,7 @@ public class EC2SecurityGroup implements Serializable {
      *
      * @param eC2SecurityGroupOwnerId The AWS account ID of the Amazon EC2 security group owner.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public EC2SecurityGroup withEC2SecurityGroupOwnerId(String eC2SecurityGroupOwnerId) {

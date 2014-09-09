@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the DescribeEvents action.
+ * Contains the result of a successful invocation of the DescribeEvents
+ * action.
  * </p>
  */
 public class DescribeEventsResult implements Serializable {
@@ -72,7 +73,7 @@ public class DescribeEventsResult implements Serializable {
      *         this parameter is specified, the response includes only records beyond
      *         the marker, up to the value specified by <code>MaxRecords</code> .
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsResult withMarker(String marker) {
@@ -115,7 +116,7 @@ public class DescribeEventsResult implements Serializable {
      *
      * @param events A list of <a>Event</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsResult withEvents(Event... events) {
@@ -133,7 +134,7 @@ public class DescribeEventsResult implements Serializable {
      *
      * @param events A list of <a>Event</a> instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsResult withEvents(java.util.Collection<Event> events) {

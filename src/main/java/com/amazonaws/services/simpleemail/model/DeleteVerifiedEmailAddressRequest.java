@@ -21,11 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#deleteVerifiedEmailAddress(DeleteVerifiedEmailAddressRequest) DeleteVerifiedEmailAddress operation}.
  * <p>
- * Deletes the specified email address from the list of verified addresses.
+ * Deletes the specified email address from the list of verified
+ * addresses.
  * </p>
  * <p>
- * <b>IMPORTANT:</b>The DeleteVerifiedEmailAddress action is deprecated as of the May 15, 2012 release of Domain Verification. The DeleteIdentity action
- * is now preferred.
+ * <b>IMPORTANT:</b>The DeleteVerifiedEmailAddress action is deprecated
+ * as of the May 15, 2012 release of Domain Verification. The
+ * DeleteIdentity action is now preferred.
  * </p>
  * <p>
  * This action is throttled at one request per second.
@@ -65,7 +67,7 @@ public class DeleteVerifiedEmailAddressRequest extends AmazonWebServiceRequest i
      *
      * @param emailAddress An email address to be removed from the list of verified addresses.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteVerifiedEmailAddressRequest withEmailAddress(String emailAddress) {

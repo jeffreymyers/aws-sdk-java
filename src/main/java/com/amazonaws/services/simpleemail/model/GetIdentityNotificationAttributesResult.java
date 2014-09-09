@@ -18,7 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Describes whether an identity has a bounce topic or complaint topic set, or feedback forwarding enabled.
+ * Describes whether an identity has Amazon Simple Notification Service
+ * (Amazon SNS) topics set for bounce, complaint, and/or delivery
+ * notifications, and specifies whether feedback forwarding is enabled
+ * for bounce and complaint notifications.
  * </p>
  */
 public class GetIdentityNotificationAttributesResult implements Serializable {
@@ -57,7 +60,7 @@ public class GetIdentityNotificationAttributesResult implements Serializable {
      *
      * @param notificationAttributes A map of Identity to IdentityNotificationAttributes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public GetIdentityNotificationAttributesResult withNotificationAttributes(java.util.Map<String,IdentityNotificationAttributes> notificationAttributes) {

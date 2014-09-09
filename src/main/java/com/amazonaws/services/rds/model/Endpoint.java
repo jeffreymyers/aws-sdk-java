@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This data type is used as a response element in the following actions:
+ * This data type is used as a response element in the following
+ * actions:
  * </p>
  * 
  * <ul>
@@ -71,7 +72,7 @@ public class Endpoint implements Serializable {
      *
      * @param address Specifies the DNS address of the DB instance.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Endpoint withAddress(String address) {
@@ -104,7 +105,7 @@ public class Endpoint implements Serializable {
      *
      * @param port Specifies the port that the database engine is listening on.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Endpoint withPort(Integer port) {

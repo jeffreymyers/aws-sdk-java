@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.support.AWSSupport#describeTrustedAdvisorCheckSummaries(DescribeTrustedAdvisorCheckSummariesRequest) DescribeTrustedAdvisorCheckSummaries operation}.
  * <p>
- * Returns the summaries of the results of the Trusted Advisor checks that have the specified check IDs. Check IDs can be obtained by calling
- * DescribeTrustedAdvisorChecks.
+ * Returns the summaries of the results of the Trusted Advisor checks
+ * that have the specified check IDs. Check IDs can be obtained by
+ * calling DescribeTrustedAdvisorChecks.
  * </p>
  * <p>
  * The response contains an array of TrustedAdvisorCheckSummary objects.
@@ -72,7 +73,7 @@ public class DescribeTrustedAdvisorCheckSummariesRequest extends AmazonWebServic
      *
      * @param checkIds The IDs of the Trusted Advisor checks.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTrustedAdvisorCheckSummariesRequest withCheckIds(String... checkIds) {
@@ -90,7 +91,7 @@ public class DescribeTrustedAdvisorCheckSummariesRequest extends AmazonWebServic
      *
      * @param checkIds The IDs of the Trusted Advisor checks.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeTrustedAdvisorCheckSummariesRequest withCheckIds(java.util.Collection<String> checkIds) {

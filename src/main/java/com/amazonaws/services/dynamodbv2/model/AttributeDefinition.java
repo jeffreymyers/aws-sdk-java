@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Represents an attribute for describing the key schema for the table and indexes.
+ * Represents an attribute for describing the key schema for the table
+ * and indexes.
  * </p>
  */
 public class AttributeDefinition implements Serializable {
@@ -105,7 +106,7 @@ public class AttributeDefinition implements Serializable {
      *
      * @param attributeName A name for the attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttributeDefinition withAttributeName(String attributeName) {
@@ -151,7 +152,7 @@ public class AttributeDefinition implements Serializable {
      *
      * @param attributeType The data type for the attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ScalarAttributeType
@@ -185,7 +186,7 @@ public class AttributeDefinition implements Serializable {
      *
      * @param attributeType The data type for the attribute.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ScalarAttributeType

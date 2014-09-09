@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the ListAccountAliases action.
+ * Contains the result of a successful invocation of the
+ * ListAccountAliases action.
  * </p>
  */
 public class ListAccountAliasesResult implements Serializable {
@@ -44,7 +45,7 @@ public class ListAccountAliasesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -83,7 +84,7 @@ public class ListAccountAliasesResult implements Serializable {
      *
      * @param accountAliases A list of aliases associated with the account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListAccountAliasesResult withAccountAliases(String... accountAliases) {
@@ -101,7 +102,7 @@ public class ListAccountAliasesResult implements Serializable {
      *
      * @param accountAliases A list of aliases associated with the account.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListAccountAliasesResult withAccountAliases(java.util.Collection<String> accountAliases) {
@@ -159,7 +160,7 @@ public class ListAccountAliasesResult implements Serializable {
      *         request using the <code>Marker</code> request parameter to retrieve
      *         more account aliases in the list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListAccountAliasesResult withIsTruncated(Boolean isTruncated) {
@@ -190,7 +191,7 @@ public class ListAccountAliasesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -209,7 +210,7 @@ public class ListAccountAliasesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
@@ -230,14 +231,14 @@ public class ListAccountAliasesResult implements Serializable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this only when paginating results, and only in a subsequent
      *         request after you've received a response where the results are
      *         truncated. Set it to the value of the <code>Marker</code> element in
      *         the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListAccountAliasesResult withMarker(String marker) {

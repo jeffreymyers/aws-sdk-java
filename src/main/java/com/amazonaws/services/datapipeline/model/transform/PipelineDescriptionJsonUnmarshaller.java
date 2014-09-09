@@ -37,7 +37,7 @@ public class PipelineDescriptionJsonUnmarshaller implements Unmarshaller<Pipelin
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -54,6 +54,7 @@ public class PipelineDescriptionJsonUnmarshaller implements Unmarshaller<Pipelin
                     pipelineDescription.setName(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("fields", targetDepth)) {
+                    context.nextToken();
                     pipelineDescription.setFields(new ListUnmarshaller<Field>(FieldJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("description", targetDepth)) {

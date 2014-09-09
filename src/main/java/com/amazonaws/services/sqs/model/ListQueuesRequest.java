@@ -21,7 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#listQueues(ListQueuesRequest) ListQueues operation}.
  * <p>
- * Returns a list of your queues.
+ * Returns a list of your queues. The maximum number of queues that can
+ * be returned is 1000. If you specify a value for the optional
+ * <code>QueueNamePrefix</code> parameter, only queues with a name
+ * beginning with the specified value are returned.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#listQueues(ListQueuesRequest)
@@ -84,7 +87,7 @@ public class ListQueuesRequest extends AmazonWebServiceRequest implements Serial
      * @param queueNamePrefix A string to use for filtering the list results. Only those queues
      *         whose name begins with the specified string are returned.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListQueuesRequest withQueueNamePrefix(String queueNamePrefix) {

@@ -21,8 +21,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheSecurityGroups(DescribeCacheSecurityGroupsRequest) DescribeCacheSecurityGroups operation}.
  * <p>
- * The <i>DescribeCacheSecurityGroups</i> operation returns a list of cache security group descriptions. If a cache security group name is specified, the
- * list will contain only the description of that group.
+ * The <i>DescribeCacheSecurityGroups</i> operation returns a list of
+ * cache security group descriptions. If a cache security group name is
+ * specified, the list will contain only the description of that group.
  * </p>
  *
  * @see com.amazonaws.services.elasticache.AmazonElastiCache#describeCacheSecurityGroups(DescribeCacheSecurityGroupsRequest)
@@ -93,7 +94,7 @@ public class DescribeCacheSecurityGroupsRequest extends AmazonWebServiceRequest 
      *
      * @param cacheSecurityGroupName The name of the cache security group to return details for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheSecurityGroupsRequest withCacheSecurityGroupName(String cacheSecurityGroupName) {
@@ -144,7 +145,7 @@ public class DescribeCacheSecurityGroupsRequest extends AmazonWebServiceRequest 
      *         marker is included in the response so that the remaining results can
      *         be retrieved. <p>Default: 100<p>Constraints: minimum 20; maximum 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheSecurityGroupsRequest withMaxRecords(Integer maxRecords) {
@@ -195,7 +196,7 @@ public class DescribeCacheSecurityGroupsRequest extends AmazonWebServiceRequest 
      *         specified, the response includes only records beyond the marker, up to
      *         the value specified by <i>MaxRecords</i>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeCacheSecurityGroupsRequest withMarker(String marker) {

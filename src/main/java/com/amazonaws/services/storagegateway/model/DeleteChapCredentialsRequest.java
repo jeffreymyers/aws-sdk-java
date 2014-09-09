@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#deleteChapCredentials(DeleteChapCredentialsRequest) DeleteChapCredentials operation}.
  * <p>
- * This operation deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target and initiator pair.
+ * This operation deletes Challenge-Handshake Authentication Protocol
+ * (CHAP) credentials for a specified iSCSI target and initiator pair.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#deleteChapCredentials(DeleteChapCredentialsRequest)
@@ -93,7 +94,7 @@ public class DeleteChapCredentialsRequest extends AmazonWebServiceRequest implem
      *         <a>DescribeStorediSCSIVolumes</a> operation to return to retrieve the
      *         TargetARN for specified VolumeARN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteChapCredentialsRequest withTargetARN(String targetARN) {
@@ -138,7 +139,7 @@ public class DeleteChapCredentialsRequest extends AmazonWebServiceRequest implem
      *
      * @param initiatorName The iSCSI initiator that connects to the target.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteChapCredentialsRequest withInitiatorName(String initiatorName) {

@@ -37,7 +37,7 @@ public class CaseDetailsJsonUnmarshaller implements Unmarshaller<CaseDetails, Js
         String currentParentElement = context.getCurrentParentElement();
         int targetDepth = originalDepth + 1;
 
-        JsonToken token = context.currentToken;
+        JsonToken token = context.getCurrentToken();
         if (token == null) token = context.nextToken();
         if (token == VALUE_NULL) return null;
 
@@ -86,6 +86,7 @@ public class CaseDetailsJsonUnmarshaller implements Unmarshaller<CaseDetails, Js
                     caseDetails.setRecentCommunications(RecentCaseCommunicationsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("ccEmailAddresses", targetDepth)) {
+                    context.nextToken();
                     caseDetails.setCcEmailAddresses(new ListUnmarshaller<String>(StringJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("language", targetDepth)) {

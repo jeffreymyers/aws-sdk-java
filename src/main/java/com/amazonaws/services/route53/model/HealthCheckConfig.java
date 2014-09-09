@@ -34,7 +34,9 @@ public class HealthCheckConfig implements Serializable {
 
     /**
      * Port on which connection will be opened to the instance to health
-     * check. For HTTP this defaults to 80 if the port is not specified.
+     * check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     * not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     * the port is not specified.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 65535<br/>
@@ -42,18 +44,18 @@ public class HealthCheckConfig implements Serializable {
     private Integer port;
 
     /**
-     * The type of health check to be performed. Currently supported
-     * protocols are TCP and HTTP.
+     * The type of health check to be performed. Currently supported types
+     * are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>HTTP, TCP
+     * <b>Allowed Values: </b>HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP
      */
     private String type;
 
     /**
-     * Path to ping on the instance to check the health. Required only for
-     * HTTP health checks, HTTP request is issued to the instance on the
-     * given port and path.
+     * Path to ping on the instance to check the health. Required for HTTP,
+     * HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     * is issued to the instance on the given port and path.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
@@ -67,6 +69,39 @@ public class HealthCheckConfig implements Serializable {
      * <b>Length: </b>0 - 255<br/>
      */
     private String fullyQualifiedDomainName;
+
+    /**
+     * A string to search for in the body of a health check response.
+     * Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 255<br/>
+     */
+    private String searchString;
+
+    /**
+     * The number of seconds between the time that Route 53 gets a response
+     * from your endpoint and the time that it sends the next health-check
+     * request. <p>Each Route 53 health checker makes requests at this
+     * interval. Valid values are 10 and 30. The default value is 30.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>10 - 30<br/>
+     */
+    private Integer requestInterval;
+
+    /**
+     * The number of consecutive health checks that an endpoint must pass or
+     * fail for Route 53 to change the current status of the endpoint from
+     * unhealthy to healthy or vice versa. <p>Valid values are integers
+     * between 1 and 10. For more information, see "How Amazon Route 53
+     * Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     * Developer Guide.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 10<br/>
+     */
+    private Integer failureThreshold;
 
     /**
      * IP Address of the instance being checked.
@@ -105,7 +140,7 @@ public class HealthCheckConfig implements Serializable {
      *
      * @param iPAddress IP Address of the instance being checked.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HealthCheckConfig withIPAddress(String iPAddress) {
@@ -115,13 +150,17 @@ public class HealthCheckConfig implements Serializable {
 
     /**
      * Port on which connection will be opened to the instance to health
-     * check. For HTTP this defaults to 80 if the port is not specified.
+     * check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     * not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     * the port is not specified.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 65535<br/>
      *
      * @return Port on which connection will be opened to the instance to health
-     *         check. For HTTP this defaults to 80 if the port is not specified.
+     *         check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     *         not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     *         the port is not specified.
      */
     public Integer getPort() {
         return port;
@@ -129,13 +168,17 @@ public class HealthCheckConfig implements Serializable {
     
     /**
      * Port on which connection will be opened to the instance to health
-     * check. For HTTP this defaults to 80 if the port is not specified.
+     * check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     * not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     * the port is not specified.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 65535<br/>
      *
      * @param port Port on which connection will be opened to the instance to health
-     *         check. For HTTP this defaults to 80 if the port is not specified.
+     *         check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     *         not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     *         the port is not specified.
      */
     public void setPort(Integer port) {
         this.port = port;
@@ -143,7 +186,9 @@ public class HealthCheckConfig implements Serializable {
     
     /**
      * Port on which connection will be opened to the instance to health
-     * check. For HTTP this defaults to 80 if the port is not specified.
+     * check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     * not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     * the port is not specified.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -151,9 +196,11 @@ public class HealthCheckConfig implements Serializable {
      * <b>Range: </b>1 - 65535<br/>
      *
      * @param port Port on which connection will be opened to the instance to health
-     *         check. For HTTP this defaults to 80 if the port is not specified.
+     *         check. For HTTP and HTTP_STR_MATCH this defaults to 80 if the port is
+     *         not specified. For HTTPS and HTTPS_STR_MATCH this defaults to 443 if
+     *         the port is not specified.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HealthCheckConfig withPort(Integer port) {
@@ -162,14 +209,14 @@ public class HealthCheckConfig implements Serializable {
     }
 
     /**
-     * The type of health check to be performed. Currently supported
-     * protocols are TCP and HTTP.
+     * The type of health check to be performed. Currently supported types
+     * are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>HTTP, TCP
+     * <b>Allowed Values: </b>HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP
      *
-     * @return The type of health check to be performed. Currently supported
-     *         protocols are TCP and HTTP.
+     * @return The type of health check to be performed. Currently supported types
+     *         are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      *
      * @see HealthCheckType
      */
@@ -178,14 +225,14 @@ public class HealthCheckConfig implements Serializable {
     }
     
     /**
-     * The type of health check to be performed. Currently supported
-     * protocols are TCP and HTTP.
+     * The type of health check to be performed. Currently supported types
+     * are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>HTTP, TCP
+     * <b>Allowed Values: </b>HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP
      *
-     * @param type The type of health check to be performed. Currently supported
-     *         protocols are TCP and HTTP.
+     * @param type The type of health check to be performed. Currently supported types
+     *         are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      *
      * @see HealthCheckType
      */
@@ -194,18 +241,18 @@ public class HealthCheckConfig implements Serializable {
     }
     
     /**
-     * The type of health check to be performed. Currently supported
-     * protocols are TCP and HTTP.
+     * The type of health check to be performed. Currently supported types
+     * are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>HTTP, TCP
+     * <b>Allowed Values: </b>HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP
      *
-     * @param type The type of health check to be performed. Currently supported
-     *         protocols are TCP and HTTP.
+     * @param type The type of health check to be performed. Currently supported types
+     *         are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see HealthCheckType
@@ -216,14 +263,14 @@ public class HealthCheckConfig implements Serializable {
     }
 
     /**
-     * The type of health check to be performed. Currently supported
-     * protocols are TCP and HTTP.
+     * The type of health check to be performed. Currently supported types
+     * are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>HTTP, TCP
+     * <b>Allowed Values: </b>HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP
      *
-     * @param type The type of health check to be performed. Currently supported
-     *         protocols are TCP and HTTP.
+     * @param type The type of health check to be performed. Currently supported types
+     *         are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      *
      * @see HealthCheckType
      */
@@ -232,18 +279,18 @@ public class HealthCheckConfig implements Serializable {
     }
     
     /**
-     * The type of health check to be performed. Currently supported
-     * protocols are TCP and HTTP.
+     * The type of health check to be performed. Currently supported types
+     * are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>HTTP, TCP
+     * <b>Allowed Values: </b>HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP
      *
-     * @param type The type of health check to be performed. Currently supported
-     *         protocols are TCP and HTTP.
+     * @param type The type of health check to be performed. Currently supported types
+     *         are TCP, HTTP, HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see HealthCheckType
@@ -254,52 +301,52 @@ public class HealthCheckConfig implements Serializable {
     }
 
     /**
-     * Path to ping on the instance to check the health. Required only for
-     * HTTP health checks, HTTP request is issued to the instance on the
-     * given port and path.
+     * Path to ping on the instance to check the health. Required for HTTP,
+     * HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     * is issued to the instance on the given port and path.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
      *
-     * @return Path to ping on the instance to check the health. Required only for
-     *         HTTP health checks, HTTP request is issued to the instance on the
-     *         given port and path.
+     * @return Path to ping on the instance to check the health. Required for HTTP,
+     *         HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     *         is issued to the instance on the given port and path.
      */
     public String getResourcePath() {
         return resourcePath;
     }
     
     /**
-     * Path to ping on the instance to check the health. Required only for
-     * HTTP health checks, HTTP request is issued to the instance on the
-     * given port and path.
+     * Path to ping on the instance to check the health. Required for HTTP,
+     * HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     * is issued to the instance on the given port and path.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
      *
-     * @param resourcePath Path to ping on the instance to check the health. Required only for
-     *         HTTP health checks, HTTP request is issued to the instance on the
-     *         given port and path.
+     * @param resourcePath Path to ping on the instance to check the health. Required for HTTP,
+     *         HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     *         is issued to the instance on the given port and path.
      */
     public void setResourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
     }
     
     /**
-     * Path to ping on the instance to check the health. Required only for
-     * HTTP health checks, HTTP request is issued to the instance on the
-     * given port and path.
+     * Path to ping on the instance to check the health. Required for HTTP,
+     * HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     * is issued to the instance on the given port and path.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
      *
-     * @param resourcePath Path to ping on the instance to check the health. Required only for
-     *         HTTP health checks, HTTP request is issued to the instance on the
-     *         given port and path.
+     * @param resourcePath Path to ping on the instance to check the health. Required for HTTP,
+     *         HTTPS, HTTP_STR_MATCH, and HTTPS_STR_MATCH health checks, HTTP request
+     *         is issued to the instance on the given port and path.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HealthCheckConfig withResourcePath(String resourcePath) {
@@ -341,11 +388,191 @@ public class HealthCheckConfig implements Serializable {
      *
      * @param fullyQualifiedDomainName Fully qualified domain name of the instance to be health checked.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public HealthCheckConfig withFullyQualifiedDomainName(String fullyQualifiedDomainName) {
         this.fullyQualifiedDomainName = fullyQualifiedDomainName;
+        return this;
+    }
+
+    /**
+     * A string to search for in the body of a health check response.
+     * Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 255<br/>
+     *
+     * @return A string to search for in the body of a health check response.
+     *         Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     */
+    public String getSearchString() {
+        return searchString;
+    }
+    
+    /**
+     * A string to search for in the body of a health check response.
+     * Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 255<br/>
+     *
+     * @param searchString A string to search for in the body of a health check response.
+     *         Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     */
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
+    
+    /**
+     * A string to search for in the body of a health check response.
+     * Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 255<br/>
+     *
+     * @param searchString A string to search for in the body of a health check response.
+     *         Required for HTTP_STR_MATCH and HTTPS_STR_MATCH health checks.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public HealthCheckConfig withSearchString(String searchString) {
+        this.searchString = searchString;
+        return this;
+    }
+
+    /**
+     * The number of seconds between the time that Route 53 gets a response
+     * from your endpoint and the time that it sends the next health-check
+     * request. <p>Each Route 53 health checker makes requests at this
+     * interval. Valid values are 10 and 30. The default value is 30.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>10 - 30<br/>
+     *
+     * @return The number of seconds between the time that Route 53 gets a response
+     *         from your endpoint and the time that it sends the next health-check
+     *         request. <p>Each Route 53 health checker makes requests at this
+     *         interval. Valid values are 10 and 30. The default value is 30.
+     */
+    public Integer getRequestInterval() {
+        return requestInterval;
+    }
+    
+    /**
+     * The number of seconds between the time that Route 53 gets a response
+     * from your endpoint and the time that it sends the next health-check
+     * request. <p>Each Route 53 health checker makes requests at this
+     * interval. Valid values are 10 and 30. The default value is 30.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>10 - 30<br/>
+     *
+     * @param requestInterval The number of seconds between the time that Route 53 gets a response
+     *         from your endpoint and the time that it sends the next health-check
+     *         request. <p>Each Route 53 health checker makes requests at this
+     *         interval. Valid values are 10 and 30. The default value is 30.
+     */
+    public void setRequestInterval(Integer requestInterval) {
+        this.requestInterval = requestInterval;
+    }
+    
+    /**
+     * The number of seconds between the time that Route 53 gets a response
+     * from your endpoint and the time that it sends the next health-check
+     * request. <p>Each Route 53 health checker makes requests at this
+     * interval. Valid values are 10 and 30. The default value is 30.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>10 - 30<br/>
+     *
+     * @param requestInterval The number of seconds between the time that Route 53 gets a response
+     *         from your endpoint and the time that it sends the next health-check
+     *         request. <p>Each Route 53 health checker makes requests at this
+     *         interval. Valid values are 10 and 30. The default value is 30.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public HealthCheckConfig withRequestInterval(Integer requestInterval) {
+        this.requestInterval = requestInterval;
+        return this;
+    }
+
+    /**
+     * The number of consecutive health checks that an endpoint must pass or
+     * fail for Route 53 to change the current status of the endpoint from
+     * unhealthy to healthy or vice versa. <p>Valid values are integers
+     * between 1 and 10. For more information, see "How Amazon Route 53
+     * Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     * Developer Guide.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 10<br/>
+     *
+     * @return The number of consecutive health checks that an endpoint must pass or
+     *         fail for Route 53 to change the current status of the endpoint from
+     *         unhealthy to healthy or vice versa. <p>Valid values are integers
+     *         between 1 and 10. For more information, see "How Amazon Route 53
+     *         Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     *         Developer Guide.
+     */
+    public Integer getFailureThreshold() {
+        return failureThreshold;
+    }
+    
+    /**
+     * The number of consecutive health checks that an endpoint must pass or
+     * fail for Route 53 to change the current status of the endpoint from
+     * unhealthy to healthy or vice versa. <p>Valid values are integers
+     * between 1 and 10. For more information, see "How Amazon Route 53
+     * Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     * Developer Guide.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 10<br/>
+     *
+     * @param failureThreshold The number of consecutive health checks that an endpoint must pass or
+     *         fail for Route 53 to change the current status of the endpoint from
+     *         unhealthy to healthy or vice versa. <p>Valid values are integers
+     *         between 1 and 10. For more information, see "How Amazon Route 53
+     *         Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     *         Developer Guide.
+     */
+    public void setFailureThreshold(Integer failureThreshold) {
+        this.failureThreshold = failureThreshold;
+    }
+    
+    /**
+     * The number of consecutive health checks that an endpoint must pass or
+     * fail for Route 53 to change the current status of the endpoint from
+     * unhealthy to healthy or vice versa. <p>Valid values are integers
+     * between 1 and 10. For more information, see "How Amazon Route 53
+     * Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     * Developer Guide.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 10<br/>
+     *
+     * @param failureThreshold The number of consecutive health checks that an endpoint must pass or
+     *         fail for Route 53 to change the current status of the endpoint from
+     *         unhealthy to healthy or vice versa. <p>Valid values are integers
+     *         between 1 and 10. For more information, see "How Amazon Route 53
+     *         Determines Whether an Endpoint Is Healthy" in the Amazon Route 53
+     *         Developer Guide.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public HealthCheckConfig withFailureThreshold(Integer failureThreshold) {
+        this.failureThreshold = failureThreshold;
         return this;
     }
 
@@ -365,7 +592,10 @@ public class HealthCheckConfig implements Serializable {
         if (getPort() != null) sb.append("Port: " + getPort() + ",");
         if (getType() != null) sb.append("Type: " + getType() + ",");
         if (getResourcePath() != null) sb.append("ResourcePath: " + getResourcePath() + ",");
-        if (getFullyQualifiedDomainName() != null) sb.append("FullyQualifiedDomainName: " + getFullyQualifiedDomainName() );
+        if (getFullyQualifiedDomainName() != null) sb.append("FullyQualifiedDomainName: " + getFullyQualifiedDomainName() + ",");
+        if (getSearchString() != null) sb.append("SearchString: " + getSearchString() + ",");
+        if (getRequestInterval() != null) sb.append("RequestInterval: " + getRequestInterval() + ",");
+        if (getFailureThreshold() != null) sb.append("FailureThreshold: " + getFailureThreshold() );
         sb.append("}");
         return sb.toString();
     }
@@ -380,6 +610,9 @@ public class HealthCheckConfig implements Serializable {
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode()); 
         hashCode = prime * hashCode + ((getResourcePath() == null) ? 0 : getResourcePath().hashCode()); 
         hashCode = prime * hashCode + ((getFullyQualifiedDomainName() == null) ? 0 : getFullyQualifiedDomainName().hashCode()); 
+        hashCode = prime * hashCode + ((getSearchString() == null) ? 0 : getSearchString().hashCode()); 
+        hashCode = prime * hashCode + ((getRequestInterval() == null) ? 0 : getRequestInterval().hashCode()); 
+        hashCode = prime * hashCode + ((getFailureThreshold() == null) ? 0 : getFailureThreshold().hashCode()); 
         return hashCode;
     }
     
@@ -401,6 +634,12 @@ public class HealthCheckConfig implements Serializable {
         if (other.getResourcePath() != null && other.getResourcePath().equals(this.getResourcePath()) == false) return false; 
         if (other.getFullyQualifiedDomainName() == null ^ this.getFullyQualifiedDomainName() == null) return false;
         if (other.getFullyQualifiedDomainName() != null && other.getFullyQualifiedDomainName().equals(this.getFullyQualifiedDomainName()) == false) return false; 
+        if (other.getSearchString() == null ^ this.getSearchString() == null) return false;
+        if (other.getSearchString() != null && other.getSearchString().equals(this.getSearchString()) == false) return false; 
+        if (other.getRequestInterval() == null ^ this.getRequestInterval() == null) return false;
+        if (other.getRequestInterval() != null && other.getRequestInterval().equals(this.getRequestInterval()) == false) return false; 
+        if (other.getFailureThreshold() == null ^ this.getFailureThreshold() == null) return false;
+        if (other.getFailureThreshold() != null && other.getFailureThreshold().equals(this.getFailureThreshold()) == false) return false; 
         return true;
     }
     

@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the counts of open tasks, child workflow executions and timers for a workflow execution.
+ * Contains the counts of open tasks, child workflow executions and
+ * timers for a workflow execution.
  * </p>
  */
 public class WorkflowExecutionOpenCounts implements Serializable {
@@ -91,7 +92,7 @@ public class WorkflowExecutionOpenCounts implements Serializable {
      *
      * @param openActivityTasks The count of activity tasks whose status is OPEN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionOpenCounts withOpenActivityTasks(Integer openActivityTasks) {
@@ -139,7 +140,7 @@ public class WorkflowExecutionOpenCounts implements Serializable {
      * @param openDecisionTasks The count of decision tasks whose status is OPEN. A workflow execution
      *         can have at most one open decision task.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionOpenCounts withOpenDecisionTasks(Integer openDecisionTasks) {
@@ -187,7 +188,7 @@ public class WorkflowExecutionOpenCounts implements Serializable {
      * @param openTimers The count of timers started by this workflow execution that have not
      *         fired yet.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionOpenCounts withOpenTimers(Integer openTimers) {
@@ -229,7 +230,7 @@ public class WorkflowExecutionOpenCounts implements Serializable {
      *
      * @param openChildWorkflowExecutions The count of child workflow executions whose status is OPEN.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionOpenCounts withOpenChildWorkflowExecutions(Integer openChildWorkflowExecutions) {

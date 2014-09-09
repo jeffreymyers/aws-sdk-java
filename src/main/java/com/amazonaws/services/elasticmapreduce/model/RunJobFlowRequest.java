@@ -21,27 +21,37 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#runJobFlow(RunJobFlowRequest) RunJobFlow operation}.
  * <p>
- * RunJobFlow creates and starts running a new job flow. The job flow will run the steps specified. Once the job flow completes, the cluster is stopped
- * and the HDFS partition is lost. To prevent loss of data, configure the last step of the job flow to store results in Amazon S3. If the
- * JobFlowInstancesConfig <code>KeepJobFlowAliveWhenNoSteps</code> parameter is set to <code>TRUE</code> , the job flow will transition to the WAITING
- * state rather than shutting down once the steps have completed.
+ * RunJobFlow creates and starts running a new job flow. The job flow
+ * will run the steps specified. Once the job flow completes, the cluster
+ * is stopped and the HDFS partition is lost. To prevent loss of data,
+ * configure the last step of the job flow to store results in Amazon S3.
+ * If the JobFlowInstancesConfig <code>KeepJobFlowAliveWhenNoSteps</code>
+ * parameter is set to <code>TRUE</code> , the job flow will transition
+ * to the WAITING state rather than shutting down once the steps have
+ * completed.
  * </p>
  * <p>
- * For additional protection, you can set the JobFlowInstancesConfig <code>TerminationProtected</code> parameter to <code>TRUE</code> to lock the job
- * flow and prevent it from being terminated by API call, user intervention, or in the event of a job flow error.
+ * For additional protection, you can set the JobFlowInstancesConfig
+ * <code>TerminationProtected</code> parameter to <code>TRUE</code> to
+ * lock the job flow and prevent it from being terminated by API call,
+ * user intervention, or in the event of a job flow error.
  * </p>
  * <p>
  * A maximum of 256 steps are allowed in each job flow.
  * </p>
  * <p>
- * If your job flow is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps to process your data. You can bypass
- * the 256-step limitation in various ways, including using the SSH shell to connect to the master node and submitting queries directly to the software
- * running on the master node, such as Hive and Hadoop. For more information on how to do this, go to <a
- * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a> in the
- * <i>Amazon Elastic MapReduce Developer's Guide</i> .
+ * If your job flow is long-running (such as a Hive data warehouse) or
+ * complex, you may require more than 256 steps to process your data. You
+ * can bypass the 256-step limitation in various ways, including using
+ * the SSH shell to connect to the master node and submitting queries
+ * directly to the software running on the master node, such as Hive and
+ * Hadoop. For more information on how to do this, go to
+ * <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/AddMoreThan256Steps.html"> Add More than 256 Steps to a Job Flow </a>
+ * in the <i>Amazon Elastic MapReduce Developer's Guide</i> .
  * </p>
  * <p>
- * For long running job flows, we recommend that you periodically store your results.
+ * For long running job flows, we recommend that you periodically store
+ * your results.
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#runJobFlow(RunJobFlowRequest)
@@ -53,7 +63,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String name;
 
@@ -63,7 +73,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String logUri;
 
@@ -72,7 +82,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String additionalInfo;
 
@@ -92,7 +102,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String amiVersion;
 
@@ -157,9 +167,19 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String jobFlowRole;
+
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     */
+    private String serviceRole;
 
     /**
      * A list of tags to associate with a cluster and propagate to Amazon EC2
@@ -192,7 +212,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the job flow.
      */
@@ -205,7 +225,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param name The name of the job flow.
      */
@@ -220,11 +240,11 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param name The name of the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withName(String name) {
@@ -238,7 +258,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The location in Amazon S3 to write the log files of the job flow. If a
      *         value is not provided, logs are not created.
@@ -253,7 +273,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param logUri The location in Amazon S3 to write the log files of the job flow. If a
      *         value is not provided, logs are not created.
@@ -270,12 +290,12 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param logUri The location in Amazon S3 to write the log files of the job flow. If a
      *         value is not provided, logs are not created.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withLogUri(String logUri) {
@@ -288,7 +308,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return A JSON string for selecting additional features.
      */
@@ -301,7 +321,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param additionalInfo A JSON string for selecting additional features.
      */
@@ -316,11 +336,11 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param additionalInfo A JSON string for selecting additional features.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withAdditionalInfo(String additionalInfo) {
@@ -344,7 +364,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The version of the Amazon Machine Image (AMI) to use when launching
      *         Amazon EC2 instances in the job flow. The following values are valid:
@@ -379,7 +399,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param amiVersion The version of the Amazon Machine Image (AMI) to use when launching
      *         Amazon EC2 instances in the job flow. The following values are valid:
@@ -416,7 +436,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 256<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param amiVersion The version of the Amazon Machine Image (AMI) to use when launching
      *         Amazon EC2 instances in the job flow. The following values are valid:
@@ -431,7 +451,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *         Versions Supported in Elastic MapReduce</a> in the <i>Amazon Elastic
      *         MapReduce Developer's Guide.</i>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withAmiVersion(String amiVersion) {
@@ -470,7 +490,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * @param instances A specification of the number and type of Amazon EC2 instances on
      *         which to run the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withInstances(JobFlowInstancesConfig instances) {
@@ -513,7 +533,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *
      * @param steps A list of steps to be executed by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withSteps(StepConfig... steps) {
@@ -531,7 +551,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *
      * @param steps A list of steps to be executed by the job flow.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withSteps(java.util.Collection<StepConfig> steps) {
@@ -587,7 +607,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * @param bootstrapActions A list of bootstrap actions that will be run before Hadoop is started
      *         on the cluster nodes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withBootstrapActions(BootstrapActionConfig... bootstrapActions) {
@@ -607,7 +627,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * @param bootstrapActions A list of bootstrap actions that will be run before Hadoop is started
      *         on the cluster nodes.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withBootstrapActions(java.util.Collection<BootstrapActionConfig> bootstrapActions) {
@@ -693,7 +713,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *         Edition.</li> <li>"mapr-m5" - launch the job flow using MapR M5
      *         Edition.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withSupportedProducts(String... supportedProducts) {
@@ -723,7 +743,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *         Edition.</li> <li>"mapr-m5" - launch the job flow using MapR M5
      *         Edition.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withSupportedProducts(java.util.Collection<String> supportedProducts) {
@@ -833,7 +853,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *         "--edition,m3" or "--edition,m5" - launch the job flow using MapR M3
      *         or M5 Edition respectively.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withNewSupportedProducts(SupportedProductConfig... newSupportedProducts) {
@@ -871,7 +891,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *         "--edition,m3" or "--edition,m5" - launch the job flow using MapR M3
      *         or M5 Edition respectively.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withNewSupportedProducts(java.util.Collection<SupportedProductConfig> newSupportedProducts) {
@@ -941,7 +961,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      *         it is set to <code>false</code>, only the IAM user that created the
      *         job flow can view and manage it.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withVisibleToAllUsers(Boolean visibleToAllUsers) {
@@ -976,7 +996,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return An IAM role for the job flow. The EC2 instances of the job flow assume
      *         this role. The default role is <code>EMRJobflowDefault</code>. In
@@ -995,7 +1015,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowRole An IAM role for the job flow. The EC2 instances of the job flow assume
      *         this role. The default role is <code>EMRJobflowDefault</code>. In
@@ -1016,18 +1036,69 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10280<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param jobFlowRole An IAM role for the job flow. The EC2 instances of the job flow assume
      *         this role. The default role is <code>EMRJobflowDefault</code>. In
      *         order to use the default role, you must have already created it using
      *         the CLI.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withJobFlowRole(String jobFlowRole) {
         this.jobFlowRole = jobFlowRole;
+        return this;
+    }
+
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     *
+     * @return The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     */
+    public String getServiceRole() {
+        return serviceRole;
+    }
+    
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     *
+     * @param serviceRole The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     */
+    public void setServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
+    }
+    
+    /**
+     * The IAM role that will be assumed by the Amazon EMR service to access
+     * AWS resources on your behalf.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10280<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
+     *
+     * @param serviceRole The IAM role that will be assumed by the Amazon EMR service to access
+     *         AWS resources on your behalf.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public RunJobFlowRequest withServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
         return this;
     }
 
@@ -1072,7 +1143,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * @param tags A list of tags to associate with a cluster and propagate to Amazon EC2
      *         instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withTags(Tag... tags) {
@@ -1092,7 +1163,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
      * @param tags A list of tags to associate with a cluster and propagate to Amazon EC2
      *         instances.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RunJobFlowRequest withTags(java.util.Collection<Tag> tags) {
@@ -1130,6 +1201,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
         if (getNewSupportedProducts() != null) sb.append("NewSupportedProducts: " + getNewSupportedProducts() + ",");
         if (isVisibleToAllUsers() != null) sb.append("VisibleToAllUsers: " + isVisibleToAllUsers() + ",");
         if (getJobFlowRole() != null) sb.append("JobFlowRole: " + getJobFlowRole() + ",");
+        if (getServiceRole() != null) sb.append("ServiceRole: " + getServiceRole() + ",");
         if (getTags() != null) sb.append("Tags: " + getTags() );
         sb.append("}");
         return sb.toString();
@@ -1151,6 +1223,7 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
         hashCode = prime * hashCode + ((getNewSupportedProducts() == null) ? 0 : getNewSupportedProducts().hashCode()); 
         hashCode = prime * hashCode + ((isVisibleToAllUsers() == null) ? 0 : isVisibleToAllUsers().hashCode()); 
         hashCode = prime * hashCode + ((getJobFlowRole() == null) ? 0 : getJobFlowRole().hashCode()); 
+        hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode()); 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
         return hashCode;
     }
@@ -1185,6 +1258,8 @@ public class RunJobFlowRequest extends AmazonWebServiceRequest implements Serial
         if (other.isVisibleToAllUsers() != null && other.isVisibleToAllUsers().equals(this.isVisibleToAllUsers()) == false) return false; 
         if (other.getJobFlowRole() == null ^ this.getJobFlowRole() == null) return false;
         if (other.getJobFlowRole() != null && other.getJobFlowRole().equals(this.getJobFlowRole()) == false) return false; 
+        if (other.getServiceRole() == null ^ this.getServiceRole() == null) return false;
+        if (other.getServiceRole() != null && other.getServiceRole().equals(this.getServiceRole()) == false) return false; 
         if (other.getTags() == null ^ this.getTags() == null) return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false) return false; 
         return true;

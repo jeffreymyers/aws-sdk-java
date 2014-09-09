@@ -21,19 +21,29 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#describeJobFlows(DescribeJobFlowsRequest) DescribeJobFlows operation}.
  * <p>
- * DescribeJobFlows returns a list of job flows that match all of the supplied parameters. The parameters can include a list of job flow IDs, job flow
- * states, and restrictions on job flow creation date and time.
+ * This API is deprecated and will eventually be removed. We recommend
+ * you use ListClusters, DescribeCluster, ListSteps, ListInstanceGroups
+ * and ListBootstrapActions instead.
  * </p>
  * <p>
- * Regardless of supplied parameters, only job flows created within the last two months are returned.
+ * DescribeJobFlows returns a list of job flows that match all of the
+ * supplied parameters. The parameters can include a list of job flow
+ * IDs, job flow states, and restrictions on job flow creation date and
+ * time.
  * </p>
  * <p>
- * If no parameters are supplied, then job flows matching either of the following criteria are returned:
+ * Regardless of supplied parameters, only job flows created within the
+ * last two months are returned.
+ * </p>
+ * <p>
+ * If no parameters are supplied, then job flows matching either of the
+ * following criteria are returned:
  * </p>
  * 
  * <ul>
  * <li>Job flows created and completed in the last two weeks</li>
- * <li> Job flows created within the last two months that are in one of the following states: <code>RUNNING</code> ,
+ * <li> Job flows created within the last two months that are in one of
+ * the following states: <code>RUNNING</code> ,
  * <code>WAITING</code> ,
  * <code>SHUTTING_DOWN</code> ,
  * 
@@ -41,7 +51,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * 
  * </ul>
  * <p>
- * Amazon Elastic MapReduce can return a maximum of 512 job flow descriptions.
+ * Amazon Elastic MapReduce can return a maximum of 512 job flow
+ * descriptions.
  * </p>
  *
  * @see com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce#describeJobFlows(DescribeJobFlowsRequest)
@@ -111,7 +122,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param createdAfter Return only job flows created after this date and time.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withCreatedAfter(java.util.Date createdAfter) {
@@ -144,7 +155,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param createdBefore Return only job flows created before this date and time.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withCreatedBefore(java.util.Date createdBefore) {
@@ -187,7 +198,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param jobFlowIds Return only job flows whose job flow ID is contained in this list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withJobFlowIds(String... jobFlowIds) {
@@ -205,7 +216,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param jobFlowIds Return only job flows whose job flow ID is contained in this list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withJobFlowIds(java.util.Collection<String> jobFlowIds) {
@@ -255,7 +266,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param jobFlowStates Return only job flows whose state is contained in this list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withJobFlowStates(String... jobFlowStates) {
@@ -273,7 +284,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param jobFlowStates Return only job flows whose state is contained in this list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withJobFlowStates(java.util.Collection<String> jobFlowStates) {
@@ -295,7 +306,7 @@ public class DescribeJobFlowsRequest extends AmazonWebServiceRequest implements 
      *
      * @param jobFlowStates Return only job flows whose state is contained in this list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeJobFlowsRequest withJobFlowStates(JobFlowExecutionState... jobFlowStates) {

@@ -21,18 +21,24 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#uploadServerCertificate(UploadServerCertificateRequest) UploadServerCertificate operation}.
  * <p>
- * Uploads a server certificate entity for the AWS account. The server certificate entity includes a public key certificate, a private key, and an
- * optional certificate chain, which should all be PEM-encoded.
+ * Uploads a server certificate entity for the AWS account. The server
+ * certificate entity includes a public key certificate, a private key,
+ * and an optional certificate chain, which should all be PEM-encoded.
  * </p>
  * <p>
- * For information about the number of server certificates you can upload, see <a
- * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?LimitationsOnEntities.html"> Limitations on IAM Entities </a> in <i>Using AWS
- * Identity and Access Management</i> .
+ * For information about the number of server certificates you can
+ * upload, see
+ * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+ * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * <b>NOTE:</b>Because the body of the public key certificate, private key, and the certificate chain can be large, you should use POST rather than GET
- * when calling UploadServerCertificate. For information about setting up signatures and authorization through the API, go to Signing AWS API Requests in
- * the AWS General Reference. For general information about using the Query API with IAM, go to Making Query Requests in Using IAM.
+ * <b>NOTE:</b>Because the body of the public key certificate, private
+ * key, and the certificate chain can be large, you should use POST
+ * rather than GET when calling UploadServerCertificate. For information
+ * about setting up signatures and authorization through the API, go to
+ * Signing AWS API Requests in the AWS General Reference. For general
+ * information about using the Query API with IAM, go to Making Query
+ * Requests in the Using IAM guide.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#uploadServerCertificate(UploadServerCertificateRequest)
@@ -42,14 +48,18 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
     /**
      * The path for the server certificate. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
+     * <note>If you are uploading a server certificate specifically for use
+     * with Amazon CloudFront distributions, you must specify a path using
+     * the <code>--path</code> option. The path must begin with
+     * <code>/cloudfront</code> and must include a trailing slash (for
+     * example, <code>/cloudfront/test/</code>). </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      */
     private String path;
 
@@ -68,7 +78,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      */
     private String certificateBody;
 
@@ -77,7 +87,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      */
     private String privateKey;
 
@@ -87,7 +97,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      */
     private String certificateChain;
 
@@ -118,21 +128,29 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
     /**
      * The path for the server certificate. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
+     * <note>If you are uploading a server certificate specifically for use
+     * with Amazon CloudFront distributions, you must specify a path using
+     * the <code>--path</code> option. The path must begin with
+     * <code>/cloudfront</code> and must include a trailing slash (for
+     * example, <code>/cloudfront/test/</code>). </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @return The path for the server certificate. For more information about paths,
      *         see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>. <p>This parameter is optional. If
-     *         it is not included, it defaults to a slash (/).
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     *         is optional. If it is not included, it defaults to a slash (/).
+     *         <note>If you are uploading a server certificate specifically for use
+     *         with Amazon CloudFront distributions, you must specify a path using
+     *         the <code>--path</code> option. The path must begin with
+     *         <code>/cloudfront</code> and must include a trailing slash (for
+     *         example, <code>/cloudfront/test/</code>). </note>
      */
     public String getPath() {
         return path;
@@ -141,21 +159,29 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
     /**
      * The path for the server certificate. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
+     * <note>If you are uploading a server certificate specifically for use
+     * with Amazon CloudFront distributions, you must specify a path using
+     * the <code>--path</code> option. The path must begin with
+     * <code>/cloudfront</code> and must include a trailing slash (for
+     * example, <code>/cloudfront/test/</code>). </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param path The path for the server certificate. For more information about paths,
      *         see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>. <p>This parameter is optional. If
-     *         it is not included, it defaults to a slash (/).
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     *         is optional. If it is not included, it defaults to a slash (/).
+     *         <note>If you are uploading a server certificate specifically for use
+     *         with Amazon CloudFront distributions, you must specify a path using
+     *         the <code>--path</code> option. The path must begin with
+     *         <code>/cloudfront</code> and must include a trailing slash (for
+     *         example, <code>/cloudfront/test/</code>). </note>
      */
     public void setPath(String path) {
         this.path = path;
@@ -164,25 +190,33 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
     /**
      * The path for the server certificate. For more information about paths,
      * see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     * target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     * Identity and Access Management</i>. <p>This parameter is optional. If
-     * it is not included, it defaults to a slash (/).
+     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     * for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     * is optional. If it is not included, it defaults to a slash (/).
+     * <note>If you are uploading a server certificate specifically for use
+     * with Amazon CloudFront distributions, you must specify a path using
+     * the <code>--path</code> option. The path must begin with
+     * <code>/cloudfront</code> and must include a trailing slash (for
+     * example, <code>/cloudfront/test/</code>). </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 512<br/>
-     * <b>Pattern: </b>(\u002F)|(\u002F[\u0021-\u007F]+\u002F)<br/>
+     * <b>Pattern: </b>(&#92;u002F)|(&#92;u002F[&#92;u0021-&#92;u007F]+&#92;u002F)<br/>
      *
      * @param path The path for the server certificate. For more information about paths,
      *         see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html"
-     *         target="_blank">Identifiers for IAM Entities</a> in <i>Using AWS
-     *         Identity and Access Management</i>. <p>This parameter is optional. If
-     *         it is not included, it defaults to a slash (/).
+     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">Identifiers
+     *         for IAM Entities</a> in the <i>Using IAM</i> guide. <p>This parameter
+     *         is optional. If it is not included, it defaults to a slash (/).
+     *         <note>If you are uploading a server certificate specifically for use
+     *         with Amazon CloudFront distributions, you must specify a path using
+     *         the <code>--path</code> option. The path must begin with
+     *         <code>/cloudfront</code> and must include a trailing slash (for
+     *         example, <code>/cloudfront/test/</code>). </note>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadServerCertificateRequest withPath(String path) {
@@ -233,7 +267,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * @param serverCertificateName The name for the server certificate. Do not include the path in this
      *         value.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadServerCertificateRequest withServerCertificateName(String serverCertificateName) {
@@ -246,7 +280,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @return The contents of the public key certificate in PEM-encoded format.
      */
@@ -259,7 +293,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param certificateBody The contents of the public key certificate in PEM-encoded format.
      */
@@ -274,11 +308,11 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]+<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
      * @param certificateBody The contents of the public key certificate in PEM-encoded format.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadServerCertificateRequest withCertificateBody(String certificateBody) {
@@ -291,7 +325,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return The contents of the private key in PEM-encoded format.
      */
@@ -304,7 +338,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param privateKey The contents of the private key in PEM-encoded format.
      */
@@ -319,11 +353,11 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16384<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param privateKey The contents of the private key in PEM-encoded format.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadServerCertificateRequest withPrivateKey(String privateKey) {
@@ -337,7 +371,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return The contents of the certificate chain. This is typically a
      *         concatenation of the PEM-encoded public key certificates of the chain.
@@ -352,7 +386,7 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param certificateChain The contents of the certificate chain. This is typically a
      *         concatenation of the PEM-encoded public key certificates of the chain.
@@ -369,12 +403,12 @@ public class UploadServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2097152<br/>
-     * <b>Pattern: </b>[\u0009\u000A\u000D\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param certificateChain The contents of the certificate chain. This is typically a
      *         concatenation of the PEM-encoded public key certificates of the chain.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public UploadServerCertificateRequest withCertificateChain(String certificateChain) {

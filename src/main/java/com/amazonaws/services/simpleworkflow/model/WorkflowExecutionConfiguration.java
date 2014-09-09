@@ -18,8 +18,10 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The configuration settings for a workflow execution including timeout values, tasklist etc. These configuration settings are determined from the
- * defaults specified when registering the workflow type and those specified when starting the workflow execution.
+ * The configuration settings for a workflow execution including timeout
+ * values, tasklist etc. These configuration settings are determined from
+ * the defaults specified when registering the workflow type and those
+ * specified when starting the workflow execution.
  * </p>
  */
 public class WorkflowExecutionConfiguration implements Serializable {
@@ -129,7 +131,7 @@ public class WorkflowExecutionConfiguration implements Serializable {
      *         in seconds while <code>NONE</code> can be used to specify unlimited
      *         duration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionConfiguration withTaskStartToCloseTimeout(String taskStartToCloseTimeout) {
@@ -189,7 +191,7 @@ public class WorkflowExecutionConfiguration implements Serializable {
      *         can be used to specify the duration in seconds while <code>NONE</code>
      *         can be used to specify unlimited duration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionConfiguration withExecutionStartToCloseTimeout(String executionStartToCloseTimeout) {
@@ -228,7 +230,7 @@ public class WorkflowExecutionConfiguration implements Serializable {
      * @param taskList The task list used for the decision tasks generated for this workflow
      *         execution.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public WorkflowExecutionConfiguration withTaskList(TaskList taskList) {
@@ -334,7 +336,7 @@ public class WorkflowExecutionConfiguration implements Serializable {
      *         execution history with this event. </li> <li><b>ABANDON:</b> no action
      *         will be taken. The child executions will continue to run.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy
@@ -408,7 +410,7 @@ public class WorkflowExecutionConfiguration implements Serializable {
      *         execution history with this event. </li> <li><b>ABANDON:</b> no action
      *         will be taken. The child executions will continue to run.</li> </ul>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see ChildPolicy

@@ -21,12 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#deleteEnvironmentConfiguration(DeleteEnvironmentConfigurationRequest) DeleteEnvironmentConfiguration operation}.
  * <p>
- * Deletes the draft configuration associated with the running environment.
+ * Deletes the draft configuration associated with the running
+ * environment.
  * </p>
  * <p>
- * Updating a running environment with any configuration changes creates a draft configuration set. You can get the draft configuration using
- * DescribeConfigurationSettings while the update is in progress or if the update fails. The <code>DeploymentStatus</code> for the draft configuration
- * indicates whether the deployment is in process or has failed. The draft configuration remains in existence until it is deleted with this action.
+ * Updating a running environment with any configuration changes creates
+ * a draft configuration set. You can get the draft configuration using
+ * DescribeConfigurationSettings while the update is in progress or if
+ * the update fails. The <code>DeploymentStatus</code> for the draft
+ * configuration indicates whether the deployment is in process or has
+ * failed. The draft configuration remains in existence until it is
+ * deleted with this action.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#deleteEnvironmentConfiguration(DeleteEnvironmentConfigurationRequest)
@@ -104,7 +109,7 @@ public class DeleteEnvironmentConfigurationRequest extends AmazonWebServiceReque
      *
      * @param applicationName The name of the application the environment is associated with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteEnvironmentConfigurationRequest withApplicationName(String applicationName) {
@@ -146,7 +151,7 @@ public class DeleteEnvironmentConfigurationRequest extends AmazonWebServiceReque
      *
      * @param environmentName The name of the environment to delete the draft configuration from.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DeleteEnvironmentConfigurationRequest withEnvironmentName(String environmentName) {

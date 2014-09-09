@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * This data type is used as a response element in the action DescribeDBEngineVersions.
+ * This data type is used as a response element in the action
+ * DescribeDBEngineVersions.
  * </p>
  */
 public class CharacterSet implements Serializable {
@@ -58,7 +59,7 @@ public class CharacterSet implements Serializable {
      *
      * @param characterSetName The name of the character set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CharacterSet withCharacterSetName(String characterSetName) {
@@ -91,7 +92,7 @@ public class CharacterSet implements Serializable {
      *
      * @param characterSetDescription The description of the character set.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public CharacterSet withCharacterSetDescription(String characterSetDescription) {

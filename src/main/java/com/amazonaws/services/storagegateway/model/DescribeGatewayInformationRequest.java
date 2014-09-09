@@ -21,8 +21,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.storagegateway.AWSStorageGateway#describeGatewayInformation(DescribeGatewayInformationRequest) DescribeGatewayInformation operation}.
  * <p>
- * This operation returns metadata about a gateway such as its name, network interfaces, configured time zone, and the state (whether the gateway is
- * running or not). To specify which gateway to describe, use the Amazon Resource Name (ARN) of the gateway in your request.
+ * This operation returns metadata about a gateway such as its name,
+ * network interfaces, configured time zone, and the state (whether the
+ * gateway is running or not). To specify which gateway to describe, use
+ * the Amazon Resource Name (ARN) of the gateway in your request.
  * </p>
  *
  * @see com.amazonaws.services.storagegateway.AWSStorageGateway#describeGatewayInformation(DescribeGatewayInformationRequest)
@@ -85,7 +87,7 @@ public class DescribeGatewayInformationRequest extends AmazonWebServiceRequest i
      *         <a>ListGateways</a> operation to return a list of gateways for your
      *         account and region.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeGatewayInformationRequest withGatewayARN(String gatewayARN) {

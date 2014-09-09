@@ -18,7 +18,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A regular expression representing a restriction on a string configuration option value.
+ * A regular expression representing a restriction on a string
+ * configuration option value.
  * </p>
  */
 public class OptionRestrictionRegex implements Serializable {
@@ -71,7 +72,7 @@ public class OptionRestrictionRegex implements Serializable {
      * @param pattern The regular expression pattern that a string configuration option
      *         value with this restriction must match.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionRestrictionRegex withPattern(String pattern) {
@@ -104,7 +105,7 @@ public class OptionRestrictionRegex implements Serializable {
      *
      * @param label A unique name representing this regular expression.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public OptionRestrictionRegex withLabel(String label) {

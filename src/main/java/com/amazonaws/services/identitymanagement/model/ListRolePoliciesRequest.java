@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listRolePolicies(ListRolePoliciesRequest) ListRolePolicies operation}.
  * <p>
- * Lists the names of the policies associated with the specified role. If there are none, the action returns an empty list.
+ * Lists the names of the policies associated with the specified role. If
+ * there are none, the action returns an empty list.
  * </p>
  * <p>
- * You can paginate the results using the <code>MaxItems</code> and <code>Marker</code> parameters.
+ * You can paginate the results using the <code>MaxItems</code> and
+ * <code>Marker</code> parameters.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#listRolePolicies(ListRolePoliciesRequest)
@@ -48,7 +50,7 @@ public class ListRolePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      */
     private String marker;
 
@@ -101,7 +103,7 @@ public class ListRolePoliciesRequest extends AmazonWebServiceRequest implements 
      *
      * @param roleName The name of the role to list policies for.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesRequest withRoleName(String roleName) {
@@ -117,7 +119,7 @@ public class ListRolePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @return Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -136,7 +138,7 @@ public class ListRolePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
@@ -157,14 +159,14 @@ public class ListRolePoliciesRequest extends AmazonWebServiceRequest implements 
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[\u0020-\u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
      *
      * @param marker Use this parameter only when paginating results, and only in a
      *         subsequent request after you've received a response where the results
      *         are truncated. Set it to the value of the <code>Marker</code> element
      *         in the response you just received.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesRequest withMarker(String marker) {
@@ -230,7 +232,7 @@ public class ListRolePoliciesRequest extends AmazonWebServiceRequest implements 
      *         <code>IsTruncated</code> response element is <code>true</code>. This
      *         parameter is optional. If you do not include it, it defaults to 100.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListRolePoliciesRequest withMaxItems(Integer maxItems) {

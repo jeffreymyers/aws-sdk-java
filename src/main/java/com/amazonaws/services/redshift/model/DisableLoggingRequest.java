@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#disableLogging(DisableLoggingRequest) DisableLogging operation}.
  * <p>
- * Stops logging information, such as queries and connection attempts, for the specified Amazon Redshift cluster.
+ * Stops logging information, such as queries and connection attempts,
+ * for the specified Amazon Redshift cluster.
  * </p>
  *
  * @see com.amazonaws.services.redshift.AmazonRedshift#disableLogging(DisableLoggingRequest)
@@ -65,7 +66,7 @@ public class DisableLoggingRequest extends AmazonWebServiceRequest implements Se
      * @param clusterIdentifier The identifier of the cluster on which logging is to be stopped.
      *         <p>Example: <code>examplecluster</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DisableLoggingRequest withClusterIdentifier(String clusterIdentifier) {

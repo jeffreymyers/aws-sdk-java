@@ -18,7 +18,9 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Provides information about the EC2 instances in a cluster grouped by category. For example, EC2 Key Name, Subnet Id, Instance Profile, and so on.
+ * Provides information about the EC2 instances in a cluster grouped by
+ * category. For example, key name, subnet ID, IAM instance profile, and
+ * so on.
  * </p>
  */
 public class Ec2InstanceAttributes implements Serializable {
@@ -82,7 +84,7 @@ public class Ec2InstanceAttributes implements Serializable {
      * @param ec2KeyName The name of the Amazon EC2 key pair to use when connecting with SSH
      *         into the master node as a user named "hadoop".
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ec2InstanceAttributes withEc2KeyName(String ec2KeyName) {
@@ -151,7 +153,7 @@ public class Ec2InstanceAttributes implements Serializable {
      *         instances. Thus, you cannot specify the cc1.4xlarge instance type for
      *         nodes of a job flow launched in a VPC.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ec2InstanceAttributes withEc2SubnetId(String ec2SubnetId) {
@@ -184,7 +186,7 @@ public class Ec2InstanceAttributes implements Serializable {
      *
      * @param ec2AvailabilityZone The Availability Zone in which the cluster will run.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ec2InstanceAttributes withEc2AvailabilityZone(String ec2AvailabilityZone) {
@@ -223,7 +225,7 @@ public class Ec2InstanceAttributes implements Serializable {
      * @param iamInstanceProfile The IAM role that was specified when the job flow was launched. The
      *         EC2 instances of the job flow assume this role.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public Ec2InstanceAttributes withIamInstanceProfile(String iamInstanceProfile) {

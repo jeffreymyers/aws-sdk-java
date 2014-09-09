@@ -21,14 +21,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.redshift.AmazonRedshift#purchaseReservedNodeOffering(PurchaseReservedNodeOfferingRequest) PurchaseReservedNodeOffering operation}.
  * <p>
- * Allows you to purchase reserved nodes. Amazon Redshift offers a predefined set of reserved node offerings. You can purchase one of the offerings. You
- * can call the DescribeReservedNodeOfferings API to obtain the available reserved node offerings. You can call this API by providing a specific reserved
- * node offering and the number of nodes you want to reserve.
+ * Allows you to purchase reserved nodes. Amazon Redshift offers a
+ * predefined set of reserved node offerings. You can purchase one of the
+ * offerings. You can call the DescribeReservedNodeOfferings API to
+ * obtain the available reserved node offerings. You can call this API by
+ * providing a specific reserved node offering and the number of nodes
+ * you want to reserve.
  * </p>
  * <p>
- * For more information about managing parameter groups, go to <a
- * href="http://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html"> Purchasing Reserved Nodes </a> in the <i>Amazon Redshift
- * Management Guide</i> .
+ * For more information about managing parameter groups, go to
+ * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html"> Purchasing Reserved Nodes </a>
+ * in the <i>Amazon Redshift Management Guide</i> .
  * 
  * 
  * </p>
@@ -80,7 +83,7 @@ public class PurchaseReservedNodeOfferingRequest extends AmazonWebServiceRequest
      * @param reservedNodeOfferingId The unique identifier of the reserved node offering you want to
      *         purchase.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PurchaseReservedNodeOfferingRequest withReservedNodeOfferingId(String reservedNodeOfferingId) {
@@ -119,7 +122,7 @@ public class PurchaseReservedNodeOfferingRequest extends AmazonWebServiceRequest
      * @param nodeCount The number of reserved nodes you want to purchase. <p>Default:
      *         <code>1</code>
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public PurchaseReservedNodeOfferingRequest withNodeCount(Integer nodeCount) {

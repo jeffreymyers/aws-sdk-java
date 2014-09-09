@@ -21,12 +21,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#attachInstances(AttachInstancesRequest) AttachInstances operation}.
  * <p>
- * Attaches one or more Amazon EC2 instances to an existing Auto Scaling group. After the instance(s) is attached, it becomes a part of the Auto Scaling
- * group.
+ * Attaches one or more Amazon EC2 instances to an existing Auto Scaling
+ * group. After the instance(s) is attached, it becomes a part of the
+ * Auto Scaling group.
  * </p>
  * <p>
- * For more information, see <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/attach-instance-asg.html"> Attach Amazon EC2
- * Instance(s) to Your Existing Auto Scaling Group </a> in the <i>Auto Scaling Developer Guide</i> .
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/attach-instance-asg.html"> Attach Amazon EC2 Instances to Your Existing Auto Scaling Group </a>
+ * in the <i>Auto Scaling Developer Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#attachInstances(AttachInstancesRequest)
@@ -45,7 +47,7 @@ public class AttachInstancesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      */
     private String autoScalingGroupName;
 
@@ -90,7 +92,7 @@ public class AttachInstancesRequest extends AmazonWebServiceRequest implements S
      * @param instanceIds One or more IDs of the Amazon EC2 instances to attach to the specified
      *         Auto Scaling group. You must specify at least one instance ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttachInstancesRequest withInstanceIds(String... instanceIds) {
@@ -110,7 +112,7 @@ public class AttachInstancesRequest extends AmazonWebServiceRequest implements S
      * @param instanceIds One or more IDs of the Amazon EC2 instances to attach to the specified
      *         Auto Scaling group. You must specify at least one instance ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttachInstancesRequest withInstanceIds(java.util.Collection<String> instanceIds) {
@@ -131,7 +133,7 @@ public class AttachInstancesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @return The name of the Auto Scaling group to which to attach the specified
      *         instance(s).
@@ -146,7 +148,7 @@ public class AttachInstancesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group to which to attach the specified
      *         instance(s).
@@ -163,12 +165,12 @@ public class AttachInstancesRequest extends AmazonWebServiceRequest implements S
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
-     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
      * @param autoScalingGroupName The name of the Auto Scaling group to which to attach the specified
      *         instance(s).
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public AttachInstancesRequest withAutoScalingGroupName(String autoScalingGroupName) {

@@ -21,7 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#restartAppServer(RestartAppServerRequest) RestartAppServer operation}.
  * <p>
- * Causes the environment to restart the application container server running on each Amazon EC2 instance.
+ * Causes the environment to restart the application container server
+ * running on each Amazon EC2 instance.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#restartAppServer(RestartAppServerRequest)
@@ -96,7 +97,7 @@ public class RestartAppServerRequest extends AmazonWebServiceRequest implements 
      *         not specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestartAppServerRequest withEnvironmentId(String environmentId) {
@@ -156,7 +157,7 @@ public class RestartAppServerRequest extends AmazonWebServiceRequest implements 
      *         not specify either, AWS Elastic Beanstalk returns
      *         <code>MissingRequiredParameter</code> error.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public RestartAppServerRequest withEnvironmentName(String environmentName) {

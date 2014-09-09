@@ -21,10 +21,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#describeEvents(DescribeEventsRequest) DescribeEvents operation}.
  * <p>
- * Returns list of event descriptions matching criteria up to the last 6 weeks.
+ * Returns list of event descriptions matching criteria up to the last 6
+ * weeks.
  * </p>
  * <p>
- * <b>NOTE:</b> This action returns the most recent 1,000 events from the specified NextToken.
+ * <b>NOTE:</b> This action returns the most recent 1,000 events from the
+ * specified NextToken.
  * </p>
  *
  * @see com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk#describeEvents(DescribeEventsRequest)
@@ -163,7 +165,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param applicationName If specified, AWS Elastic Beanstalk restricts the returned
      *         descriptions to include only those associated with this application.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withApplicationName(String applicationName) {
@@ -211,7 +213,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param versionLabel If specified, AWS Elastic Beanstalk restricts the returned
      *         descriptions to those associated with this application version.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withVersionLabel(String versionLabel) {
@@ -265,7 +267,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         descriptions to those that are associated with this environment
      *         configuration.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withTemplateName(String templateName) {
@@ -304,7 +306,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param environmentId If specified, AWS Elastic Beanstalk restricts the returned
      *         descriptions to those associated with this environment.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEnvironmentId(String environmentId) {
@@ -352,7 +354,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param environmentName If specified, AWS Elastic Beanstalk restricts the returned
      *         descriptions to those associated with this environment.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEnvironmentName(String environmentName) {
@@ -391,7 +393,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param requestId If specified, AWS Elastic Beanstalk restricts the described events to
      *         include only those associated with this request ID.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withRequestId(String requestId) {
@@ -443,7 +445,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param severity If specified, limits the events returned from this call to include
      *         only those with the specified severity or higher.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EventSeverity
@@ -481,7 +483,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param severity If specified, limits the events returned from this call to include
      *         only those with the specified severity or higher.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      *
      * @see EventSeverity
@@ -522,7 +524,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param startTime If specified, AWS Elastic Beanstalk restricts the returned
      *         descriptions to those that occur on or after this time.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withStartTime(java.util.Date startTime) {
@@ -567,7 +569,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      *         descriptions to those that occur up to, but not including, the
      *         <code>EndTime</code>.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withEndTime(java.util.Date endTime) {
@@ -615,7 +617,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param maxRecords Specifies the maximum number of events that can be returned, beginning
      *         with the most recent event.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withMaxRecords(Integer maxRecords) {
@@ -654,7 +656,7 @@ public class DescribeEventsRequest extends AmazonWebServiceRequest implements Se
      * @param nextToken Pagination token. If specified, the events return the next batch of
      *         results.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public DescribeEventsRequest withNextToken(String nextToken) {

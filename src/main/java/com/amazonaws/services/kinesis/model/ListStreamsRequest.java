@@ -21,23 +21,34 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.kinesis.AmazonKinesis#listStreams(ListStreamsRequest) ListStreams operation}.
  * <p>
- * This operation returns an array of the names of all the streams that are associated with the AWS account making the <code>ListStreams</code> request.
- * A given AWS account can have many streams active at one time.
+ * This operation returns an array of the names of all the streams that
+ * are associated with the AWS account making the
+ * <code>ListStreams</code> request. A given AWS account can have many
+ * streams active at one time.
  * </p>
  * <p>
- * The number of streams may be too large to return from a single call to <code>ListStreams</code> .
- * You can limit the number of returned streams using the <code>Limit</code> parameter. If you do not specify a value for the
- * <code>Limit</code> parameter, Amazon Kinesis uses the default limit, which is currently 10.
+ * The number of streams may be too large to return from a single call
+ * to <code>ListStreams</code> .
+ * You can limit the number of returned streams using the
+ * <code>Limit</code> parameter. If you do not specify a value for the
+ * <code>Limit</code> parameter, Amazon Kinesis uses the default limit,
+ * which is currently 10.
  * </p>
  * <p>
- * You can detect if there are more streams available to list by using the <code>HasMoreStreams</code> flag from the returned output. If there are more
- * streams available, you can request more streams by using the name of the last stream returned by the <code>ListStreams</code> request in the
- * <code>ExclusiveStartStreamName</code> parameter in a subsequent request to <code>ListStreams</code> .
- * The group of stream names returned by the subsequent request is then added to the list. You can continue this process until all the
- * stream names have been collected in the list.
+ * You can detect if there are more streams available to list by using
+ * the <code>HasMoreStreams</code> flag from the returned output. If
+ * there are more streams available, you can request more streams by
+ * using the name of the last stream returned by the
+ * <code>ListStreams</code> request in the
+ * <code>ExclusiveStartStreamName</code> parameter in a subsequent
+ * request to <code>ListStreams</code> .
+ * The group of stream names returned by the subsequent
+ * request is then added to the list. You can continue this process until
+ * all the stream names have been collected in the list.
  * </p>
  * <p>
- * <code>ListStreams</code> has a limit of 5 transactions per second per account.
+ * <code>ListStreams</code> has a limit of 5 transactions per second per
+ * account.
  * </p>
  *
  * @see com.amazonaws.services.kinesis.AmazonKinesis#listStreams(ListStreamsRequest)
@@ -95,7 +106,7 @@ public class ListStreamsRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param limit The maximum number of streams to list.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStreamsRequest withLimit(Integer limit) {
@@ -140,7 +151,7 @@ public class ListStreamsRequest extends AmazonWebServiceRequest implements Seria
      *
      * @param exclusiveStartStreamName The name of the stream to start the list with.
      *
-     * @return A reference to this updated object so that method calls can be chained 
+     * @return A reference to this updated object so that method calls can be chained
      *         together.
      */
     public ListStreamsRequest withExclusiveStartStreamName(String exclusiveStartStreamName) {
